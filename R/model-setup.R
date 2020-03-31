@@ -33,11 +33,6 @@ unique_models_dirs <- sens_models_dirs %>%
   prepend(base_model_dir, before = 1)
 
 unique_models_dirs_full <- here::here("models", unique_models_dirs)
-run_multiple_iscam(unique_models_dirs_full)
-
-run_multiple_iscam(unique_models_dirs_full,
-                   mcmc_mode = TRUE,
-                   mcmc_chain_length = 2000)
 
 #create_rds_file(here::here("models", base_model_dir))
 
