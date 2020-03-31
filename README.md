@@ -20,4 +20,6 @@ https://github.com/pbs-assess/gfiscam
 
 https://github.com/pbs-assess/gfiscamutils
 
+For french integration:
+
 https://github.com/pbs-assess/rosettafish
