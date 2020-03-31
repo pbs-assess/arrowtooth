@@ -24,13 +24,13 @@ sens_models_dirs <- list(
   "11-qm05-qsd15",
   c("12-fix-trawl-sel-amat",
     "13-fix-trawl-sel-6years")
-)
+) %>%
+  map(~{prepend(.x, base_model_dir, before = 1)})
 
 unique_models_dirs <- sens_models_dirs %>%
   flatten() %>%
   unique() %>%
-  map_chr(.f = ~{.x}) %>%
-  prepend(base_model_dir, before = 1)
+  map_chr(.f = ~{.x})
 
 unique_models_dirs_full <- here::here("models", unique_models_dirs)
 
