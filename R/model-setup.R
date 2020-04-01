@@ -39,6 +39,20 @@ unique_models_dirs_full <- here::here("models", unique_models_dirs)
 
 nul <- map(unique_models_dirs_full, ~{create_rds_file(.x, overwrite = regen_rds_files)})
 
+# This ensures that each unique model is loaded only once, even if it is in multiple
+# sensitivity groups
+unique_models <- map(unique_models_dirs_full, ~{load_rds_file(.x)}) %>%
+  set_names(unique_models_dirs)
+
+base_model <- unique_models[[match(base_model_dir, unique_models_dirs)]]
+# sens_models is a list of lists of sensitivities of the same structure as sens_models_dirs.
+# the base_model is first in each sensitivity group list
+sens_models <- map(sens_models_dirs, ~{
+  map(.x, ~{
+    unique_models[[match(.x, unique_models_dirs)]]
+  })
+})
+
 # build_rds_files(major_model_dirs,
 #                 mcmc.subdir = "mcmc",
 #                 load.proj = TRUE,
