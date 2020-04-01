@@ -14,4 +14,6 @@ run_multiple_iscam(unique_models_dirs_full,
                    crit = 0.0001,
                    nox = TRUE)
 
-run_retro(base_model_dir_full, overwrite = TRUE)
+run_retro(base_model_dir_full,
+          yrs = 1:5,
+          overwrite = TRUE)
