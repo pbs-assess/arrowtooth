@@ -8,6 +8,8 @@ library(gfplot)
 library(gfiscamutils)
 library(rosettafish)
 
+source(here::here("R", "mcmc-setup.R"))
+
 models_dir <- "models"
 
 base_model_dir <- "01-base"
@@ -58,11 +60,3 @@ sens_models <- map(sens_models_dirs, ~{
     unique_models[[match(.x, unique_models_dirs)]]
   })
 })
-
-# build_rds_files(major_model_dirs,
-#                 mcmc.subdir = "mcmc",
-#                 load.proj = TRUE,
-#                 lower = confidence_vals[1],
-#                 upper = confidence_vals[2],
-#                 burnin = 1000,
-#                 thin = 1)

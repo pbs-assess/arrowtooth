@@ -90,10 +90,18 @@ plot_lengths(lc) +
 make.priors.posts.plot(base_model)
 ```
 
-(ref:fig-priors-posts-cap) Prior probability distributions used in the Reference Case with comparative posterior histograms. Parameters $q_k$ represent gears where: k = 2 is the `r qcsss`, k = 3 is the `r hsmas`, k = 4 is the `r hsss`, and k = 5 is the `r wcviss`. The dotted red lines are the MPD estimates from the Reference Case.
+(ref:fig-priors-posts-cap) Prior probability distributions used in the Reference Case with comparative posterior histograms. Parameter $q_k$ represents gears as follows: $k=1$: commercial trawl; $k=2$: `r qcsss`: $k=3$; `r hsmas`: $k=4$; `r hsss`, and $k=5$; `r wcviss`. The dotted red lines are the MPD estimates from the Reference Case.
 
 (ref:fig-priors-posts-cap-french) French caption here
 
 ```{r priors-posts, fig.cap = ifelse(french, "(ref:fig-priors-posts-cap-french)", "(ref:fig-priors-posts-cap)"), out.width = "100%", fig.pos = "H"}
 make.priors.posts.plot(base_model, priors.only = FALSE)
+```
+
+(ref:fig-traces-cap) Trace plots for MCMC output of estimated parameters in the Reference Case. The MCMC run had chain length `r mcmc_chain_length`, with a sample taken at every `r mcsave`th iteration. Of the `r tot_num_posts` samples saved, the first `r burnin` were removed as a burn-in period. Parameters $q_k$ (catchability), $\hat{a}_k$ (selectivity-at-age-50%), and $\hat{\gamma}_k$ (selectivity standard deviation-at-50%) represent gears as follows: $k=1$: commercial trawl; $k=2$: `r qcsss`: $k=3$; `r hsmas`: $k=4$; `r hsss`, and $k=5$; `r wcviss`. The `r hsmas` did not have estimates selectivity, so there are no $\hat{a}_3$ or $\hat{\gamma}_3$ parameters.
+
+(ref:fig-traces-cap-french) French caption here
+
+```{r traces, fig.cap = ifelse(french, "(ref:fig-traces-cap-french)", "(ref:fig-traces-cap)"), out.width = "100%", fig.pos = "H"}
+make.traces.plot(base_model)
 ```
