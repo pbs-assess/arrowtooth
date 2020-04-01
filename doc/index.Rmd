@@ -1,24 +1,27 @@
 ---
-title: "Title Here (*Latin Species Name*)"
+title: "Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2020"
 author: |
-  First. M. Last^1^ and
+  Chris J. Grandin^1^ and
   Alex B. Smith^2^
-author_list: "Last, F.M. and Smith, A.B."
+author_list: "Grandin, and Smith, A.B."
 address: |
   ^1^Pacific Biological Station\
      Fisheries and Oceans Canada, 3190 Hammond Bay Road\
      Nanaimo, British Columbia, V9T 6N7, Canada\
   ^2^Far, far away\
      Another Galaxy
-month: Month # fill in
-year: 2019
+month: April # fill in
+year: 2020
 report_number: nnn
 region: Pacific Region
-citation_other_language: "Last, F.M. et Smith, A.B. Title Here (*Latin Species Name*). DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2019/nnn. iv + 13 p."
+citation_other_language: "Grandin, C.J. et Smith, A.B. Title Here (*Latin Species Name*). DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2019/nnn. iv + 13 p."
 abstract: |
-  Here is the abstract text. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Arrowtooth Flounder(*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable. In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
 
-  Start new paragraphs after a blank line and with 2 spaces indent. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  This assessment fits a female-only Bayesian age-structured model to catch,survey and age-composition data from the years 1996-2019, for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E (West Coast Haida Gwaii). Catch data prior to the introduction of at-sea observers in 1996 were considered too unreliablefor inclusion in the assessment due to unknown quantities of discarding at sea.
+  
+  Management advice is provided in the form of decision tables which forecast the impacts of a range of 2020 catch levels on Arrowtooth Flounder stock status relative to these reference points. The Reference Case decision table suggests that a 2020 catch equal to any of the catch levels tested, ranging from 0 t to 30,000 t, would result in a 2021 biomass above all of the candidate biomass-based reference points tested, and 2020 harvest rate below the estimated UMSY. Large uncertainty in the assessment is, however emphasised. The magnitude of catch and discards prior to 1996 is a major source of uncertainty in this assessment that could provide critical information about the scale and productivity of this stock. Ageing of archived otoliths from the freezer trawl feet is a high priority recommendation.
+  
 header: "Draft working paper --- Do not cite or circulate" # or "" to omit
 output:
  csasdown::resdoc_pdf:
