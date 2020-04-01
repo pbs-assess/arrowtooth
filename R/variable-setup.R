@@ -6,6 +6,8 @@ hs <- "Hecate Strait"
 
 assess_yr <- 2020 #as.numeric(substr(Sys.Date(), 1, 4))
 last_assess_yr <- 2015
+start_catch_yr <- 1954
+end_catch_yr <- assess_yr
 
 # Age class of plus group for proportion-at-age
 age_plus <- 10

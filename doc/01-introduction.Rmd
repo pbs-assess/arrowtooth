@@ -17,3 +17,13 @@ The purpose of this stock assessment is to update management advice for `r sp` s
 `r sp` are batch spawners with peak spawning occurring at depths deeper than 350 m in the fall and winter months, although the timing of spawning may vary interannually [@arf1995]. The species produces pelagic eggs, followed by a pelagic larval stage that may last several months [@arf1995]. Fecundity of this species is poorly understood [@dicosimo1998]. One and two year old fish occupy shallower depths than adults, but by the age of three or four years old, they are generally found in deeper water with adults [@arf2001]. `r sp` appear to occupy separate spawning (winter) and feeding (summer) areas, and undergo seasonal bathymetric movement from shallower to deeper water in the fall and winter [@arf2001].
 
 Juvenile `r sp` feed primarily on mobile prey such as cumaceans, carideans and amphipods. Adults are piscivorous and cannibalistic, feeding on Pacifc Herring (*Clupea pallasii*), juvenile Walleye Pollock (*Theragra chalcogramma*) and Pacifc Sandlance (*Ammodytes hexapterus*), among other species [@fargo1981].
+
+## Fishery and management history
+
+`r sp` has been managed on a status-quo basis in recent years, with an
+annual allocation of 15,000~t for the groundfish trawl fleet since 2006.
+Before that time, there were no limits on catches or discards of `r sp`.
+The areas of high CPUE in Dixon Entrance seen in Figure~\ref{fig:cpue} are
+mainly from this test fishery.
+
+\clearpage

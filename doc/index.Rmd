@@ -87,6 +87,7 @@ if(french){
   options(OutDec =  ",")
 }
 source(here::here("R/model-setup.R"))
+source(here::here("R/data-setup.R"))
 source(here::here("R/variable-setup.R"))
 
 #theme_set(herring_theme())

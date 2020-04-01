@@ -1,0 +1,23 @@
+# Figures
+
+(ref:fig-catches-cap) Total coastwide catch of `r sp`, including both landings and
+  discards. See Table XX for values.
+
+(ref:fig-catches-cap-french) French caption here
+
+```{r main-catches, fig.cap = ifelse(french, "(ref:fig-catches-cap-french)", "(ref:fig-catches-cap)"), out.width = "100%", fig.pos="H"}
+ct <- tidy_catch(catch, areas = NULL)
+plot_catch(ct, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
+      scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```
+
+(ref:fig-catches-by-area-cap) Total catch of `r sp` by area, including both landings and
+  discards. See Table XX for values.
+
+(ref:fig-catches-by-area-cap-french) French caption here
+
+```{r main-catches-by-area, fig.cap = ifelse(french, "(ref:fig-catches-by-area-cap-french)", "(ref:fig-catches-by-area-cap)"), out.width = "100%", fig.pos="H"}
+ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[ABCDE]+"))
+plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
+      scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```

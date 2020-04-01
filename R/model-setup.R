@@ -4,6 +4,7 @@ library(future)
 library(here)
 library(csasdown)
 library(gfutilities)
+library(gfplot)
 library(gfiscamutils)
 library(rosettafish)
 
