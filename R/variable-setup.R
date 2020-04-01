@@ -6,6 +6,7 @@ hs <- "Hecate Strait"
 wcviss <- paste(wcvi, "Synoptic Survey")
 qcsss <- paste(qcs, "Synoptic Survey")
 hsss <- paste(hs, "Synoptic Survey")
+hsmas <- paste(hs, "Multispecies Assemblage Survey")
 
 assess_yr <- 2020 #as.numeric(substr(Sys.Date(), 1, 4))
 last_assess_yr <- 2015
