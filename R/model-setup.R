@@ -14,6 +14,7 @@ regen_rds_files <- FALSE
 
 # A list of lists of sensitivity groups. Any given sensitivity can appear in more than one group.
 # Do not include base model in this list or it will appear twice on plots
+# The base model name is added to each group with the map..prepend pipe at the end
 sens_models_dirs <- list(
   c("02-sigma-0.1",
     "03-estimated-total-variance"),
