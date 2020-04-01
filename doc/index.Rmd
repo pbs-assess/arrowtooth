@@ -78,4 +78,19 @@ options(kableExtra.latex.load_packages = FALSE)
 ```{r load-libraries, cache=FALSE}
 # add other packages here:
 library(csasdown)
+french <- rmarkdown::metadata$output$`csasdown::resdoc_pdf`$french
+prepub <- rmarkdown::metadata$output$`csasdown::resdoc_pdf`$prepub
+if(french){
+  options(OutDec =  ",")
+}
+rebuild_rdata_model_files <- FALSE
+run_retrospectives <- FALSE
+retrospective_yrs <- 10
+models_dir <- here::here("models")
+
+#source(here::here("R/model-setup.R"))
+#source(here::here("R/variable-setup.R"))
+#source(here::here("R/hcr.R"))
+
+#theme_set(herring_theme())
 ```

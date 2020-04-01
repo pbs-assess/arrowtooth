@@ -8,7 +8,9 @@ library(gfiscamutils)
 library(rosettafish)
 
 base_model_dir <- "01-base"
-regen_rds_files <- TRUE
+base_model_dir_full <- here::here("models", base_model_dir)
+
+regen_rds_files <- FALSE
 
 # A list of lists of sensitivity groups. Any given sensitivity can appear in more than one group.
 # Do not include base model in this list or it will appear twice on plots
@@ -35,9 +37,7 @@ unique_models_dirs <- sens_models_dirs %>%
 
 unique_models_dirs_full <- here::here("models", unique_models_dirs)
 
-plan("multisession")
-nul <- future_map(unique_models_dirs_full, ~{create_rds_file(.x, overwrite = regen_rds_files)})
-plan()
+nul <- map(unique_models_dirs_full, ~{create_rds_file(.x, overwrite = regen_rds_files)})
 
 # build_rds_files(major_model_dirs,
 #                 mcmc.subdir = "mcmc",
