@@ -83,14 +83,7 @@ prepub <- rmarkdown::metadata$output$`csasdown::resdoc_pdf`$prepub
 if(french){
   options(OutDec =  ",")
 }
-rebuild_rdata_model_files <- FALSE
-run_retrospectives <- FALSE
-retrospective_yrs <- 10
-models_dir <- here::here("models")
-
-#source(here::here("R/model-setup.R"))
-#source(here::here("R/variable-setup.R"))
-#source(here::here("R/hcr.R"))
+source(here::here("R/model-setup.R"))
 
 #theme_set(herring_theme())
 ```
