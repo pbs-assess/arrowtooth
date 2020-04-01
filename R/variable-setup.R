@@ -1,4 +1,8 @@
 sp <- "Arrowtooth Flounder"
+bc <- "British Columbia"
+wcvi <- "West Coast Vancouver Island"
+qcs <- "Queen Charlotte Sound"
+hs <- "Hecate Strait"
 
 assess_yr <- 2020 #as.numeric(substr(Sys.Date(), 1, 4))
 last_assess_yr <- 2015
