@@ -8,7 +8,8 @@
 ```{r main-catches, fig.cap = ifelse(french, "(ref:fig-catches-cap-french)", "(ref:fig-catches-cap)"), out.width = "100%", fig.pos="H"}
 ct <- tidy_catch(catch, areas = NULL)
 plot_catch(ct, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
-      scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+  theme(title = element_blank()) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
 ```
 
 (ref:fig-catches-by-area-cap) Total catch of `r sp` by area, including both landings and
@@ -19,5 +20,17 @@ plot_catch(ct, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
 ```{r main-catches-by-area, fig.cap = ifelse(french, "(ref:fig-catches-by-area-cap-french)", "(ref:fig-catches-by-area-cap)"), out.width = "100%", fig.pos="H"}
 ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[ABCDE]+"))
 plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
-      scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+  theme(title = element_blank()) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```
+
+(ref:fig-age-comps-cap) Age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
+
+(ref:fig-age-comps-cap-french) French caption here
+
+```{r age-comps, fig.cap = ifelse(french, "(ref:fig-age-comps-cap-french)", "(ref:fig-age-comps-cap)"), out.width = "100%", fig.pos="H"}
+ac <- tidy_ages_raw(commercial_samples, sample_type = "commercial")
+plot_ages(ac) +
+  theme(axis.text.x = element_text(angle = 0), title = element_blank()) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
 ```
