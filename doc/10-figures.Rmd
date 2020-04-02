@@ -105,3 +105,11 @@ make.priors.posts.plot(base_model, priors.only = FALSE)
 ```{r traces, fig.cap = ifelse(french, "(ref:fig-traces-cap-french)", "(ref:fig-traces-cap)"), out.width = "100%", fig.pos = "H"}
 make.traces.plot(base_model)
 ```
+
+(ref:fig-autocorr-cap) Autocorrelation plots for MCMC output of estimated parameters in the
+Reference Case. See Figure \@ref(fig:traces) for parameter descriptions.
+
+(ref:fig-autocorr-cap-french) French caption here
+```{r autocorr, fig.cap = ifelse(french, "(ref:fig-autocorr-cap-french)", "(ref:fig-autocorr-cap)"), out.width = "100%", fig.pos = "H"}
+make.autocor.plot(base_model)
+```
