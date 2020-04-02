@@ -110,6 +110,16 @@ make.traces.plot(base_model)
 Reference Case. See Figure \@ref(fig:traces) for parameter descriptions.
 
 (ref:fig-autocorr-cap-french) French caption here
+
 ```{r autocorr, fig.cap = ifelse(french, "(ref:fig-autocorr-cap-french)", "(ref:fig-autocorr-cap)"), out.width = "100%", fig.pos = "H"}
 make.autocor.plot(base_model)
+```
+
+(ref:fig-pairs-cap) Pairs plots for MCMC output of estimated parameters in the Reference Case.
+  See Figure \@ref(fig:traces) for parameter descriptions.
+
+(ref:fig-pairs-cap-french) French caption here
+
+```{r pairs, fig.cap = ifelse(french, "(ref:fig-pairs-cap-french)", "(ref:fig-pairs-cap)"), out.width = "100%", fig.pos = "H"}
+make.pairs.plot(base_model)
 ```
