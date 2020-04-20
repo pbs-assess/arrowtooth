@@ -123,3 +123,12 @@ make.autocor.plot(base_model)
 ```{r pairs, fig.cap = ifelse(french, "(ref:fig-pairs-cap-french)", "(ref:fig-pairs-cap)"), out.width = "100%", fig.pos = "H"}
 make.pairs.plot(base_model)
 ```
+
+<!-- (ref:fig-cpue-cap) CPUE -->
+
+<!-- (ref:fig-cpue-cap-french) French caption here -->
+
+<!-- ```{r cpue, fig.cap = ifelse(french, "(ref:fig-cpue-cap-french)", "(ref:fig-cpue-cap)"), out.width = "100%", fig.pos = "H"} -->
+<!-- cp <-  -->
+
+<!-- ``` -->
