@@ -78,3 +78,17 @@ af_dat@Linfsd <- c(0.0, 0.2)
 mat <- calc_maturity(dat$survey_samples, type = "length")
 af_dat@L50 <- round(c(-2, 2) * mat$se_l50 + mat$f.p0.5, 1)
 af_dat@L50_95 <- round(c(-2, 2) * mat$se_l50_95 + (mat$f.p0.95 - mat$f.p0.5), 1)
+# From 2015 assessment
+af_dat@D <- c(0.367, 0.936)
+lwm <- gfplot::fit_length_weight(dat$survey_samples, sex = "female")
+af_dat@a <- exp(lwm$pars[["log_a"]])
+af_dat@b <- lwm$pars[["b"]]
+#gfplot::plot_length_weight(object_all = lwm, col = c("All" = "black"))
+af_dat@Size_area_1 <- c(0.49, 0.51)
+af_dat@Frac_area_1 <- c(0.49, 0.51)
+af_dat@Prob_staying <- c(0.49, 0.51)
+af_dat@Fdisc <- 0.99
+
+af_fleet <- DLMtool::Generic_Fleet
+af_fleet@Name <- "BC Trawl Fleet"
+af_fleet@nyears <- nrow(catch)
