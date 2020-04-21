@@ -15,7 +15,7 @@ s_hs <- dat$survey_index %>%
 s_wcvi <- dat$survey_index %>%
   filter(survey_abbrev == "SYN WCVI")
 
-calc_naa <- function(d, survey_abbrev = NULL){
+calc_naa <- function(d, survey_abbrev = NULL, plus_age = NULL){
 
   if(!is.null(survey_abbrev)){
     d <- d %>%
@@ -30,7 +30,7 @@ calc_naa <- function(d, survey_abbrev = NULL){
     ungroup()
 
   # Numbers-at-age by year with sample sizes
-  d %>%
+  d <- d %>%
     filter(!is.na(age)) %>%
     group_by(year, age) %>%
     summarize(cnt = n()) %>%
@@ -40,6 +40,22 @@ calc_naa <- function(d, survey_abbrev = NULL){
     left_join(samp_sz, by = "year") %>%
     select(year, nsamp, everything()) %>%
     replace(is.na(.), 0)
+
+  if(is.null(plus_age)){
+    return(d)
+  }
+  k <- d %>%
+    select(-c(year, nsamp))
+  cols_in_plus_grp <- as.numeric(names(k)) >= plus_age
+  k_not_in_plus_grp_df <- subset(k, select = !cols_in_plus_grp)
+  k_in_plus_grp_df <- subset(k, select = cols_in_plus_grp) %>%
+    mutate(rsum = rowSums(.)) %>%
+    transmute(rsum)
+  k <- cbind(k_not_in_plus_grp_df, k_in_plus_grp_df)
+  names(k)[ncol(k)] <- plus_age
+  as_tibble(k) %>%
+    cbind(year = d$year, nsamp = d$nsamp) %>%
+    select(year, nsamp, everything())
 }
 
 calc_paa <- function(naa){
@@ -51,7 +67,8 @@ calc_paa <- function(naa){
     mutate_all(~./rsum) %>%
     cbind(., year = naa$year, nsamp = naa$nsamp) %>%
     as_tibble() %>%
-    select(year, nsamp, everything())
+    select(year, nsamp, everything()) %>%
+    select(-rsum)
 }
 
 naa <- calc_naa(dat$commercial_samples)
@@ -65,4 +82,6 @@ paa_qcs <- calc_paa(naa_qcs)
 paa_hsm <- calc_paa(naa_hsm)
 paa_hs <- calc_paa(naa_hs)
 paa_wcvi <- calc_paa(naa_wcvi)
+
+
 
