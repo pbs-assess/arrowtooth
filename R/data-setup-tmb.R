@@ -12,20 +12,6 @@ dat <- readRDS(here::here("data", "arrowtooth-flounder-september-2019.rds"))
 
 # Age plus group
 plus_grp <- 20
-# Asymptotic length (linf)
-linf <- 60.9007
-# Brody growth coefficient (k)
-k <- 0.2108
-# Theoretical age at zero length (tt0)
-tt0 <- -0.1551
-# Scalar in length-weight allometry (alpha)
-alpha <- 0.0053
-# Power parameter in length-weight allometry (beta)
-beta <- 3.1314
-# Age at 50% maturity
-a50 <- 5.5582
-# Standard deviation at 50% maturity
-sd50 <- 1.0781
 
 # Catch data
 catch <- dat$catch %>%
