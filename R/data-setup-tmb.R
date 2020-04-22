@@ -102,7 +102,7 @@ xx@L95 <- round(c(-2, 2) * mat$se_l50_95 + (mat$f.p0.95 - mat$f.p0.5), 1)[1]
 # BMSY/B0 = 119.120/492.062
 xx@BMSY_B0 <- 0.2421
 
-j <- SCA(Data = xx, start = list(R0 = 1))
+j <- SCA(Data = xx, early_dev = "all", start = list(R0 = 1))
 
 
 # This is for the Stock object (xx)
