@@ -1,4 +1,5 @@
 library(tidyverse)
+library(MSEtool)
 source("R/calc-numbers-at-age.R")
 source("R/calc-maturity.R")
 source("R/length-model.R")
@@ -51,44 +52,93 @@ paa_hsm <- calc_paa(naa_hsm)
 paa_hs <- calc_paa(naa_hs)
 paa_wcvi <- calc_paa(naa_wcvi)
 
-af_dat <- DLMtool::Sole
-af_dat@Name <- "Arrowtooth Flounder"
-af_dat@Common_Name <- "Turbot"
-af_dat@Species <- "Atheresthes stomias"
-af_dat@maxage <- plus_grp
-af_dat@R0 <- c(2200, 20140)
-af_dat@M <- c(0.255, 0.380)
-af_dat@Mexp <- c(NA_real_, NA_real_)
-af_dat@Msd <- c(0.0, 0.1)
-af_dat@h <- c(0.688, 0.975)
-af_dat@SRrel <- 1L
-af_dat@Perr <- c(0.6, 1.0)
-af_dat@AC <- c(0.0, 0.7)
+
+# Make the Data object
+xx <- new("Data")
+xx@Name <- "Arrowtooth Flounder"
+# Catch
+xx@Cat <- catch %>% select(ct) %>% t()
+attr(xx@Cat, "dimnames") <- NULL
+xx@Year <- catch %>% pull(year)
+xx@Ind <- xx@Cat / 492.062
+xx@Units <- "Thousand metric tonnes"
+xx@Rec <- rep(NA, ncol(xx@Cat)) %>% t()
+xx@AvC <- mean(xx@Cat)
+xx@t <- ncol(xx@Cat)
+# Catch-at-age (3-dimensional array)
+kk <- naa %>% select(-c(year, nsamp))
+arr_dim <- c(1, ncol(kk), nrow(kk))
+kk <- kk %>% unlist()
+attr(kk, "names") <- NULL
+attr(kk, "dim") <- arr_dim
+xx@CAA <- kk
+# Mean length time series
+xx@ML <- rep(NA, ncol(xx@Cat)) %>% t()
+xx@Lbar <- rep(NA, ncol(xx@Cat)) %>% t()
+xx@Lc <- rep(NA, ncol(xx@Cat)) %>% t()
+# Depletion
+xx@Dt <- 0.5
+xx@Dep <- 0.5
+# Growth
 # Need to filter surveys here. Right now its all of them
 vbm <- calc_vb(dat$survey_samples, sex = "female")
-af_dat@linf <- get_cvs(vmb, param_name = "linf")
-af_dat@k <- get_cvs(vmb, param_name = "k")
-af_dat@t0 <- get_cvs(vmb, param_name = "t0")
-log_sigma_est <- vbm %>% filter(param_name == "log_sigma") %>% pull(estimate)
-af_dat@LenCV <- sqrt(exp(log_sigma_est^2) - 1)
-af_dat@Ksd <- c(0.0, 0.2)
-af_dat@Linfsd <- c(0.0, 0.2)
-# Maturity ogive calculation
+xx@vbK <- vbm %>% filter(param_name == "k") %>% pull(estimate)
+xx@vbt0 <- vbm %>% filter(param_name == "t0") %>% pull(estimate)
+xx@vbLinf <- vbm %>% filter(param_name == "linf") %>% pull(estimate)
+xx@Mort <- 0.314
+xx@Abun <- 294.436
+# FMSY/M (Use F in 2014 - 0.136/0.314)
+xx@FMSY_M <- 0.43
 # Need to filter surveys here. Right now its all of them
 mat <- calc_maturity(dat$survey_samples, type = "length")
-af_dat@L50 <- round(c(-2, 2) * mat$se_l50 + mat$f.p0.5, 1)
-af_dat@L50_95 <- round(c(-2, 2) * mat$se_l50_95 + (mat$f.p0.95 - mat$f.p0.5), 1)
-# From 2015 assessment
-af_dat@D <- c(0.367, 0.936)
-lwm <- gfplot::fit_length_weight(dat$survey_samples, sex = "female")
-af_dat@a <- exp(lwm$pars[["log_a"]])
-af_dat@b <- lwm$pars[["b"]]
-#gfplot::plot_length_weight(object_all = lwm, col = c("All" = "black"))
-af_dat@Size_area_1 <- c(0.49, 0.51)
-af_dat@Frac_area_1 <- c(0.49, 0.51)
-af_dat@Prob_staying <- c(0.49, 0.51)
-af_dat@Fdisc <- 0.99
+# Following two should be single value..
+xx@L50 <- round(c(-2, 2) * mat$se_l50 + mat$f.p0.5, 1)[1]
+xx@L95 <- round(c(-2, 2) * mat$se_l50_95 + (mat$f.p0.95 - mat$f.p0.5), 1)[1]
+# BMSY/B0 = 119.120/492.062
+xx@BMSY_B0 <- 0.2421
 
-af_fleet <- DLMtool::Generic_Fleet
-af_fleet@Name <- "BC Trawl Fleet"
-af_fleet@nyears <- nrow(catch)
+
+
+# This is for the Stock object (xx)
+# xx@Name <- "Arrowtooth Flounder"
+# xx@Common_Name <- "Turbot"
+# xx@Species <- "Atheresthes stomias"
+# xx@maxage <- plus_grp
+# xx@R0 <- c(2200, 20140)
+# xx@M <- c(0.255, 0.380)
+# xx@Mexp <- c(NA_real_, NA_real_)
+# xx@Msd <- c(0.0, 0.1)
+# xx@h <- c(0.688, 0.975)
+# xx@SRrel <- 1L
+# xx@Perr <- c(0.6, 1.0)
+# xx@AC <- c(0.0, 0.7)
+# # Need to filter surveys here. Right now its all of them
+# vbm <- calc_vb(dat$survey_samples, sex = "female")
+# xx@linf <- get_cvs(vmb, param_name = "linf")
+# xx@k <- get_cvs(vmb, param_name = "k")
+# xx@t0 <- get_cvs(vmb, param_name = "t0")
+# log_sigma_est <- vbm %>% filter(param_name == "log_sigma") %>% pull(estimate)
+# xx@LenCV <- sqrt(exp(log_sigma_est^2) - 1)
+# xx@Ksd <- c(0.0, 0.2)
+# xx@Linfsd <- c(0.0, 0.2)
+# # Maturity ogive calculation
+# # Need to filter surveys here. Right now its all of them
+# mat <- calc_maturity(dat$survey_samples, type = "length")
+# xx@L50 <- round(c(-2, 2) * mat$se_l50 + mat$f.p0.5, 1)
+# xx@L50_95 <- round(c(-2, 2) * mat$se_l50_95 + (mat$f.p0.95 - mat$f.p0.5), 1)
+# # From 2015 assessment
+# xx@D <- c(0.367, 0.936)
+# lwm <- gfplot::fit_length_weight(dat$survey_samples, sex = "female")
+# xx@a <- exp(lwm$pars[["log_a"]])
+# xx@b <- lwm$pars[["b"]]
+# #gfplot::plot_length_weight(object_all = lwm, col = c("All" = "black"))
+# xx@Size_area_1 <- c(0.49, 0.51)
+# xx@Frac_area_1 <- c(0.49, 0.51)
+# xx@Prob_staying <- c(0.49, 0.51)
+# xx@Fdisc <- 0.99
+
+j <- SCA(Data = xx, start = list(R0 = 1))
+
+# af_fleet <- DLMtool::Generic_Fleet
+# af_fleet@Name <- "BC Trawl Fleet"
+# af_fleet@nyears <- nrow(catch)
