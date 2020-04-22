@@ -1,5 +1,9 @@
-library(tidyverse)
+library(tibble)
+library(dplyr)
+library(purrr)
+library(DLMtool)
 library(MSEtool)
+library(gfplot)
 source("R/calc-numbers-at-age.R")
 source("R/calc-maturity.R")
 source("R/length-model.R")
@@ -40,11 +44,25 @@ s_hs <- dat$survey_index %>%
 s_wcvi <- dat$survey_index %>%
   filter(survey_abbrev == "SYN WCVI")
 
-naa <- calc_naa(dat$commercial_samples, plus_age = plus_grp)
-naa_qcs <- calc_naa(dat$survey_samples, survey_abbrev = "SYN QCS", plus_age = plus_grp)
-naa_hsm <- calc_naa(dat$survey_samples, survey_abbrev = "OTHER HS MSA", plus_age = plus_grp)
-naa_hs <- calc_naa(dat$survey_samples, survey_abbrev = "SYN HS", plus_age = plus_grp)
-naa_wcvi <- calc_naa(dat$survey_samples, survey_abbrev = "SYN WCVI", plus_age = plus_grp)
+naa <- calc_naa(dat$commercial_samples,
+                plus_age = plus_grp) %>%
+  fill_naa_years(catch$year)
+naa_qcs <- calc_naa(dat$survey_samples,
+                    survey_abbrev = "SYN QCS",
+                    plus_age = plus_grp) %>%
+  fill_naa_years(catch$year)
+naa_hsm <- calc_naa(dat$survey_samples,
+                    survey_abbrev = "OTHER HS MSA",
+                    plus_age = plus_grp) %>%
+  fill_naa_years(catch$year)
+naa_hs <- calc_naa(dat$survey_samples,
+                   survey_abbrev = "SYN HS",
+                   plus_age = plus_grp) %>%
+  fill_naa_years(catch$year)
+naa_wcvi <- calc_naa(dat$survey_samples,
+                     survey_abbrev = "SYN WCVI",
+                     plus_age = plus_grp) %>%
+  fill_naa_years(catch$year)
 
 paa <- calc_paa(naa)
 paa_qcs <- calc_paa(naa_qcs)
@@ -52,11 +70,11 @@ paa_hsm <- calc_paa(naa_hsm)
 paa_hs <- calc_paa(naa_hs)
 paa_wcvi <- calc_paa(naa_wcvi)
 
-
 # Make the Data object
 xx <- new("Data")
 xx@Name <- "Arrowtooth Flounder"
-# Catch
+# Catch (must have same years as numbers-at-age or the SCA will fail)
+#catch <- catch %>% dplyr::filter(year %in% naa$year)
 xx@Cat <- catch %>% select(ct) %>% t()
 attr(xx@Cat, "dimnames") <- NULL
 xx@Year <- catch %>% pull(year)
@@ -66,6 +84,7 @@ xx@Rec <- rep(NA, ncol(xx@Cat)) %>% t()
 xx@AvC <- mean(xx@Cat)
 xx@t <- ncol(xx@Cat)
 # Catch-at-age (3-dimensional array)
+xx@MaxAge <- plus_grp
 kk <- naa %>% select(-c(year, nsamp))
 arr_dim <- c(1, ncol(kk), nrow(kk))
 kk <- kk %>% unlist()
@@ -82,9 +101,9 @@ xx@Dep <- 0.5
 # Growth
 # Need to filter surveys here. Right now its all of them
 vbm <- calc_vb(dat$survey_samples, sex = "female")
-xx@vbK <- vbm %>% filter(param_name == "k") %>% pull(estimate)
-xx@vbt0 <- vbm %>% filter(param_name == "t0") %>% pull(estimate)
-xx@vbLinf <- vbm %>% filter(param_name == "linf") %>% pull(estimate)
+xx@vbK <- vbm %>% dplyr::filter(param_name == "k") %>% pull(estimate)
+xx@vbt0 <- vbm %>% dplyr::filter(param_name == "t0") %>% pull(estimate)
+xx@vbLinf <- vbm %>% dplyr::filter(param_name == "linf") %>% pull(estimate)
 xx@Mort <- 0.314
 xx@Abun <- 294.436
 # FMSY/M (Use F in 2014 - 0.136/0.314)
@@ -97,6 +116,7 @@ xx@L95 <- round(c(-2, 2) * mat$se_l50_95 + (mat$f.p0.95 - mat$f.p0.5), 1)[1]
 # BMSY/B0 = 119.120/492.062
 xx@BMSY_B0 <- 0.2421
 
+j <- SCA(Data = xx, start = list(R0 = 1))
 
 
 # This is for the Stock object (xx)
@@ -137,7 +157,6 @@ xx@BMSY_B0 <- 0.2421
 # xx@Prob_staying <- c(0.49, 0.51)
 # xx@Fdisc <- 0.99
 
-j <- SCA(Data = xx, start = list(R0 = 1))
 
 # af_fleet <- DLMtool::Generic_Fleet
 # af_fleet@Name <- "BC Trawl Fleet"

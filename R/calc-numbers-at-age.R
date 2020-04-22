@@ -41,7 +41,6 @@ calc_naa <- function(d, survey_abbrev = NULL, start_age = 1, plus_age = NULL){
   if(length(missing_ages)){
     # Create a new column for each missing age, bind to data frame and sort columns by age
     map(missing_ages, ~{
-      #browser()
       new_colname <- as.character(.x)
       k <<- k %>% mutate(!!new_colname := 0)
     })
@@ -66,4 +65,20 @@ calc_paa <- function(naa){
     as_tibble() %>%
     select(year, nsamp, everything()) %>%
     select(-rsum)
+}
+
+#' Expand the `naa` data frame to include the years found in `years`. Fill the values with NAs
+#'
+#' @param naa The Numbers-at-age dataframe as output by [calc_naa()]
+#' @param years A vector of years to exapnd the `naa` data frame to.
+#'
+#' @return A `naa` data frame with more years (all values NA)
+#' @export
+fill_naa_years <- function(naa, years){
+  ncols <- ncol(naa)
+  missing_years <- years[!years %in% naa$year]
+  map(missing_years, ~{
+    naa <<- rbind(naa, c(.x, rep(NA, ncols - 1)))
+  })
+  naa <- naa %>% arrange(year)
 }
