@@ -133,9 +133,10 @@ test_that("calc_naa() - Tests for parameter start_age", {
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = -1, plus_age = 20))
 })
 
-test_that("calc_naa() - Tests for parameter start_age", {
+test_that("calc_naa() - Tests for parameter plus_age", {
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = 1, plus_age = "a"))
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = 1, plus_age = c(1, 2)))
+  expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = 1, plus_age = 0))
 })
 
 test_that("calc_naa() - Output is correct", {
@@ -166,3 +167,9 @@ test_that("calc_paa() - Tests for parameter naa", {
   expect_error(calc_paa(naa2))
 })
 
+test_that("calc_paa() - Tests for parameter naa", {
+  naa <- calc_naa(at_age, survey_abbrev = "SYN HS", start_age = 1, plus_age = 10)
+  paa <- calc_paa(naa)
+  expect_true(all(c(2016, 1, 0, 0, 0, 0.2, 0.2, 0.2, 0, 0.2, 0, 0.2) == paa[1,]))
+  expect_true(all(c(2019, 1, 0, 0, 0, 0, 0, 0, 0, 0.4, 0, 0.6) == paa[2,]))
+})

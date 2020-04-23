@@ -34,6 +34,7 @@ calc_naa <- function(d = NULL,
   if(!is.null(plus_age)){
     stopifnot(class(plus_age) == "numeric")
     stopifnot(length(plus_age) == 1)
+    stopifnot(plus_age >= 1)
   }
 
   # Sample sizes for ages
