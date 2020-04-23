@@ -86,8 +86,22 @@ calc_naa <- function(d = NULL,
     mutate(year = as.integer(year))
 }
 
-calc_paa <- function(naa){
-  # Proportions-at-age by year with sample sizes
+#' Calculate the proportions-at-age for a [data.frame] output by
+#' the [calc_naa()] function
+#'
+#' @param naa A [data.frame] output by the [calc_naa()] function
+#'
+#' @return A [data.frame] in the same format as the input `naa`, but
+#' proportions of ages in each year. Each row will sum to 1.
+#' @export
+calc_paa <- function(naa = NULL){
+
+  stopifnot(!is.null(naa))
+  stopifnot(class(naa) == "data.frame")
+  nm <- names(naa)
+  stopifnot("year" %in% nm)
+  stopifnot("nsamp" %in% nm)
+
   naa %>%
     select(-c(year, nsamp)) %>%
     mutate(rsum = rowSums(.)) %>%
@@ -99,42 +113,44 @@ calc_paa <- function(naa){
     select(-rsum)
 }
 
-#' Expand the `df` [data.frame] to include the values found in `vals`
+#' Expand the `d` [data.frame] to include the values found in `vals`
 #'
-#' @details If `vals` contains any values that are not in the data frame `df`,
+#' @details If `vals` contains any values that are not in the data frame `d`,
 #' column `colname`, one new row will be added for each of them. If all the
-#' values in `vals` are already in the data frame, `df` will be returned.
+#' values in `vals` are already in the data frame, `d` will be returned.
 #' NAs will be inserted for non-value columns
 #'
-#' @param df A [data.frame]
-#' @param vals A vector of values to expand the `df` data frame to.
-#' @param colname The quoted name of a column in the [data.frame] `df`
+#' @param d A [data.frame]
+#' @param vals A vector of values to expand the `d` data frame to.
+#' @param colname The quoted name of a column in the [data.frame] `d`
 #'
-#' @return A [data.frame] of the same structure as `df` with possibly more rows
+#' @return A [data.frame] of the same structure as `d` with possibly more rows
 #' @export
-expand_df_by_col <- function(df = NULL,
+expand_df_by_col <- function(d = NULL,
                              vals = NULL,
                              colname = NULL){
-  stopifnot(!is.null(df))
+  stopifnot(!is.null(d))
+  stopifnot("data.frame" %in%  class(d))
+  stopifnot(ncol(d) > 0)
+
   stopifnot(!is.null(vals))
+
   stopifnot(!is.null(colname))
-  stopifnot("data.frame" %in%  class(df))
-  stopifnot(ncol(df) > 0)
-  stopifnot(colname %in% names(df))
+  stopifnot(colname %in% names(d))
   quo_colname <- quo(colname)
-  stopifnot(df %>% select(all_of(!!quo_colname)) %>% pull %>% class == vals %>% class)
+  stopifnot(d %>% select(all_of(!!quo_colname)) %>% pull %>% class == vals %>% class)
 
   # Reserve column order of table
-  ord <- names(df)
+  ord <- names(d)
 
   # Place the colname column in the first position
-  df <- df %>% select(all_of(!!quo_colname), everything())
-  ncols <- ncol(df)
-  missing_vals <- vals[!vals %in% (df %>% select(all_of(!!quo_colname)) %>% pull)]
+  d <- d %>% select(all_of(!!quo_colname), everything())
+  ncols <- ncol(d)
+  missing_vals <- vals[!vals %in% (d %>% select(all_of(!!quo_colname)) %>% pull)]
   map(missing_vals, ~{
-    df <<- rbind(df, c(.x, rep(NA, ncols - 1)))
+    d <<- rbind(d, c(.x, rep(NA, ncols - 1)))
   })
-  df %>%
+  d %>%
     arrange(year) %>%
     .[, ord]
 }

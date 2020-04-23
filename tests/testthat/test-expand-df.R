@@ -8,24 +8,24 @@ d <- tribble(
 years <- 1998:2020
 num_years <- length(years)
 
-test_that("Arguments are not NULL", {
+test_that("expand_df_by_col() - Tests for parameter df", {
   expect_error(expand_df_by_col(NULL, years, "year"))
-  expect_error(expand_df_by_col(d, NULL, "year"))
-  expect_error(expand_df_by_col(d, years, NULL))
-})
-
-test_that("df is a data frame, has at least one column", {
-  expect_error(expand_df_by_col(c(1,2), years, "year"))
+  expect_error(expand_df_by_col(c(1, 2), years, "year"))
   expect_error(expand_df_by_col(tribble(), years, "year"))
 })
 
-test_that("df contains the column requested, and it is the same type as vals", {
+test_that("expand_df_by_col() - Tests for parameter vals", {
+  expect_error(expand_df_by_col(d, NULL, "year"))
+})
+
+test_that("expand_df_by_col() - Tests for parameter colname", {
+  expect_error(expand_df_by_col(d, years, NULL))
   expect_error(expand_df_by_col(d, years, "yearx"))
   expect_error(expand_df_by_col(d, 1, "year"))
   expect_error(expand_df_by_col(d, c("a",2), "year"))
 })
 
-test_that("Output is correct", {
+test_that("expand_df_by_col() - Output is correct", {
   outd <- expand_df_by_col(d, years, "year")
   expect_equal(nrow(outd), num_years)
   years <- 2018:2020
@@ -43,7 +43,7 @@ test_that("Output is correct", {
   expect_true(nrow(outd) == 103)
 })
 
-test_that("Output column order is correct", {
+test_that("expand_df_by_col() - Output column order is correct", {
   d <- tribble(
     ~x, ~year, ~y,
     1, 2000L,  "a",

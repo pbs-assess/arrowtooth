@@ -117,28 +117,28 @@ catch <- tribble(
    2018, 10.3,
    2019,  4.44)
 
-test_that("Tests for parameter d", {
+test_that("calc_naa() - Tests for parameter d", {
   expect_error(calc_naa(NULL, survey_abbrev = "SYN HS", start_age = 1, plus_age = 20))
 })
 
-test_that("Tests for parameter survey_abbrev", {
+test_that("calc_naa() - Tests for parameter survey_abbrev", {
   expect_error(calc_naa(at_age, survey_abbrev = 1, start_age = 1, plus_age = 20))
   expect_error(calc_naa(at_age, survey_abbrev = c("a", "b"), start_age = 1, plus_age = 20))
 })
 
-test_that("Tests for parameter start_age", {
+test_that("calc_naa() - Tests for parameter start_age", {
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = NULL, plus_age = 20))
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = "a", plus_age = 20))
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = c(1, 2), plus_age = 20))
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = -1, plus_age = 20))
 })
 
-test_that("Tests for parameter start_age", {
+test_that("calc_naa() - Tests for parameter start_age", {
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = 1, plus_age = "a"))
   expect_error(calc_naa(at_age, survey_abbrev = NULL, start_age = 1, plus_age = c(1, 2)))
 })
 
-test_that("Output is correct", {
+test_that("calc_naa() - Output is correct", {
   naa <- calc_naa(at_age, survey_abbrev = NULL, start_age = 1, plus_age = 10)
   expect_true(all(c(2016, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1) == naa[1,]))
   expect_true(all(c(2017, 1, 2, 0, 0, 0, 2, 0, 0, 0, 0, 2) == naa[2,]))
@@ -153,3 +153,16 @@ test_that("Output is correct", {
   expect_true(all(c(2016, 1, 0, 0, 0, 1, 4) == naa[1,]))
   expect_true(all(c(2019, 1, 0, 0, 0, 0, 5) == naa[2,]))
 })
+
+test_that("calc_paa() - Tests for parameter naa", {
+  expect_error(calc_paa(NULL))
+  expect_error(calc_paa(c(1, 2)))
+  naa <- calc_naa(at_age, survey_abbrev = "SYN HS", start_age = 1, plus_age = 5)
+  naa1 <- naa %>%
+    rename(yearx = year)
+  expect_error(calc_paa(naa1))
+  naa2 <- naa %>%
+    rename(nsampx = nsamp)
+  expect_error(calc_paa(naa2))
+})
+
