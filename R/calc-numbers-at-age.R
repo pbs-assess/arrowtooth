@@ -1,8 +1,39 @@
-calc_naa <- function(d, survey_abbrev = NULL, start_age = 1, plus_age = NULL){
+#' Calculate the Numbers-at-age with sample sizes in a table format
+#'
+#' @param d A [data.frame]. Either `survey_samples` or `commercial_sampels` data
+#' from the [gfdata] package
+#' @param survey_abbrev The survey abbreviation. See [gfdata] package
+#' @param start_age The minimum age to include. This is not a minus group, it is an
+#' minimum age to truncate to
+#' @param plus_age The maximum age to include. This is a plus group and contains
+#' the number of all ages this age and older
+#'
+#' @return A [data.frame] in tabular format with rows being years and columns, ages.
+#' A new column called `nsamp` is added. It holds the number of samples all the ages
+#' in each column came from
+#' @export
+calc_naa <- function(d = NULL,
+                     survey_abbrev = NULL,
+                     start_age = 1,
+                     plus_age = NULL){
+  stopifnot(!is.null(d))
 
   if(!is.null(survey_abbrev)){
+    stopifnot(class(survey_abbrev) == "character")
+    stopifnot(length(survey_abbrev) == 1)
+    abb <- survey_abbrev
     d <- d %>%
-      filter(survey_abbrev == survey_abbrev)
+      filter(survey_abbrev == abb)
+  }
+
+  stopifnot(!is.null(start_age))
+  stopifnot(class(start_age) == "numeric")
+  stopifnot(length(start_age) == 1)
+  stopifnot(start_age >= 1)
+
+  if(!is.null(plus_age)){
+    stopifnot(class(plus_age) == "numeric")
+    stopifnot(length(plus_age) == 1)
   }
 
   # Sample sizes for ages
@@ -91,15 +122,15 @@ expand_df_by_col <- function(df = NULL,
   stopifnot(ncol(df) > 0)
   stopifnot(colname %in% names(df))
   quo_colname <- quo(colname)
-  stopifnot(df %>% select(!!quo_colname) %>% pull %>% class == vals %>% class)
+  stopifnot(df %>% select(all_of(!!quo_colname)) %>% pull %>% class == vals %>% class)
 
   # Reserve column order of table
   ord <- names(df)
 
   # Place the colname column in the first position
-  df <- df %>% select(!!quo_colname, everything())
+  df <- df %>% select(all_of(!!quo_colname), everything())
   ncols <- ncol(df)
-  missing_vals <- vals[!vals %in% (df %>% select(!!quo_colname) %>% pull)]
+  missing_vals <- vals[!vals %in% (df %>% select(all_of(!!quo_colname)) %>% pull)]
   map(missing_vals, ~{
     df <<- rbind(df, c(.x, rep(NA, ncols - 1)))
   })
