@@ -3,6 +3,21 @@
 language: R
 cache: packages
 warnings_are_errors: false
+jobs:
+  include:
+    - stage: prepare cache
+      script: true
+    - stage: test
+r_github_packages:
+  - pbs-assess/csasdown
+  - DLMtool/DLMtool
+  - pbs-assess/gfdata
+  - pbs-assess/gfdlm
+  - pbs-assess/gfiscamutils
+  - pbs-assess/gfplot
+  - pbs-assess/gfutilities
+  - tcarruth/MSEtool
+  - pbs-assess/rosettafish
 
 after_success:
     - Rscript -e 'covr::codecov()'
