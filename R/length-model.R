@@ -1,7 +1,7 @@
 #' Run a VonB model on the given data
 #'
 #' @param d_samples Sample dat from gfdata, either `survey_samples` or `commercial_samples`
-#' @param sex See [gfplot::fir_vb()]
+#' @param sex See [gfplot::fit_vb()]
 #'
 #' @return A table of output values for the length model
 #' @export

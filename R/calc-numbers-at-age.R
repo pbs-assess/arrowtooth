@@ -13,10 +13,10 @@
 #' in each column came from
 #' @importFrom dplyr filter group_by summarize ungroup n_distinct mutate_all
 #' @importFrom dplyr left_join mutate transmute select everything rowwise
-#' @importFrom dplyr arrange pull quo
+#' @importFrom dplyr arrange pull quo %>%
 #' @importFrom tidyselect all_of
-#' @importFrom purrr map
-#' @importFrom tibble as_tibble
+#' @importFrom purrr map flatten map_chr set_names
+#' @importFrom tibble as_tibble rownames_to_column
 #' @importFrom reshape2 dcast
 #' @export
 calc_naa <- function(d = NULL,

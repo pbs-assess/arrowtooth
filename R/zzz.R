@@ -13,6 +13,18 @@ globalVariables(c(
   "nsamp",
   "param_name",
   "base_model_dir_full",
-  "cv_upper",
   "Estimate",
-  "Std. Error"))
+  "Std. Error",
+  "base_model_dir",
+  "cv",
+  "cv_lower",
+  "cv_upper",
+  "estimate",
+  "models_dir",
+  "n",
+  "sample_id",
+  "se",
+  "sens_models_dirs",
+  "unique_models",
+  "year"
+))

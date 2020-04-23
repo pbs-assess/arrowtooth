@@ -3,6 +3,10 @@
 #'
 #' @return Opend an HTML page in your browser showing a summary of the model
 #' outputs
+#' @importFrom graphics plot
+#' @importFrom methods new
+#' @importFrom MSEtool SCA
+#' @importFrom gfplot fit_length_weight
 #' @export
 run_af_sca <- function(){
 
@@ -102,7 +106,7 @@ run_af_sca <- function(){
   af_data@BMSY_B0 <- 0.2421
   af_data@steep <- 0.917158
   # Length-weight model
-  lwm <- gfplot::fit_length_weight(dat$survey_samples, sex = "female")
+  lwm <- fit_length_weight(dat$survey_samples, sex = "female")
   af_data@wla <- exp(lwm$pars[["log_a"]])
   af_data@wlb <- lwm$pars[["b"]]
 

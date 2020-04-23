@@ -1,3 +1,17 @@
+# These assignments to NULL are required to avoid check() warnings.
+# The function model_setup() must be run to assign these variables to values.
+nongit_dir <- NULL
+models_dir <- NULL
+base_model_dir <- NULL
+base_model_dir_full <- NULL
+regen_rds_files <- NULL
+sens_models_dirs <- NULL
+sens_models <- NULL
+unique_models_dirs <- NULL
+unique_models_dirs_full <- NULL
+unique_models <- NULL
+base_model <- NULL
+
 model_setup <- function(){
   nongit_dir <<- file.path("..", "arrowtooth-nongit")
   models_dir <<- file.path(nongit_dir, "models")

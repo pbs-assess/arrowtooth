@@ -29,6 +29,7 @@ Imports:
     ggplot2,
     here,
     magrittr,
+    methods,
     MSEtool,
     purrr,
     RColorBrewer,
@@ -36,6 +37,7 @@ Imports:
     reshape2,
     rlang,
     rosettafish,
+    testthat,
     tibble,
     tidyselect,
     viridis

@@ -9,7 +9,7 @@ calc_vb(d_samples, sex = "all")
 \arguments{
 \item{d_samples}{Sample dat from gfdata, either \code{survey_samples} or \code{commercial_samples}}
 
-\item{sex}{See \code{\link[gfplot:fir_vb]{gfplot::fir_vb()}}}
+\item{sex}{See \code{\link[gfplot:fit_vb]{gfplot::fit_vb()}}}
 }
 \value{
 A table of output values for the length model
