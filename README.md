@@ -1,5 +1,8 @@
 # arrowtooth
 
+[![Travis build status](https://travis-ci.org/pbs-assess/arrowtooth.svg?branch=master)](https://travis-ci.org/pbs-assess/arrowtooth)
+[![Coverage status](https://codecov.io/gh/pbs-assess/arrowtooth/branch/master/graph/badge.svg)](https://codecov.io/github/pbs-assess/arrowtooth?branch=master)
+
 Arrowtooth flounder stock assessment using RMarkdown
 
 Created on March 30, 2020 using the https://github.com/pbs-assess/csasdown package.
