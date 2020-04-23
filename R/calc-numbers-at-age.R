@@ -51,7 +51,8 @@ calc_naa <- function(d, survey_abbrev = NULL, start_age = 1, plus_age = NULL){
   k <- subset(k, select = age_cols_to_keep)
   as_tibble(k) %>%
     cbind(year = d$year, nsamp = d$nsamp) %>%
-    select(year, nsamp, everything())
+    select(year, nsamp, everything()) %>%
+    mutate(year = as.integer(year))
 }
 
 calc_paa <- function(naa){
@@ -67,18 +68,43 @@ calc_paa <- function(naa){
     select(-rsum)
 }
 
-#' Expand the `naa` data frame to include the years found in `years`. Fill the values with NAs
+#' Expand the `df` [data.frame] to include the values found in `vals`
 #'
-#' @param naa The Numbers-at-age dataframe as output by [calc_naa()]
-#' @param years A vector of years to exapnd the `naa` data frame to.
+#' @details If `vals` contains any values that are not in the data frame `df`,
+#' column `colname`, one new row will be added for each of them. If all the
+#' values in `vals` are already in the data frame, `df` will be returned.
+#' NAs will be inserted for non-value columns
 #'
-#' @return A `naa` data frame with more years (all values NA)
+#' @param df A [data.frame]
+#' @param vals A vector of values to expand the `df` data frame to.
+#' @param colname The quoted name of a column in the [data.frame] `df`
+#'
+#' @return A [data.frame] of the same structure as `df` with possibly more rows
 #' @export
-fill_naa_years <- function(naa, years){
-  ncols <- ncol(naa)
-  missing_years <- years[!years %in% naa$year]
-  map(missing_years, ~{
-    naa <<- rbind(naa, c(.x, rep(NA, ncols - 1)))
+expand_df_by_col <- function(df = NULL,
+                             vals = NULL,
+                             colname = NULL){
+  stopifnot(!is.null(df))
+  stopifnot(!is.null(vals))
+  stopifnot(!is.null(colname))
+  stopifnot("data.frame" %in%  class(df))
+  stopifnot(ncol(df) > 0)
+  stopifnot(colname %in% names(df))
+  quo_colname <- quo(colname)
+  stopifnot(df %>% select(!!quo_colname) %>% pull %>% class == vals %>% class)
+
+  # Reserve column order of table
+  ord <- names(df)
+
+  # Place the colname column in the first position
+  df <- df %>% select(!!quo_colname, everything())
+  ncols <- ncol(df)
+  missing_vals <- vals[!vals %in% (df %>% select(!!quo_colname) %>% pull)]
+  map(missing_vals, ~{
+    df <<- rbind(df, c(.x, rep(NA, ncols - 1)))
   })
-  naa <- naa %>% arrange(year)
+  df %>%
+    arrange(year) %>%
+    .[, ord]
 }
+
