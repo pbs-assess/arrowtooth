@@ -7,29 +7,47 @@ Authors@R:
              role = c("aut", "cre"),
              email = "chris.grandin@gmail.com",
              comment = c(ORCID = "https://orcid.org/0000-0002-6746-3486"))
-Description: Provides code to run models and produce a CSAS resdoc for Arrowtooth Flounder (from https://github.com/pbs-assess/arrowtooth).
+Description: Provides a framework to run models and produce a CSAS stock assessment
+  document for Arrowtooth Flounder.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
-Depends: R (>= 3.6.3)
+Depends: R (>= 3.6.0)
 Imports:
     csasdown,
+    dplyr,
+    DLMtool,
     furrr,
     future,
     gfdata,
+    gfdlm,
     gfiscamutils,
     gfplot,
     gfutilities,
+    ggplot2,
     here,
+    magrittr,
+    MSEtool,
+    purrr,
+    RColorBrewer,
+    readr,
+    reshape2,
+    rlang,
     rosettafish,
-    tidyverse
+    tibble,
+    tidyselect,
+    viridis
 Remotes:
     pbs-assess/csasdown,
+    DLMtool/DLMtool,
     pbs-assess/gfdata,
+    pbs-assess/gfdlm,
     pbs-assess/gfiscamutils,
     pbs-assess/gfplot,
     pbs-assess/gfutilities,
+    tcarruth/MSEtool,
     pbs-assess/rosettafish
-
+URL: https://github.com/pbs-assess/arrowtooth
+BugReports: https://github.com/pbs-assess/arrowtooth/issues

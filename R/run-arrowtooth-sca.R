@@ -1,3 +1,9 @@
+#' Run the Statistical Catch-at-Age (SCA) model from the [MSEtool] package
+#' for Arrowtooth flounder
+#'
+#' @return Opend an HTML page in your browser showing a summary of the model
+#' outputs
+#' @export
 run_af_sca <- function(){
 
   dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))

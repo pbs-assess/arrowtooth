@@ -1,0 +1,18 @@
+globalVariables(c(
+  "coef",
+  "vcov",
+  "age",
+  "rsum",
+  "unique_models_dirs",
+  "unique_models_dirs_full",
+  "nongit_dir",
+  "landed_kg",
+  "discarded_kg",
+  "survey_abbrev",
+  "ct",
+  "nsamp",
+  "param_name",
+  "base_model_dir_full",
+  "cv_upper",
+  "Estimate",
+  "Std. Error"))

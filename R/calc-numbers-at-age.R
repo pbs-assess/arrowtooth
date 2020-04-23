@@ -11,6 +11,13 @@
 #' @return A [data.frame] in tabular format with rows being years and columns, ages.
 #' A new column called `nsamp` is added. It holds the number of samples all the ages
 #' in each column came from
+#' @importFrom dplyr filter group_by summarize ungroup n_distinct mutate_all
+#' @importFrom dplyr left_join mutate transmute select everything rowwise
+#' @importFrom dplyr arrange pull quo
+#' @importFrom tidyselect all_of
+#' @importFrom purrr map
+#' @importFrom tibble as_tibble
+#' @importFrom reshape2 dcast
 #' @export
 calc_naa <- function(d = NULL,
                      survey_abbrev = NULL,
@@ -50,7 +57,7 @@ calc_naa <- function(d = NULL,
     group_by(year, age) %>%
     summarize(cnt = n()) %>%
     ungroup() %>%
-    reshape2::dcast(year ~ age, value.var = "cnt") %>%
+    dcast(year ~ age, value.var = "cnt") %>%
     as_tibble() %>%
     left_join(samp_sz, by = "year") %>%
     select(year, nsamp, everything()) %>%
@@ -131,7 +138,7 @@ expand_df_by_col <- function(d = NULL,
                              vals = NULL,
                              colname = NULL){
   stopifnot(!is.null(d))
-  stopifnot("data.frame" %in%  class(d))
+  stopifnot("data.frame" %in% class(d))
   stopifnot(ncol(d) > 0)
 
   stopifnot(!is.null(vals))
