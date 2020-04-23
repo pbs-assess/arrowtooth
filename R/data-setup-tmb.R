@@ -1,15 +1,7 @@
 run_af_sca <- function(){
-  library(tibble)
-  library(dplyr)
-  library(purrr)
-  library(DLMtool)
-  library(MSEtool)
-  library(gfplot)
-  source("R/calc-numbers-at-age.R")
-  source("R/calc-maturity.R")
-  source("R/length-model.R")
 
-  dat <- readRDS(here::here("data", "arrowtooth-flounder-september-2019.rds"))
+  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
+  cpue <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-bottom-trawl-cpue-april-2020.rds"))
 
   # Age plus group
   plus_grp <- 20

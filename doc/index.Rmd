@@ -86,9 +86,9 @@ prepub <- rmarkdown::metadata$output$`csasdown::resdoc_pdf`$prepub
 if(french){
   options(OutDec =  ",")
 }
-source(here::here("R/model-setup.R"))
-source(here::here("R/data-setup.R"))
-source(here::here("R/variable-setup.R"))
+source("../R/model-setup.R"))
+source("../R/data-setup.R"))
+source("../R/variable-setup.R"))
 
 #theme_set(herring_theme())
 ```
