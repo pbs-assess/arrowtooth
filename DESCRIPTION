@@ -19,8 +19,6 @@ Imports:
     csasdown,
     dplyr,
     DLMtool,
-    furrr,
-    future,
     gfdata,
     gfdlm,
     gfiscamutils,
@@ -36,12 +34,14 @@ Imports:
     readr,
     reshape2,
     rlang,
-    rosettafish,
     tibble,
     tidyselect,
     viridis
 Suggests:
     covr,
+    furrr,
+    future,
+    rosettafish,
     testthat
 Remotes:
     pbs-assess/csasdown,
