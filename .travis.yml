@@ -10,6 +10,8 @@ jobs:
     - stage: prepare cache
       script: true
     - stage: test
+r_packages:
+  - covr
 r_github_packages:
   - pbs-assess/csasdown
   - DLMtool/DLMtool

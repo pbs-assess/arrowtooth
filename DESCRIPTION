@@ -37,10 +37,12 @@ Imports:
     reshape2,
     rlang,
     rosettafish,
-    testthat,
     tibble,
     tidyselect,
     viridis
+Suggests:
+    covr,
+    testthat
 Remotes:
     pbs-assess/csasdown,
     DLMtool/DLMtool,
