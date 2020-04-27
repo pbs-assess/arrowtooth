@@ -8,7 +8,9 @@
 #' @importFrom MSEtool SCA
 #' @importFrom gfplot fit_length_weight
 #' @export
-run_af_sca <- function(){
+run_af_sca <- function(main_dirs = set_dirs()){
+
+  nongit_dir <- main_dirs$nongit_dir
 
   dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
   cpue <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-bottom-trawl-cpue-april-2020.rds"))
@@ -41,10 +43,11 @@ run_af_sca <- function(){
                       survey_abbrev = "SYN QCS",
                       plus_age = plus_grp) %>%
     expand_df_by_col(catch$year, "year")
-  naa_hsm <- calc_naa(dat$survey_samples,
-                      survey_abbrev = "OTHER HS MSA",
-                      plus_age = plus_grp) %>%
-    expand_df_by_col(catch$year, "year")
+  # There are no survey samplkes for HSMSA
+  # naa_hsm <- calc_naa(dat$survey_samples,
+  #                     survey_abbrev = "OTHER HS MSA",
+  #                     plus_age = plus_grp) %>%
+  #   expand_df_by_col(catch$year, "year")
   naa_hs <- calc_naa(dat$survey_samples,
                      survey_abbrev = "SYN HS",
                      plus_age = plus_grp) %>%
@@ -56,7 +59,7 @@ run_af_sca <- function(){
 
   paa <- calc_paa(naa)
   paa_qcs <- calc_paa(naa_qcs)
-  paa_hsm <- calc_paa(naa_hsm)
+  #paa_hsm <- calc_paa(naa_hsm)
   paa_hs <- calc_paa(naa_hs)
   paa_wcvi <- calc_paa(naa_wcvi)
 
@@ -106,11 +109,13 @@ run_af_sca <- function(){
   af_data@BMSY_B0 <- 0.2421
   af_data@steep <- 0.917158
   # Length-weight model
+  # Need to filter surveys here. Right now its all of them
   lwm <- fit_length_weight(dat$survey_samples, sex = "female")
   af_data@wla <- exp(lwm$pars[["log_a"]])
   af_data@wlb <- lwm$pars[["b"]]
 
   af_sca <- SCA(Data = af_data, early_dev = "all", start = list(R0 = 1))
+
   # Generates the Assessment report and displays it in your browser
-  plot(af_sca)
+  report(af_sca)
 }
