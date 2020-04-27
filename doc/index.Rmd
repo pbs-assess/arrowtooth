@@ -81,14 +81,37 @@ options(kableExtra.latex.load_packages = FALSE)
 ```{r load-libraries, cache=FALSE}
 # add other packages here:
 library(csasdown)
-french <- rmarkdown::metadata$output$`csasdown::resdoc_pdf`$french
-prepub <- rmarkdown::metadata$output$`csasdown::resdoc_pdf`$prepub
+library(gfiscamutils)
+library(gfplot)
+library(ggplot2)
+library(arrowtooth)
+# `french` and `prepub` variables are extracted from the YAML headers above and
+#  are used throughout the document. To make the document all in french, change
+#  the line in the YAML header above to `french: true`
+meta <- rmarkdown::metadata$output
+french <- meta[[1]]$french
 if(french){
   options(OutDec =  ",")
 }
-source("../R/model-setup.R"))
-source("../R/data-setup.R"))
-source("../R/variable-setup.R"))
 
+main_dirs <- set_dirs(nongit_dir = file.path("..", "..", "arrowtooth-nongit"))
+nongit_dir <- main_dirs$nongit_dir
+models_dir <- main_dirs$models_dir
+base_model_dir <- main_dirs$base_model_dir
+base_model_dir_full <- main_dirs$base_model_dir_full
+
+all_models <- model_setup(main_dirs = main_dirs)
+base_model <- all_models$base_model
+sens_models <- all_models$sens_models
+
+dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
+survey_sets <- dat$survey_sets
+survey_samples <- dat$survey_samples
+commercial_samples <- dat$commercial_samples
+catch <- dat$catch
+cpue_spatial <- dat$cpue_spatial
+cpue_spatial_ll <- dat$cpue_spatial_ll
+survey_index <- dat$survey_index
+age_precision <- dat$age_precision
 #theme_set(herring_theme())
 ```
