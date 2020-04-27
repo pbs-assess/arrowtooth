@@ -105,13 +105,13 @@ base_model <- all_models$base_model
 sens_models <- all_models$sens_models
 
 dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
+survey_index <- dat$survey_index
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
 commercial_samples <- dat$commercial_samples
 catch <- dat$catch
 cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
-survey_index <- dat$survey_index
 age_precision <- dat$age_precision
 #theme_set(herring_theme())
 ```

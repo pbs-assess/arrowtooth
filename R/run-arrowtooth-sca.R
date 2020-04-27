@@ -62,7 +62,6 @@ run_af_sca <- function(main_dirs = set_dirs()){
   #paa_hsm <- calc_paa(naa_hsm)
   paa_hs <- calc_paa(naa_hs)
   paa_wcvi <- calc_paa(naa_wcvi)
-
   # Make the Data object
   af_data <- new("Data")
   af_data@Name <- "Arrowtooth Flounder"
@@ -70,7 +69,14 @@ run_af_sca <- function(main_dirs = set_dirs()){
   af_data@Cat <- catch %>% select(ct) %>% t()
   attr(af_data@Cat, "dimnames") <- NULL
   af_data@Year <- catch %>% pull(year)
-  af_data@Ind <- af_data@Cat / 492.062
+  ## Choose a survey as the index
+  s_ind <- s_hs %>%
+    select(year, biomass) %>%
+    expand_df_by_col(catch$year, "year") %>%
+    pull(biomass) %>%
+    as.matrix() %>%
+    t()
+  af_data@Ind <- s_ind
   af_data@Units <- "Thousand metric tonnes"
   af_data@Rec <- rep(NA, ncol(af_data@Cat)) %>% t()
   af_data@AvC <- mean(af_data@Cat)
