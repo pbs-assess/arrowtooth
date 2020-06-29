@@ -5,6 +5,8 @@ update_packages <- function(){
   }
   curr_dir <- getwd()
 
+  cat(crayon::green("\nRebasing new commits from gfdlm...\n"))
+  shell(paste0("cd ", file.path(git_dir, "gfdlm"), " && git pull --rebase"))
   cat(crayon::green("\nRebasing new commits from rosettafish...\n"))
   shell(paste0("cd ", file.path(git_dir, "rosettafish"), " && git pull --rebase"))
   cat(crayon::green("\nRebasing new commits from gfutilities...\n"))
@@ -15,6 +17,8 @@ update_packages <- function(){
   shell(paste0("cd ", file.path(git_dir, "csasdown"), " && git pull --rebase"))
 
   setwd(git_dir)
+  cat(crayon::green("\nBuilding and installing gfdlm package...\n"))
+  devtools::install("gfdlm", quick = TRUE, dependencies = FALSE)
   cat(crayon::green("\nBuilding and installing rosettafish package...\n"))
   devtools::install("rosettafish", quick = TRUE, dependencies = FALSE)
   cat(crayon::green("\nBuilding and installing gfutilities package...\n"))
