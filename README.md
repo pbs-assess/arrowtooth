@@ -39,7 +39,9 @@ model implemented in the [MSEtool](https://github.com/tcarruth/MSEtool) package.
 the model is implemented using [TMB](https://github.com/kaskr/adcomp).
 
 The data come from two files generated using the [gfdata](https://github.com/pbs-assess/gfdata) package. This project contains functions which convert these data into the required formats
-for usse in `MSEtool` and the `SCA()` function in particular.
+for use in `MSEtool`.
+
+The SCA code is found in the file `R/run-arrowtooth-sca.R`. Some values were extracted from the 2015 iSCAM assessment model. Note that only one survey index can be used with the current code.
 
 ## CSAS Research document status
 In March of 2020 is was thought that a rather large age request for Arrowtooth may be completed and that we would be able to use the iSCAM age-structured model as was used in the previous assessment. Because of this, the structure of the CSAS document was set up to read in iSCAM model output and make figures in the correct way so that we could create the document side-by-side with the model explorations. To make this work, you need those model outputs. Contact the authors of this repository for this.
