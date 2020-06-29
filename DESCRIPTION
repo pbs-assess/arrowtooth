@@ -45,7 +45,7 @@ Suggests:
     testthat
 Remotes:
     pbs-assess/csasdown,
-    DLMtool/DLMtool,
+    DLMtool/DLMtool@2f7d67ff,
     pbs-assess/gfdata,
     pbs-assess/gfdlm,
     pbs-assess/gfiscamutils,
