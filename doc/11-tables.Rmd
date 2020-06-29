@@ -1,0 +1,37 @@
+# Tables
+
+```{r ref-tab}
+refs_tab <- tibble::tribble(
+     ~`Reference type`,                    ~`Rmarkdown code`,
+             "Section",        "`\\@ref(sec:section-label)`",
+          "Subsection",  "`\\@ref(subsec:subsection-label)`",
+            "Appendix",       "`\\@ref(app:appendix-label)`",
+            "Equation",        "`\\@ref(eq:equation-label)`",
+              "Figure",         "`\\@ref(fig:figure-label)`",
+               "Table",          "`\\@ref(tab:table-label)`")
+
+csasdown::csas_table(refs_tab,
+  align = c("r", "r"),
+  caption = ifelse(french,
+                   "French goes here",
+                   "Reference types and their Rmarkdown reference codes."))
+```
+
+```{r testtab2, echo=TRUE}
+d1 <- tibble::tribble(
+  ~Year, ~`Value 1`, ~`Value 2`,
+   2018,       1.12,       31.9,
+   2019,       2.32,        2.8,
+   2020,       3.67,      112.2)
+if(french){
+  names(d1) <- c(rosettafish::en2fr("Year"),
+                 paste0(rosettafish::en2fr("Value"), 1),
+                 paste0(rosettafish::en2fr("Value"), 2))
+}
+csasdown::csas_table(d1,
+  align = c("c", "r", "r"),
+  caption = ifelse(french,
+                   "French goes here",
+                   "Test table (data is d1) with a caption will be numbered automatically."))
+```
+
