@@ -1,7 +1,7 @@
 #' Run the Statistical Catch-at-Age (SCA) model from the [MSEtool] package
 #' for Arrowtooth flounder
 #'
-#' @return Opend an HTML page in your browser showing a summary of the model
+#' @return Open an HTML page in your browser showing a summary of the model
 #' outputs
 #' @importFrom graphics plot
 #' @importFrom methods new
@@ -123,5 +123,5 @@ run_af_sca <- function(main_dirs = set_dirs()){
   af_sca <- SCA(Data = af_data, early_dev = "all", start = list(R0 = 1))
 
   # Generates the Assessment report and displays it in your browser
-  report(af_sca)
+  MSEtool:::report(af_sca)
 }

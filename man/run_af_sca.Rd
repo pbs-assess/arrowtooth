@@ -5,10 +5,10 @@
 \title{Run the Statistical Catch-at-Age (SCA) model from the \link{MSEtool} package
 for Arrowtooth flounder}
 \usage{
-run_af_sca()
+run_af_sca(main_dirs = set_dirs())
 }
 \value{
-Opend an HTML page in your browser showing a summary of the model
+Open an HTML page in your browser showing a summary of the model
 outputs
 }
 \description{
