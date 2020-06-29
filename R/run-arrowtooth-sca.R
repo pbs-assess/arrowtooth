@@ -1,6 +1,9 @@
 #' Run the Statistical Catch-at-Age (SCA) model from the [MSEtool] package
 #' for Arrowtooth flounder
 #'
+#' @param main_dirs A list of directories used by the project in the format of the
+#' output of the [set_dirs()] function
+#'
 #' @return Open an HTML page in your browser showing a summary of the model
 #' outputs
 #' @importFrom graphics plot

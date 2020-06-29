@@ -7,6 +7,10 @@ for Arrowtooth flounder}
 \usage{
 run_af_sca(main_dirs = set_dirs())
 }
+\arguments{
+\item{main_dirs}{A list of directories used by the project in the format of the
+output of the \code{\link[=set_dirs]{set_dirs()}} function}
+}
 \value{
 Open an HTML page in your browser showing a summary of the model
 outputs

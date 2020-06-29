@@ -1,5 +1,6 @@
 globalVariables(c(
   "coef",
+  "biomass",
   "vcov",
   "age",
   "rsum",
