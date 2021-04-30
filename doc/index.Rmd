@@ -1,5 +1,5 @@
 ---
-title: "Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2020"
+title: "Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2021"
 author: |
   Chris J. Grandin^1^ and
   Alex B. Smith^2^
@@ -14,6 +14,7 @@ month: April # fill in
 year: 2020
 report_number: nnn
 region: Pacific Region
+isbn: "978-0-660-38322-4"
 citation_other_language: "Grandin, C.J. et Smith, A.B. Title Here (*Latin Species Name*). DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2019/nnn. iv + 13 p."
 abstract: |
   Arrowtooth Flounder(*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable. In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
@@ -26,7 +27,10 @@ header: "Draft working paper --- Do not cite or circulate" # or "" to omit
 output:
  csasdown::resdoc_pdf:
    french: false
-  # csasdown::resdoc_word
+   copy_sty: true
+   line_nums: true
+   line_nums_mod: 1
+   lot_lof: false
 # ------------
 # End of options to set
 knit: bookdown::render_book
@@ -79,22 +83,31 @@ options(kableExtra.latex.load_packages = FALSE)
 ```
 
 ```{r load-libraries, cache=FALSE}
-# add other packages here:
-library(csasdown)
-library(gfiscamutils)
-library(gfplot)
-library(ggplot2)
-library(arrowtooth)
 # `french` and `prepub` variables are extracted from the YAML headers above and
 #  are used throughout the document. To make the document all in french, change
 #  the line in the YAML header above to `french: true`
 meta <- rmarkdown::metadata$output
-french <- meta[[1]]$french
-if(french){
-  options(OutDec =  ",")
+if (length(grep("pdf", names(meta)))) {
+  french <- meta$`csasdown::resdoc_pdf`$french
+  prepub <- meta$`csasdown::resdoc_pdf`$prepub
+} else if (length(grep("word", names(meta)))) {
+  french <- meta$`csasdown::resdoc_word`$french
+  prepub <- meta$`csasdown::resdoc_word`$prepub
+}
+csl <- "csl/csas.csl"
+if (french) {
+  csl <- "csl/csas-french.csl"
+  options(OutDec = ",")
 }
 
-main_dirs <- set_dirs(nongit_dir = file.path("..", "..", "arrowtooth-nongit"))
+library(csasdown)
+library(gfiscamutils)
+library(gfplot)
+library(ggplot2)
+library(tidylog, warn.conflicts = FALSE)
+library(arrowtooth)
+
+main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
 nongit_dir <- main_dirs$nongit_dir
 models_dir <- main_dirs$models_dir
 base_model_dir <- main_dirs$base_model_dir
@@ -115,3 +128,8 @@ cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
 #theme_set(herring_theme())
 ```
+
+---
+csl: `r csl`    
+---
+

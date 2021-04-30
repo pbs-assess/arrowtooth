@@ -7,7 +7,7 @@
 model_setup(main_dirs = set_dirs(), overwrite_rds_files = FALSE)
 }
 \arguments{
-\item{main_dirs}{A ilst of four, with the same names as the output
+\item{main_dirs}{A list of four, with the same names as the output
 from \code{\link[=set_dirs]{set_dirs()}}}
 
 \item{overwrite_rds_files}{Logical. TRUE to overwrite the model RDS files}

@@ -9,7 +9,7 @@
 #' @return A list of 4 items, the first three are the same as the input arguments
 #' and the 4th is the full path of the base model directory
 #' @export
-set_dirs <- function(nongit_dir = file.path("..", "arrowtooth-nongit"),
+set_dirs <- function(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"),
                      models_dir = file.path(nongit_dir, "models"),
                      base_model_dir = "01-base"){
   list(nongit_dir = nongit_dir,
@@ -20,7 +20,7 @@ set_dirs <- function(nongit_dir = file.path("..", "arrowtooth-nongit"),
 
 #' Load models and set up the directory names
 #'
-#' @param main_dirs A ilst of four, with the same names as the output
+#' @param main_dirs A list of four, with the same names as the output
 #' from [set_dirs()]
 #' @param overwrite_rds_files Logical. TRUE to overwrite the model RDS files
 #'
@@ -38,7 +38,7 @@ model_setup <- function(main_dirs = set_dirs(),
 
   # A list of lists of sensitivity groups. Any given sensitivity can appear in more than one group.
   # Do not include base model in this list or it will appear twice on plots
-  # The base model name is added to each group with the map..prepend pipe at the end
+  # The base model name is prepended to each group with the map..append pipe at the end
   sens_models_dirs <- list(
     c("02-sigma-0.1",
       "03-estimated-total-variance"),
@@ -58,7 +58,7 @@ model_setup <- function(main_dirs = set_dirs(),
   unique_models_dirs <- sens_models_dirs %>%
     flatten() %>%
     unique() %>%
-    map_chr(.f = ~{.x})
+    map_chr(~{.x})
 
   unique_models_dirs_full <- file.path(models_dir, unique_models_dirs)
 

@@ -5,7 +5,7 @@
 \title{Set main directories for the project}
 \usage{
 set_dirs(
-  nongit_dir = file.path("..", "arrowtooth-nongit"),
+  nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"),
   models_dir = file.path(nongit_dir, "models"),
   base_model_dir = "01-base"
 )

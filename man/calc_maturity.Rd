@@ -10,7 +10,7 @@ calc_maturity(d, type = "length")
 \item{d}{A \link{data.frame} with the structure of that found in the \code{survey_sets}
 object of the \link{gfdata} package}
 
-\item{type}{See \code{\link[gfplot:fit_mat_ogive]{gfplot::fit_mat_ogive()}}}
+\item{type}{See \code{\link[gfplot:plot_mat_ogive]{gfplot::fit_mat_ogive()}}}
 }
 \value{
 A list of several values including length at 5\%, 50\%, and 95\% maturity
