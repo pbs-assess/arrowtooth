@@ -10,6 +10,9 @@ tot_num_posts <- mcmc_chain_length / mcsave
 num_posts_used <- tot_num_posts - burnin
 
 sp <- "Arrowtooth Flounder"
+sp_science <- "Atheresthes stomias"
+sp_common <- "Turbot"
+sp_family <- "Pleuronectidae"
 bc <- "British Columbia"
 wcvi <- "West Coast Vancouver Island"
 qcs <- "Queen Charlotte Sound"

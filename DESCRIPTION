@@ -30,7 +30,6 @@ Imports:
     here,
     magrittr,
     methods,
-    MSEtool,
     purrr,
     RColorBrewer,
     readr,
@@ -45,13 +44,11 @@ Suggests:
     testthat
 Remotes:
     pbs-assess/csasdown,
-    DLMtool/DLMtool@2f7d67ff,
     pbs-assess/gfdata,
     pbs-assess/gfdlm,
     pbs-assess/gfiscamutils,
     pbs-assess/gfplot,
     pbs-assess/gfutilities,
-    tcarruth/MSEtool,
     pbs-assess/rosettafish
 URL: https://github.com/pbs-assess/arrowtooth
 BugReports: https://github.com/pbs-assess/arrowtooth/issues

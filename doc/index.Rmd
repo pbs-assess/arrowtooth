@@ -26,7 +26,7 @@ abstract: |
 header: "Draft working paper --- Do not cite or circulate" # or "" to omit
 output:
  csasdown::resdoc_pdf:
-   french: false
+   french: true
    copy_sty: true
    line_nums: true
    line_nums_mod: 1
@@ -104,6 +104,7 @@ library(csasdown)
 library(gfiscamutils)
 library(gfplot)
 library(ggplot2)
+library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
 library(arrowtooth)
 
