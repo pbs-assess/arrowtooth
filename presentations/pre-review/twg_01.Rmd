@@ -1,0 +1,293 @@
+---
+title: "Arrowtooth Flounder data summary"
+subtitle: "AkA *'Turbot'*"
+author: "Chris Grandin"
+institute: "DFO"
+date: "Slides compiled on `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "xaringan-themer.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+header-includes:
+  - \usepackage{animate}
+---
+
+background-image: url(arrowtooth_flounder.jpeg)
+
+```{r setup, include=FALSE, echo=FALSE, fig.width=8, fig.height=8}
+# paste this into the console before running `xaringan::inf_mr("twg_01.Rmd")`
+# to make your entries faster (fraction of a second)
+# options(servr.interval = 0.1)
+
+fig_asp <- 0.618
+fig_width <- 9
+fig_out_width <- "6in"
+fig_dpi <- 180
+fig_align <- "center"
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>",
+  fig.asp = fig_asp,
+  fig.width = fig_width,
+  fig.path = "_bookdown_files/knitr_cache/",
+  cache.path = "_bookdown_files/knitr_cache/",
+  echo = FALSE,
+  cache.comments = FALSE,
+  dev = "png",
+  dpi = fig_dpi,
+  fig.align = fig_align
+)
+
+french <- FALSE
+
+options(htmltools.dir.version = FALSE)
+library(dplyr)
+library(ggplot2)
+library(gfplot)
+#devtools::load_all(file.path(dirname(here::here()), "gfplot"))
+library(arrowtooth)
+
+main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
+nongit_dir <- main_dirs$nongit_dir
+if(!exists("dat")){
+  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
+}
+survey_index <- dat$survey_index
+survey_sets <- dat$survey_sets
+survey_samples <- dat$survey_samples
+commercial_samples <- dat$commercial_samples
+catch <- dat$catch
+cpue_spatial <- dat$cpue_spatial
+cpue_spatial_ll <- dat$cpue_spatial_ll
+age_precision <- dat$age_precision
+
+# Make a tibble in ggplot format with length-based and possibly age-based sex proportions by year
+get_female_props <- function(ac = NULL, lc){
+  if(!is.null(ac)){
+    ac_all <- ac %>% group_by(year) %>% summarize(num = n())
+    ac_fem <- ac %>% group_by(year) %>% filter(sex == "F") %>% summarize(num = n())
+    ac_all <- ac_all %>%
+      left_join(ac_fem, by = "year") %>% 
+      rename(all = num.x, female = num.y) %>%
+      mutate(female_prop = round(female / all, 2),
+             male_prop = round(1 - female_prop, 2)) 
+    ac_all <- ac_all %>% 
+      select(year, female_prop) %>% 
+      mutate(type = "Age")
+  }
+  
+  lc_all <- lc %>% group_by(year) %>% summarize(num = n())
+  lc_fem <- lc %>% group_by(year) %>% filter(sex == "F") %>% summarize(num = n())
+  lc_all <- lc_all %>%
+    left_join(lc_fem, by = "year") %>% 
+    rename(all = num.x, female = num.y) %>%
+    mutate(female_prop = round(female / all, 2),
+           male_prop = round(1 - female_prop, 2)) 
+  lc_all <- lc_all %>% 
+    select(year, female_prop) %>% 
+    mutate(type = "Length")
+  
+  if(is.null(ac)){
+    lc_all %>% 
+      rename(Year = year, `Proportion female` = female_prop, `Age/Length` = type)
+  }else{
+    bind_rows(ac_all, lc_all) %>% 
+      rename(Year = year, `Proportion female` = female_prop, `Age/Length` = type)
+  }
+}
+
+# Coastwide
+ct_coast <- tidy_catch(catch, areas = NULL)
+ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[ABCDE]+"))
+ct_areas_fine <- tidy_catch(catch, areas = c("3[CD]+", "5[AB]+", "5[CD]", "5[E]"))
+ac_coast <- tidy_ages_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
+lc_coast <- tidy_lengths_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
+ac_lc_coast <- get_female_props(ac_coast, lc_coast) %>% mutate(Area = "coastwide")
+# 3CD
+cs_3cd <- commercial_samples %>% filter(grepl("^3[C|D].*", major_stat_area_name))
+ac_3cd <- tidy_ages_weighted(cs_3cd, sample_type = "commercial", dat_catch = catch)
+lc_3cd <- tidy_lengths_weighted(cs_3cd, sample_type = "commercial", dat_catch = catch)
+ac_lc_3cd <- get_female_props(ac_3cd, lc_3cd) %>% mutate(Area = "3CD")
+# 5AB
+cs_5ab <- commercial_samples %>% filter(grepl("^5[A|B].*", major_stat_area_name))
+ac_5ab <- tidy_ages_weighted(cs_5ab, sample_type = "commercial", dat_catch = catch)
+lc_5ab <- tidy_lengths_weighted(cs_5ab, sample_type = "commercial", dat_catch = catch)
+ac_lc_5ab <- get_female_props(ac_5ab, lc_5ab) %>% mutate(Area = "5AB")
+# 5CD
+cs_5cd <- commercial_samples %>% filter(grepl("^5[C|D].*", major_stat_area_name))
+ac_5cd <- tidy_ages_weighted(cs_5cd, sample_type = "commercial", dat_catch = catch)
+lc_5cd <- tidy_lengths_weighted(cs_5cd, sample_type = "commercial", dat_catch = catch)
+ac_lc_5cd <- get_female_props(ac_5cd, lc_5cd) %>% mutate(Area = "5CD")
+# 5E
+cs_5e <- commercial_samples %>% filter(grepl("^5[E].*", major_stat_area_name))
+lc_5e <- tidy_lengths_weighted(cs_5e, sample_type = "commercial", dat_catch = catch)
+ac_lc_5e <- get_female_props(lc = lc_5e) %>% mutate(Area = "5E")
+
+ac_lc <- bind_rows(ac_lc_coast,
+                   ac_lc_3cd,
+                   ac_lc_5ab,
+                   ac_lc_5cd,
+                   ac_lc_5e)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
+---
+class: center
+### Catch Per Unit of Effort Coastwide
+```{r cpue_spatial, echo=FALSE, animation.hook="gifski", interval=2}
+for(i in 2007:2019){
+  g <- plot_cpue_spatial(cpue_spatial %>% filter(year == i),
+                         french = french,
+                         start_year = start_catch_yr,
+                         bath = c(100, 200, 500, 1000, 1500)) +
+    theme(axis.text.x = element_text(angle = 0)) +
+    ggtitle(i) +
+    theme(plot.title = element_text(size = 20, face = "bold")) +
+    theme_xaringan(background_color = "#FFFFFF") +
+    scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+  print(g)
+}
+```
+
+---
+class: center
+### Total coastwide catch
+```{r main-catches}
+plot_catch(ct_coast, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```
+
+---
+class: center
+### Total catch split North/South
+```{r main-catches-by-area}
+plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```
+
+---
+class: center
+### Total catch by area
+```{r main-catches-by-area-fine}
+plot_catch(ct_areas_fine, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```
+
+---
+class: center
+### Age proportions coastwide
+```{r age-comps}
+plot_ages(ac_coast) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
+```
+
+---
+class: center
+### Age proportions area 3CD
+```{r age-comps-3cd}
+plot_ages(ac_3cd) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
+```
+
+---
+class: center
+### Age proportions area 5AB
+```{r age-comps-5ab}
+plot_ages(ac_5ab) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
+```
+
+---
+class: center
+### Age proportions area 5CD
+```{r age-comps-5cd}
+plot_ages(ac_5cd) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
+```
+
+---
+class: center
+### Length proportions coastwide
+```{r length-comps}
+plot_lengths(lc_coast, show_year = "all") +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
+```
+
+---
+class: center
+### Length proportions 3CD
+```{r length-comps-3cd}
+plot_lengths(lc_3cd, show_year = "all") +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
+```
+
+---
+class: center
+### Length proportions 5AB
+```{r length-comps-5ab}
+plot_lengths(lc_5ab, show_year = "all") +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
+```
+
+---
+class: center
+### Length proportions 5CD
+```{r length-comps-5cd}
+plot_lengths(lc_5cd, show_year = "all") +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
+```
+
+---
+class: center
+### Length proportions 5E
+```{r length-comps-5e}
+plot_lengths(lc_5e, show_year = "all") +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
+```
+
+---
+class: center
+### Sex proportions
+
+```{r sex_comp_compare-coast}
+ggplot(ac_lc, aes(x = Year, y = `Proportion female`, color = `Age/Length`)) +
+  geom_line(size = 2) +
+  coord_cartesian(ylim = c(0, 1)) +
+  facet_wrap(~Area) +
+  theme_xaringan(background_color = "#FFFFFF", text_font_size = 10) 
+
+```
