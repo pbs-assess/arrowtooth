@@ -150,6 +150,7 @@ make.autocor.plot(base_model)
 make.pairs.plot(base_model)
 ```
 
+
 <!-- (ref:fig-cpue-cap) CPUE -->
 
 <!-- (ref:fig-cpue-cap-french) French caption here -->
