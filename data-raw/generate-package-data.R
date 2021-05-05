@@ -1,3 +1,7 @@
+# If you add a package variable here, you need to add it further down as well within a `use_data()`
+# command, and include a descriptor chunk in data.R. Source this file, then run
+# `devtools::document()` and `devtools::build()`
+
 mcmc_chain_length <- 2000
 mcsave <- 1
 mcscale <- 0
@@ -11,7 +15,7 @@ num_posts_used <- tot_num_posts - burnin
 
 sp <- "Arrowtooth Flounder"
 sp_science <- "Atheresthes stomias"
-sp_common <- "Turbot"
+sp_colloq <- "Turbot"
 sp_family <- "Pleuronectidae"
 bc <- "British Columbia"
 wcvi <- "West Coast Vancouver Island"
@@ -38,6 +42,9 @@ use_data(burnin, overwrite = TRUE)
 use_data(tot_num_posts, overwrite = TRUE)
 use_data(num_posts_used, overwrite = TRUE)
 use_data(sp, overwrite = TRUE)
+use_data(sp_science, overwrite = TRUE)
+use_data(sp_colloq, overwrite = TRUE)
+use_data(sp_family, overwrite = TRUE)
 use_data(bc, overwrite = TRUE)
 use_data(wcvi, overwrite = TRUE)
 use_data(qcs, overwrite = TRUE)

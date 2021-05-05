@@ -50,6 +50,21 @@
 #' @format A character string
 "sp"
 
+#' Species science name
+#'
+#' @format A character string
+"sp_science"
+
+#' Species colloquial name
+#'
+#' @format A character string
+'sp_colloq'
+
+#' Species family name
+#'
+#' @format A character string
+'sp_family'
+
 #' Short for British Columbia
 #'
 #' @format A character string

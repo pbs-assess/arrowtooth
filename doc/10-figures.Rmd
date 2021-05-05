@@ -1,5 +1,18 @@
 # Figures
 
+(ref:fig-catches-map-cap) Total coastwide catch of `r sp`, including both landings and
+  discards. See Table XX for values.
+
+(ref:fig-catches-cap-map-french) French caption here
+
+```{r main-catches-map, fig.cap = ifelse(french, "(ref:fig-catches-cap-map-french)", "(ref:fig-catches-map-cap)"), out.width = "100%" , fig.pos="H"}
+cpue_spatial_1996_pres <- cpue_spatial %>% filter(year %in% 2018)
+plot_cpue_spatial(cpue_spatial_1996_pres, french = french, start_year = start_catch_yr) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```
+
 (ref:fig-catches-cap) Total coastwide catch of `r sp`, including both landings and
   discards. See Table XX for values.
 
@@ -20,6 +33,19 @@ plot_catch(ct, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
 
 ```{r main-catches-by-area, fig.cap = ifelse(french, "(ref:fig-catches-by-area-cap-french)", "(ref:fig-catches-by-area-cap)"), out.width = "100%", fig.pos="H"}
 ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[ABCDE]+"))
+plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+```
+
+(ref:fig-catches-by-area-fine-cap) Total catch of `r sp` by area, including both landings and
+  discards. See Table XX for values.
+
+(ref:fig-catches-by-area-fine-cap-french) French caption here
+
+```{r main-catches-by-area-fine, fig.cap = ifelse(french, "(ref:fig-catches-by-area-fine-cap-french)", "(ref:fig-catches-by-area-fine-cap)"), out.width = "100%", fig.pos="H"}
+ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[AB]+", "5[CD]", "5[E]"))
 plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
   theme(axis.text.x = element_text(angle = 0)) +
   ggtitle(NULL) +
