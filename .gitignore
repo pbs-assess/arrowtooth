@@ -3,17 +3,21 @@
 .RData
 .DS_Store
 
+_book
+_main*
 all.bib
 csas-style
 data
+header-attrs
+knitr-cache
 knitr-cache-docx
 knitr-cache-pdf
 knitr-cache-tex
 knitr-figs-docx
 knitr-figs-pdf
-reference-materials
 models*
-_book
+reference-materials
+remark-css
 resdoc.aux
 resdoc.log
 resdoc.Rmd
@@ -22,6 +26,8 @@ resdoc.upa
 resdoc.pdf
 resdoc.knit.md
 resdoc.utf8.md
+xaringan-themer.css
 
-*.png
 *.log
+*.png
+*.rds
