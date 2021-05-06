@@ -49,8 +49,8 @@ french <- FALSE
 options(htmltools.dir.version = FALSE)
 library(dplyr)
 library(ggplot2)
-library(gfplot)
-#devtools::load_all(file.path(dirname(here::here()), "gfplot"))
+#library(gfplot)
+devtools::load_all(file.path(dirname(here::here()), "gfplot"))
 library(arrowtooth)
 
 main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
@@ -95,10 +95,10 @@ get_female_props <- function(ac = NULL, lc){
   
   if(is.null(ac)){
     lc_all %>% 
-      rename(Year = year, `Proportion female` = female_prop, `Age/Length` = type)
+      rename(Year = year, `Proportion female` = female_prop, `Type` = type)
   }else{
     bind_rows(ac_all, lc_all) %>% 
-      rename(Year = year, `Proportion female` = female_prop, `Age/Length` = type)
+      rename(Year = year, `Proportion female` = female_prop, `Type` = type)
   }
 }
 
@@ -197,6 +197,27 @@ plot_catch(ct_areas_fine, french = french, xlim = c(start_catch_yr, end_catch_yr
 
 ---
 class: center
+### Number of fishery length observations
+```{r age-freq}
+j <- purrr::map2(list(commercial_samples, cs_3cd, cs_5ab, cs_5cd, cs_5e),
+          c("Coastwide", "3CD", "5AB", "5CD", "5E"), ~{
+  .x %>%
+    select(year, sex, age) %>%
+    filter(!is.na(age)) %>% 
+    mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
+              rename(Year = year, Age = age, Sex = sex) %>% 
+              mutate(Area = .y)}) %>% 
+  purrr::map_df(~{.x})
+
+ggplot(j, aes(x = Year, fill = Sex)) +
+  geom_bar() +
+  facet_wrap(~ Area) +
+  ylab("Number of length records") +
+  scale_y_continuous(labels = scales::comma)
+```
+
+---
+class: center
 ### Age proportions coastwide
 ```{r age-comps}
 plot_ages(ac_coast) +
@@ -237,9 +258,46 @@ plot_ages(ac_5cd) +
 
 ---
 class: center
+### Number of fishery length observations
+```{r length-freq}
+j <- purrr::map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
+          c("3CD", "5AB", "5CD", "5E"), ~{
+  .x %>%
+    select(year, sex, length) %>%
+    filter(!is.na(length)) %>% 
+    mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
+              rename(Year = year, Length = length, Sex = sex) %>% 
+              mutate(Area = .y)}) %>% 
+  purrr::map_df(~{.x})
+
+ggplot(j, aes(x = Year, fill = Sex)) +
+  geom_bar() +
+  facet_wrap(~ Area) +
+  ylab("Number of length records") +
+  scale_y_continuous(labels = scales::comma)
+```
+
+---
+class: center
+### Number of fishery length observations coastwide
+```{r length-freq-coastwide}
+j <- commercial_samples %>% 
+  select(year, sex, length) %>%
+  filter(!is.na(length)) %>% 
+  mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
+  rename(Year = year, Length = length, Sex = sex) 
+
+ggplot(j, aes(x = Year, fill = Sex)) +
+  geom_bar() +
+  ylab("Number of length records") +
+  scale_y_continuous(labels = scales::comma)
+```
+
+---
+class: center
 ### Length proportions coastwide
 ```{r length-comps}
-plot_lengths(lc_coast, show_year = "all") +
+plot_lengths(lc_coast, show_year = "even") +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -248,7 +306,7 @@ plot_lengths(lc_coast, show_year = "all") +
 class: center
 ### Length proportions 3CD
 ```{r length-comps-3cd}
-plot_lengths(lc_3cd, show_year = "all") +
+plot_lengths(lc_3cd, show_year = "even") +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -257,7 +315,7 @@ plot_lengths(lc_3cd, show_year = "all") +
 class: center
 ### Length proportions 5AB
 ```{r length-comps-5ab}
-plot_lengths(lc_5ab, show_year = "all") +
+plot_lengths(lc_5ab, show_year = "even") +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -285,10 +343,17 @@ class: center
 ### Sex proportions
 
 ```{r sex_comp_compare-coast}
-ggplot(ac_lc, aes(x = Year, y = `Proportion female`, color = `Age/Length`)) +
+ggplot(ac_lc, aes(x = Year, y = `Proportion female`, color = `Type`)) +
   geom_line(size = 2) +
   coord_cartesian(ylim = c(0, 1)) +
   facet_wrap(~Area) +
   theme_xaringan(background_color = "#FFFFFF", text_font_size = 10) 
 
 ```
+
+---
+class: center
+### Gulf of Alaska assessments 2019 and 2020
+
+- Split sex model (70% female in catch)
+- Lengths used as proxy for ages
