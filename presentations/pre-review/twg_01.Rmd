@@ -334,7 +334,6 @@ plot_lengths(lc_5e, show_year = "all") +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
 
-
 ---
 class: center
 ### Sex proportions
