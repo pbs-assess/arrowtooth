@@ -129,11 +129,7 @@ cs_5e <- commercial_samples %>% filter(grepl("^5[E].*", major_stat_area_name))
 lc_5e <- tidy_lengths_weighted(cs_5e, sample_type = "commercial", dat_catch = catch)
 ac_lc_5e <- get_female_props(lc = lc_5e) %>% mutate(Area = "5E")
 
-ac_lc <- bind_rows(ac_lc_coast,
-                   ac_lc_3cd,
-                   ac_lc_5ab,
-                   ac_lc_5cd,
-                   ac_lc_5e)
+ac_lc <- bind_rows(ac_lc_coast, ac_lc_3cd, ac_lc_5ab, ac_lc_5cd, ac_lc_5e)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
