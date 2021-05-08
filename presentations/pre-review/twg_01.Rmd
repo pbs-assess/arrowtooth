@@ -355,3 +355,4 @@ class: center, inverse
 - Split sex model (70% female in catch)
 - Lengths used as proxy for ages
 ]
+
