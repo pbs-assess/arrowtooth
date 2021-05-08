@@ -154,7 +154,7 @@ for(i in 2007:2019){
     theme(axis.text.x = element_text(angle = 0)) +
     ggtitle(i) +
     theme(plot.title = element_text(size = 20, face = "bold")) +
-    theme_xaringan(background_color = "#FFFFFF") +
+    #theme_xaringan(background_color = "#FFFFFF") +
     scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
   print(g)
 }
@@ -193,7 +193,7 @@ plot_catch(ct_areas_fine, french = french, xlim = c(start_catch_yr, end_catch_yr
 
 ---
 class: center
-### Number of fishery length observations
+### Number of fishery age observations
 ```{r age-freq}
 j <- purrr::map2(list(commercial_samples, cs_3cd, cs_5ab, cs_5cd, cs_5e),
           c("Coastwide", "3CD", "5AB", "5CD", "5E"), ~{
@@ -334,6 +334,7 @@ plot_lengths(lc_5e, show_year = "all") +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
 
+
 ---
 class: center
 ### Sex proportions
@@ -348,8 +349,10 @@ ggplot(ac_lc, aes(x = Year, y = `Proportion female`, color = `Type`)) +
 ```
 
 ---
-class: center
+class: center, inverse
 ### Gulf of Alaska assessments 2019 and 2020
 
+.left[
 - Split sex model (70% female in catch)
 - Lengths used as proxy for ages
+]
