@@ -28,6 +28,9 @@ resdoc.knit.md
 resdoc.utf8.md
 xaringan-themer.css
 
+*.cpp
+*.dll
 *.log
+*.o
 *.png
 *.rds

@@ -109,25 +109,45 @@ ct_areas_fine <- tidy_catch(catch, areas = c("3[CD]+", "5[AB]+", "5[CD]", "5[E]"
 ac_coast <- tidy_ages_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
 lc_coast <- tidy_lengths_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
 ac_lc_coast <- get_female_props(ac_coast, lc_coast) %>% mutate(Area = "coastwide")
+lwf_coast <- gfplot::fit_length_weight(commercial_samples, sex = "female")
+lwm_coast <- gfplot::fit_length_weight(commercial_samples, sex = "male")
+num_m_coast <- commercial_samples %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
+num_f_coast <- commercial_samples %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 3CD
 cs_3cd <- commercial_samples %>% filter(grepl("^3[C|D].*", major_stat_area_name))
 ac_3cd <- tidy_ages_weighted(cs_3cd, sample_type = "commercial", dat_catch = catch)
 lc_3cd <- tidy_lengths_weighted(cs_3cd, sample_type = "commercial", dat_catch = catch)
 ac_lc_3cd <- get_female_props(ac_3cd, lc_3cd) %>% mutate(Area = "3CD")
+lwf_3cd <- gfplot::fit_length_weight(cs_3cd, sex = "female")
+lwm_3cd <- gfplot::fit_length_weight(cs_3cd, sex = "male")
+num_m_3cd <- cs_3cd %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
+num_f_3cd <- cs_3cd %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 5AB
 cs_5ab <- commercial_samples %>% filter(grepl("^5[A|B].*", major_stat_area_name))
 ac_5ab <- tidy_ages_weighted(cs_5ab, sample_type = "commercial", dat_catch = catch)
 lc_5ab <- tidy_lengths_weighted(cs_5ab, sample_type = "commercial", dat_catch = catch)
 ac_lc_5ab <- get_female_props(ac_5ab, lc_5ab) %>% mutate(Area = "5AB")
+lwf_5ab <- gfplot::fit_length_weight(cs_5ab, sex = "female")
+lwm_5ab <- gfplot::fit_length_weight(cs_5ab, sex = "male", min_samples = 25)
+num_m_5ab <- cs_5ab %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
+num_f_5ab <- cs_5ab %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 5CD
 cs_5cd <- commercial_samples %>% filter(grepl("^5[C|D].*", major_stat_area_name))
 ac_5cd <- tidy_ages_weighted(cs_5cd, sample_type = "commercial", dat_catch = catch)
 lc_5cd <- tidy_lengths_weighted(cs_5cd, sample_type = "commercial", dat_catch = catch)
 ac_lc_5cd <- get_female_props(ac_5cd, lc_5cd) %>% mutate(Area = "5CD")
+lwf_5cd <- gfplot::fit_length_weight(cs_5cd, sex = "female")
+lwm_5cd <- gfplot::fit_length_weight(cs_5cd, sex = "male")
+num_m_5cd <- cs_5cd %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
+num_f_5cd <- cs_5cd %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 5E
 cs_5e <- commercial_samples %>% filter(grepl("^5[E].*", major_stat_area_name))
 lc_5e <- tidy_lengths_weighted(cs_5e, sample_type = "commercial", dat_catch = catch)
 ac_lc_5e <- get_female_props(lc = lc_5e) %>% mutate(Area = "5E")
+lwf_5e <- gfplot::fit_length_weight(cs_5e, sex = "female")
+lwm_5e <- gfplot::fit_length_weight(cs_5e, sex = "male")
+num_m_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
+num_f_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 
 ac_lc <- bind_rows(ac_lc_coast, ac_lc_3cd, ac_lc_5ab, ac_lc_5cd, ac_lc_5e)
 ```
@@ -141,6 +161,11 @@ style_mono_accent(
   code_font_google   = google_font("Fira Mono")
 )
 ```
+
+---
+class: center, middle, inverse
+
+# Commercial Fishery data
 
 ---
 class: center
@@ -336,14 +361,34 @@ plot_lengths(lc_5e, show_year = "all") +
 
 ---
 class: center
+### Length-weight relationships
+
+```{r lw-relationship}
+fm_color <- c(Female = "blue", Male = "red")
+cowplot::plot_grid(gfplot::plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color, show_legend = FALSE) +
+                     ggtitle(paste0("3CD (", num_f_3cd, " F, ", num_m_3cd, " M)")),
+                   gfplot::plot_length_weight(lwf_5ab, lwm_5ab, col = fm_color, show_legend = FALSE) +
+                     ggtitle(paste0("5AB (", num_f_5ab, " F, ", num_m_5ab, " M)")),
+                   gfplot::plot_length_weight(lwf_5cd, lwm_5cd, col = fm_color, show_legend = FALSE) +
+                     ggtitle(paste0("5CD (", num_f_5cd, " F, ", num_m_5cd, " M)")),
+                   gfplot::plot_length_weight(lwf_5e, lwm_5e, col = fm_color, show_legend = FALSE) +
+                     ggtitle(paste0("5E (", num_f_5e, " F, ", num_m_5e, " M)")),
+                   gfplot::plot_length_weight(lwf_coast, lwm_coast, col = fm_color, show_legend = FALSE) +
+                     ggtitle(paste0("Coastwide (", num_f_coast, " F, ", num_m_coast, " M)")),
+                   ncol = 3,
+                   nrow = 2)
+```
+
+---
+class: center
 ### Sex proportions
 
 ```{r sex_comp_compare-coast}
 ggplot(ac_lc, aes(x = Year, y = `Proportion female`, color = `Type`)) +
   geom_line(size = 2) +
   coord_cartesian(ylim = c(0, 1)) +
-  facet_wrap(~Area) +
-  theme_xaringan(background_color = "#FFFFFF", text_font_size = 10) 
+  facet_wrap(~Area) 
+  #theme_xaringan(background_color = "#FFFFFF", text_font_size = 10) 
 
 ```
 
