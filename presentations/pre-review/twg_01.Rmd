@@ -150,6 +150,7 @@ num_m_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
 num_f_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 
 ac_lc <- bind_rows(ac_lc_coast, ac_lc_3cd, ac_lc_5ab, ac_lc_5cd, ac_lc_5e)
+ggplot2::theme_set(gfplot::theme_pbs())
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -230,8 +231,12 @@ j <- purrr::map2(list(commercial_samples, cs_3cd, cs_5ab, cs_5cd, cs_5e),
               mutate(Area = .y)}) %>% 
   purrr::map_df(~{.x})
 
-ggplot(j, aes(x = Year, fill = Sex)) +
+ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
+  scale_fill_manual(values = c(Female = "#FF00001A", Male = "#0000FF1A", `Not recorded` = "#6666661A"),
+                    aesthetics = "fill") +
+  scale_color_manual(values = c(Female = "red", Male = "blue", `Not recorded` = "grey40"),
+                    aesthetics = "color") +
   facet_wrap(~ Area) +
   ylab("Number of length records") +
   scale_y_continuous(labels = scales::comma)
@@ -243,6 +248,8 @@ class: center
 ```{r age-comps}
 plot_ages(ac_coast) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
+                    aesthetics = "color") +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
 ```
@@ -253,6 +260,8 @@ class: center
 ```{r age-comps-3cd}
 plot_ages(ac_3cd) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
+                    aesthetics = "color") +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
 ```
@@ -263,6 +272,8 @@ class: center
 ```{r age-comps-5ab}
 plot_ages(ac_5ab) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
+                    aesthetics = "color") +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
 ```
@@ -273,6 +284,8 @@ class: center
 ```{r age-comps-5cd}
 plot_ages(ac_5cd) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
+                    aesthetics = "color") +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
 ```
@@ -291,8 +304,12 @@ j <- purrr::map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
               mutate(Area = .y)}) %>% 
   purrr::map_df(~{.x})
 
-ggplot(j, aes(x = Year, fill = Sex)) +
+ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
+  scale_fill_manual(values = c(Female = "#FF00001A", Male = "#0000FF1A", `Not recorded` = "#6666661A"),
+                    aesthetics = "fill") +
+  scale_color_manual(values = c(Female = "red", Male = "blue", `Not recorded` = "grey40"),
+                    aesthetics = "color") +
   facet_wrap(~ Area) +
   ylab("Number of length records") +
   scale_y_continuous(labels = scales::comma)
@@ -308,8 +325,12 @@ j <- commercial_samples %>%
   mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
   rename(Year = year, Length = length, Sex = sex) 
 
-ggplot(j, aes(x = Year, fill = Sex)) +
+ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
+  scale_fill_manual(values = c(Female = "#FF00001A", Male = "#0000FF1A", `Not recorded` = "#6666661A"),
+                    aesthetics = "fill") +
+  scale_color_manual(values = c(Female = "red", Male = "blue", `Not recorded` = "grey40"),
+                    aesthetics = "color") +
   ylab("Number of length records") +
   scale_y_continuous(labels = scales::comma)
 ```
@@ -318,7 +339,9 @@ ggplot(j, aes(x = Year, fill = Sex)) +
 class: center
 ### Length proportions coastwide
 ```{r length-comps}
-plot_lengths(lc_coast, show_year = "even") +
+fm_fill_colors <- c(M = "#0000FF1A", F = "#FF00001A")
+fm_line_colors <- c(M = "blue", F = "red")
+plot_lengths(lc_coast, show_year = "even", fill_col = fm_fill_colors, line_col = fm_line_colors) +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -327,7 +350,7 @@ plot_lengths(lc_coast, show_year = "even") +
 class: center
 ### Length proportions 3CD
 ```{r length-comps-3cd}
-plot_lengths(lc_3cd, show_year = "even") +
+plot_lengths(lc_3cd, show_year = "even", fill_col = fm_fill_colors, line_col = fm_line_colors) +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -336,7 +359,7 @@ plot_lengths(lc_3cd, show_year = "even") +
 class: center
 ### Length proportions 5AB
 ```{r length-comps-5ab}
-plot_lengths(lc_5ab, show_year = "even") +
+plot_lengths(lc_5ab, show_year = "even", fill_col = fm_fill_colors, line_col = fm_line_colors) +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -345,7 +368,7 @@ plot_lengths(lc_5ab, show_year = "even") +
 class: center
 ### Length proportions 5CD
 ```{r length-comps-5cd}
-plot_lengths(lc_5cd, show_year = "all") +
+plot_lengths(lc_5cd, show_year = "all", fill_col = fm_fill_colors, line_col = fm_line_colors) +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -354,7 +377,7 @@ plot_lengths(lc_5cd, show_year = "all") +
 class: center
 ### Length proportions 5E
 ```{r length-comps-5e}
-plot_lengths(lc_5e, show_year = "all") +
+plot_lengths(lc_5e, show_year = "all", fill_col = fm_fill_colors, line_col = fm_line_colors) +
   ggtitle(NULL) +
   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5))
 ```
@@ -364,7 +387,7 @@ class: center
 ### Length-weight relationships
 
 ```{r lw-relationship}
-fm_color <- c(Female = "blue", Male = "red")
+fm_color <- c(Male = "blue", Female = "red")
 cowplot::plot_grid(gfplot::plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color, show_legend = FALSE) +
                      ggtitle(paste0("3CD (", num_f_3cd, " F, ", num_m_3cd, " M)")),
                    gfplot::plot_length_weight(lwf_5ab, lwm_5ab, col = fm_color, show_legend = FALSE) +
