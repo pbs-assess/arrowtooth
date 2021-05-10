@@ -229,7 +229,8 @@ j <- purrr::map2(list(commercial_samples, cs_3cd, cs_5ab, cs_5cd, cs_5e),
     mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
               rename(Year = year, Age = age, Sex = sex) %>% 
               mutate(Area = .y)}) %>% 
-  purrr::map_df(~{.x})
+  purrr::map_df(~{.x}) %>% 
+  tidyr::complete(Year, Sex, Area)
 
 ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
@@ -294,7 +295,7 @@ plot_ages(ac_5cd) +
 class: center
 ### Number of fishery length observations
 ```{r length-freq}
-j <- purrr::map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
+k <- purrr::map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
           c("3CD", "5AB", "5CD", "5E"), ~{
   .x %>%
     select(year, sex, length) %>%
@@ -302,9 +303,10 @@ j <- purrr::map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
     mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
               rename(Year = year, Length = length, Sex = sex) %>% 
               mutate(Area = .y)}) %>% 
-  purrr::map_df(~{.x})
+  purrr::map_df(~{.x}) %>% 
+  tidyr::complete(Year, Sex, Area)
 
-ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
+ggplot(k, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
   scale_fill_manual(values = c(Female = "#FF00001A", Male = "#0000FF1A", `Not recorded` = "#6666661A"),
                     aesthetics = "fill") +
@@ -323,7 +325,8 @@ j <- commercial_samples %>%
   select(year, sex, length) %>%
   filter(!is.na(length)) %>% 
   mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
-  rename(Year = year, Length = length, Sex = sex) 
+  rename(Year = year, Length = length, Sex = sex) %>% 
+  tidyr::complete(Year, Sex) 
 
 ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
