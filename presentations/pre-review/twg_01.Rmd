@@ -58,6 +58,7 @@ nongit_dir <- main_dirs$nongit_dir
 if(!exists("dat")){
   dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
 }
+pres_dir <- file.path(nongit_dir, "presentations", "pre-review")
 survey_index <- dat$survey_index
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
@@ -102,13 +103,14 @@ get_female_props <- function(ac = NULL, lc){
   }
 }
 
+# Commercial samples
 # Coastwide
 ct_coast <- tidy_catch(catch, areas = NULL)
 ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[ABCDE]+"))
 ct_areas_fine <- tidy_catch(catch, areas = c("3[CD]+", "5[AB]+", "5[CD]", "5[E]"))
 ac_coast <- tidy_ages_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
 lc_coast <- tidy_lengths_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
-ac_lc_coast <- get_female_props(ac_coast, lc_coast) %>% mutate(Area = "coastwide")
+ac_lc_coast <- get_female_props(ac_coast, lc_coast) %>% mutate(Area = "Coastwide")
 lwf_coast <- gfplot::fit_length_weight(commercial_samples, sex = "female")
 lwm_coast <- gfplot::fit_length_weight(commercial_samples, sex = "male")
 num_m_coast <- commercial_samples %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
@@ -150,6 +152,41 @@ num_m_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
 num_f_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 
 ac_lc <- bind_rows(ac_lc_coast, ac_lc_3cd, ac_lc_5ab, ac_lc_5cd, ac_lc_5e)
+
+# Survey samples
+# Coastwide
+ss_coast <- survey_samples %>%
+  filter(survey_abbrev %in% c("SYN WCVI", "SYN QCS", "SYN HS", "HS MSA"))
+as_coast <- ss_coast %>%
+  tidy_ages_weighted(sample_type = "survey",
+                     dat_survey_sets = survey_sets) %>% 
+  mutate(survey_abbrev = as.character(survey_abbrev))
+ls_coast <- tidy_lengths_weighted(survey_samples,
+                                  sample_type = "survey",
+                                  dat_survey_sets = survey_sets)
+as_ls_coast <- get_female_props(as_coast, ls_coast) %>% mutate(Area = "All surveys")
+# 3CD
+ss_3cd <- survey_samples %>% filter(survey_abbrev == "SYN WCVI")
+as_3cd <- tidy_ages_weighted(ss_3cd, sample_type = "survey", dat_survey_sets = survey_sets)
+ls_3cd <- tidy_lengths_weighted(ss_3cd, sample_type = "survey", dat_survey_sets = survey_sets)
+as_ls_3cd <- get_female_props(as_3cd, ls_3cd) %>% mutate(Area = "SYN WCVI")
+# 5AB
+ss_5ab <- survey_samples %>% filter(survey_abbrev == "SYN QCS")
+as_5ab <- tidy_ages_weighted(ss_5ab, sample_type = "survey", dat_survey_sets = survey_sets)
+ls_5ab <- tidy_lengths_weighted(ss_5ab, sample_type = "survey", dat_survey_sets = survey_sets)
+as_ls_5ab <- get_female_props(as_5ab, ls_5ab) %>% mutate(Area = "SYN QCS")
+# 5CD
+ss_5cd <- survey_samples %>% filter(survey_abbrev == "SYN HS")
+as_5cd <- tidy_ages_weighted(ss_5cd, sample_type = "survey", dat_survey_sets = survey_sets)
+ls_5cd <- tidy_lengths_weighted(ss_5cd, sample_type = "survey", dat_survey_sets = survey_sets)
+as_ls_5cd <- get_female_props(as_5cd, ls_5cd) %>% mutate(Area = "SYN HS")
+# 5E
+ss_5e <- survey_samples %>% filter(survey_abbrev == "SYN WCHG")
+ls_5e <- tidy_lengths_weighted(ss_5e, sample_type = "survey", dat_survey_sets = survey_sets)
+as_ls_5e <- get_female_props(lc = ls_5e) %>% mutate(Area = "SYN WCHG")
+
+as_ls <- bind_rows(as_ls_coast, as_ls_3cd, as_ls_5ab, as_ls_5cd, as_ls_5e)
+
 ggplot2::theme_set(gfplot::theme_pbs())
 ```
 
@@ -391,15 +428,20 @@ class: center
 
 ```{r lw-relationship}
 fm_color <- c(Male = "blue", Female = "red")
-cowplot::plot_grid(gfplot::plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color, show_legend = FALSE) +
+cowplot::plot_grid(gfplot::plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color) +
+                     theme(legend.position = NULL) +
                      ggtitle(paste0("3CD (", num_f_3cd, " F, ", num_m_3cd, " M)")),
-                   gfplot::plot_length_weight(lwf_5ab, lwm_5ab, col = fm_color, show_legend = FALSE) +
+                   gfplot::plot_length_weight(lwf_5ab, lwm_5ab, col = fm_color) +
+                     theme(legend.position = NULL) +
                      ggtitle(paste0("5AB (", num_f_5ab, " F, ", num_m_5ab, " M)")),
-                   gfplot::plot_length_weight(lwf_5cd, lwm_5cd, col = fm_color, show_legend = FALSE) +
+                   gfplot::plot_length_weight(lwf_5cd, lwm_5cd, col = fm_color) +
+                     theme(legend.position = NULL) +
                      ggtitle(paste0("5CD (", num_f_5cd, " F, ", num_m_5cd, " M)")),
-                   gfplot::plot_length_weight(lwf_5e, lwm_5e, col = fm_color, show_legend = FALSE) +
+                   gfplot::plot_length_weight(lwf_5e, lwm_5e, col = fm_color) +
+                     theme(legend.position = NULL) +
                      ggtitle(paste0("5E (", num_f_5e, " F, ", num_m_5e, " M)")),
-                   gfplot::plot_length_weight(lwf_coast, lwm_coast, col = fm_color, show_legend = FALSE) +
+                   gfplot::plot_length_weight(lwf_coast, lwm_coast, col = fm_color) +
+                     theme(legend.position = NULL) +
                      ggtitle(paste0("Coastwide (", num_f_coast, " F, ", num_m_coast, " M)")),
                    ncol = 3,
                    nrow = 2)
@@ -409,15 +451,186 @@ cowplot::plot_grid(gfplot::plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color, 
 class: center
 ### Sex proportions
 
-```{r sex_comp_compare-coast}
+```{r sex-comp-compare-coast}
 ggplot(ac_lc, aes(x = Year, y = `Proportion female`, color = `Type`)) +
-  geom_line(size = 2) +
+  geom_line(size = 1) +
   geom_hline(yintercept = c(0.5, 0.75), linetype = "dashed") +
   coord_cartesian(ylim = c(0, 1)) +
   facet_wrap(~Area) 
   #theme_xaringan(background_color = "#FFFFFF", text_font_size = 10) 
 
 ```
+
+---
+class: center, inverse, middle
+# Survey data
+
+---
+class: center
+### Sample availibility
+
+```{r sample-availability}
+surv_samp <- tidy_sample_avail(survey_samples)
+plot_sample_avail(surv_samp, palette = "Greens", text_colour = "black")
+```
+
+---
+class: center
+### Survey Indices
+
+```{r survey-indices}
+surv_indices <- tidy_survey_index(survey_index)
+plot_survey_index(surv_indices, col = c("lightblue", "black"))
+```
+
+---
+class: center
+### Survey biomass for SYN WCVI
+
+```{r survey-sets-wcvi, animation.hook="gifski", interval=2}
+for(i in seq(2004, 2018, by = 2)){
+  rds_file <- file.path(pres_dir, paste0("survey-sets-wcvi-", i, ".rds"))
+  if(file.exists(rds_file)){
+    surv_sets <- readRDS(rds_file)
+  }else{
+    surv_sets <- fit_survey_sets(survey_sets,
+                                 years = i,
+                                 survey = "SYN WCVI")
+    saveRDS(surv_sets, rds_file)    
+  }
+  g <- plot_survey_sets(surv_sets$predictions,
+                        surv_sets$data, 
+                        fill_column = "combined") +
+    ggtitle(label = i) +
+    theme(plot.title = element_text(size = 24, face = "bold"))
+  print(g)
+}
+```
+
+---
+class: center
+### Survey biomass for SYN QCS
+
+```{r survey-sets-qcs, animation.hook="gifski", interval=2}
+for(i in c(2003, 2004, seq(2003, 2019, by = 2))){
+  rds_file <- file.path(pres_dir, paste0("survey-sets-qcs-", i, ".rds"))
+  if(file.exists(rds_file)){
+    surv_sets <- readRDS(rds_file)
+  }else{
+    surv_sets <- fit_survey_sets(survey_sets,
+                                 years = i,
+                                 survey = "SYN QCS")
+    saveRDS(surv_sets, rds_file)    
+  }
+  g <- plot_survey_sets(surv_sets$predictions,
+                        surv_sets$data, 
+                        fill_column = "combined") +
+    ggtitle(label = i) +
+    theme(plot.title = element_text(size = 24, face = "bold"))
+  print(g)
+}
+```
+
+---
+class: center
+### Survey biomass for SYN HS
+
+```{r survey-sets-hs, animation.hook="gifski", interval=2}
+for(i in seq(2005, 2019, by = 2)){
+  rds_file <- file.path(pres_dir, paste0("survey-sets-hs-", i, ".rds"))
+  if(file.exists(rds_file)){
+    surv_sets <- readRDS(rds_file)
+  }else{
+    surv_sets <- fit_survey_sets(survey_sets,
+                                 years = i,
+                                 survey = "SYN HS")
+    saveRDS(surv_sets, rds_file)    
+  }
+  g <- plot_survey_sets(surv_sets$predictions,
+                        surv_sets$data, 
+                        fill_column = "combined") +
+    ggtitle(label = i) +
+    theme(plot.title = element_text(size = 24, face = "bold"))
+  print(g)
+}
+```
+
+---
+class: center
+### Survey biomass for SYN WCHG
+
+```{r survey-sets-wchg, animation.hook="gifski", interval=2}
+for(i in c(2006, 2008, 2010, 2012, 2014, 2016, 2018)){
+  rds_file <- file.path(pres_dir, paste0("survey-sets-wchg-", i, ".rds"))
+  if(file.exists(rds_file)){
+    surv_sets <- readRDS(rds_file)
+  }else{
+    surv_sets <- fit_survey_sets(survey_sets,
+                                 years = i,
+                                 survey = "SYN WCHG")
+    saveRDS(surv_sets, rds_file)    
+  }
+  g <- plot_survey_sets(surv_sets$predictions,
+                        surv_sets$data, 
+                        fill_column = "combined") +
+    ggtitle(label = i) +
+    theme(plot.title = element_text(size = 24, face = "bold"))
+  print(g)
+}
+```
+
+---
+class: center
+### Number of SYN WCVI survey age observations
+```{r survey-age-freq}
+j <- purrr::map2(list(survey_samples, ss_3cd, ss_5ab, ss_5cd),
+          c("Coastwide", "3CD (SYN WCVI)", "5AB (SYN QCS)", "5CD (SYN HS)"), ~{
+  .x %>%
+    select(year, sex, age) %>%
+    filter(!is.na(age)) %>% 
+    mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
+              rename(Year = year, Age = age, Sex = sex) %>% 
+              mutate(Area = .y)}) %>% 
+  purrr::map_df(~{.x}) %>% 
+  tidyr::complete(Year, Sex, Area)
+
+ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
+  geom_bar() +
+  scale_fill_manual(values = c(Female = "#FF00001A", Male = "#0000FF1A", `Not recorded` = "#6666661A"),
+                    aesthetics = "fill") +
+  scale_color_manual(values = c(Female = "red", Male = "blue", `Not recorded` = "grey40"),
+                    aesthetics = "color") +
+  facet_wrap(~ Area) +
+  ylab("Number of length records") +
+  scale_y_continuous(labels = scales::comma)
+```
+
+---
+class: center
+### Age proportions from surveys
+```{r surveyage-comps-coastwide}
+plot_ages(as_coast, diagonal_lines = NA) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
+                    aesthetics = "color") +
+  ggtitle(NULL)
+```
+
+---
+class: center
+### Sex proportions
+
+```{r survey-sex-comp-compare-coast}
+ggplot(as_ls, aes(x = Year, y = `Proportion female`, color = `Type`)) +
+  geom_line(size = 1) +
+  geom_hline(yintercept = c(0.5, 0.75), linetype = "dashed") +
+  coord_cartesian(ylim = c(0, 1)) +
+  facet_wrap(~Area) 
+  #theme_xaringan(background_color = "#FFFFFF", text_font_size = 10) 
+
+```
+
+
 
 ---
 class: center, inverse
