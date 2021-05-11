@@ -238,6 +238,8 @@ plot_catch(ct_coast, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
 class: center
 ### Total catch split North/South
 ```{r main-catches-by-area}
+# Place North on top and South on bottom for facets
+ct_areas$area <- factor(ct_areas$area, levels = rev(unique(ct_areas$area)))
 plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
   theme(axis.text.x = element_text(angle = 0)) +
   ggtitle(NULL) +
@@ -248,6 +250,8 @@ plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
 class: center
 ### Total catch by area
 ```{r main-catches-by-area-fine}
+# Place North on top and South on bottom for facets
+ct_areas_fine$area <- factor(ct_areas_fine$area, levels = rev(unique(ct_areas_fine$area)))
 plot_catch(ct_areas_fine, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
   theme(axis.text.x = element_text(angle = 0)) +
   ggtitle(NULL) +
@@ -284,7 +288,7 @@ ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
 class: center
 ### Age proportions coastwide
 ```{r age-comps}
-plot_ages(ac_coast) +
+plot_ages(ac_coast, diagonal_lines = NA) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
   scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
                     aesthetics = "color") +
@@ -296,7 +300,7 @@ plot_ages(ac_coast) +
 class: center
 ### Age proportions area 3CD
 ```{r age-comps-3cd}
-plot_ages(ac_3cd) +
+plot_ages(ac_3cd, diagonal_lines = NA) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
   scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
                     aesthetics = "color") +
@@ -308,7 +312,7 @@ plot_ages(ac_3cd) +
 class: center
 ### Age proportions area 5AB
 ```{r age-comps-5ab}
-plot_ages(ac_5ab) +
+plot_ages(ac_5ab, diagonal_lines = NA) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
   scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
                     aesthetics = "color") +
@@ -320,7 +324,7 @@ plot_ages(ac_5ab) +
 class: center
 ### Age proportions area 5CD
 ```{r age-comps-5cd}
-plot_ages(ac_5cd) +
+plot_ages(ac_5cd, diagonal_lines = NA) +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
   scale_color_manual(values = c(F = "#FF000080", M = "#0000FF80"),
                     aesthetics = "color") +
@@ -429,19 +433,19 @@ class: center
 ```{r lw-relationship}
 fm_color <- c(Male = "blue", Female = "red")
 cowplot::plot_grid(gfplot::plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color) +
-                     theme(legend.position = NULL) +
+                     theme(legend.position = "none") +
                      ggtitle(paste0("3CD (", num_f_3cd, " F, ", num_m_3cd, " M)")),
                    gfplot::plot_length_weight(lwf_5ab, lwm_5ab, col = fm_color) +
-                     theme(legend.position = NULL) +
+                     theme(legend.position = "none") +
                      ggtitle(paste0("5AB (", num_f_5ab, " F, ", num_m_5ab, " M)")),
                    gfplot::plot_length_weight(lwf_5cd, lwm_5cd, col = fm_color) +
-                     theme(legend.position = NULL) +
+                     theme(legend.position = "none") +
                      ggtitle(paste0("5CD (", num_f_5cd, " F, ", num_m_5cd, " M)")),
                    gfplot::plot_length_weight(lwf_5e, lwm_5e, col = fm_color) +
-                     theme(legend.position = NULL) +
+                     theme(legend.position = "none") +
                      ggtitle(paste0("5E (", num_f_5e, " F, ", num_m_5e, " M)")),
                    gfplot::plot_length_weight(lwf_coast, lwm_coast, col = fm_color) +
-                     theme(legend.position = NULL) +
+                     theme(legend.position = "none") +
                      ggtitle(paste0("Coastwide (", num_f_coast, " F, ", num_m_coast, " M)")),
                    ncol = 3,
                    nrow = 2)
