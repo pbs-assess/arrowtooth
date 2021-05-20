@@ -56,7 +56,7 @@ library(arrowtooth)
 main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
 nongit_dir <- main_dirs$nongit_dir
 if(!exists("dat")){
-  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
+  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-may14-2021.rds"))
 }
 pres_dir <- file.path(nongit_dir, "presentations", "pre-review")
 survey_index <- dat$survey_index
@@ -643,5 +643,12 @@ class: center, inverse
 .left[
 - Split sex model (70% female in catch)
 - Lengths used as proxy for ages
+- Ages 1- 21+
+- Selectivity is estimated up to age 19
+- Age at 50% maturity is 7
+- Recruitment is estimated for each year, except the last which is the mean
+- Age-varying M
+- Observation errors for age and length compositions were assumed to be multinomial distributed
+- Recruitment deviations and catch and biomass observation errors were assumed to be lognormally distributed
 ]
 

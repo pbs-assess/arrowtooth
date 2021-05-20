@@ -17,9 +17,6 @@ update_gf_packages <- function(){
   cat(crayon::green("\nRebasing new commits from gfdata...\n"))
   shell(paste0("cd ", file.path(git_dir, "gfdata"), " && git pull --rebase"))
 
-  cat(crayon::green("\nRebasing new commits from gfdlm...\n"))
-  shell(paste0("cd ", file.path(git_dir, "gfdlm"), " && git pull --rebase"))
-
   cat(crayon::green("\nRebasing new commits from gfiscamutils...\n"))
   shell(paste0("cd ", file.path(git_dir, "gfiscamutils"), " && git pull --rebase"))
 
@@ -39,9 +36,6 @@ update_gf_packages <- function(){
 
   cat(crayon::green("\nBuilding and installing gfdata package...\n"))
   devtools::install("gfdata", quick = TRUE, dependencies = FALSE)
-
-  cat(crayon::green("\nBuilding and installing gfdlm package...\n"))
-  devtools::install("gfdlm", quick = TRUE, dependencies = FALSE)
 
   cat(crayon::green("\nBuilding and installing gfiscamutils package...\n"))
   devtools::install("gfiscamutils", quick = TRUE, dependencies = FALSE)

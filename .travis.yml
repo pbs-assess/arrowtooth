@@ -16,7 +16,6 @@ r_github_packages:
   - pbs-assess/csasdown
   - DLMtool/DLMtool
   - pbs-assess/gfdata
-  - pbs-assess/gfdlm
   - pbs-assess/gfiscamutils
   - pbs-assess/gfplot
   - pbs-assess/gfutilities

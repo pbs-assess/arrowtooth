@@ -22,7 +22,6 @@ Imports:
     furrr,
     future,
     gfdata,
-    gfdlm,
     gfiscamutils,
     gfplot,
     gfutilities,
@@ -45,7 +44,6 @@ Suggests:
 Remotes:
     pbs-assess/csasdown,
     pbs-assess/gfdata,
-    pbs-assess/gfdlm,
     pbs-assess/gfiscamutils,
     pbs-assess/gfplot,
     pbs-assess/gfutilities,
