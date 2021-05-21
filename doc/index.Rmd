@@ -118,7 +118,7 @@ all_models <- model_setup(main_dirs = main_dirs)
 base_model <- all_models$base_model
 sens_models <- all_models$sens_models
 
-dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-september-2019.rds"))
+dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-may14-2021.rds"))
 survey_index <- dat$survey_index
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
