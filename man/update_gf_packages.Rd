@@ -4,7 +4,7 @@
 \alias{update_gf_packages}
 \title{Rebase and build Groundfish packages automatically.}
 \usage{
-update_gf_packages()
+update_gf_packages(git_dir = "C:/github")
 }
 \value{
 Nothing
