@@ -3,9 +3,9 @@
 [![Travis build status](https://travis-ci.org/pbs-assess/arrowtooth.svg?branch=master)](https://travis-ci.org/pbs-assess/arrowtooth)
 [![Coverage status](https://codecov.io/gh/pbs-assess/arrowtooth/branch/master/graph/badge.svg)](https://codecov.io/github/pbs-assess/arrowtooth?branch=master)
 
-There is a Docker image for this package! See https://github.com/pbs-assess/arrowtooth/wiki/Running-the-docker-image-with-this-package
-
 An R package which contains functions for exploration of models and for generating a CSAS stock assessment Research document using [csasdown](https://github.com/pbs-assess/csasdown).
+
+**There is a Docker image for this package! See https://github.com/pbs-assess/arrowtooth/wiki/Running-the-docker-image-with-this-package**
 
 Created on March 30, 2020 using the https://github.com/pbs-assess/csasdown package.
 
