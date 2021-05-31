@@ -108,7 +108,11 @@ library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
 library(arrowtooth)
 
-main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
+if(here::here() == "/home/rstudio"){
+  main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here("arrowtooth")), "arrowtooth-nongit"))
+}else{
+  main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
+}
 nongit_dir <- main_dirs$nongit_dir
 models_dir <- main_dirs$models_dir
 base_model_dir <- main_dirs$base_model_dir
