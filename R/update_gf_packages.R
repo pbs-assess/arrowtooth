@@ -2,8 +2,7 @@
 #'
 #' @return Nothing
 #' @export
-update_gf_packages <- function(){
-  git_dir <- "C:/github"
+update_gf_packages <- function(git_dir = "C:/github"){
   if(tolower(Sys.getenv("USERNAME")) == "grandin"){
     git_dir <- "C:/github/pbs-assess"
   }
