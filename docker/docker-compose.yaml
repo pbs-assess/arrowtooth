@@ -1,0 +1,18 @@
+services:
+  arrowtooth:
+    image: cgrandin/arrowtooth
+    build: .
+    ports:
+      - 8787:8787
+    volumes:
+      - '../.here:/home/rstudio/arrowtooth/.here'
+      - '../doc:/home/rstudio/arrowtooth/doc'
+      - '../presentations:/home/rstudio/arrowtooth/presentations'
+      - '../../arrowtooth-nongit/data:/home/rstudio/arrowtooth-nongit/data'
+      - '../../arrowtooth-nongit/presentations:/home/rstudio/arrowtooth-nongit/presentations'
+      - '../../arrowtooth-nongit/models:/home/rstudio/arrowtooth-nongit/models'
+    environment:
+      - USER=rstudio
+      - PASSWORD=qwerty
+  
+  
