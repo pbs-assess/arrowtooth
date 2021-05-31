@@ -15,6 +15,7 @@ knitr-cache-pdf
 knitr-cache-tex
 knitr-figs-docx
 knitr-figs-pdf
+lightable.css
 models*
 reference-materials
 remark-css
@@ -26,11 +27,14 @@ resdoc.upa
 resdoc.pdf
 resdoc.knit.md
 resdoc.utf8.md
+test
 xaringan-themer.css
 
 *.cpp
 *.dll
+*.js
 *.log
 *.o
 *.png
 *.rds
+*.so

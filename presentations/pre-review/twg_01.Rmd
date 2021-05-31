@@ -47,13 +47,20 @@ knitr::opts_chunk$set(
 french <- FALSE
 
 options(htmltools.dir.version = FALSE)
+library(cowplot)
 library(dplyr)
+library(here)
+library(gfplot)
 library(ggplot2)
-#library(gfplot)
-devtools::load_all(file.path(dirname(here::here()), "gfplot"))
+library(knitr)
+library(kableExtra)
+library(purrr)
+library(tibble)
+library(tidyr)
+#devtools::load_all(file.path(dirname(here()), "gfplot"))
 library(arrowtooth)
 
-main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
+main_dirs <- set_dirs(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"))
 nongit_dir <- main_dirs$nongit_dir
 if(!exists("dat")){
   dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-may14-2021.rds"))
@@ -111,8 +118,8 @@ ct_areas_fine <- tidy_catch(catch, areas = c("3[CD]+", "5[AB]+", "5[CD]", "5[E]"
 ac_coast <- tidy_ages_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
 lc_coast <- tidy_lengths_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
 ac_lc_coast <- get_female_props(ac_coast, lc_coast) %>% mutate(Area = "Coastwide")
-lwf_coast <- gfplot::fit_length_weight(commercial_samples, sex = "female")
-lwm_coast <- gfplot::fit_length_weight(commercial_samples, sex = "male")
+lwf_coast <- fit_length_weight(commercial_samples, sex = "female")
+lwm_coast <- fit_length_weight(commercial_samples, sex = "male")
 num_m_coast <- commercial_samples %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
 num_f_coast <- commercial_samples %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 3CD
@@ -120,8 +127,8 @@ cs_3cd <- commercial_samples %>% filter(grepl("^3[C|D].*", major_stat_area_name)
 ac_3cd <- tidy_ages_weighted(cs_3cd, sample_type = "commercial", dat_catch = catch)
 lc_3cd <- tidy_lengths_weighted(cs_3cd, sample_type = "commercial", dat_catch = catch)
 ac_lc_3cd <- get_female_props(ac_3cd, lc_3cd) %>% mutate(Area = "3CD")
-lwf_3cd <- gfplot::fit_length_weight(cs_3cd, sex = "female")
-lwm_3cd <- gfplot::fit_length_weight(cs_3cd, sex = "male")
+lwf_3cd <- fit_length_weight(cs_3cd, sex = "female")
+lwm_3cd <- fit_length_weight(cs_3cd, sex = "male")
 num_m_3cd <- cs_3cd %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
 num_f_3cd <- cs_3cd %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 5AB
@@ -129,8 +136,8 @@ cs_5ab <- commercial_samples %>% filter(grepl("^5[A|B].*", major_stat_area_name)
 ac_5ab <- tidy_ages_weighted(cs_5ab, sample_type = "commercial", dat_catch = catch)
 lc_5ab <- tidy_lengths_weighted(cs_5ab, sample_type = "commercial", dat_catch = catch)
 ac_lc_5ab <- get_female_props(ac_5ab, lc_5ab) %>% mutate(Area = "5AB")
-lwf_5ab <- gfplot::fit_length_weight(cs_5ab, sex = "female")
-lwm_5ab <- gfplot::fit_length_weight(cs_5ab, sex = "male", min_samples = 25)
+lwf_5ab <- fit_length_weight(cs_5ab, sex = "female")
+lwm_5ab <- fit_length_weight(cs_5ab, sex = "male", min_samples = 25)
 num_m_5ab <- cs_5ab %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
 num_f_5ab <- cs_5ab %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 5CD
@@ -138,16 +145,16 @@ cs_5cd <- commercial_samples %>% filter(grepl("^5[C|D].*", major_stat_area_name)
 ac_5cd <- tidy_ages_weighted(cs_5cd, sample_type = "commercial", dat_catch = catch)
 lc_5cd <- tidy_lengths_weighted(cs_5cd, sample_type = "commercial", dat_catch = catch)
 ac_lc_5cd <- get_female_props(ac_5cd, lc_5cd) %>% mutate(Area = "5CD")
-lwf_5cd <- gfplot::fit_length_weight(cs_5cd, sex = "female")
-lwm_5cd <- gfplot::fit_length_weight(cs_5cd, sex = "male")
+lwf_5cd <- fit_length_weight(cs_5cd, sex = "female")
+lwm_5cd <- fit_length_weight(cs_5cd, sex = "male")
 num_m_5cd <- cs_5cd %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
 num_f_5cd <- cs_5cd %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 # 5E
 cs_5e <- commercial_samples %>% filter(grepl("^5[E].*", major_stat_area_name))
 lc_5e <- tidy_lengths_weighted(cs_5e, sample_type = "commercial", dat_catch = catch)
 ac_lc_5e <- get_female_props(lc = lc_5e) %>% mutate(Area = "5E")
-lwf_5e <- gfplot::fit_length_weight(cs_5e, sex = "female")
-lwm_5e <- gfplot::fit_length_weight(cs_5e, sex = "male")
+lwf_5e <- fit_length_weight(cs_5e, sex = "female")
+lwm_5e <- fit_length_weight(cs_5e, sex = "male")
 num_m_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 1) %>% nrow
 num_f_5e <- cs_5e %>% filter(!is.na(weight) & !is.na(length), sex == 2) %>% nrow
 
@@ -187,7 +194,7 @@ as_ls_5e <- get_female_props(lc = ls_5e) %>% mutate(Area = "SYN WCHG")
 
 as_ls <- bind_rows(as_ls_coast, as_ls_3cd, as_ls_5ab, as_ls_5cd, as_ls_5e)
 
-ggplot2::theme_set(gfplot::theme_pbs())
+theme_set(theme_pbs())
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -262,7 +269,7 @@ plot_catch(ct_areas_fine, french = french, xlim = c(start_catch_yr, end_catch_yr
 class: center
 ### Number of fishery age observations
 ```{r age-freq}
-j <- purrr::map2(list(commercial_samples, cs_3cd, cs_5ab, cs_5cd, cs_5e),
+j <- map2(list(commercial_samples, cs_3cd, cs_5ab, cs_5cd, cs_5e),
           c("Coastwide", "3CD", "5AB", "5CD", "5E"), ~{
   .x %>%
     select(year, sex, age) %>%
@@ -270,8 +277,8 @@ j <- purrr::map2(list(commercial_samples, cs_3cd, cs_5ab, cs_5cd, cs_5e),
     mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
               rename(Year = year, Age = age, Sex = sex) %>% 
               mutate(Area = .y)}) %>% 
-  purrr::map_df(~{.x}) %>% 
-  tidyr::complete(Year, Sex, Area)
+  map_df(~{.x}) %>% 
+  complete(Year, Sex, Area)
 
 ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
@@ -336,7 +343,7 @@ plot_ages(ac_5cd, diagonal_lines = NA) +
 class: center
 ### Number of fishery length observations
 ```{r length-freq}
-k <- purrr::map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
+k <- map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
           c("3CD", "5AB", "5CD", "5E"), ~{
   .x %>%
     select(year, sex, length) %>%
@@ -344,8 +351,8 @@ k <- purrr::map2(list(cs_3cd, cs_5ab, cs_5cd, cs_5e),
     mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
               rename(Year = year, Length = length, Sex = sex) %>% 
               mutate(Area = .y)}) %>% 
-  purrr::map_df(~{.x}) %>% 
-  tidyr::complete(Year, Sex, Area)
+  map_df(~{.x}) %>% 
+  complete(Year, Sex, Area)
 
 ggplot(k, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
@@ -367,7 +374,7 @@ j <- commercial_samples %>%
   filter(!is.na(length)) %>% 
   mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
   rename(Year = year, Length = length, Sex = sex) %>% 
-  tidyr::complete(Year, Sex) 
+  complete(Year, Sex) 
 
 ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
@@ -432,23 +439,23 @@ class: center
 
 ```{r lw-relationship}
 fm_color <- c(Male = "blue", Female = "red")
-cowplot::plot_grid(gfplot::plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color) +
-                     theme(legend.position = "none") +
-                     ggtitle(paste0("3CD (", num_f_3cd, " F, ", num_m_3cd, " M)")),
-                   gfplot::plot_length_weight(lwf_5ab, lwm_5ab, col = fm_color) +
-                     theme(legend.position = "none") +
-                     ggtitle(paste0("5AB (", num_f_5ab, " F, ", num_m_5ab, " M)")),
-                   gfplot::plot_length_weight(lwf_5cd, lwm_5cd, col = fm_color) +
-                     theme(legend.position = "none") +
-                     ggtitle(paste0("5CD (", num_f_5cd, " F, ", num_m_5cd, " M)")),
-                   gfplot::plot_length_weight(lwf_5e, lwm_5e, col = fm_color) +
-                     theme(legend.position = "none") +
-                     ggtitle(paste0("5E (", num_f_5e, " F, ", num_m_5e, " M)")),
-                   gfplot::plot_length_weight(lwf_coast, lwm_coast, col = fm_color) +
-                     theme(legend.position = "none") +
-                     ggtitle(paste0("Coastwide (", num_f_coast, " F, ", num_m_coast, " M)")),
-                   ncol = 3,
-                   nrow = 2)
+plot_grid(plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color) +
+            theme(legend.position = "none") +
+            ggtitle(paste0("3CD (", num_f_3cd, " F, ", num_m_3cd, " M)")),
+          plot_length_weight(lwf_5ab, lwm_5ab, col = fm_color) +
+            theme(legend.position = "none") +
+            ggtitle(paste0("5AB (", num_f_5ab, " F, ", num_m_5ab, " M)")),
+          plot_length_weight(lwf_5cd, lwm_5cd, col = fm_color) +
+            theme(legend.position = "none") +
+            ggtitle(paste0("5CD (", num_f_5cd, " F, ", num_m_5cd, " M)")),
+          plot_length_weight(lwf_5e, lwm_5e, col = fm_color) +
+            theme(legend.position = "none") +
+            ggtitle(paste0("5E (", num_f_5e, " F, ", num_m_5e, " M)")),
+          plot_length_weight(lwf_coast, lwm_coast, col = fm_color) +
+            theme(legend.position = "none") +
+            ggtitle(paste0("Coastwide (", num_f_coast, " F, ", num_m_coast, " M)")),
+          ncol = 3,
+          nrow = 2)
 ```
 
 ---
@@ -587,7 +594,7 @@ for(i in c(2006, 2008, 2010, 2012, 2014, 2016, 2018)){
 class: center
 ### Number of SYN WCVI survey age observations
 ```{r survey-age-freq}
-j <- purrr::map2(list(survey_samples, ss_3cd, ss_5ab, ss_5cd),
+j <- map2(list(survey_samples, ss_3cd, ss_5ab, ss_5cd),
           c("Coastwide", "3CD (SYN WCVI)", "5AB (SYN QCS)", "5CD (SYN HS)"), ~{
   .x %>%
     select(year, sex, age) %>%
@@ -595,8 +602,8 @@ j <- purrr::map2(list(survey_samples, ss_3cd, ss_5ab, ss_5cd),
     mutate(sex = ifelse(sex == 1, "Male", ifelse(sex == 2, "Female", "Not recorded"))) %>% 
               rename(Year = year, Age = age, Sex = sex) %>% 
               mutate(Area = .y)}) %>% 
-  purrr::map_df(~{.x}) %>% 
-  tidyr::complete(Year, Sex, Area)
+  map_df(~{.x}) %>% 
+  complete(Year, Sex, Area)
 
 ggplot(j, aes(x = Year, fill = Sex, color = Sex)) +
   geom_bar() +
@@ -634,21 +641,55 @@ ggplot(as_ls, aes(x = Year, y = `Proportion female`, color = `Type`)) +
 
 ```
 
-
+---
+class: center, middle, inverse
+# Gulf of Alaska overview
 
 ---
 class: center, inverse
-### Gulf of Alaska assessments 2019 and 2020
+### Gulf of Alaska assessment and management
 
 .left[
-- Split sex model (70% female in catch)
-- Lengths used as proxy for ages
-- Ages 1- 21+
-- Selectivity is estimated up to age 19
-- Age at 50% maturity is 7
-- Recruitment is estimated for each year, except the last which is the mean
-- Age-varying M
-- Observation errors for age and length compositions were assumed to be multinomial distributed
-- Recruitment deviations and catch and biomass observation errors were assumed to be lognormally distributed
+- Single-area assessment
+- Allowable Biological Catch (ABC) is apportioned by management area based on fraction of survey biomass in each
+- Biennial assessment cycle
+  - odd years have a stock assessment model run with two year projections and advice
+  - even years have partial assessment showing only survey indices and catch
+- Biomass for 2021 estimated at 1.325 million tonnes
+- ABC for 2021 is 128,060 tonnes (F40%)
+- Estimated catch for 2021 is 18,662 tonnes
 ]
 
+---
+class: center, inverse
+### Gulf of Alaska 2019 biomass
+
+```{r goa-bionass-2019-figure, out.width = 700}
+include_graphics("goa-2019-biomass.png")
+```
+
+---
+class: center, inverse
+### Gulf of Alaska assessment 2019 vs BC 2015
+
+```{r goa-vs-bc}
+
+d <- tribble(
+                 ~Value,   ~`Gulf of Alaska 2019`,              ~`BC 2015`,
+      "Modeling platform",    "Stock Synthesis 3", 	               "iSCAM",
+        "Number of sexes",                  "Two",          "One (Female)",
+     "Commercial lengths",	      "Proxy for age",	            "Not used",
+        "Commercial ages",             "Not used",	                "Used",
+            "Survey ages",	            "1 - 21+",               "1 - 20+",
+            "Selectivity",	          "Estimated",             "Estimated",
+      "Natural mortality",	 "Fixed 0.2 (Female)", "0.35 (Male)	Estimated",
+    "Survey catchability",	      "Fixed q = 1.0",             "Estimated",
+            "Recruitment",	          "Estimated",             "Estimated",
+ "Recruitment deviations",	          "Estimated",             "Estimated",
+        "Steepness of SR",	         "No SR used",             "Estimated",
+    "Age ot 50% maturity",	    "Age 7 (Females)",       "Age 6 (Females)")
+
+knitr::kable(d, booktabs = TRUE) %>% 
+  kableExtra::row_spec(seq(1, nrow(d)), background = "#1c525380") %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
