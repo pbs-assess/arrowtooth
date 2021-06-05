@@ -63,7 +63,7 @@ library(arrowtooth)
 main_dirs <- set_dirs(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"))
 nongit_dir <- main_dirs$nongit_dir
 if(!exists("dat")){
-  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-may14-2021.rds"))
+  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-june3-2021-unsorted.rds"))
 }
 pres_dir <- file.path(nongit_dir, "presentations", "pre-review")
 survey_index <- dat$survey_index
