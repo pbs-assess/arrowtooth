@@ -1,0 +1,10 @@
+.left-fig {
+  width: 48%;
+  float: left;
+  padding-right: 1%;
+}
+.right-fig {
+  width: 48%;
+  float: right;
+  padding-left: 1%;
+}

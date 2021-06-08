@@ -6,7 +6,7 @@ institute: "DFO"
 date: "Slides compiled on `r Sys.Date()`"
 output:
   xaringan::moon_reader:
-    css: ["default", "xaringan-themer.css"]
+    css: ["default", "xaringan-themer.css", "code-custom.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -16,7 +16,7 @@ header-includes:
   - \usepackage{animate}
 ---
 
-background-image: url(arrowtooth_flounder.jpeg)
+background-image: url(figs/arrowtooth_flounder.jpeg)
 
 ```{r setup, include=FALSE, echo=FALSE, fig.width=8, fig.height=8}
 # paste this into the console before running `xaringan::inf_mr("twg_01.Rmd")`
@@ -63,7 +63,7 @@ library(arrowtooth)
 main_dirs <- set_dirs(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"))
 nongit_dir <- main_dirs$nongit_dir
 if(!exists("dat")){
-  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-june3-2021-unsorted.rds"))
+  dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-june6-2021-unsorted.rds"))
 }
 pres_dir <- file.path(nongit_dir, "presentations", "pre-review")
 survey_index <- dat$survey_index
@@ -72,6 +72,7 @@ survey_samples <- dat$survey_samples
 commercial_samples <- dat$commercial_samples
 catch <- dat$catch
 cpue_spatial <- dat$cpue_spatial
+catch_spatial <- dat$catch_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
 
@@ -214,21 +215,239 @@ class: center, middle, inverse
 
 ---
 class: center
-### Catch Per Unit of Effort Coastwide
-```{r cpue_spatial, echo=FALSE, animation.hook="gifski", interval=2}
-for(i in 2007:2019){
-  g <- plot_cpue_spatial(cpue_spatial %>% filter(year == i),
-                         french = french,
-                         start_year = start_catch_yr,
-                         bath = c(100, 200, 500, 1000, 1500)) +
-    theme(axis.text.x = element_text(angle = 0)) +
-    ggtitle(i) +
-    theme(plot.title = element_text(size = 20, face = "bold")) +
-    #theme_xaringan(background_color = "#FFFFFF") +
-    scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
-  print(g)
-}
+### Introduction
+
+.left[
+- Bottom trawl fishery
+
+- Prior to freezer trawlers, much of the catch was discarded at sea due to proteolysis
+
+- Catch data prior to 1996 are unreliable due to lack of reporting of discards. Entire tows were discarded without report often.
+
+- Previous assessment: Grandin & Forrest, 2017 (modeling and assessment took place in 2015 for years 1996-2014)
+  - Female-only, coastwide catch-age model (iSCAM)
+]
+
+---
+class: center
+### Management
+
+.left[
+- Managed as a coastwide stock
+
+- Recent measures imposed while waiting for advice from this stock assessment
+
+  - Reduced 2019/2020 carryover allowance from 30% to 10%
+
+  - Reduced TAC from 14,000 t to 5,000 t in 2020/2021
+
+  - Reduced temporary quota size from 16% to 8% of the TAC
+
+  - Implementation of spatial closures from Nov 1 to March 31 to limit harvest on spawners
+]
+
+---
+class: center
+### Management Areas
+```{r management-areas, out.width = 550}
+include_graphics("figs/management_areas.png")
 ```
+
+---
+class: center
+### Catch / CPUE Coastwide 2007-2020
+.left-fig[
+```{r catch-spatial-all, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_catch_spatial(catch_spatial %>% filter(year %in% 2007:2020),
+                        bin_width = 10,
+                        bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2007-2020") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+.right-fig[
+```{r cpue-spatial-all, echo = FALSE, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_cpue_spatial(cpue_spatial %>% filter(year %in% 2007:2020),
+                       bin_width = 10,
+                       bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2007-2020") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+
+---
+class: center
+### Catch / CPUE Coastwide 2015
+.left-fig[
+```{r catch-spatial-2015, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_catch_spatial(catch_spatial %>% filter(year == 2015),
+                        bin_width = 10,
+                        bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2015") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+.right-fig[
+```{r cpue-spatial-2015, echo = FALSE, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_cpue_spatial(cpue_spatial %>% filter(year == 2015),
+                       bin_width = 10,
+                       bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2015") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+
+---
+class: center
+### Catch / CPUE Coastwide 2016
+.left-fig[
+```{r catch-spatial-2016, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_catch_spatial(catch_spatial %>% filter(year == 2016),
+                        bin_width = 10,
+                        bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2016") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+.right-fig[
+```{r cpue-spatial-2016, echo = FALSE, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_cpue_spatial(cpue_spatial %>% filter(year == 2016),
+                       bin_width = 10,
+                       bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2016") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+
+---
+class: center
+### Catch / CPUE Coastwide 2017
+.left-fig[
+```{r catch-spatial-2017, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_catch_spatial(catch_spatial %>% filter(year == 2017),
+                        bin_width = 10,
+                        bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2017") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+.right-fig[
+```{r cpue-spatial-2017, echo = FALSE, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_cpue_spatial(cpue_spatial %>% filter(year == 2017),
+                       bin_width = 10,
+                       bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2017") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+
+---
+class: center
+### Catch / CPUE Coastwide 2018
+.left-fig[
+```{r catch-spatial-2018, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_catch_spatial(catch_spatial %>% filter(year == 2018),
+                        bin_width = 10,
+                        bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2018") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+.right-fig[
+```{r cpue-spatial-2018, echo = FALSE, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_cpue_spatial(cpue_spatial %>% filter(year == 2018),
+                       bin_width = 10,
+                       bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2018") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+
+---
+class: center
+### Catch / CPUE Coastwide 2019
+.left-fig[
+```{r catch-spatial-2019, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_catch_spatial(catch_spatial %>% filter(year == 2019),
+                        bin_width = 10,
+                        bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2019") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+.right-fig[
+```{r cpue-spatial-2019, echo = FALSE, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_cpue_spatial(cpue_spatial %>% filter(year == 2019),
+                       bin_width = 10,
+                       bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2019") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+
+---
+class: center
+### Catch / CPUE Coastwide 2020
+.left-fig[
+```{r catch-spatial-2020, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_catch_spatial(catch_spatial %>% filter(year == 2020),
+                        bin_width = 10,
+                        bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2020") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
+.right-fig[
+```{r cpue-spatial-2020, echo = FALSE, fig.dim = c(4.8, 4.5), out.width = "100%"}
+plot_cpue_spatial(cpue_spatial %>% filter(year == 2020),
+                       bin_width = 10,
+                       bath = c(100, 200, 500, 1000, 1500)) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("2020") +
+  theme(plot.title = element_text(size = 20, face = "bold")) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
+
+```
+]
 
 
 ---
@@ -651,12 +870,18 @@ class: center, inverse
 
 .left[
 - Single-area assessment
+
 - Allowable Biological Catch (ABC) is apportioned by management area based on fraction of survey biomass in each
+
 - Biennial assessment cycle
   - odd years have a stock assessment model run with two year projections and advice
+
   - even years have partial assessment showing only survey indices and catch
+
 - Biomass for 2021 estimated at 1.325 million tonnes
+
 - ABC for 2021 is 128,060 tonnes (F40%)
+
 - Estimated catch for 2021 is 18,662 tonnes
 ]
 
@@ -665,7 +890,7 @@ class: center, inverse
 ### Gulf of Alaska 2019 biomass
 
 ```{r goa-bionass-2019-figure, out.width = 700}
-include_graphics("goa-2019-biomass.png")
+include_graphics("figs/goa-2019-biomass.png")
 ```
 
 ---

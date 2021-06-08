@@ -22,4 +22,5 @@ remotes::install_github("gadenbuie/xaringanthemer")
 remotes::install_github("r-rust/gifski")
 
 # Install main package and its dependencies
+remotes::install_github("pbs-assess/gfplot")
 remotes::install_github("pbs-assess/arrowtooth")
