@@ -2,13 +2,16 @@
 % Please edit documentation in R/update_gf_packages.R
 \name{update_gf_packages}
 \alias{update_gf_packages}
-\title{Rebase and build Groundfish packages automatically.}
+\title{Rebase and build Groundfish packages automatically}
 \usage{
 update_gf_packages(git_dir = "C:/github")
+}
+\arguments{
+\item{git_dir}{The directory where you have your pbs-assess git repositories}
 }
 \value{
 Nothing
 }
 \description{
-Rebase and build Groundfish packages automatically.
+Rebase and build Groundfish packages automatically
 }

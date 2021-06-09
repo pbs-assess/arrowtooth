@@ -1,5 +1,3 @@
-context("Test the calculation of numbers-at-age and proportions-at-age")
-
 at_age <- tribble(
   ~year, ~age, ~sample_id, ~survey_abbrev,
   2018,    2,           1,          NA,

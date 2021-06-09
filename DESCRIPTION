@@ -16,7 +16,9 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: R (>= 3.6.0)
 Imports:
+    crayon,
     csasdown,
+    devtools,
     dplyr,
     DLMtool,
     furrr,
@@ -27,6 +29,7 @@ Imports:
     gfutilities,
     ggplot2,
     here,
+    lubridate,
     magrittr,
     methods,
     purrr,
@@ -35,8 +38,10 @@ Imports:
     reshape2,
     rlang,
     rosettafish,
+    stats,
     tibble,
     tidyselect,
+    TMB,
     viridis
 Suggests:
     covr,

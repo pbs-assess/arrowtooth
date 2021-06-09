@@ -1,5 +1,5 @@
-#' Rebase and build Groundfish packages automatically.
-#'
+#' Rebase and build Groundfish packages automatically
+#' @param git_dir The directory where you have your pbs-assess git repositories
 #' @return Nothing
 #' @export
 update_gf_packages <- function(git_dir = "C:/github"){

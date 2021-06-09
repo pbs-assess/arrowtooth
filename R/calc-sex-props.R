@@ -1,13 +1,15 @@
+#' Estimate the length/weight parameters for the dataset `dat`
+#' @param dat A data frame returned by running [gfdata::get_survey_samples()] or
+#' [gfdata::get_commercial_samples()]
+#' @importFrom stats nls
+#' @return The estimated parameters alpha (a) and beta (b) for these data w = a l ^ b or
+#'   `NA` if there are no data in `dat`.
 est_lw_params <- function(dat){
-  # Estimate the length/weight parameters for the dataset 'dat'
-  # Returns the estimated parameters alpha (a) and beta (b) for these data (w=al^b).)
-  # If there are no data in the dat table, the defaultLW will be returned
 
-  # Filter data for individuals with both length and weight
   dat <- dat %>% filter(!is.na(length),
                         !is.na(weight))
 
-  cat("Estimating LW parameters. Samples with both length and weight data: \n")
+  message("Estimating LW parameters. Samples with both length and weight data")
 
   if(nrow(dat) > 0){
     tmp <- aggregate(weight ~ year + sample_id, data = dat, FUN = "length")
@@ -16,17 +18,19 @@ est_lw_params <- function(dat){
     l <- dat$length
     fit <- nls(w ~ a * l ^ b, start = c(a = 0.5, b = 2.0), control = list(maxiter = 500))
     print(tmp)
-    cat("Total number of records used in LW estimation: ", sum(tmp$num_records), "\n\n")
+    message("Total number of records used in LW estimation: ", sum(tmp$num_records))
       return(coefficients(fit))
   }
-  cat("est_lw_params: No records, returning NA.\n\n")
+  message("No records, returning NA")
   NA
 }
 
+#' Calculate the mean weight and total weight by sex weighted by the sample weight
+#' of each sample in each trip in the commercial fishery
+#' @param d The data as output from [calc_sample_weights()]
+#' @param weight_adj A value to divide weights by
+#' @return A data frame of the values described above
 calc_mean_total_weight_comm <- function(d, weight_adj = 1){
-  # Calculate the mean weight and total weight by sex weighted by the sample weight
-  # of each sample in each trip
-
   # Quarters, the months included
   q1 <- 1:3
   q2 <- 4:6
@@ -118,10 +122,12 @@ calc_mean_total_weight_comm <- function(d, weight_adj = 1){
   ret_df
 }
 
+#' Calculate the mean weight and total weight by sex weighted by the sample weight
+#' of each sample in each trip in a survey
+#' @param d The data as output from [calc_sample_weights()]
+#' @param weight_adj A value to divide weights by
+#' @return A data frame of the values described above
 calc_mean_total_weight_surv <- function(d, weight_adj = 1){
-  # Calculate the mean weight and total weight by sex weighted by the sample weight
-  # of each sample in each trip
-
   retdf <- NULL
   years <- sort(unique(d$year))
   for(yr in seq_along(years)){
@@ -159,16 +165,23 @@ calc_mean_total_weight_surv <- function(d, weight_adj = 1){
   retdf
 }
 
+#' Apply the LW relationship to the vector of `lengths`
+#' @param lengths A vector of lengths
+#' @param lw_params A vector of two values, alpha and Beta for the LW relationship
+#' @return A vector of weights
 apply_lw_rel <- function(lengths, lw_params){
-  # Apply the LW relationship to the vector of lengths
-  # return the vector of weights
   lw_params[1] * lengths ^ lw_params[2]
 }
 
+#' Calculate the sample weights given the data have many individual weights
+#' If sample weights are not recorded, they will be filled in
+#' @param d The data frame as output by [convert_length_to_weight_by_sex()]
+#' @param lw_params A vector of two values, alpha and Beta for the LW relationship
+#' @param weight_adj A value to divide weights by
+#' @return A data frame with the sample weights filled in
 calc_sample_weights <- function(d, lw_params, weight_adj = 1){
-  # Calculate the sample weights given the data have many individual weights
-  # If sample weights are not recorded, they will be filled in
-  ret_df <- NULL # return dataframe
+
+  ret_df <- NULL
 
   sample_ids <- unique(d$sample_id)
   for(sid in 1:length(sample_ids)){
@@ -178,14 +191,16 @@ calc_sample_weights <- function(d, lw_params, weight_adj = 1){
     }
     ret_df <- rbind(ret_df, dat)
   }
-  return(ret_df)
+  ret_df
 }
 
+#' Convert all lengths to weights for each sex for the input data frame `dat`
+#' @param dat A data frame returned by running [gfdata::get_survey_samples()] or
+#' [gfdata::get_commercial_samples()]
+#' @param lw_params A two-element list of vectors of alpha, Beta with males first and females second
+#' in the list
+#' @return A data frame with weights calculated from the LW relationship
 convert_length_to_weight_by_sex <- function(dat, lw_params){
-  # Convert all lengths to weights for each sex for the input data frame dat
-  # lw_params is a two-element list with males first and females second
-  #  each list element is a vector of two parameters, alpha and beta
-  # to be used in the LW relationship
 
   # Only for records in which there is no weight but there is a length
   d <- dat %>% filter(!is.na(length), is.na(weight))
@@ -200,26 +215,33 @@ convert_length_to_weight_by_sex <- function(dat, lw_params){
   rbind(dw, dm, df)
 }
 
+#' Calculate the proportion of females by year for the commercial fishery
+#' @description
+#' Generate weights for all records in `dat` that have lengths but no weights associated
+#' Pseudocode:
+#' For each year:
+#'   For each trip:
+#'     For each sample ID:
+#'       Calculate sex-specific mean weights for this sample
+#'       Calculate sex-specific catch weight for this sample
+#'     EndFor
+#'     Calculate sex-specific mean weight for this trip
+#'     Calculate sex-specific total catch weight for this trip
+#'   EndFor
+#'   Calculate the sex-specific mean weights for each quarter (3-months)
+#'   Calculate the sex-specific total catch weights for each quarter (3-months) weighted by total catch weight of sampled trips in the quarter
+#' EndFor
+#' @param dat A data frame returned by running [gfdata::get_survey_samples()] or
+#' [gfdata::get_commercial_samples()]
+#' @param lw_params A two-element list of vectors of alpha, Beta with males first and females second
+#' in the list
+#' @param areas Management areas to filter data with
+#' @param weight_adj  A value to divide weights by
+#' @return A data frame of totals of males and females and proportions of females
 calc_sex_props_comm <- function(dat,
                                 lw_params = NA,
                                 areas = 3:9,
                                 weight_adj = 1){
-  # Calculate the proportion of females by year.
-  # lw_params is a list of 2 vectors, male then female parameters for LW relationship
-  # Generate weights for all records in dat that have lengths but no weights associated
-  # Pseudocode:
-  # For each year:
-  #   For each trip:
-  #     For each sample ID:
-  #       Calculate sex-specific mean weights for this sample
-  #       Calculate sex-specific catch weight for this sample
-  #     EndFor
-  #     Calculate sex-specific mean weight for this trip
-  #     Calculate sex-specific total catch weight for this trip
-  #   EndFor
-  #   Calculate the sex-specific mean weights for each quarter (3-months)
-  #   Calculate the sex-specific total catch weights for each quarter (3-months) weighted by total catch weight of sampled trips in the quarter
-  # EndFor
 
   # 1. Convert all lengths to weights by sex where then don't exist
   d <- convert_length_to_weight_by_sex(dat, lw_params)
@@ -239,12 +261,16 @@ calc_sex_props_comm <- function(dat,
   d
 }
 
+#' Calculate the proportion of females by year for the surveys
+#' @param dat A data frame returned by running [gfdata::get_survey_samples()] or
+#' [gfdata::get_commercial_samples()]
+#' @param lw_params A two-element list of vectors of alpha, Beta with males first and females second
+#' in the list
+#' @param weight_adj  A value to divide weights by
+#' @return A list of data frames of totals of males and females and proportions of females for each survey
 calc_sex_props_surv <- function(dat,
                                 lw_params = NA,
                                 weight_adj = 1){
-  # Calculate the proportion of females by year.
-  # lw_params is a list of 2 vectors, male then female parameters for LW relationship
-  # Generate weights for all records in dat that have lengths but no weights associated
 
   # 1. Convert all lengths to weights by sex where then don't exist
   d <- convert_length_to_weight_by_sex(dat, lw_params)
@@ -288,13 +314,19 @@ calc_sex_props_surv <- function(dat,
   list(qcsss = dqcsss, hsmas = dhsmas, hsss = dhsss, wcviss = dwcviss)
 }
 
+#' Create a matrix of proportion female by year from the surveys given in the vector
+#' @param dat A data frame returned by running [gfdata::get_survey_samples()] or
+#' [gfdata::get_commercial_samples()]
+#' @param areas Management areas to filter data with
+#' @param weight_adj  A value to divide weights by
+#' @param type One of "commercial" or "survey"
+#' @importFrom lubridate month
+#' @return A data frame of totals of males and females and proportions of females
 make_sex_props <- function(dat,
-                           ssid = NA,
                            areas = 3:9,
-                           byweight = TRUE,
                            weight_adj = 1,
                            type = "commercial"){
-  # Create a matrix of proportion female by year from the surveys given in the vector
+
   dat <- dat %>%
     filter(year >= 1996)
 
@@ -326,18 +358,21 @@ make_sex_props <- function(dat,
   p
 }
 
+#' Calculate the proportions female for the commercial data
+#' @return A data frame containing proportions of females
 props_fishery <- function(){
   make_sex_props(dat = commercial_samples,
-                 ssid = ssid,
                  areas = 3:9,
-                 byweight = TRUE,
                  weight_adj = 1000,
                  type = "commercial")
-
-  # Table listing of surveys
-  #survey_samples %>% select(survey_series_id, survey_abbrev, survey_series_desc) %>% distinct()
 }
 
+#' Calculate the proportions female for the commercial data
+#' @param surv_series A vector of integers representing the `survey_ids` to use
+#' @param surv_sets A data frame object returned from [gfdata::get_survey_sets()]
+#' @param surv_samples A data frame object returned from [gfdata::get_survey_samples()]
+#' @importFrom dplyr right_join
+#' @return A data frame containing proportions of females
 props_survey <- function(surv_series = 1:4,
                          surv_sets = survey_sets,
                          surv_samples = survey_samples){

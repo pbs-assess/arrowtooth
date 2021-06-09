@@ -1,7 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
-^.here$
-^.travis.yml$
-^codecov.yml$
 ^doc$
+^docker$
+^.github$
+^.here$
+^codecov.yml$
+^presentations$
