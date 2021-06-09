@@ -1,6 +1,9 @@
 # arrowtooth
 
-[![Travis build status](https://travis-ci.org/pbs-assess/arrowtooth.svg?branch=master)](https://travis-ci.org/pbs-assess/arrowtooth)
+[![R-CMD-check](https://github.com/pbs-assess/arrowtooth/workflows/R-CMD-check/badge.svg)](https://github.com/pbs-assess/arrowtooth/actions)
+[![Project Status: WIP – Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
+public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Coverage status](https://codecov.io/gh/pbs-assess/arrowtooth/branch/master/graph/badge.svg)](https://codecov.io/github/pbs-assess/arrowtooth?branch=master)
 
 An R package which contains functions for exploration of models and for generating a CSAS stock assessment Research document using [csasdown](https://github.com/pbs-assess/csasdown).
