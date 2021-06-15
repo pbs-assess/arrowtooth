@@ -2,18 +2,25 @@
 % Please edit documentation in R/calc-sex-props.R
 \name{est_lw_params}
 \alias{est_lw_params}
-\title{Estimate the length/weight parameters for the dataset \code{dat}}
+\title{Estimate the length/weight parameters for the dataset \code{d}. Columns \code{weight}
+and \code{length} are required}
 \usage{
-est_lw_params(dat)
+est_lw_params(d, start_a = 0.05, start_b = 2, maxiter = 500)
 }
 \arguments{
-\item{dat}{A data frame returned by running \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} or
+\item{d}{A data frame returned by running \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} or
 \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
+
+\item{start_a}{Starting alpha value for LW estimation. See \code{\link[stats:nls]{stats::nls()}}.}
+
+\item{start_b}{Starting beta value for LW estimation. See \code{\link[stats:nls]{stats::nls()}}.}
+
+\item{maxiter}{Maximum iterations in estimation. See \code{\link[stats:nls]{stats::nls()}}.}
 }
 \value{
-The estimated parameters alpha (a) and beta (b) for these data w = a l ^ b or
-\code{NA} if there are no data in \code{dat}.
+The estimated parameters alpha (a) and beta (b) for these data w = a l ^ b
 }
 \description{
-Estimate the length/weight parameters for the dataset \code{dat}
+Estimate the length/weight parameters for the dataset \code{d}. Columns \code{weight}
+and \code{length} are required
 }

@@ -4,17 +4,15 @@
 \alias{make_sex_props}
 \title{Create a matrix of proportion female by year from the surveys given in the vector}
 \usage{
-make_sex_props(dat, areas = 3:9, weight_adj = 1, type = "commercial")
+make_sex_props(dat, type = "commercial", ...)
 }
 \arguments{
 \item{dat}{A data frame returned by running \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} or
 \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
 
-\item{areas}{Management areas to filter data with}
-
-\item{weight_adj}{A value to divide weights by}
-
 \item{type}{One of "commercial" or "survey"}
+
+\item{...}{Arguments passed to \code{\link[=calc_sex_props_comm]{calc_sex_props_comm()}} and \code{\link[=calc_sex_props_surv]{calc_sex_props_surv()}}}
 }
 \value{
 A data frame of totals of males and females and proportions of females

@@ -1,6 +1,6 @@
 #' Calculate the Numbers-at-age with sample sizes in a table format
 #'
-#' @param d A [data.frame]. Either `survey_samples` or `commercial_sampels` data
+#' @param d A [data.frame]. Either `survey_samples` or `commercial_samples` data
 #' from the [gfdata] package
 #' @param survey_abbrev The survey abbreviation. See [gfdata] package
 #' @param start_age The minimum age to include. This is not a minus group, it is an

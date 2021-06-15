@@ -4,7 +4,7 @@
 \alias{calc_sex_props_comm}
 \title{Calculate the proportion of females by year for the commercial fishery}
 \usage{
-calc_sex_props_comm(dat, lw_params = NA, areas = 3:9, weight_adj = 1)
+calc_sex_props_comm(dat, lw_params = NA, data_source_name = "default", ...)
 }
 \arguments{
 \item{dat}{A data frame returned by running \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} or
@@ -13,9 +13,9 @@ calc_sex_props_comm(dat, lw_params = NA, areas = 3:9, weight_adj = 1)
 \item{lw_params}{A two-element list of vectors of alpha, Beta with males first and females second
 in the list}
 
-\item{areas}{Management areas to filter data with}
+\item{data_source_name}{Name to place in the data frame to describe these data}
 
-\item{weight_adj}{A value to divide weights by}
+\item{...}{Absorb arguments meant for other functions}
 }
 \value{
 A data frame of totals of males and females and proportions of females

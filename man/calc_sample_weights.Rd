@@ -5,14 +5,12 @@
 \title{Calculate the sample weights given the data have many individual weights
 If sample weights are not recorded, they will be filled in}
 \usage{
-calc_sample_weights(d, lw_params, weight_adj = 1)
+calc_sample_weights(d, lw_params)
 }
 \arguments{
 \item{d}{The data frame as output by \code{\link[=convert_length_to_weight_by_sex]{convert_length_to_weight_by_sex()}}}
 
 \item{lw_params}{A vector of two values, alpha and Beta for the LW relationship}
-
-\item{weight_adj}{A value to divide weights by}
 }
 \value{
 A data frame with the sample weights filled in

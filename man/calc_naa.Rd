@@ -7,7 +7,7 @@
 calc_naa(d = NULL, survey_abbrev = NULL, start_age = 1, plus_age = NULL)
 }
 \arguments{
-\item{d}{A \link{data.frame}. Either \code{survey_samples} or \code{commercial_sampels} data
+\item{d}{A \link{data.frame}. Either \code{survey_samples} or \code{commercial_samples} data
 from the \link{gfdata} package}
 
 \item{survey_abbrev}{The survey abbreviation. See \link{gfdata} package}

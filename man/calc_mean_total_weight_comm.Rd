@@ -5,12 +5,10 @@
 \title{Calculate the mean weight and total weight by sex weighted by the sample weight
 of each sample in each trip in the commercial fishery}
 \usage{
-calc_mean_total_weight_comm(d, weight_adj = 1)
+calc_mean_total_weight_comm(d)
 }
 \arguments{
 \item{d}{The data as output from \code{\link[=calc_sample_weights]{calc_sample_weights()}}}
-
-\item{weight_adj}{A value to divide weights by}
 }
 \value{
 A data frame of the values described above

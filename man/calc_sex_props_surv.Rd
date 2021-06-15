@@ -4,7 +4,7 @@
 \alias{calc_sex_props_surv}
 \title{Calculate the proportion of females by year for the surveys}
 \usage{
-calc_sex_props_surv(dat, lw_params = NA, weight_adj = 1)
+calc_sex_props_surv(dat, lw_params = NA, surv_series = 1, ...)
 }
 \arguments{
 \item{dat}{A data frame returned by running \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} or
@@ -13,7 +13,9 @@ calc_sex_props_surv(dat, lw_params = NA, weight_adj = 1)
 \item{lw_params}{A two-element list of vectors of alpha, Beta with males first and females second
 in the list}
 
-\item{weight_adj}{A value to divide weights by}
+\item{surv_series}{Value of the \code{survey_series_id} in the data frame to filter}
+
+\item{...}{Absorb arguments meant for other functions}
 }
 \value{
 A list of data frames of totals of males and females and proportions of females for each survey
