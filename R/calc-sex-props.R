@@ -389,7 +389,7 @@ make_sex_props <- function(dat,
   #cat("Estimated LW parameters for all data: Females alpha = ", lw_params[[2]][1], ", beta = ", lw_params[[2]][2], "\n")
 
   # Add month column to data
-  dat <- dat_filt %>%
+  dat <- dat %>%
     mutate(month = month(trip_start_date))
   if(type == "commercial"){
     p <- calc_sex_props_comm(dat,
