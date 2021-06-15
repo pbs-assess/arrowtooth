@@ -381,7 +381,7 @@ make_sex_props <- function(dat,
                            type = "commercial",
                            ...){
 
-  datm <- dat_filt %>% filter(sex == 1)
+  datm <- dat %>% filter(sex == 1)
   datf <- dat %>% filter(sex == 2)
 
   lw_params <- list(est_lw_params(datm), est_lw_params(datf))
