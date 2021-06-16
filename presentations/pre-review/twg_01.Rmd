@@ -70,6 +70,7 @@ if(!exists("dat")){
   dat <- readRDS(fn)
 }
 pres_dir <- file.path(nongit_dir, "presentations", "pre-review")
+dir.create(pres_dir, recursive = TRUE, showWarnings = FALSE)
 survey_index <- dat$survey_index
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
