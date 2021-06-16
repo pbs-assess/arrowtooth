@@ -12,8 +12,6 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-header-includes:
-  - \usepackage{animate}
 ---
 
 background-image: url(figs/arrowtooth_flounder.jpeg)
@@ -59,7 +57,8 @@ library(purrr)
 library(tibble)
 library(tidyr)
 #devtools::load_all(file.path(dirname(here()), "gfplot"))
-library(arrowtooth)
+#library(arrowtooth)
+devtools::load_all(here::here())
 
 main_dirs <- set_dirs(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"))
 nongit_dir <- main_dirs$nongit_dir
@@ -684,20 +683,6 @@ plot_grid(plot_length_weight(lwf_3cd, lwm_3cd, col = fm_color) +
 
 ---
 class: center
-### Sex proportions
-
-```{r sex-comp-compare-coast}
-ggplot(ac_lc, aes(x = Year, y = `Proportion female`, color = `Type`)) +
-  geom_line(size = 1) +
-  geom_hline(yintercept = c(0.5, 0.75), linetype = "dashed") +
-  coord_cartesian(ylim = c(0, 1)) +
-  facet_wrap(~Area) 
-  #theme_xaringan(background_color = "#FFFFFF", text_font_size = 10) 
-
-```
-
----
-class: center
 ### Coastwide sex proportions with weighting applied
 
 ```{r sex-prop-weighting-older, echo = FALSE, message = FALSE}
@@ -708,43 +693,22 @@ unsorted_only <- props_comm(commercial_samples,
                             sample_type = c(1, 2, 6, 7, 8),
                             gear = c(1, 8),
                             data_source_name = "Unsorted only")
-no_unsorted <- props_comm(commercial_samples,
-                          areas = c("03", "04", "05", "06", "07", "08", "09"),
-                          start_year = 1996,
-                          species_category = c(0, 2, 3, 4),
-                          sample_type = c(1, 2, 6, 7, 8),
-                          gear = c(1, 8),
-                          data_source_name = "No unsorted")
-no_keepers <- props_comm(commercial_samples,
-                         areas = c("03", "04", "05", "06", "07", "08", "09"),
-                         start_year = 1996,
-                         species_category = c(0, 1, 2, 4),
-                         sample_type = c(1, 2, 6, 7, 8),
-                         gear = c(1, 8),
-                         data_source_name = "No keepers")
-no_discards <- props_comm(commercial_samples,
-                          areas = c("03", "04", "05", "06", "07", "08", "09"),
-                          start_year = 1996,
-                          species_category = c(0, 1, 2, 3),
-                          sample_type = c(1, 2, 6, 7, 8),
-                          gear = c(1, 8),
-                          data_source_name = "No discards")
-no_unknown <- props_comm(commercial_samples,
-                         areas = c("03", "04", "05", "06", "07", "08", "09"),
-                         start_year = 1996,
-                         species_category = c(1, 2, 3, 4),
-                         sample_type = c(1, 2, 6, 7, 8),
-                         gear = c(1, 8),
-                         data_source_name = "No unknown")
-all <- props_comm(commercial_samples,
-                  areas = c("03", "04", "05", "06", "07", "08", "09"),
-                  start_year = 1996,
-                  species_category = c(0, 1, 2, 3, 4),
-                  sample_type = c(1, 2, 6, 7, 8),
-                  gear = c(1, 8),
-                  data_source_name = "all types")
+un_keep <- props_comm(commercial_samples,
+                      areas = c("03", "04", "05", "06", "07", "08", "09"),
+                      start_year = 1996,
+                      species_category = c(1, 3),
+                      sample_type = c(1, 2, 6, 7, 8),
+                      gear = c(1, 8),
+                      data_source_name = "Unsorted + Keepers")
+un_keep_disc <- props_comm(commercial_samples,
+                           areas = c("03", "04", "05", "06", "07", "08", "09"),
+                           start_year = 1996,
+                           species_category = c(1, 3, 4),
+                           sample_type = c(1, 2, 6, 7, 8),
+                           gear = c(1, 8),
+                           data_source_name = "Unsorted + Keepers + Discards")
 
-j <- bind_rows(unsorted_only, no_unsorted, no_keepers, no_discards, no_unknown, all) %>% 
+j <- bind_rows(unsorted_only, un_keep, un_keep_disc) %>% 
   pivot_wider(id_cols = "year", names_from = "data_source", values_from = prop_female) %>% 
   arrange(year) %>% 
   rename(Year = year) %>% 
@@ -754,13 +718,9 @@ j <- bind_rows(unsorted_only, no_unsorted, no_keepers, no_discards, no_unknown, 
     .x
   })
 
-older <- j %>% filter(Year <= 2007) %>% 
-  mutate(`No keepers` = cell_spec(`No keepers`,
-                                  color = ifelse(`No keepers` < 0.4, "white", "black"),
-                                  background = ifelse(`No keepers` < 0.4, "red", "white"),
-                                  bold = ifelse(`No keepers` < 0.4, TRUE, FALSE)))
-newer <- j %>% filter(Year > 2007)
-kable(older, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'") %>% 
+older <- j %>% filter(Year <= 2007)
+newer <- j %>% filter(Year > 2007 & Year < 2020)
+kable(older, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'", align = c("l", rep("r", 4))) %>% 
   row_spec(seq(1, nrow(older)), background = "white") %>% 
   kable_styling(font_size = 18)
 
@@ -770,7 +730,7 @@ kable(older, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'"
 class: center
 ### Coastwide sex proportions with weighting applied (2)
 ```{r sex-prop-weighting-newer, echo = FALSE, message = FALSE}
-kable(newer, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'") %>% 
+kable(newer, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'", align = c("l", rep("r", 4))) %>% 
   row_spec(seq(1, nrow(newer)), background = "white") %>% 
   kable_styling(font_size = 18)
 ```
@@ -778,6 +738,24 @@ kable(newer, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'"
 ---
 class: center
 ### Coastwide sex proportions with weighting applied (3)
+```{r sex-prop-comparison-plot}
+k <- bind_rows(unsorted_only, un_keep, un_keep_disc) %>% 
+  rename(Year = year,
+         `Proportion female` = prop_female,
+         `Type` = data_source) %>% 
+  mutate(Type = forcats::fct_relevel(Type,
+                                     c("Unsorted only",
+                                       "Unsorted + Keepers",
+                                       "Unsorted + Keepers + Discards")))
+ggplot(k, aes(x = Year, y = `Proportion female`, color = `Type`)) +
+  geom_line(size = 1) +
+  geom_hline(yintercept = c(0.5, 0.75), linetype = "dashed") +
+  coord_cartesian(ylim = c(0, 1)) 
+```
+
+---
+class: center
+### Coastwide sex proportions with weighting applied (4)
 ```{r sex-prop-weighting-with-surveys, echo = FALSE, message = FALSE}
 out_dir <- file.path(nongit_dir, "data-output")
 fn <- file.path(out_dir, "all-proportion-female.rds")
@@ -794,7 +772,7 @@ if(file.exists(fn)){
                          surv_series_names = c("qcsss", "hsmas", "hsss", "wcviss"),
                          start_year = 1996,
                          end_year = 2019,
-                         species_category = c(0, 1, 2, 3, 4),
+                         species_category = c(1),
                          sample_type = c(1, 2, 6, 7, 8),
                          gear = c(1, 8))
   saveRDS(all_props, fn)  
@@ -822,11 +800,32 @@ kable(all_props_older, booktabs = TRUE, escape = FALSE, table.attr = "style='wid
 
 ---
 class: center
-### Coastwide sex proportions with weighting applied (4)
+### Coastwide sex proportions with weighting applied (5)
 ```{r sex-prop-weighting-with-surveys-2, echo = FALSE, message = FALSE}
 kable(all_props_newer, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'") %>% 
   row_spec(seq(1, nrow(all_props_newer)), background = "white") %>% 
   kable_styling(font_size = 18)
+```
+
+---
+class: center
+### Coastwide sex proportions with weighting applied (6)
+```{r sex-prop-comparison-with-surveys-plot}
+k <- all_props %>%
+  select(Year, Coastwide, `3CD`, `5ABCDE`) %>% 
+  pivot_longer(c("Coastwide",
+                 "3CD",
+                 "5ABCDE"), names_to = "Area", values_to = "Proportion female") %>% 
+  mutate(`Proportion female` = ifelse(`Proportion female` == "", NA, as.numeric(`Proportion female`))) %>% 
+  mutate(Year = as.numeric(Year)) %>% 
+  mutate(Area = forcats::fct_relevel(Area,
+                                     c("Coastwide",
+                                       "3CD",
+                                       "5ABCDE")))
+ggplot(k, aes(x = Year, y = `Proportion female`, color = `Area`)) +
+  geom_line(size = 1) +
+  geom_hline(yintercept = c(0.5, 0.75), linetype = "dashed") +
+  coord_cartesian(ylim = c(0, 1)) 
 ```
 
 ---
