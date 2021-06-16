@@ -846,15 +846,6 @@ plot_sample_avail(surv_samp, palette = "Greens", text_colour = "black")
 ```
 
 ---
-class: center
-### Survey Indices
-
-```{r survey-indices}
-surv_indices <- tidy_survey_index(survey_index)
-plot_survey_index(surv_indices, col = c("lightblue", "black"))
-```
-
----
 class: center, inverse, middle
 # Last 3 Survey biomass maps for SYN WCVI
 
