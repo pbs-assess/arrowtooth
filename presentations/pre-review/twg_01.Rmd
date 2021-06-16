@@ -1567,6 +1567,6 @@ class: center
 ### Geostatistical stitched vs. design-based indexes
 
 ```{r}
-include_graphics("figs/stitched-vs-design.png", dpi = 300)
+include_graphics("figs/stitched-vs-design.png", dpi = 250)
 ```
 
