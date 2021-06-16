@@ -1,7 +1,7 @@
 ---
 title: "Arrowtooth Flounder data summary"
 subtitle: "AkA *'Turbot'*"
-author: "Chris Grandin"
+author: "Chris Grandin, Sean Anderson"
 institute: "DFO"
 date: "Slides compiled on `r Sys.Date()`"
 output:
