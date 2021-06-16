@@ -35,6 +35,5 @@ xaringan-themer.css
 *.js
 *.log
 *.o
-*.png
 *.rds
 *.so
