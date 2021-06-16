@@ -868,8 +868,15 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
+  
 ```
 
 ---
@@ -888,8 +895,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -908,8 +921,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -932,8 +951,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -952,8 +977,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -972,8 +1003,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -996,8 +1033,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -1016,8 +1059,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -1036,8 +1085,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -1060,8 +1115,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -1080,8 +1141,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
@@ -1100,8 +1167,14 @@ if(file.exists(rds_file)){
 }
 plot_survey_sets(surv_sets$predictions,
                  surv_sets$data, 
-                 fill_column = "combined") +
-  theme(plot.title = element_text(size = 24, face = "bold"))
+                 fill_column = "combined",
+                 pos_pt_col = "#FFFFFF4D",
+                 bin_pt_col = "#FFFFFF1A",
+                 pos_pt_fill = "#FFFFFF1A") +
+  theme(plot.title = element_text(size = 24, face = "bold")) +
+  scale_size_continuous(limits = c(0, 5000)) +
+  scale_colour_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01)) +
+  scale_fill_viridis_c(trans = "sqrt", option = "C", limits = c(0, 0.01))
 ```
 
 ---
