@@ -1056,3 +1056,195 @@ kable(d, booktabs = TRUE, escape = FALSE, table.attr = "style='width:100%;'") %>
   row_spec(seq(1, nrow(d)), background = "white") %>% 
   kable_styling(font_size = 18)
 ```
+
+---
+class: center
+### CPUE 3CD
+
+```{r cpue-cache-3cd}
+cpue3cd <- readr::read_csv(here("presentations", "pre-review", "cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-3CD.csv"))
+cpue5ab <- readr::read_csv(here("presentations", "pre-review", "cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-5AB.csv"))
+cpue5cd <- readr::read_csv(here("presentations", "pre-review", "cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-5CD.csv"))
+cpue5e <- readr::read_csv(here("presentations", "pre-review", "cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-5E.csv"))
+cpue5abcde <- readr::read_csv(here("presentations", "pre-review", "cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-5ABCDE4B.csv"))
+cpue_coast <- readr::read_csv(here("presentations", "pre-review", "cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE.csv"))
+gfplot:::plot_cpue_predictions(cpue3cd, "Combined", scale = TRUE) +
+  scale_x_continuous(breaks = seq(1990, 2050, 5)) +
+  facet_wrap(~formula_version)
+```
+
+---
+class: center
+### CPUE 5ABCDE
+
+```{r cpue-5abcde}
+gfplot:::plot_cpue_predictions(cpue5abcde, "Combined", scale = TRUE) +
+  scale_x_continuous(breaks = seq(1990, 2050, 5)) +
+  facet_wrap(~formula_version)
+```
+
+
+
+```{r eval=FALSE, include=FALSE}
+gfplot:::plot_cpue_predictions(cpue5ab, "Combined", scale = TRUE) +
+  scale_x_continuous(breaks = seq(1990, 2050, 5)) +
+  facet_wrap(~formula_version) +
+  ggtitle("5AB")
+```
+
+
+```{r, eval=FALSE, include=FALSE}
+gfplot:::plot_cpue_predictions(cpue5cd, "Combined", scale = TRUE) +
+  scale_x_continuous(breaks = seq(1990, 2050, 5)) +
+  facet_wrap(~formula_version) +
+  ggtitle("5CD")
+
+gfplot:::plot_cpue_predictions(cpue5e, "Combined", scale = TRUE) +
+  scale_x_continuous(breaks = seq(1990, 2050, 5)) +
+  facet_wrap(~formula_version) +
+  ggtitle("5E")
+
+gfplot:::plot_cpue_predictions(cpue_coast, "Combined", scale = TRUE) +
+  scale_x_continuous(breaks = seq(1990, 2050, 5)) +
+  facet_wrap(~formula_version)
+```
+
+---
+class: center
+### Surveys
+
+```{r surveys-take2}
+survey_cols <- c(RColorBrewer::brewer.pal(5L, "Set1"),
+      RColorBrewer::brewer.pal(8L, "Set1")[7:8],
+      "#303030", "#a8a8a8", "#a8a8a8", "#a8a8a8")
+survey_col_names = c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
+    "HBLL OUT N", "HBLL OUT S", "IPHC FISS", "Commercial",
+    "HBLL INS N", "HBLL INS S", "OTHER HS MSA")
+survey_cols <- stats::setNames(survey_cols, survey_col_names)
+
+iphc <- readRDS(here("presentations", "pre-review", "iphc-cached-data", "arrowtooth-flounder-results.rds"))
+iphc <- iphc$series_ABCD_full$ser_longest
+
+surv_indices <- tidy_survey_index(survey_index,
+  survey = c(
+    "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI", 
+    "HBLL OUT N", "HBLL OUT S",
+    # "HBLL INS N", "HBLL INS S", 
+    "OTHER HS MSA", "IPHC FISS"))
+
+surv_indices <- filter(surv_indices, survey_abbrev != "IPHC FISS")
+surv_indices <- bind_rows(surv_indices, 
+  transmute(iphc, survey_abbrev = "IPHC FISS", year = year, 
+    biomass = I_t20SampleMean, lowerci = I_t20BootLow, 
+    upperci = I_t20BootHigh, 
+    mean_cv = mean(I_t20BootCV), 
+    num_sets = NA, num_pos_sets = num_pos20))
+
+surv_indices %>% 
+  filter(!(year == 2014 & survey_abbrev == "SYN WCHG")) %>%
+  plot_survey_index(survey_cols = survey_cols)
+```
+
+---
+class: center
+### Surveys compared to CPUE
+
+```{r cpue-vs-survey-plots, fig.asp=0.45}
+plot_cpue_surv <- function(.survey_abbrev, cpue_dat, area_name = "") {
+  ds <- filter(surv_indices, survey_abbrev == .survey_abbrev)
+  ds <- filter(ds, !(year == 2014 & survey_abbrev == "SYN WCHG"))
+  dc <- cpue_dat
+  bind_rows(transmute(ds, type = survey_abbrev, year = year, est = biomass, 
+    lwr = lowerci, upr = upperci),
+    transmute(filter(dc, formula_version == "Full standardization"), 
+      type = "CPUE", year = year, est = est, lwr = lwr, upr = upr)
+  ) %>%
+    group_by(type) %>% 
+    mutate(upr = upr / exp(mean(log(est)))) %>% 
+    mutate(lwr = lwr / exp(mean(log(est)))) %>% 
+    mutate(est = est / exp(mean(log(est)))) %>% 
+    mutate(type = factor(type, levels = c("CPUE", .survey_abbrev))) %>% 
+    ggplot(aes(year, est)) + 
+    geom_ribbon(aes(ymin = lwr, ymax = upr, fill = type), alpha = 0.3) +
+    geom_line(aes(colour = type), lwd = 0.7) +
+    geom_point(aes(colour = type, shape = type)) +
+    labs(colour = "Type", fill = "Type", x = "Year", y = "Scaled index", shape = "Type") +
+    scale_fill_brewer(palette = "Set2") +
+    scale_colour_brewer(palette = "Set2") +
+    scale_shape_manual(values = c(19, 21)) +
+    ggtitle(paste0(.survey_abbrev, ", ", area_name))
+}
+
+g <- list()
+g[[1]] <- plot_cpue_surv("SYN WCHG", cpue5e, "5E")
+g[[2]] <- plot_cpue_surv("SYN HS", cpue5cd, "5CD")
+g[[3]]<- plot_cpue_surv("SYN QCS", cpue5ab, "5AB")
+g[[4]] <- plot_cpue_surv("SYN WCVI", cpue3cd, "3CD")
+g[[5]] <- plot_cpue_surv("IPHC FISS", cpue_coast, "3CD5ABCDE")
+
+cowplot::plot_grid(plotlist = g)
+```
+
+```{r, eval=FALSE, include=FALSE}
+library(sdmTMB) # needs pc-prior branch! `install_github("pbs-assess/sdmTMB", ref = "pc-prior")`
+dat <- filter(survey_sets, survey_abbrev %in% 
+    c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG"))
+dat <- filter(dat, !(year == 2014 & survey_abbrev == "SYN WCHG"))
+dat$depth <- dat$depth_m
+dat$akima_depth <- dat$depth_m
+dat$X <- dat$longitude
+dat$Y <- dat$latitude
+dat <- gfplot:::ll2utm(dat)
+dat2 <- gfplot:::scale_survey_predictors(dat)
+range(dat2$density_kgpm2)
+dat2$density_kgp100m2 <- dat2$density_kgpm2 * 100 * 100
+range(dat2$density_kgp100m2)
+
+mesh <- make_mesh(dat2, c("X", "Y"), cutoff = 20)
+plot(mesh)
+mesh$mesh$n
+m <- sdmTMB(density_kgp100m2 ~ 0 + as.factor(year), 
+  family = tweedie(), 
+  data = dat2,
+  time = "year", 
+  silent = FALSE, 
+  anisotropy = TRUE, 
+  spde = mesh
+)
+
+synoptic_grid <- gfplot::synoptic_grid
+original_time <- sort(unique(dat2$year))
+nd <- do.call("rbind",
+  replicate(length(original_time), synoptic_grid, simplify = FALSE))
+nd[["year"]] <- rep(original_time, each = nrow(synoptic_grid))
+
+p <- predict(m, newdata = nd, sims = 400L)
+index <- get_index_sims(p)
+index_sims <- get_index_sims(p, return_sims = TRUE)
+
+# ggplot(index, aes(year, est, ymin = lwr, ymax = upr)) + 
+#   geom_line() +
+#   geom_ribbon(alpha = 0.2)
+
+index_sims %>%
+  group_by(year) %>% 
+  filter(.value > quantile(.value, probs = 0.01) & 
+      .value < quantile(.value, probs = 0.99)) %>% 
+  ggplot(aes(as.factor(year), .value)) +
+  geom_violin() +
+  ylab("Relative biomass density") + xlab("Year") +
+  scale_y_log10()
+
+mutate(index, type = "SYN") %>% 
+  bind_rows(transmute(iphc, type = "IPHC", est = I_t20SampleMean, 
+    lwr = I_t20BootLow, upr = I_t20BootHigh, year = year)) %>% 
+  filter(year != 2014) %>% 
+  group_by(type) %>% 
+    mutate(upr = upr / exp(mean(log(est)))) %>% 
+    mutate(lwr = lwr / exp(mean(log(est)))) %>% 
+    mutate(est = est / exp(mean(log(est)))) %>%
+  ggplot(aes(year, est, ymin = lwr, ymax = upr)) + 
+  geom_line(aes(colour = type)) +
+  geom_ribbon(alpha = 0.2, mapping = aes(fill = type))
+```
+
