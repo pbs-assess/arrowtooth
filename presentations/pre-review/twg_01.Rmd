@@ -1461,7 +1461,7 @@ group_by(year, Survey) %>%
   scale_fill_brewer(palette = "Dark2") +
   scale_colour_brewer(palette = "Dark2")
   # coord_cartesian(expand = FALSE, ylim = c(10, quantile(out$.value, probs = 0.99)))
-ggsave(here("presentations/pre-review/figs/stitched-ind-survey-indexes.svg"), width = 9, height = 6, dpi = 200)
+ggsave(here("presentations/pre-review/figs/stitched-ind-survey-indexes.png"), width = 9, height = 6, dpi = 200)
 
 index_ar1 <- get_index_sims(p_ar1)
 index_sims_ar1 <- get_index_sims(p_ar1, return_sims = TRUE)
@@ -1482,7 +1482,7 @@ index_sims_ar1 %>%
   geom_violin(fill = "grey90", colour = "grey40") +
   ylab("Relative biomass density") + xlab("Year") +
   coord_cartesian(expand = FALSE, ylim = c(0, NA))
-ggsave(here("presentations/pre-review/figs/stitched-syn-ar1-depth.svg"), width = 9, height = 6, dpi = 200)
+ggsave(here("presentations/pre-review/figs/stitched-syn-ar1-depth.png"), width = 9, height = 6, dpi = 200)
   # scale_y_log10()
 
 mutate(index_ar1, type = "SYN") %>%
@@ -1497,7 +1497,41 @@ mutate(index_ar1, type = "SYN") %>%
   geom_line(aes(colour = type)) +
   geom_ribbon(alpha = 0.2, mapping = aes(fill = type)) +
   labs(x = "Year", y = "Scaled index", colour = "Type", fill = "Type")
-ggsave(here("presentations/pre-review/figs/stitched-syn-ar1-depth-iphc.svg"), width = 9, height = 6, dpi = 200)
+ggsave(here("presentations/pre-review/figs/stitched-syn-ar1-depth-iphc.png"), width = 9, height = 6, dpi = 200)
+
+
+stitched_indices <- out %>%
+  group_by(year, Survey) %>%
+  right_join(observed) %>%
+  group_by(Survey, year) %>% 
+  summarise(biomass = median(.value), 
+    lowerci = quantile(.value, 0.025), 
+    upperci = quantile(.value, 0.975)) %>% 
+  mutate(type = "Geostatistical stitched")
+
+design_indices <- surv_indices %>% 
+  filter(!(year == 2014 & survey_abbrev == "SYN WCHG")) %>%
+  mutate(Survey = gsub("SYN ", "", survey_abbrev)) %>% 
+  mutate(type = "Design-based") %>% 
+  filter(Survey %in% c("WCHG", "QCS", "HS", "WCVI"))
+  
+bind_rows(design_indices, stitched_indices) %>%
+  group_by(type) %>% 
+  mutate(upperci = upperci / exp(mean(log(biomass)))) %>% 
+  mutate(lowerci = lowerci / exp(mean(log(biomass)))) %>% 
+  mutate(biomass = biomass / exp(mean(log(biomass)))) %>%
+  ggplot(aes(year, biomass, ymin = lowerci, ymax = upperci, colour = type, fill = type)) +
+  geom_line() +
+  geom_ribbon(alpha = 0.4, colour = NA) +
+  ylab("Relative biomass density") + xlab("Year") +
+  # scale_y_log10() +
+  scale_fill_brewer(palette = "Dark2") +
+  scale_colour_brewer(palette = "Dark2") +
+  facet_wrap(~Survey) +
+  coord_cartesian(expand = FALSE)
+ggsave(here("presentations/pre-review/figs/stitched-vs-design.png"), width = 8, height = 6, dpi = 200)
+
+  # coord_cartesian(expand = FALSE, ylim = c(10, quantile(out$.value, probs = 0.99)))
 ```
 
 ---
@@ -1526,5 +1560,13 @@ class: center
 
 ```{r}
 include_graphics("figs/stitched-ind-survey-indexes.png")
+```
+
+---
+class: center
+### Geostatistical stitched vs. design-based indexes
+
+```{r}
+include_graphics("figs/stitched-vs-design.png", dpi = 300)
 ```
 
