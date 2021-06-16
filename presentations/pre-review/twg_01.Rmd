@@ -26,6 +26,7 @@ fig_width <- 9
 fig_out_width <- "6in"
 fig_dpi <- 180
 fig_align <- "center"
+user <- Sys.getenv("USER")
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -39,7 +40,9 @@ knitr::opts_chunk$set(
   cache.comments = FALSE,
   dev = "png",
   dpi = fig_dpi,
-  fig.align = fig_align
+  fig.align = fig_align,
+  autodep = isTRUE(user == "seananderson"),
+  cache = isTRUE(user == "seananderson")
 )
 
 french <- FALSE
@@ -1303,7 +1306,7 @@ surv_indices %>%
 class: center
 ### Surveys compared to CPUE
 
-```{r cpue-vs-survey-plots, fig.asp=0.45}
+```{r cpue-vs-survey-plots}
 plot_cpue_surv <- function(.survey_abbrev, cpue_dat, area_name = "") {
   ds <- filter(surv_indices, survey_abbrev == .survey_abbrev)
   ds <- filter(ds, !(year == 2014 & survey_abbrev == "SYN WCHG"))
@@ -1336,7 +1339,7 @@ g[[3]]<- plot_cpue_surv("SYN QCS", cpue5ab, "5AB")
 g[[4]] <- plot_cpue_surv("SYN WCVI", cpue3cd, "3CD")
 g[[5]] <- plot_cpue_surv("IPHC FISS", cpue_coast, "3CD5ABCDE")
 
-cowplot::plot_grid(plotlist = g)
+cowplot::plot_grid(plotlist = g, ncol = 2L)
 ```
 
 ```{r, eval=FALSE, include=FALSE}
@@ -1355,50 +1358,173 @@ dat2$density_kgp100m2 <- dat2$density_kgpm2 * 100 * 100
 range(dat2$density_kgp100m2)
 
 mesh <- make_mesh(dat2, c("X", "Y"), cutoff = 20)
-plot(mesh)
-mesh$mesh$n
-m <- sdmTMB(density_kgp100m2 ~ 0 + as.factor(year), 
+# plot(mesh)
+# mesh$mesh$n
+
+m_ar1 <- sdmTMB(density_kgp100m2 ~ 0 + as.factor(year), 
   family = tweedie(), 
   data = dat2,
   time = "year", 
   silent = FALSE, 
-  anisotropy = TRUE, 
-  spde = mesh
+  anisotropy = FALSE, 
+  spde = mesh,
+  ar1_fields = TRUE,
+  include_spatial = FALSE
+)
+
+# m_base <- sdmTMB(density_kgp100m2 ~ 0 + as.factor(year) + s(log(depth), k = 3L), 
+#   family = tweedie(), 
+#   data = dat2,
+#   time = "year", 
+#   silent = FALSE, 
+#   anisotropy = FALSE, 
+#   spde = mesh,
+#   ar1_fields = FALSE,
+#   include_spatial = TRUE
+# )
+# m_base <- run_extra_optimization(m_base)
+
+# m_ar1_int_only <- sdmTMB(density_kgp100m2 ~ 1, 
+#   family = tweedie(), 
+#   data = dat2,
+#   time = "year", 
+#   silent = FALSE, 
+#   anisotropy = FALSE, 
+#   spde = mesh,
+#   ar1_fields = TRUE,
+#   include_spatial = FALSE
+# )
+
+m_ar1_depth <- sdmTMB(density_kgp100m2 ~ s(log(depth), k = 3L),
+  family = tweedie(), 
+  data = dat2,
+  time = "year", 
+  silent = FALSE, 
+  anisotropy = FALSE, 
+  spde = mesh,
+  ar1_fields = TRUE,
+  include_spatial = FALSE
 )
 
 synoptic_grid <- gfplot::synoptic_grid
+# expand grid to all years:
 original_time <- sort(unique(dat2$year))
 nd <- do.call("rbind",
   replicate(length(original_time), synoptic_grid, simplify = FALSE))
 nd[["year"]] <- rep(original_time, each = nrow(synoptic_grid))
 
-p <- predict(m, newdata = nd, sims = 400L)
-index <- get_index_sims(p)
-index_sims <- get_index_sims(p, return_sims = TRUE)
+# predict on grid and calculate index:
+p_ar1 <- predict(m_ar1_depth, newdata = nd, sims = 300L)
+index_ar1 <- get_index_sims(p_ar1)
+index_sims_ar1 <- get_index_sims(p_ar1, return_sims = TRUE)
+
+index_ar1_survs <- list()
+p <- p_ar1[nd$survey == "SYN QCS",]
+attr(p, "time") <- "year"
+index_ar1_survs$QCS <- get_index_sims(p, return_sims = TRUE)
+
+p <- p_ar1[nd$survey == "SYN HS",]
+attr(p, "time") <- "year"
+index_ar1_survs$HS <- get_index_sims(p, return_sims = TRUE)
+
+p <- p_ar1[nd$survey == "SYN WCVI",]
+attr(p, "time") <- "year"
+index_ar1_survs$WCVI <- get_index_sims(p, return_sims = TRUE)
+
+p <- p_ar1[nd$survey == "SYN WCHG",]
+attr(p, "time") <- "year"
+index_ar1_survs$WCHG <- get_index_sims(p, return_sims = TRUE)
+```
+
+```{r, eval=FALSE}
+out <- dplyr::bind_rows(index_ar1_survs, .id = "Survey")
+out %>% 
+group_by(year, Survey) %>% 
+  filter(.value > quantile(.value, probs = 0.01) & 
+      .value < quantile(.value, probs = 0.99)) %>% 
+  ggplot(aes(as.factor(year), .value, fill = Survey, colour = Survey)) +
+  geom_violin() +
+  ylab("Relative biomass density") + xlab("Year") +
+  scale_y_log10()
+
+observed <- select(dat2, year, survey_abbrev) %>% distinct() %>% 
+  mutate(Survey = gsub("SYN ", "", survey_abbrev))
+out %>% 
+group_by(year, Survey) %>% 
+  filter(.value > quantile(.value, probs = 0.01) &
+      .value < quantile(.value, probs = 0.99)) %>%
+  right_join(observed) %>% 
+  ggplot(aes(as.factor(year), .value, fill = Survey, colour = Survey)) +
+  geom_violin(alpha = 0.6) +
+  ylab("Relative biomass density") + xlab("Year") +
+  scale_y_log10() +
+  scale_fill_brewer(palette = "Dark2") +
+  scale_colour_brewer(palette = "Dark2")
+  # coord_cartesian(expand = FALSE, ylim = c(10, quantile(out$.value, probs = 0.99)))
+ggsave(here("presentations/pre-review/figs/stitched-ind-survey-indexes.svg"), width = 9, height = 6, dpi = 200)
+
+index_ar1 <- get_index_sims(p_ar1)
+index_sims_ar1 <- get_index_sims(p_ar1, return_sims = TRUE)
+
+# p_base <- predict(m_base, newdata = nd, sims = 300L)
+# index_base <- get_index_sims(p_base)
+# index_sims_base <- get_index_sims(p_base, return_sims = TRUE)
 
 # ggplot(index, aes(year, est, ymin = lwr, ymax = upr)) + 
 #   geom_line() +
 #   geom_ribbon(alpha = 0.2)
 
-index_sims %>%
+index_sims_ar1 %>%
   group_by(year) %>% 
   filter(.value > quantile(.value, probs = 0.01) & 
       .value < quantile(.value, probs = 0.99)) %>% 
   ggplot(aes(as.factor(year), .value)) +
-  geom_violin() +
+  geom_violin(fill = "grey90", colour = "grey40") +
   ylab("Relative biomass density") + xlab("Year") +
-  scale_y_log10()
+  coord_cartesian(expand = FALSE, ylim = c(0, NA))
+ggsave(here("presentations/pre-review/figs/stitched-syn-ar1-depth.svg"), width = 9, height = 6, dpi = 200)
+  # scale_y_log10()
 
-mutate(index, type = "SYN") %>% 
+mutate(index_ar1, type = "SYN") %>%
   bind_rows(transmute(iphc, type = "IPHC", est = I_t20SampleMean, 
     lwr = I_t20BootLow, upr = I_t20BootHigh, year = year)) %>% 
-  filter(year != 2014) %>% 
+  # filter(year != 2014) %>%
   group_by(type) %>% 
     mutate(upr = upr / exp(mean(log(est)))) %>% 
     mutate(lwr = lwr / exp(mean(log(est)))) %>% 
     mutate(est = est / exp(mean(log(est)))) %>%
   ggplot(aes(year, est, ymin = lwr, ymax = upr)) + 
   geom_line(aes(colour = type)) +
-  geom_ribbon(alpha = 0.2, mapping = aes(fill = type))
+  geom_ribbon(alpha = 0.2, mapping = aes(fill = type)) +
+  labs(x = "Year", y = "Scaled index", colour = "Type", fill = "Type")
+ggsave(here("presentations/pre-review/figs/stitched-syn-ar1-depth-iphc.svg"), width = 9, height = 6, dpi = 200)
+```
+
+---
+class: center
+### Geostatistical model standardization (stitched together)
+
+```{r}
+# include_graphics(file.path(pres_dir, "stitched-syn-ar1-depth.png"))
+include_graphics("figs/stitched-syn-ar1-depth.png")
+```
+
+
+---
+class: center
+### Geostatistical model standardization (compared to IPHC)
+
+```{r}
+# include_graphics(file.path(pres_dir, "stitched-syn-ar1-depth-iphc.png"))
+include_graphics("figs/stitched-syn-ar1-depth-iphc.png")
+```
+
+
+---
+class: center
+### Geostatistical model standardization (split by survey)
+
+```{r}
+include_graphics("figs/stitched-ind-survey-indexes.png")
 ```
 
