@@ -216,21 +216,24 @@ style_mono_accent(
 ---
 class: center, middle, inverse
 
-# Commercial Fishery data
+# Commercial Fishery
 
 ---
 class: center
 ### Introduction
 
 .left[
-- Bottom trawl fishery
+- Caught mainly by bottom trawl, from large freezer trawlers
 
-- Prior to freezer trawlers, much of the catch was discarded at sea due to proteolysis
+- Prior to arrival of freezer trawlers (2006 forward), much of the catch was discarded at sea due to proteolysis
 
 - Catch data prior to 1996 are unreliable due to lack of reporting of discards. Entire tows were discarded without report often.
 
 - Previous assessment: Grandin & Forrest, 2017 (modeling and assessment took place in 2015 for years 1996-2014)
   - Female-only, coastwide catch-age model (iSCAM)
+  
+- This assessment will include data from 1996-2019
+  - Additional ageing done to cover 2015-2019 for fishery and synoptic surveys
 ]
 
 ---
