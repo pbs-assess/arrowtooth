@@ -121,7 +121,7 @@ calc_mean_total_weight_comm <- function(d){
     q3catchwt <- 0
     q4catchwt <- 0
     for(trip_id in seq_along(trip_ids)){
-      dat <- dat %>% filter(trip_id == trip_ids[!!trip_id])
+      dat <- d %>% filter(trip_id == trip_ids[!!trip_id])
       sample_ids <- unique(dat$sample_id)
       sample_ids <- sample_ids[!is.na(sample_ids)]
       triptotwtm <- 0
@@ -129,7 +129,7 @@ calc_mean_total_weight_comm <- function(d){
       tripsamplewt <- 0
       tripcatchwt <- 0
       for(sample_id in seq_along(sample_ids)){
-        dats <- dat %>% filter(sample_id == sample_ids[!!sample_id])
+        dats <- d %>% filter(sample_id == sample_ids[!!sample_id])
         datsm <- dats %>% filter(sex == 1)
         datsf <- dats %>% filter(sex == 2)
         # Here the mean weight by sex and total weight by sex are weighted by the sample weight
@@ -138,7 +138,9 @@ calc_mean_total_weight_comm <- function(d){
         triptotwtf <-  triptotwtf + sum(datsf$weight) * dats$sample_weight[1]
         tripsamplewt <- tripsamplewt + dats$sample_weight[1]
         tripcatchwt <- tripcatchwt + dats$catch_weight[1]
+        #message("year = ", years[yr], ", trip_id = ", trip_ids[trip_id], ", sample_id = ", sample_ids[sample_id], ", num_weights = ", dats %>% nrow())
       }
+
       triptotwtm <- triptotwtm / tripsamplewt
       triptotwtf <- triptotwtf / tripsamplewt
       tripmonth <- dat$month[1] # All should be the same for a given trip
@@ -160,6 +162,7 @@ calc_mean_total_weight_comm <- function(d){
         q4totwtm <- q4totwtm + triptotwtm * tripcatchwt
         q4totwtf <- q4totwtf + triptotwtf * tripcatchwt
       }
+
     }
 
     q1totwtm <- ifelse(q1catchwt == 0, 0, q1totwtm / q1catchwt)
@@ -172,14 +175,13 @@ calc_mean_total_weight_comm <- function(d){
     q3totwtf <- ifelse(q3catchwt == 0, 0, q3totwtf / q3catchwt)
 
     q4totwtm <- ifelse(q4catchwt == 0, 0, q4totwtm / q4catchwt)
-    q4totwtf <- ifelse(q3catchwt == 0, 0, q4totwtf / q4catchwt)
+    q4totwtf <- ifelse(q4catchwt == 0, 0, q4totwtf / q4catchwt)
 
     divisor <- table(is.na(c(q1totwtm, q2totwtm, q3totwtm, q4totwtm)))["FALSE"]
     yeartotwtm <- sum(q1totwtm, q2totwtm, q3totwtm, q4totwtm, na.rm = TRUE) / divisor
     divisor <- table(is.na(c(q1totwtf, q2totwtf, q3totwtf, q4totwtf)))["FALSE"]
     yeartotwtf <- sum(q1totwtf, q2totwtf, q3totwtf, q4totwtf, na.rm = TRUE) / divisor
     ret_df <- rbind(ret_df, c(years[yr], yeartotwtm, yeartotwtf))
-
   }
   ret_df
 }
@@ -205,7 +207,7 @@ calc_mean_total_weight_surv <- function(d){
     trip_ids <- trip_ids[!is.na(trip_ids)]
     yrcatchwt <- 0
     for(trip_id in seq_along(trip_ids)){
-      dat <- dat %>% filter(trip_id == trip_ids[!!trip_id])
+      dat <- d %>% filter(trip_id == trip_ids[!!trip_id])
       sample_ids <- unique(dat$sample_id)
       sample_ids <- sample_ids[!is.na(sample_ids)]
       triptotwtm <- 0
@@ -213,7 +215,7 @@ calc_mean_total_weight_surv <- function(d){
       tripsamplewt <- 0
       tripcatchwt <- 0
       for(sample_id in seq_along(sample_ids)){
-        dats <- dat %>% filter(sample_id == sample_ids[!!sample_id])
+        dats <- d %>% filter(sample_id == sample_ids[!!sample_id])
         datsm <- dats %>% filter(sex == 1)
         datsf <- dats %>% filter(sex == 2)
 
