@@ -59,10 +59,12 @@ fig_out_width <- "6in"
 fig_dpi <- 180
 fig_align <- "center"
 fig_pos <- "htb"
+user <- Sys.getenv("USER")
 opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
   message = FALSE,
+  results = 'hide',
   comment = "#>",
   fig.path = knitr_figs_dir,
   cache.path = knitr_cache_dir,
@@ -70,8 +72,8 @@ opts_chunk$set(
   fig.width = fig_width,
   out.width = fig_out_width,
   echo = FALSE,
-  #  autodep = TRUE,
-  #  cache = TRUE,
+  autodep = isTRUE(user == "seananderson"),
+  cache = isTRUE(user == "seananderson"),
   cache.comments = FALSE,
   dev = fig_out_type,
   dpi = fig_dpi,
@@ -107,6 +109,9 @@ library(ggplot2)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
 library(arrowtooth)
+library(dplyr)
+library(purrr)
+library(here)
 
 if(here::here() == "/home/rstudio"){
   main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here("arrowtooth")), "arrowtooth-nongit"))
@@ -118,11 +123,11 @@ models_dir <- main_dirs$models_dir
 base_model_dir <- main_dirs$base_model_dir
 base_model_dir_full <- main_dirs$base_model_dir_full
 
-all_models <- model_setup(main_dirs = main_dirs)
-base_model <- all_models$base_model
-sens_models <- all_models$sens_models
+# all_models <- model_setup(main_dirs = main_dirs)
+# base_model <- all_models$base_model
+# sens_models <- all_models$sens_models
 
-dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-may14-2021.rds"))
+dat <- readRDS(file.path(nongit_dir, "data", "arrowtooth-flounder-june11-2021.rds"))
 survey_index <- dat$survey_index
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples

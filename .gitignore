@@ -37,3 +37,6 @@ xaringan-themer.css
 *.o
 *.rds
 *.so
+
+*.pdf
+*.html
