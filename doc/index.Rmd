@@ -137,6 +137,7 @@ cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
 #theme_set(herring_theme())
+ggplot2::theme_set(gfplot::theme_pbs())
 ```
 
 ---
