@@ -487,6 +487,7 @@ props_comm <- function(d,
            major_stat_area_code %in% areas,
            sex %in% 1:2,
            !is.na(length))
+
   if(!all(is.na(species_category))){
     d <- d %>% filter(species_category_code %in% species_category)
   }
@@ -582,4 +583,133 @@ props_all <- function(comm_samples, ...){
 
   comm %>%
     bind_rows(comm_3cd, comm_5abcde, surv)
+}
+
+#' Summarize the data used to make the proportions female table
+#'
+#' @param comm_samples Commercial samples as extracted using [gfdata::get_commercial_samples()]
+#' @param surv_samples Survey samples as extracted using [gfdata::get_survey_samples()]
+#'
+#' @importFrom tidyr pivot_wider
+#' @return A data frame summarizing the data
+props_comm_data_summary <- function(comm_samples,
+                                    areas = c("03", "04", "05", "06", "07", "08", "09"),
+                                    start_year = 1996,
+                                    end_year = 2019,
+                                    species_category = c(0, 1, 2, 3, 4),
+                                    sample_type = c(1, 2, 6, 7, 8),
+                                    gear = c(1, 8)){
+
+  d <- comm_samples %>%
+    filter(year >= start_year,
+           year <= end_year,
+           major_stat_area_code %in% areas,
+           sex %in% 1:2,
+           !is.na(length))
+  if(!all(is.na(species_category))){
+    d <- d %>% filter(species_category_code %in% species_category)
+  }
+  if(!all(is.na(sample_type))){
+    d <- d %>% filter(sample_type_code %in% sample_type)
+  }
+  if(!all(is.na(gear))){
+    d <- d %>% filter(gear_code %in% gear)
+  }
+  d <- d %>%
+    select(trip_start_date, major_stat_area_code, trip_id, sample_id, year, sex, length, weight, catch_weight)
+
+  if(all(is.na(d$weight))){
+    stop("All weights are NA for your dataset, LW relationship cannot be calculated.",
+         call. = FALSE)
+  }
+
+  num_trips <- d %>%
+    group_by(year) %>%
+    select(year, trip_id) %>%
+    distinct %>%
+    tally(name = "Number of trips") %>%
+    ungroup %>%
+    arrange(year, desc(`Number of trips`))
+
+  num_samples <- d %>%
+    group_by(year) %>%
+    select(year, sample_id) %>%
+    distinct %>%
+    tally(name = "Number of samples") %>%
+    ungroup %>%
+    arrange(year, desc(`Number of samples`))
+
+  num_weights <- d %>%
+    group_by(year, sample_id, sex) %>%
+    summarize(year, sex, num_weights = n()) %>%
+    distinct %>%
+    ungroup %>%
+    group_by(year, sex) %>%
+    select(year, sex, num_weights) %>%
+    summarize(year, sex, `Number of weights` = sum(num_weights)) %>%
+    distinct %>%
+    ungroup %>%
+    arrange(year, desc(`Number of weights`))
+
+  num_trips %>%
+    left_join(num_samples, by = "year") %>%
+    left_join(num_weights, by = "year") %>%
+    rename(Year = year, Sex = sex) %>%
+    arrange(Year, Sex) %>%
+    select(Year, Sex, everything()) %>%
+    mutate(Sex = ifelse(Sex == 1, "Number of weights - Male", "Number of weights - Female")) %>%
+    pivot_wider(names_from = "Sex", values_from = "Number of weights")
+
+}
+
+props_surv_data_summary <- function(surv_samples,
+                                    surv_series = 1:4,
+                                    surv_series_names = c("QCS Synoptic",
+                                                          "HS Multispecies",
+                                                          "HS Synoptic",
+                                                          "WCVI Synoptic")){
+
+  d <- surv_samples %>%
+    group_by(sample_id) %>%
+    mutate(sample_weight = sum(weight, na.rm = TRUE)) %>%
+    filter(survey_series_id %in% surv_series,
+           sex %in% 1:2) %>%
+    ungroup() %>%
+    mutate(trip_id = year)
+
+  num_samples <- d %>%
+    group_by(survey_series_id, year, sample_id) %>%
+    select(survey_series_id, year, sample_id) %>%
+    distinct %>%
+    ungroup %>%
+    group_by(survey_series_id, year) %>%
+    tally(name = "Number of samples") %>%
+    ungroup %>%
+    mutate(survey_name = surv_series_names[survey_series_id]) %>%
+    select(-survey_series_id) %>%
+    rename(Survey = survey_name,
+           Year = year) %>%
+    select(Survey, Year, everything()) %>%
+    arrange(Survey, Year, `Number of samples`)
+
+  num_weights <- d %>%
+    group_by(survey_series_id, year, sample_id, sex) %>%
+    summarize(survey_series_id, year, sex, num_weights = n()) %>%
+    distinct %>%
+    ungroup %>%
+    group_by(survey_series_id, year, sex) %>%
+    select(survey_series_id, year, sex, num_weights) %>%
+    summarize(survey_series_id, year, sex, `Number of weights` = sum(num_weights)) %>%
+    distinct %>%
+    ungroup %>%
+    mutate(Survey = surv_series_names[survey_series_id]) %>%
+    rename(Year = year,
+           Sex = sex) %>%
+    select(-survey_series_id) %>%
+    select(Survey, Year, everything()) %>%
+    arrange(Survey, Year, `Number of weights`)
+
+  num_samples %>% left_join(num_weights, by = c("Survey", "Year")) %>%
+    mutate(Sex = ifelse(Sex == 1, "Number of weights - Male", "Number of weights - Female")) %>%
+    pivot_wider(names_from = "Sex", values_from = "Number of weights")
 }
