@@ -162,7 +162,75 @@ csas_table(props_surv_data,
            caption = "Summary of the number of samples and fish weights used in the survey proportion female calculations.")
 ```
 
+\clearpage
+
+# Request 2 - Show vonBertalanffy fits and parameter values for survey data. Produce a plot comparing vonB parameter values among surveys.
+
+```{r vonBfits, fig.cap="von B fits to survey data.", fig.asp=0.9, cache=TRUE, results='hide'}
+# unlink(here("doc", "vb_gfplot.o")) # causes knitr problems
+# unlink(here("doc", "vb_gfplot.so")) # causes knitr problems
+# unlink(here("doc", "vb_gfplot.cpp")) # causes knitr problems
+dat_syn <- filter(survey_samples, survey_abbrev %in% c("SYN QCS", "SYN WCVI", "SYN HS"))
+
+vb_models_f <- dat_syn %>%
+  group_split(survey_abbrev) %>%
+  map(function(x) gfplot::fit_vb(x, sex = "female"))
+vb_models_m <- dat_syn %>%
+  group_split(survey_abbrev) %>%
+  map(function(x) gfplot::fit_vb(x, sex = "male"))
+vb_list <- map2(vb_models_f, vb_models_m, gfplot::plot_vb)
+survs <- group_split(dat_syn, survey_abbrev) %>%
+  map_chr(~ unique(.$survey_abbrev))
+vb_list <- map(vb_list, ~ .x + ggtitle(""))
+vb_list <- map(vb_list, ~ .x + coord_cartesian(xlim = c(0, 25), ylim = c(0, 65)))
+names(vb_list) <- survs
+cowplot::plot_grid(
+  plotlist = vb_list, labels = survs,
+  align = "hv", nrow = 2
+)
+```
+
+```{r vonBpars, fig.cap="von B pars", cache=TRUE, results='hide'}
+vb_pars_f <- map(vb_models_f, ~ TMB::sdreport(.x$model))
+vb_pars_m <- map(vb_models_m, ~ TMB::sdreport(.x$model))
+
+names(vb_pars_f) <- survs
+names(vb_pars_m) <- survs
+
+get_par_df <- function(x) {
+  e <- as.list(x, "Estimate")
+  se <- as.list(x, "Std. Error")
+  e <- reshape2::melt(as.data.frame(e)) %>% rename(est = value)
+  se <- reshape2::melt(as.data.frame(se)) %>% rename(se = value)
+  left_join(e, se) %>%
+    mutate(lwr = est - 2 * se, upr = est + 2 * se)
+}
+
+vb_est_f <- map_dfr(vb_pars_f, get_par_df, .id = "survey") %>%
+  mutate(Sex = "F")
+vb_est_m <- map_dfr(vb_pars_m, get_par_df, .id = "survey") %>%
+  mutate(Sex = "M")
+
+bind_rows(vb_est_f, vb_est_m) %>%
+  filter(variable != "log_sigma") %>%
+  ggplot(aes(x = est, xmin = lwr, xmax = upr, y = survey, colour = Sex)) +
+  geom_pointrange(position = position_dodge(width = 0.1)) +
+  facet_wrap(~variable, scales = "free_x") +
+  theme_pbs() +
+  xlab("Parameter estimate") +
+  ylab("")
+```
 
 
+```{r vonBfits-all, fig.cap="von B fits to all survey data.", fig.asp=0.8, out.width="4.5in", fig.width=5.5, cache=TRUE, results='hide'}
+dat_syn <- filter(survey_samples, survey_abbrev %in%
+  c("SYN QCS", "SYN WCVI", "SYN HS", "SYN WCHG"))
+vb_f <- gfplot::fit_vb(dat_syn, sex = "female")
+vb_m <- gfplot::fit_vb(dat_syn, sex = "male")
+gfplot::plot_vb(object_female = vb_f, object_male = vb_m) +
+  ggtitle("")
+```
 
+\clearpage
 
+# Request 3 - Create a 'Discard' CPUE by filtering wet boat Arrowtooth discards for trips where Arrowtooth were not retained (landed).
