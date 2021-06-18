@@ -522,10 +522,11 @@ props_comm <- function(d,
 #' @param surv_sets A data frame object returned from [gfdata::get_survey_sets()]
 #' @param surv_samples A data frame object returned from [gfdata::get_survey_samples()]
 #' @param ... Arguments not intended for this function
-#' @importFrom dplyr right_join
+#' @importFrom dplyr right_join distinct tally desc rename
 #' @importFrom furrr future_map
 #' @importFrom purrr map2 map_df
 #' @return A data frame containing proportions of females for the required surveys
+#' @export
 props_surv <- function(surv_series = 1:4,
                        surv_series_names = c("qcsss", "hsmas", "hsss", "wcviss"),
                        surv_sets = survey_sets,
@@ -588,10 +589,10 @@ props_all <- function(comm_samples, ...){
 #' Summarize the data used to make the proportions female table
 #'
 #' @param comm_samples Commercial samples as extracted using [gfdata::get_commercial_samples()]
-#' @param surv_samples Survey samples as extracted using [gfdata::get_survey_samples()]
-#'
+#' @rdname props_comm
 #' @importFrom tidyr pivot_wider
 #' @return A data frame summarizing the data
+#' @export
 props_comm_data_summary <- function(comm_samples,
                                     areas = c("03", "04", "05", "06", "07", "08", "09"),
                                     start_year = 1996,
@@ -662,6 +663,15 @@ props_comm_data_summary <- function(comm_samples,
 
 }
 
+#' Summarize the data used to make the proportions female table
+#'
+#' @rdname props_surv
+#'
+#' @param surv_samples
+#' @param surv_series
+#' @param surv_series_names
+#' @return A data frame summarizing the data
+#' @export
 props_surv_data_summary <- function(surv_samples,
                                     surv_series = 1:4,
                                     surv_series_names = c("QCS Synoptic",

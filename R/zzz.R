@@ -24,6 +24,9 @@ globalVariables(c(
   "n",
   "nongit_dir",
   "nsamp",
+  "Number of samples",
+  "Number of trips",
+  "Number of weights",
   "param_name",
   "rsum",
   "sample_id",
@@ -31,9 +34,12 @@ globalVariables(c(
   "se",
   "sens_models_dirs",
   "sex",
+  "Sex",
   "species_category_code",
   "Std. Error",
+  "Survey",
   "survey_abbrev",
+  "survey_name",
   "survey_samples",
   "survey_series_id",
   "survey_sets",
@@ -46,5 +52,6 @@ globalVariables(c(
   "unique_models_dirs_full",
   "vcov",
   "weight",
-  "year"
+  "year",
+  "Year"
 ))

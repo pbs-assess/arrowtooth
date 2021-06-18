@@ -2,6 +2,7 @@
 % Please edit documentation in R/calc-sex-props.R
 \name{props_surv}
 \alias{props_surv}
+\alias{props_surv_data_summary}
 \title{Calculate the proportions female for the survey data}
 \usage{
 props_surv(
@@ -10,6 +11,13 @@ props_surv(
   surv_sets = survey_sets,
   surv_samples = survey_samples,
   ...
+)
+
+props_surv_data_summary(
+  surv_samples,
+  surv_series = 1:4,
+  surv_series_names = c("QCS Synoptic", "HS Multispecies", "HS Synoptic",
+    "WCVI Synoptic")
 )
 }
 \arguments{
@@ -25,7 +33,11 @@ props_surv(
 }
 \value{
 A data frame containing proportions of females for the required surveys
+
+A data frame summarizing the data
 }
 \description{
 Calculate the proportions female for the survey data
+
+Summarize the data used to make the proportions female table
 }

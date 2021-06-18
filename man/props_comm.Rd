@@ -2,6 +2,7 @@
 % Please edit documentation in R/calc-sex-props.R
 \name{props_comm}
 \alias{props_comm}
+\alias{props_comm_data_summary}
 \title{Calculate the proportions female for the commercial data}
 \usage{
 props_comm(
@@ -14,6 +15,16 @@ props_comm(
   gear = c(1, 8),
   data_source_name = "commercial_coastwide",
   ...
+)
+
+props_comm_data_summary(
+  comm_samples,
+  areas = c("03", "04", "05", "06", "07", "08", "09"),
+  start_year = 1996,
+  end_year = 2019,
+  species_category = c(0, 1, 2, 3, 4),
+  sample_type = c(1, 2, 6, 7, 8),
+  gear = c(1, 8)
 )
 }
 \arguments{
@@ -88,7 +99,14 @@ GEAR_CODE                                GEAR_DESC
 \item{data_source_name}{Name to place in the \code{data_source} column for all records in return data frame}
 
 \item{...}{Arguments not intended for this function}
+
+\item{comm_samples}{Commercial samples as extracted using \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
+}
+\value{
+A data frame summarizing the data
 }
 \description{
 Calculate the proportions female for the commercial data
+
+Summarize the data used to make the proportions female table
 }
