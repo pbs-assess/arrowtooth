@@ -94,7 +94,7 @@ j <- bind_rows(unsorted_only, un_keep, un_keep_disc) %>%
 
 csas_table(j,
            align = c("l", rep("r", 4)),
-           caption = "Proportions of coastwide female Arrowtooth Flounder calculated from several data sources. Note that there are no uUnsorted samples for 1997.")
+           caption = "Proportions of coastwide female Arrowtooth Flounder calculated from several data sources. Note that there are no unsorted samples for 1997.")
 ```
 
 ```{r sex-prop-weighting-with-surveys, echo = FALSE, message = FALSE}
@@ -164,9 +164,9 @@ csas_table(props_surv_data,
 
 \clearpage
 
-# Request 2 - Show vonBertalanffy fits and parameter values for survey data. Produce a plot comparing vonB parameter values among surveys.
+# Request 2 - Show von Bertalanffy fits and parameter values for survey data. Produce a plot comparing vonB parameter values among surveys.
 
-```{r vonBfits, fig.cap="von B fits to survey data.", fig.asp=0.9, cache=TRUE, results='hide'}
+```{r vonBfits, fig.cap="von Bertalanffy fits to survey data.", fig.asp=0.9, cache=TRUE, results='hide'}
 # unlink(here("doc", "vb_gfplot.o")) # causes knitr problems
 # unlink(here("doc", "vb_gfplot.so")) # causes knitr problems
 # unlink(here("doc", "vb_gfplot.cpp")) # causes knitr problems
@@ -190,7 +190,7 @@ cowplot::plot_grid(
 )
 ```
 
-```{r vonBpars, fig.cap="von B pars", cache=TRUE, results='hide'}
+```{r vonBpars, fig.cap="von Bertalanffy parameters.", cache=TRUE, results='hide'}
 vb_pars_f <- map(vb_models_f, ~ TMB::sdreport(.x$model))
 vb_pars_m <- map(vb_models_m, ~ TMB::sdreport(.x$model))
 
@@ -222,7 +222,7 @@ bind_rows(vb_est_f, vb_est_m) %>%
 ```
 
 
-```{r vonBfits-all, fig.cap="von B fits to all survey data.", fig.asp=0.8, out.width="4.5in", fig.width=5.5, cache=TRUE, results='hide'}
+```{r vonBfits-all, fig.cap="von Bertalanffy fits to all survey data.", fig.asp=0.8, out.width="4.5in", fig.width=5.5, cache=TRUE, results='hide'}
 dat_syn <- filter(survey_samples, survey_abbrev %in%
   c("SYN QCS", "SYN WCVI", "SYN HS", "SYN WCHG"))
 vb_f <- gfplot::fit_vb(dat_syn, sex = "female")
@@ -234,3 +234,149 @@ gfplot::plot_vb(object_female = vb_f, object_male = vb_m) +
 \clearpage
 
 # Request 3 - Create a 'Discard' CPUE by filtering wet boat Arrowtooth discards for trips where Arrowtooth were not retained (landed).
+
+```{r discard-cpue, fig.cap="Discard CPUE index. Red is the index standardized for depth, vessel, latitude, and locality. Black is the unstandardized geometric mean assuming a Tweedie observation error. This index was calculated by first retaining only fishing events some arrowtooth discards and 0 landed arrowtooth catch and then applying the following fleet definition: a minimum of 100 positive tows for arrowtooth overall, a minimum of 5 years with 5 positive trips for arrowtooth."}
+cpue_discard <- readr::read_csv(here::here("presentations/responses-to-twg/cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE.csv"))
+
+gfplot:::plot_cpue_predictions(cpue_discard, "Combined", scale = TRUE) +
+  scale_x_continuous(breaks = seq(1990, 2050, 5)) +
+  facet_wrap(~formula_version)
+```
+
+\clearpage
+
+# Request 4 - Why was the coastwide stitched synoptic index going up in the last year despite the only survey data (WCHG) going down?
+
+```{r, eval=FALSE}
+library(sdmTMB) # needs pc-prior branch! `install_github("pbs-assess/sdmTMB", ref = "pc-prior")`
+dat <- filter(survey_sets, survey_abbrev %in% 
+    c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG"))
+dat <- filter(dat, !(year == 2014 & survey_abbrev == "SYN WCHG"))
+# dat <- filter(dat, year <= 2019) # only WCHG in 2020
+dat$depth <- dat$depth_m
+dat$akima_depth <- dat$depth_m
+dat$X <- dat$longitude
+dat$Y <- dat$latitude
+dat <- gfplot:::ll2utm(dat)
+dat2 <- gfplot:::scale_survey_predictors(dat)
+range(dat2$density_kgpm2)
+dat2$density_kgp100m2 <- dat2$density_kgpm2 * 100 * 100
+range(dat2$density_kgp100m2)
+
+mesh <- make_mesh(dat2, c("X", "Y"), cutoff = 20)
+# plot(mesh)
+# mesh$mesh$n
+
+m_ar1_depth <- sdmTMB(density_kgp100m2 ~ s(log(depth), k = 3L),
+  family = tweedie(), 
+  data = dat2,
+  time = "year", 
+  silent = FALSE, 
+  anisotropy = FALSE, 
+  spde = mesh,
+  ar1_fields = TRUE,
+  include_spatial = FALSE
+)
+m_rw_depth <- sdmTMB(density_kgp100m2 ~ s(log(depth), k = 3L),
+  family = tweedie(), 
+  data = dat2,
+  time = "year", 
+  silent = FALSE, 
+  anisotropy = FALSE, 
+  spde = mesh,
+  ar1_fields = TRUE,
+  include_spatial = FALSE,
+  start = list(ar1_phi = qlogis((0.999 + 1) / 2)),
+  map = list(ar1_phi = factor(NA)))
+  matern_prior_E = c(5, 0.05, 10, 0.05)
+)
+m_ar1_depth
+m_rw_depth
+
+synoptic_grid <- gfplot::synoptic_grid
+# expand grid to all years:
+original_time <- sort(unique(dat2$year))
+nd <- do.call("rbind",
+  replicate(length(original_time), synoptic_grid, simplify = FALSE))
+nd[["year"]] <- rep(original_time, each = nrow(synoptic_grid))
+
+# predict on grid and calculate index:
+p_ar1 <- predict(m_ar1_depth, newdata = nd, sims = 400L)
+p_rw_depth <- predict(m_rw_depth, newdata = nd, sims = 400L)
+
+index_ar1 <- get_index_sims(p_ar1)
+index_rw_depth <- get_index_sims(p_rw_depth)
+saveRDS(index_ar1, here::here("presentations/responses-to-twg/geostat-cached-data/ar1-index.rds"))
+saveRDS(index_rw_depth, here::here("presentations/responses-to-twg/geostat-cached-data/rw-index.rds"))
+```
+
+```{r geostat-rw-plot, fig.cap="Coastwide geostatistical synoptic index: mean-reverting AR1 spatiotemporal model (as originally shown) vs. a random walk (RW) spatiotemporal model. The issue was that there were almost no data in the final year, 2020, (just WCHG, which has very low Arrowtooth biomass density in comparison to the other surveys) and the mean-reverting AR1 process was therefore drifting back towards the mean. Here I have instead used a random walk model that does not have this property. Note how the final year does not revert towards the mean in the RW model where there are almost no data. Alternatively, we could omit the 2020 coastwide index if this is used in a sensitivity run."}
+index_ar1 <- readRDS(here::here("presentations/responses-to-twg/geostat-cached-data/ar1-index.rds"))
+index_rw_depth <- readRDS(here::here("presentations/responses-to-twg/geostat-cached-data/rw-index.rds"))
+index_ar1 %>% mutate(type = "AR1") %>%
+  bind_rows(index_rw_depth %>% mutate(type = "RW depth")) %>% 
+  # bind_rows(index_rw %>% mutate(type = "RW")) %>% 
+  ggplot(aes(year, est, ymin = lwr, ymax = upr, colour = type, fill = type)) +
+  geom_line() + geom_ribbon(alpha = 0.25, colour = NA) +
+  ylab("Relative biomass density") + xlab("Year") +
+  coord_cartesian(expand = FALSE, ylim = c(0, NA)) +
+  gfplot::theme_pbs() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_colour_brewer(palette = "Set1") +
+  labs(fill = "Type", colour = "Type")
+```
+
+\clearpage 
+
+# How do the coastwide CPUE and synoptic index compare?
+
+```{r syn-vs-cpue, fig.cap="Synoptic survey coastwide index compared with the discard CPUE index. Centered on geometric mean for years after 2002."}
+cpue <- cpue_discard %>% filter(formula_version == "Full standardization") %>% 
+  select(year, est, lwr, upr) %>% 
+  mutate(type = "Discard CPUE")
+synoptic <- index_rw_depth %>% 
+  select(year, est, lwr, upr) %>% 
+  mutate(type = "Coastwide survey stitched\n(depth spline + random walk)") 
+  # filter(year <= 2019)
+bind_rows(cpue, synoptic) %>%
+  group_by(type) %>%
+  mutate(centering_value = exp(mean(log(est[year >= 2003])))) %>% 
+  mutate(upr = upr / centering_value) %>% 
+  mutate(lwr = lwr / centering_value) %>% 
+  mutate(est = est / centering_value) %>%
+  ggplot(aes(year, est, ymin = lwr, ymax = upr, colour = type, fill = type)) +
+  geom_line() + geom_ribbon(alpha = 0.25, colour = NA) +
+  ylab("Relative biomass density") + xlab("Year") +
+  coord_cartesian(expand = FALSE, ylim = c(0, NA)) +
+  gfplot::theme_pbs() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_colour_brewer(palette = "Set1") +
+  labs(fill = "Type", colour = "Type")
+```
+
+
+```{r fig.cap="IPHC", eval=FALSE}
+iphc <- readRDS(here::here("presentations", "pre-review", "iphc-cached-data", "arrowtooth-flounder-results.rds"))
+iphc <- iphc$series_ABCD_full$ser_longest
+iphc <- transmute(iphc, type = "IPHC FISS", 
+  year = year, 
+  est = I_t20SampleMean, 
+  lwr = I_t20BootLow, 
+  upr = I_t20BootHigh)
+
+bind_rows(cpue, synoptic) %>%
+  bind_rows(iphc) %>% 
+  group_by(type) %>%
+  mutate(centering_value = exp(mean(log(est[year >= 2003])))) %>% 
+  mutate(upr = upr / centering_value) %>% 
+  mutate(lwr = lwr / centering_value) %>% 
+  mutate(est = est / centering_value) %>%
+  ggplot(aes(year, est, ymin = lwr, ymax = upr, colour = type, fill = type)) +
+  geom_line() + geom_ribbon(alpha = 0.25, colour = NA) +
+  ylab("Relative biomass density") + xlab("Year") +
+  coord_cartesian(expand = FALSE, ylim = c(0, NA)) +
+  gfplot::theme_pbs() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_colour_brewer(palette = "Set1") +
+  labs(fill = "Type", colour = "Type")
+```
