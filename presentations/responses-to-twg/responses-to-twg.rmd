@@ -233,7 +233,7 @@ gfplot::plot_vb(object_female = vb_f, object_male = vb_m) +
 
 \clearpage
 
-# Request 3 - Create a 'Discard' CPUE by filtering wet boat Arrowtooth discards for trips where Arrowtooth were not retained (landed).
+# Request 3 - Create a 'Discard' CPUE by filtering
 
 ```{r discard-cpue, fig.cap="Discard CPUE index. Red is the index standardized for depth, vessel, latitude, and locality. Black is the unstandardized geometric mean assuming a Tweedie observation error. This index was calculated by first retaining only fishing events some arrowtooth discards and 0 landed arrowtooth catch and then applying the following fleet definition: a minimum of 100 positive tows for arrowtooth overall, a minimum of 5 years with 5 positive trips for arrowtooth."}
 cpue_discard <- readr::read_csv(here::here("presentations/responses-to-twg/cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE.csv"))
