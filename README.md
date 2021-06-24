@@ -1,6 +1,6 @@
 # arrowtooth
 
-[![R-CMD-check](https://github.com/pbs-assess/arrowtooth/workflows/R-CMD-check/badge.svg)](https://github.com/pbs-assess/arrowtooth/actions)
+[![R-CMD-check](https://github.com/cgrandin/arrowtooth/workflows/R-CMD-check/badge.svg)](https://github.com/cgrandin/arrowtooth/actions)
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -14,8 +14,6 @@ Created on March 30, 2020 using the https://github.com/pbs-assess/csasdown packa
 
 Some content moved from the latex method used in the 2014 assessment:
 
-https://github.com/cgrandin/csas-latex
-
 Much of the integration will be based on the herring Science Response document:
 
 https://github.com/pbs-assess/herringsr
@@ -24,7 +22,7 @@ Packages integral to the model running and loading include:
 
 https://github.com/pbs-assess/gfutilities
 
-https://github.com/pbs-assess/gfiscam
+https://github.com/pbs-assess/gfiscam/tree/wsl2
 
 https://github.com/pbs-assess/gfiscamutils
 
@@ -32,4 +30,4 @@ For french integration:
 
 https://github.com/pbs-assess/rosettafish
 
-The data come from two files generated using the [gfdata](https://github.com/pbs-assess/gfdata) package.
+The data come from files generated using the [gfdata](https://github.com/pbs-assess/gfdata) package.
