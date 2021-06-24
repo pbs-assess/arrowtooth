@@ -355,7 +355,8 @@ props_surv_data <- props_surv_data_summary(
 
 csas_table(props_surv_data,
            format = "latex",
-           caption = "Summary of the number of samples and fish weights used in the survey proportion female calculations.")
+           caption = "Summary of the number of samples and fish weights used in the survey proportion female calculations.") %>%
+  kable_styling(font_size = 8)
 ```
 
 \clearpage
