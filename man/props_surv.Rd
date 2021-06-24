@@ -21,13 +21,13 @@ props_surv_data_summary(
 )
 }
 \arguments{
-\item{surv_series}{A vector of integers representing the survey ids to use}
+\item{surv_series}{Values of \code{survey_series_id} which is a column of \code{surv_samples}}
 
-\item{surv_series_names}{A vector of names of surveys to use for the given \code{surv_series} values}
+\item{surv_series_names}{Names to be associated to the values of \code{surv_series}}
 
 \item{surv_sets}{A data frame object returned from \code{\link[gfdata:get_data]{gfdata::get_survey_sets()}}}
 
-\item{surv_samples}{A data frame object returned from \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}}}
+\item{surv_samples}{Output from \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}}}
 
 \item{...}{Arguments not intended for this function}
 }

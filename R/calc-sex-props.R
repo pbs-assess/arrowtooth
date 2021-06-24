@@ -376,11 +376,16 @@ calc_sex_props_surv <- function(dat,
 #' @param dat A data frame returned by running [gfdata::get_survey_samples()] or
 #' [gfdata::get_commercial_samples()]
 #' @param type One of "commercial" or "survey"
+#' @param included_vessels A vector of GFBIO vessel IDs to include in the output. They are
+#'  filtered here as opposed to earlier because for example freezer trawlers have no weight samples,
+#'  so the wet boat weights are needed to determine parameters for LW relationship which can then
+#'  be applied to freezer trawler length samples.
 #' @param ... Arguments passed to [calc_sex_props_comm()] and [calc_sex_props_surv()]
 #' @importFrom lubridate month
 #' @return A data frame of totals of males and females and proportions of females
 make_sex_props <- function(dat,
                            type = "commercial",
+                           included_vessels = NA,
                            ...){
 
   datm <- dat %>% filter(sex == 1)
@@ -389,6 +394,12 @@ make_sex_props <- function(dat,
   lw_params <- list(est_lw_params(datm), est_lw_params(datf))
   #cat("Estimated LW parameters for all data: Males alpha = ", lw_params[[1]][1], ", beta = ", lw_params[[1]][2], "\n")
   #cat("Estimated LW parameters for all data: Females alpha = ", lw_params[[2]][1], ", beta = ", lw_params[[2]][2], "\n")
+
+  # Filter vessels out after calculation of global LW parameters. These would be freezer trawlers usually
+  # but could be any set of vessels.
+  if(!is.na(included_vessels[1]) && "vessel_id" %in% names(dat)){
+    dat <- dat %>% filter(vessel_id %in% included_vessels)
+  }
 
   # Add month column to data
   dat <- dat %>%
@@ -498,7 +509,7 @@ props_comm <- function(d,
     d <- d %>% filter(gear_code %in% gear)
   }
   d <- d %>%
-    select(trip_start_date, major_stat_area_code, trip_id, sample_id, year, sex, length, weight, catch_weight)
+    select(trip_start_date, major_stat_area_code, trip_id, sample_id, year, sex, length, weight, catch_weight, vessel_id)
 
   if(all(is.na(d$weight))){
     stop("All weights are NA for your dataset, LW relationship cannot be calculated.",
@@ -619,10 +630,10 @@ props_comm_data_summary <- function(comm_samples,
   d <- d %>%
     select(trip_start_date, major_stat_area_code, trip_id, sample_id, year, sex, length, weight, catch_weight)
 
-  if(all(is.na(d$weight))){
-    stop("All weights are NA for your dataset, LW relationship cannot be calculated.",
-         call. = FALSE)
-  }
+  #if(all(is.na(d$weight))){
+  #  stop("All weights are NA for your dataset, LW relationship cannot be calculated.",
+  #       call. = FALSE)
+  #}
 
   num_trips <- d %>%
     group_by(year) %>%
@@ -667,9 +678,9 @@ props_comm_data_summary <- function(comm_samples,
 #'
 #' @rdname props_surv
 #'
-#' @param surv_samples
-#' @param surv_series
-#' @param surv_series_names
+#' @param surv_samples Output from [gfdata::get_survey_samples()]
+#' @param surv_series Values of `survey_series_id` which is a column of `surv_samples`
+#' @param surv_series_names Names to be associated to the values of `surv_series`
 #' @return A data frame summarizing the data
 #' @export
 props_surv_data_summary <- function(surv_samples,

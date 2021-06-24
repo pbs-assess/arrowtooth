@@ -4,13 +4,18 @@
 \alias{make_sex_props}
 \title{Create a matrix of proportion female by year from the surveys given in the vector}
 \usage{
-make_sex_props(dat, type = "commercial", ...)
+make_sex_props(dat, type = "commercial", included_vessels = NA, ...)
 }
 \arguments{
 \item{dat}{A data frame returned by running \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} or
 \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
 
 \item{type}{One of "commercial" or "survey"}
+
+\item{included_vessels}{A vector of GFBIO vessel IDs to include in the output. They are
+filtered here as opposed to earlier because for example freezer trawlers have no weight samples,
+so the wet boat weights are needed to determine parameters for LW relationship which can then
+be applied to freezer trawler length samples.}
 
 \item{...}{Arguments passed to \code{\link[=calc_sex_props_comm]{calc_sex_props_comm()}} and \code{\link[=calc_sex_props_surv]{calc_sex_props_surv()}}}
 }

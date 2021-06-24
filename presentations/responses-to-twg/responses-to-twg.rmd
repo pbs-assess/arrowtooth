@@ -48,92 +48,221 @@ survey_sets <- dat$survey_sets
 commercial_samples <- dat$commercial_samples
 ```
 
-# Request 1 - Revisit the Proportion female calculations and give more information on sample sizes used in weighting
+# Revisit the Proportion female calculations and give more information on sample sizes used in weighting. Show the analysis for freezer vessels vs. wet boats.
 
-The calculations are the same as what was done in the 2015 Stock assessment (Grandin & Forrest, 2017).
+The calculations follow the same method as in Appendix B of the 2015 Stock assessment (Grandin & Forrest, 2017).
 
 There were two small bugs found in the code that caused several proportions shown in the presentation to be unreasonable. The bugs had the effect of only the first sample in each trip being used in the calculation instead of all of them. This was the case for both the commercial and survey calculations. In addition, for the commercial data, the quarter 3 catch was used instead of the quarter 4 catch as a divisor in the weighting of the quarter 4 weights for both male and female.
 
-The bugs were fixed and Tables \@ref(tab:sex-prop-weighting) and \@ref(tab:sex-prop-weighting-with-surveys) are the corrected versions of those that appeared in the presentation. Tables \@ref(tab:sex-prop-weighting-comm-data-summary) and \@ref(tab:sex-prop-weighting-surv-data-summary) show the number of trips, samples, and weights by sex used in the weighting calculations for commerical and survey data respectively.
+The bugs were fixed and Tables \@ref(tab:sex-prop-weighting) and \@ref(tab:sex-prop-weighting-with-surveys) are the corrected versions of those that appeared in the presentation. Tables \@ref(tab:sex-prop-weighting-comm-data-summary) and \@ref(tab:sex-prop-weighting-surv-data-summary) show the number of trips, samples, and weights by sex used in the weighting calculations for coastwide commercial and survey data respectively.
+
+Tables \@ref(tab:sex-prop-weighting-comm-data-summary-freezer-trawlers) and \@ref(tab:sex-prop-weighting-comm-data-summary-wet-boats) show the number of trips, samples, and weights by sex used in the weighting calculations for freezer trawlers and wet boats respectively.
 
 ```{r sex-prop-weighting, echo = FALSE, message = FALSE}
-unsorted_only <- props_comm(commercial_samples,
-                            areas = c("03", "04", "05", "06", "07", "08", "09"),
-                            start_year = 1996,
-                            end_year = 2019,
-                            species_category = c(1),
-                            sample_type = c(1, 2, 6, 7, 8),
-                            gear = c(1, 8),
-                            data_source_name = "Unsorted only")
-un_keep <- props_comm(commercial_samples,
-                      areas = c("03", "04", "05", "06", "07", "08", "09"),
-                      start_year = 1996,
-                      end_year = 2019,
-                      species_category = c(1, 3),
-                      sample_type = c(1, 2, 6, 7, 8),
-                      gear = c(1, 8),
-                      data_source_name = "Unsorted + Keepers")
-un_keep_disc <- props_comm(commercial_samples,
-                           areas = c("03", "04", "05", "06", "07", "08", "09"),
-                           start_year = 1996,
-                           end_year = 2019,
-                           species_category = c(1, 3, 4),
-                           sample_type = c(1, 2, 6, 7, 8),
-                           gear = c(1, 8),
-                           data_source_name = "Unsorted + Keepers + Discards")
-
-j <- bind_rows(unsorted_only, un_keep, un_keep_disc) %>% 
-  pivot_wider(id_cols = "year", names_from = "data_source", values_from = prop_female) %>% 
-  arrange(year) %>% 
-  rename(Year = year) %>% 
-  mutate_at(.vars = vars(-Year), function(x){format(round(x, 2), nsmall = 2)}) %>% 
-  map_df(~{
-    .x[grep("NA", .x)] <- ""
-    .x
-  })
-
-csas_table(j,
-           align = c("l", rep("r", 4)),
-           caption = "Proportions of coastwide female Arrowtooth Flounder calculated from several data sources. Note that there are no unsorted samples for 1997.")
-```
-
-```{r sex-prop-weighting-with-surveys, echo = FALSE, message = FALSE}
 out_dir <- file.path(nongit_dir, "data-output")
-fn <- file.path(out_dir, "all-proportion-female.rds")
-if(!dir.exists(out_dir)){
-  dir.create(out_dir)
-}
+dir.create(out_dir, showWarnings = FALSE)
+fn <- file.path(out_dir, "compare-data-types-proportion-female.rds")
 if(file.exists(fn)){
-  all_props <- readRDS(fn)
+  type_props <- readRDS(fn)
 }else{
-  all_props <- props_all(comm_samples = commercial_samples,
-                         surv_sets = survey_sets,
-                         surv_samples = survey_samples,
-                         surv_series = 1:4,
-                         surv_series_names = c("qcsss", "hsmas", "hsss", "wcviss"),
-                         start_year = 1996,
-                         end_year = 2019,
-                         species_category = c(1),
-                         sample_type = c(1, 2, 6, 7, 8),
-                         gear = c(1, 8))
-  saveRDS(all_props, fn)
+  unsorted_only <- props_comm(commercial_samples,
+                              areas = c("03", "04", "05", "06", "07", "08", "09"),
+                              start_year = 1996,
+                              end_year = 2019,
+                              species_category = 1,
+                              sample_type = c(1, 2, 6, 7, 8),
+                              gear = c(1, 8),
+                              data_source_name = "Unsorted only")
+  un_keep <- props_comm(commercial_samples,
+                        areas = c("03", "04", "05", "06", "07", "08", "09"),
+                        start_year = 1996,
+                        end_year = 2019,
+                        species_category = c(1, 3),
+                        sample_type = c(1, 2, 6, 7, 8),
+                        gear = c(1, 8),
+                        data_source_name = "Unsorted + Keepers")
+  un_keep_disc <- props_comm(commercial_samples,
+                             areas = c("03", "04", "05", "06", "07", "08", "09"),
+                             start_year = 1996,
+                             end_year = 2019,
+                             species_category = c(1, 3, 4),
+                             sample_type = c(1, 2, 6, 7, 8),
+                             gear = c(1, 8),
+                             data_source_name = "Unsorted + Keepers + Discards")
+  type_props <- bind_rows(unsorted_only, un_keep, un_keep_disc) %>% 
+    pivot_wider(id_cols = "year", names_from = "data_source", values_from = prop_female) %>% 
+    arrange(year) %>% 
+    rename(Year = year) %>% 
+    mutate_at(.vars = vars(-Year), function(x){format(round(x, 2), nsmall = 2)}) %>% 
+    map_df(~{
+      .x[grep("NA", .x)] <- ""
+      .x
+    }) %>%
+    saveRDS(fn)
 }
+csas_table(type_props,
+           format = "latex",
+           align = c("l", rep("r", 4)),
+           caption = "Proportions of coastwide female Arrowtooth Flounder calculated from several data sources. Note that there are no unsorted samples for 1997.") %>%
+  kable_styling(font_size = 8)
+```
+\clearpage
 
-all_props <- all_props %>% pivot_wider(id_cols = "year", names_from = "data_source", values_from = "prop_female") %>%
+```{r sex-prop-weighting-wet-boats, echo = FALSE, message = FALSE}
+start_yr <- 1996
+end_yr <- 2019
+species_cat <- 1
+sample_type <- c(1, 2, 6, 7, 8)
+gear <- c(1, 8)
+freezer_ids <- c(568, 592, 569, 595, 608, 1727)
+wetboats <- commercial_samples %>% 
+  filter(!vessel_id %in% freezer_ids)
+# Note that freezer boats d o not have any weight samples so they have to be calculated from the LW relationship
+# using freezer trawler length samples and LW parameters from the wet boats samples. That's why the different type of function
+# call compared to the wet boat function call.
+freezer_boats_coast <- props_comm(commercial_samples,
+                                  areas = c("03", "04", "05", "06", "07", "08", "09"),
+                                  start_year = start_yr,
+                                  end_year = end_yr,
+                                  species_category = species_cat,
+                                  sample_type = sample_type,,
+                                  gear = gear,
+                                  data_source_name = "Freezer trawlers coastwide",
+                                  included_vessels = freezer_ids)
+freezer_boats_3cd <- props_comm(commercial_samples,
+                                areas = c("03", "04"),
+                                start_year = start_yr,
+                                end_year = end_yr,
+                                species_category = species_cat,
+                                sample_type = sample_type,,
+                                gear = gear,
+                                data_source_name = "Freezer trawlers 3CD",
+                                included_vessels = freezer_ids)
+freezer_boats_5abcde <- props_comm(commercial_samples,
+                                   areas = c("05", "06", "07", "08", "09"),
+                                   start_year = start_yr,
+                                   end_year = end_yr,
+                                   species_category = species_cat,
+                                   sample_type = sample_type,,
+                                   gear = gear,
+                                   data_source_name = "Freezer trawlers 5ABCDE",
+                                   included_vessels = freezer_ids)
+wet_boats_coast <- props_comm(wetboats,
+                              areas = c("03", "04", "05", "06", "07", "08", "09"),
+                              start_year = start_yr,
+                              end_year = end_yr,
+                              species_category = species_cat,
+                              sample_type = sample_type,,
+                              gear = gear,
+                              data_source_name = "Wet boats coastwide")
+wet_boats_3cd <- props_comm(wetboats,
+                            areas = c("03", "04"),
+                            start_year = start_yr,
+                            end_year = end_yr,
+                            species_category = species_cat,
+                            sample_type = sample_type,,
+                            gear = gear,
+                            data_source_name = "Wet boats 3CD")
+wet_boats_5abcde <- props_comm(wetboats,
+                               areas = c("05", "06", "07", "08", "09"),
+                               start_year = start_yr,
+                               end_year = end_yr,
+                               species_category = species_cat,
+                               sample_type = sample_type,,
+                               gear = gear,
+                               data_source_name = "Wet boats 5ABCDE")
+all_vessels_coast <- props_comm(commercial_samples,
+                                areas = c("03", "04", "05", "06", "07", "08", "09"),
+                                start_year = start_yr,
+                                end_year = end_yr,
+                                species_category = species_cat,
+                                sample_type = sample_type,,
+                                gear = gear,
+                                data_source_name = "All vessels coastwide")
+all_vessels_3cd <- props_comm(commercial_samples,
+                              areas = c("03", "04"),
+                              start_year = start_yr,
+                              end_year = end_yr,
+                              species_category = species_cat,
+                              sample_type = sample_type,,
+                              gear = gear,
+                              data_source_name = "All vessels 3CD")
+all_vessels_5abcde <- props_comm(commercial_samples,
+                                 areas = c("05", "06", "07", "08", "09"),
+                                 start_year = start_yr,
+                                 end_year = end_yr,
+                                 species_category = species_cat,
+                                 sample_type = sample_type,,
+                                 gear = gear,
+                                 data_source_name = "All vessels 5ABCDE")
+
+comm_props <- bind_rows(all_vessels_coast, 
+                        all_vessels_3cd,
+                        all_vessels_5abcde,
+                        freezer_boats_coast,
+                        freezer_boats_3cd,
+                        freezer_boats_5abcde,
+                        wet_boats_coast,
+                        wet_boats_3cd,
+                        wet_boats_5abcde) %>%
+  pivot_wider(id_cols = "year", names_from = "data_source", values_from = "prop_female") %>%
   mutate_at(.vars = vars(-year), ~{format(round(.x, 2), nsmall = 2)}) %>%
   map_df(~{
     .x[grep("NA", .x)] <- ""
     .x
   }) %>%
-  rename(`Year` = "year",
-         `QCS Synoptic` = "qcsss",
-         `HS Multispecies` = "hsmas",
-         `HS Synoptic` = "hsss",
-         `WCVI Synoptic` = "wcviss")
+  rename(`Year` = "year")
 
-csas_table(all_props,
-           caption = "Proportions of female Arrowtooth Flounder calculated for several surveys. Note that 1997 is missing because there are no Unsorted samples for that year.")
+
+csas_table(comm_props,
+           format = "latex",
+           caption = "Proportions of female Arrowtooth Flounder calculated for freezer trawlers only, wet boats only, and both combined. Note that freezer trawlers do not have any weight samples, so length-weight parameters calculated from the wet boats were used to calculate weights from the freezer trawler length samples.") %>% 
+  column_spec(2, width = "5em") %>% 
+  column_spec(3, width = "5em") %>% 
+  column_spec(4, width = "5em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "5em") %>% 
+  column_spec(7, width = "5em") %>% 
+  column_spec(8, width = "5em") %>% 
+  column_spec(9, width = "5em") %>% 
+  column_spec(10, width = "5em") %>%
+  kable_styling(font_size = 8)
 ```
+
+```{r ft-wetboat-all-prop-coastwide-plot, fig.cap = "Coastwide proportions female by fleet."}
+comm_props <- bind_rows(all_vessels_coast, 
+                        freezer_boats_coast,
+                        wet_boats_coast) %>% 
+  rename(Year = year, `Proportion female` = prop_female, `Data source` = data_source)
+ggplot(comm_props, aes(x = Year, y = `Proportion female`, color = `Data source`)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  theme_pbs()
+```
+
+```{r ft-wetboat-all-prop-3cd-plot, fig.cap = "Area 3CD proportions female by fleet."}
+comm_props <- bind_rows(all_vessels_3cd,
+                        freezer_boats_3cd,
+                        wet_boats_3cd) %>% 
+  rename(Year = year, `Proportion female` = prop_female, `Data source` = data_source)
+ggplot(comm_props, aes(x = Year, y = `Proportion female`, color = `Data source`)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  theme_pbs()
+```
+
+```{r ft-wetboat-all-prop-5abcde-plot, fig.cap = "Area 5ABCDE proportions female by fleet."}
+comm_props <- bind_rows(all_vessels_5abcde,
+                        freezer_boats_5abcde,
+                        wet_boats_5abcde) %>% 
+  rename(Year = year, `Proportion female` = prop_female, `Data source` = data_source)
+ggplot(comm_props, aes(x = Year, y = `Proportion female`, color = `Data source`)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  theme_pbs()
+```
+
+\clearpage
 
 ```{r sex-prop-weighting-comm-data-summary, echo = FALSE, message = FALSE}
 props_data <- props_comm_data_summary(
@@ -146,7 +275,73 @@ props_data <- props_comm_data_summary(
   gear = c(1, 8))
 
 csas_table(props_data,
-           caption = "Summary of the number of trips, samples, and fish weights used in the commercial coastwide proportion female calculations. Note that 1997 is missing because there are no Unsorted samples for that year.")
+           format = "latex",
+           caption = "Summary of the number of trips, samples, and fish weights used in the commercial coastwide proportion female calculations. Note that 1997 is missing because there are no Unsorted samples for that year.") %>%
+  kable_styling(font_size = 8)
+```
+
+```{r sex-prop-weighting-comm-data-summary-freezer-trawlers, echo = FALSE, message = FALSE}
+props_data <- props_comm_data_summary(
+  comm_samples = commercial_samples %>% filter(vessel_id %in% freezer_ids),
+  areas = c("03", "04", "05", "06", "07", "08", "09"),
+  start_year = 1996,
+  end_year = 2019,
+  species_category = 1,
+  sample_type = c(1, 2, 6, 7, 8),
+  gear = c(1, 8))
+
+csas_table(props_data,
+           format = "latex",
+           caption = "Summary of the number of trips, samples, and fish weights used in the commercial coastwide proportion female calculations for freezer trawlers only. Note that there are no actual weight samples for freezer trawlers and the number of weights shown here were calculated from lengths using length-weight parameters calculated from the wet boat fleet.") %>%
+  kable_styling(font_size = 8)
+```
+
+```{r sex-prop-weighting-comm-data-summary-wet-boats, echo = FALSE, message = FALSE}
+props_data <- props_comm_data_summary(
+  comm_samples = commercial_samples %>% filter(!vessel_id %in% freezer_ids),
+  areas = c("03", "04", "05", "06", "07", "08", "09"),
+  start_year = 1996,
+  end_year = 2019,
+  species_category = 1,
+  sample_type = c(1, 2, 6, 7, 8),
+  gear = c(1, 8))
+
+csas_table(props_data,
+           format = "latex",
+           caption = "Summary of the number of trips, samples, and fish weights used in the commercial coastwide proportion female calculations for wet boats only.") %>%
+  kable_styling(font_size = 8)
+```
+
+```{r sex-prop-weighting-with-surveys, echo = FALSE, message = FALSE}
+out_dir <- file.path(nongit_dir, "data-output")
+dir.create(out_dir, showWarnings = FALSE)
+fn <- file.path(out_dir, "surv-proportion-female.rds")
+if(file.exists(fn)){
+  surv_props <- readRDS(fn)
+}else{
+  surv_props <- props_surv(surv_sets = survey_sets,
+                           surv_samples = survey_samples,
+                           surv_series = 1:4,
+                           surv_series_names = c("QCS Synoptic",
+                                                 "HS Multispecies",
+                                                 "HS Synoptic",
+                                                 "WCVI Synoptic"),
+                           start_year = 1996,
+                           end_year = 2019) %>% 
+    pivot_wider(id_cols = "year", names_from = "data_source", values_from = "prop_female") %>%
+    mutate_at(.vars = vars(-year), ~{format(round(.x, 2), nsmall = 2)}) %>%
+    map_df(~{
+      .x[grep("NA", .x)] <- ""
+      .x
+    }) %>%
+    rename(Year = "year") %>%
+    arrange(Year) %>% 
+    saveRDS(fn)
+}
+csas_table(surv_props,
+           format = "latex",
+           caption = "Proportions of female Arrowtooth Flounder calculated for Synoptic surveys and the Hecate Strait multispecies assemblage survey.") %>%
+  kable_styling(font_size = 8)
 ```
 
 ```{r sex-prop-weighting-surv-data-summary, echo = FALSE, message = FALSE}
@@ -159,12 +354,39 @@ props_surv_data <- props_surv_data_summary(
                         "WCVI Synoptic"))
 
 csas_table(props_surv_data,
+           format = "latex",
            caption = "Summary of the number of samples and fish weights used in the survey proportion female calculations.")
 ```
 
 \clearpage
 
-# Request 2 - Show von Bertalanffy fits and parameter values for survey data. Produce a plot comparing vonB parameter values among surveys.
+# Catch series split by freezer trawlers and wet boats
+
+```{r freezer-catch, fig.caption="Freezer trawler catches"}
+freezer_catch <- dat$catch %>% 
+  filter(vessel_registration_number %in% c(310913, 312275, 310988, 312405, 313334, 313464, 313224))
+freezer_catch <- tidy_catch(freezer_catch)
+plot_catch(freezer_catch) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5)) +
+  ylim(0, 15) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("Freezer trawlers")
+```
+
+```{r non-freezer-catch, fig.caption="Wet boat catches"}
+nonfreezer_catch <- dat$catch %>% 
+  filter(!vessel_registration_number %in% c(310913, 312275, 310988, 312405, 313334, 313464, 313224))
+nonfreezer_catch <- tidy_catch(nonfreezer_catch)
+plot_catch(nonfreezer_catch) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5)) +
+  ylim(0, 15) +
+  theme(axis.text.x = element_text(angle = 0)) +
+  ggtitle("Wet boats")
+```
+
+\clearpage
+
+# Show von Bertalanffy fits and parameter values for survey data. Produce a plot comparing vonB parameter values among surveys.
 
 ```{r vonBfits, fig.cap="von Bertalanffy fits to survey data.", fig.asp=0.9, cache=TRUE, results='hide'}
 # unlink(here("doc", "vb_gfplot.o")) # causes knitr problems
@@ -233,7 +455,7 @@ gfplot::plot_vb(object_female = vb_f, object_male = vb_m) +
 
 \clearpage
 
-# Request 3 - Create a 'Discard' CPUE by filtering
+# Create a 'Discard' CPUE by filtering
 
 ```{r discard-cpue, fig.cap="Discard CPUE index. Red is the index standardized for depth, vessel, latitude, and locality. Black is the unstandardized geometric mean assuming a Tweedie observation error. This index was calculated by first retaining only fishing events some arrowtooth discards and 0 landed arrowtooth catch and then applying the following fleet definition: a minimum of 100 positive tows for arrowtooth overall, a minimum of 5 years with 5 positive trips for arrowtooth. The standardized and unstandardized means are relatively similar, this index has less variance than the whole 'fleet' index, and this index matches the survey index relatively well (see last plot)."}
 cpue_discard <- readr::read_csv(here::here("presentations/responses-to-twg/cpue-cached-data/cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE.csv"))
@@ -380,3 +602,4 @@ bind_rows(cpue, synoptic) %>%
   scale_colour_brewer(palette = "Set1") +
   labs(fill = "Type", colour = "Type")
 ```
+\clearpage
