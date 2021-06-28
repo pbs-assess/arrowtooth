@@ -22,11 +22,13 @@ props_surv_data_summary(
 )
 
 extract_survey_indices(
-  surv_series = 1:4,
-  surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
   survey_index,
   survey_sets,
-  survey_samples
+  survey_samples,
+  comm_samples,
+  surv_series = 1:4,
+  surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
+  ...
 )
 }
 \arguments{
@@ -38,9 +40,11 @@ extract_survey_indices(
 
 \item{surv_samples}{Output from \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}}}
 
-\item{...}{Arguments not intended for this function}
+\item{...}{Arguments passed to \code{\link[=props_comm]{props_comm()}}}
 
 \item{survey_index}{Survey index data frame as output by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
+
+\item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
 }
 \value{
 A data frame containing proportions of females for the required surveys
@@ -55,11 +59,18 @@ Calculate the proportions female for the survey data
 Summarize the data used to make the proportions female table
 
 Extract the female survey index data for pasting into the iSCAM data file.
+The 'Discard CPUE' index must be multiplied by the proportions female feom the commerciual fishery
+so \code{comm_samples} is required
+}
+\details{
+The CV can be calculated as CV = SD / MEAN or from the Standard error: CV = sqrt(exp(SE^2) - 1)
 }
 \examples{
 \dontrun
 si <- gfdata::get_survey_index("arrowtooth flounder")
 ss <- gfdata::get_survey_sets("arrowtooth flounder")
 ssa <- gfdata::get_survey_samples("arrowtooth flounder")
-extract_catch_data(survey_index = si, survey_sets = ss, survey_samples = ssa)
+comm <- gfdata::get_commercial_samples("arrowtooth flounder")
+extract_survey_indices (survey_index, survey_sets, survey_samples, commercial_samples,
+ start_year = 1996, end_year = 2019, species_category = 1)
 }

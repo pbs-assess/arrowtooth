@@ -38,10 +38,17 @@ extract_catch_data <- function(catch,
   props <- props %>%
     mutate(prop_female = ifelse(is.na(prop_female), mean_prop, prop_female))
 
-  left_join(ct, props, by = "year") %>%
+  j <- left_join(ct, props, by = "year") %>%
     filter(!is.na(prop_female)) %>%
     rename(catch = value) %>%
     mutate(catch = catch / 1e6) %>%
     mutate(female_catch = catch * prop_female) %>%
     select(year, female_catch)
+
+  nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
+  dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
+  fn <- file.path(nongit_dir, "data-output/catch.txt")
+  write.table(j, fn, quote = FALSE, row.names = FALSE)
+  message("Catch written to ", fn)
+
 }

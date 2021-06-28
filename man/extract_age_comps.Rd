@@ -4,14 +4,12 @@
 \alias{extract_age_comps}
 \title{Extract the female age proportions for pasting into the iSCAM data file.}
 \usage{
-extract_age_comps(catch, comm_samples, fn)
+extract_age_comps(catch, comm_samples)
 }
 \arguments{
 \item{catch}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_catch()}}}
 
-\item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
-
-\item{fn}{A file name to write the output to. The output is ASCII text written
+\item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}
 using \code{\link[utils:write.table]{utils::write.table()}}}
 }
 \value{
