@@ -6,7 +6,7 @@
 \usage{
 get_age_at_50_mat(
   surv,
-  surv_series = c(1, 3, 4),
+  surv_series = 1:4,
   maturity_code = 5,
   maturity_convention_code = 4,
   start_year = 1996,

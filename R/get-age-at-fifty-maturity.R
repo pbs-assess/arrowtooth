@@ -35,7 +35,7 @@
 #' survey_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 #' get_age_at_50_mat(survey_samples)
 get_age_at_50_mat <- function(surv,
-                              surv_series = c(1, 3, 4),
+                              surv_series = 1:4,
                               maturity_code = 5,
                               maturity_convention_code = 4,
                               start_year = 1996,
@@ -47,7 +47,8 @@ get_age_at_50_mat <- function(surv,
     filter(survey_series_id %in% surv_series) %>%
     filter(year %in% start_year:end_year) %>%
     filter(!is.na(age),
-           !is.na(maturity_code)) %>%
+           !is.na(maturity_code),
+           sex %in% 1:2) %>%
     filter(maturity_convention_code %in% !!maturity_convention_code) %>%
     select(age, sex, maturity_code)
 
