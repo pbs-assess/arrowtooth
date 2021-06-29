@@ -50,5 +50,4 @@ extract_catch_data <- function(catch,
   fn <- file.path(nongit_dir, "data-output/catch.txt")
   write.table(j, fn, quote = FALSE, row.names = FALSE)
   message("Catch written to ", fn)
-
 }
