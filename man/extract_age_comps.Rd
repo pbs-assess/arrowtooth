@@ -2,14 +2,24 @@
 % Please edit documentation in R/extract-age-comps.R
 \name{extract_age_comps}
 \alias{extract_age_comps}
-\title{Extract the female age proportions for pasting into the iSCAM data file.}
+\title{Extract the commercial age proportions for pasting into the iSCAM data file.}
 \usage{
-extract_age_comps(catch, comm_samples, sex = c("M", "F"))
+extract_age_comps(
+  catch_sets,
+  samples,
+  type = "commercial",
+  surv_series_name = "SYN QCS",
+  sex = c("M", "F"),
+  write_to_file = TRUE
+)
 }
 \arguments{
-\item{catch}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_catch()}}}
+\item{catch_sets}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_catch()}} or \code{\link[gfdata:get_data]{gfdata::get_survey_sets()}}}
 
-\item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
+\item{samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}} or \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}}}
+
+\item{surv_series_name}{Name of a survey to extract. To extract multiple at once, use \code{\link[=extract_survey_age_comps]{extract_survey_age_comps()}}.
+See the values in \code{survey_abbrev} column of data frame returned by \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} for names}
 
 \item{sex}{sex code, "M" = male, "F" = female.
 For split sex (full age comps for each sex) use sex = c("M", "F")}
@@ -18,7 +28,7 @@ For split sex (full age comps for each sex) use sex = c("M", "F")}
 Nothing. The output is written to the file
 }
 \description{
-Extract the female age proportions for pasting into the iSCAM data file.
+Extract the commercial age proportions for pasting into the iSCAM data file.
 }
 \examples{
 \dontrun

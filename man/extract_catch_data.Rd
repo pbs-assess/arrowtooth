@@ -6,14 +6,16 @@
 in \code{\link[=props_comm]{props_comm()}} which are passed through \code{...} have default value which will filter your data
 if you do not provide your own values.}
 \usage{
-extract_catch_data(catch, comm_samples, ...)
+extract_catch_data(catch, comm_samples, female_only = FALSE, ...)
 }
 \arguments{
 \item{catch}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_catch()}}}
 
 \item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
 
-\item{...}{Arguments to be passed on to \code{\link[=props_comm]{props_comm()}}}
+\item{female_only}{If \code{TRUE}, indices and wts will be multiplied by the proportion female}
+
+\item{...}{Arguments to be passed on to \code{\link[=props_comm]{props_comm()}} and \code{\link[gfplot:plot_catch]{gfplot::tidy_catch()}}}
 }
 \value{
 A data frame you can cut and paste into the iSCAM data file
@@ -33,5 +35,5 @@ The year range is determined by what is set in \code{\link[=props_comm]{props_co
 \dontrun
 d <- gfdata::get_commercial_samples("arrowtooth flounder")
 ct <- gfdata::get_catch("arrowtooth flounder")
-extract_catch_data(ct, d, species_category = 1, end_year = 2019) \%>\% print(n=100)
+extract_catch_data(ct, d, species_category = 1, end_year = 2019, month_fishing_starts = 2, day_fishing_starts = 21) \%>\% print(n=100)
 }

@@ -4,7 +4,12 @@
 \alias{model_setup}
 \title{Load models and set up the directory names}
 \usage{
-model_setup(main_dirs = set_dirs(), overwrite_rds_files = FALSE)
+model_setup(
+  main_dirs = set_dirs(),
+  overwrite_rds_files = FALSE,
+  bridge_models_dirs = list(c("01-base", "02-bridge-update-data",
+    "03-bridge-add-discard-cpue", "04-bridge-add-splitsex-agecomps"))
+)
 }
 \arguments{
 \item{main_dirs}{A list of four, with the same names as the output

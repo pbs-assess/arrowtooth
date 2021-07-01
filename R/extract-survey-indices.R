@@ -7,6 +7,7 @@
 #' @rdname props_surv
 #' @param survey_index Survey index data frame as output by [gfdata::get_survey_index()]
 #' @param comm_samples Data frame as output by [gfdata::get_commercial_samples()]
+#' @param female_only If `TRUE`, indices and wts will be multiplied by the proportion female
 #' @param ... Arguments passed to [props_comm()]
 #'
 #' @return A list of survey indices for pasting into a iSCAM data file
@@ -28,6 +29,7 @@ extract_survey_indices <- function(survey_index,
                                    comm_samples,
                                    surv_series = 1:4,
                                    surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
+                                   female_only = FALSE,
                                    ...){
 
   nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
@@ -76,58 +78,76 @@ extract_survey_indices <- function(survey_index,
     bind_rows(cpue_discard) %>%
     bind_rows(stitched_syn)
 
-  # Need commercial proportions female for CPUE discard series
-  props_c <- props_comm(comm_samples, ...) %>%
-    select(-data_source) %>%
-    complete(year = seq(min(year), max(year)))
-  mean_props_c <- mean(props_c$prop_female, na.rm = TRUE)
-  props_c <- props_c %>%
-    mutate(prop_female = ifelse(is.na(prop_female), mean_props_c, prop_female)) %>%
-    mutate(survey = "CPUE discard")
+  if(female_only){
+    # Need commercial proportions female for CPUE discard series
+    props_c <- props_comm(comm_samples, ...) %>%
+      select(-data_source) %>%
+      complete(year = seq(min(year), max(year)))
+    mean_props_c <- mean(props_c$prop_female, na.rm = TRUE)
+    props_c <- props_c %>%
+      mutate(prop_female = ifelse(is.na(prop_female), mean_props_c, prop_female)) %>%
+      mutate(survey = "CPUE discard")
 
-  props <- props_surv(surv_series,
-                      surv_names,
-                      survey_sets,
-                      survey_samples) %>%
-    rename(survey = data_source)
+    props <- props_surv(surv_series,
+                        surv_names,
+                        survey_sets,
+                        survey_samples) %>%
+      rename(survey = data_source)
 
-  props <- props %>% bind_rows(props_c)
+    props <- props %>% bind_rows(props_c)
 
-  # Use mean of proportions female from all surveys and commercial for IPHC index
-  mean_prop_iphc <- mean(props$prop_female)
-  iphc_yrs <- surv_indices %>% filter(survey == "IPHC FISS") %>% pull(year) %>% as_tibble() %>% `names<-`("year")
-  iphc_prop_female <- rep(mean_prop_iphc, nrow(iphc_yrs)) %>% as_tibble() %>% `names<-`("prop_female")
-  iphc_survey <- rep("IPHC FISS", nrow(iphc_yrs)) %>% as_tibble() %>% `names<-`("survey")
-  props_iphc <- bind_cols(iphc_yrs, iphc_prop_female, iphc_survey)
+    # Use mean of proportions female from all surveys and commercial for IPHC index
+    mean_prop_iphc <- mean(props$prop_female)
+    iphc_yrs <- surv_indices %>% filter(survey == "IPHC FISS") %>% pull(year) %>% as_tibble() %>% `names<-`("year")
+    iphc_prop_female <- rep(mean_prop_iphc, nrow(iphc_yrs)) %>% as_tibble() %>% `names<-`("prop_female")
+    iphc_survey <- rep("IPHC FISS", nrow(iphc_yrs)) %>% as_tibble() %>% `names<-`("survey")
+    props_iphc <- bind_cols(iphc_yrs, iphc_prop_female, iphc_survey)
 
-  props <- props %>% bind_rows(props_iphc)
+    props <- props %>% bind_rows(props_iphc)
 
-  # Use mean of all proportions female from all Synoptic surveys for stitched index
-  mean_prop_syn <- props %>% filter(grepl("SYN", survey)) %>% pull(prop_female) %>% mean
-  stitched_yrs <- surv_indices %>% filter(survey == "Stitched Synoptics") %>% pull(year) %>% as_tibble() %>% `names<-`("year")
-  stitched_prop_female <- rep(mean_prop_syn, nrow(stitched_yrs)) %>% as_tibble() %>% `names<-`("prop_female")
-  stitched_survey <- rep("Stitched Synoptics", nrow(stitched_yrs)) %>% as_tibble() %>% `names<-`("survey")
-  props_stitched <- bind_cols(stitched_yrs, stitched_prop_female, stitched_survey)
+    # Use mean of all proportions female from all Synoptic surveys for stitched index
+    mean_prop_syn <- props %>% filter(grepl("SYN", survey)) %>% pull(prop_female) %>% mean
+    stitched_yrs <- surv_indices %>% filter(survey == "Stitched Synoptics") %>% pull(year) %>% as_tibble() %>% `names<-`("year")
+    stitched_prop_female <- rep(mean_prop_syn, nrow(stitched_yrs)) %>% as_tibble() %>% `names<-`("prop_female")
+    stitched_survey <- rep("Stitched Synoptics", nrow(stitched_yrs)) %>% as_tibble() %>% `names<-`("survey")
+    props_stitched <- bind_cols(stitched_yrs, stitched_prop_female, stitched_survey)
 
-  props <- props %>% bind_rows(props_stitched)
+    props <- props %>% bind_rows(props_stitched)
+    j <- left_join(surv_indices, props, by = c("survey", "year")) %>%
+      group_by(survey) %>%
+      group_split()
 
-  j <- left_join(surv_indices, props, by = c("survey", "year")) %>%
-    group_by(survey) %>%
-    group_split()
+    surv_indices <- j %>% map(~{
+      mean_prop <- mean(.x$prop_female, na.rm = TRUE)
+      .x <- .x %>%
+        mutate(prop_female = ifelse(is.na(prop_female), mean_prop, prop_female)) %>%
+        mutate(index = index * prop_female,
+               wt = wt * prop_female) %>%
+        select(survey, year, index, wt)
+      .x
+    }) %>%
+      bind_rows()
+  }
 
-  j <- j %>% map(~{
-    mean_prop <- mean(.x$prop_female, na.rm = TRUE)
-    .x <- .x %>%
-      mutate(prop_female = ifelse(is.na(prop_female), mean_prop, prop_female)) %>%
-      mutate(female_catch = index * prop_female, female_wt = wt * prop_female) %>%
-      select(survey, year, female_catch, female_wt)
+  # Format for digits
+  surv_indices <- map_at(surv_indices, c("index", "wt"), ~{
+    format(round(.x, 2), digits = 2, nsmall = 2)
+    }) %>%
+    map_df(~{.x})
 
-    .x
-  }) %>%
-    bind_rows()
+  # Organize into iSCAM data file order
+  survey_years_index <- surv_indices %>% select(survey, year, index)
+  wt <- surv_indices %>% select(wt)
+  gear <- rep(2, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("gear")
+  area <- rep(1, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("area")
+  group <- rep(1, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("group")
+  sex <- rep(0, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("sex")
+  timing <- rep(0.0, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("timing")
+  surv_indices <- bind_cols(survey_years_index, gear, area, group, sex, wt, timing) %>%
+    arrange(survey, year)
 
   dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
   fn <- file.path(nongit_dir, "data-output/survey-indices.txt")
-  write.table(j, fn, quote = FALSE, row.names = FALSE)
+  write.table(surv_indices, fn, quote = FALSE, row.names = FALSE)
   message("Survey indices written to ", fn)
 }

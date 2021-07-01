@@ -9,7 +9,8 @@
 #'
 #' @param catch Data frame as output by [gfdata::get_catch()]
 #' @param comm_samples Data frame as output by [gfdata::get_commercial_samples()]
-#' @param ... Arguments to be passed on to [props_comm()]
+#' @param female_only If `TRUE`, indices and wts will be multiplied by the proportion female
+#' @param ... Arguments to be passed on to [props_comm()] and [gfplot::tidy_catch()]
 #'
 #' @return A data frame you can cut and paste into the iSCAM data file
 #' @export
@@ -18,36 +19,49 @@
 #' \dontrun
 #' d <- gfdata::get_commercial_samples("arrowtooth flounder")
 #' ct <- gfdata::get_catch("arrowtooth flounder")
-#' extract_catch_data(ct, d, species_category = 1, end_year = 2019) %>% print(n=100)
+#' extract_catch_data(ct, d, species_category = 1, end_year = 2019, month_fishing_starts = 2, day_fishing_starts = 21) %>% print(n=100)
 extract_catch_data <- function(catch,
                                comm_samples,
+                               female_only = FALSE,
                                ...){
 
-  ct <- tidy_catch(catch) %>%
+  options(scipen = 999)
+  ct <- tidy_catch(catch, ...) %>%
     select(-species_common_name, -area) %>%
     group_by(year) %>%
-    summarize(value = sum(value)) %>%
+    summarize(catch = sum(value) / 1e6) %>%
     ungroup()
 
-  props <- props_comm(comm_samples, ...) %>%
-    select(-data_source) %>%
-    complete(year = seq(min(year), max(year)))
+  if(female_only){
+    props <- props_comm(comm_samples, ...) %>%
+      select(-data_source) %>%
+      complete(year = seq(min(year), max(year)))
 
-  mean_prop <- props %>% pull(prop_female) %>% mean(na.rm = T)
+    mean_prop <- props %>% pull(prop_female) %>% mean(na.rm = T)
 
-  props <- props %>%
-    mutate(prop_female = ifelse(is.na(prop_female), mean_prop, prop_female))
+    props <- props %>%
+      mutate(prop_female = ifelse(is.na(prop_female), mean_prop, prop_female))
 
-  j <- left_join(ct, props, by = "year") %>%
-    filter(!is.na(prop_female)) %>%
-    rename(catch = value) %>%
-    mutate(catch = catch / 1e6) %>%
-    mutate(female_catch = catch * prop_female) %>%
-    select(year, female_catch)
+    ct <- left_join(ct, props, by = "year") %>%
+      filter(!is.na(prop_female)) %>%
+      mutate(catch = catch * prop_female) %>%
+      select(year, catch)
+  }
+
+  # Bind columns in order for data file so it's a simple cut/paste
+  yrs <- ct %>% select(year)
+  value <- ct %>% pull(catch)
+  value <- format(round(value, 2), digits = 2, nsmall = 2) %>% as_tibble %>% `names<-`("value")
+  gear <- rep("1   ", nrow(ct)) %>% as_tibble() %>% `names<-`("gear")
+  area <- rep("1   ", nrow(ct)) %>% as_tibble() %>% `names<-`("area")
+  group <- rep("1    ", nrow(ct)) %>% as_tibble() %>% `names<-`("group")
+  sex <- rep(ifelse(female_only, "2   ", "0   "), nrow(ct)) %>% as_tibble() %>% `names<-`("sex")
+  type <- rep("1  ", nrow(ct)) %>% as_tibble() %>% `names<-`("type")
+  ct <- bind_cols(yrs, gear, area, group, sex, type, value)
 
   nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
   dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
   fn <- file.path(nongit_dir, "data-output/catch.txt")
-  write.table(j, fn, quote = FALSE, row.names = FALSE)
+  write.table(ct, fn, quote = FALSE, row.names = FALSE)
   message("Catch written to ", fn)
 }

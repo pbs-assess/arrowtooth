@@ -7,7 +7,9 @@
 set_dirs(
   nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"),
   models_dir = file.path(nongit_dir, "models"),
-  base_model_dir = "01-base"
+  base_model_dir = "01-base",
+  bridge_models_dir = "001-bridge-models",
+  bridge_base_model_dir = "01-base"
 )
 }
 \arguments{

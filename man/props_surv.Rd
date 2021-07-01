@@ -28,6 +28,7 @@ extract_survey_indices(
   comm_samples,
   surv_series = 1:4,
   surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
+  female_only = FALSE,
   ...
 )
 }
@@ -45,6 +46,8 @@ extract_survey_indices(
 \item{survey_index}{Survey index data frame as output by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
 
 \item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
+
+\item{female_only}{If \code{TRUE}, indices and wts will be multiplied by the proportion female}
 }
 \value{
 A data frame containing proportions of females for the required surveys
