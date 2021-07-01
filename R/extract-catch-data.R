@@ -37,7 +37,7 @@ extract_catch_data <- function(catch,
       select(-data_source) %>%
       complete(year = seq(min(year), max(year)))
 
-    mean_prop <- props %>% pull(prop_female) %>% mean(na.rm = T)
+    mean_prop <- props %>% pull(prop_female) %>% mean(na.rm = TRUE)
 
     props <- props %>%
       mutate(prop_female = ifelse(is.na(prop_female), mean_prop, prop_female))
