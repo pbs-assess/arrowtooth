@@ -6,26 +6,28 @@
 #' See the values in `survey_abbrev` column of data frame returned by [gfdata::get_survey_samples()] for names
 #' @param sex sex code, "M" = male, "F" = female.
 #'  For split sex (full age comps for each sex) use sex = c("M", "F")
+#' @param ... Arguments to pass to [gfplot::tidy_ages_weighted()]
 #'
 #' @return Nothing. The output is written to the file
 #' @export
 #'
 #' @examples
 #' \dontrun
-#' d <- gfdata::get_commercial_samples("arrowtooth flounder")
-#' ct <- gfdata::get_catch("arrowtooth flounder")
-#' extract_age_comps(ct, d) %>% print(n = 100)
+#' catch <- gfdata::get_catch("arrowtooth flounder")
+#' commercial_samples <- gfdata::get_commercial_samples("arrowtooth flounder")
+#' extract_age_comps(catch, commercial_samples, spp_cat_code = 1, month_fishing_starts = 2, day_fishing_starts = 21) %>% print(n = 100)
 extract_age_comps <- function(catch_sets,
                               samples,
                               type = "commercial",
                               surv_series_name = "SYN QCS",
                               sex = c("M", "F"),
-                              write_to_file = TRUE){
+                              write_to_file = TRUE,
+                              ...){
 
   if(type == "commercial"){
-    ac <- tidy_ages_weighted(samples, sample_type = "commercial", dat_catch = catch_sets, spp_cat_code = c(1,))
+    ac <- tidy_ages_weighted(samples, sample_type = "commercial", dat_catch = catch_sets, ...)
   }else if(type == "survey"){
-    ac <- tidy_ages_weighted(samples, sample_type = "survey", dat_survey_sets = catch_sets) %>%
+    ac <- tidy_ages_weighted(samples, sample_type = "survey", dat_survey_sets = catch_sets, ...) %>%
       filter(survey_abbrev == surv_series_name)
   }else{
     stop("type must be 'commercial' or 'survey'", call. = FALSE)
@@ -92,16 +94,24 @@ extract_age_comps <- function(catch_sets,
 #' @export
 #'
 #' @examples
-extract_survey_age_comps <- function(surv_series_names = c("SYN QCS", "SYN HS", "SYN WCVI"), ...){
+#' \dontrun
+#' survey_sets <- gfdata::get_survey_sets("arrowtooth flounder")
+#' survwy_samples <- gfdata::get_survey_samples("arrowtooth flounder")
+#' extract_survey_age_comps(catch_sets = survey_sets, samples = survey_samples)
+extract_survey_age_comps <- function(surv_series_names = c("SYN QCS", "SYN HS", "SYN WCVI"), write_to_file = FALSE, ...){
   j <- map2(surv_series_names, seq_along(surv_series_names), function(x = .x, y = .y, ...){
     extract_age_comps(type = "survey", surv_series_name = x, write_to_file = FALSE, ...) %>%
       mutate(gear = y + 1)
   }, ...) %>%
     bind_rows()
 
-  nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
-  dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
-  fn <- file.path(nongit_dir, "data-output/survey-age-proportions.txt")
-  write.table(j, fn, quote = FALSE, row.names = FALSE)
-  message("Survey age proportions written to ", fn)
+  if(write_to_file){
+    nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
+    dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
+    fn <- file.path(nongit_dir, "data-output/survey-age-proportions.txt")
+    write.table(j, fn, quote = FALSE, row.names = FALSE)
+    message("Survey age proportions written to ", fn)
+  }else{
+    j
+  }
 }

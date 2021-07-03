@@ -17,8 +17,8 @@
 #' @importFrom gfplot tidy_catch
 #' @examples
 #' \dontrun
-#' d <- gfdata::get_commercial_samples("arrowtooth flounder")
 #' ct <- gfdata::get_catch("arrowtooth flounder")
+#' d <- gfdata::get_commercial_samples("arrowtooth flounder")
 #' extract_catch_data(ct, d, species_category = 1, end_year = 2019, month_fishing_starts = 2, day_fishing_starts = 21) %>% print(n=100)
 extract_catch_data <- function(catch,
                                comm_samples,
@@ -50,12 +50,13 @@ extract_catch_data <- function(catch,
 
   # Bind columns in order for data file so it's a simple cut/paste
   yrs <- ct %>% select(year)
+  yrs$year <- paste0("   ", yrs$year)
   value <- ct %>% pull(catch)
   value <- format(round(value, 2), digits = 2, nsmall = 2) %>% as_tibble %>% `names<-`("value")
   gear <- rep("1   ", nrow(ct)) %>% as_tibble() %>% `names<-`("gear")
   area <- rep("1   ", nrow(ct)) %>% as_tibble() %>% `names<-`("area")
   group <- rep("1    ", nrow(ct)) %>% as_tibble() %>% `names<-`("group")
-  sex <- rep(ifelse(female_only, "2   ", "0   "), nrow(ct)) %>% as_tibble() %>% `names<-`("sex")
+  sex <- rep(ifelse(female_only, "2  ", "0  "), nrow(ct)) %>% as_tibble() %>% `names<-`("sex")
   type <- rep("1  ", nrow(ct)) %>% as_tibble() %>% `names<-`("type")
   ct <- bind_cols(yrs, gear, area, group, sex, type, value)
 

@@ -33,7 +33,7 @@ The year range is determined by what is set in \code{\link[=props_comm]{props_co
 }
 \examples{
 \dontrun
-d <- gfdata::get_commercial_samples("arrowtooth flounder")
 ct <- gfdata::get_catch("arrowtooth flounder")
+d <- gfdata::get_commercial_samples("arrowtooth flounder")
 extract_catch_data(ct, d, species_category = 1, end_year = 2019, month_fishing_starts = 2, day_fishing_starts = 21) \%>\% print(n=100)
 }

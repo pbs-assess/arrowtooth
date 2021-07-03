@@ -10,7 +10,8 @@ extract_age_comps(
   type = "commercial",
   surv_series_name = "SYN QCS",
   sex = c("M", "F"),
-  write_to_file = TRUE
+  write_to_file = TRUE,
+  ...
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ See the values in \code{survey_abbrev} column of data frame returned by \code{\l
 
 \item{sex}{sex code, "M" = male, "F" = female.
 For split sex (full age comps for each sex) use sex = c("M", "F")}
+
+\item{...}{Arguments to pass to \code{\link[gfplot:tidy_comps]{gfplot::tidy_ages_weighted()}}}
 }
 \value{
 Nothing. The output is written to the file
@@ -32,7 +35,7 @@ Extract the commercial age proportions for pasting into the iSCAM data file.
 }
 \examples{
 \dontrun
-d <- gfdata::get_commercial_samples("arrowtooth flounder")
-ct <- gfdata::get_catch("arrowtooth flounder")
-extract_age_comps(ct, d) \%>\% print(n = 100)
+catch <- gfdata::get_catch("arrowtooth flounder")
+commercial_samples <- gfdata::get_commercial_samples("arrowtooth flounder")
+extract_age_comps(catch, commercial_samples, spp_cat_code = 1, month_fishing_starts = 2, day_fishing_starts = 21) \%>\% print(n = 100)
 }

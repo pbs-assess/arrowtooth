@@ -51,6 +51,7 @@ extract_survey_indices <- function(survey_index,
   if(!file.exists(cpue_discard_file)){
     stop("File ", cpue_discard_file, " does not exist.", call. = FALSE)
   }
+
   cpue_discard <- read_csv(cpue_discard_file) %>%
     filter(formula_version == "Full standardization") %>%
     transmute(survey = "CPUE discard",
@@ -137,12 +138,17 @@ extract_survey_indices <- function(survey_index,
 
   # Organize into iSCAM data file order
   survey_years_index <- surv_indices %>% select(survey, year, index)
+  survey_years_index$year <- paste0("  ", survey_years_index$year)
+  survey_years_index$index <- paste0("  ", survey_years_index$index)
+
   wt <- surv_indices %>% select(wt)
-  gear <- rep(2, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("gear")
-  area <- rep(1, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("area")
-  group <- rep(1, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("group")
-  sex <- rep(0, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("sex")
-  timing <- rep(0.0, nrow(surv_indices)) %>% as_tibble() %>% `names<-`("timing")
+  wt$wt <- paste0("  ", wt$wt)
+
+  gear <- rep("    2", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("gear")
+  area <- rep("   1", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("area")
+  group <- rep("   1", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("group")
+  sex <- rep("    0", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("sex")
+  timing <- rep(" 0.0", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("timing")
   surv_indices <- bind_cols(survey_years_index, gear, area, group, sex, wt, timing) %>%
     arrange(survey, year)
 
