@@ -2,29 +2,43 @@
 % Please edit documentation in R/model-setup.R
 \name{set_dirs}
 \alias{set_dirs}
-\title{Set main directories for the project}
+\title{Set main directories for the project. Check existence of all directories and report}
 \usage{
 set_dirs(
-  nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"),
+  nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"),
   models_dir = file.path(nongit_dir, "models"),
-  base_model_dir = "01-base",
+  base_model_dir = "base",
   bridge_models_dir = "001-bridge-models",
-  bridge_base_model_dir = "01-base"
+  bridge_models_dirs = NULL,
+  sens_models_dir = "002-sens-models",
+  sens_models_dirs = NULL
 )
 }
 \arguments{
-\item{nongit_dir}{The directory containing non-version-controlled things
-such as data, model runs from iscam, and reference materials}
+\item{nongit_dir}{The full path containing non-version-controlled things
+such as data, model runs from iSCAM, and reference materials}
 
-\item{models_dir}{The name of the directory in which the iscam model
-directories are located}
+\item{models_dir}{The full path in which the iSCAM model directories are located}
 
-\item{base_model_dir}{Name of the base model directory}
+\item{base_model_dir}{Name of the base model directory which is a subdirectory of \code{models}}
+
+\item{bridge_models_dir}{Name of the subdirectory of \code{models_dir} that
+contains the bridge model directories}
+
+\item{bridge_models_dirs}{A vector of subdirectory names in \code{models_dir/bridge_models_dir}
+that each contain an individual iSCAM bridge model}
+
+\item{sens_models_dir}{Name of the subdirectory of \code{models_dir} that
+contains the sensitivity model directories}
+
+\item{sens_models_dirs}{A vector of subdirectory names in \code{models_dir/sens_models_dir}
+that each contain an individual iSCAM sensitivity model}
 }
 \value{
-A list of 4 items, the first three are the same as the input arguments
-and the 4th is the full path of the base model directory
+A list of five items, the first two are the same as the input arguments.
+The third is the full path of the base model directory, the fourth and fifth contain vectors
+of the bridge models' directory names and the sensitivity models' directory names respectively
 }
 \description{
-Set main directories for the project
+Set main directories for the project. Check existence of all directories and report
 }

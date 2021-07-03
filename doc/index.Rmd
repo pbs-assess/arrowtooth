@@ -113,11 +113,52 @@ library(dplyr)
 library(purrr)
 library(here)
 
+bridge_models_dirs <- c("01-base",
+                        "02-bridge-update-data",
+                        "03-bridge-remove-hsmsa-survey",
+                        "04-bridge-add-discard-cpue",
+                        "05-bridge-convert-to-splitsex",
+                        "06-bridge-fishing-year-feb21-feb20")
+
+sens_models_dirs <- NULL
+
 if(here::here() == "/home/rstudio"){
-  main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here("arrowtooth")), "arrowtooth-nongit"))
+  main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here("arrowtooth")), "arrowtooth-nongit"),
+                        bridge_models_dirs = bridge_models_dirs,
+                        sens_models_dirs = sens_models_dirs)
 }else{
-  main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here()), "arrowtooth-nongit"))
+  main_dirs <- set_dirs(bridge_models_dirs = bridge_models_dirs,
+                        sens_models_dirs = sens_models_dirs)
+)
 }
+
+  # sens_models_dirs <- sens_models_dirs %>%
+  #   map(~{append(.x, base_model_dir, after = 0)})
+
+  # A list of lists of sensitivity groups. Any given sensitivity can appear in more than one group.
+  # Do not include base model in this list or it will appear twice on plots
+  # The base model name is prepended to each group with the map..append pipe at the end
+  # sens_models_dirs <- list(
+  #   c("02-sigma-0.1",
+  #     "03-estimated-total-variance"),
+  #   c("04-tau-1.0",
+  #     "05-tau-0.6"),
+  #   "06-low-steepness",
+  #   c("07-m-0.2-sd-0.05",
+  #     "08-m-0.2-sd-0.25"),
+  #   "09-m-0.3-sd-0.2",
+  #   "10-qm0-qsd1",
+  #   "11-qm05-qsd15",
+  #   c("12-fix-trawl-sel-amat",
+  #     "13-fix-trawl-sel-6years")
+  # ) %>%
+  #   map(~{append(.x, base_model_dir, after = 0)})
+
+model_setup(main_dirs = main_dirs,
+            overwrite_rds_files = FALSE,
+            )
+
+
 nongit_dir <- main_dirs$nongit_dir
 models_dir <- main_dirs$models_dir
 base_model_dir <- main_dirs$base_model_dir

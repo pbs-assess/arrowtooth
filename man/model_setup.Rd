@@ -7,8 +7,8 @@
 model_setup(
   main_dirs = set_dirs(),
   overwrite_rds_files = FALSE,
-  bridge_models_dirs = list(c("01-base", "02-bridge-update-data",
-    "03-bridge-add-discard-cpue", "04-bridge-add-splitsex-agecomps"))
+  bridge_models_dirs = NULL,
+  sens_models_dirs = NULL
 )
 }
 \arguments{
@@ -16,6 +16,9 @@ model_setup(
 from \code{\link[=set_dirs]{set_dirs()}}}
 
 \item{overwrite_rds_files}{Logical. TRUE to overwrite the model RDS files}
+
+\item{bridge_models_dirs}{A vector of names of directories containing bridge models.
+Reference directories only, not full paths}
 }
 \value{
 A list of two items, the base_model and the list of sensitivity models,
