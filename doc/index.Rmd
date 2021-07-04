@@ -108,10 +108,10 @@ library(gfplot)
 library(ggplot2)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
-library(arrowtooth)
 library(dplyr)
 library(purrr)
 library(here)
+load_all()
 
 bridge_models_dirs <- c("01-base",
                         "02-bridge-update-data",
@@ -119,6 +119,8 @@ bridge_models_dirs <- c("01-base",
                         "04-bridge-add-discard-cpue",
                         "05-bridge-convert-to-splitsex",
                         "06-bridge-fishing-year-feb21-feb20")
+
+bridge_models_dirs <- NULL
 
 sens_models_dirs <- NULL
 
@@ -129,7 +131,6 @@ if(here::here() == "/home/rstudio"){
 }else{
   main_dirs <- set_dirs(bridge_models_dirs = bridge_models_dirs,
                         sens_models_dirs = sens_models_dirs)
-)
 }
 
   # sens_models_dirs <- sens_models_dirs %>%
@@ -153,10 +154,9 @@ if(here::here() == "/home/rstudio"){
   #     "13-fix-trawl-sel-6years")
   # ) %>%
   #   map(~{append(.x, base_model_dir, after = 0)})
-
+stop()
 model_setup(main_dirs = main_dirs,
-            overwrite_rds_files = FALSE,
-            )
+            overwrite_rds_files = TRUE)
 
 
 nongit_dir <- main_dirs$nongit_dir

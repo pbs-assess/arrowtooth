@@ -60,7 +60,7 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
   }
 
   stopifnot(!is.null(sens_models_dir))
-  sens_models_dir_full = file.path(models_dir, sens_models_dir)
+  sens_models_dir_full <- file.path(models_dir, sens_models_dir)
   if(!dir.exists(sens_models_dir_full)){
     stop("Sensitivity models directory does not exist:\n",
          sens_models_dir_full, call. = FALSE)
@@ -85,42 +85,33 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 
 #' Load models and set up the directory names
 #'
-#' @param main_dirs A list of four, with the same names as the output
-#' from [set_dirs()]
+#' @param main_dirs Output from [set_dirs()]
 #' @param overwrite_rds_files Logical. TRUE to overwrite the model RDS files
-#' @param bridge_models_dirs A vector of names of directories containing bridge models.
-#' Reference directories only, not full paths
 #'
-#' @return A list of two items, the base_model and the list of sensitivity models,
-#' which itself it composed of lists of groups of sensitivities which are to be compared with
-#' each other in the document. This simplifies plotting and table functions.
-#' @importFrom gfiscamutils create_rds_file
-#' @importFrom purrr map_chr
+#' @return A list of three items, the base_model, the list of bridge models, and
+#' the list of sensitivity models. The two lists are groups of models which are
+#' to be compared with each other in the document. This simplifies plotting and table functions.
+#' @importFrom gfiscamutils create_rds_file iscam.starter.file
+#' @importFrom purrr map_chr flatten
 #' @export
-model_setup <- function(main_dirs = set_dirs(),
-                        overwrite_rds_files = FALSE,
-                        bridge_models_dirs = NULL,
-                        sens_models_dirs = NULL){
+#' @examples
+#' \dontrun
+#' bridge_models_dirs <- c("01-base", "02-bridge-update-data")
+#' sens_models_dirs <- NULL
+#' main_dirs <- set_dirs(bridge_models_dirs = bridge_models_dirs,
+#'                       sens_models_dirs = sens_models_dirs)
+#' model_setup <- function(main_dirs,
+#'                         overwrite_rds_files = TRUE){
+model_setup <- function(main_dirs = NULL,
+                        overwrite_rds_files = FALSE){
 
-  if(is.null(bridge_models_dirs) && is.null(sens_models_dirs)){
-    stop("Both bridge_models_dirs and sens_models_dirs are NULL", call. = FALSE)
-  }
-  if(is.null(bridge_models_dirs)){
-    bridge_models_dirs_full <- NULL
-  }else{
-    bridge_models_dirs_full <- file.path(main_dirs$bridge_models_dir_full, bridge_models_dirs)
-  }
-  if(is.null(sens_models_dirs)){
-    sens_models_dirs_full <- NULL
-  }else{
-    sens_models_dirs_full <- file.path(main_dirs$sens_models_dir_full, sens_models_dirs)
+  if(is.null(main_dirs)){
+    stop("main_dirs is NULL. Set main_dirs to the output of set_dirs()", call. = FALSE)
   }
 
-  browser()
-  bridge_models_dirs <- NULL
-  sens_models_dirs <- NULL
-
-  j <- map(list(bridge_models_dirs_full, sens_models_dirs_full), ~{
+  j <- map(list(list(main_dirs$base_model_dir),
+                list(main_dirs$bridge_models_dirs),
+                main_dirs$sens_models_dirs), ~{
     models <- NULL
     if(!is.null(.x)){
       unique_models_dirs <- .x %>%
@@ -128,13 +119,11 @@ model_setup <- function(main_dirs = set_dirs(),
         unique() %>%
         map_chr(~{.x})
 
-      unique_models_dirs_full <- file.path(models_dir, unique_models_dirs)
-
-      nul <- map(unique_models_dirs_full, ~{create_rds_file(.x, overwrite = overwrite_rds_files)})
+      nul <- map(unique_models_dirs, ~{create_rds_file(.x, overwrite = overwrite_rds_files)})
 
       # This ensures that each unique model is loaded only once, even if it is in multiple
       # sensitivity groups
-      unique_models <- map(unique_models_dirs_full, ~{load_rds_file(.x)}) %>%
+      unique_models <- map(unique_models_dirs, ~{load_rds_file(.x)}) %>%
         set_names(unique_models_dirs)
 
       #base_model <- unique_models[[match(base_model_dir, unique_models_dirs)]]
@@ -148,7 +137,17 @@ model_setup <- function(main_dirs = set_dirs(),
     }
   })
 
+  if(length(main_dirs$base_model_dir) == 1){
+    base_model <- j[[1]][[1]][[1]]
+  }else{
+    base_model <- j[[1]][[1]]
+  }
+  if(length(main_dirs$bridge_models_dirs) == 1){
+    bridge_models <- j[[2]][[1]][[1]]
+  }else{
+    bridge_models <- j[[2]][[1]]
+  }
   list(base_model = base_model,
        bridge_models = bridge_models,
-       sens_models = sens_models)
+       sens_models = j[[3]])
 }

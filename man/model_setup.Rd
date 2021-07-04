@@ -4,26 +4,17 @@
 \alias{model_setup}
 \title{Load models and set up the directory names}
 \usage{
-model_setup(
-  main_dirs = set_dirs(),
-  overwrite_rds_files = FALSE,
-  bridge_models_dirs = NULL,
-  sens_models_dirs = NULL
-)
+model_setup(main_dirs = NULL, overwrite_rds_files = FALSE)
 }
 \arguments{
-\item{main_dirs}{A list of four, with the same names as the output
-from \code{\link[=set_dirs]{set_dirs()}}}
+\item{main_dirs}{Output from \code{\link[=set_dirs]{set_dirs()}}}
 
 \item{overwrite_rds_files}{Logical. TRUE to overwrite the model RDS files}
-
-\item{bridge_models_dirs}{A vector of names of directories containing bridge models.
-Reference directories only, not full paths}
 }
 \value{
-A list of two items, the base_model and the list of sensitivity models,
-which itself it composed of lists of groups of sensitivities which are to be compared with
-each other in the document. This simplifies plotting and table functions.
+A list of three items, the base_model, the list of bridge models, and
+the list of sensitivity models. The two lists are groups of models which are
+to be compared with each other in the document. This simplifies plotting and table functions.
 }
 \description{
 Load models and set up the directory names
