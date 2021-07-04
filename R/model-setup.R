@@ -95,7 +95,7 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #' @return A list of three items, the base_model, the list of bridge models, and
 #' the list of sensitivity models. The two lists are groups of models which are
 #' to be compared with each other in the document. This simplifies plotting and table functions.
-#' @importFrom gfiscamutils create_rds_file iscam.starter.file
+#' @importFrom gfiscamutils create_rds_file
 #' @importFrom purrr map_chr flatten
 #' @export
 #' @examples
@@ -109,7 +109,7 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #'                       sens_models_dirs = sens_models_dirs)
 #' delete_files_ext(main_dirs$models, ext = "rds") # optional, shown for exposure
 #' model_setup <- function(main_dirs,
-#'                         overwrite_rds_files = TRUE){
+#'                         overwrite_rds_files = TRUE)
 model_setup <- function(main_dirs = NULL,
                         overwrite_rds_files = FALSE){
 

@@ -2,7 +2,8 @@
 % Please edit documentation in R/model-setup.R
 \name{set_dirs}
 \alias{set_dirs}
-\title{Set main directories for the project. Check existence of all directories and report}
+\title{Set main directories for the project. Check existence of all directories and report.
+SEnsitivity groups will have the base model prepended.}
 \usage{
 set_dirs(
   nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"),
@@ -40,5 +41,6 @@ The third is the full path of the base model directory, the fourth and fifth con
 of the bridge models' directory names and the sensitivity models' directory names respectively
 }
 \description{
-Set main directories for the project. Check existence of all directories and report
+Set main directories for the project. Check existence of all directories and report.
+SEnsitivity groups will have the base model prepended.
 }
