@@ -113,6 +113,8 @@ library(purrr)
 library(here)
 load_all()
 
+# This is a vector of bridge models that will be plotted against each other.
+# This must either be NULL or set to a vector of directories
 bridge_models_dirs <- c("01-base",
                         "02-bridge-update-data",
                         "03-bridge-remove-hsmsa-survey",
@@ -120,21 +122,26 @@ bridge_models_dirs <- c("01-base",
                         "05-bridge-convert-to-splitsex",
                         "06-bridge-fishing-year-feb21-feb20")
 
-bridge_models_dirs <- NULL
-
-sens_models_dirs <- NULL
+# This is a list of groups of sensitivities that will be plotted against each other.
+# The base model will be prepended to each group later in set_dirs() so that it is first
+# on the plots for each group.
+# This must either be NULL or set to a list of vectors of directories
+sens_models_dirs <- list(c("02-bridge-update-data",
+                           "03-bridge-remove-hsmsa-survey"),
+                         c("04-bridge-add-discard-cpue",
+                           "05-bridge-convert-to-splitsex"),
+                         "06-bridge-fishing-year-feb21-feb20")
 
 if(here::here() == "/home/rstudio"){
   main_dirs <- set_dirs(nongit_dir = file.path(dirname(here::here("arrowtooth")), "arrowtooth-nongit"),
+                        base_model_dir = "base",
                         bridge_models_dirs = bridge_models_dirs,
                         sens_models_dirs = sens_models_dirs)
 }else{
-  main_dirs <- set_dirs(bridge_models_dirs = bridge_models_dirs,
+  main_dirs <- set_dirs(base_model_dir = "base",
+                        bridge_models_dirs = bridge_models_dirs,
                         sens_models_dirs = sens_models_dirs)
 }
-
-  # sens_models_dirs <- sens_models_dirs %>%
-  #   map(~{append(.x, base_model_dir, after = 0)})
 
   # A list of lists of sensitivity groups. Any given sensitivity can appear in more than one group.
   # Do not include base model in this list or it will appear twice on plots
@@ -152,11 +159,10 @@ if(here::here() == "/home/rstudio"){
   #   "11-qm05-qsd15",
   #   c("12-fix-trawl-sel-amat",
   #     "13-fix-trawl-sel-6years")
-  # ) %>%
-  #   map(~{append(.x, base_model_dir, after = 0)})
+  # )
 stop()
-model_setup(main_dirs = main_dirs,
-            overwrite_rds_files = TRUE)
+j <- model_setup(main_dirs = main_dirs,
+                 overwrite_rds_files = TRUE)
 
 
 nongit_dir <- main_dirs$nongit_dir

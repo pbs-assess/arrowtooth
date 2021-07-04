@@ -1,4 +1,5 @@
-#' Set main directories for the project. Check existence of all directories and report
+#' Set main directories for the project. Check existence of all directories and report.
+#' SEnsitivity groups will have the base model prepended.
 #'
 #' @param nongit_dir The full path containing non-version-controlled things
 #' such as data, model runs from iSCAM, and reference materials
@@ -67,13 +68,16 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
   }
   sens_models_dirs_full <- NULL
   if(!is.null(sens_models_dirs)){
-    sens_models_dirs_full <- file.path(sens_models_dir_full, sens_models_dirs)
-    dir_existence <- map_lgl(sens_models_dirs_full, ~{dir.exists(.x)})
-    if(!all(dir_existence)){
-      stop("Some Sensitivity model directories do not exist:\n",
-           paste0(sens_models_dirs_full[!dir_existence], collapse = "\n"),
-           call. = FALSE)
-    }
+    sens_models_dirs_full <- map(sens_models_dirs, ~{
+      x <- file.path(sens_models_dir_full, .x)
+      dir_existence <- map_lgl(x, ~{dir.exists(.x)})
+      if(!all(dir_existence)){
+        stop("Some Sensitivity model directories do not exist:\n",
+             paste0(x[!dir_existence], collapse = "\n"),
+             call. = FALSE)
+      }
+      c(base_model_dir_full, x)
+    })
   }
 
   list(nongit_dir = nongit_dir,
@@ -96,10 +100,14 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #' @export
 #' @examples
 #' \dontrun
+#' library(gfiscamutils)
 #' bridge_models_dirs <- c("01-base", "02-bridge-update-data")
-#' sens_models_dirs <- NULL
-#' main_dirs <- set_dirs(bridge_models_dirs = bridge_models_dirs,
+#' sens_models_dirs <- list(c("01-base", "02-bridge-update-data"),
+#'                          "01-base")
+#' main_dirs <- set_dirs(base_model_dir = "base",
+#'                       bridge_models_dirs = bridge_models_dirs,
 #'                       sens_models_dirs = sens_models_dirs)
+#' delete_files_ext(main_dirs$models, ext = "rds") # optional, shown for exposure
 #' model_setup <- function(main_dirs,
 #'                         overwrite_rds_files = TRUE){
 model_setup <- function(main_dirs = NULL,
@@ -108,7 +116,6 @@ model_setup <- function(main_dirs = NULL,
   if(is.null(main_dirs)){
     stop("main_dirs is NULL. Set main_dirs to the output of set_dirs()", call. = FALSE)
   }
-
   j <- map(list(list(main_dirs$base_model_dir),
                 list(main_dirs$bridge_models_dirs),
                 main_dirs$sens_models_dirs), ~{
