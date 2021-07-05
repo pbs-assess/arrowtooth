@@ -4,10 +4,17 @@
 \alias{model_setup}
 \title{Load models and set up the directory names}
 \usage{
-model_setup(main_dirs = NULL, overwrite_rds_files = FALSE)
+model_setup(
+  main_dirs = NULL,
+  bridge_models_text = NULL,
+  overwrite_rds_files = FALSE
+)
 }
 \arguments{
 \item{main_dirs}{Output from \code{\link[=set_dirs]{set_dirs()}}}
+
+\item{bridge_models_text}{A vector of text strings to show in the legends for bridge
+model plots, one name for each model}
 
 \item{overwrite_rds_files}{Logical. TRUE to overwrite the model RDS files}
 }

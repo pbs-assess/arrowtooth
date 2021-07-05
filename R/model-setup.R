@@ -91,6 +91,8 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #'
 #' @param main_dirs Output from [set_dirs()]
 #' @param overwrite_rds_files Logical. TRUE to overwrite the model RDS files
+#' @param bridge_models_text A vector of text strings to show in the legends for bridge
+#' model plots, one name for each model
 #'
 #' @return A list of three items, the base_model, the list of bridge models, and
 #' the list of sensitivity models. The two lists are groups of models which are
@@ -111,11 +113,18 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #' model_setup <- function(main_dirs,
 #'                         overwrite_rds_files = TRUE)
 model_setup <- function(main_dirs = NULL,
+                        bridge_models_text = NULL,
                         overwrite_rds_files = FALSE){
 
-  if(is.null(main_dirs)){
+  if(is.null(main_dirs[1])){
     stop("main_dirs is NULL. Set main_dirs to the output of set_dirs()", call. = FALSE)
   }
+
+  if(is.null(bridge_models_text[1])){
+    warning("bridge_models_text is NULL. Using bridge model directory names for plot legends")
+    bridge_models_text <- basename(main_dirs$bridge_models_dirs)
+  }
+
   j <- map(list(list(main_dirs$base_model_dir),
                 list(main_dirs$bridge_models_dirs),
                 main_dirs$sens_models_dirs), ~{
@@ -154,6 +163,9 @@ model_setup <- function(main_dirs = NULL,
   }else{
     bridge_models <- j[[2]][[1]]
   }
+
+  names(bridge_models) <- factor(bridge_models_text)
+
   list(base_model = base_model,
        bridge_models = bridge_models,
        sens_models = j[[3]])

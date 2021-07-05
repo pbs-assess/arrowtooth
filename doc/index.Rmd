@@ -102,13 +102,14 @@ if (french) {
 
 library(csasdown)
 library(gfiscamutils)
-library(gfplot)
+#library(gfplot)
 library(ggplot2)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
 library(dplyr)
 library(purrr)
 library(here)
+load_all("C:/github/pbs-assess/gfiscamutils/")
 load_all()
 
 # This is a vector of bridge models that will be plotted against each other.
@@ -119,6 +120,26 @@ bridge_models_dirs <- c("01-base",
                         "04-bridge-add-discard-cpue",
                         "05-bridge-convert-to-splitsex",
                         "06-bridge-fishing-year-feb21-feb20")
+
+bridge_models_text <- c("2015 Base model",
+                        "Update data to 2019",
+                        "Remove HS MSA survey",
+                        "Add Discard CPUE index",
+                        "Convert model to split sex",
+                        "Change fishing year to Feb 21 - Feb 20")
+bridge_models_text <- factor(bridge_models_text, levels = bridge_models_text)
+  # factor(c("2015 Base model",
+  #          "Update data to 2019",
+  #          "Remove HS MSA survey",
+  #          "Add Discard CPUE index",
+  #          "Convert model to split sex",
+  #          "Change fishing year to Feb 21 - Feb 20"),
+  #        levels = c("2015 Base model",
+  #                   "Update data to 2019",
+  #                   "Remove HS MSA survey",
+  #                   "Add Discard CPUE index",
+  #                   "Convert model to split sex",
+  #                   "Change fishing year to Feb 21 - Feb 20"))
 
 # This is a list of groups of sensitivities that will be plotted against each other.
 # The base model will be prepended to each group later in set_dirs() so that it is first
@@ -160,6 +181,7 @@ if(here::here() == "/home/rstudio"){
   # )
 
 models <- model_setup(main_dirs = drs,
+                      bridge_models_text = bridge_models_text,
                       overwrite_rds_files = TRUE)
 
 dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-june11-2021.rds"))
