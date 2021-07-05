@@ -115,31 +115,21 @@ load_all()
 # This is a vector of bridge models that will be plotted against each other.
 # This must either be NULL or set to a vector of directories
 bridge_models_dirs <- c("01-base",
-                        "02-bridge-update-data",
-                        "03-bridge-remove-hsmsa-survey",
-                        "04-bridge-add-discard-cpue",
-                        "05-bridge-convert-to-splitsex",
-                        "06-bridge-fishing-year-feb21-feb20")
+                        "02-bridge-update-data-to-2014",
+                        "03-bridge-update-data-to-2019",
+                        "04-bridge-remove-hsmsa-survey",
+                        "05-bridge-add-discard-cpue",
+                        "06-bridge-convert-to-splitsex",
+                        "07-bridge-fishing-year-feb21-feb20")
 
 bridge_models_text <- c("2015 Base model",
+                        "Update data to 2014",
                         "Update data to 2019",
                         "Remove HS MSA survey",
                         "Add Discard CPUE index",
                         "Convert model to split sex",
                         "Change fishing year to Feb 21 - Feb 20")
 bridge_models_text <- factor(bridge_models_text, levels = bridge_models_text)
-  # factor(c("2015 Base model",
-  #          "Update data to 2019",
-  #          "Remove HS MSA survey",
-  #          "Add Discard CPUE index",
-  #          "Convert model to split sex",
-  #          "Change fishing year to Feb 21 - Feb 20"),
-  #        levels = c("2015 Base model",
-  #                   "Update data to 2019",
-  #                   "Remove HS MSA survey",
-  #                   "Add Discard CPUE index",
-  #                   "Convert model to split sex",
-  #                   "Change fishing year to Feb 21 - Feb 20"))
 
 # This is a list of groups of sensitivities that will be plotted against each other.
 # The base model will be prepended to each group later in set_dirs() so that it is first
