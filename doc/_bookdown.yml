@@ -2,7 +2,7 @@ book_filename: "resdoc"
 rmd_files: ["index.Rmd",
             "01-introduction.Rmd",
             "02-bridging.Rmd",
-            #"10-figures.Rmd",
+            "10-figures.Rmd",
             #"11-tables.Rmd",
             #"biological.Rmd",
             "99-references.Rmd"]

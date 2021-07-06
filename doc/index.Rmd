@@ -102,15 +102,18 @@ if (french) {
 
 library(csasdown)
 library(gfiscamutils)
-#library(gfplot)
 library(ggplot2)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
 library(dplyr)
 library(purrr)
 library(here)
-load_all("C:/github/pbs-assess/gfiscamutils/")
+library(gfplot)
+#load_all("C:/github/pbs-assess/gfiscamutils/")
 load_all()
+
+
+sp <- "Arrowtooth flounder"
 
 # This is a vector of bridge models that will be plotted against each other.
 # This must either be NULL or set to a vector of directories
@@ -175,6 +178,9 @@ models <- model_setup(main_dirs = drs,
                       overwrite_rds_files = TRUE)
 
 dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-june11-2021.rds"))
+
+month_fishing_starts <- 2
+day_fishing_starts <- 21
 
 survey_index <- dat$survey_index
 survey_sets <- dat$survey_sets
