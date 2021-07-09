@@ -9,6 +9,7 @@
 #' @param ... Arguments to pass to [gfplot::tidy_ages_weighted()]
 #'
 #' @return Nothing. The output is written to the file
+#' @importFrom tidyr complete
 #' @export
 #'
 #' @examples
@@ -98,7 +99,7 @@ extract_age_comps <- function(catch_sets,
 #' survey_sets <- gfdata::get_survey_sets("arrowtooth flounder")
 #' survwy_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 #' extract_survey_age_comps(catch_sets = survey_sets, samples = survey_samples)
-extract_survey_age_comps <- function(surv_series_names = c("SYN QCS", "SYN HS", "SYN WCVI"), write_to_file = FALSE, ...){
+extract_survey_age_comps <- function(surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"), write_to_file = TRUE, ...){
   j <- map2(surv_series_names, seq_along(surv_series_names), function(x = .x, y = .y, ...){
     extract_age_comps(type = "survey", surv_series_name = x, write_to_file = FALSE, ...) %>%
       mutate(gear = y + 1)
