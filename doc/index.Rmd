@@ -182,7 +182,11 @@ dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-june11-202
 month_fishing_starts <- 2
 day_fishing_starts <- 21
 
-survey_index <- dat$survey_index
+# These must be removed for call to add_extra_indices()
+survey_index <- dat$survey_index %>% 
+  select(-species_common_name, -species_science_name)
+survey_index <- add_extra_indices(survey_index, 
+                                  data_path = file.path(drs$nongit_dir, "data"))
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
 commercial_samples <- dat$commercial_samples
