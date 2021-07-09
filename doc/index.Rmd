@@ -142,8 +142,8 @@ sens_models_dirs <- list(c("02-bridge-update-data",
                            "05-bridge-convert-to-splitsex"),
                          "06-bridge-fishing-year-feb21-feb20")
 
-if(here::here() == "/home/rstudio"){
-  drs<- set_dirs(nongit_dir = file.path(dirname(here::here("arrowtooth")), "arrowtooth-nongit"),
+if(here() == "/home/rstudio"){
+  drs<- set_dirs(nongit_dir = file.path(dirname(here("arrowtooth")), "arrowtooth-nongit"),
                  base_model_dir = "base",
                  bridge_models_dirs = bridge_models_dirs,
                  sens_models_dirs = sens_models_dirs)
@@ -183,8 +183,13 @@ day_fishing_starts <- 21
 # These must be removed for call to add_extra_indices()
 survey_index <- dat$survey_index %>% 
   select(-species_common_name, -species_science_name)
-survey_index <- add_extra_indices(survey_index, 
-                                  data_path = file.path(drs$nongit_dir, "data"))
+survey_index <- add_extra_indices(
+  survey_index, 
+  data_path = file.path(drs$nongit_dir, "data"),
+  iphc_rds_fn = "iphc-survey-index.rds",
+  discard_cpue_csv_fn = "cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE.csv",
+  stitched_syn_rds_fn = "stitched-syn-index.rds")
+
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
 commercial_samples <- dat$commercial_samples
@@ -192,7 +197,6 @@ catch <- dat$catch
 cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
-#theme_set(herring_theme())
 theme_set(theme_pbs())
 ```
 
