@@ -47,7 +47,7 @@ extract_survey_indices <- function(survey_index,
   iphc <- iphc %>% mutate(wt = index / se)
 
   # Discard CPUE load and add wt (1/relerr)
-  cpue_discard_file <- file.path(nongit_dir, "data/cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE.csv")
+  cpue_discard_file <- file.path(nongit_dir, "data/cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv")
   if(!file.exists(cpue_discard_file)){
     stop("File ", cpue_discard_file, " does not exist.", call. = FALSE)
   }
