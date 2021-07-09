@@ -5,8 +5,8 @@
 \title{Extract the survey age proportions for pasting into the iSCAM data file.}
 \usage{
 extract_survey_age_comps(
-  surv_series_names = c("SYN QCS", "SYN HS", "SYN WCVI"),
-  write_to_file = FALSE,
+  surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
+  write_to_file = TRUE,
   ...
 )
 }

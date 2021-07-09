@@ -26,8 +26,8 @@ extract_survey_indices(
   survey_sets,
   survey_samples,
   comm_samples,
-  surv_series = 1:4,
-  surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
+  surv_series = c(2, 3, 4, 5, 17),
+  surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
   female_only = FALSE,
   ...
 )
