@@ -120,15 +120,13 @@ sp <- "Arrowtooth flounder"
 bridge_models_dirs <- c("01-base",
                         "02-bridge-update-data-to-2014",
                         "03-bridge-update-data-to-2019",
-                        "04-bridge-remove-hsmsa-survey",
-                        "05-bridge-add-discard-cpue",
-                        "06-bridge-convert-to-splitsex",
-                        "07-bridge-fishing-year-feb21-feb20")
+                        "04-bridge-add-discard-cpue",
+                        "05-bridge-convert-to-splitsex",
+                        "06-bridge-fishing-year-feb-21-feb-20")
 
 bridge_models_text <- c("2015 Base model",
                         "Update data to 2014",
                         "Update data to 2019",
-                        "Remove HS MSA survey",
                         "Add Discard CPUE index",
                         "Convert model to split sex",
                         "Change fishing year to Feb 21 - Feb 20")
