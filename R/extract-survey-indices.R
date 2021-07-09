@@ -27,8 +27,8 @@ extract_survey_indices <- function(survey_index,
                                    survey_sets,
                                    survey_samples,
                                    comm_samples,
-                                   surv_series = 1:4,
-                                   surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
+                                   surv_series = c(2, 3, 4, 5, 17),
+                                   surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
                                    female_only = FALSE,
                                    ...){
 
@@ -144,13 +144,18 @@ extract_survey_indices <- function(survey_index,
   wt <- surv_indices %>% select(wt)
   wt$wt <- paste0("  ", wt$wt)
 
-  gear <- rep("    2", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("gear")
+  # Add gear number
+  survey_years_index <- survey_years_index %>%
+    mutate(mtc = match(surv_indices$survey, surv_names) + 1,
+           gear = ifelse(is.na(mtc), paste0("    ", 1), paste0("    ", mtc))) %>%
+    select(-mtc)
+
   area <- rep("   1", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("area")
   group <- rep("   1", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("group")
   sex <- rep("    0", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("sex")
   timing <- rep(" 0.0", nrow(surv_indices)) %>% as_tibble() %>% `names<-`("timing")
-  surv_indices <- bind_cols(survey_years_index, gear, area, group, sex, wt, timing) %>%
-    arrange(survey, year)
+  surv_indices <- bind_cols(survey_years_index, area, group, sex, wt, timing) %>%
+    arrange(gear, survey, year)
 
   dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
   fn <- file.path(nongit_dir, "data-output/survey-indices.txt")
