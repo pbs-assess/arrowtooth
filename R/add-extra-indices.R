@@ -15,6 +15,7 @@ add_extra_indices <- function(surv_index = NULL,
                               stitched_syn_rds_fn = NULL){
   stopifnot(!is.null(surv_index))
   stopifnot(!is.null(data_path))
+  stopifnot(dir.exists(data_path))
 
   if(!is.null(iphc_rds_fn)){
     iphc_file <- file.path(data_path, iphc_rds_fn)
