@@ -36,7 +36,7 @@ add_extra_indices <- function(surv_index = NULL,
       stop("Check the number of columns in surv_index, it does not match the iphc extraction", call. = FALSE)
     }
     # Remove IPHC FISS and add new one (Done by Andy July 2021).
-    # This code be removed once that is replaced in the DB officialy
+    # This code be removed once that is replaced in the DB officially
     surv_index <- surv_index %>%
       filter(survey_abbrev != "IPHC FISS")
     surv_index <- surv_index %>% bind_rows(iphc)
