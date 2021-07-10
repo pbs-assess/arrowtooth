@@ -1,28 +1,20 @@
 #' Add survey indices from files into the survey index object
 #'
 #' @param surv_index A survey index object as returned by [gfdata::get_survey_index()]
-#' @param data_path The full path where the data files can be found
-#' @param iphc_rds_fn The name of the IPHC RDS file containing index data
-#' @param discard_cpue_csv_fn The name of the Discard CPUE CSV file containing index data
-#' @param stitched_syn_rds_fn The name of the Stitched Synoptics RDS file containing index data
+#' @param iphc The IPHC index data
+#' @param discard_cpue The Discard CPUE index data
+#' @param stitched_syn The Stitched Synoptics index data
 #'
 #' @return A survey index object as returned by [gfdata::get_survey_index()], with the additional indices added
 #' @export
 add_extra_indices <- function(surv_index = NULL,
-                              data_path = NULL,
-                              iphc_rds_fn = NULL,
-                              discard_cpue_csv_fn = NULL,
-                              stitched_syn_rds_fn = NULL){
+                              iphc = NULL,
+                              discard_cpue = NULL,
+                              stitched_syn = NULL){
   stopifnot(!is.null(surv_index))
-  stopifnot(!is.null(data_path))
-  stopifnot(dir.exists(data_path))
 
-  if(!is.null(iphc_rds_fn)){
-    iphc_file <- file.path(data_path, iphc_rds_fn)
-    if(!file.exists(iphc_file)){
-      stop("File ", iphc_file, " does not exist.", call. = FALSE)
-    }
-    iphc <- readRDS(iphc_file)$series_ABCD_full$ser_longest %>%
+  if(!is.null(iphc)){
+    iphc <- iphc %>%
       transmute(year,
                 biomass = I_t20BootMean,
                 lowerci = I_t20BootLow,
@@ -42,12 +34,8 @@ add_extra_indices <- function(surv_index = NULL,
       filter(survey_abbrev != "IPHC FISS")
     surv_index <- surv_index %>% bind_rows(iphc)
   }
-  if(!is.null(discard_cpue_csv_fn)){
-    cpue_discard_file <- file.path(data_path, discard_cpue_csv_fn)
-    if(!file.exists(cpue_discard_file)){
-      stop("File ", cpue_discard_file, " does not exist.", call. = FALSE)
-    }
-    cpue_discard <- read_csv(cpue_discard_file) %>%
+  if(!is.null(discard_cpue)){
+    discard_cpue <- discard_cpue %>%
       filter(formula_version == "Full standardization") %>%
       transmute(year,
                 biomass = est,
@@ -59,17 +47,13 @@ add_extra_indices <- function(surv_index = NULL,
                 survey_series_id = NA,
                 survey_abbrev = "DCPUE",
                 survey_series_desc = "Discard CPUE")
-    if(ncol(surv_index) != ncol(cpue_discard)){
-      stop("Check the number of columns in surv_index, it does not match the cpue_discard extraction", call. = FALSE)
+    if(ncol(surv_index) != ncol(discard_cpue)){
+      stop("Check the number of columns in surv_index, it does not match the discard_cpue extraction", call. = FALSE)
     }
-    surv_index <- surv_index %>% bind_rows(cpue_discard)
+    surv_index <- surv_index %>% bind_rows(discard_cpue)
   }
-  if(!is.null(stitched_syn_rds_fn)){
-    stitched_syn_file <- file.path(data_path, stitched_syn_rds_fn)
-    if(!file.exists(stitched_syn_file)){
-      stop("File ", stitched_syn_file, " does not exist.", call. = FALSE)
-    }
-    stitched_syn <- readRDS(stitched_syn_file) %>%
+  if(!is.null(stitched_syn)){
+    stitched_syn <- stitched_syn %>%
       as_tibble() %>%
       transmute(year,
                 biomass = est / 1e6,

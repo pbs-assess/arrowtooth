@@ -180,15 +180,36 @@ dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-june11-202
 month_fishing_starts <- 2
 day_fishing_starts <- 21
 
+data_dir <- file.path(drs$nongit_dir, "data")
+data_output_dir <- file.path(drs$nongit_dir, "data-output")
+
+if(!dir.exists(data_dir)){
+  stop("Data directory does not exist: ", data_dir, call. = FALSE)
+}
+iphc_file <- file.path(data_dir, "iphc-survey-index.rds")
+if(!file.exists(iphc_file)){
+  stop("IPHC file does not exist: ", iphc_file, call. = FALSE)
+}
+discard_cpue_file <- file.path(data_dir, "cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv")
+if(!file.exists(discard_cpue_file)){
+  stop("Discard CPUE file does not exist: ", discard_cpue_file, call. = FALSE)
+}
+stitched_syn_file <- file.path(data_dir, "stitched-syn-index.rds")
+if(!file.exists(stitched_syn_file)){
+  stop("Stiched Synoptics file does not exist: ", stitched_syn_file, call. = FALSE)
+}
+
+iphc <- readRDS(iphc_file)$series_ABCD_full$ser_longest
+discard_cpue <- read_csv(discard_cpue_file)
+stitched_syn <- readRDS(stitched_syn_file)
+
 # These must be removed for call to add_extra_indices()
 survey_index <- dat$survey_index %>% 
   select(-species_common_name, -species_science_name)
-survey_index <- add_extra_indices(
-  survey_index, 
-  data_path = file.path(drs$nongit_dir, "data"),
-  iphc_rds_fn = "iphc-survey-index.rds",
-  discard_cpue_csv_fn = "cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv",
-  stitched_syn_rds_fn = "stitched-syn-index.rds")
+survey_index <- add_extra_indices(survey_index, 
+                                  iphc = iphc,
+                                  discard_cpue = discard_cpue,
+                                  stitched_syn = stitched_syn)
 
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
@@ -198,6 +219,15 @@ cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
 theme_set(theme_pbs())
+
+# Data extraction for iSCAM:
+# extract_survey_indices(survey_index, 
+#                        iphc = iphc,
+#                        discard_cpue = discard_cpue,
+#                        stitched_syn = stitched_syn,
+#                        data_path = data_output_dir)
+
+
 ```
 
 ---

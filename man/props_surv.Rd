@@ -23,12 +23,12 @@ props_surv_data_summary(
 
 extract_survey_indices(
   survey_index,
-  survey_sets,
-  survey_samples,
-  comm_samples,
   surv_series = c(2, 3, 4, 5, 17),
   surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
-  female_only = FALSE,
+  iphc = NULL,
+  discard_cpue = NULL,
+  stitched_synoptics = NULL,
+  data_path = NULL,
   ...
 )
 }
@@ -44,10 +44,6 @@ extract_survey_indices(
 \item{...}{Arguments passed to \code{\link[=props_comm]{props_comm()}}}
 
 \item{survey_index}{Survey index data frame as output by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
-
-\item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
-
-\item{female_only}{If \code{TRUE}, indices and wts will be multiplied by the proportion female}
 }
 \value{
 A data frame containing proportions of females for the required surveys
@@ -71,9 +67,5 @@ The CV can be calculated as CV = SD / MEAN or from the Standard error: CV = sqrt
 \examples{
 \dontrun
 si <- gfdata::get_survey_index("arrowtooth flounder")
-ss <- gfdata::get_survey_sets("arrowtooth flounder")
-ssa <- gfdata::get_survey_samples("arrowtooth flounder")
-comm <- gfdata::get_commercial_samples("arrowtooth flounder")
-extract_survey_indices (survey_index, survey_sets, survey_samples, commercial_samples,
- start_year = 1996, end_year = 2019, species_category = 1)
+extract_survey_indices (survey_index, start_year = 1996, end_year = 2019, species_category = 1)
 }

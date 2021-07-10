@@ -6,22 +6,19 @@
 \usage{
 add_extra_indices(
   surv_index = NULL,
-  data_path = NULL,
-  iphc_rds_fn = "iphc-survey-index.rds",
-  discard_cpue_csv_fn = "cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE.csv",
-  stitched_syn_rds_fn = "stitched-syn-index.rds"
+  iphc = NULL,
+  discard_cpue = NULL,
+  stitched_syn = NULL
 )
 }
 \arguments{
 \item{surv_index}{A survey index object as returned by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
 
-\item{data_path}{The full path where the data files can be found}
+\item{iphc}{The IPHC index data}
 
-\item{iphc_rds_fn}{The name of the IPHC RDS file containing index data}
+\item{discard_cpue}{The Discard CPUE index data}
 
-\item{discard_cpue_csv_fn}{The name of the Discard CPUE CSV file containing index data}
-
-\item{stitched_syn_rds_fn}{The name of the Stitched Synoptics RDS file containing index data}
+\item{stitched_syn}{The Stitched Synoptics index data}
 }
 \value{
 A survey index object as returned by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}, with the additional indices added
