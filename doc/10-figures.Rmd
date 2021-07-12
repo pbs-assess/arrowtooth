@@ -1,16 +1,31 @@
 # Figures
 
-(ref:fig-bridge-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass for the 2015 base model, and models constructed from the base model with cumulative changes progressing toward a new, split-sex base model.
+(ref:fig-bridge-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
 
 (ref:fig-bridge-biomass-french) French caption here
 
 ```{r bridge-biomass, fig.cap = ifelse(french, "(ref:fig-bridge-biomass-french)", "(ref:fig-bridge-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models, bridge_models_text, "sbt"),
+                   plot_ts_mpd(models$bridge_models, bridge_models_text, "sbt", rel = TRUE) + 
+                     coord_cartesian(ylim = c(0, 1)), nrow = 2)
+                   
+```
+
+(ref:fig-bridge-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge-recruitment-french) French caption here
+
+```{r bridge-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge-recruitment-french)", "(ref:fig-bridge-recruitment)"), out.width = "100%" , fig.pos="H"}
 plot_ts_mpd(models$bridge_models, bridge_models_text, "rt") +
-  coord_cartesian(ylim = c(0, 2.5))
-plot_ts_mpd(models$bridge_models, bridge_models_text, "rt", rel = TRUE)
-plot_ts_mpd(models$bridge_models, bridge_models_text, "sbt") #+
-  #coord_cartesian(ylim = c(0, 1))
-plot_ts_mpd(models$bridge_models, bridge_models_text, "sbt", rel = TRUE)
+  coord_cartesian(ylim = c(0, 1.5))
+```
+
+(ref:fig-bridge-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge-index-fits-french) French caption here
+
+```{r bridge-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge-index-fits-french)", "(ref:fig-bridge-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(models[[2]], survey_index)
 ```
 
 (ref:fig-catches-map-cap) Total coastwide catch of `r sp`, including both landings and
