@@ -20,4 +20,6 @@ The bridging models were constructed as follows:
 
 1. Changed the fishing year to be from January 1 - December 31 to the current management period which is Feb. 21 - Feb. 20. All catch and commercial age-compositions were modified and re-weighted.
 
-A comparison of MPD spawning biomass is shown in Figure \@ref(fig:bridge-biomass). The final model on this list, which is split-sex and has the fishing year set to Feb. 21 - Feb. 20 is considered the base model for this assessment.
+A comparison of MPD spawning biomass and relative spawning biomass are shown in Figures \@ref(fig:bridge-biomass) and \@ref(fig:bridge-relative-biomass). Index fits for each bridge model are shown in Figure \@ref(fig:bridge-index-fits). The Discard CPUE and HSSS are influencing the estimates heavily, with the final model fitting quite well to the most recent portion of those indices. The fishing year has a large scaling effect on the Discard CPUE fit, due to it being based on the vessels' actual fishing season.
+
+The final model on this list, which is split-sex and has the fishing year set to Feb. 21 - Feb. 20 is considered the base model for this assessment.
