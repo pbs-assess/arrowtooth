@@ -1,42 +1,34 @@
 # Tables
 
+```{r bridge-param-settings-table, results = 'asis'}
+param_settings_table(models[[2]][[6]],
+                     format = "latex",
+                     font_size = 7,
+                     caption = ifelse(french,
+                                      "French goes here",
+                                      "Number of parameters estimated, bounds, and prior parameterizations for the model 'Change fishing year to Feb 21 - Feb 20'."))
+```
+
 ```{r bridge-param-table, results = 'asis'}
-#param_est_mpd_table(models[[2]], xcaption = "Split sex, fishery year Feb model")
+param_est_mpd_table(models[[2]],
+                    format = "latex",
+                    digits = 3,
+                    font_size = 7,
+                    model_col_widths = "5em",
+                    caption = ifelse(french,
+                                     "French goes here",
+                                     "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index.")) 
 ```
+\clearpage
 
-
-```{r ref-tab}
-refs_tab <- tibble::tribble(
-     ~`Reference type`,                    ~`Rmarkdown code`,
-             "Section",        "`\\@ref(sec:section-label)`",
-          "Subsection",  "`\\@ref(subsec:subsection-label)`",
-            "Appendix",       "`\\@ref(app:appendix-label)`",
-            "Equation",        "`\\@ref(eq:equation-label)`",
-              "Figure",         "`\\@ref(fig:figure-label)`",
-               "Table",          "`\\@ref(tab:table-label)`")
-
-csasdown::csas_table(refs_tab,
-  align = c("r", "r"),
-  caption = ifelse(french,
-                   "French goes here",
-                   "Reference types and their Rmarkdown reference codes."))
-```
-
-```{r testtab2, echo=TRUE}
-d1 <- tibble::tribble(
-  ~Year, ~`Value 1`, ~`Value 2`,
-   2018,       1.12,       31.9,
-   2019,       2.32,        2.8,
-   2020,       3.67,      112.2)
-if(french){
-  names(d1) <- c(en2fr("Year"),
-                 paste0(en2fr("Value"), 1),
-                 paste0(en2fr("Value"), 2))
-}
-csasdown::csas_table(d1,
-  align = c("c", "r", "r"),
-  caption = ifelse(french,
-                   "French goes here",
-                   "Test table (data is d1) with a caption will be numbered automatically."))
+```{r bridge-sel-param-table, results = 'asis'}
+sel_param_est_mpd_table(models[[2]],
+                        format = "latex",
+                        digits = 3,
+                        font_size = 7,
+                        model_col_widths = NULL,
+                        caption = ifelse(french,
+                                         "French goes here",
+                                         "A comparison of Bridge model selectivity parameter estimates. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear, which has been estimated are labelled as such. Dashes are not applicable parameters for that model.")) 
 ```
 

@@ -135,7 +135,7 @@ bridge_models_text <- c("2015 Base model",
                         "Convert model to split sex",
                         "Change fishing year to Feb 21 - Feb 20",
                         "Fix male M=0.2, female M=0.2",
-                        "Fix male M=0.2, female M=0.35")
+                        "Fix male M=0.35, female M=0.2")
 bridge_models_text <- factor(bridge_models_text, levels = bridge_models_text)
 
 # This is a list of groups of sensitivities that will be plotted against each other.

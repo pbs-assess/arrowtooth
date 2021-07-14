@@ -28,159 +28,159 @@ plot_ts_mpd(models$bridge_models, bridge_models_text, "rt") +
 plot_index_fit_mpd(models[[2]], survey_index)
 ```
 
-(ref:fig-catches-map-cap) Total coastwide catch of `r sp`, including both landings and
-  discards. See Table XX for values.
+<!-- (ref:fig-catches-map-cap) Total coastwide catch of `r sp`, including both landings and -->
+<!--   discards. See Table XX for values. -->
 
-(ref:fig-catches-cap-map-french) French caption here
+<!-- (ref:fig-catches-cap-map-french) French caption here -->
 
-```{r main-catches-map, fig.cap = ifelse(french, "(ref:fig-catches-cap-map-french)", "(ref:fig-catches-map-cap)"), out.width = "100%" , fig.pos="H"}
-cpue_spatial_1996_pres <- cpue_spatial %>% filter(year %in% 2018)
-plot_cpue_spatial(cpue_spatial_1996_pres, french = french, start_year = start_catch_yr) +
-  theme(axis.text.x = element_text(angle = 0)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
-```
+<!-- ```{r main-catches-map, fig.cap = ifelse(french, "(ref:fig-catches-cap-map-french)", "(ref:fig-catches-map-cap)"), out.width = "100%" , fig.pos="H"} -->
+<!-- cpue_spatial_1996_pres <- cpue_spatial %>% filter(year %in% 2018) -->
+<!-- plot_cpue_spatial(cpue_spatial_1996_pres, french = french, start_year = start_catch_yr) + -->
+<!--   theme(axis.text.x = element_text(angle = 0)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5)) -->
+<!-- ``` -->
 
-(ref:fig-catches-cap) Total coastwide catch of `r sp`, including both landings and
-  discards. See Table XX for values.
+<!-- (ref:fig-catches-cap) Total coastwide catch of `r sp`, including both landings and -->
+<!--   discards. See Table XX for values. -->
 
-(ref:fig-catches-cap-french) French caption here
+<!-- (ref:fig-catches-cap-french) French caption here -->
 
-```{r main-catches, fig.cap = ifelse(french, "(ref:fig-catches-cap-french)", "(ref:fig-catches-cap)"), out.width = "100%", fig.pos="H"}
-ct <- tidy_catch(catch, areas = NULL)
-plot_catch(ct, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
-  theme(axis.text.x = element_text(angle = 0)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
-```
+<!-- ```{r main-catches, fig.cap = ifelse(french, "(ref:fig-catches-cap-french)", "(ref:fig-catches-cap)"), out.width = "100%", fig.pos="H"} -->
+<!-- ct <- tidy_catch(catch, areas = NULL) -->
+<!-- plot_catch(ct, french = french, xlim = c(start_catch_yr, end_catch_yr)) + -->
+<!--   theme(axis.text.x = element_text(angle = 0)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5)) -->
+<!-- ``` -->
 
-(ref:fig-catches-by-area-cap) Total catch of `r sp` by area, including both landings and
-  discards. See Table XX for values.
+<!-- (ref:fig-catches-by-area-cap) Total catch of `r sp` by area, including both landings and -->
+<!--   discards. See Table XX for values. -->
 
-(ref:fig-catches-by-area-cap-french) French caption here
+<!-- (ref:fig-catches-by-area-cap-french) French caption here -->
 
-```{r main-catches-by-area, fig.cap = ifelse(french, "(ref:fig-catches-by-area-cap-french)", "(ref:fig-catches-by-area-cap)"), out.width = "100%", fig.pos="H"}
-ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[ABCDE]+"))
-plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
-  theme(axis.text.x = element_text(angle = 0)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
-```
+<!-- ```{r main-catches-by-area, fig.cap = ifelse(french, "(ref:fig-catches-by-area-cap-french)", "(ref:fig-catches-by-area-cap)"), out.width = "100%", fig.pos="H"} -->
+<!-- ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[ABCDE]+")) -->
+<!-- plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) + -->
+<!--   theme(axis.text.x = element_text(angle = 0)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5)) -->
+<!-- ``` -->
 
-(ref:fig-catches-by-area-fine-cap) Total catch of `r sp` by area, including both landings and
-  discards. See Table XX for values.
+<!-- (ref:fig-catches-by-area-fine-cap) Total catch of `r sp` by area, including both landings and -->
+<!--   discards. See Table XX for values. -->
 
-(ref:fig-catches-by-area-fine-cap-french) French caption here
+<!-- (ref:fig-catches-by-area-fine-cap-french) French caption here -->
 
-```{r main-catches-by-area-fine, fig.cap = ifelse(french, "(ref:fig-catches-by-area-fine-cap-french)", "(ref:fig-catches-by-area-fine-cap)"), out.width = "100%", fig.pos="H"}
-ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[AB]+", "5[CD]", "5[E]"))
-plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) +
-  theme(axis.text.x = element_text(angle = 0)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5))
-```
+<!-- ```{r main-catches-by-area-fine, fig.cap = ifelse(french, "(ref:fig-catches-by-area-fine-cap-french)", "(ref:fig-catches-by-area-fine-cap)"), out.width = "100%", fig.pos="H"} -->
+<!-- ct_areas <- tidy_catch(catch, areas = c("3[CD]+", "5[AB]+", "5[CD]", "5[E]")) -->
+<!-- plot_catch(ct_areas, french = french, xlim = c(start_catch_yr, end_catch_yr)) + -->
+<!--   theme(axis.text.x = element_text(angle = 0)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5)) -->
+<!-- ``` -->
 
-(ref:fig-age-comps-cap) Age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
+<!-- (ref:fig-age-comps-cap) Age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
 
-(ref:fig-age-comps-cap-french) French caption here
+<!-- (ref:fig-age-comps-cap-french) French caption here -->
 
-```{r age-comps, fig.cap = ifelse(french, "(ref:fig-age-comps-cap-french)", "(ref:fig-age-comps-cap)"), out.width = "100%", fig.pos="H"}
-ac <- tidy_ages_raw(commercial_samples, sample_type = "commercial")
-plot_ages(ac) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
-```
+<!-- ```{r age-comps, fig.cap = ifelse(french, "(ref:fig-age-comps-cap-french)", "(ref:fig-age-comps-cap)"), out.width = "100%", fig.pos="H"} -->
+<!-- ac <- tidy_ages_raw(commercial_samples, sample_type = "commercial") -->
+<!-- plot_ages(ac) + -->
+<!--   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1)) -->
+<!-- ``` -->
 
-(ref:fig-age-comps-weighted-cap) Weighted age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
+<!-- (ref:fig-age-comps-weighted-cap) Weighted age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
 
-(ref:fig-age-comps-weighted-cap-french) French caption here
+<!-- (ref:fig-age-comps-weighted-cap-french) French caption here -->
 
-```{r age-comps-weighted, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-cap-french)", "(ref:fig-age-comps-weighted-cap)"), out.width = "100%", fig.pos="H"}
-ac <- tidy_ages_weighted(commercial_samples,
-                         sample_type = "commercial",
-                         dat_catch = catch,
-                         month_fishing_starts = month_fishing_starts,
-                         day_fishing_starts = day_fishing_starts)
-plot_ages(ac) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
-```
+<!-- ```{r age-comps-weighted, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-cap-french)", "(ref:fig-age-comps-weighted-cap)"), out.width = "100%", fig.pos="H"} -->
+<!-- ac <- tidy_ages_weighted(commercial_samples, -->
+<!--                          sample_type = "commercial", -->
+<!--                          dat_catch = catch, -->
+<!--                          month_fishing_starts = month_fishing_starts, -->
+<!--                          day_fishing_starts = day_fishing_starts) -->
+<!-- plot_ages(ac) + -->
+<!--   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1)) -->
+<!-- ``` -->
 
-(ref:fig-age-comps-weighted-surveys-cap) Weighted age composition data by sex for the Reference Case for the `r wcviss`, `r hsss`, and `r qcsss`. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
+<!-- (ref:fig-age-comps-weighted-surveys-cap) Weighted age composition data by sex for the Reference Case for the `r wcviss`, `r hsss`, and `r qcsss`. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
 
-(ref:fig-age-comps-weighted-surveys-cap-french) French caption here
+<!-- (ref:fig-age-comps-weighted-surveys-cap-french) French caption here -->
 
-```{r age-comps-weighted-surveys, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-surveys-cap-french)", "(ref:fig-age-comps-weighted-surveys-cap)"), out.width = "100%", fig.pos="H"}
-ac <- tidy_ages_weighted(survey_samples,
-                         sample_type = "survey",
-                         dat_survey_sets = survey_sets,
-                         survey = c("SYN WCVI",
-                                    "SYN HS",
-                                    "SYN QCS"))
-plot_ages(ac) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 2))
+<!-- ```{r age-comps-weighted-surveys, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-surveys-cap-french)", "(ref:fig-age-comps-weighted-surveys-cap)"), out.width = "100%", fig.pos="H"} -->
+<!-- ac <- tidy_ages_weighted(survey_samples, -->
+<!--                          sample_type = "survey", -->
+<!--                          dat_survey_sets = survey_sets, -->
+<!--                          survey = c("SYN WCVI", -->
+<!--                                     "SYN HS", -->
+<!--                                     "SYN QCS")) -->
+<!-- plot_ages(ac) + -->
+<!--   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 2)) -->
 
 
-```
+<!-- ``` -->
 
-(ref:fig-length-comps-weighted-cap) Weighted length composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
+<!-- (ref:fig-length-comps-weighted-cap) Weighted length composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
 
-(ref:fig-length-comps-weighted-cap-french) French caption here
+<!-- (ref:fig-length-comps-weighted-cap-french) French caption here -->
 
-```{r length-comps-weighted, fig.cap = ifelse(french, "(ref:fig-length-comps-weighted-cap-french)", "(ref:fig-length-comps-weighted-cap)"), out.width = "100%", fig.pos="H"}
-lc <- tidy_lengths_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch)
-plot_lengths(lc) +
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
-  ggtitle(NULL) +
-  scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5)) +
-  theme(strip.text.y = element_text(angle = 0))
-```
+<!-- ```{r length-comps-weighted, fig.cap = ifelse(french, "(ref:fig-length-comps-weighted-cap-french)", "(ref:fig-length-comps-weighted-cap)"), out.width = "100%", fig.pos="H"} -->
+<!-- lc <- tidy_lengths_weighted(commercial_samples, sample_type = "commercial", dat_catch = catch) -->
+<!-- plot_lengths(lc) + -->
+<!--   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + -->
+<!--   ggtitle(NULL) + -->
+<!--   scale_x_continuous(breaks = seq(from = 0, to = 100, by = 5)) + -->
+<!--   theme(strip.text.y = element_text(angle = 0)) -->
+<!-- ``` -->
 
-(ref:fig-priors-cap) Prior probability distributions used in the Reference Case. Parameters $q_k$ represent gears where: k = 2 is the `r qcsss`, k = 3 is the `r hsmas`, k = 4 is the `r hsss`, and k = 5 is the `r wcviss`.
+<!-- (ref:fig-priors-cap) Prior probability distributions used in the Reference Case. Parameters $q_k$ represent gears where: k = 2 is the `r qcsss`, k = 3 is the `r hsmas`, k = 4 is the `r hsss`, and k = 5 is the `r wcviss`. -->
 
-(ref:fig-priors-cap-french) French caption here
+<!-- (ref:fig-priors-cap-french) French caption here -->
 
-```{r priors, fig.cap = ifelse(french, "(ref:fig-priors-cap-french)", "(ref:fig-priors-cap)"), out.width = "100%", fig.pos = "H"}
-#make.priors.posts.plot(base_model)
-```
+<!-- ```{r priors, fig.cap = ifelse(french, "(ref:fig-priors-cap-french)", "(ref:fig-priors-cap)"), out.width = "100%", fig.pos = "H"} -->
+<!-- #make.priors.posts.plot(base_model) -->
+<!-- ``` -->
 
-(ref:fig-priors-posts-cap) Prior probability distributions used in the Reference Case with comparative posterior histograms. Parameter $q_k$ represents gears as follows: $k=1$: commercial trawl; $k=2$: `r qcsss`: $k=3$; `r hsmas`: $k=4$; `r hsss`, and $k=5$; `r wcviss`. The dotted red lines are the MPD estimates from the Reference Case.
+<!-- (ref:fig-priors-posts-cap) Prior probability distributions used in the Reference Case with comparative posterior histograms. Parameter $q_k$ represents gears as follows: $k=1$: commercial trawl; $k=2$: `r qcsss`: $k=3$; `r hsmas`: $k=4$; `r hsss`, and $k=5$; `r wcviss`. The dotted red lines are the MPD estimates from the Reference Case. -->
 
-(ref:fig-priors-posts-cap-french) French caption here
+<!-- (ref:fig-priors-posts-cap-french) French caption here -->
 
-```{r priors-posts, fig.cap = ifelse(french, "(ref:fig-priors-posts-cap-french)", "(ref:fig-priors-posts-cap)"), out.width = "100%", fig.pos = "H"}
-#make.priors.posts.plot(base_model, priors.only = FALSE)
-```
+<!-- ```{r priors-posts, fig.cap = ifelse(french, "(ref:fig-priors-posts-cap-french)", "(ref:fig-priors-posts-cap)"), out.width = "100%", fig.pos = "H"} -->
+<!-- #make.priors.posts.plot(base_model, priors.only = FALSE) -->
+<!-- ``` -->
 
-(ref:fig-traces-cap) Trace plots for MCMC output of estimated parameters in the Reference Case. The MCMC run had chain length `r mcmc_chain_length`, with a sample taken at every `r mcsave`th iteration. Of the `r tot_num_posts` samples saved, the first `r burnin` were removed as a burn-in period. Parameters $q_k$ (catchability), $\hat{a}_k$ (selectivity-at-age-50%), and $\hat{\gamma}_k$ (selectivity standard deviation-at-50%) represent gears as follows: $k=1$: commercial trawl; $k=2$: `r qcsss`: $k=3$; `r hsmas`: $k=4$; `r hsss`, and $k=5$; `r wcviss`. The `r hsmas` did not have estimates selectivity, so there are no $\hat{a}_3$ or $\hat{\gamma}_3$ parameters.
+<!-- (ref:fig-traces-cap) Trace plots for MCMC output of estimated parameters in the Reference Case. The MCMC run had chain length `r mcmc_chain_length`, with a sample taken at every `r mcsave`th iteration. Of the `r tot_num_posts` samples saved, the first `r burnin` were removed as a burn-in period. Parameters $q_k$ (catchability), $\hat{a}_k$ (selectivity-at-age-50%), and $\hat{\gamma}_k$ (selectivity standard deviation-at-50%) represent gears as follows: $k=1$: commercial trawl; $k=2$: `r qcsss`: $k=3$; `r hsmas`: $k=4$; `r hsss`, and $k=5$; `r wcviss`. The `r hsmas` did not have estimates selectivity, so there are no $\hat{a}_3$ or $\hat{\gamma}_3$ parameters. -->
 
-(ref:fig-traces-cap-french) French caption here
+<!-- (ref:fig-traces-cap-french) French caption here -->
 
-```{r traces, fig.cap = ifelse(french, "(ref:fig-traces-cap-french)", "(ref:fig-traces-cap)"), out.width = "100%", fig.pos = "H"}
-#make.traces.plot(base_model)
-```
+<!-- ```{r traces, fig.cap = ifelse(french, "(ref:fig-traces-cap-french)", "(ref:fig-traces-cap)"), out.width = "100%", fig.pos = "H"} -->
+<!-- #make.traces.plot(base_model) -->
+<!-- ``` -->
 
-(ref:fig-autocorr-cap) Autocorrelation plots for MCMC output of estimated parameters in the
-Reference Case. See Figure \@ref(fig:traces) for parameter descriptions.
+<!-- (ref:fig-autocorr-cap) Autocorrelation plots for MCMC output of estimated parameters in the -->
+<!-- Reference Case. See Figure \@ref(fig:traces) for parameter descriptions. -->
 
-(ref:fig-autocorr-cap-french) French caption here
+<!-- (ref:fig-autocorr-cap-french) French caption here -->
 
-```{r autocorr, fig.cap = ifelse(french, "(ref:fig-autocorr-cap-french)", "(ref:fig-autocorr-cap)"), out.width = "100%", fig.pos = "H"}
-#make.autocor.plot(base_model)
-```
+<!-- ```{r autocorr, fig.cap = ifelse(french, "(ref:fig-autocorr-cap-french)", "(ref:fig-autocorr-cap)"), out.width = "100%", fig.pos = "H"} -->
+<!-- #make.autocor.plot(base_model) -->
+<!-- ``` -->
 
-(ref:fig-pairs-cap) Pairs plots for MCMC output of estimated parameters in the Reference Case.
-  See Figure \@ref(fig:traces) for parameter descriptions.
+<!-- (ref:fig-pairs-cap) Pairs plots for MCMC output of estimated parameters in the Reference Case. -->
+<!--   See Figure \@ref(fig:traces) for parameter descriptions. -->
 
-(ref:fig-pairs-cap-french) French caption here
+<!-- (ref:fig-pairs-cap-french) French caption here -->
 
-```{r pairs, fig.cap = ifelse(french, "(ref:fig-pairs-cap-french)", "(ref:fig-pairs-cap)"), out.width = "100%", fig.pos = "H"}
-#make.pairs.plot(base_model)
-```
+<!-- ```{r pairs, fig.cap = ifelse(french, "(ref:fig-pairs-cap-french)", "(ref:fig-pairs-cap)"), out.width = "100%", fig.pos = "H"} -->
+<!-- #make.pairs.plot(base_model) -->
+<!-- ``` -->
 
 
 

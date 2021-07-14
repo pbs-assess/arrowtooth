@@ -14,12 +14,17 @@ The bridging models were constructed as follows:
 
 1. Attempted to add the West Coast Haida Gwaii Synoptic survey (WCHGSS) but the model fails to estimate trawl selectivity when both the Hecate Strait Multispecies Assemblage survey (HSMAS) and the WCHGSS are included, so the WCHGSS was left out due to its limited area and years of coverage and because the HSMAS covers the early period of the time series.
 
-1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index of vessels that were not fishing for `r sp` and therefore discarding all that they caught incidentally. This index is described in greater detail in later sections.
+1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for `r sp` and therefore were discarding all that they caught incidentally. The selectivity could not reliably be estimated for this index in the current model configuration, so its selectivity was set to mirror that of the trawl fishery (Table \@ref(tab:bridge-sel-param-table)). This decision was based on the Discard CPUE being directly extracted from the trawl fishery data. The Discard CPUE index is described in greater detail in later sections.
 
-1. Converted the model to have a split-sex age structure. The TWG agreed that calculation of proportions female to be multiplied by catch and index values was not robust enough and that given the sexual dimorphism of the species a split-sex model should be used. A more detailed description of the split-sex model is found in later sections.
+1. Converted the model to have a split-sex age structure. The TWG agreed that calculation of proportions female to be multiplied by catch and index values was not robust enough and that given the sexual dimorphism of the species a split-sex model should be used. The selectivity could not be reliably estimated for the WCVISS index in the current model configuration, so its selectivity was set to mirror that of the HSSS index (Table \@ref(tab:bridge-sel-param-table)). This decision was based on the two surveys being performed with the same protocols and design and having similar index trends over time. A more detailed description of the split-sex model is found in later sections.
 
 1. Changed the fishing year to be from January 1 - December 31 to the current management period which is Feb. 21 - Feb. 20. All catch and commercial age-compositions were modified and re-weighted.
 
-A comparison of MPD spawning biomass and relative spawning biomass are shown in Figures \@ref(fig:bridge-biomass) and \@ref(fig:bridge-relative-biomass). Index fits for each bridge model are shown in Figure \@ref(fig:bridge-index-fits). The Discard CPUE and HSSS are influencing the estimates heavily, with the final model fitting quite well to the most recent portion of those indices. The fishing year has a large scaling effect on the Discard CPUE fit, due to it being based on the vessels' actual fishing season.
+1. Fixed both male and female Natural mortality to be 0.2.
 
-The final model on this list, which is split-sex and has the fishing year set to Feb. 21 - Feb. 20 is considered the base model for this assessment.
+1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.
+
+A comparison of MPD spawning biomass and relative spawning biomass are shown in Figure \@ref(fig:bridge-biomass). Index fits for each bridge model are shown in Figure \@ref(fig:bridge-index-fits).
+
+The third-from-last model on this list, which is split-sex and has the fishing year set to Feb. 21 - Feb. 20 with both M parameters being estimated is considered the base model for this assessment.
+
