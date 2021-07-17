@@ -1,31 +1,61 @@
 # Figures
 
-(ref:fig-bridge-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+(ref:fig-bridge1-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
 
-(ref:fig-bridge-biomass-french) French caption here
+(ref:fig-bridge1-biomass-french) French caption here
 
-```{r bridge-biomass, fig.cap = ifelse(french, "(ref:fig-bridge-biomass-french)", "(ref:fig-bridge-biomass)"), out.width = "100%" , fig.pos="H"}
-cowplot::plot_grid(plot_ts_mpd(models$bridge_models, bridge_models_text, "sbt"),
-                   plot_ts_mpd(models$bridge_models, bridge_models_text, "sbt", rel = TRUE) + 
+```{r bridge1-biomass, fig.cap = ifelse(french, "(ref:fig-bridge1-biomass-french)", "(ref:fig-bridge1-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt"),
+                   plot_ts_mpd(models$bridge_models[[1]], type = "sbt", rel = TRUE) + 
                      coord_cartesian(ylim = c(0, 1)), nrow = 2)
                    
 ```
 
-(ref:fig-bridge-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+(ref:fig-bridge1-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
 
-(ref:fig-bridge-recruitment-french) French caption here
+(ref:fig-bridge1-recruitment-french) French caption here
 
-```{r bridge-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge-recruitment-french)", "(ref:fig-bridge-recruitment)"), out.width = "100%" , fig.pos="H"}
-plot_ts_mpd(models$bridge_models, bridge_models_text, "rt") +
+```{r bridge1-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge1-recruitment-french)", "(ref:fig-bridge1-recruitment)"), out.width = "100%" , fig.pos="H"}
+plot_ts_mpd(models$bridge_models[[1]], type = "rt") +
   coord_cartesian(ylim = c(0, 1.5))
 ```
 
-(ref:fig-bridge-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+(ref:fig-bridge1-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
 
-(ref:fig-bridge-index-fits-french) French caption here
+(ref:fig-bridge1-index-fits-french) French caption here
 
-```{r bridge-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge-index-fits-french)", "(ref:fig-bridge-index-fits)"), out.width = "100%" , fig.pos="H"}
-plot_index_fit_mpd(models[[2]], survey_index)
+```{r bridge1-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge1-index-fits-french)", "(ref:fig-bridge1-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index)
+```
+
+
+
+(ref:fig-bridge2-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge2-biomass-french) French caption here
+
+```{r bridge2-biomass, fig.cap = ifelse(french, "(ref:fig-bridge2-biomass-french)", "(ref:fig-bridge2-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[2]], type = "sbt"),
+                   plot_ts_mpd(models$bridge_models[[2]], type = "sbt", rel = TRUE) + 
+                     coord_cartesian(ylim = c(0, 1)), nrow = 2)
+                   
+```
+
+(ref:fig-bridge2-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge2-recruitment-french) French caption here
+
+```{r bridge2-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge2-recruitment-french)", "(ref:fig-bridge2-recruitment)"), out.width = "100%" , fig.pos="H"}
+plot_ts_mpd(models$bridge_models[[2]], type = "rt") +
+  coord_cartesian(ylim = c(0, 1.5))
+```
+
+(ref:fig-bridge2-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge2-index-fits-french) French caption here
+
+```{r bridge2-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge2-index-fits-french)", "(ref:fig-bridge2-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(models$bridge_models[[2]], surv_index = survey_index)
 ```
 
 <!-- (ref:fig-catches-map-cap) Total coastwide catch of `r sp`, including both landings and -->
@@ -80,52 +110,50 @@ plot_index_fit_mpd(models[[2]], survey_index)
 <!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 5)) -->
 <!-- ``` -->
 
-<!-- (ref:fig-age-comps-cap) Age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
+(ref:fig-age-comps-cap) Age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
 
-<!-- (ref:fig-age-comps-cap-french) French caption here -->
+(ref:fig-age-comps-cap-french) French caption here
 
-<!-- ```{r age-comps, fig.cap = ifelse(french, "(ref:fig-age-comps-cap-french)", "(ref:fig-age-comps-cap)"), out.width = "100%", fig.pos="H"} -->
-<!-- ac <- tidy_ages_raw(commercial_samples, sample_type = "commercial") -->
-<!-- plot_ages(ac) + -->
-<!--   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + -->
-<!--   ggtitle(NULL) + -->
-<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1)) -->
-<!-- ``` -->
+```{r age-comps, fig.cap = ifelse(french, "(ref:fig-age-comps-cap-french)", "(ref:fig-age-comps-cap)"), out.width = "100%", fig.pos="H"}
+ac <- tidy_ages_raw(commercial_samples, sample_type = "commercial")
+plot_ages(ac) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
+```
 
-<!-- (ref:fig-age-comps-weighted-cap) Weighted age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
+(ref:fig-age-comps-weighted-cap) Weighted age composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
 
-<!-- (ref:fig-age-comps-weighted-cap-french) French caption here -->
+(ref:fig-age-comps-weighted-cap-french) French caption here
 
-<!-- ```{r age-comps-weighted, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-cap-french)", "(ref:fig-age-comps-weighted-cap)"), out.width = "100%", fig.pos="H"} -->
-<!-- ac <- tidy_ages_weighted(commercial_samples, -->
-<!--                          sample_type = "commercial", -->
-<!--                          dat_catch = catch, -->
-<!--                          month_fishing_starts = month_fishing_starts, -->
-<!--                          day_fishing_starts = day_fishing_starts) -->
-<!-- plot_ages(ac) + -->
-<!--   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + -->
-<!--   ggtitle(NULL) + -->
-<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1)) -->
-<!-- ``` -->
+```{r age-comps-weighted, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-cap-french)", "(ref:fig-age-comps-weighted-cap)"), out.width = "100%", fig.pos="H"}
+ac <- tidy_ages_weighted(commercial_samples,
+                         sample_type = "commercial",
+                         dat_catch = catch,
+                         month_fishing_starts = month_fishing_starts,
+                         day_fishing_starts = day_fishing_starts)
+plot_ages(ac) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 1))
+```
 
-<!-- (ref:fig-age-comps-weighted-surveys-cap) Weighted age composition data by sex for the Reference Case for the `r wcviss`, `r hsss`, and `r qcsss`. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
+(ref:fig-age-comps-weighted-surveys-cap) Weighted age composition data by sex for the Reference Case for the `r wcviss`, `r hsss`, and `r qcsss`. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity).
 
-<!-- (ref:fig-age-comps-weighted-surveys-cap-french) French caption here -->
+(ref:fig-age-comps-weighted-surveys-cap-french) French caption here
 
-<!-- ```{r age-comps-weighted-surveys, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-surveys-cap-french)", "(ref:fig-age-comps-weighted-surveys-cap)"), out.width = "100%", fig.pos="H"} -->
-<!-- ac <- tidy_ages_weighted(survey_samples, -->
-<!--                          sample_type = "survey", -->
-<!--                          dat_survey_sets = survey_sets, -->
-<!--                          survey = c("SYN WCVI", -->
-<!--                                     "SYN HS", -->
-<!--                                     "SYN QCS")) -->
-<!-- plot_ages(ac) + -->
-<!--   theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + -->
-<!--   ggtitle(NULL) + -->
-<!--   scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 2)) -->
-
-
-<!-- ``` -->
+```{r age-comps-weighted-surveys, fig.cap = ifelse(french, "(ref:fig-age-comps-weighted-surveys-cap-french)", "(ref:fig-age-comps-weighted-surveys-cap)"), out.width = "100%", fig.pos="H"}
+ac <- tidy_ages_weighted(survey_samples,
+                         sample_type = "survey",
+                         dat_survey_sets = survey_sets,
+                         survey = c("SYN WCVI",
+                                    "SYN HS",
+                                    "SYN QCS"))
+plot_ages(ac) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  ggtitle(NULL) +
+  scale_x_continuous(breaks = seq(from = 1900, to = 2100, by = 2))
+```
 
 <!-- (ref:fig-length-comps-weighted-cap) Weighted length composition data by sex for the Reference Case for the commercial trawl fishery. Top numbers represent the number of age samples. Diagonal lines represent cohorts born decadally (for figure clarity). -->
 

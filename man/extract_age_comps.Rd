@@ -8,9 +8,11 @@ extract_age_comps(
   catch_sets,
   samples,
   type = "commercial",
+  gear_num = 1,
   surv_series_name = "SYN QCS",
   sex = c("M", "F"),
   write_to_file = TRUE,
+  append = FALSE,
   ...
 )
 }
@@ -19,11 +21,17 @@ extract_age_comps(
 
 \item{samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}} or \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}}}
 
+\item{gear_num}{Number of gear to be written in output file}
+
 \item{surv_series_name}{Name of a survey to extract. To extract multiple at once, use \code{\link[=extract_survey_age_comps]{extract_survey_age_comps()}}.
 See the values in \code{survey_abbrev} column of data frame returned by \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} for names}
 
 \item{sex}{sex code, "M" = male, "F" = female.
 For split sex (full age comps for each sex) use sex = c("M", "F")}
+
+\item{write_to_file}{If \code{TRUE} write the output to the file. If \code{FALSE} return it}
+
+\item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE}, overwrite the file}
 
 \item{...}{Arguments to pass to \code{\link[gfplot:tidy_comps]{gfplot::tidy_ages_weighted()}}}
 }
@@ -37,5 +45,10 @@ Extract the commercial age proportions for pasting into the iSCAM data file.
 \dontrun
 catch <- gfdata::get_catch("arrowtooth flounder")
 commercial_samples <- gfdata::get_commercial_samples("arrowtooth flounder")
-extract_age_comps(catch, commercial_samples, spp_cat_code = 1, month_fishing_starts = 2, day_fishing_starts = 21) \%>\% print(n = 100)
+catch_ft <- extract_fleet_catch(catch)
+catch_nonft <- extract_fleet_catch(catch, include = FALSE)
+comm_ft <- extract_fleet_samples(commercial_samples)
+comm_nonft <- extract_fleet_samples(commercial_samples, include = FALSE)
+extract_age_comps(catch_ft, commercial_samples_ft, spp_cat_code = 1, month_fishing_starts = 1, day_fishing_starts = 1) \%>\% print(n = 100)
+extract_age_comps(catch_nonft, commercial_samples_nonft, spp_cat_code = 1, month_fishing_starts = 1, day_fishing_starts = 1) \%>\% print(n = 100)
 }

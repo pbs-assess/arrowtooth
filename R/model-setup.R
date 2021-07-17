@@ -51,13 +51,16 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
   }
   bridge_models_dirs_full <- NULL
   if(!is.null(bridge_models_dirs)){
-    bridge_models_dirs_full <- file.path(bridge_models_dir_full, bridge_models_dirs)
-    dir_existence <- map_lgl(bridge_models_dirs_full, ~{dir.exists(.x)})
-    if(!all(dir_existence)){
-      stop("Some bridge model directories do not exist:\n",
-           paste0(bridge_models_dirs_full[!dir_existence], collapse = "\n"),
-           call. = FALSE)
-    }
+    bridge_models_dirs_full <- map(bridge_models_dirs, ~{
+      x <- file.path(bridge_models_dir_full, .x)
+      dir_existence <- map_lgl(x, ~{dir.exists(.x)})
+      if(!all(dir_existence)){
+        stop("Some Sensitivity model directories do not exist:\n",
+             paste0(x[!dir_existence], collapse = "\n"),
+             call. = FALSE)
+      }
+      x
+    })
   }
 
   stopifnot(!is.null(sens_models_dir))
@@ -91,11 +94,13 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #'
 #' @param main_dirs Output from [set_dirs()]
 #' @param overwrite_rds_files Logical. TRUE to overwrite the model RDS files
-#' @param bridge_models_text A vector of text strings to show in the legends for bridge
-#' model plots, one name for each model
+#' @param bridge_models_text A list of vectors of text strings to show in the legends for bridge
+#' model plots, one name for each model, where the list elements represent a group of models
+#' @param sens_models_text A list of vectors of text strings to show in the legends for sensitivity
+#' model plots, one name for each model, where the list elements represent a group of models
 #'
-#' @return A list of three items, the base_model, the list of bridge models, and
-#' the list of sensitivity models. The two lists are groups of models which are
+#' @return A list of three items, the base_model, the list of bridge model groups, and
+#' the list of sensitivity model groups. The two lists are groups of models which are
 #' to be compared with each other in the document. This simplifies plotting and table functions.
 #' @importFrom gfiscamutils create_rds_file
 #' @importFrom purrr map_chr flatten
@@ -114,6 +119,7 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #'                         overwrite_rds_files = TRUE)
 model_setup <- function(main_dirs = NULL,
                         bridge_models_text = NULL,
+                        sens_models_text = NULL,
                         overwrite_rds_files = FALSE){
 
   if(is.null(main_dirs[1])){
@@ -123,11 +129,22 @@ model_setup <- function(main_dirs = NULL,
   if(is.null(bridge_models_text[1])){
     warning("bridge_models_text is NULL. Using bridge model directory names for plot legends")
     bridge_models_text <- basename(main_dirs$bridge_models_dirs)
+    bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
   }
 
-  j <- map(list(list(main_dirs$base_model_dir),
-                list(main_dirs$bridge_models_dirs),
-                main_dirs$sens_models_dirs), ~{
+  if(is.null(sens_models_text[1])){
+    warning("sens_models_text is NULL. Using sens model directory names for plot legends")
+    sens_models_text <- basename(main_dirs$sens_models_dirs)
+    sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
+  }
+
+  # model_list is a list of three lists, one for the base model, one for the bridge models (also a list),
+  # and one for the sensitivity models (also a list)
+  model_list <- list(list(main_dirs$base_model_dir),
+                     main_dirs$bridge_models_dirs,
+                     main_dirs$sens_models_dirs)
+
+  j <- map(model_list, ~{
     models <- NULL
     if(!is.null(.x)){
       unique_models_dirs <- .x %>%
@@ -158,15 +175,19 @@ model_setup <- function(main_dirs = NULL,
   }else{
     base_model <- j[[1]][[1]]
   }
-  if(length(main_dirs$bridge_models_dirs) == 1){
-    bridge_models <- j[[2]][[1]][[1]]
-  }else{
-    bridge_models <- j[[2]][[1]]
-  }
+  bridge_models <- j[[2]]
+  sens_models <- j[[3]]
 
-  names(bridge_models) <- factor(bridge_models_text)
+  bridge_models <- map2(bridge_models, bridge_models_text, ~{
+    names(.x) <- factor(.y)
+    .x
+  })
+  sens_models <- map2(sens_models, sens_models_text, ~{
+    names(.x) <- factor(.y)
+    .x
+  })
 
   list(base_model = base_model,
        bridge_models = bridge_models,
-       sens_models = j[[3]])
+       sens_models = sens_models)
 }

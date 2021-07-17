@@ -6,12 +6,23 @@
 in \code{\link[=props_comm]{props_comm()}} which are passed through \code{...} have default value which will filter your data
 if you do not provide your own values.}
 \usage{
-extract_catch_data(catch, comm_samples, female_only = FALSE, ...)
+extract_catch_data(
+  catch,
+  comm_samples,
+  gear_num = 1,
+  append = FALSE,
+  female_only = FALSE,
+  ...
+)
 }
 \arguments{
 \item{catch}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_catch()}}}
 
 \item{comm_samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}}}
+
+\item{gear_num}{Number of gear to be written in output file}
+
+\item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE}, overwrite the file}
 
 \item{female_only}{If \code{TRUE}, indices and wts will be multiplied by the proportion female}
 
@@ -32,8 +43,12 @@ For years with no samples (missing years), the mean of all other years' proporti
 The year range is determined by what is set in \code{\link[=props_comm]{props_comm()}}, which is passed through \code{...}
 }
 \examples{
-\dontrun
-ct <- gfdata::get_catch("arrowtooth flounder")
-d <- gfdata::get_commercial_samples("arrowtooth flounder")
-extract_catch_data(ct, d, species_category = 1, end_year = 2019, month_fishing_starts = 2, day_fishing_starts = 21) \%>\% print(n=100)
+\dontrun{
+Freezer trawlers:
+extract_catch_data(extract_fleet_catch(catch, include = TRUE), commercial_samples, gear_num = 1, append = FALSE,
+species_category = 1, end_year = 2019, month_fishing_starts = 1, day_fishing_starts = 1)
+Non-Freezer trawlers:
+extract_catch_data(extract_fleet_catch(catch, include = FALSE), commercial_samples, gear_num = 1, append = TRUE,
+species_category = 1, end_year = 2019, month_fishing_starts = 1, day_fishing_starts = 1)
+}
 }

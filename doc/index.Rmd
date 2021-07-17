@@ -119,35 +119,58 @@ sp <- "Arrowtooth flounder"
 
 # This is a vector of bridge models that will be plotted against each other.
 # This must either be NULL or set to a vector of directories
-bridge_models_dirs <- c("01-base",
-                        "02-bridge-update-data-to-2014",
-                        "03-bridge-update-data-to-2019",
-                        "04-bridge-add-discard-cpue",
-                        "05-bridge-convert-to-splitsex",
-                        "06-bridge-fishing-year-feb-21-feb-20",
-                        "07-bridge-fix-m-2-2",
-                        "08-bridge-fix-m-2-35")
+bridge_models_dirs <- list(c("01-base",
+                             "02-bridge-update-data-to-2014",
+                             "03-bridge-update-data-to-2019",
+                             "04-bridge-add-discard-cpue",
+                             "05-bridge-convert-to-splitsex",
+                             "06-bridge-fishing-year-feb-21-feb-20",
+                             "07-bridge-reduce-m-prior-0.2-.05",
+                             "08-bridge-increase-m-prior-0.2-0.4",
+                             "09-bridge-fix-m-2-2",
+                             "10-bridge-fix-m-2-35"),
+                           c("01-base",
+                             "02-bridge-update-data-to-2014",
+                             "03-bridge-update-data-to-2019",
+                             "50-bridge-2fleet-update-data-to-2019",
+                             "51-bridge-2fleet-add-discard-cpue",
+                             "52-bridge-2fleet-convert-to-splitsex"))
 
-bridge_models_text <- c("2015 Base model",
-                        "Update data to 2014",
-                        "Update data to 2019",
-                        "Add Discard CPUE index",
-                        "Convert model to split sex",
-                        "Change fishing year to Feb 21 - Feb 20",
-                        "Fix male M=0.2, female M=0.2",
-                        "Fix male M=0.35, female M=0.2")
-bridge_models_text <- factor(bridge_models_text, levels = bridge_models_text)
+bridge_models_text <- list(c("2015 Base model",
+                             "Update data to 2014",
+                             "Update data to 2019",
+                             "Add Discard CPUE index",
+                             "Convert model to split sex",
+                             "Change fishing year to Feb 21 - Feb 20",
+                             "Reduce SD on M prior from 0.2 to 0.05",
+                             "Increase SD on M prior from 0.2 to 0.4",
+                             "Fix male M=0.2, female M=0.2",
+                             "Fix male M=0.35, female M=0.2"),
+                           c("2015 Base model",
+                             "Update data to 2014",
+                             "Update data to 2019",
+                             "Change to two-fleet model",
+                             "Add Discard CPUE index",
+                             "Convert model to split sex"))
+# Make these factors so that they can be reordered in the legends later
+bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 
 # This is a list of groups of sensitivities that will be plotted against each other.
 # The base model will be prepended to each group later in set_dirs() so that it is first
 # on the plots for each group.
 # This must either be NULL or set to a list of vectors of directories
-sens_models_dirs <- list(c("02-bridge-update-data",
-                           "03-bridge-remove-hsmsa-survey"),
+sens_models_dirs <- list(c("02-bridge-update-data-to-2014",
+                           "03-bridge-update-data-to-2019"),
                          c("04-bridge-add-discard-cpue",
                            "05-bridge-convert-to-splitsex"),
-                         "06-bridge-fishing-year-feb21-feb20")
-sens_models_dirs <- NULL
+                         "06-bridge-fishing-year-feb-21-feb-20")
+sens_models_text <- list(c("Update data to 2014",
+                           "Update data to 2019"),
+                         c("Add Discard CPUE index",
+                           "Convert model to split sex"),
+                         "Change fishing year to Feb 21 - Feb 20")
+# Make these factors so that they can be reordered in the legends later
+sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
 
 if(here() == "/home/rstudio"){
   drs<- set_dirs(nongit_dir = file.path(dirname(here("arrowtooth")), "arrowtooth-nongit"),
@@ -180,6 +203,7 @@ if(here() == "/home/rstudio"){
 
 models <- model_setup(main_dirs = drs,
                       bridge_models_text = bridge_models_text,
+                      sens_models_text = sens_models_text,
                       overwrite_rds_files = TRUE)
 
 dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-june11-2021.rds"))
@@ -227,7 +251,7 @@ cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
 theme_set(theme_pbs())
 
-# Data extraction for iSCAM:
+# Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 
 #                        iphc = iphc,
 #                        discard_cpue = discard_cpue,
