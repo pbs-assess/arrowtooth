@@ -5,8 +5,8 @@
 (ref:fig-bridge1-biomass-french) French caption here
 
 ```{r bridge1-biomass, fig.cap = ifelse(french, "(ref:fig-bridge1-biomass-french)", "(ref:fig-bridge1-biomass)"), out.width = "100%" , fig.pos="H"}
-cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt"),
-                   plot_ts_mpd(models$bridge_models[[1]], type = "sbt", rel = TRUE) + 
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 1 fleet"),
+                   plot_ts_mpd(models$bridge_models[[1]], type = "sbt", rel = TRUE, line_width = 0.5, legend_title = "Bridge models - 1 fleet") + 
                      coord_cartesian(ylim = c(0, 1)), nrow = 2)
                    
 ```
@@ -16,7 +16,7 @@ cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt"),
 (ref:fig-bridge1-recruitment-french) French caption here
 
 ```{r bridge1-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge1-recruitment-french)", "(ref:fig-bridge1-recruitment)"), out.width = "100%" , fig.pos="H"}
-plot_ts_mpd(models$bridge_models[[1]], type = "rt") +
+plot_ts_mpd(models$bridge_models[[1]], type = "rt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 1 fleet") +
   coord_cartesian(ylim = c(0, 1.5))
 ```
 
@@ -25,7 +25,7 @@ plot_ts_mpd(models$bridge_models[[1]], type = "rt") +
 (ref:fig-bridge1-index-fits-french) French caption here
 
 ```{r bridge1-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge1-index-fits-french)", "(ref:fig-bridge1-index-fits)"), out.width = "100%" , fig.pos="H"}
-plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index)
+plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index, line_width = 0.5, point_size = 1, legend_title = "Bridge models - 1 fleet")
 ```
 
 
@@ -35,8 +35,8 @@ plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index)
 (ref:fig-bridge2-biomass-french) French caption here
 
 ```{r bridge2-biomass, fig.cap = ifelse(french, "(ref:fig-bridge2-biomass-french)", "(ref:fig-bridge2-biomass)"), out.width = "100%" , fig.pos="H"}
-cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[2]], type = "sbt"),
-                   plot_ts_mpd(models$bridge_models[[2]], type = "sbt", rel = TRUE) + 
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[2]], type = "sbt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 2 fleets"),
+                   plot_ts_mpd(models$bridge_models[[2]], type = "sbt", rel = TRUE, line_width = 0.5, legend_title = "Bridge models - 2 fleets") + 
                      coord_cartesian(ylim = c(0, 1)), nrow = 2)
                    
 ```
@@ -46,7 +46,7 @@ cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[2]], type = "sbt"),
 (ref:fig-bridge2-recruitment-french) French caption here
 
 ```{r bridge2-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge2-recruitment-french)", "(ref:fig-bridge2-recruitment)"), out.width = "100%" , fig.pos="H"}
-plot_ts_mpd(models$bridge_models[[2]], type = "rt") +
+plot_ts_mpd(models$bridge_models[[2]], type = "rt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 2 fleets") +
   coord_cartesian(ylim = c(0, 1.5))
 ```
 
@@ -55,7 +55,37 @@ plot_ts_mpd(models$bridge_models[[2]], type = "rt") +
 (ref:fig-bridge2-index-fits-french) French caption here
 
 ```{r bridge2-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge2-index-fits-french)", "(ref:fig-bridge2-index-fits)"), out.width = "100%" , fig.pos="H"}
-plot_index_fit_mpd(models$bridge_models[[2]], surv_index = survey_index)
+plot_index_fit_mpd(models$bridge_models[[2]], surv_index = survey_index, line_width = 0.5, point_size = 1, legend_title = "Bridge models - 2 fleets")
+```
+
+
+
+(ref:fig-bridge3-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge3-biomass-french) French caption here
+
+```{r bridge3-biomass, fig.cap = ifelse(french, "(ref:fig-bridge3-biomass-french)", "(ref:fig-bridge3-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[3]], type = "sbt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 2 fleets"),
+                   plot_ts_mpd(models$bridge_models[[3]], type = "sbt", rel = TRUE, line_width = 0.5, legend_title = "Bridge models - 2 fleets") + 
+                     coord_cartesian(ylim = c(0, 1)), nrow = 2)
+                   
+```
+
+(ref:fig-bridge3-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge3-recruitment-french) French caption here
+
+```{r bridge3-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge3-recruitment-french)", "(ref:fig-bridge3-recruitment)"), out.width = "100%" , fig.pos="H"}
+plot_ts_mpd(models$bridge_models[[3]], type = "rt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 2 fleets") +
+  coord_cartesian(ylim = c(0, 0.4))
+```
+
+(ref:fig-bridge3-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge3-index-fits-french) French caption here
+
+```{r bridge3-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge3-index-fits-french)", "(ref:fig-bridge3-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(models$bridge_models[[3]], surv_index = survey_index, line_width = 0.5, point_size = 1, legend_title = "Bridge models - 2 fleets")
 ```
 
 <!-- (ref:fig-catches-map-cap) Total coastwide catch of `r sp`, including both landings and -->

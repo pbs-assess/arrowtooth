@@ -12,6 +12,7 @@ extract_catch_data(
   gear_num = 1,
   append = FALSE,
   female_only = FALSE,
+  write_to_file = TRUE,
   ...
 )
 }
@@ -46,9 +47,9 @@ The year range is determined by what is set in \code{\link[=props_comm]{props_co
 \dontrun{
 Freezer trawlers:
 extract_catch_data(extract_fleet_catch(catch, include = TRUE), commercial_samples, gear_num = 1, append = FALSE,
-species_category = 1, end_year = 2019, month_fishing_starts = 1, day_fishing_starts = 1)
+species_category = 1, month_fishing_starts = 1, day_fishing_starts = 1, female_only = FALSE)
 Non-Freezer trawlers:
-extract_catch_data(extract_fleet_catch(catch, include = FALSE), commercial_samples, gear_num = 1, append = TRUE,
-species_category = 1, end_year = 2019, month_fishing_starts = 1, day_fishing_starts = 1)
+extract_catch_data(extract_fleet_catch(catch, include = FALSE), commercial_samples, gear_num = 2, append = TRUE,
+species_category = 1, month_fishing_starts = 1, day_fishing_starts = 1, female_only = FALSE)
 }
 }

@@ -56,14 +56,14 @@ add_extra_indices <- function(surv_index = NULL,
     stitched_syn <- stitched_syn %>%
       as_tibble() %>%
       transmute(year,
-                biomass = est / 1e6,
+                biomass = est,
                 lowerci = lwr,
                 upperci = upr,
                 re = NA,
                 num_sets = NA,
                 num_pos_sets = NA,
                 survey_series_id = NA,
-                survey_abbrev = "SYN STCH",
+                survey_abbrev = "STITCH",
                 survey_series_desc = "Stitched Synoptics")
     if(ncol(surv_index) != ncol(stitched_syn)){
       stop("Check the number of columns in surv_index, it does not match the stitched_syn extraction", call. = FALSE)

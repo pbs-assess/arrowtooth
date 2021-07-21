@@ -6,6 +6,9 @@
 #'
 #' @rdname props_surv
 #' @param survey_index Survey index data frame as output by [gfdata::get_survey_index()]
+#' @param iphc The IPHC index as read in from iphc-survey-index.rds
+#' @param discard_cpue The discard CPUE index as read from cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv
+#' @param stitched_syn The stitched synoptic index as read in from stitched-syn-index.rds
 #' @param ... Arguments passed to [props_comm()]
 #'
 #' @return A list of survey indices for pasting into a iSCAM data file
@@ -22,32 +25,38 @@ extract_survey_indices <- function(survey_index,
                                    surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
                                    iphc = NULL,
                                    discard_cpue = NULL,
-                                   stitched_synoptics = NULL,
+                                   stitched_syn = NULL,
                                    data_path = NULL,
                                    ...){
   stopifnot(!is.null(data_path))
 
-  iphc <- iphc %>%
-    transmute(survey = "IPHC FISS",
-              year = year,
-              index = I_t20SampleMean)
-  se <- sd(iphc$index) / sqrt(nrow(iphc))
-  iphc <- iphc %>% mutate(wt = index / se)
+  if(!is.null(iphc)){
+    iphc <- iphc %>%
+      transmute(survey = "IPHC FISS",
+                year = year,
+                index = I_t20SampleMean)
+    se <- sd(iphc$index) / sqrt(nrow(iphc))
+    iphc <- iphc %>% mutate(wt = index / se)
+  }
 
   # Discard CPUE load and add wt (1/relerr)
-  discard_cpue <- discard_cpue %>%
-    filter(formula_version == "Full standardization") %>%
-    transmute(survey = "CPUE discard",
-              year = year,
-              index = est,
-              wt = 1 / sqrt(exp(se_link ^ 2) - 1))
+  if(!is.null(discard_cpue)){
+    discard_cpue <- discard_cpue %>%
+      filter(formula_version == "Full standardization") %>%
+      transmute(survey = "CPUE discard",
+                year = year,
+                index = est,
+                wt = 1 / sqrt(exp(se_link ^ 2) - 1))
+  }
 
   # Stitched synoptic surveys
-  stitched_syn <- stitched_syn %>%
-    transmute(survey = "Stitched Synoptics",
-              year = year,
-              index = est / 1e6,
-              wt = 1 / sqrt(exp(se ^ 2) - 1))
+  if(!is.null(stitched_syn)){
+    stitched_syn <- stitched_syn %>%
+      transmute(survey = "Stitched Synoptics",
+                year = year,
+                index = est / 1e6,
+                wt = 1 / sqrt(exp(se ^ 2) - 1))
+  }
 
   surv_indices <- survey_index %>%
     filter(survey_abbrev %in% surv_names) %>%

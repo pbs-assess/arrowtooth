@@ -6,7 +6,11 @@ Various modifications were made incrementally to create a set of *bridging model
 
 As a reminder, the 2015 base model was a female-only statistical-catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
 
-The bridging models were constructed as follows:
+The bridging models were constructed in several steps and are compared in the following subsections.
+
+## Single-fleet female only models
+
+The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked.
 
 1. Extracted the data used in the 2015 model using the **gfplot** package, which has been used in several assessments and in the **gfsynopsis** report. Ran the 2015 model without any modifications other than this data change.
 
@@ -14,9 +18,79 @@ The bridging models were constructed as follows:
 
 1. Attempted to add the West Coast Haida Gwaii Synoptic survey (WCHGSS) but the model fails to estimate trawl selectivity when both the Hecate Strait Multispecies Assemblage survey (HSMAS) and the WCHGSS are included, so the WCHGSS was left out due to its limited area and years of coverage and because the HSMAS covers the early period of the time series.
 
-1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for `r sp` and therefore were discarding all that they caught incidentally. The selectivity could not reliably be estimated for this index in the current model configuration, so its selectivity was set to mirror that of the trawl fishery (Table \@ref(tab:bridge-sel-param-table)). This decision was based on the Discard CPUE being directly extracted from the trawl fishery data. The Discard CPUE index is described in greater detail in later sections.
+1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for `r sp` and therefore were discarding all that they caught incidentally. The selectivity could not reliably be estimated for this index in the current model configuration, so its selectivity was set to mirror that of the trawl fishery (Table \@ref(tab:bridge1-sel-param-table)). This decision was based on the Discard CPUE being directly extracted from the trawl fishery data. The Discard CPUE index is described in greater detail in later sections.
 
-1. Converted the model to have a split-sex age structure. The TWG agreed that calculation of proportions female to be multiplied by catch and index values was not robust enough and that given the sexual dimorphism of the species a split-sex model should be used. The selectivity could not be reliably estimated for the WCVISS index in the current model configuration, so its selectivity was set to mirror that of the HSSS index (Table \@ref(tab:bridge-sel-param-table)). This decision was based on the two surveys being performed with the same protocols and design and having similar index trends over time. A more detailed description of the split-sex model is found in later sections.
+(ref:fig-bridge1-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model including data changes and additions, and the addition of the Discard CPUE index.
+
+(ref:fig-bridge1-biomass-french) French caption here
+
+```{r bridge1-biomass, fig.cap = ifelse(french, "(ref:fig-bridge1-biomass-french)", "(ref:fig-bridge1-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 1 fleet, 1 sex"),
+                   plot_ts_mpd(models$bridge_models[[1]], type = "sbt", rel = TRUE, line_width = 0.5, legend_title = "Bridge models - 1 fleet, 1 sex") + 
+                     coord_cartesian(ylim = c(0, 1)), nrow = 2)
+                   
+```
+
+(ref:fig-bridge1-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model including data changes and additions, and the addition of the Discard CPUE index.
+
+(ref:fig-bridge1-recruitment-french) French caption here
+
+```{r bridge1-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge1-recruitment-french)", "(ref:fig-bridge1-recruitment)"), out.width = "100%" , fig.pos="H"}
+plot_ts_mpd(models$bridge_models[[1]], type = "rt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 1 fleet, 1 sex") +
+  coord_cartesian(ylim = c(0, 1.5))
+```
+
+(ref:fig-bridge1-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model including data changes and additions, and the addition of the Discard CPUE index.
+
+(ref:fig-bridge1-index-fits-french) French caption here
+
+```{r bridge1-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge1-index-fits-french)", "(ref:fig-bridge1-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index, line_width = 0.5, point_size = 1, legend_title = "Bridge models - 1 fleet, 1 sex")
+```
+
+```{r bridge1-param-settings-table, results = 'asis'}
+param_settings_table(
+  models$bridge_models[[1]][[1]],
+  format = "latex",
+  font_size = 7,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Number of parameters estimated, bounds, and prior parameterizations for the model '2015 Base model'."))
+```
+
+```{r bridge1-param-table, results = 'asis'}
+param_est_mpd_table(
+  models$bridge_models[[1]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = "5em",
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index.")) 
+```
+
+```{r bridge1-sel-param-table, results = 'asis'}
+sel_param_est_mpd_table(
+  models$bridge_models[[1]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = NULL,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "A comparison of Bridge model selectivity parameter estimates. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear, which has been estimated are labelled as such. Dashes are not applicable parameters for that model.")) 
+```
+\clearpage
+
+## Single-fleet splix-sex models
+
+The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked. The first model here (Add Discard CPUE) is identical to the last one in the previous section.
+
+1. Converted the model to have a split-sex age structure. The TWG agreed that calculation of proportions female to be multiplied by catch and index values was not robust enough and that given the sexual dimorphism of the species a split-sex model should be used. The selectivity could not be reliably estimated for the WCVISS index in the current model configuration, so its selectivity was set to mirror that of the HSSS index (Table \@ref(tab:bridge2-sel-param-table)). This decision was based on the two surveys being performed with the same protocols and design and having similar index trends over time. A more detailed description of the split-sex model is found in later sections.
 
 1. Changed the fishing year to be from January 1 - December 31 to the current management period which is Feb. 21 - Feb. 20. All catch and commercial age-compositions were modified and re-weighted.
 
@@ -24,7 +98,262 @@ The bridging models were constructed as follows:
 
 1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.
 
-A comparison of MPD spawning biomass and relative spawning biomass are shown in Figure \@ref(fig:bridge-biomass). Index fits for each bridge model are shown in Figure \@ref(fig:bridge-index-fits).
+(ref:fig-bridge2-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex. The last model here replaces the 3 included Synoptic surveys with the Stitched Synoptics index.
 
-The third-from-last model on this list, which is split-sex and has the fishing year set to Feb. 21 - Feb. 20 with both M parameters being estimated is considered the base model for this assessment.
+(ref:fig-bridge2-biomass-french) French caption here
+
+```{r bridge2-biomass, fig.cap = ifelse(french, "(ref:fig-bridge2-biomass-french)", "(ref:fig-bridge2-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(
+  plot_ts_mpd(models$bridge_models[[2]],
+              type = "sbt",
+              line_width = 0.5,
+              point_size = 2,
+              legend_title = "Bridge models - 1 fleets, 2 sexes"),
+  plot_ts_mpd(models$bridge_models[[2]],
+              type = "sbt",
+              rel = TRUE, 
+              line_width = 0.5,
+              legend_title = "Bridge models - 1 fleets, 2 sexes") + 
+    coord_cartesian(ylim = c(0, 1)), nrow = 2)
+```
+
+(ref:fig-bridge2-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex. The last model here replaces the 3 included Synoptic surveys with the Stitched Synoptics index.
+
+(ref:fig-bridge2-recruitment-french) French caption here
+
+```{r bridge2-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge2-recruitment-french)", "(ref:fig-bridge2-recruitment)"), out.width = "100%" , fig.pos="H"}
+plot_ts_mpd(models$bridge_models[[2]],
+            type = "rt",
+            line_width = 0.5,
+            point_size = 2,
+            legend_title = "Bridge models - 1 fleets, 2 sexes") +
+  coord_cartesian(ylim = c(0, 1.5))
+```
+
+(ref:fig-bridge2-index-fits) Maximum Posterior Density (MPD) index fits for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex. The last model here replaces the 3 included Synoptic surveys with the Stitched Synoptics index.
+
+(ref:fig-bridge2-index-fits-french) French caption here
+
+```{r bridge2-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge2-index-fits-french)", "(ref:fig-bridge2-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(
+  models$bridge_models[[2]],
+  surv_index = survey_index,
+  line_width = 0.5,
+  point_size = 1, legend_title = "Bridge models - 2 fleets")
+```
+
+```{r bridge2-param-settings-table, results = 'asis'}
+param_settings_table(
+  models$bridge_models[[2]][[2]],
+  format = "latex",
+  font_size = 7,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Number of parameters estimated, bounds, and prior parameterizations for the single-fleet model 'Convert to split-sex'."))
+```
+
+```{r bridge2-param-table, results = 'asis'}
+param_est_mpd_table(
+  models$bridge_models[[2]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = "5em",
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with a single fleet and two sexes.")) 
+```
+
+```{r bridge2-sel-param-table, results = 'asis'}
+sel_param_est_mpd_table(
+  models$bridge_models[[2]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = NULL,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "A comparison of Bridge model selectivity parameter estimates for the single-fleet, two-sex models.")) 
+```
+\clearpage
+
+## Two-fleet Single-sex models
+
+The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked. The first model here (Update 2019 data) is identical to the model with the same name in Section \@ref(single-fleet-female-only-models).
+
+1. Changed the model to have two commercial fishing fleets. The two fleets represented are the Freezer trawlers which freeze their catch at sea and the wet boats which typically make one trawl of `r sp` at the end of their trip which targets other species to minimize the effects of proteolysis on the flesh. The catch in the female-only models are multiplied by the proportion female, as is done in the single-fleet, single-sex models.
+
+1. Added the Discard CPUE index. The addition of this index was the same method as in the single-sex model (Section \@ref(single-fleet-female-only-models)).
+
+(ref:fig-bridge3-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 'Update to 2019 data' and female-only models with two fleets.
+
+(ref:fig-bridge3-biomass-french) French caption here
+
+```{r bridge3-biomass, fig.cap = ifelse(french, "(ref:fig-bridge3-biomass-french)", "(ref:fig-bridge3-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(
+  plot_ts_mpd(models$bridge_models[[3]],
+              type = "sbt",
+              line_width = 0.5,
+              point_size = 2,
+              legend_title = "Bridge models - 2 fleets, 1 sex"),
+  plot_ts_mpd(models$bridge_models[[3]],
+              type = "sbt",
+              rel = TRUE,
+              line_width = 0.5,
+              legend_title = "Bridge models - 2 fleets, 1 sex") + 
+    coord_cartesian(ylim = c(0, 1)), nrow = 2)
+```
+
+(ref:fig-bridge3-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 'Update to 2019 data' and female-only models with two fleets.
+
+(ref:fig-bridge3-recruitment-french) French caption here
+
+```{r bridge3-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge3-recruitment-french)", "(ref:fig-bridge3-recruitment)"), out.width = "100%" , fig.pos="H"}
+plot_ts_mpd(models$bridge_models[[3]],
+            type = "rt",
+            line_width = 0.5,
+            point_size = 2,
+            legend_title = "Bridge models - 2 fleets, 1 sex") +
+  coord_cartesian(ylim = c(0, 0.4))
+```
+
+(ref:fig-bridge3-index-fits) Maximum Posterior Density (MPD) index fits for the 'Update to 2019 data' and female-only models with two fleets.
+
+(ref:fig-bridge3-index-fits-french) French caption here
+
+```{r bridge3-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge3-index-fits-french)", "(ref:fig-bridge3-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(
+  models$bridge_models[[3]],
+  surv_index = survey_index,
+  line_width = 0.5,
+  point_size = 1,
+  legend_title = "Bridge models - 2 fleets, 1 sex")
+```
+
+```{r bridge3-param-settings-table, results = 'asis'}
+param_settings_table(
+  models$bridge_models[[3]][[2]],
+  format = "latex",
+  font_size = 7,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Number of parameters estimated, bounds, and prior parameterizations for the two-fleet model 'Change to two-fleet model'."))
+```
+
+```{r bridge3-param-table, results = 'asis'}
+param_est_mpd_table(
+  models$bridge_models[[3]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = "5em",
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with two fleets and one sex.")) 
+```
+
+```{r bridge3-sel-param-table, results = 'asis'}
+sel_param_est_mpd_table(
+  models$bridge_models[[3]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = NULL,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "A comparison of Bridge model selectivity parameter estimates for the two-fleet, single-sex models.")) 
+```
+
+## Two-fleet split-sex models
+
+The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked. The first model here (Sdd Discard CPUE) is identical to the model with the same name in Section \@ref(single-fleet-female-only-models).
+
+(ref:fig-bridge4-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge4-biomass-french) French caption here
+
+```{r bridge4-biomass, fig.cap = ifelse(french, "(ref:fig-bridge4-biomass-french)", "(ref:fig-bridge4-biomass)"), out.width = "100%" , fig.pos="H"}
+cowplot::plot_grid(
+  plot_ts_mpd(models$bridge_models[[4]],
+              type = "sbt",
+              line_width = 0.5,
+              point_size = 2,
+              legend_title = "Bridge models - 2 fleets"),
+  plot_ts_mpd(models$bridge_models[[4]],
+              type = "sbt",
+              rel = TRUE,
+              line_width = 0.5,
+              legend_title = "Bridge models - 2 fleets") + 
+    coord_cartesian(ylim = c(0, 1)), nrow = 2)
+```
+
+(ref:fig-bridge4-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge4-recruitment-french) French caption here
+
+```{r bridge4-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge4-recruitment-french)", "(ref:fig-bridge4-recruitment)"), out.width = "100%" , fig.pos="H"}
+plot_ts_mpd(models$bridge_models[[4]],
+            type = "rt",
+            line_width = 0.5,
+            point_size = 2,
+            legend_title = "Bridge models - 2 fleets & sexes") +
+  coord_cartesian(ylim = c(0, 0.4))
+```
+
+(ref:fig-bridge4-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+
+(ref:fig-bridge4-index-fits-french) French caption here
+
+```{r bridge4-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge4-index-fits-french)", "(ref:fig-bridge4-index-fits)"), out.width = "100%" , fig.pos="H"}
+plot_index_fit_mpd(models$bridge_models[[4]],
+                   surv_index = survey_index,
+                   line_width = 0.5,
+                   point_size = 1,
+                   legend_title = "Bridge models - 2 fleets & sexes")
+```
+
+```{r bridge4-param-settings-table, results = 'asis'}
+param_settings_table(
+  models$bridge_models[[4]][[2]],
+  format = "latex",
+  font_size = 7,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Number of parameters estimated, bounds, and prior parameterizations for the two-fleet model 'Convert model to split sex'."))
+```
+
+```{r bridge4-param-table, results = 'asis'}
+param_est_mpd_table(
+  models$bridge_models[[4]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = "5em",
+  caption = ifelse(
+    french,
+    "French goes here",
+    "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with two fleets and two sexes.")) 
+```
+
+```{r bridge4-sel-param-table, results = 'asis'}
+sel_param_est_mpd_table(
+  models$bridge_models[[4]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = NULL,
+  caption = ifelse(
+    french,
+    "French goes here",
+    "A comparison of Bridge model selectivity parameter estimates for the two-fleet, two-sex models. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear, which has been estimated are labelled as such. Dashes are not applicable parameters for that model.")) 
+```
+
+
 

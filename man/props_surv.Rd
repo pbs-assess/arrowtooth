@@ -27,7 +27,7 @@ extract_survey_indices(
   surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
   iphc = NULL,
   discard_cpue = NULL,
-  stitched_synoptics = NULL,
+  stitched_syn = NULL,
   data_path = NULL,
   ...
 )
@@ -44,6 +44,12 @@ extract_survey_indices(
 \item{...}{Arguments passed to \code{\link[=props_comm]{props_comm()}}}
 
 \item{survey_index}{Survey index data frame as output by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
+
+\item{iphc}{The IPHC index as read in from iphc-survey-index.rds}
+
+\item{discard_cpue}{The discard CPUE index as read from cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv}
+
+\item{stitched_syn}{The stitched synoptic index as read in from stitched-syn-index.rds}
 }
 \value{
 A data frame containing proportions of females for the required surveys

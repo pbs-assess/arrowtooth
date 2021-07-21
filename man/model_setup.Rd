@@ -7,20 +7,24 @@
 model_setup(
   main_dirs = NULL,
   bridge_models_text = NULL,
+  sens_models_text = NULL,
   overwrite_rds_files = FALSE
 )
 }
 \arguments{
 \item{main_dirs}{Output from \code{\link[=set_dirs]{set_dirs()}}}
 
-\item{bridge_models_text}{A vector of text strings to show in the legends for bridge
-model plots, one name for each model}
+\item{bridge_models_text}{A list of vectors of text strings to show in the legends for bridge
+model plots, one name for each model, where the list elements represent a group of models}
+
+\item{sens_models_text}{A list of vectors of text strings to show in the legends for sensitivity
+model plots, one name for each model, where the list elements represent a group of models}
 
 \item{overwrite_rds_files}{Logical. TRUE to overwrite the model RDS files}
 }
 \value{
-A list of three items, the base_model, the list of bridge models, and
-the list of sensitivity models. The two lists are groups of models which are
+A list of three items, the base_model, the list of bridge model groups, and
+the list of sensitivity model groups. The two lists are groups of models which are
 to be compared with each other in the document. This simplifies plotting and table functions.
 }
 \description{

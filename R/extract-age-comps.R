@@ -23,8 +23,8 @@
 #' catch_nonft <- extract_fleet_catch(catch, include = FALSE)
 #' comm_ft <- extract_fleet_samples(commercial_samples)
 #' comm_nonft <- extract_fleet_samples(commercial_samples, include = FALSE)
-#' extract_age_comps(catch_ft, comm_ft, gear_num = 1, spp_cat_code = 1, month_fishing_starts = 1, day_fishing_starts = 1, append = FALSE)
-#' extract_age_comps(catch_nonft, comm_nonft, gear_num = 2, spp_cat_code = 1, month_fishing_starts = 1, day_fishing_starts = 1, append = TRUE)
+#' extract_age_comps(catch_ft, comm_ft, gear_num = 1, spp_cat_code = 1, month_fishing_starts = 2, day_fishing_starts = 21, append = FALSE)
+#' extract_age_comps(catch_nonft, comm_nonft, gear_num = 2, spp_cat_code = 1, month_fishing_starts = 2, day_fishing_starts = 21, append = TRUE)
 extract_age_comps <- function(catch_sets,
                               samples,
                               type = "commercial",
