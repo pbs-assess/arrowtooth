@@ -2,19 +2,20 @@
 
 The base model from the 2015 assessment was run with the newest version of the iSCAM code and the original data files and the results were determined to be identical.
 
-Various modifications were made incrementally to create a set of *bridging models* which evaluate the component-specific effects of all changes from the 2015 base model to the 2021 base model.
+Various modifications were made incrementally to the 2015 base model to create a set of bridging models which evaluate the component-specific effects of all changes from the 2015 base model to the 2021 base model.
 
-As a reminder, the 2015 base model was a female-only statistical-catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
+As a reminder, the 2015 base model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
 
 The bridging models were constructed in several steps and are compared in the following subsections.
 
 ## Single-fleet female only models
 
-The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked.
+The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be easily tracked.
+
 
 1. Extracted the data used in the 2015 model using the **gfplot** package, which has been used in several assessments and in the **gfsynopsis** report. Ran the 2015 model without any modifications other than this data change.
 
-1. Used the same data extraction methods as in the first model, appended data up to and including 2019.
+1. Using the same data extraction methods as in the first step, appended data up to and including 2019.
 
 1. Attempted to add the West Coast Haida Gwaii Synoptic survey (WCHGSS) but the model fails to estimate trawl selectivity when both the Hecate Strait Multispecies Assemblage survey (HSMAS) and the WCHGSS are included, so the WCHGSS was left out due to its limited area and years of coverage and because the HSMAS covers the early period of the time series.
 
@@ -88,17 +89,17 @@ sel_param_est_mpd_table(
 
 ## Single-fleet splix-sex models
 
-The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked. The first model here (Add Discard CPUE) is identical to the last one in the previous section.
+The models in this section have only one change made with respect to the previous model so incremental changes can be tracked. The starting model in this section (*Add Discard CPUE*) is repeated from Section \@ref(single-fleet-female-only-models) so that relative differences in trends can be seen.
 
-1. Converted the model to have a split-sex age structure. The TWG agreed that calculation of proportions female to be multiplied by catch and index values was not robust enough and that given the sexual dimorphism of the species a split-sex model should be used. The selectivity could not be reliably estimated for the WCVISS index in the current model configuration, so its selectivity was set to mirror that of the HSSS index (Table \@ref(tab:bridge2-sel-param-table)). This decision was based on the two surveys being performed with the same protocols and design and having similar index trends over time. A more detailed description of the split-sex model is found in later sections.
+1. Converted the model to have a split-sex age structure. The TWG agreed that calculation of proportions female to be multiplied by catch values was not statistically robust enough and that given the sexual dimorphism of the species a split-sex model should be used. As was the case in the single-fleet, single-sex models, the selectivity could not be reliably estimated for the WCVISS index, so its selectivity was set to mirror that of the HSSS index (Table \@ref(tab:bridge2-sel-param-table)).
 
 1. Changed the fishing year to be from January 1 - December 31 to the current management period which is Feb. 21 - Feb. 20. All catch and commercial age-compositions were modified and re-weighted.
 
-1. Fixed both male and female Natural mortality to be 0.2.
+1. Fixed both male and female Natural mortality to be 0.2 to examine the effects on estimates of other parameters.
 
 1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.
 
-(ref:fig-bridge2-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex. The last model here replaces the 3 included Synoptic surveys with the Stitched Synoptics index.
+(ref:fig-bridge2-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the single sex *Add Discard CPUE* model and models based on it but changed to split-sex.
 
 (ref:fig-bridge2-biomass-french) French caption here
 
@@ -117,7 +118,7 @@ cowplot::plot_grid(
     coord_cartesian(ylim = c(0, 1)), nrow = 2)
 ```
 
-(ref:fig-bridge2-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex. The last model here replaces the 3 included Synoptic surveys with the Stitched Synoptics index.
+(ref:fig-bridge2-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex.
 
 (ref:fig-bridge2-recruitment-french) French caption here
 
@@ -127,10 +128,10 @@ plot_ts_mpd(models$bridge_models[[2]],
             line_width = 0.5,
             point_size = 2,
             legend_title = "Bridge models - 1 fleets, 2 sexes") +
-  coord_cartesian(ylim = c(0, 1.5))
+  coord_cartesian(ylim = c(0, 0.4))
 ```
 
-(ref:fig-bridge2-index-fits) Maximum Posterior Density (MPD) index fits for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex. The last model here replaces the 3 included Synoptic surveys with the Stitched Synoptics index.
+(ref:fig-bridge2-index-fits) Maximum Posterior Density (MPD) index fits for the single sex 'Add Discard CPUE' model and models base on it but changed to split-sex.
 
 (ref:fig-bridge2-index-fits-french) French caption here
 
@@ -182,9 +183,9 @@ sel_param_est_mpd_table(
 
 ## Two-fleet Single-sex models
 
-The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked. The first model here (Update 2019 data) is identical to the model with the same name in Section \@ref(single-fleet-female-only-models).
+Each model in this section is based on the previous one with only one change made so incremental changes can be tracked. The starting model here (*Update 2019 data*) is repeated from Section \@ref(single-fleet-female-only-models) so that relative differences in trends can be seen.
 
-1. Changed the model to have two commercial fishing fleets. The two fleets represented are the Freezer trawlers which freeze their catch at sea and the wet boats which typically make one trawl of `r sp` at the end of their trip which targets other species to minimize the effects of proteolysis on the flesh. The catch in the female-only models are multiplied by the proportion female, as is done in the single-fleet, single-sex models.
+1. Modified the model to have two commercial fishing fleets. The two fleets represented are the Freezer trawlers which freeze their catch at sea and the wet boats which typically make one trawl of `r sp` at the end of trips which target other species in an effort to minimize the effects of proteolysis on the flesh.
 
 1. Added the Discard CPUE index. The addition of this index was the same method as in the single-sex model (Section \@ref(single-fleet-female-only-models)).
 
@@ -272,9 +273,19 @@ sel_param_est_mpd_table(
 
 ## Two-fleet split-sex models
 
-The models in this section were produced as follows. Each model is a copy of the previous one with only one change made so incremental changes can be tracked. The first model here (Sdd Discard CPUE) is identical to the model with the same name in Section \@ref(single-fleet-female-only-models).
+Each model in this section is based on the previous one with only one change made so incremental changes can be tracked. The starting model here (*Add Discard CPUE*) is repeated from Section \@ref(single-fleet-female-only-models).
 
-(ref:fig-bridge4-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+1. Convert model to split-sex.
+
+1. Change fishing year to Feb. 21 - Feb 20.
+
+1. Fixed both male and female Natural mortality to be 0.2 to examine the effects on estimates of other parameters.
+
+1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.
+
+1. Replace the 3 Synoptic surveys with the Stitched Synoptics index. This involved removing the Synoptic surveys as indices of abundance from the model but still using the age compositions from them. The Stitched Synoptics index was added as a second index of abundance with the Discard CPUE remaining as the first.
+
+(ref:fig-bridge4-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 'Add Discard CPUE' model and models with two fleets and two sexes.
 
 (ref:fig-bridge4-biomass-french) French caption here
 
@@ -293,7 +304,7 @@ cowplot::plot_grid(
     coord_cartesian(ylim = c(0, 1)), nrow = 2)
 ```
 
-(ref:fig-bridge4-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+(ref:fig-bridge4-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 'Add Discard CPUE' model and models with two fleets and two sexes.
 
 (ref:fig-bridge4-recruitment-french) French caption here
 
@@ -306,7 +317,7 @@ plot_ts_mpd(models$bridge_models[[4]],
   coord_cartesian(ylim = c(0, 0.4))
 ```
 
-(ref:fig-bridge4-index-fits) Maximum Posterior Density (MPD) index fits for the 2015 base model and models with cumulative changes to that model progressing toward a new, split-sex base model with a modified fishing year.
+(ref:fig-bridge4-index-fits) Maximum Posterior Density (MPD) index fits for the 'Add Discard CPUE' model and models with two fleets and two sexes.
 
 (ref:fig-bridge4-index-fits-french) French caption here
 
@@ -352,7 +363,7 @@ sel_param_est_mpd_table(
   caption = ifelse(
     french,
     "French goes here",
-    "A comparison of Bridge model selectivity parameter estimates for the two-fleet, two-sex models. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear, which has been estimated are labelled as such. Dashes are not applicable parameters for that model.")) 
+    "A comparison of Bridge model selectivity parameter estimates for the two-fleet, two-sex models.")) 
 ```
 
 
