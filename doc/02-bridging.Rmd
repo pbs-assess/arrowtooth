@@ -143,6 +143,31 @@ plot_index_fit_mpd(
   point_size = 1, legend_title = "Bridge models - 2 fleets")
 ```
 
+(ref:fig-bridge2-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'COMM' gear.
+
+```{r bridge2-agefit-1, fig.cap = "(ref:fig-bridge2-age-fit-1)", fig.asp = 1.4}
+plot_agecomp_fits_splitsex(models$bridge_models[[2]][[3]], 1)
+```
+
+(ref:fig-bridge2-age-fit-2) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'SYN QCS' gear.
+
+```{r bridge2-agefit-2, fig.cap = "(ref:fig-bridge2-age-fit-2)"}
+plot_agecomp_fits_splitsex(models$bridge_models[[2]][[3]], 2)
+```
+
+(ref:fig-bridge2-age-fit-4) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'SYN HS' gear.
+
+```{r bridge2-agefit-4, fig.cap = "(ref:fig-bridge2-age-fit-4)"}
+plot_agecomp_fits_splitsex(models$bridge_models[[2]][[3]], 3)
+```
+(ref:fig-bridge2-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'SYN WCVI' gear.
+
+```{r bridge2-agefit-5, fig.cap = "(ref:fig-bridge2-age-fit-5)"}
+plot_agecomp_fits_splitsex(models$bridge_models[[2]][[3]], 4)
+```
+
+\clearpage
+
 ```{r bridge2-param-settings-table, results = 'asis'}
 param_settings_table(
   models$bridge_models[[2]][[2]],
@@ -329,6 +354,37 @@ plot_index_fit_mpd(models$bridge_models[[4]],
                    legend_title = "Bridge models - 2 fleets & sexes")
 ```
 
+(ref:fig-bridge4-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'FT COMM' gear.
+
+```{r bridge4-agefit-1, fig.cap = "(ref:fig-bridge4-age-fit-1)"}
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[3]], 1)
+```
+
+(ref:fig-bridge4-age-fit-2) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'WB COMM' gear.
+
+```{r bridge4-agefit-2, fig.cap = "(ref:fig-bridge4-age-fit-2)", fig.asp = 1.4}
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[3]], 2)
+```
+
+(ref:fig-bridge4-age-fit-3) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'SYN QCS' gear.
+
+```{r bridge4-agefit-3, fig.cap = "(ref:fig-bridge4-age-fit-3)"}
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[3]], 3)
+```
+
+(ref:fig-bridge4-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'SYN HS' gear.
+
+```{r bridge4-agefit-5, fig.cap = "(ref:fig-bridge4-age-fit-5)"}
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[3]], 5)
+```
+(ref:fig-bridge4-age-fit-6) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'SYN WCVI' gear.
+
+```{r bridge4-agefit-6, fig.cap = "(ref:fig-bridge4-age-fit-6)"}
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[3]], 6)
+```
+
+\clearpage
+
 ```{r bridge4-param-settings-table, results = 'asis'}
 param_settings_table(
   models$bridge_models[[4]][[2]],
@@ -365,6 +421,5 @@ sel_param_est_mpd_table(
     "French goes here",
     "A comparison of Bridge model selectivity parameter estimates for the two-fleet, two-sex models.")) 
 ```
-
 
 
