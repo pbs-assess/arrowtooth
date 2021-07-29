@@ -26,8 +26,8 @@ The models in this section were produced as follows. Each model is a copy of the
 (ref:fig-bridge1-biomass-french) French caption here
 
 ```{r bridge1-biomass, fig.cap = ifelse(french, "(ref:fig-bridge1-biomass-french)", "(ref:fig-bridge1-biomass)"), out.width = "100%" , fig.pos="H"}
-cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 1 fleet, 1 sex"),
-                   plot_ts_mpd(models$bridge_models[[1]], type = "sbt", rel = TRUE, line_width = 0.5, legend_title = "Bridge models - 1 fleet, 1 sex") + 
+cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt", legend_title = "Bridge models - 1 fleet, 1 sex"),
+                   plot_ts_mpd(models$bridge_models[[1]], type = "sbt", rel = TRUE, legend_title = "Bridge models - 1 fleet, 1 sex") + 
                      coord_cartesian(ylim = c(0, 1)), nrow = 2)
                    
 ```
@@ -37,7 +37,7 @@ cowplot::plot_grid(plot_ts_mpd(models$bridge_models[[1]], type = "sbt", line_wid
 (ref:fig-bridge1-recruitment-french) French caption here
 
 ```{r bridge1-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge1-recruitment-french)", "(ref:fig-bridge1-recruitment)"), out.width = "100%" , fig.pos="H"}
-plot_ts_mpd(models$bridge_models[[1]], type = "rt", line_width = 0.5, point_size = 2, legend_title = "Bridge models - 1 fleet, 1 sex") +
+plot_ts_mpd(models$bridge_models[[1]], type = "rt", legend_title = "Bridge models - 1 fleet, 1 sex") +
   coord_cartesian(ylim = c(0, 1.5))
 ```
 
@@ -46,7 +46,7 @@ plot_ts_mpd(models$bridge_models[[1]], type = "rt", line_width = 0.5, point_size
 (ref:fig-bridge1-index-fits-french) French caption here
 
 ```{r bridge1-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge1-index-fits-french)", "(ref:fig-bridge1-index-fits)"), out.width = "100%" , fig.pos="H"}
-plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index, line_width = 0.5, point_size = 1, legend_title = "Bridge models - 1 fleet, 1 sex")
+plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index, legend_title = "Bridge models - 1 fleet, 1 sex")
 ```
 
 ```{r bridge1-param-settings-table, results = 'asis'}
@@ -107,14 +107,11 @@ The models in this section have only one change made with respect to the previou
 cowplot::plot_grid(
   plot_ts_mpd(models$bridge_models[[2]],
               type = "sbt",
-              line_width = 0.5,
-              point_size = 2,
-              legend_title = "Bridge models - 1 fleets, 2 sexes"),
+              legend_title = "Bridge models - 1 fleet, 2 sexes"),
   plot_ts_mpd(models$bridge_models[[2]],
               type = "sbt",
               rel = TRUE, 
-              line_width = 0.5,
-              legend_title = "Bridge models - 1 fleets, 2 sexes") + 
+              legend_title = "Bridge models - 1 fleet, 2 sexes") + 
     coord_cartesian(ylim = c(0, 1)), nrow = 2)
 ```
 
@@ -125,9 +122,7 @@ cowplot::plot_grid(
 ```{r bridge2-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge2-recruitment-french)", "(ref:fig-bridge2-recruitment)"), out.width = "100%" , fig.pos="H"}
 plot_ts_mpd(models$bridge_models[[2]],
             type = "rt",
-            line_width = 0.5,
-            point_size = 2,
-            legend_title = "Bridge models - 1 fleets, 2 sexes") +
+            legend_title = "Bridge models - 1 fleet, 2 sexes") +
   coord_cartesian(ylim = c(0, 0.4))
 ```
 
@@ -139,8 +134,7 @@ plot_ts_mpd(models$bridge_models[[2]],
 plot_index_fit_mpd(
   models$bridge_models[[2]],
   surv_index = survey_index,
-  line_width = 0.5,
-  point_size = 1, legend_title = "Bridge models - 2 fleets")
+  point_size = 1, legend_title = "Bridge models - 1 fleet, 2 sexes")
 ```
 
 (ref:fig-bridge2-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'COMM' gear.
@@ -208,13 +202,13 @@ sel_param_est_mpd_table(
 
 ## Two-fleet Single-sex models
 
-Each model in this section is based on the previous one with only one change made so incremental changes can be tracked. The starting model here (*Update 2019 data*) is repeated from Section \@ref(single-fleet-female-only-models) so that relative differences in trends can be seen.
+Each model in this section is based on the previous one with only one change made so incremental changes can be tracked. The starting model here (*Update data to 2021*) is repeated from Section \@ref(single-fleet-female-only-models) so that relative differences in trends can be seen.
 
 1. Modified the model to have two commercial fishing fleets. The two fleets represented are the Freezer trawlers which freeze their catch at sea and the wet boats which typically make one trawl of `r sp` at the end of trips which target other species in an effort to minimize the effects of proteolysis on the flesh.
 
 1. Added the Discard CPUE index. The addition of this index was the same method as in the single-sex model (Section \@ref(single-fleet-female-only-models)).
 
-(ref:fig-bridge3-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 'Update to 2019 data' and female-only models with two fleets.
+(ref:fig-bridge3-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 'Update data to 2021' and female-only models with two fleets.
 
 (ref:fig-bridge3-biomass-french) French caption here
 
@@ -222,31 +216,26 @@ Each model in this section is based on the previous one with only one change mad
 cowplot::plot_grid(
   plot_ts_mpd(models$bridge_models[[3]],
               type = "sbt",
-              line_width = 0.5,
-              point_size = 2,
               legend_title = "Bridge models - 2 fleets, 1 sex"),
   plot_ts_mpd(models$bridge_models[[3]],
               type = "sbt",
               rel = TRUE,
-              line_width = 0.5,
               legend_title = "Bridge models - 2 fleets, 1 sex") + 
     coord_cartesian(ylim = c(0, 1)), nrow = 2)
 ```
 
-(ref:fig-bridge3-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 'Update to 2019 data' and female-only models with two fleets.
+(ref:fig-bridge3-recruitment) Maximum Posterior Density (MPD) estimates of recruitment for the 'Update data to 2021' and female-only models with two fleets.
 
 (ref:fig-bridge3-recruitment-french) French caption here
 
 ```{r bridge3-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge3-recruitment-french)", "(ref:fig-bridge3-recruitment)"), out.width = "100%" , fig.pos="H"}
 plot_ts_mpd(models$bridge_models[[3]],
             type = "rt",
-            line_width = 0.5,
-            point_size = 2,
             legend_title = "Bridge models - 2 fleets, 1 sex") +
   coord_cartesian(ylim = c(0, 0.4))
 ```
 
-(ref:fig-bridge3-index-fits) Maximum Posterior Density (MPD) index fits for the 'Update to 2019 data' and female-only models with two fleets.
+(ref:fig-bridge3-index-fits) Maximum Posterior Density (MPD) index fits for the 'Update data to 2021 data' and female-only models with two fleets.
 
 (ref:fig-bridge3-index-fits-french) French caption here
 
@@ -254,7 +243,6 @@ plot_ts_mpd(models$bridge_models[[3]],
 plot_index_fit_mpd(
   models$bridge_models[[3]],
   surv_index = survey_index,
-  line_width = 0.5,
   point_size = 1,
   legend_title = "Bridge models - 2 fleets, 1 sex")
 ```
@@ -318,14 +306,11 @@ Each model in this section is based on the previous one with only one change mad
 cowplot::plot_grid(
   plot_ts_mpd(models$bridge_models[[4]],
               type = "sbt",
-              line_width = 0.5,
-              point_size = 2,
-              legend_title = "Bridge models - 2 fleets"),
+              legend_title = "Bridge models - 2 fleets, 2 sexes"),
   plot_ts_mpd(models$bridge_models[[4]],
               type = "sbt",
               rel = TRUE,
-              line_width = 0.5,
-              legend_title = "Bridge models - 2 fleets") + 
+              legend_title = "Bridge models - 2 fleets, 2 sexes") + 
     coord_cartesian(ylim = c(0, 1)), nrow = 2)
 ```
 
@@ -336,9 +321,7 @@ cowplot::plot_grid(
 ```{r bridge4-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge4-recruitment-french)", "(ref:fig-bridge4-recruitment)"), out.width = "100%" , fig.pos="H"}
 plot_ts_mpd(models$bridge_models[[4]],
             type = "rt",
-            line_width = 0.5,
-            point_size = 2,
-            legend_title = "Bridge models - 2 fleets & sexes") +
+            legend_title = "Bridge models - 2 fleets, 2 sexes") +
   coord_cartesian(ylim = c(0, 0.4))
 ```
 
@@ -349,9 +332,7 @@ plot_ts_mpd(models$bridge_models[[4]],
 ```{r bridge4-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge4-index-fits-french)", "(ref:fig-bridge4-index-fits)"), out.width = "100%" , fig.pos="H"}
 plot_index_fit_mpd(models$bridge_models[[4]],
                    surv_index = survey_index,
-                   line_width = 0.5,
-                   point_size = 1,
-                   legend_title = "Bridge models - 2 fleets & sexes")
+                   legend_title = "Bridge models - 2 fleets, 2 sexes")
 ```
 
 (ref:fig-bridge4-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'FT COMM' gear.
