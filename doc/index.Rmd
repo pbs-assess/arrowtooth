@@ -121,7 +121,7 @@ sp <- "Arrowtooth flounder"
 # This must either be NULL or set to a vector of directories
 bridge_models_dirs <- list(c("01-base",
                              "02-bridge-update-data-to-2014",
-                             "03-bridge-update-data-to-2019",
+                             "03-bridge-update-data-to-2021",
                              "04-bridge-add-discard-cpue"),
                            c("04-bridge-add-discard-cpue",
                              "05-bridge-convert-to-splitsex",
@@ -130,7 +130,7 @@ bridge_models_dirs <- list(c("01-base",
                              #"08-bridge-increase-m-prior-0.2-0.4",
                              #"09-bridge-fix-m-2-2",
                              "10-bridge-fix-m-2-35"),
-                           c("03-bridge-update-data-to-2019",
+                           c("03-bridge-update-data-to-2021",
                              "50-bridge-2fleet-update-data-to-2019",
                              "51-bridge-2fleet-add-discard-cpue"),
                            c("51-bridge-2fleet-add-discard-cpue",
@@ -140,11 +140,12 @@ bridge_models_dirs <- list(c("01-base",
                              #"55-bridge-2fleet-increase-m-prior-0.2-0.4",
                              #"56-bridge-2fleet-fix-m-2-2",
                              "57-bridge-2fleet-fix-m-2-35",
-                             "58-bridge-2fleet-fix-m-2-35-stitched-surveys"))
+                             "58-bridge-2fleet-fix-m-2-35-stitched-surveys",
+                             "59-bridge-2fleet-fishing-year-feb-21-feb-20-no-qcs"))
 
 bridge_models_text <- list(c("2015 Base model",
                              "Update data to 2014",
-                             "Update data to 2019",
+                             "Update data to 2021",
                              "Add Discard CPUE index"),
                            c("Add Discard CPUE index",
                              "Convert model to split sex",
@@ -153,7 +154,7 @@ bridge_models_text <- list(c("2015 Base model",
                              #"Increase SD on M prior from 0.2 to 0.4",
                              #"Fix male M=0.2, female M=0.2",
                              "Fix male M=0.35, female M=0.2"),
-                           c("Update data to 2019",
+                           c("Update data to 2021",
                              "Change to two-fleet model",
                              "Add Discard CPUE index"),
                            c("Add Discard CPUE index",
@@ -163,7 +164,8 @@ bridge_models_text <- list(c("2015 Base model",
                              #"Increase SD on M prior from 0.2 to 0.4",
                              #"Fix male M=0.2, female M=0.2",
                              "Fix male M=0.35, female M=0.2",
-                             "Replace 3 Synoptic surveys with Stitched"))
+                             "Replace 3 Synoptic surveys with Stitched",
+                             "Remove QCS from 'change fishing year' model"))
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 
@@ -218,7 +220,7 @@ models <- model_setup(main_dirs = drs,
                       sens_models_text = sens_models_text,
                       overwrite_rds_files = TRUE)
 
-dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-june11-2021.rds"))
+dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-july28-2021.rds"))
 
 month_fishing_starts <- 2
 day_fishing_starts <- 21
