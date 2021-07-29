@@ -16,6 +16,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: R (>= 3.6.0)
 Imports:
+    adnuts,
     crayon,
     csasdown,
     devtools,
@@ -28,10 +29,12 @@ Imports:
     gfplot,
     gfutilities,
     ggplot2,
+    gridExtra,
     here,
     lubridate,
     magrittr,
     methods,
+    parallel,
     purrr,
     RColorBrewer,
     readr,
@@ -40,6 +43,7 @@ Imports:
     rosettafish,
     stats,
     tibble,
+    tictoc,
     tidyr,
     tidyselect,
     TMB,
@@ -48,6 +52,7 @@ Suggests:
     covr,
     testthat
 Remotes:
+    Cole-Monnahan-NOAA/adnuts@dev,
     pbs-assess/csasdown,
     pbs-assess/gfdata,
     pbs-assess/gfiscamutils,

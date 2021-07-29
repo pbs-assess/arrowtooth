@@ -49,6 +49,22 @@ plot_ts_mpd(models$bridge_models[[1]], type = "rt", legend_title = "Bridge model
 plot_index_fit_mpd(models$bridge_models[[1]], surv_index = survey_index, legend_title = "Bridge models - 1 fleet, 1 sex")
 ```
 
+(ref:fig-bridge1-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the models with one fleets and one sex. The blue and red lines are the male and female maturity ogives respectively, and the dotted green lines are the yearly selectivity estimates.
+
+```{r bridge1-selectivities, fig.cap = "(ref:fig-bridge1-selectivities)"}
+plist <- map2(models$bridge_models[[1]], names(models$bridge_models[[1]]), ~{
+  plot_selex(.x, show_maturity = TRUE, title = .y) +
+    theme(plot.title = element_text(face = "bold", size = 12),
+          axis.text.x = element_text(size = 6),
+          strip.text.x = element_text(size = 6))
+})
+n <- length(plist)
+nrow <- floor(sqrt(n))
+do.call("grid.arrange", c(plist, nrow = nrow))
+```
+
+\clearpage
+
 ```{r bridge1-param-settings-table, results = 'asis'}
 param_settings_table(
   models$bridge_models[[1]][[1]],
@@ -95,7 +111,7 @@ The models in this section have only one change made with respect to the previou
 
 1. Changed the fishing year to be from January 1 - December 31 to the current management period which is Feb. 21 - Feb. 20. All catch and commercial age-compositions were modified and re-weighted.
 
-1. Fixed both male and female Natural mortality to be 0.2 to examine the effects on estimates of other parameters.
+<!-- 1. Fixed both male and female Natural mortality to be 0.2 to examine the effects on estimates of other parameters. -->
 
 1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.
 
@@ -135,6 +151,20 @@ plot_index_fit_mpd(
   models$bridge_models[[2]],
   surv_index = survey_index,
   point_size = 1, legend_title = "Bridge models - 1 fleet, 2 sexes")
+```
+
+(ref:fig-bridge2-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the models with one fleet and two sexes. The blue and red lines are the male and female maturity ogives respectively, and the dotted green lines are the yearly selectivity estimates.
+
+```{r bridge2-selectivities, fig.cap = "(ref:fig-bridge2-selectivities)"}
+plist <- map2(models$bridge_models[[2]], names(models$bridge_models[[2]]), ~{
+  plot_selex(.x, show_maturity = TRUE, title = .y) +
+    theme(plot.title = element_text(face = "bold", size = 12),
+          axis.text.x = element_text(size = 6),
+          strip.text.x = element_text(size = 6))
+})
+n <- length(plist)
+nrow <- floor(sqrt(n))
+do.call("grid.arrange", c(plist, nrow = nrow))
 ```
 
 (ref:fig-bridge2-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'COMM' gear.
@@ -247,6 +277,22 @@ plot_index_fit_mpd(
   legend_title = "Bridge models - 2 fleets, 1 sex")
 ```
 
+(ref:fig-bridge3-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the models with two fleets and one sex. The blue and red lines are the male and female maturity ogives respectively, and the dotted green lines are the yearly selectivity estimates.
+
+```{r bridge3-selectivities, fig.cap = "(ref:fig-bridge3-selectivities)"}
+plist <- map2(models$bridge_models[[3]], names(models$bridge_models[[3]]), ~{
+  plot_selex(.x, show_maturity = TRUE, title = .y) +
+    theme(plot.title = element_text(face = "bold", size = 12),
+          axis.text.x = element_text(size = 6),
+          strip.text.x = element_text(size = 6))
+})
+n <- length(plist)
+nrow <- floor(sqrt(n))
+do.call("grid.arrange", c(plist, nrow = nrow))
+```
+
+\clearpage
+
 ```{r bridge3-param-settings-table, results = 'asis'}
 param_settings_table(
   models$bridge_models[[3]][[2]],
@@ -292,11 +338,13 @@ Each model in this section is based on the previous one with only one change mad
 
 1. Change fishing year to Feb. 21 - Feb 20.
 
-1. Fixed both male and female Natural mortality to be 0.2 to examine the effects on estimates of other parameters.
+<!-- 1. Fixed both male and female Natural mortality to be 0.2 to examine the effects on estimates of other parameters. -->
 
 1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.
 
-1. Replace the 3 Synoptic surveys with the Stitched Synoptics index. This involved removing the Synoptic surveys as indices of abundance from the model but still using the age compositions from them. The Stitched Synoptics index was added as a second index of abundance with the Discard CPUE remaining as the first.
+<!-- 1. Replace the 3 Synoptic surveys with the Stitched Synoptics index. This involved removing the Synoptic surveys as indices of abundance from the model but still using the age compositions from them. The Stitched Synoptics index was added as a second index of abundance with the Discard CPUE remaining as the first. -->
+
+1. Removed the QCS Synoptic survey as it was not fitting well. This model is based on the 'Change fishing year to Feb. 21 - Feb 20' model.
 
 (ref:fig-bridge4-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the 'Add Discard CPUE' model and models with two fleets and two sexes.
 
@@ -333,6 +381,20 @@ plot_ts_mpd(models$bridge_models[[4]],
 plot_index_fit_mpd(models$bridge_models[[4]],
                    surv_index = survey_index,
                    legend_title = "Bridge models - 2 fleets, 2 sexes")
+```
+
+(ref:fig-bridge4-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the models with two fleets and two sexes. The blue and red lines are the male and female maturity ogives respectively, and the dotted green lines are the yearly selectivity estimates.
+
+```{r bridge4-selectivities, fig.cap = "(ref:fig-bridge4-selectivities)"}
+plist <- map2(models$bridge_models[[4]], names(models$bridge_models[[4]]), ~{
+  plot_selex(.x, show_maturity = TRUE, title = .y) +
+    theme(plot.title = element_text(face = "bold", size = 12),
+          axis.text.x = element_text(size = 6),
+          strip.text.x = element_text(size = 6))
+})
+n <- length(plist)
+nrow <- floor(sqrt(n))
+do.call("grid.arrange", c(plist, nrow = nrow))
 ```
 
 (ref:fig-bridge4-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'FT COMM' gear.
