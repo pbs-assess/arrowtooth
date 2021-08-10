@@ -119,26 +119,24 @@ sp <- "Arrowtooth flounder"
 
 # This is a vector of bridge models that will be plotted against each other.
 # This must either be NULL or set to a vector of directories
-bridge_models_dirs <- list(c("01-base",
+bridge_models_dirs <- list(# One fleet, one sex,
+                           c("01-base",
                              "02-bridge-update-data-to-2014",
                              "03-bridge-update-data-to-2021",
                              "04-bridge-add-discard-cpue"),
+                           # One fleet, two sex,
                            c("04-bridge-add-discard-cpue",
                              "05-bridge-convert-to-splitsex",
                              "06-bridge-fishing-year-feb-21-feb-20",
-                             #"07-bridge-reduce-m-prior-0.2-.05",
-                             #"08-bridge-increase-m-prior-0.2-0.4",
-                             #"09-bridge-fix-m-2-2",
                              "10-bridge-fix-m-2-35"),
+                           # Two fleet, one sex,
                            c("03-bridge-update-data-to-2021",
                              "50-bridge-2fleet-update-data-to-2019",
                              "51-bridge-2fleet-add-discard-cpue"),
+                           # Two fleet, two sex,
                            c("51-bridge-2fleet-add-discard-cpue",
                              "52-bridge-2fleet-convert-to-splitsex",
                              "53-bridge-2fleet-fishing-year-feb-21-feb-20",
-                             #"54-bridge-2fleet-reduce-m-prior-0.2-.05",
-                             #"55-bridge-2fleet-increase-m-prior-0.2-0.4",
-                             #"56-bridge-2fleet-fix-m-2-2",
                              "57-bridge-2fleet-fix-m-2-35"))
                              #"58-bridge-2fleet-fix-m-2-35-stitched-surveys",
                              #"59-bridge-2fleet-fishing-year-feb-21-feb-20-no-qcs"))
@@ -150,9 +148,6 @@ bridge_models_text <- list(c("2015 Base model",
                            c("Add Discard CPUE index",
                              "Convert model to split sex",
                              "Change fishing year to Feb 21 - Feb 20",
-                             #"Reduce SD on M prior from 0.2 to 0.05",
-                             #"Increase SD on M prior from 0.2 to 0.4",
-                             #"Fix male M=0.2, female M=0.2",
                              "Fix male M=0.35, female M=0.2"),
                            c("Update data to 2021",
                              "Change to two-fleet model",
@@ -160,12 +155,10 @@ bridge_models_text <- list(c("2015 Base model",
                            c("Add Discard CPUE index",
                              "Convert model to split sex",
                              "Change fishing year to Feb 21 - Feb 20",
-                             #"Reduce SD on M prior from 0.2 to 0.05",
-                             #"Increase SD on M prior from 0.2 to 0.4",
-                             #"Fix male M=0.2, female M=0.2",
                              "Fix male M=0.35, female M=0.2"))
                              #"Replace 3 Synoptic surveys with Stitched",
                              #"Remove QCS from 'change fishing year' model"))
+
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 
@@ -173,16 +166,9 @@ bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 # The base model will be prepended to each group later in set_dirs() so that it is first
 # on the plots for each group.
 # This must either be NULL or set to a list of vectors of directories
-sens_models_dirs <- list(c("02-bridge-update-data-to-2014",
-                           "03-bridge-update-data-to-2019"),
-                         c("04-bridge-add-discard-cpue",
-                           "05-bridge-convert-to-splitsex"),
-                         "06-bridge-fishing-year-feb-21-feb-20")
-sens_models_text <- list(c("Update data to 2014",
-                           "Update data to 2019"),
-                         c("Add Discard CPUE index",
-                           "Convert model to split sex"),
-                         "Change fishing year to Feb 21 - Feb 20")
+sens_models_dirs <- NULL
+sens_models_text <- NULL
+
 # Make these factors so that they can be reordered in the legends later
 sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
 
@@ -197,28 +183,10 @@ if(here() == "/home/rstudio"){
                   sens_models_dirs = sens_models_dirs)
 }
 
-  # A list of lists of sensitivity groups. Any given sensitivity can appear in more than one group.
-  # Do not include base model in this list or it will appear twice on plots
-  # The base model name is prepended to each group with the map..append pipe at the end
-  # sens_models_dirs <- list(
-  #   c("02-sigma-0.1",
-  #     "03-estimated-total-variance"),
-  #   c("04-tau-1.0",
-  #     "05-tau-0.6"),
-  #   "06-low-steepness",
-  #   c("07-m-0.2-sd-0.05",
-  #     "08-m-0.2-sd-0.25"),
-  #   "09-m-0.3-sd-0.2",
-  #   "10-qm0-qsd1",
-  #   "11-qm05-qsd15",
-  #   c("12-fix-trawl-sel-amat",
-  #     "13-fix-trawl-sel-6years")
-  # )
-
 models <- model_setup(main_dirs = drs,
                       bridge_models_text = bridge_models_text,
                       sens_models_text = sens_models_text,
-                      overwrite_rds_files = TRUE)
+                      overwrite_rds_files = FALSE)
 
 dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-july28-2021.rds"))
 
