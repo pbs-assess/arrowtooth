@@ -7,8 +7,11 @@
 #' @rdname props_surv
 #' @param survey_index Survey index data frame as output by [gfdata::get_survey_index()]
 #' @param iphc The IPHC index as read in from iphc-survey-index.rds
-#' @param discard_cpue The discard CPUE index as read from cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv
+#' @param discard_cpue The discard CPUE index as read from
+#' cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year
 #' @param stitched_syn The stitched synoptic index as read in from stitched-syn-index.rds
+#' @param write_to_file If `TRUE`, write the output to the file. If `FALSE`, return the data frame
+#' @param append If `TRUE`, append the output to the file. If `FALSE`, overwrite the file
 #' @param ... Arguments passed to [props_comm()]
 #'
 #' @return A list of survey indices for pasting into a iSCAM data file
@@ -26,9 +29,9 @@ extract_survey_indices <- function(survey_index,
                                    iphc = NULL,
                                    discard_cpue = NULL,
                                    stitched_syn = NULL,
-                                   data_path = NULL,
+                                   write_to_file = TRUE,
+                                   append = FALSE,
                                    ...){
-  stopifnot(!is.null(data_path))
 
   if(!is.null(iphc)){
     iphc <- iphc %>%
@@ -94,8 +97,13 @@ extract_survey_indices <- function(survey_index,
   surv_indices <- bind_cols(survey_years_index, area, group, sex, wt, timing) %>%
     arrange(gear, survey, year)
 
-  dir.create(data_path, showWarnings = FALSE)
-  fn <- file.path(data_path, "survey-indices.txt")
-  write.table(surv_indices, fn, quote = FALSE, row.names = FALSE)
-  message("Survey indices written to ", fn)
+  if(write_to_file){
+    nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
+    dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
+    fn <- file.path(nongit_dir, "data-output/survey-indices.txt")
+    write.table(surv_indices, fn, quote = FALSE, row.names = FALSE, append = append)
+    message("Survey indices written to ", fn)
+  }else{
+    surv_indices
+  }
 }

@@ -12,11 +12,15 @@
 #' @param gear_num Number of gear to be written in output file
 #' @param female_only If `TRUE`, indices and wts will be multiplied by the proportion female
 #' @param append If `TRUE`, append the output to the file. If `FALSE`, overwrite the file
+#' @param write_to_file If `TRUE`, write the output to the file. If `FALSE`, return the data frame
+#' @param extrap_years The number of years to look into the past to extrapolate the last year's catch based
+#' on the last day of catch in the last year. If `NA`, do not do an extrapolation of the last year's catch
 #' @param ... Arguments to be passed on to [props_comm()] and [gfplot::tidy_catch()]
 #'
 #' @return A data frame you can cut and paste into the iSCAM data file
 #' @export
 #' @importFrom gfplot tidy_catch
+#' @importFrom lubridate as_date
 #' @examples
 #' \dontrun{
 #' Freezer trawlers:
@@ -32,10 +36,17 @@ extract_catch_data <- function(catch,
                                append = FALSE,
                                female_only = FALSE,
                                write_to_file = TRUE,
+                               extrap_years = NA,
+                               month_fishing_starts = 1,
+                               day_fishing_starts = 1,
                                ...){
 
   options(scipen = 999)
-  ct <- tidy_catch(catch, ...) %>%
+
+  ct <- tidy_catch(catch,
+                   month_fishing_starts = month_fishing_starts,
+                   day_fishing_starts = day_fishing_starts,
+                   ...) %>%
     select(-species_common_name, -area) %>%
     group_by(year) %>%
     summarize(catch = sum(value) / 1e6) %>%
@@ -55,6 +66,41 @@ extract_catch_data <- function(catch,
       filter(!is.na(prop_female)) %>%
       mutate(catch = catch * prop_female) %>%
       select(year, catch)
+  }
+
+  # Extrapolate the last year's catch if it is part of the way through the year by taking the mean
+  # of the proportion of total catch for the year
+  if(!is.na(extrap_years)){
+    last_year <- tail(sort(unique(ct$year)), 1)
+    j <- catch %>%
+      filter(year == last_year) %>%
+      filter(landed_kg > 0 | discarded_kg > 0)
+
+    last_day_of_catch <- max(j$best_date, na.rm = TRUE)
+    last_day_of_catch_month <- month(last_day_of_catch)
+    last_day_of_catch_day <- day(last_day_of_catch)
+    last_n_years <- (last_year - extrap_years):(last_year - 1)
+    previous_year <- last_year - extrap_years - 1
+
+    j <- catch %>%
+      filter(year %in% last_n_years) %>%
+      set_fishing_year(month_fishing_starts,
+                       day_fishing_starts) %>%
+      filter(year != previous_year) %>%
+      mutate(month = month(best_date),
+             day = day(best_date)) %>%
+      mutate(yday(ymd(paste0(year, "-", month, "-", day)))) %>%
+      group_by(year) %>%
+      filter(month <= last_day_of_catch_month & day <= last_day_of_catch_day) %>%
+      summarize(catch_so_far = sum(landed_kg + discarded_kg) / 1e6) %>%
+      ungroup() %>%
+      left_join(ct, by = "year") %>%
+      mutate(prop_catch_so_far = catch_so_far / catch)
+
+    avg_prop_caught_so_far <- mean(j$prop_catch_so_far)
+
+    ct <- ct %>%
+      mutate(catch = ifelse(year == last_year, catch / avg_prop_caught_so_far, catch))
   }
 
   # Bind columns in order for data file so it's a simple cut/paste

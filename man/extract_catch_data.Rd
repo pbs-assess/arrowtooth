@@ -13,6 +13,9 @@ extract_catch_data(
   append = FALSE,
   female_only = FALSE,
   write_to_file = TRUE,
+  extrap_years = NA,
+  month_fishing_starts = 1,
+  day_fishing_starts = 1,
   ...
 )
 }
@@ -26,6 +29,11 @@ extract_catch_data(
 \item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE}, overwrite the file}
 
 \item{female_only}{If \code{TRUE}, indices and wts will be multiplied by the proportion female}
+
+\item{write_to_file}{If \code{TRUE}, write the output to the file. If \code{FALSE}, return the data frame}
+
+\item{extrap_years}{The number of years to look into the past to extrapolate the last year's catch based
+on the last day of catch in the last year. If \code{NA}, do not do an extrapolation of the last year's catch}
 
 \item{...}{Arguments to be passed on to \code{\link[=props_comm]{props_comm()}} and \code{\link[gfplot:plot_catch]{gfplot::tidy_catch()}}}
 }

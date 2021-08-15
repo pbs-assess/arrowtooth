@@ -17,10 +17,6 @@ citation_other_language: "Grandin, C.J. et Anderson, S.C. Title Here (*Latin Spe
 abstract: |
   Arrowtooth Flounder(*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable. In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
 
-  This assessment fits a female-only Bayesian age-structured model to catch,survey and age-composition data from the years 1996-2019, for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E (West Coast Haida Gwaii). Catch data prior to the introduction of at-sea observers in 1996 were considered too unreliablefor inclusion in the assessment due to unknown quantities of discarding at sea.
-  
-  Management advice is provided in the form of decision tables which forecast the impacts of a range of 2020 catch levels on Arrowtooth Flounder stock status relative to these reference points. The Reference Case decision table suggests that a 2020 catch equal to any of the catch levels tested, ranging from 0 t to 30,000 t, would result in a 2021 biomass above all of the candidate biomass-based reference points tested, and 2020 harvest rate below the estimated UMSY. Large uncertainty in the assessment is, however emphasised. The magnitude of catch and discards prior to 1996 is a major source of uncertainty in this assessment that could provide critical information about the scale and productivity of this stock. Ageing of archived otoliths from the freezer trawl feet is a high priority recommendation.
-  
 header: "Draft working paper --- Do not cite or circulate" # or "" to omit
 output:
  csasdown::resdoc_pdf:
@@ -131,7 +127,7 @@ bridge_models_dirs <- list(# One fleet, one sex,
                              "10-bridge-fix-m-2-35"),
                            # Two fleet, one sex,
                            c("03-bridge-update-data-to-2021",
-                             "50-bridge-2fleet-update-data-to-2019",
+                             "50-bridge-2fleet-update-data-to-2021",
                              "51-bridge-2fleet-add-discard-cpue"),
                            # Two fleet, two sex,
                            c("51-bridge-2fleet-add-discard-cpue",
@@ -151,11 +147,11 @@ bridge_models_text <- list(c("2015 Base model",
                              "Fix male M=0.35, female M=0.2"),
                            c("Update data to 2021",
                              "Change to two-fleet model",
-                             "Add Discard CPUE index"),
-                           c("Add Discard CPUE index",
-                             "Convert model to split sex",
-                             "Change fishing year to Feb 21 - Feb 20",
-                             "Fix male M=0.35, female M=0.2"))
+                             "Add Discard CPUE index (two fleets)"),
+                           c("Add Discard CPUE index (two fleets)",
+                             "Convert model to split sex (two fleets)",
+                             "Change fishing year to Feb 21 - Feb 20 (two fleets)",
+                             "Fix male M=0.35, female M=0.2 (two fleets)"))
                              #"Replace 3 Synoptic surveys with Stitched",
                              #"Remove QCS from 'change fishing year' model"))
 
@@ -188,7 +184,7 @@ models <- model_setup(main_dirs = drs,
                       sens_models_text = sens_models_text,
                       overwrite_rds_files = FALSE)
 
-dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-july28-2021.rds"))
+dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-aug10-2021.rds"))
 
 month_fishing_starts <- 2
 day_fishing_starts <- 21
@@ -203,7 +199,9 @@ iphc_file <- file.path(data_dir, "iphc-survey-index.rds")
 if(!file.exists(iphc_file)){
   stop("IPHC file does not exist: ", iphc_file, call. = FALSE)
 }
-discard_cpue_file <- file.path(data_dir, "cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv")
+discard_cpue_file <- file.path(data_dir,
+"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year.csv")
+#"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-jan-1-year.csv")
 if(!file.exists(discard_cpue_file)){
   stop("Discard CPUE file does not exist: ", discard_cpue_file, call. = FALSE)
 }

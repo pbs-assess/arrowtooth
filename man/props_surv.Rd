@@ -28,7 +28,8 @@ extract_survey_indices(
   iphc = NULL,
   discard_cpue = NULL,
   stitched_syn = NULL,
-  data_path = NULL,
+  write_to_file = TRUE,
+  append = FALSE,
   ...
 )
 }
@@ -47,9 +48,14 @@ extract_survey_indices(
 
 \item{iphc}{The IPHC index as read in from iphc-survey-index.rds}
 
-\item{discard_cpue}{The discard CPUE index as read from cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-Feb21-Feb20.csv}
+\item{discard_cpue}{The discard CPUE index as read from
+cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year}
 
 \item{stitched_syn}{The stitched synoptic index as read in from stitched-syn-index.rds}
+
+\item{write_to_file}{If \code{TRUE}, write the output to the file. If \code{FALSE}, return the data frame}
+
+\item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE}, overwrite the file}
 }
 \value{
 A data frame containing proportions of females for the required surveys
