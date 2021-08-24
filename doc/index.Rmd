@@ -184,7 +184,7 @@ models <- model_setup(main_dirs = drs,
                       sens_models_text = sens_models_text,
                       overwrite_rds_files = FALSE)
 
-dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-aug10-2021.rds"))
+dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-aug24-2021.rds"))
 
 month_fishing_starts <- 2
 day_fishing_starts <- 21
