@@ -99,7 +99,7 @@ if (french) {
 
 library(csasdown)
 library(gfutilities)
-#library(gfiscamutils)
+library(gfiscamutils)
 library(ggplot2)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
@@ -107,7 +107,7 @@ library(dplyr)
 library(purrr)
 library(here)
 library(gfplot)
-load_all("C:/github/pbs-assess/gfiscamutils/")
+#load_all("C:/github/pbs-assess/gfiscamutils/")
 load_all()
 
 
