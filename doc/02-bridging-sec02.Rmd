@@ -101,6 +101,17 @@ sel_param_est_mpd_table(
     "A comparison of Bridge model selectivity parameter estimates for the single-fleet, two-sex models."))  %>% 
   column_spec(1, width = "8em")
 ```
+
+\begin{landscapepage}
+```{r bridge2-likelihoods, results = 'asis'}
+likelihood_table(models$bridge_models[[2]],
+                 model_col_widths = "5em",
+                 font_size = 7,
+                 format = "latex",
+                 caption = "Negative log likelihoods included in the objective function for each model.")
+```
+\end{landscapepage}
+
 \clearpage
 
 (ref:fig-bridge2-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20' model, for the 'COMM' gear.

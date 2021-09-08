@@ -71,6 +71,16 @@ param_est_mpd_table(
     "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with two fleets and one sex.")) 
 ```
 
+\begin{landscapepage}
+```{r bridge3-likelihoods, results = 'asis'}
+likelihood_table(models$bridge_models[[3]],
+                 model_col_widths = "4em",
+                 font_size = 7,
+                 format = "latex",
+                 caption = "Negative log likelihoods included in the objective function for each model.")
+```
+\end{landscapepage}
+
 \clearpage
 
 (ref:fig-bridge3-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the models with two fleets and one sex. The dashed red line is the female maturity ogive, the red line with points is the yearly selectivity estimate for females.

@@ -105,6 +105,17 @@ sel_param_est_mpd_table(
     "A comparison of Bridge model selectivity parameter estimates. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear (fixed to that gear's estimate), are labelled as such. Dashes are non-applicable parameters for that model."))  %>% 
   column_spec(1, width = "8em")
 ```
+
+\begin{landscapepage}
+```{r bridge1-likelihoods, results = 'asis'}
+likelihood_table(models$bridge_models[[1]],
+                 model_col_widths = "5em",
+                 font_size = 7,
+                 format = "latex",
+                 caption = "Negative log likelihoods included in the objective function for each model.")
+```
+\end{landscapepage}
+
 \clearpage
 
 

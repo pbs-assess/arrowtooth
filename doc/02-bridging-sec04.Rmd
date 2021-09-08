@@ -51,7 +51,6 @@ plot_index_fit_mpd(models$bridge_models[[4]],
                    legend_title = "Bridge models - 2 fleets, 2 sexes")
 ```
 
-
 ```{r bridge4-param-settings-table, results = 'asis'}
 param_settings_table(
   models$bridge_models[[4]][[2]],
@@ -75,6 +74,16 @@ param_est_mpd_table(
     "French goes here",
     "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with two fleets and two sexes."))
 ```
+
+\begin{landscapepage}
+```{r bridge4-likelihoods, results = 'asis'}
+likelihood_table(models$bridge_models[[4]],
+                 model_col_widths = "4em",
+                 font_size = 7,
+                 format = "latex",
+                 caption = "Negative log likelihoods included in the objective function for each model.")
+```
+\end{landscapepage}
 
 \clearpage
 
