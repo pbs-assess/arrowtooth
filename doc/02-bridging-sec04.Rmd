@@ -1,6 +1,26 @@
+# Bridging analysis
+
+The base model from the 2015 assessment was run with the newest version of the iSCAM code and the original data files and the results were determined to be identical.
+
+Various modifications were made incrementally to the 2015 base model to create a set of bridging models which evaluate the component-specific effects of all changes from the 2015 base model to the 2021 base model.
+
+As a reminder, the 2015 base model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
+
 ## Two-fleet split-sex models
 
-Each model in this section is based on the previous one with only one change made so incremental changes can be tracked. The starting model here (*Add Discard CPUE*) is repeated from Section \@ref(two-fleet-single-sex-models).
+Each model in this section is based on the previous one with only one change made so incremental changes can be tracked.
+
+1. 2015 Base model
+
+1. Extracted the data for the 2015 model using the **gfplot** package, which has been used in several assessments and in the **gfsynopsis** report. Ran the 2015 model without any modifications other than this data change.
+
+1. Switched the age comp likelihood from Multivariate Normal Logistic to Dirichlet-Multinomial
+
+1. Using the same data extraction methods as in the first step, appended data up to and including 2021.
+
+1. Change the model to two fleets. This splits the commercial trawl catch into catch from Freezer Trawlers (FT COMM) and wet boats (WB COMM).
+
+1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for `r sp` and therefore were discarding all that they caught incidentally. The selectivity could not reliably be estimated for this index in the current model configuration, so its selectivity was fixed to values representative of other estimated selectivities from other gears (Table \@ref(tab:bridge4-sel-param-table)). The values fixed were Age-at-50% = 9 for Females and 6 for Males.
 
 1. Convert model to split-sex.
 
@@ -37,7 +57,7 @@ cowplot::plot_grid(
 ```{r bridge4-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge4-recruitment-french)", "(ref:fig-bridge4-recruitment)"), out.width = "100%" , fig.pos="H"}
 plot_ts_mpd(models$bridge_models[[4]],
             type = "rt",
-            legend_title = "Bridge models - 2 fleets, 2 sexes") +
+            legend_title = "Bridge models") +
   coord_cartesian(ylim = c(0, 2.0))
 ```
 
@@ -48,7 +68,7 @@ plot_ts_mpd(models$bridge_models[[4]],
 ```{r bridge4-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge4-index-fits-french)", "(ref:fig-bridge4-index-fits)"), out.width = "100%" , fig.pos="H"}
 plot_index_fit_mpd(models$bridge_models[[4]],
                    surv_index = survey_index,
-                   legend_title = "Bridge models - 2 fleets, 2 sexes")
+                   legend_title = "Bridge models")
 ```
 
 <!-- ```{r bridge4-param-settings-table, results = 'asis'} -->
@@ -72,20 +92,7 @@ param_est_mpd_table(
   caption = ifelse(
     french,
     "French goes here",
-    "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with two fleets and two sexes."))
-```
-
-```{r bridge4-phi-table-7, results = 'asis'}
-param_phi_mpd_table(models$bridge_models[[4]],
-                    neff = TRUE,
-                    which_model = 7,
-                    font_size = 7,
-                    format = "latex",
-                    caption = paste0("Effective sample sizes by gear for the '",
-                                     names(models$bridge_models[[4]])[7],
-                                     "' model by gear, year, and sex. ",
-                                     "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ",
-                                     "Dashes represent no age comps for those gear/year/sex combinations."))
+    "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index. The table follows tracks changes from left to right in the same order as the plots."))
 ```
 
 ```{r bridge4-phi-table-8, results = 'asis'}
@@ -96,6 +103,19 @@ param_phi_mpd_table(models$bridge_models[[4]],
                     format = "latex",
                     caption = paste0("Effective sample sizes by gear for the '",
                                      names(models$bridge_models[[4]])[8],
+                                     "' model by gear, year, and sex. ",
+                                     "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ",
+                                     "Dashes represent no age comps for those gear/year/sex combinations."))
+```
+
+```{r bridge4-phi-table-9, results = 'asis'}
+param_phi_mpd_table(models$bridge_models[[4]],
+                    neff = TRUE,
+                    which_model = 9,
+                    font_size = 7,
+                    format = "latex",
+                    caption = paste0("Effective sample sizes by gear for the '",
+                                     names(models$bridge_models[[4]])[9],
                                      "' model by gear, year, and sex. ",
                                      "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ",
                                      "Dashes represent no age comps for those gear/year/sex combinations."))
@@ -113,7 +133,7 @@ likelihood_table(models$bridge_models[[4]],
 
 \clearpage
 
-(ref:fig-bridge4-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the models with two fleets and two sexes. The dashed blue and red lines are the male and female maturity ogives respectively, the blue and red lines with points are the yearly selectivity estimates for males and females respectively.
+(ref:fig-bridge4-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears. The dashed blue and red lines are the male and female maturity ogives respectively, the blue and red lines with points are the yearly selectivity estimates for males and females respectively.
 
 ```{r bridge4-selectivities, fig.cap = "(ref:fig-bridge4-selectivities)"}
 plist <- map2(models$bridge_models[[4]], names(models$bridge_models[[4]]), ~{
@@ -130,9 +150,9 @@ do.call("grid.arrange", c(plist, ncol = nrow))
 (ref:fig-bridge4-selectivity-possible-base) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the 'Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)' model.
 
 ```{r selectivity-possible-base, fig.cap = "(ref:fig-bridge4-selectivity-possible-base)"}
-plot_selex(models$bridge_models[[4]][[7]],
+plot_selex(models$bridge_models[[4]][[8]],
            show_maturity = TRUE,
-           title = names(models$bridge_models[[4]])[7]) +
+           title = names(models$bridge_models[[4]])[8]) +
   theme(plot.title = element_text(face = "bold", size = 12),
         axis.text.x = element_text(size = 6),
         strip.text.x = element_text(size = 6))
@@ -141,9 +161,9 @@ plot_selex(models$bridge_models[[4]][[7]],
 (ref:fig-bridge4-selectivity-possible-base-2) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears in the 'Fix male M=0.35, female M=0.2 (two fleets, split sex)' model.
 
 ```{r selectivity-possible-base-2, fig.cap = "(ref:fig-bridge4-selectivity-possible-base-2)"}
-plot_selex(models$bridge_models[[4]][[8]],
+plot_selex(models$bridge_models[[4]][[9]],
            show_maturity = TRUE,
-           title = names(models$bridge_models[[4]])[8]) +
+           title = names(models$bridge_models[[4]])[9]) +
   theme(plot.title = element_text(face = "bold", size = 12),
         axis.text.x = element_text(size = 6),
         strip.text.x = element_text(size = 6))
@@ -159,42 +179,42 @@ sel_param_est_mpd_table(
   caption = ifelse(
     french,
     "French goes here",
-    "A comparison of Bridge model selectivity parameter estimates for the two-fleet, two-sex models.")) %>%
+    "A comparison of Bridge model selectivity parameter estimates.")) %>%
   column_spec(1, width = "8em")
 ```
 
 \clearpage
 
-(ref:fig-bridge4-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets)' model, for the 'FT COMM' gear.
+(ref:fig-bridge4-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)' model, for the 'FT COMM' gear.
 
 ```{r bridge4-agefit-1, fig.cap = "(ref:fig-bridge4-age-fit-1)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[4]][[6]], 1)
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[8]], 1)
 ```
 
-(ref:fig-bridge4-age-fit-2) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets)' model, for the 'WB COMM' gear.
+(ref:fig-bridge4-age-fit-2) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)' model, for the 'WB COMM' gear.
 
 ```{r bridge4-agefit-2, fig.cap = "(ref:fig-bridge4-age-fit-2)", fig.asp = 1.4}
-plot_agecomp_fits_splitsex(models$bridge_models[[4]][[6]], 2)
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[8]], 2)
 ```
 
-(ref:fig-bridge4-age-fit-3) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets)' model, for the 'SYN QCS' gear.
+(ref:fig-bridge4-age-fit-3) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)' model, for the 'SYN QCS' gear.
 
 ```{r bridge4-agefit-3, fig.cap = "(ref:fig-bridge4-age-fit-3)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[4]][[6]], 3)
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[8]], 3)
 ```
 
-(ref:fig-bridge4-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets)' model, for the 'SYN HS' gear.
+(ref:fig-bridge4-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)' model, for the 'SYN HS' gear.
 
 ```{r bridge4-agefit-5, fig.cap = "(ref:fig-bridge4-age-fit-5)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[4]][[6]], 5)
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[8]], 5)
 ```
-(ref:fig-bridge4-age-fit-6) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets)' model, for the 'SYN WCVI' gear.
+(ref:fig-bridge4-age-fit-6) Maximum Posterior Density (MPD) age comp fits for the 'Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)' model, for the 'SYN WCVI' gear.
 
 ```{r bridge4-agefit-6, fig.cap = "(ref:fig-bridge4-age-fit-6)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[4]][[6]], 6)
+plot_agecomp_fits_splitsex(models$bridge_models[[4]][[8]], 6)
 ```
 
-(ref:fig-bridge4-age-comp-2) Weighted age compositions for the 'FT COMM' survey.
+(ref:fig-bridge4-age-comp-2) Weighted age compositions for the 'FT COMM' fleet.
 
 ```{r bridge4-agecomp-2, fig.cap = "(ref:fig-bridge4-age-comp-2)"}
 comm_ft <- extract_fleet_samples(commercial_samples)
@@ -206,7 +226,7 @@ tidy_ages_weighted(comm_ft,
   plot_ages()
 ```
 
-(ref:fig-bridge4-age-comp-3) Weighted age compositions for the 'WB COMM' survey.
+(ref:fig-bridge4-age-comp-3) Weighted age compositions for the 'WB COMM' fleet.
 
 ```{r bridge4-agecomp-3, fig.cap = "(ref:fig-bridge4-age-comp-3)"}
 comm_nonft <- extract_fleet_samples(commercial_samples, include = FALSE)
