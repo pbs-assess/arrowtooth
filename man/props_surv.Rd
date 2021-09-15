@@ -70,7 +70,7 @@ Calculate the proportions female for the survey data
 Summarize the data used to make the proportions female table
 
 Extract the female survey index data for pasting into the iSCAM data file.
-The 'Discard CPUE' index must be multiplied by the proportions female feom the commerciual fishery
+The 'Discard CPUE' index must be multiplied by the proportions female from the commerciual fishery
 so \code{comm_samples} is required
 }
 \details{

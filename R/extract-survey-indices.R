@@ -1,5 +1,5 @@
 #' Extract the female survey index data for pasting into the iSCAM data file.
-#' The 'Discard CPUE' index must be multiplied by the proportions female feom the commerciual fishery
+#' The 'Discard CPUE' index must be multiplied by the proportions female from the commerciual fishery
 #' so `comm_samples` is required
 #'
 #' @details The CV can be calculated as CV = SD / MEAN or from the Standard error: CV = sqrt(exp(SE^2) - 1)

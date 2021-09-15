@@ -53,11 +53,18 @@ The year range is determined by what is set in \code{\link[=props_comm]{props_co
 }
 \examples{
 \dontrun{
+All for Feb 21 - Feb 20 fishing year:
+extract_catch_data(catch, commercial_samples, gear_num = 1, append = FALSE,
+species_category = 1, month_fishing_starts = 2, day_fishing_starts = 21, female_only = FALSE)
+
 Freezer trawlers:
-extract_catch_data(extract_fleet_catch(catch, include = TRUE), commercial_samples, gear_num = 1, append = FALSE,
-species_category = 1, month_fishing_starts = 1, day_fishing_starts = 1, female_only = FALSE)
+extract_catch_data(extract_fleet_catch(catch, include = TRUE),
+  commercial_samples, gear_num = 1, append = FALSE, species_category = 1,
+  month_fishing_starts = 1, day_fishing_starts = 1, female_only = FALSE)
+
 Non-Freezer trawlers:
-extract_catch_data(extract_fleet_catch(catch, include = FALSE), commercial_samples, gear_num = 2, append = TRUE,
-species_category = 1, month_fishing_starts = 1, day_fishing_starts = 1, female_only = FALSE)
+extract_catch_data(extract_fleet_catch(catch, include = FALSE),
+  commercial_samples, gear_num = 2, append = TRUE, species_category = 1,
+  month_fishing_starts = 1, day_fishing_starts = 1, female_only = FALSE)
 }
 }
