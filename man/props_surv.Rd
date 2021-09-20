@@ -24,7 +24,7 @@ props_surv_data_summary(
 extract_survey_indices(
   survey_index,
   surv_series = c(2, 3, 4, 5, 17),
-  surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
+  surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
   iphc = NULL,
   discard_cpue = NULL,
   stitched_syn = NULL,

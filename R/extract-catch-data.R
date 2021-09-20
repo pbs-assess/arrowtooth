@@ -15,12 +15,17 @@
 #' @param write_to_file If `TRUE`, write the output to the file. If `FALSE`, return the data frame
 #' @param extrap_years The number of years to look into the past to extrapolate the last year's catch based
 #' on the last day of catch in the last year. If `NA`, do not do an extrapolation of the last year's catch
+#' @param month_fishing_starts An integer representing the month of the year that the fishing year starts in (1-12)
+#' @param day_fishing_starts  An integer representing the day ogf the month that fishing starts on (1-28 or 30 or 31)
 #' @param ... Arguments to be passed on to [props_comm()] and [gfplot::tidy_catch()]
 #'
 #' @return A data frame you can cut and paste into the iSCAM data file
 #' @export
+#' @importFrom dplyr bind_cols
 #' @importFrom gfplot tidy_catch
+#' @importFrom here here
 #' @importFrom lubridate as_date day month year yday ymd
+#' @importFrom utils write.table tail
 #' @examples
 #' \dontrun{
 #' All for Feb 21 - Feb 20 fishing year:

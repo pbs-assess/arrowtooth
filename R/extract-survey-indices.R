@@ -16,7 +16,9 @@
 #'
 #' @return A list of survey indices for pasting into a iSCAM data file
 #' @importFrom dplyr bind_rows
+#' @importFrom purrr map_at
 #' @importFrom readr read_csv
+#' @importFrom stats sd
 #' @export
 #'
 #' @examples
@@ -26,7 +28,7 @@
 #' }
 extract_survey_indices <- function(survey_index,
                                    surv_series = c(2, 3, 4, 5, 17),
-                                   surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
+                                   surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
                                    iphc = NULL,
                                    discard_cpue = NULL,
                                    stitched_syn = NULL,
@@ -63,7 +65,7 @@ extract_survey_indices <- function(survey_index,
   }
 
   surv_indices <- survey_index %>%
-    filter(survey_abbrev %in% surv_names) %>%
+    filter(survey_abbrev %in% surv_series_names) %>%
     transmute(survey = survey_abbrev,
               year = year,
               index = biomass / 1e6, wt = 1 / re) %>%
@@ -87,7 +89,7 @@ extract_survey_indices <- function(survey_index,
 
   # Add gear number
   survey_years_index <- survey_years_index %>%
-    mutate(mtc = match(surv_indices$survey, surv_names) + 1,
+    mutate(mtc = match(surv_indices$survey, surv_series_names) + 1,
            gear = ifelse(is.na(mtc), paste0("    ", 1), paste0("    ", mtc))) %>%
     select(-mtc)
 

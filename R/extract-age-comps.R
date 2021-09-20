@@ -2,6 +2,8 @@
 #'
 #' @param catch_sets Data frame as output by [gfdata::get_catch()] or [gfdata::get_survey_sets()]
 #' @param samples Data frame as output by [gfdata::get_commercial_samples()] or [gfdata::get_survey_samples()]
+#' @param type One of 'commercial' or 'survey'. Whichever is set requires objects `catch_sets` and `samples`
+#' represent that type. See examples.
 #' @param gear_num Number of gear to be written in output file
 #' @param surv_series_name Name of a survey to extract. To extract multiple at once, use [extract_survey_age_comps()].
 #' See the values in `survey_abbrev` column of data frame returned by [gfdata::get_survey_samples()] for names
@@ -11,7 +13,7 @@
 #' @param append If `TRUE`, append the output to the file. If `FALSE`, overwrite the file
 #' @param ... Arguments to pass to [gfplot::tidy_ages_weighted()]
 #'
-#' @return Nothing. The output is written to the file
+#' @return if `write_to_file` is `TRUE`, return nothing, else return the data frame containing the age comps
 #' @importFrom tidyr complete
 #' @export
 #'
@@ -99,20 +101,28 @@ extract_age_comps <- function(catch_sets,
 
 #' Extract the survey age proportions for pasting into the iSCAM data file.
 #'
-#' @param ... Arguments to pass to [extract_age_comps()]
 #' @param surv_series_names See the values in `survey_abbrev` column of data frame returned
 #'  by [gfdata::get_survey_samples()] for names of surveys to include
+#' @param write_to_file if `TRUE`, write the output to a file. If `FALSE` return the output data frame
+#' @param ... Arguments to pass to [extract_age_comps()]
 #'
-#' @return
+#' @return if `write_to_file` is `TRUE`, return nothing, else return the data frame containing the age comps
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' survey_sets <- gfdata::get_survey_sets("arrowtooth flounder")
-#' survwy_samples <- gfdata::get_survey_samples("arrowtooth flounder")
+#' survey_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 #' extract_survey_age_comps(catch_sets = survey_sets, samples = survey_samples)
 #' }
-extract_survey_age_comps <- function(surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"), write_to_file = TRUE, ...){
+extract_survey_age_comps <- function(surv_series_names = c("SYN QCS",
+                                                           "OTHER HS MSA",
+                                                           "SYN HS",
+                                                           "SYN WCVI",
+                                                           "SYN WCHG"),
+                                     write_to_file = TRUE,
+                                     ...){
+
   j <- map2(surv_series_names, seq_along(surv_series_names), function(x = .x, y = .y, ...){
     extract_age_comps(type = "survey", surv_series_name = x, write_to_file = FALSE, ...) %>%
       mutate(gear = y + 1)

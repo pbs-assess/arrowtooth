@@ -21,6 +21,9 @@ extract_age_comps(
 
 \item{samples}{Data frame as output by \code{\link[gfdata:get_data]{gfdata::get_commercial_samples()}} or \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}}}
 
+\item{type}{One of 'commercial' or 'survey'. Whichever is set requires objects \code{catch_sets} and \code{samples}
+represent that type. See examples.}
+
 \item{gear_num}{Number of gear to be written in output file}
 
 \item{surv_series_name}{Name of a survey to extract. To extract multiple at once, use \code{\link[=extract_survey_age_comps]{extract_survey_age_comps()}}.
@@ -36,7 +39,7 @@ For split sex (full age comps for each sex) use sex = c("M", "F")}
 \item{...}{Arguments to pass to \code{\link[gfplot:tidy_comps]{gfplot::tidy_ages_weighted()}}}
 }
 \value{
-Nothing. The output is written to the file
+if \code{write_to_file} is \code{TRUE}, return nothing, else return the data frame containing the age comps
 }
 \description{
 Extract the commercial age proportions for pasting into the iSCAM data file.

@@ -5,7 +5,7 @@
 \title{Extract the survey age proportions for pasting into the iSCAM data file.}
 \usage{
 extract_survey_age_comps(
-  surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"),
+  surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
   write_to_file = TRUE,
   ...
 )
@@ -14,10 +14,12 @@ extract_survey_age_comps(
 \item{surv_series_names}{See the values in \code{survey_abbrev} column of data frame returned
 by \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} for names of surveys to include}
 
+\item{write_to_file}{if \code{TRUE}, write the output to a file. If \code{FALSE} return the output data frame}
+
 \item{...}{Arguments to pass to \code{\link[=extract_age_comps]{extract_age_comps()}}}
 }
 \value{
-
+if \code{write_to_file} is \code{TRUE}, return nothing, else return the data frame containing the age comps
 }
 \description{
 Extract the survey age proportions for pasting into the iSCAM data file.
@@ -25,7 +27,7 @@ Extract the survey age proportions for pasting into the iSCAM data file.
 \examples{
 \dontrun{
 survey_sets <- gfdata::get_survey_sets("arrowtooth flounder")
-survwy_samples <- gfdata::get_survey_samples("arrowtooth flounder")
+survey_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 extract_survey_age_comps(catch_sets = survey_sets, samples = survey_samples)
 }
 }

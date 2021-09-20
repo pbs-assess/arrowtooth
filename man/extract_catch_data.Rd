@@ -35,6 +35,10 @@ extract_catch_data(
 \item{extrap_years}{The number of years to look into the past to extrapolate the last year's catch based
 on the last day of catch in the last year. If \code{NA}, do not do an extrapolation of the last year's catch}
 
+\item{month_fishing_starts}{An integer representing the month of the year that the fishing year starts in (1-12)}
+
+\item{day_fishing_starts}{An integer representing the day ogf the month that fishing starts on (1-28 or 30 or 31)}
+
 \item{...}{Arguments to be passed on to \code{\link[=props_comm]{props_comm()}} and \code{\link[gfplot:plot_catch]{gfplot::tidy_catch()}}}
 }
 \value{
