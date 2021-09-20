@@ -16,7 +16,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun
+#' \dontrun{
 #' catch <- gfdata::get_catch("arrowtooth flounder")
 #' commercial_samples <- gfdata::get_commercial_samples("arrowtooth flounder")
 #' catch_ft <- extract_fleet_catch(catch)
@@ -26,6 +26,7 @@
 #' extract_age_comps(catch_ft, comm_ft, gear_num = 1, spp_cat_code = 1, month_fishing_starts = 2, day_fishing_starts = 21, append = FALSE)
 #' extract_age_comps(catch_nonft, comm_nonft, gear_num = 2, spp_cat_code = 1, month_fishing_starts = 2, day_fishing_starts = 21, append = TRUE)
 #' extract_age_comps(survey_sets, survey_samples, type = "survey", gear_num = 6, surv_series_name = "SYN WCHG")
+#' }
 extract_age_comps <- function(catch_sets,
                               samples,
                               type = "commercial",
@@ -106,10 +107,11 @@ extract_age_comps <- function(catch_sets,
 #' @export
 #'
 #' @examples
-#' \dontrun
+#' \dontrun{
 #' survey_sets <- gfdata::get_survey_sets("arrowtooth flounder")
 #' survwy_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 #' extract_survey_age_comps(catch_sets = survey_sets, samples = survey_samples)
+#' }
 extract_survey_age_comps <- function(surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI"), write_to_file = TRUE, ...){
   j <- map2(surv_series_names, seq_along(surv_series_names), function(x = .x, y = .y, ...){
     extract_age_comps(type = "survey", surv_series_name = x, write_to_file = FALSE, ...) %>%

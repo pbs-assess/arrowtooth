@@ -56,7 +56,8 @@ MATURITY_CODE,SPECIMEN_SEX_CODE,MATURITY_NAME,MATURITY_DESC
 7, 2, RESTING, "OVARIES CONTRACTED AND FIRM, PINKISH GREY TO CREAM-YELLOW IN COLOUR AND MAY APPEAR GRANULAR IN TEXTURE BUT NO DISTINCT EGGS ARE VISIBLE"
 }
 \examples{
-\dontrun
+\dontrun{
 survey_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 get_age_at_50_mat(survey_samples)
+}
 }

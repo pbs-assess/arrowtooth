@@ -3,10 +3,10 @@
 \name{set_dirs}
 \alias{set_dirs}
 \title{Set main directories for the project. Check existence of all directories and report.
-SEnsitivity groups will have the base model prepended.}
+Sensitivity groups will have the base model prepended.}
 \usage{
 set_dirs(
-  nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"),
+  nongit_dir = file.path(dirname(here()), paste0(basename(here()), "-nongit")),
   models_dir = file.path(nongit_dir, "models"),
   base_model_dir = "base",
   bridge_models_dir = "001-bridge-models",
@@ -17,7 +17,7 @@ set_dirs(
 }
 \arguments{
 \item{nongit_dir}{The full path containing non-version-controlled things
-such as data, model runs from iSCAM, and reference materials}
+such as data, model runs from iSCAM, and reference materials. Default is "reponame-nongit"}
 
 \item{models_dir}{The full path in which the iSCAM model directories are located}
 
@@ -36,11 +36,14 @@ contains the sensitivity model directories}
 that each contain an individual iSCAM sensitivity model}
 }
 \value{
-A list of five items, the first two are the same as the input arguments.
-The third is the full path of the base model directory, the fourth and fifth contain vectors
-of the bridge models' directory names and the sensitivity models' directory names respectively
+A list of seven items, the first two are the same as the input arguments with the same name.
+The 3rd is the full path of the base model.
+The 4th is the full path of the bridge models directory.
+The 5th contains a vector of the full paths to the bridge models which are inside the 4th directory.
+The 6th is the full path of the sensitivity models directory.
+The 7th contains a vector of the full paths to the sensitivity models which are inside the 6th directory.
 }
 \description{
 Set main directories for the project. Check existence of all directories and report.
-SEnsitivity groups will have the base model prepended.
+Sensitivity groups will have the base model prepended.
 }

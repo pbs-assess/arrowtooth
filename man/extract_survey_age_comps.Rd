@@ -23,8 +23,9 @@ by \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} for names of surv
 Extract the survey age proportions for pasting into the iSCAM data file.
 }
 \examples{
-\dontrun
+\dontrun{
 survey_sets <- gfdata::get_survey_sets("arrowtooth flounder")
 survwy_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 extract_survey_age_comps(catch_sets = survey_sets, samples = survey_samples)
+}
 }

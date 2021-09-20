@@ -77,7 +77,8 @@ so \code{comm_samples} is required
 The CV can be calculated as CV = SD / MEAN or from the Standard error: CV = sqrt(exp(SE^2) - 1)
 }
 \examples{
-\dontrun
+\dontrun{
 si <- gfdata::get_survey_index("arrowtooth flounder")
 extract_survey_indices (survey_index, start_year = 1996, end_year = 2019, species_category = 1)
+}
 }

@@ -31,7 +31,7 @@ to be compared with each other in the document. This simplifies plotting and tab
 Load models and set up the directory names
 }
 \examples{
-\dontrun
+\dontrun{
 library(gfiscamutils)
 bridge_models_dirs <- c("01-base", "02-bridge-update-data")
 sens_models_dirs <- list(c("01-base", "02-bridge-update-data"),
@@ -42,4 +42,5 @@ main_dirs <- set_dirs(base_model_dir = "base",
 delete_files_ext(main_dirs$models, ext = "rds") # optional, shown for exposure
 model_setup <- function(main_dirs,
                         overwrite_rds_files = TRUE)
+}
 }

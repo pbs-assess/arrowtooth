@@ -20,9 +20,10 @@
 #' @export
 #'
 #' @examples
-#' \dontrun
+#' \dontrun{
 #' si <- gfdata::get_survey_index("arrowtooth flounder")
 #' extract_survey_indices (survey_index, start_year = 1996, end_year = 2019, species_category = 1)
+#' }
 extract_survey_indices <- function(survey_index,
                                    surv_series = c(2, 3, 4, 5, 17),
                                    surv_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),

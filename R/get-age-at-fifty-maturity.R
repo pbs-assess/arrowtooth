@@ -31,9 +31,10 @@
 #' @export
 #'
 #' @examples
-#' \dontrun
+#' \dontrun{
 #' survey_samples <- gfdata::get_survey_samples("arrowtooth flounder")
 #' get_age_at_50_mat(survey_samples)
+#' }
 get_age_at_50_mat <- function(surv,
                               surv_series = 1:4,
                               maturity_code = 5,
