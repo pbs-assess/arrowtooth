@@ -117,22 +117,7 @@ sp <- "Arrowtooth flounder"
 
 # This is a vector of bridge models that will be plotted against each other.
 # This must either be NULL or set to a vector of directories
-bridge_models_dirs <- list(# One fleet, one sex,
-                           c("01-base",
-                             "02-bridge-update-data-to-2014",
-                             "03-bridge-update-data-to-2021",
-                             "04-bridge-add-discard-cpue"),
-                           # One fleet, two sex,
-                           c("04-bridge-add-discard-cpue",
-                             "05-bridge-convert-to-splitsex",
-                             "06-bridge-fishing-year-feb-21-feb-20",
-                             "10-bridge-fix-m-2-35"),
-                           # Two fleet, one sex,
-                           c("03-bridge-update-data-to-2021",
-                             "50-bridge-2fleet-update-data-to-2021",
-                             "51-bridge-2fleet-add-discard-cpue"),
-                           # Two fleet, two sex,
-                           c("01-base",
+bridge_models_dirs <- list(c("01-base",
                              "02-bridge-update-data-to-2014",
                              "03a-bridge-update-data-to-2021-mvl",
                              "03b-bridge-add-wchg",
@@ -142,21 +127,8 @@ bridge_models_dirs <- list(# One fleet, one sex,
                              "52-bridge-2fleet-convert-to-splitsex",
                              "53-bridge-2fleet-fishing-year-feb-21-feb-20",
                              "57-bridge-2fleet-fix-m-2-35"))
-                             #"58-bridge-2fleet-fix-m-2-35-stitched-surveys",
-                             #"59-bridge-2fleet-fishing-year-feb-21-feb-20-no-qcs"))
 
-bridge_models_text <- list(c("2015 Base model",
-                             "Update data to 2014",
-                             "Update data to 2021",
-                             "Add Discard CPUE index"),
-                           c("Add Discard CPUE index",
-                             "Convert model to split sex",
-                             "Change fishing year to Feb 21 - Feb 20",
-                             "Fix male M=0.35, female M=0.2"),
-                           c("Update data to 2021",
-                             "Change to two-fleet model",
-                             "Add Discard CPUE index (two fleets)"),
-                           c("2015 Base model (one fleet, single sex)",
+bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
                              "Update data to 2014 (one fleet, single sex)",
                              "Update data to 2021 (one fleet, single sex)",
                              "Add WCHG survey index and age comps",
@@ -166,8 +138,6 @@ bridge_models_text <- list(c("2015 Base model",
                              "Convert model to split sex (two fleets, split sex)",
                              "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
                              "Fix male M=0.35, female M=0.2 (two fleets, split sex)"))
-                             #"Replace 3 Synoptic surveys with Stitched",
-                             #"Remove QCS from 'change fishing year' model"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
