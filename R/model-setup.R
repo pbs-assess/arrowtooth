@@ -1,8 +1,8 @@
 #' Set main directories for the project. Check existence of all directories and report.
-#' SEnsitivity groups will have the base model prepended.
+#' Sensitivity groups will have the base model prepended.
 #'
 #' @param nongit_dir The full path containing non-version-controlled things
-#' such as data, model runs from iSCAM, and reference materials
+#' such as data, model runs from iSCAM, and reference materials. Default is "reponame-nongit"
 #' @param models_dir The full path in which the iSCAM model directories are located
 #' @param base_model_dir Name of the base model directory which is a subdirectory of `models`
 #' @param bridge_models_dir Name of the subdirectory of `models_dir` that
@@ -14,12 +14,15 @@
 #' @param sens_models_dirs A vector of subdirectory names in `models_dir/sens_models_dir`
 #'  that each contain an individual iSCAM sensitivity model
 #'
-#' @return A list of five items, the first two are the same as the input arguments.
-#' The third is the full path of the base model directory, the fourth and fifth contain vectors
-#' of the bridge models' directory names and the sensitivity models' directory names respectively
+#' @return A list of seven items, the first two are the same as the input arguments with the same name.
+#' The 3rd is the full path of the base model.
+#' The 4th is the full path of the bridge models directory.
+#' The 5th contains a vector of the full paths to the bridge models which are inside the 4th directory.
+#' The 6th is the full path of the sensitivity models directory.
+#' The 7th contains a vector of the full paths to the sensitivity models which are inside the 6th directory.
 #' @importFrom purrr map_lgl
 #' @export
-set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"),
+set_dirs <- function(nongit_dir = file.path(dirname(here()), paste0(basename(here()), "-nongit")),
                      models_dir = file.path(nongit_dir, "models"),
                      base_model_dir = "base",
                      bridge_models_dir = "001-bridge-models",
@@ -86,7 +89,9 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
   list(nongit_dir = nongit_dir,
        models_dir = models_dir,
        base_model_dir = base_model_dir_full,
+       bridge_models_dir = file.path(models_dir, bridge_models_dir),
        bridge_models_dirs = bridge_models_dirs_full,
+       sens_models_dir = file.path(models_dir, sens_models_dir),
        sens_models_dirs = sens_models_dirs_full)
 }
 
@@ -106,7 +111,7 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #' @importFrom purrr map_chr flatten
 #' @export
 #' @examples
-#' \dontrun
+#' \dontrun{
 #' library(gfiscamutils)
 #' bridge_models_dirs <- c("01-base", "02-bridge-update-data")
 #' sens_models_dirs <- list(c("01-base", "02-bridge-update-data"),
@@ -117,6 +122,7 @@ set_dirs <- function(nongit_dir = file.path(dirname(here()), "arrowtooth-nongit"
 #' delete_files_ext(main_dirs$models, ext = "rds") # optional, shown for exposure
 #' model_setup <- function(main_dirs,
 #'                         overwrite_rds_files = TRUE)
+#' }
 model_setup <- function(main_dirs = NULL,
                         bridge_models_text = NULL,
                         sens_models_text = NULL,
