@@ -119,14 +119,14 @@ sp <- "Arrowtooth flounder"
 # This must either be NULL or set to a vector of directories
 bridge_models_dirs <- list(c("01-base",
                              "02-bridge-update-data-to-2014",
-                             "03a-bridge-update-data-to-2021-mvl",
-                             "03b-bridge-add-wchg",
                              "03-bridge-update-data-to-2021",
-                             "50-bridge-2fleet-update-data-to-2021",
-                             "51-bridge-2fleet-add-discard-cpue",
-                             "52-bridge-2fleet-convert-to-splitsex",
-                             "53-bridge-2fleet-fishing-year-feb-21-feb-20",
-                             "57-bridge-2fleet-fix-m-2-35"))
+                             "04-bridge-add-wchg",
+                             "05-bridge-switch-to-dm-likelihood",
+                             "06-bridge-switch-to-2-fleet-model",
+                             "07-bridge-add-discard-cpue",
+                             "08-bridge-switch-to-split-sex",
+                             "09-bridge-switch-fishing-year-to-feb-21-feb-20",
+                             "10-bridge-fix-m"))
 
 bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
                              "Update data to 2014 (one fleet, single sex)",
