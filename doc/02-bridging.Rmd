@@ -42,7 +42,7 @@ All the models which include data to 2021 (the third through tenth ones) are ver
 
 (ref:fig-bridge-biomass-french) French caption here
 
-```{r bridge-biomass, fig.cap = ifelse(french, "(ref:fig-bridge-biomass-french)", "(ref:fig-bridge-biomass)"), out.width = "100%" , fig.pos="H"}
+```{r bridge-biomass, fig.cap = ifelse(french, "(ref:fig-bridge-biomass-french)", "(ref:fig-bridge-biomass)"), out.width = "100%"}
 mdl_grp <- 1
 cowplot::plot_grid(
   plot_ts_mpd(models$bridge_models[[mdl_grp]],
@@ -103,6 +103,8 @@ Table \@ref(tab:bridge-param-table) shows that the only major difference in lead
 
 The other notable impact model choice has on parameter estimates is fixing the natural mortality parameters to the same values used in the Gulf of Alaska assessment (Male = 0.2, Female = 0.35). This scales all recruitment parameters up. These increases are compensation by the model to account for the increased natural mortality placed on the stock.
 
+Negative log-likelihood (NLL) components of the objective function are listed in Table \@ref(tab:bridge-likelihoods). There is a clear change in the NLL values for the survey indices when the age composition likelihood is changed to Dirichlet-Multinomial, with large positives instead of smaller negative values. These larger positives mean that the age compositions are contributing less to the likelihood than the Multivariate Logistic likelihood method. This is typical of the DM method, for example in the Pacific hake model in 2018 the NLL was approximately 555. The other major difference in these likelihoods occurs when the model is changed to a split-sex configuration and they double. That change is due to there being age compositions for both sexes.
+
 ```{r bridge-param-table, results = 'asis'}
 param_est_mpd_table(
   models$bridge_models[[mdl_grp]],
@@ -116,17 +118,31 @@ param_est_mpd_table(
     "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index. The table follows tracks changes from left to right in the same order as the plots."))
 ```
 
+\begin{landscapepage}
+
+```{r bridge-likelihoods, results = 'asis'}
+likelihood_table(models$bridge_models[[mdl_grp]],
+                 model_col_widths = "4em",
+                 font_size = 5,
+                 format = "latex",
+                 caption = "Negative log likelihoods included in the objective function for each model.")
+mdl_ind <- 9
+```
+\end{landscapepage}
+
+\clearpage
+
+
+
 # Age compositions and effective sample size
 
-The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions.
+The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions. The MVL did not perform well with the addition of two fleets and two sexes. Selectivity on several of the Synoptic surveys had to be fixed in order to get reasonable parameter estimates and/or model convergence. Because of this we decided to implement the Dirichlet Multinomial likelihood into iSCAM.
 
-The Dirichlet-Multinomial ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty.
+The Dirichlet-Multinomial ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty, and that manual weighting and iterative reweighting methods are avoided. It also means that sensitivity models will have the correct weighting automatically, whereas in the past the base model weighting was used. The DM method adds some new parameters to the model which are estimated.
 
-Composition should not be weighted outside the model because it isn't possible ti quantify the process error, which can make up a substantial proportion of the total error. (Francis 2014)
-
+Tables \@ref(tab:bridge-phi-table-9) and \@ref(tab:bridge-phi-table-10) show the effective sample sizes for the models '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' and '`r names(models$bridge_models[[mdl_grp]])[mdl_ind + 1]`' respectively. The effective samples size is calculated as $(200 + 200 * e^{log\_phi}) / (200 + e^{log\_phi})$. The value 200 is a constant that was set as the initial guess for $phi$ in the DM likelihoods. The effective sample sizes for the first model, where M is estimated are slightly higher overall than for the second, where M was fixed.
 
 ```{r bridge-phi-table-9, results = 'asis'}
-mdl_ind <- 9
 param_phi_mpd_table(models$bridge_models[[mdl_grp]],
                     neff = TRUE,
                     which_model = mdl_ind,
@@ -151,102 +167,9 @@ param_phi_mpd_table(models$bridge_models[[mdl_grp]],
                                      "' model by gear, year, and sex. ",
                                      "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ",
                                      "Dashes represent no age comps for those gear/year/sex combinations."))
-```
-
-\begin{landscapepage}
-```{r bridge-likelihoods, results = 'asis'}
-likelihood_table(models$bridge_models[[mdl_grp]],
-                 model_col_widths = "4em",
-                 font_size = 5,
-                 format = "latex",
-                 caption = "Negative log likelihoods included in the objective function for each model.")
-```
-\end{landscapepage}
-
-\clearpage
-
-# Selectivities
-
-## Selectivity figures for all models
-
-(ref:fig-bridge-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears. The dashed blue and red lines are the male and female maturity ogives respectively, the blue and red lines with points are the yearly selectivity estimates for males and females respectively. The Discard CPUE and HSMSA indices have fixed selectivities in all models. This plot shows models 1-5.
-
-```{r bridge-selectivities, fig.cap = "(ref:fig-bridge-selectivities)"}
-sub_lst1 <- models$bridge_models[[mdl_grp]][1:5]
-nms_sub_lst1 <- names(models$bridge_models[[mdl_grp]])[1:5]
-sub_lst2 <- models$bridge_models[[mdl_grp]][6:10]
-nms_sub_lst2 <- names(models$bridge_models[[mdl_grp]])[6:10]
-plist <- map2(sub_lst1, nms_sub_lst1, ~{
-  plot_selex(.x, show_maturity = TRUE, title = .y) +
-    theme(plot.title = element_text(face = "bold", size = 12),
-          axis.text.x = element_text(size = 6),
-          strip.text.x = element_text(size = 6))
-})
-n <- length(plist)
-nrow <- floor(sqrt(n))
-do.call("grid.arrange", c(plist, ncol = nrow))
-```
-
-(ref:fig-bridge-selectivities-2) Selectivity plots for models 6-10.
-
-```{r bridge-selectivities-2, fig.cap = "(ref:fig-bridge-selectivities-2)"}
-plist <- map2(sub_lst2, nms_sub_lst2, ~{
-  plot_selex(.x, show_maturity = TRUE, title = .y) +
-    theme(plot.title = element_text(face = "bold", size = 12),
-          axis.text.x = element_text(size = 6),
-          strip.text.x = element_text(size = 6))
-})
-n <- length(plist)
-nrow <- floor(sqrt(n))
-do.call("grid.arrange", c(plist, ncol = nrow))
-```
-
-## Selectivity fits for select models
-
-(ref:fig-bridge-selectivity-possible-base) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`` model'.
-
-```{r selectivity-possible-base, fig.cap = "(ref:fig-bridge-selectivity-possible-base)"}
-plot_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
-           show_maturity = TRUE,
-           title = names(models$bridge_models[[mdl_grp]])[mdl_ind]) +
-  theme(plot.title = element_text(face = "bold", size = 12),
-        axis.text.x = element_text(size = 6),
-        strip.text.x = element_text(size = 6))
-```
-
-(ref:fig-bridge-selectivity-possible-base-2) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[10]`` model'.
-
-```{r selectivity-possible-base-2, fig.cap = "(ref:fig-bridge-selectivity-possible-base-2)"}
-mdl_ind <- 10
-plot_selex(models$bridge_models[[mdl_grp]][[10]],
-           show_maturity = TRUE,
-           title = names(models$bridge_models[[mdl_grp]])[mdl_ind]) +
-  theme(plot.title = element_text(face = "bold", size = 12),
-        axis.text.x = element_text(size = 6),
-        strip.text.x = element_text(size = 6))
-```
-
-\clearpage
-
-```{r bridge-sel-param-table, results = 'asis'}
-sel_param_est_mpd_table(
-  models$bridge_models[[mdl_grp]],
-  format = "latex",
-  digits = 3,
-  font_size = 7,
-  model_col_widths = "5em",
-  caption = ifelse(
-    french,
-    "French goes here",
-    "A comparison of Bridge model selectivity parameter estimates.")) %>%
-  column_spec(1, width = "8em")
-
 mdl_ind <- 9
 ```
-
 \clearpage
-
-# Age Composition fits
 
 ## Age comp fits, model `r names(models$bridge_models[[mdl_grp]])[mdl_ind]`
 
@@ -285,6 +208,8 @@ plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 7)
 mdl_ind <- 10
 ```
+
+\clearpage
 
 ## Age comp fits, model `r names(models$bridge_models[[mdl_grp]])[mdl_ind]`
 
@@ -325,7 +250,7 @@ mdl_ind <- 9
 ```
 \clearpage
 
-# Age composition data for all models
+## Age composition data for all models
 
 (ref:fig-bridge-age-comp-2) Weighted age compositions for the 'FT COMM' fleet.
 
@@ -341,7 +266,7 @@ tidy_ages_weighted(comm_ft,
 
 (ref:fig-bridge-age-comp-3) Weighted age compositions for the 'WB COMM' fleet.
 
-```{r bridge-agecomp-3, fig.cap = "(ref:fig-bridge-age-comp-3)"}
+```{r bridge-agecomp-3, fig.cap = "(ref:fig-bridge-age-comp-3)", fig.pos = "H"}
 comm_nonft <- extract_fleet_samples(commercial_samples, include = FALSE)
 catch_nonft <- extract_fleet_catch(catch, include = FALSE)
 
@@ -392,4 +317,88 @@ tidy_ages_weighted(survey_samples,
 ```
 
 \clearpage
+
+# Selectivities
+
+## Selectivity figures for all models
+
+(ref:fig-bridge-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears. The dashed red lines are the female maturity ogives, the red lines with points are the yearly selectivity estimates for females. The Discard CPUE and HSMSA indices have fixed selectivities in all models. This plot shows models 1-5.
+
+```{r bridge-selectivities, fig.cap = "(ref:fig-bridge-selectivities)", out.height = "7in"}
+sub_lst1 <- models$bridge_models[[mdl_grp]][1:5]
+nms_sub_lst1 <- names(models$bridge_models[[mdl_grp]])[1:5]
+sub_lst2 <- models$bridge_models[[mdl_grp]][6:10]
+nms_sub_lst2 <- names(models$bridge_models[[mdl_grp]])[6:10]
+plist <- map2(sub_lst1, nms_sub_lst1, ~{
+  plot_selex(.x, show_maturity = TRUE, title = .y) +
+    theme(plot.title = element_text(face = "bold", size = 12),
+          axis.text.x = element_text(size = 6),
+          strip.text.x = element_text(size = 6))
+})
+n <- length(plist)
+nrow <- floor(sqrt(n))
+do.call("grid.arrange", c(plist, ncol = nrow))
+```
+
+(ref:fig-bridge-selectivities-2) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears. Blue and red represent male and female respectively. This plot shows models 6-10.
+
+```{r bridge-selectivities-2, fig.cap = "(ref:fig-bridge-selectivities-2)", out.height = "7in", fig.pos = "H"}
+plist <- map2(sub_lst2, nms_sub_lst2, ~{
+  plot_selex(.x, show_maturity = TRUE, title = .y) +
+    theme(plot.title = element_text(face = "bold", size = 12),
+          axis.text.x = element_text(size = 6),
+          strip.text.x = element_text(size = 6))
+})
+n <- length(plist)
+nrow <- floor(sqrt(n))
+do.call("grid.arrange", c(plist, ncol = nrow))
+```
+
+\clearpage
+
+## Selectivity fits for select models
+
+(ref:fig-bridge-selectivity-possible-base) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`` model'.
+
+```{r selectivity-possible-base, fig.cap = "(ref:fig-bridge-selectivity-possible-base)"}
+plot_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+           show_maturity = TRUE,
+           title = names(models$bridge_models[[mdl_grp]])[mdl_ind]) +
+  theme(plot.title = element_text(face = "bold", size = 12),
+        axis.text.x = element_text(size = 6),
+        strip.text.x = element_text(size = 6))
+```
+
+(ref:fig-bridge-selectivity-possible-base-2) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[10]`` model'.
+
+```{r selectivity-possible-base-2, fig.cap = "(ref:fig-bridge-selectivity-possible-base-2)", fig.pos = "H"}
+mdl_ind <- 10
+plot_selex(models$bridge_models[[mdl_grp]][[10]],
+           show_maturity = TRUE,
+           title = names(models$bridge_models[[mdl_grp]])[mdl_ind]) +
+  theme(plot.title = element_text(face = "bold", size = 12),
+        axis.text.x = element_text(size = 6),
+        strip.text.x = element_text(size = 6))
+```
+
+\clearpage
+
+```{r bridge-sel-param-table, results = 'asis'}
+sel_param_est_mpd_table(
+  models$bridge_models[[mdl_grp]],
+  format = "latex",
+  digits = 3,
+  font_size = 7,
+  model_col_widths = "5em",
+  caption = ifelse(
+    french,
+    "French goes here",
+    "A comparison of Bridge model selectivity parameter estimates.")) %>%
+  column_spec(1, width = "8em")
+
+mdl_ind <- 9
+```
+
+\clearpage
+
 
