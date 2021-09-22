@@ -127,6 +127,7 @@ bridge_models_dirs <- list(c("01-base",
                              "08-bridge-switch-to-split-sex",
                              "09-bridge-switch-fishing-year-to-feb-21-feb-20",
                              "10-bridge-fix-m"))
+                             #"11-bridge-remove-wchg-from-09"))
 
 bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
                              "Update data to 2014 (one fleet, single sex)",
@@ -138,6 +139,7 @@ bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
                              "Convert model to split sex (two fleets, split sex)",
                              "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
                              "Fix male M=0.35, female M=0.2 (two fleets, split sex)"))
+                             #"Remove WCHG survey index and age comps"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
