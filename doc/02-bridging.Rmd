@@ -20,7 +20,7 @@ Each model in this list is based on the previous one with only one change made s
 
 1. Change the model to two fleets. This splits the commercial trawl catch into catch from Freezer Trawlers (FT COMM) and wet boats (WB COMM).
 
-1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for `r sp` and therefore were discarding all that they caught incidentally. The selectivity could not be estimated for this index since there are no age composition data fro it, so its selectivity was fixed to values representative of other estimated selectivities from other gears (Table \@ref(tab:bridge-sel-param-table)).
+1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for `r sp` and therefore were discarding all that they caught incidentally. The selectivity could not be estimated for this index since there are no age composition data for it, so its selectivity was fixed to values representative of other estimated selectivities from other gears (Table \@ref(tab:bridge-sel-param-table)).
 
 1. Convert model to split-sex.
 
@@ -30,7 +30,7 @@ Each model in this list is based on the previous one with only one change made s
 
 # Biomass and Recruitment
 
-The absolute and relative biomass plots (Figure \@ref(fig:bridge-biomass)) show that the data that were available in 2014 when the 2015 stock assessment was being prepared produced a model with increasing biomass, partly due to the indices being at high levels and partly because the recruitment (Figure \@ref(fig:bridge-recruitment)) was being predicted as quite large for 2012. The large 2012 recruitment estimate was due to the high uncertainty from lack of data in that model. This can be seen in Figure 21 of the 2015 assessment (@grandin2017) which shows the large uncertainty around the 2012 recruitment for the MCMC estimates of recruitment. iSCAM will add biomass through an increased recruitment event when data are limited and biomass has to be accounted for to fit the indices. There were 18 years of catch data and only a few index points available at the time the 2015 model was run.
+The absolute and relative biomass plots (Figure \@ref(fig:bridge-biomass)) show that the data that were available in 2014 when the 2015 stock assessment was being prepared produced a model with increasing biomass, partly due to the indices being at high levels and partly because the 2012 recruitment (Figure \@ref(fig:bridge-recruitment)) is being estimated as larger than normal. This can be seen in Figure 21 of the 2015 assessment (@grandin2017) which shows the large uncertainty around the 2012 recruitment for the MCMC estimates of recruitment. The MPD estimate from the current model with the old data only is within the uncertainty shown in the 2015 assessment. The 2012 recruitment estimate is much smaller, and likely more realistic when data from 2015-2021 are added. This discrepancy is due to the model in 2015 attempting to account for the flat and increasing indices (Figure 12, @grandin2017) despite large catches by inflating recruitment for a year near the end of the time series.
 
 Note that the extra large recruitment for 2014 which is not fully exposed in the figure (~3.5 million) was never included in the model output advice in 2015 because iSCAM overwrites the final year recruitment with an average recruitment in the projection model for the final year.
 
@@ -74,7 +74,7 @@ The West Coast Vancouver Island Synoptic survey (SYN WCVI) has some large swings
 
 The Discard CPUE (DCPUE) has the most data points of any index of abundance and gives the clearest view of the biomass trend. It is the best-fitting index in this model. This index is clearly driving the model fits as the same pattern can be seen in fits to other survey indices.
 
-The $q$ estimates range from 0.1 to 0.25 for all of these models and surveys (Table \@ref(tab:bridge-param-table)), with the exception of the West Coast Haida Gwaii Synoptic survey (SYN WCHG) which has very low $q$ estimates. Selectivity for the WCHG survey was difficult to estimate due to there being only two years' worth of age composition data for it.
+The $q$ estimates range from 0.1 to 0.25 for all of these models and surveys (Table \@ref(tab:bridge-param-table)), with the exception of the West Coast Haida Gwaii Synoptic survey (SYN WCHG) which has very low $q$ estimates. Selectivity for the WCHG survey was difficult to estimate due to there being only two years of age composition data for it.
 
 (ref:fig-bridge-index-fits) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only.
 
@@ -99,7 +99,7 @@ plot_index_fit_mpd(models$bridge_models[[mdl_grp]],
 
 # Parameter estimates
 
-Table \@ref(tab:bridge-param-table) shows that the only major difference in leading parameter estimates occurs with the addition of the 2015-2021 data (third column). This is expected, with the index trajectories descending and catch being reduced each year since 2014. The entire biomass trajectory is scaled down due to the estimate or $R_0$ being so much less than it was in 2015. The 2012 estimate of $R_0$ was inflated due to uncertainty introduced by lack of data.
+Table \@ref(tab:bridge-param-table) shows that the only major difference in leading parameter estimates occurs with the addition of the 2015-2021 data (third column). This is expected, with the index trajectories descending and catch being reduced each year since 2014. The entire biomass trajectory is scaled down due to the estimate or $R_0$ being so much less than it was in 2015. The 2012 recruitment estimate was inflated due to uncertainty introduced by lack of data.
 
 The other notable impact model choice has on parameter estimates is fixing the natural mortality parameters to the same values used in the Gulf of Alaska assessment (Male = 0.2, Female = 0.35). This scales all recruitment parameters up. These increases are compensation by the model to account for the increased natural mortality placed on the stock.
 
@@ -138,9 +138,9 @@ mdl_ind <- 9
 
 All the bridging models were able to estimate all selectivities for gears which had age compositions. The Hecate Strait Multispecies Assemblage survey (OTHER HSMSA) and Discard CPUE (DCPUE) indices do not have age compositions and have fixed selectivity values. The DCPUE index is a time series of the yearly sum of discarded fish on non-targeted tows. None of those discarded fish were sampled for age. They were sampled for sex prior to being discarded and those data were used in the proportion female analysis to determine proportion of catch for the single sex models.
 
-The WCHG Synoptic survey had estimates of selectivity which are quite a bit different than the other indices. The age-at-50% ranged from 25.73 for the '`r names(models$bridge_models[[mdl_grp]])[4]`' model to 3.25 and 2.13 for the '`r names(models$bridge_models[[mdl_grp]])[9]`' and '`r names(models$bridge_models[[mdl_grp]])[10]`' models.
+The WCHG Synoptic survey had estimates of selectivity which are quite a bit different than the other indices. The age-at-50% ranged from 25.73 for the '`r names(models$bridge_models[[mdl_grp]])[4]`' model to 3.25 for the '`r names(models$bridge_models[[mdl_grp]])[9]`' model (Table \@ref(tab:bridge-sel-param-table) and Figures \@ref(fig:bridge-selectivities) - \@ref(fig:selectivity-possible-base-2)).
 
-In the previous iteration of this bridging, the Dirichlet Multinomial likelihood was not implemented yet and all models were using the Multivariate Logistic likelihood, which did not allow for estimation of all selectivities simultaneously for models with two fleets and split sex.
+In the previous iteration of this bridging analysis, the Dirichlet Multinomial likelihood for age composition weighting was not implemented yet and all models were using the Multivariate Logistic likelihood, which did not allow for estimation of all selectivities simultaneously for models with two fleets and split sex.
 
 ## Selectivity figures for all models
 
@@ -225,9 +225,9 @@ mdl_ind <- 9
 
 # Age compositions and effective sample size
 
-The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions. The MVL did not perform well in the models with two fleets and two sexes. Selectivity on several of the Synoptic surveys had to be fixed in order to get reasonable parameter estimates and/or model convergence. Because of this we decided to implement the Dirichlet Multinomial likelihood into iSCAM.
+The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions. The MLN did not perform well in the models with two fleets and two sexes. Selectivity on several of the Synoptic surveys had to be fixed in order to get reasonable parameter estimates and/or model convergence. Due to these issues, we decided to implement the Dirichlet Multinomial likelihood in iSCAM.
 
-The Dirichlet-Multinomial ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty, and that manual weighting and iterative reweighting methods are avoided. It also means that sensitivity and retrospective models will have the correct weighting automatically, whereas in the past the base model weightings were used for sensitivities and retrospectives. The 'saturating' DM method (@thorson2017) adds one new estimated parameter for each gear/year combination with age composition data to the model.
+The Dirichlet-Multinomial ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty, and that manual weighting and iterative reweighting methods are avoided. It also means that sensitivity and retrospective models will have the correct weighting automatically, whereas in the past the base model weightings were used for sensitivities and retrospectives because manually reweighting them all took too much time. We implemented the 'saturating' DM method (@thorson2017) which adds one new estimated parameter for each gear/year combination with age composition data to the model.
 
 Tables \@ref(tab:bridge-phi-table-9) and \@ref(tab:bridge-phi-table-10) show the effective sample sizes for the models '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' and '`r names(models$bridge_models[[mdl_grp]])[mdl_ind + 1]`' respectively. The effective samples size in the table is calculated as $(N_{eff} + N_{eff} * e^{log\_phi}) / (N_{eff} + e^{log\_phi})$, where $log\_phi$ is an estimated parameter of the DM likelihood and $N_{eff}$ is set before running the model. A value of $N_{eff} = 130$ was arrived upon by the following iterative method.
 
@@ -354,18 +354,18 @@ plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 3)
 (ref:fig-bridge-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
 
 ```{r bridge-agefit-5, fig.cap = "(ref:fig-bridge-age-fit-5)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
+plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 4)
 ```
 (ref:fig-bridge-age-fit-6) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
 
 ```{r bridge-agefit-6, fig.cap = "(ref:fig-bridge-age-fit-6)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
+plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 ```
 
 (ref:fig-bridge-age-fit-7) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
 
 ```{r bridge-agefit-7, fig.cap = "(ref:fig-bridge-age-fit-7)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 7)
+plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
 mdl_ind <- 10
 ```
 
@@ -396,20 +396,360 @@ plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 3)
 (ref:fig-bridge-age-fit-5-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
 
 ```{r bridge-agefit-5-1, fig.cap = "(ref:fig-bridge-age-fit-5-1)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
+plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 4)
 ```
 (ref:fig-bridge-age-fit-6-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
 
 ```{r bridge-agefit-6-1, fig.cap = "(ref:fig-bridge-age-fit-6-1)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
+plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 ```
 
 (ref:fig-bridge-age-fit-7-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
 
 ```{r bridge-agefit-7-1, fig.cap = "(ref:fig-bridge-age-fit-7-1)"}
-plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 7)
+plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
+mdl_ind <- 9
 ```
 \clearpage
+
+## Age composition residuals
+
+### Age composition residuals for  '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model
+
+(ref:fig-bridge-age-resid-1) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear.
+
+```{r bridge-age-resid-1, fig.cap = "(ref:fig-bridge-age-resid-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 1
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+                             gear = gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", FT COMM"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-0.5, 0.5)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+                             gear = gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-0.5, 0.5)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+                             gear = gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-0.5, 0.5)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid-2) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear.
+
+```{r bridge-age-resid-2, fig.cap = "(ref:fig-bridge-age-resid-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 2
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", WB COMM"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid-3) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear.
+
+```{r bridge-age-resid-3, fig.cap = "(ref:fig-bridge-age-resid-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 3
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN QCS"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid-4) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
+
+```{r bridge-age-resid-4, fig.cap = "(ref:fig-bridge-age-resid-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 4
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN HS"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid-5) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
+
+```{r bridge-age-resid-5, fig.cap = "(ref:fig-bridge-age-resid-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 5
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCVI"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid-6) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
+
+```{r bridge-age-resid-6, fig.cap = "(ref:fig-bridge-age-resid-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 6
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCHG"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+mdl_ind <- 10
+```
+\clearpage
+
+
+### Age composition residuals for  '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model
+
+(ref:fig-bridge-age-resid1-1) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear.
+
+```{r bridge-age-resid1-1, fig.cap = "(ref:fig-bridge-age-resid1-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 1
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+                             gear = gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", FT COMM"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-0.5, 0.5)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+                             gear = gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-0.5, 0.5)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+                             gear = gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-0.5, 0.5)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid1-2) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear.
+
+```{r bridge-age-resid1-2, fig.cap = "(ref:fig-bridge-age-resid1-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 2
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", WB COMM"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid1-3) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear.
+
+```{r bridge-age-resid1-3, fig.cap = "(ref:fig-bridge-age-resid1-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 3
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN QCS"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid1-4) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
+
+```{r bridge-age-resid1-4, fig.cap = "(ref:fig-bridge-age-resid1-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 4
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN HS"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid1-5) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
+
+```{r bridge-age-resid1-5, fig.cap = "(ref:fig-bridge-age-resid1-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 5
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCVI"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
+(ref:fig-bridge-age-resid1-6) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
+
+```{r bridge-age-resid1-6, fig.cap = "(ref:fig-bridge-age-resid1-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+gear <- 6
+cowplot::plot_grid(
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCHG"),
+                             type = "pearson",
+                             pearson_type = "age") +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "year") +
+    ylab("Standardized Residuals") +
+    theme(axis.title.y = element_text(size = 24)) +
+    coord_cartesian(ylim = c(-1, 1)),
+
+  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
+                             type = "pearson",
+                             pearson_type = "birthyear") + 
+    coord_cartesian(ylim = c(-1, 1)),
+  
+  ncol = 1)
+```
+\clearpage
+
 
 ## Age composition data for all models
 
@@ -490,7 +830,7 @@ Using that model as a base, we fixed the natural mortality to 0.2 for males and 
 
 The QCS survey index is not fit well at all in the recent part of the time series. It can either be left in or removed, it doesn't make much difference in the model outputs, but there are approximately 640 ages contributing to the age compositions for that index.
 
-The WCHG survey index had several (related) issues, including lack of a decent age fit and inability for the model to estimate reasonable selectivity. We recommend leaving it out of this model. Removing it has virtually no affect on the outputs of the model.
+The WCHG survey index had several (related) issues, including lack of a decent age fit and inability for the model to estimate reasonable selectivity and catchability. We recommend leaving it out of this model. Removing it has virtually no affect on the outputs of the model.
 
 \
 \
