@@ -420,29 +420,12 @@ mdl_ind <- 9
 
 ```{r bridge-age-resid-1, fig.cap = "(ref:fig-bridge-age-resid-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 1
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
-                             gear = gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", FT COMM"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-0.5, 0.5)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
-                             gear = gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-0.5, 0.5)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
-                             gear = gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-0.5, 0.5)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-0.5, 0.5),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -450,26 +433,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid-2, fig.cap = "(ref:fig-bridge-age-resid-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 2
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", WB COMM"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -477,26 +446,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid-3, fig.cap = "(ref:fig-bridge-age-resid-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 3
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN QCS"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -504,26 +459,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid-4, fig.cap = "(ref:fig-bridge-age-resid-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 4
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN HS"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -531,26 +472,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid-5, fig.cap = "(ref:fig-bridge-age-resid-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 5
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCVI"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -558,26 +485,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid-6, fig.cap = "(ref:fig-bridge-age-resid-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 6
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCHG"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 mdl_ind <- 10
 ```
 \clearpage
@@ -589,29 +502,12 @@ mdl_ind <- 10
 
 ```{r bridge-age-resid1-1, fig.cap = "(ref:fig-bridge-age-resid1-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 1
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
-                             gear = gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", FT COMM"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-0.5, 0.5)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
-                             gear = gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-0.5, 0.5)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]],
-                             gear = gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-0.5, 0.5)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-0.5, 0.5),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -619,26 +515,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid1-2, fig.cap = "(ref:fig-bridge-age-resid1-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 2
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", WB COMM"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -646,26 +528,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid1-3, fig.cap = "(ref:fig-bridge-age-resid1-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 3
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN QCS"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -673,26 +541,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid1-4, fig.cap = "(ref:fig-bridge-age-resid1-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 4
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN HS"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -700,26 +554,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid1-5, fig.cap = "(ref:fig-bridge-age-resid1-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 5
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCVI"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
@@ -727,26 +567,12 @@ cowplot::plot_grid(
 
 ```{r bridge-age-resid1-6, fig.cap = "(ref:fig-bridge-age-resid1-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 6
-cowplot::plot_grid(
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             model_name = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", SYN WCHG"),
-                             type = "pearson",
-                             pearson_type = "age") +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "year") +
-    ylab("Standardized Residuals") +
-    theme(axis.title.y = element_text(size = 24)) +
-    coord_cartesian(ylim = c(-1, 1)),
-
-  plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], gear,
-                             type = "pearson",
-                             pearson_type = "birthyear") + 
-    coord_cartesian(ylim = c(-1, 1)),
-  
-  ncol = 1)
+plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
+                                  model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                                  gear = gear,
+                                  ylim_age = c(-1, 1),
+                                  ylim_year = c(-1, 1),
+                                  ylim_birthyear = c(-1, 1))
 ```
 \clearpage
 
