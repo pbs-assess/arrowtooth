@@ -423,9 +423,9 @@ gear <- 1
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-0.5, 0.5),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -436,9 +436,9 @@ gear <- 2
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -449,9 +449,9 @@ gear <- 3
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -462,9 +462,9 @@ gear <- 4
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -475,9 +475,9 @@ gear <- 5
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -488,9 +488,9 @@ gear <- 6
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 mdl_ind <- 10
 ```
 \clearpage
@@ -505,9 +505,9 @@ gear <- 1
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-0.5, 0.5),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -518,9 +518,9 @@ gear <- 2
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -531,9 +531,9 @@ gear <- 3
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -544,9 +544,9 @@ gear <- 4
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -557,9 +557,9 @@ gear <- 5
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
@@ -570,9 +570,9 @@ gear <- 6
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
                                   gear = gear,
-                                  ylim_age = c(-1, 1),
-                                  ylim_year = c(-1, 1),
-                                  ylim_birthyear = c(-1, 1))
+                                  ylim_age = c(-5, 5),
+                                  ylim_year = c(-5, 5),
+                                  ylim_birthyear = c(-5, 5))
 ```
 \clearpage
 
