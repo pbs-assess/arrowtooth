@@ -86,6 +86,43 @@ plot_index_fit_mpd(models$bridge_models[[mdl_grp]],
                    legend_title = "Bridge models")
 ```
 
+## Index residuals
+
+(ref:fig-bridge-index-resid-qcs) Maximum Posterior Density (MPD) residuals for the QCS survey index.
+
+```{r bridge-index-resids-qcs, fig.cap = "(ref:fig-bridge-index-resid-qcs)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN QCS")
+```
+(ref:fig-bridge-index-resid-hs) Maximum Posterior Density (MPD) residuals for the HS survey index.
+
+```{r bridge-index-resids-hs, fig.cap = "(ref:fig-bridge-index-resid-hs)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN HS")
+```
+
+(ref:fig-bridge-index-resid-msa) Maximum Posterior Density (MPD) residuals for the MSA survey index.
+
+```{r bridge-index-resids-msa, fig.cap = "(ref:fig-bridge-index-resid-msa)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "OTHER HS MSA")
+```
+(ref:fig-bridge-index-resid-wcvi) Maximum Posterior Density (MPD) residuals for the WCVI survey index.
+
+```{r bridge-index-resids-wcvi, fig.cap = "(ref:fig-bridge-index-resid-wcvi)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN WCVI")
+```
+
+(ref:fig-bridge-index-resid-wchg) Maximum Posterior Density (MPD) residuals for the WCHG survey index.
+
+```{r bridge-index-resids-wchg, fig.cap = "(ref:fig-bridge-index-resid-wchg)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN WCHG")
+```
+(ref:fig-bridge-index-resid-dcpue) Maximum Posterior Density (MPD) residuals for the DCPUE index.
+
+```{r bridge-index-resids-dcpue, fig.cap = "(ref:fig-bridge-index-resid-dcpue)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "DCPUE", angle_x_labels = TRUE)
+```
+
+\clearpage
+
 <!-- ```{r bridge-param-settings-table, results = 'asis'} -->
 <!-- param_settings_table( -->
 <!--   models$bridge_models[[mdl_grp]][[2]], -->
@@ -333,36 +370,36 @@ mdl_ind <- 9
 
 The age composition fits for this model are shown in Figures \@ref(fig:bridge-agefit-1) - \@ref(fig:bridge-agefit-7). All fits are reasonable with exception of Figure \@ref(fig:bridge-agefit-7), the WCHG survey. There are only two years of age data for this survey and the catchability estimates are very low (Table \@ref(tab:bridge-param-table)).
 
-(ref:fig-bridge-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear.
+(ref:fig-bridge-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-1, fig.cap = "(ref:fig-bridge-age-fit-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 1)
 ```
 
-(ref:fig-bridge-age-fit-2) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear.
+(ref:fig-bridge-age-fit-2) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-2, fig.cap = "(ref:fig-bridge-age-fit-2)", fig.asp = 1.4}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 2)
 ```
 
-(ref:fig-bridge-age-fit-3) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear.
+(ref:fig-bridge-age-fit-3) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-3, fig.cap = "(ref:fig-bridge-age-fit-3)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 3)
 ```
 
-(ref:fig-bridge-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
+(ref:fig-bridge-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-5, fig.cap = "(ref:fig-bridge-age-fit-5)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 4)
 ```
-(ref:fig-bridge-age-fit-6) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
+(ref:fig-bridge-age-fit-6) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-6, fig.cap = "(ref:fig-bridge-age-fit-6)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 ```
 
-(ref:fig-bridge-age-fit-7) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
+(ref:fig-bridge-age-fit-7) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-7, fig.cap = "(ref:fig-bridge-age-fit-7)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
@@ -375,36 +412,36 @@ mdl_ind <- 10
 
 The age composition fits for this fixed M model are very similar to those in the estimated M model (previous section). This includes the poor fits to the WCHG survey ages.
 
-(ref:fig-bridge-age-fit-1-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear.
+(ref:fig-bridge-age-fit-1-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-1-1, fig.cap = "(ref:fig-bridge-age-fit-1-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 1)
 ```
 
-(ref:fig-bridge-age-fit-2-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear.
+(ref:fig-bridge-age-fit-2-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-2-1, fig.cap = "(ref:fig-bridge-age-fit-2-1)", fig.asp = 1.4}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 2)
 ```
 
-(ref:fig-bridge-age-fit-3-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear.
+(ref:fig-bridge-age-fit-3-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-3-1, fig.cap = "(ref:fig-bridge-age-fit-3-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 3)
 ```
 
-(ref:fig-bridge-age-fit-5-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
+(ref:fig-bridge-age-fit-5-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-5-1, fig.cap = "(ref:fig-bridge-age-fit-5-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 4)
 ```
-(ref:fig-bridge-age-fit-6-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
+(ref:fig-bridge-age-fit-6-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-6-1, fig.cap = "(ref:fig-bridge-age-fit-6-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 ```
 
-(ref:fig-bridge-age-fit-7-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
+(ref:fig-bridge-age-fit-7-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-7-1, fig.cap = "(ref:fig-bridge-age-fit-7-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
