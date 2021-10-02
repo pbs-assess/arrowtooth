@@ -280,91 +280,93 @@ The lower the initial $N_{eff}$, the smaller the likelihood components for age c
 
 The effective sample sizes for the first model, where M is estimated are slightly higher overall than for the second, where M was fixed. The likelihoods for the age comps for the estimated M model are also a little less that for the fixed M model (Table \@ref(tab:bridge-likelihoods)).
 
-<!-- ```{r bridge-phi-table-5, results = 'asis'} -->
-<!-- mdl_ind <- 5 -->
-<!-- param_phi_mpd_table(models$bridge_models[[mdl_grp]], -->
-<!--                     neff = TRUE, -->
-<!--                     which_model = mdl_ind, -->
-<!--                     font_size = 7, -->
-<!--                     format = "latex", -->
-<!--                     caption = paste0("Effective sample sizes by gear for the '", -->
-<!--                                      names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
-<!--                                      "' model by gear, year, and sex. ", -->
-<!--                                      "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ", -->
-<!--                                      "Dashes represent no age comps for those gear/year/sex combinations.")) -->
-<!-- ``` -->
+\begin{landscapepage}
 
-<!-- ```{r bridge-phi-table-6, results = 'asis'} -->
-<!-- mdl_ind <- 6 -->
-<!-- param_phi_mpd_table(models$bridge_models[[mdl_grp]], -->
-<!--                     neff = TRUE, -->
-<!--                     which_model = mdl_ind, -->
-<!--                     font_size = 7, -->
-<!--                     format = "latex", -->
-<!--                     caption = paste0("Effective sample sizes by gear for the '", -->
-<!--                                      names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
-<!--                                      "' model by gear, year, and sex. ", -->
-<!--                                      "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ", -->
-<!--                                      "Dashes represent no age comps for those gear/year/sex combinations.")) -->
-<!-- ``` -->
+```{r bridge-phi-table-5, results = 'asis'}
+mdl_ind <- 5
+param_phi_mpd_table(
+  models$bridge_models[[mdl_grp]][[mdl_ind]],
+  font_size = 7,
+  col_widths = "3em",
+  format = "latex",
+  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
+                   " $log(\\phi)$ for the '",
+                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                   "' model by gear, year, and sex. ",
+                   "Dashes represent no age comps for those gear, year, and sex combinations."))
+```
 
-<!-- ```{r bridge-phi-table-7, results = 'asis'} -->
-<!-- mdl_ind <- 7 -->
-<!-- param_phi_mpd_table(models$bridge_models[[mdl_grp]], -->
-<!--                     neff = TRUE, -->
-<!--                     which_model = mdl_ind, -->
-<!--                     font_size = 7, -->
-<!--                     format = "latex", -->
-<!--                     caption = paste0("Effective sample sizes by gear for the '", -->
-<!--                                      names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
-<!--                                      "' model by gear, year, and sex. ", -->
-<!--                                      "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ", -->
-<!--                                      "Dashes represent no age comps for those gear/year/sex combinations.")) -->
-<!-- ``` -->
+```{r bridge-phi-table-6, results = 'asis'}
+mdl_ind <- 6
+param_phi_mpd_table(
+  models$bridge_models[[mdl_grp]][[mdl_ind]],
+  font_size = 7,
+  col_widths = "3em",
+  format = "latex",
+  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
+                   " $log(\\phi)$ for the '",
+                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                   "' model by gear, year, and sex. ",
+                   "Dashes represent no age comps for those gear, year, and sex combinations."))
+```
 
-<!-- ```{r bridge-phi-table-8, results = 'asis'} -->
-<!-- mdl_ind <- 8 -->
-<!-- param_phi_mpd_table(models$bridge_models[[mdl_grp]], -->
-<!--                     neff = TRUE, -->
-<!--                     which_model = mdl_ind, -->
-<!--                     font_size = 7, -->
-<!--                     format = "latex", -->
-<!--                     caption = paste0("Effective sample sizes by gear for the '", -->
-<!--                                      names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
-<!--                                      "' model by gear, year, and sex. ", -->
-<!--                                      "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ", -->
-<!--                                      "Dashes represent no age comps for those gear/year/sex combinations.")) -->
-<!-- ``` -->
+```{r bridge-phi-table-7, results = 'asis'}
+mdl_ind <- 7
+param_phi_mpd_table(
+  models$bridge_models[[mdl_grp]][[mdl_ind]],
+  font_size = 7,
+  col_widths = "3em",
+  format = "latex",
+  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
+                   " $log(\\phi)$ for the '",
+                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                   "' model by gear, year, and sex. ",
+                   "Dashes represent no age comps for those gear, year, and sex combinations."))
+```
+
+```{r bridge-phi-table-8, results = 'asis'}
+mdl_ind <- 8
+param_phi_mpd_table(
+  models$bridge_models[[mdl_grp]][[mdl_ind]],
+  font_size = 7,
+  col_widths = "3em",
+  format = "latex",
+  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
+                   " $log(\\phi)$ for the '",
+                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                   "' model by gear, year, and sex. ",
+                   "Dashes represent no age comps for those gear, year, and sex combinations."))
+```
 
 ```{r bridge-phi-table-9, results = 'asis'}
 mdl_ind <- 9
-param_phi_mpd_table(models$bridge_models[[mdl_grp]],
-                    neff = TRUE,
-                    which_model = mdl_ind,
-                    font_size = 7,
-                    format = "latex",
-                    caption = paste0("Effective sample sizes by gear for the '",
-                                     names(models$bridge_models[[mdl_grp]])[mdl_ind],
-                                     "' model by gear, year, and sex. ",
-                                     "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ",
-                                     "Dashes represent no age comps for those gear/year/sex combinations."))
+param_phi_mpd_table(
+  models$bridge_models[[mdl_grp]][[mdl_ind]],
+  font_size = 7,
+  col_widths = "3em",
+  format = "latex",
+  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
+                   " $log(\\phi)$ for the '",
+                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                   "' model by gear, year, and sex. ",
+                   "Dashes represent no age comps for those gear, year, and sex combinations."))
 ```
 
 ```{r bridge-phi-table-10, results = 'asis'}
 mdl_ind <- 10
-param_phi_mpd_table(models$bridge_models[[mdl_grp]],
-                    neff = TRUE,
-                    which_model = mdl_ind,
-                    font_size = 7,
-                    format = "latex",
-                    caption = paste0("Effective sample sizes by gear for the '",
-                                     names(models$bridge_models[[mdl_grp]])[mdl_ind],
-                                     "' model by gear, year, and sex. ",
-                                     "Calculated from the $log\\_phi$ parameter of the Dirichlet Multinomial likelihood. ",
-                                     "Dashes represent no age comps for those gear/year/sex combinations."))
+param_phi_mpd_table(
+  models$bridge_models[[mdl_grp]][[mdl_ind]],
+  font_size = 7,
+  col_widths = "3em",
+  format = "latex",
+  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
+                   " $log(\\phi)$ for the '",
+                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
+                   "' model by gear, year, and sex. ",
+                   "Dashes represent no age comps for those gear, year, and sex combinations."))
 mdl_ind <- 9
 ```
-\clearpage
+\end{landscapepage}
 
 ## Age comp fits, model `r names(models$bridge_models[[mdl_grp]])[mdl_ind]`
 
