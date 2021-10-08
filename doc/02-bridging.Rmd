@@ -43,6 +43,8 @@ All the models which include data to 2021 (the third through tenth ones) are ver
 (ref:fig-bridge-biomass-french) French caption here
 
 ```{r bridge-biomass, fig.cap = ifelse(french, "(ref:fig-bridge-biomass-french)", "(ref:fig-bridge-biomass)"), out.width = "100%"}
+# Set this to 9 for bridging doc and 2 for secondary doc
+base_ind <- 9
 mdl_grp <- 1
 cowplot::plot_grid(
   plot_ts_mpd(models$bridge_models[[mdl_grp]],
@@ -165,7 +167,7 @@ likelihood_table(models$bridge_models[[mdl_grp]],
                  font_size = 5,
                  format = "latex",
                  caption = "Negative log likelihoods included in the objective function for each model.")
-mdl_ind <- 9
+mdl_ind <- base_ind
 ```
 \end{landscapepage}
 
@@ -173,19 +175,24 @@ mdl_ind <- 9
 
 # Selectivities
 
-All the bridging models were able to estimate all selectivities for gears which had age compositions. The Hecate Strait Multispecies Assemblage survey (OTHER HSMSA) and Discard CPUE (DCPUE) indices do not have age compositions and have fixed selectivity values. The DCPUE index is a time series of the yearly sum of discarded fish on non-targeted tows. None of those discarded fish were sampled for age. They were sampled for sex prior to being discarded and those data were used in the proportion female analysis to determine proportion of catch for the single sex models.
+All bridging models were able to estimate selectivities for all gears which had age composition data. The Hecate Strait Multispecies Assemblage survey (OTHER HSMSA) and Discard CPUE (DCPUE) indices do not have age compositions and have fixed selectivity values. The DCPUE index is a time series of the yearly sum of discarded fish on non-targeted tows. None of those discarded fish were sampled for age. They were sampled for sex prior to being discarded and those data were used in the proportion female analysis to determine proportion of catch for the single sex models.
 
-The WCHG Synoptic survey had estimates of selectivity which are quite a bit different than the other indices. The age-at-50% ranged from 25.73 for the '`r names(models$bridge_models[[mdl_grp]])[4]`' model to 3.25 for the '`r names(models$bridge_models[[mdl_grp]])[9]`' model (Table \@ref(tab:bridge-sel-param-table) and Figures \@ref(fig:bridge-selectivities) - \@ref(fig:selectivity-possible-base-2)).
+For the split-sex models, the WCHG Synoptic survey had estimates of selectivity which are quite a bit different than the other indices. The age-at-50% ranged dropped from approximately 7 to 3 for the models which include split-sex (Table \@ref(tab:bridge-sel-param-table) and Figures \@ref(fig:bridge-selectivities) -- \@ref(fig:selectivity-possible-base-2)).
 
-In the previous iteration of this bridging analysis, the Dirichlet Multinomial likelihood for age composition weighting was not implemented yet and all models were using the Multivariate Logistic likelihood, which did not allow for estimation of all selectivities simultaneously for models with two fleets and split sex.
+In previous iterations of this bridging analysis, the Dirichlet Multinomial likelihood for age composition weighting was not implemented yet and all models were using the Multivariate Logistic likelihood, which did not allow for estimation of all selectivities simultaneously for models with two fleets and split sex.
 
 ## Selectivity figures for all models
 
 (ref:fig-bridge-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears. The dashed red lines are the female maturity ogives, the red lines with points are the yearly selectivity estimates for females. The Discard CPUE and HSMSA indices have fixed selectivities in all models. This plot shows models 1-5.
 
 ```{r bridge-selectivities, fig.cap = "(ref:fig-bridge-selectivities)", out.height = "7in", fig.pos = "H"}
-sub_lst1 <- models$bridge_models[[mdl_grp]][1:5]
-nms_sub_lst1 <- names(models$bridge_models[[mdl_grp]])[1:5]
+if(base_ind == 9){
+  sub_lst1 <- models$bridge_models[[mdl_grp]][1:3]
+  nms_sub_lst1 <- names(models$bridge_models[[mdl_grp]])[1:3]
+}else if(base_ind == 2){
+  sub_lst1 <- models$bridge_models[[mdl_grp]][1:3]
+  nms_sub_lst1 <- names(models$bridge_models[[mdl_grp]])[1:3]
+}
 plist <- map2(sub_lst1, nms_sub_lst1, ~{
   plot_selex(.x, show_maturity = TRUE, title = .y) +
     theme(plot.title = element_text(face = "bold", size = 12),
@@ -200,17 +207,19 @@ do.call("grid.arrange", c(plist, ncol = nrow))
 (ref:fig-bridge-selectivities-2) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears. Blue and red represent male and female respectively. This plot shows models 6-10.
 
 ```{r bridge-selectivities-2, fig.cap = "(ref:fig-bridge-selectivities-2)", out.height = "7in", fig.pos = "H"}
-sub_lst2 <- models$bridge_models[[mdl_grp]][6:10]
-nms_sub_lst2 <- names(models$bridge_models[[mdl_grp]])[6:10]
-plist <- map2(sub_lst2, nms_sub_lst2, ~{
-  plot_selex(.x, show_maturity = TRUE, title = .y) +
-    theme(plot.title = element_text(face = "bold", size = 12),
-          axis.text.x = element_text(size = 6),
-          strip.text.x = element_text(size = 6))
-})
-n <- length(plist)
-nrow <- floor(sqrt(n))
-do.call("grid.arrange", c(plist, ncol = nrow))
+if(base_ind == 9){
+  sub_lst2 <- models$bridge_models[[mdl_grp]][6:10]
+  nms_sub_lst2 <- names(models$bridge_models[[mdl_grp]])[6:10]
+  plist <- map2(sub_lst2, nms_sub_lst2, ~{
+    plot_selex(.x, show_maturity = TRUE, title = .y) +
+      theme(plot.title = element_text(face = "bold", size = 12),
+            axis.text.x = element_text(size = 6),
+            strip.text.x = element_text(size = 6))
+  })
+  n <- length(plist)
+  nrow <- floor(sqrt(n))
+  do.call("grid.arrange", c(plist, ncol = nrow))
+}
 ```
 
 \clearpage
@@ -231,8 +240,8 @@ plot_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
 (ref:fig-bridge-selectivity-possible-base-2) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[10]`` model'.
 
 ```{r selectivity-possible-base-2, fig.cap = "(ref:fig-bridge-selectivity-possible-base-2)", fig.pos = "H"}
-mdl_ind <- 10
-plot_selex(models$bridge_models[[mdl_grp]][[10]],
+mdl_ind <- base_ind + 1
+plot_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
            show_maturity = TRUE,
            title = names(models$bridge_models[[mdl_grp]])[mdl_ind]) +
   theme(plot.title = element_text(face = "bold", size = 12),
@@ -255,91 +264,85 @@ sel_param_est_mpd_table(
     "A comparison of Bridge model selectivity parameter estimates.")) %>%
   column_spec(1, width = "8em")
 
-mdl_ind <- 9
+mdl_ind <- base_ind
 ```
 
 \clearpage
 
 # Age compositions and effective sample size
 
-The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions. The MLN did not perform well in the models with two fleets and two sexes. Selectivity on several of the Synoptic surveys had to be fixed in order to get reasonable parameter estimates and/or model convergence. Due to these issues, we decided to implement the Dirichlet Multinomial likelihood in iSCAM.
+The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions. The MLN did not perform well in the models with two fleets and two sexes. Selectivity on several of the Synoptic surveys had to be fixed in order to get reasonable parameter estimates and/or model convergence. To address these issues, we decided to implement the Dirichlet Multinomial (DM) likelihood in iSCAM.
 
-The Dirichlet-Multinomial ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty, and that manual weighting and iterative reweighting methods are avoided. It also means that sensitivity and retrospective models will have the correct weighting automatically, whereas in the past the base model weightings were used for sensitivities and retrospectives because manually reweighting them all took too much time. We implemented the 'saturating' DM method (@thorson2017) which adds one new estimated parameter for each gear/year combination with age composition data to the model.
+Incorporating the DM likelihood ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty, and that manual weighting and iterative reweighting methods are avoided. It also means that sensitivity and retrospective models will have the correct weighting automatically, whereas with other methods the base model weightings were typically used for sensitivities and retrospectives because manually running the reweighting methods outside the model took too much time. We implemented the 'saturating' DM method (@thorson2017) which adds one new estimated parameter for each gear/year combination with age composition data to the model.
 
-Tables \@ref(tab:bridge-phi-table-9) and \@ref(tab:bridge-phi-table-10) show the effective sample sizes for the models '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' and '`r names(models$bridge_models[[mdl_grp]])[mdl_ind + 1]`' respectively. The effective samples size in the table is calculated as $(N_{eff} + N_{eff} * e^{log\_phi}) / (N_{eff} + e^{log\_phi})$, where $log\_phi$ is an estimated parameter of the DM likelihood and $N_{eff}$ is set before running the model. A value of $N_{eff} = 130$ was arrived upon by the following iterative method.
+Tables \@ref(tab:bridge-phi-table-9) and \@ref(tab:bridge-phi-table-10) show the actual data-based sample sizes, the estimates of the DM parameter $log(\phi)$, and the effective sample sizes calculated using $log(\phi)$ for the models '`r names(models$bridge_models[[mdl_grp]])[9]`' and '`r names(models$bridge_models[[mdl_grp]])[10]`' respectively. The effective sample size is calculated as $N_{eff} = (N + N * e^{log(\phi)}) / (N + e^{log(\phi)})$, where $log(\phi)$ is an estimated parameter of the DM likelihood and $N$ is the actual sample size in the data (Eq. 9 in @thorson2017). The sample sizes used are actually specimen counts which is permitted by the ().
 
-Start with $N_{eff} = 200$.
+The effective sample sizes for the first model, where $M$ is estimated are slightly higher overall than for the second, where $M$ was fixed. The likelihoods for the age comps for the estimated $M$ model are less than for the fixed $M$ model (Table \@ref(tab:bridge-likelihoods)).
 
-1. Run the MPD model and check the estimated values of $log\_phi$, if none have hit the upper bound, set $N_{eff}$ to a smaller value, 50 less than before and repeat until upper bounds are hit.
+<!-- ```{r bridge-phi-table-5, results = 'asis'} -->
+<!-- mdl_ind <- 5 -->
+<!-- param_phi_mpd_table( -->
+<!--   models$bridge_models[[mdl_grp]][[mdl_ind]], -->
+<!--   font_size = 7, -->
+<!--   col_widths = "3em", -->
+<!--   format = "latex", -->
+<!--   caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ", -->
+<!--                    " $log(\\phi)$ for the '", -->
+<!--                    names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
+<!--                    "' model by gear, year, and sex. ", -->
+<!--                    "The upper bound for the $log(\\phi)$ parameter is 10. ", -->
+<!--                    "Dashes represent no age comps for those gear, year, and sex combinations.")) -->
+<!-- ``` -->
 
-1. If upper bounds were hit, increase the $N_{eff}$ to a higher value, 10 more than before and repeat until upper bounds are not hit.
+<!-- ```{r bridge-phi-table-6, results = 'asis'} -->
+<!-- mdl_ind <- 6 -->
+<!-- param_phi_mpd_table( -->
+<!--   models$bridge_models[[mdl_grp]][[mdl_ind]], -->
+<!--   font_size = 7, -->
+<!--   col_widths = "3em", -->
+<!--   format = "latex", -->
+<!--   caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ", -->
+<!--                    " $log(\\phi)$ for the '", -->
+<!--                    names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
+<!--                    "' model by gear, year, and sex. ", -->
+<!--                    "The upper bound for the $log(\\phi)$ parameter is 10. ", -->
+<!--                    "Dashes represent no age comps for those gear, year, and sex combinations.")) -->
+<!-- ``` -->
 
-1. Once upper bounds are no longer hit, that is the value to use as an initial $N_{eff}$.
+<!-- ```{r bridge-phi-table-7, results = 'asis'} -->
+<!-- mdl_ind <- 7 -->
+<!-- param_phi_mpd_table( -->
+<!--   models$bridge_models[[mdl_grp]][[mdl_ind]], -->
+<!--   font_size = 7, -->
+<!--   col_widths = "3em", -->
+<!--   format = "latex", -->
+<!--   caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ", -->
+<!--                    " $log(\\phi)$ for the '", -->
+<!--                    names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
+<!--                    "' model by gear, year, and sex. ", -->
+<!--                    "The upper bound for the $log(\\phi)$ parameter is 10. ", -->
+<!--                    "Dashes represent no age comps for those gear, year, and sex combinations.")) -->
+<!-- ``` -->
 
-The lower the initial $N_{eff}$, the smaller the likelihood components for age comps in Table \@ref(tab:bridge-likelihoods).
-
-The effective sample sizes for the first model, where M is estimated are slightly higher overall than for the second, where M was fixed. The likelihoods for the age comps for the estimated M model are also a little less that for the fixed M model (Table \@ref(tab:bridge-likelihoods)).
+<!-- ```{r bridge-phi-table-8, results = 'asis'} -->
+<!-- mdl_ind <- 8 -->
+<!-- param_phi_mpd_table( -->
+<!--   models$bridge_models[[mdl_grp]][[mdl_ind]], -->
+<!--   font_size = 7, -->
+<!--   col_widths = "3em", -->
+<!--   format = "latex", -->
+<!--   caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ", -->
+<!--                    " $log(\\phi)$ for the '", -->
+<!--                    names(models$bridge_models[[mdl_grp]])[mdl_ind], -->
+<!--                    "' model by gear, year, and sex. ", -->
+<!--                    "The upper bound for the $log(\\phi)$ parameter is 10. ", -->
+<!--                    "Dashes represent no age comps for those gear, year, and sex combinations.")) -->
+<!-- ``` -->
 
 \begin{landscapepage}
 
-```{r bridge-phi-table-5, results = 'asis'}
-mdl_ind <- 5
-param_phi_mpd_table(
-  models$bridge_models[[mdl_grp]][[mdl_ind]],
-  font_size = 7,
-  col_widths = "3em",
-  format = "latex",
-  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
-                   " $log(\\phi)$ for the '",
-                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
-                   "' model by gear, year, and sex. ",
-                   "Dashes represent no age comps for those gear, year, and sex combinations."))
-```
-
-```{r bridge-phi-table-6, results = 'asis'}
-mdl_ind <- 6
-param_phi_mpd_table(
-  models$bridge_models[[mdl_grp]][[mdl_ind]],
-  font_size = 7,
-  col_widths = "3em",
-  format = "latex",
-  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
-                   " $log(\\phi)$ for the '",
-                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
-                   "' model by gear, year, and sex. ",
-                   "Dashes represent no age comps for those gear, year, and sex combinations."))
-```
-
-```{r bridge-phi-table-7, results = 'asis'}
-mdl_ind <- 7
-param_phi_mpd_table(
-  models$bridge_models[[mdl_grp]][[mdl_ind]],
-  font_size = 7,
-  col_widths = "3em",
-  format = "latex",
-  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
-                   " $log(\\phi)$ for the '",
-                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
-                   "' model by gear, year, and sex. ",
-                   "Dashes represent no age comps for those gear, year, and sex combinations."))
-```
-
-```{r bridge-phi-table-8, results = 'asis'}
-mdl_ind <- 8
-param_phi_mpd_table(
-  models$bridge_models[[mdl_grp]][[mdl_ind]],
-  font_size = 7,
-  col_widths = "3em",
-  format = "latex",
-  caption = paste0("Sample sizes from data ($N$) and effective sample sizes ($N_{eff}$) calculated from the estimated Dirichlet Multinomial parameter ",
-                   " $log(\\phi)$ for the '",
-                   names(models$bridge_models[[mdl_grp]])[mdl_ind],
-                   "' model by gear, year, and sex. ",
-                   "Dashes represent no age comps for those gear, year, and sex combinations."))
-```
-
 ```{r bridge-phi-table-9, results = 'asis'}
-mdl_ind <- 9
+mdl_ind <- base_ind
 param_phi_mpd_table(
   models$bridge_models[[mdl_grp]][[mdl_ind]],
   font_size = 7,
@@ -349,11 +352,12 @@ param_phi_mpd_table(
                    " $log(\\phi)$ for the '",
                    names(models$bridge_models[[mdl_grp]])[mdl_ind],
                    "' model by gear, year, and sex. ",
+                   "The upper bound for the $log(\\phi)$ parameter is 10. ",
                    "Dashes represent no age comps for those gear, year, and sex combinations."))
 ```
 
 ```{r bridge-phi-table-10, results = 'asis'}
-mdl_ind <- 10
+mdl_ind <- base_ind + 1
 param_phi_mpd_table(
   models$bridge_models[[mdl_grp]][[mdl_ind]],
   font_size = 7,
@@ -363,8 +367,9 @@ param_phi_mpd_table(
                    " $log(\\phi)$ for the '",
                    names(models$bridge_models[[mdl_grp]])[mdl_ind],
                    "' model by gear, year, and sex. ",
+                   "The upper bound for the $log(\\phi)$ parameter is 10. ",
                    "Dashes represent no age comps for those gear, year, and sex combinations."))
-mdl_ind <- 9
+mdl_ind <- base_ind
 ```
 \end{landscapepage}
 
@@ -405,7 +410,7 @@ plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 
 ```{r bridge-agefit-7, fig.cap = "(ref:fig-bridge-age-fit-7)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
-mdl_ind <- 10
+mdl_ind <- base_ind + 1
 ```
 
 \clearpage
@@ -447,7 +452,7 @@ plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 
 ```{r bridge-agefit-7-1, fig.cap = "(ref:fig-bridge-age-fit-7-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
-mdl_ind <- 9
+mdl_ind <- base_ind
 ```
 \clearpage
 
@@ -530,7 +535,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
                                   ylim_age = c(-5, 5),
                                   ylim_year = c(-5, 5),
                                   ylim_birthyear = c(-5, 5))
-mdl_ind <- 10
+mdl_ind <- base_ind + 1
 ```
 \clearpage
 
