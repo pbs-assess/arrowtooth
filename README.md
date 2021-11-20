@@ -4,7 +4,6 @@
 [![Project Status: WIP – Initial development is in progress, but there
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Go Report Card](https://goreportcard.com/badge/github.com/pbs-assess/arrowtooth)](https://goreportcard.com/report/github.com/pbs-assess/arrowtooth)
 [![Coverage status](https://codecov.io/gh/pbs-assess/arrowtooth/branch/master/graph/badge.svg)](https://codecov.io/github/pbs-assess/arrowtooth?branch=master)
 
 An R package which contains functions for exploration of models and for generating a CSAS stock assessment Research document using [csasdown](https://github.com/pbs-assess/csasdown).
