@@ -1,9 +1,9 @@
-install.packages(c("remotes", "TMB"))
+install.packages(c("devtools", "remotes", "TMB"))
 
 # For index.Rmd (doc)
 install.packages("tidylog")
 # For twg_01.Rmd:
-install.packages(c("cowplot", "showtext")) 
+install.packages(c("cowplot", "showtext"))
 
 # Make sure INLA download doesn't time out
 options(timeout = 500)
