@@ -7,8 +7,8 @@ install.packages(c("cowplot", "showtext"))
 
 # Make sure INLA download doesn't time out
 options(timeout = 500)
-# INLA install command from https://github.com/pbs-assess/gfplot
-install.packages("INLA", repos = c(getOption("repos"), INLA = "https://inla.r-inla-download.org/R/stable"), dep = TRUE)
+# INLA install command from https://www.r-inla.org/download-install
+install.packages("INLA", repos = c(getOption("repos"), INLA = "https://inla.r-inla-download.org/R/testing"), dep = TRUE)
 
 remotes::install_github("pbs-assess/sdmTMB")
 

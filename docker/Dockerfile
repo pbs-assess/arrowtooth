@@ -1,10 +1,9 @@
 # Dockerfile for Arrowtooth flounder project includes csasdown, ADMB, iSCAM, and INLA
-FROM cgrandin/csasdown-admb-iscam:latest
+FROM cgrandin/csasdown-admb:latest
 LABEL maintainer = "chris.grandin@gmail.com"
 
 # Install Linux packages needed for various R packages to run including INLA
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
-    libxt6 \
     tk8.6-dev \
     libgeos-dev \
     libudunits2-dev \
