@@ -1,48 +1,59 @@
-# Overview of bridging steps
+```{r bridging-para-01-en, eval = !fr(), results = 'asis'}
+b("# Overview of bridging steps
 
 The base model from the 2015 assessment (@grandin2017) was run with the newest version of the iSCAM code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age comp fits were determined to be identical.
 
 Various modifications were made incrementally to the 2015 base model to create a set of bridging models which evaluate the component-specific effects of all changes from the 2015 base model to the 2021 base model.
 
-As a reminder, the 2015 base model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
+As a reminder, the 2015 base model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.")
+```
+```{r bridging-para-01-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-01-en>>
+```
 
-Each model in this list is based on the previous one with only one change made so incremental changes can be tracked.
+```{r bridging-para-02-en, eval = !fr(), results = 'asis'}
+b()
+```
+```{r bridging-para-02-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-02-en>>
+```
 
-1. 2015 Base model (@grandin2017)
+```{r bridging-para-03-en, eval = !fr(), results = 'asis'}
+b("# Biomass and Recruitment
 
-1. Extracted the data for the 2015 model using the [gfplot](https://github.com/pbs-assess/gfplot) package, which has been used in several assessments and in the [gfsynopsis](https://github.com/pbs-assess/gfsynopsis) report. Ran the 2015 model without any modifications other than this data change.
+The absolute and relative biomass plots (Figure \\@ref(fig:bridge-biomass)) show that the data that were available in 2014 when the 2015 stock assessment was being prepared produced a model with increasing biomass, partly due to the indices being at high levels and partly because the 2012 recruitment (Figure \\@ref(fig:bridge-recruitment)) is being estimated as larger than normal. This can be seen in Figure 21 of the 2015 assessment (@grandin2017) which shows the large uncertainty around the 2012 recruitment for the MCMC estimates of recruitment. The MPD estimate from the current model with the old data only is within the uncertainty shown in the 2015 assessment. The 2012 recruitment estimate is much smaller, and likely more realistic when data from 2015-2021 are added. This discrepancy is due to the model in 2015 attempting to account for the flat and increasing indices (Figure 12, @grandin2017) despite large catches by inflating recruitment for a year near the end of the time series.")
+```
 
-1. Using the same data extraction methods as in the first step, appended data up to and including 2021.
+```{r bridging-para-03-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-03-en>>
+```
 
-1. Switched the age comp likelihood from Multivariate Normal Logistic to the saturating parameterization of the Dirichlet-Multinomial (@thorson2017)
+```{r bridging-para-04-en, eval = !fr(), results = 'asis'}
+b("Note that the extra large recruitment for 2014 which is not fully exposed in the figure (~3.5 million) was never included in the model output advice in 2015 because iSCAM overwrites the final year recruitment with an average recruitment in the projection model for the final year.")
+```
+```{r bridging-para-04-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-04-en>>
+```
 
-1. Add the WCHG Synoptic survey index and age comps
+```{r bridging-para-05-en, eval = !fr(), results = 'asis'}
+b("The historical data changes between 2014 and 2021 (the light blue and dark blue lines in Figure \\@ref(fig:bridge-biomass)) are caused mainly by slightly different proportions female applied, and changes in the indices of abundance for the synoptic surveys due to blocks being removed from the surveys in subsequent years. The female proportions are different due to only 'Unsorted' samples being used in 2021; in 2015 all samples were included. The trajectories for the two models is similar for both biomass and recruitment, and the biomass estimates are almost the same in both absolute and relative terms.")
+```
+```{r bridging-para-05-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-05-en>>
+```
 
-1. Change the model to two fleets. This splits the commercial trawl catch into catch from Freezer Trawlers (FT COMM) and wet boats (WB COMM).
+```{r bridging-para-06-en, eval = !fr(), results = 'asis'}
+b("All the models which include data to 2021 (the third through tenth ones) are very similar in absolute biomass, with some differences in the $B_0$ estimates which scale the relative biomass trajectories with respect to one another. The recruitment trajectories for those models are very similar with only the model which fixes M (purple) having a divergent estimate for $R_0$. This can be checked in Table \\@ref(tab:bridge-param-table) where the $R_0$ estimates are all approximately 0.19. In the 2015 model, $R_0$ estimates were much higher at 0.67. This difference can be explained by iSCAM behaviour in absence of enough time series data for the 2015 model. Note that the $R_0$ parameter had a very large uncertainty around it in the MCMC estimates (0.22--2.01, Table 5 in @grandin2017).")
+```
+```{r bridging-para-06-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-06-en>>
+```
 
-1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for `r sp` and therefore were discarding all that they caught incidentally. The selectivity could not be estimated for this index since there are no age composition data for it, so its selectivity was fixed to values representative of other estimated selectivities from other gears (Table \@ref(tab:bridge-sel-param-table)).
+(ref:fig-bridge-biomass-en) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel). Points on the left represent $R_0$ values.
 
-1. Convert model to split-sex.
+(ref:fig-bridge-biomass-fr) French caption here
 
-1. Change fishing year to Feb. 21 - Feb 20, which is the range currently used by fisheries management for the fishing year.
-
-1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.
-
-# Biomass and Recruitment
-
-The absolute and relative biomass plots (Figure \@ref(fig:bridge-biomass)) show that the data that were available in 2014 when the 2015 stock assessment was being prepared produced a model with increasing biomass, partly due to the indices being at high levels and partly because the 2012 recruitment (Figure \@ref(fig:bridge-recruitment)) is being estimated as larger than normal. This can be seen in Figure 21 of the 2015 assessment (@grandin2017) which shows the large uncertainty around the 2012 recruitment for the MCMC estimates of recruitment. The MPD estimate from the current model with the old data only is within the uncertainty shown in the 2015 assessment. The 2012 recruitment estimate is much smaller, and likely more realistic when data from 2015-2021 are added. This discrepancy is due to the model in 2015 attempting to account for the flat and increasing indices (Figure 12, @grandin2017) despite large catches by inflating recruitment for a year near the end of the time series.
-
-Note that the extra large recruitment for 2014 which is not fully exposed in the figure (~3.5 million) was never included in the model output advice in 2015 because iSCAM overwrites the final year recruitment with an average recruitment in the projection model for the final year.
-
-The historical data changes between 2014 and 2021 (the light blue and dark blue lines in Figure \@ref(fig:bridge-biomass)) are caused mainly by slightly different proportions female applied, and changes in the indices of abundance for the synoptic surveys due to blocks being removed from the surveys in subsequent years. The female proportions are different due to only 'Unsorted' samples being used in 2021; in 2015 all samples were included. The trajectories for the two models is similar for both biomass and recruitment, and the biomass estimates are almost the same in both absolute and relative terms.
-
-All the models which include data to 2021 (the third through tenth ones) are very similar in absolute biomass, with some differences in the $B_0$ estimates which scale the relative biomass trajectories with respect to one another. The recruitment trajectories for those models are very similar with only the model which fixes M (purple) having a divergent estimate for $R_0$. This can be checked in Table \@ref(tab:bridge-param-table) where the $R_0$ estimates are all approximately 0.19. In the 2015 model, $R_0$ estimates were much higher at 0.67. This difference can be explained by iSCAM behaviour in absence of enough time series data for the 2015 model. Note that the $R_0$ parameter had a very large uncertainty around it in the MCMC estimates (0.22--2.01, Table 5 in @grandin2017).
-
-(ref:fig-bridge-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel). Points on the left represent $R_0$ values.
-
-(ref:fig-bridge-biomass-french) French caption here
-
-```{r bridge-biomass, fig.cap = ifelse(french, "(ref:fig-bridge-biomass-french)", "(ref:fig-bridge-biomass)"), out.width = "100%"}
+```{r bridge-biomass, fig.cap = ifelse(fr(), "(ref:fig-bridge-biomass-fr)", "(ref:fig-bridge-biomass-en)"), out.width = "100%"}
 # Set this to 9 for bridging doc and 2 for secondary doc
 base_ind <- 9
 mdl_grp <- 1
@@ -57,38 +68,63 @@ cowplot::plot_grid(
     coord_cartesian(ylim = c(0, 1)), nrow = 2)
 ```
 
-(ref:fig-bridge-recruitment) Maximum Posterior Density (MPD) estimates of recruitment. Points on the left represent $R_0$ estimates.
+(ref:fig-bridge-recr-en) Maximum Posterior Density (MPD) estimates of recruitment. Points on the left represent $R_0$ estimates.
 
-(ref:fig-bridge-recruitment-french) French caption here
+(ref:fig-bridge-recr-fr) French caption here
 
-```{r bridge-recruitment, fig.cap = ifelse(french, "(ref:fig-bridge-recruitment-french)", "(ref:fig-bridge-recruitment)"), out.width = "100%" , fig.pos="H"}
+```{r bridge-recruitment, fig.cap = ifelse(fr(), "(ref:fig-bridge-recr-fr)", "(ref:fig-bridge-recr-en)"), out.width = "100%" , fig.pos="H"}
 plot_ts_mpd(models$bridge_models[[mdl_grp]],
             type = "rt",
             legend_title = "Bridge models") +
   coord_cartesian(ylim = c(0, 1.6))
 ```
 
-# Index fits
+```{r bridging-para-07-en, eval = !fr(), results = 'asis'}
+b("# Index fits
 
-The Hecate Strait Synoptic survey (SYN HS) is fit by all models with almost all estimates lying within the uncertainty bars. Even though the last two estimates miss the index points and associated uncertainty range, the downward trend of the index is being captured. The Queen Charlotte Sound Synoptic survey (SYN QCS) is fit well until the last few index points, where the estimates follow the overall downward trend of the model and miss the index points. This could be possibly be improved with a multi-area model, as it has been suggested this is a nursery stock which is separate from the main coastwide stock but we are not able to produce that due to data and time limitations. This index will never fit correctly at the end in this single-area coastwide model where the other indices are decreasing.
+The Hecate Strait Synoptic survey (SYN HS) is fit by all models with almost all estimates lying within the uncertainty bars. Even though the last two estimates miss the index points and associated uncertainty range, the downward trend of the index is being captured. The Queen Charlotte Sound Synoptic survey (SYN QCS) is fit well until the last few index points, where the estimates follow the overall downward trend of the model and miss the index points. This could be possibly be improved with a multi-area model, as it has been suggested this is a nursery stock which is separate from the main coastwide stock but we are not able to produce that due to data and time limitations. This index will never fit correctly at the end in this single-area coastwide model where the other indices are decreasing.")
+```
+```{r bridging-para-07-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-07-en>>
+```
 
-The West Coast Vancouver Island Synoptic survey (SYN WCVI) has some large swings in data from low biomass to high biomass in subsequent survey years. This is extremely hard for a model to fit and this model splits the difference with its fit, as it should, and also follows the recent downward trend observed by the surveys.
+```{r bridging-para-08-en, eval = !fr(), results = 'asis'}
+b("The West Coast Vancouver Island Synoptic survey (SYN WCVI) has some large swings in data from low biomass to high biomass in subsequent survey years. This is extremely hard for a model to fit and this model splits the difference with its fit, as it should, and also follows the recent downward trend observed by the surveys.")
+```
+```{r bridging-para-08-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-08-en>>
+```
 
-The Discard CPUE (DCPUE) has the most data points of any index of abundance and gives the clearest view of the biomass trend. It is the best-fitting index in this model. This index is clearly driving the model fits as the same pattern can be seen in fits to other survey indices.
+```{r bridging-para-09-en, eval = !fr(), results = 'asis'}
+b("The Discard CPUE (DCPUE) has the most data points of any index of abundance and gives the clearest view of the biomass trend. It is the best-fitting index in this model. This index is clearly driving the model fits as the same pattern can be seen in fits to other survey indices.")
+```
+```{r bridging-para-09-fr, eval = !fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-09-en>>
+```
 
-The $q$ estimates range from 0.1 to 0.25 for all of these models and surveys (Table \@ref(tab:bridge-param-table)), with the exception of the West Coast Haida Gwaii Synoptic survey (SYN WCHG) which has very low $q$ estimates. Selectivity for the WCHG survey was difficult to estimate due to there being only two years of age composition data for it.
+```{r bridging-para-10-en, eval = !fr(), results = 'asis'}
+b("The $q$ estimates range from 0.1 to 0.25 for all of these models and surveys (Table \\@ref(tab:bridge-param-table)), with the exception of the West Coast Haida Gwaii Synoptic survey (SYN WCHG) which has very low $q$ estimates. Selectivity for the WCHG survey was difficult to estimate due to there being only two years of age composition data for it.")
+```
+```{r bridging-para-10-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-10-en>>
+```
 
-(ref:fig-bridge-index-fits) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only.
+(ref:fig-bridge-index-fits-en) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only.
 
-(ref:fig-bridge-index-fits-french) French caption here
+(ref:fig-bridge-index-fits-fr) French caption here
 
-```{r bridge-index-fits, fig.cap = ifelse(french, "(ref:fig-bridge-index-fits-french)", "(ref:fig-bridge-index-fits)"), out.width = "100%" , fig.pos="H"}
+```{r bridge-index-fits, fig.cap = ifelse(fr(), "(ref:fig-bridge-index-fits-fr)", "(ref:fig-bridge-index-fits-en)"), out.width = "100%" , fig.pos = "H"}
 plot_index_fit_mpd(models$bridge_models[[mdl_grp]],
                    surv_index = survey_index,
                    legend_title = "Bridge models")
 ```
 
-## Index residuals
+```{r bridging-para-11-en, eval = !fr(), results = 'asis'}
+b("## Index residuals")
+```
+```{r bridging-para-11-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-11-en>>
+```
 
 (ref:fig-bridge-index-resid-qcs) Maximum Posterior Density (MPD) residuals for the QCS survey index.
 
@@ -136,15 +172,35 @@ plot_index_resids_mpd(models$bridge_models[[1]], gear = "DCPUE", angle_x_labels 
 <!--     "Number of parameters estimated, bounds, and prior parameterizations for the model 'Convert model to split sex (two fleets)'.")) -->
 <!-- ``` -->
 
-# Parameter estimates
+```{r bridging-para-12-en, eval = !fr(), results = 'asis'}
+b("# Parameter estimates
 
-Table \@ref(tab:bridge-param-table) shows that the only major difference in leading parameter estimates occurs with the addition of the 2015-2021 data (third column). This is expected, with the index trajectories descending and catch being reduced each year since 2014. The entire biomass trajectory is scaled down due to the estimate or $R_0$ being so much less than it was in 2015. The 2012 recruitment estimate was inflated due to uncertainty introduced by lack of data.
+Table \\@ref(tab:bridge-param-table) shows that the only major difference in leading parameter estimates occurs with the addition of the 2015-2021 data (third column). This is expected, with the index trajectories descending and catch being reduced each year since 2014. The entire biomass trajectory is scaled down due to the estimate or $R_0$ being so much less than it was in 2015. The 2012 recruitment estimate was inflated due to uncertainty introduced by lack of data.")
+```
+```{r bridging-para-12-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-12-en>>
+```
 
-The other notable impact model choice has on parameter estimates is fixing the natural mortality parameters to the same values used in the Gulf of Alaska assessment (Male = 0.2, Female = 0.35). This scales all recruitment parameters up. These increases are compensation by the model to account for the increased natural mortality placed on the stock.
+```{r bridging-para-13-en, eval = !fr(), results = 'asis'}
+b("The other notable impact model choice has on parameter estimates is fixing the natural mortality parameters to the same values used in the Gulf of Alaska assessment (Male = 0.2, Female = 0.35). This scales all recruitment parameters up. These increases are compensation by the model to account for the increased natural mortality placed on the stock.")
+```
+```{r bridging-para-13-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-13-en>>
+```
 
-Negative log-likelihood (NLL) components of the objective function are listed in Table \@ref(tab:bridge-likelihoods). There is a clear change in the NLL values for the age compositions when the age composition likelihood is changed to the Dirichlet-Multinomial (row 5), with large positives instead of negative values. These larger positives are an artifact of the way in which the DM likelihoods are calculated and should not be compared with the smaller NLLs for survey indices. The NLLs should be compared between models for the same likelihood components. This is typical of the DM method, for example in the Pacific hake model in 2021 the NLL for the survey age compositions is 555.99 for the base model (Table 31, @hake2021) when other NLLs were one or more orders of magnitude smaller.
+```{r bridging-para-14-en, eval = !fr(), results = 'asis'}
+b("Negative log-likelihood (NLL) components of the objective function are listed in Table \\@ref(tab:bridge-likelihoods). There is a clear change in the NLL values for the age compositions when the age composition likelihood is changed to the Dirichlet-Multinomial (row 5), with large positives instead of negative values. These larger positives are an artifact of the way in which the DM likelihoods are calculated and should not be compared with the smaller NLLs for survey indices. The NLLs should be compared between models for the same likelihood components. This is typical of the DM method, for example in the Pacific hake model in 2021 the NLL for the survey age compositions is 555.99 for the base model (Table 31, @hake2021) when other NLLs were one or more orders of magnitude smaller.")
+```
+```{r bridging-para-14-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-14-en>>
+```
 
-The other major difference in the likelihoods occurs when the model is changed to a split-sex configuration (row 8). That change is simply due to there being age compositions for both sexes, so additional likelihoods are calculated for each year and added to the total. The change amounts to roughly double.
+```{r bridging-para-15-en, eval = !fr(), results = 'asis'}
+b("The other major difference in the likelihoods occurs when the model is changed to a split-sex configuration (row 8). That change is simply due to there being age compositions for both sexes, so additional likelihoods are calculated for each year and added to the total. The change amounts to roughly double.")
+```
+```{r bridging-para-15-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-15-en>>
+```
 
 ```{r bridge-param-table, results = 'asis'}
 param_est_mpd_table(
@@ -173,15 +229,35 @@ mdl_ind <- base_ind
 
 \clearpage
 
-# Selectivities
+```{r bridging-para-16-en, eval = !fr(), results = 'asis'}
+b("# Selectivities
 
-All bridging models were able to estimate selectivities for all gears which had age composition data. The Hecate Strait Multispecies Assemblage survey (OTHER HSMSA) and Discard CPUE (DCPUE) indices do not have age compositions and have fixed selectivity values. The DCPUE index is a time series of the yearly sum of discarded fish on non-targeted tows. None of those discarded fish were sampled for age. They were sampled for sex prior to being discarded and those data were used in the proportion female analysis to determine proportion of catch for the single sex models.
+All bridging models were able to estimate selectivities for all gears which had age composition data. The Hecate Strait Multispecies Assemblage survey (OTHER HSMSA) and Discard CPUE (DCPUE) indices do not have age compositions and have fixed selectivity values. The DCPUE index is a time series of the yearly sum of discarded fish on non-targeted tows. None of those discarded fish were sampled for age. They were sampled for sex prior to being discarded and those data were used in the proportion female analysis to determine proportion of catch for the single sex models.")
+```
+```{r bridging-para-16-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-16-en>>
+```
 
-For the split-sex models, the WCHG Synoptic survey had estimates of selectivity which are quite a bit different than the other indices. The age-at-50% ranged dropped from approximately 7 to 3 for the models which include split-sex (Table \@ref(tab:bridge-sel-param-table) and Figures \@ref(fig:bridge-selectivities) -- \@ref(fig:selectivity-possible-base-2)).
+```{r bridging-para-17-en, eval = !fr(), results = 'asis'}
+b("For the split-sex models, the WCHG Synoptic survey had estimates of selectivity which are quite a bit different than the other indices. The age-at-50% ranged dropped from approximately 7 to 3 for the models which include split-sex (Table \\@ref(tab:bridge-sel-param-table) and Figures \\@ref(fig:bridge-selectivities) -- \\@ref(fig:selectivity-possible-base-2)).")
+```
+```{r bridging-para-17-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-17-en>>
+```
 
-In previous iterations of this bridging analysis, the Dirichlet Multinomial likelihood for age composition weighting was not implemented yet and all models were using the Multivariate Logistic likelihood, which did not allow for estimation of all selectivities simultaneously for models with two fleets and split sex.
+```{r bridging-para-18-en, eval = !fr(), results = 'asis'}
+b("In previous iterations of this bridging analysis, the Dirichlet Multinomial likelihood for age composition weighting was not implemented yet and all models were using the Multivariate Logistic likelihood, which did not allow for estimation of all selectivities simultaneously for models with two fleets and split sex.")
+```
+```{r bridging-para-18-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-18-en>>
+```
 
-## Selectivity figures for all models
+```{r bridging-para-19-en, eval = !fr(), results = 'asis'}
+b("## Selectivity figures for all models")
+```
+```{r bridging-para-19-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-19-en>>
+```
 
 (ref:fig-bridge-selectivities) Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for all gears. The dashed red lines are the female maturity ogives, the red lines with points are the yearly selectivity estimates for females. The Discard CPUE and HSMSA indices have fixed selectivities in all models. This plot shows models 1-5.
 
@@ -224,9 +300,14 @@ if(base_ind == 9){
 
 \clearpage
 
-## Selectivity fits for select models
+```{r bridging-para-20-en, eval = !fr(), results = 'asis'}
+b("## Selectivity fits for select models")
+```
+```{r bridging-para-20-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-20-en>>
+```
 
-(ref:fig-bridge-selectivity-possible-base) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`` model'.
+(ref:fig-bridge-selectivity-possible-base) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]` model'.
 
 ```{r selectivity-possible-base, fig.cap = "(ref:fig-bridge-selectivity-possible-base)"}
 plot_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
@@ -237,7 +318,7 @@ plot_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
         strip.text.x = element_text(size = 6))
 ```
 
-(ref:fig-bridge-selectivity-possible-base-2) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[10]`` model'.
+(ref:fig-bridge-selectivity-possible-base-2) Closer view of the Maximum Posterior Density (MPD) maturity ogives and selectivity estimates for the '`r names(models$bridge_models[[mdl_grp]])[10]` model'.
 
 ```{r selectivity-possible-base-2, fig.cap = "(ref:fig-bridge-selectivity-possible-base-2)", fig.pos = "H"}
 mdl_ind <- base_ind + 1
@@ -269,15 +350,35 @@ mdl_ind <- base_ind
 
 \clearpage
 
-# Age compositions and effective sample size
+```{r bridging-para-21-en, eval = !fr(), results = 'asis'}
+b("# Age compositions and effective sample size
 
-The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions. The MLN did not perform well in the models with two fleets and two sexes. Selectivity on several of the Synoptic surveys had to be fixed in order to get reasonable parameter estimates and/or model convergence. To address these issues, we decided to implement the Dirichlet Multinomial (DM) likelihood in iSCAM.
+The age composition likelihood for the 2015 model was a Multivariate Logistic Normal (MLN) which applies 'self-weighting' to the age comps based on the conditional maximum likelihood variances in the age proportions. The MLN did not perform well in the models with two fleets and two sexes. Selectivity on several of the Synoptic surveys had to be fixed in order to get reasonable parameter estimates and/or model convergence. To address these issues, we decided to implement the Dirichlet Multinomial (DM) likelihood in iSCAM.")
+```
+```{r bridging-para-21-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-21-en>>
+```
 
-Incorporating the DM likelihood ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty, and that manual weighting and iterative reweighting methods are avoided. It also means that sensitivity and retrospective models will have the correct weighting automatically, whereas with other methods the base model weightings were typically used for sensitivities and retrospectives because manually running the reweighting methods outside the model took too much time. We implemented the 'saturating' DM method (@thorson2017) which adds one new estimated parameter for each gear/year combination with age composition data to the model.
+```{r bridging-para-22-en, eval = !fr(), results = 'asis'}
+b("Incorporating the DM likelihood ensures that the uncertainty associated with the composition weighting is included in any measures of stock assessment uncertainty, and that manual weighting and iterative reweighting methods are avoided. It also means that sensitivity and retrospective models will have the correct weighting automatically, whereas with other methods the base model weightings were typically used for sensitivities and retrospectives because manually running the reweighting methods outside the model took too much time. We implemented the 'saturating' DM method (@thorson2017) which adds one new estimated parameter for each gear/year combination with age composition data to the model.")
+```
+```{r bridging-para-22-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-22-en>>
+```
 
-Tables \@ref(tab:bridge-phi-table-9) and \@ref(tab:bridge-phi-table-10) show the actual data-based sample sizes, the estimates of the DM parameter $log(\phi)$, and the effective sample sizes calculated using $log(\phi)$ for the models '`r names(models$bridge_models[[mdl_grp]])[9]`' and '`r names(models$bridge_models[[mdl_grp]])[10]`' respectively. The effective sample size is calculated as $N_{eff} = (N + N * e^{log(\phi)}) / (N + e^{log(\phi)})$, where $log(\phi)$ is an estimated parameter of the DM likelihood and $N$ is the actual sample size in the data (Eq. 9 in @thorson2017). The sample sizes used are actually specimen counts which is permitted by the ().
+```{r bridging-para-23-en, eval = !fr(), results = 'asis'}
+b("Tables \\@ref(tab:bridge-phi-table-9) and \\@ref(tab:bridge-phi-table-10) show the actual data-based sample sizes, the estimates of the DM parameter $log(\\phi)$, and the effective sample sizes calculated using $log(\\phi)$ for the models '", names(models$bridge_models[[mdl_grp]])[9], "' and '", names(models$bridge_models[[mdl_grp]])[10], "' respectively. The effective sample size is calculated as $N_{eff} = (N + N * e^{log(\\phi)}) / (N + e^{log(\\phi)})$, where $log(\\phi)$ is an estimated parameter of the DM likelihood and $N$ is the actual sample size in the data (Eq. 9 in @thorson2017). The sample sizes used are actually specimen counts which is permitted by the ().")
+```
+```{r bridging-para-23-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-23-en>>
+```
 
-The effective sample sizes for the first model, where $M$ is estimated are slightly higher overall than for the second, where $M$ was fixed. The likelihoods for the age comps for the estimated $M$ model are less than for the fixed $M$ model (Table \@ref(tab:bridge-likelihoods)).
+```{r bridging-para-24-en, eval = !fr(), results = 'asis'}
+b("The effective sample sizes for the first model, where $M$ is estimated are slightly higher overall than for the second, where $M$ was fixed. The likelihoods for the age comps for the estimated $M$ model are less than for the fixed $M$ model (Table \\@ref(tab:bridge-likelihoods)).")
+```
+```{r bridging-para-24-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-24-en>>
+```
 
 <!-- ```{r bridge-phi-table-5, results = 'asis'} -->
 <!-- mdl_ind <- 5 -->
@@ -373,9 +474,14 @@ mdl_ind <- base_ind
 ```
 \end{landscapepage}
 
-## Age comp fits, model `r names(models$bridge_models[[mdl_grp]])[mdl_ind]`
-
-The age composition fits for this model are shown in Figures \@ref(fig:bridge-agefit-1) - \@ref(fig:bridge-agefit-7). All fits are reasonable with exception of Figure \@ref(fig:bridge-agefit-7), the WCHG survey. There are only two years of age data for this survey and the catchability estimates are very low (Table \@ref(tab:bridge-param-table)).
+```{r bridging-para-25-en, eval = !fr(), results = 'asis'}
+b("## Age comp fits, model ", names(models$bridge_models[[mdl_grp]])[mdl_ind], 
+  
+"The age composition fits for this model are shown in Figures \\@ref(fig:bridge-agefit-1) - \\@ref(fig:bridge-agefit-7). All fits are reasonable with exception of Figure \\@ref(fig:bridge-agefit-7), the WCHG survey. There are only two years of age data for this survey and the catchability estimates are very low (Table \\@ref(tab:bridge-param-table)).")
+```
+```{r bridging-para-25-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-25-en>>
+```
 
 (ref:fig-bridge-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
@@ -415,40 +521,45 @@ mdl_ind <- base_ind + 1
 
 \clearpage
 
-## Age comp fits, model `r names(models$bridge_models[[mdl_grp]])[mdl_ind]`
+```{r bridging-para-26-en, eval = !fr(), results = 'asis'}
+b("## Age comp fits, model ", names(models$bridge_models[[mdl_grp]])[mdl_ind], 
+  
+"The age composition fits for this fixed M model are very similar to those in the estimated M model (previous section). This includes the poor fits to the WCHG survey ages.")
+```
+```{r bridging-para-26-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-26-en>>
+```
 
-The age composition fits for this fixed M model are very similar to those in the estimated M model (previous section). This includes the poor fits to the WCHG survey ages.
-
-(ref:fig-bridge-age-fit-1-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
+(ref:fig-bridge-age-fit-1-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'FT COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-1-1, fig.cap = "(ref:fig-bridge-age-fit-1-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 1)
 ```
 
-(ref:fig-bridge-age-fit-2-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
+(ref:fig-bridge-age-fit-2-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'WB COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-2-1, fig.cap = "(ref:fig-bridge-age-fit-2-1)", fig.asp = 1.4}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 2)
 ```
 
-(ref:fig-bridge-age-fit-3-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
+(ref:fig-bridge-age-fit-3-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN QCS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-3-1, fig.cap = "(ref:fig-bridge-age-fit-3-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 3)
 ```
 
-(ref:fig-bridge-age-fit-5-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
+(ref:fig-bridge-age-fit-5-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN HS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-5-1, fig.cap = "(ref:fig-bridge-age-fit-5-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 4)
 ```
-(ref:fig-bridge-age-fit-6-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
+(ref:fig-bridge-age-fit-6-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN WCVI' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-6-1, fig.cap = "(ref:fig-bridge-age-fit-6-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 ```
 
-(ref:fig-bridge-age-fit-7-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
+(ref:fig-bridge-age-fit-7-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN WCHG' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
 ```{r bridge-agefit-7-1, fig.cap = "(ref:fig-bridge-age-fit-7-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
@@ -456,11 +567,15 @@ mdl_ind <- base_ind
 ```
 \clearpage
 
-## Age composition residuals
-
-### Age composition residuals for  '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model
-
-(ref:fig-bridge-age-resid-1) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear.
+```{r bridging-para-27-en, eval = !fr(), results = 'asis'}
+b("## Age composition residuals
+  
+### Age composition residuals for  '", names(models$bridge_models[[mdl_grp]])[mdl_ind], "' model")
+```
+```{r bridging-para-27-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-27-en>>
+```
+(ref:fig-bridge-age-resid-1) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'FT COMM' gear.
 
 ```{r bridge-age-resid-1, fig.cap = "(ref:fig-bridge-age-resid-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 1
@@ -473,7 +588,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid-2) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear.
+(ref:fig-bridge-age-resid-2) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'WB COMM' gear.
 
 ```{r bridge-age-resid-2, fig.cap = "(ref:fig-bridge-age-resid-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 2
@@ -486,7 +601,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid-3) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear.
+(ref:fig-bridge-age-resid-3) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN QCS' gear.
 
 ```{r bridge-age-resid-3, fig.cap = "(ref:fig-bridge-age-resid-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 3
@@ -499,7 +614,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid-4) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
+(ref:fig-bridge-age-resid-4) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN HS' gear.
 
 ```{r bridge-age-resid-4, fig.cap = "(ref:fig-bridge-age-resid-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 4
@@ -512,7 +627,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid-5) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
+(ref:fig-bridge-age-resid-5) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN WCVI' gear.
 
 ```{r bridge-age-resid-5, fig.cap = "(ref:fig-bridge-age-resid-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 5
@@ -525,7 +640,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid-6) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
+(ref:fig-bridge-age-resid-6) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN WCHG' gear.
 
 ```{r bridge-age-resid-6, fig.cap = "(ref:fig-bridge-age-resid-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 6
@@ -540,9 +655,14 @@ mdl_ind <- base_ind + 1
 \clearpage
 
 
-### Age composition residuals for  '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model
+```{r bridging-para-28-en, eval = !fr(), results = 'asis'}
+b("### Age composition residuals for  '", names(models$bridge_models[[mdl_grp]])[mdl_ind], "' model")
+```
+```{r bridging-para-28-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-28-en>>
+```
 
-(ref:fig-bridge-age-resid1-1) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear.
+(ref:fig-bridge-age-resid1-1) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'FT COMM' gear.
 
 ```{r bridge-age-resid1-1, fig.cap = "(ref:fig-bridge-age-resid1-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 1
@@ -555,7 +675,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid1-2) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear.
+(ref:fig-bridge-age-resid1-2) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'WB COMM' gear.
 
 ```{r bridge-age-resid1-2, fig.cap = "(ref:fig-bridge-age-resid1-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 2
@@ -568,7 +688,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid1-3) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear.
+(ref:fig-bridge-age-resid1-3) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN QCS' gear.
 
 ```{r bridge-age-resid1-3, fig.cap = "(ref:fig-bridge-age-resid1-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 3
@@ -581,7 +701,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid1-4) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
+(ref:fig-bridge-age-resid1-4) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN HS' gear.
 
 ```{r bridge-age-resid1-4, fig.cap = "(ref:fig-bridge-age-resid1-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 4
@@ -594,7 +714,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid1-5) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
+(ref:fig-bridge-age-resid1-5) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN WCVI' gear.
 
 ```{r bridge-age-resid1-5, fig.cap = "(ref:fig-bridge-age-resid1-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 5
@@ -607,7 +727,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 ```
 \clearpage
 
-(ref:fig-bridge-age-resid1-6) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
+(ref:fig-bridge-age-resid1-6) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]`' model, for the 'SYN WCHG' gear.
 
 ```{r bridge-age-resid1-6, fig.cap = "(ref:fig-bridge-age-resid1-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 6
@@ -621,9 +741,14 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 \clearpage
 
 
-## Age composition data for all models
+```{r bridging-para-29-en, eval = !fr(), results = 'asis'}
+b("## Age composition data for all models
 
-These are the age composition data included in all models.
+These are the age composition data included in all models.")
+```
+```{r bridging-para-29-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-29-en>>
+```
 
 (ref:fig-bridge-age-comp-2) Weighted age compositions for the 'FT COMM' fleet.
 
@@ -691,17 +816,36 @@ tidy_ages_weighted(survey_samples,
 
 \clearpage
 
-# Summary
+```{r bridging-para-30-en, eval = !fr(), results = 'asis'}
+b("# Summary
+  
+Considering all the outputs from the MPD models, and that this species is sexually dimorphic with two different types of vessels targeting it, we feel that we should use the '", names(models$bridge_models[[mdl_grp]])[9], "' model as the base (or reference) model for the 2021 stock assessment.")
+```
+```{r bridging-para-30-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-30-en>>
+```
 
-Considering all the outputs from the MPD models, and that this species is sexually dimorphic with two different types of vessels targeting it, we feel that we should use the 
-'`r names(models$bridge_models[[mdl_grp]])[9]`' model as the base (or reference) model for the 2021 stock assessment.
+```{r bridging-para-31-en, eval = !fr(), results = 'asis'}
+b("Using that model as a base, we fixed the natural mortality to 0.2 for males and 0.35 for females in the model '", names(models$bridge_models[[mdl_grp]])[10], "' just as they do in the Gulf of Alaska assessment. When compared side-by-side with the model that estimates M, we can see several reasons to choose the model that estimates M. The Dirichlet Multinomial effective sample sizes are larger for the estimated M model, and the age composition likelihoods are a little lower. Also, the estimated standard deviation at 50% for the WCHG selectivity is better for the estimated M model. Also, it is good practice to allow M to be estimated by the model when possible.")
+```
+```{r bridging-para-31-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-31-en>>
+```
 
-Using that model as a base, we fixed the natural mortality to 0.2 for males and 0.35 for females in the model '`r names(models$bridge_models[[mdl_grp]])[10]`' just as they do in the Gulf of Alaska assessment. When compared side-by-side with the model that estimates M, we can see several reasons to choose the model that estimates M. The Dirichlet Multinomial effective sample sizes are larger for the estimated M model, and the age composition likelihoods are a little lower. Also, the estimated standard deviation at 50% for the WCHG selectivity is better for the estimated M model. Also, it is good practice to allow M to be estimated by the model when possible.
+```{r bridging-para-32-en, eval = !fr(), results = 'asis'}
+b("The QCS survey index is not fit well at all in the recent part of the time series. It can either be left in or removed, it doesn't make much difference in the model outputs, but there are approximately 640 ages contributing to the age compositions for that index.")
+```
+```{r bridging-para-32-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-32-en>>
+```
 
-The QCS survey index is not fit well at all in the recent part of the time series. It can either be left in or removed, it doesn't make much difference in the model outputs, but there are approximately 640 ages contributing to the age compositions for that index.
+```{r bridging-para-33-en, eval = !fr(), results = 'asis'}
+b("The WCHG survey index had several (related) issues, including lack of a decent age fit and inability for the model to estimate reasonable selectivity and catchability. We recommend leaving it out of this model. Removing it has virtually no affect on the outputs of the model.
 
-The WCHG survey index had several (related) issues, including lack of a decent age fit and inability for the model to estimate reasonable selectivity and catchability. We recommend leaving it out of this model. Removing it has virtually no affect on the outputs of the model.
-
-\
-\
-**We would like to proceed with the '`r names(models$bridge_models[[mdl_grp]])[9]`' model with the WCHG survey index and age comps removed as our base model for this stock assessment.**
+\\
+\\
+**We would like to proceed with the '", names(models$bridge_models[[mdl_grp]])[9], "' model with the WCHG survey index and age comps removed as our base model for this stock assessment.**")
+```
+```{r bridging-para-33-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-33-en>>
+```
