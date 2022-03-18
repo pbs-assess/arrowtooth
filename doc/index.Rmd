@@ -14,12 +14,21 @@ report_number: nnn
 region: Pacific Region
 isbn: "978-0-660-38322-4"
 citation_other_language: "Grandin, C.J. et Anderson, S.C. Title Here (*Latin Species Name*). DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2019/nnn. iv + 13 p."
+
 abstract: |
-  Arrowtooth Flounder(*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable. In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
+  Arrowtooth Flounder(*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable.
+
+  In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
+
+french_abstract: |
+  La plie à dents de flèche(*Atheresthes stomias*, Turbot) est une composante importante de la pêche au chalut de fond en Colombie-Britannique. Elle est gérée comme un stock de toute la côte, avec un TAC de 4 000 t et des prises de 10 679 t en 2014. Avant l'introduction des chalutiers congélateurs au milieu des années 2000, on comprend que la plupart des prises historiques de la limande à dents de flèche étaient rejetées en mer. Cela était dû en grande partie à la protéolyse, qui se produit dans le tissu musculaire de cette espèce peu de temps après la capture, rendant la chair peu appétissante.
+  
+  Au cours de la dernière décennie, des marchés ont été créés pour les filets qui ont été congelés en mer, et la flotte de chalutiers congélateurs a pris une proportion croissante des prises côtières. Traduit avec www.DeepL.com/Translator (version gratuite)
 
 header: "Draft working paper --- Do not cite or circulate" # or "" to omit
 output:
  csasdown::resdoc_pdf:
+   keep_md: true
    french: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
    # the document. If false, any changes you have made to the style file in your project
@@ -97,38 +106,68 @@ opts_chunk$set(
   fig.align = fig_align,
   fig.pos = fig_pos
 )
-options(xtable.comment = FALSE)
-options(kableExtra.latex.load_packages = FALSE)
+options(# Prevent xtable from adding a timestamp comment to the table code it produces
+        xtable.comment = FALSE,
+        # Don't allow kableExtra to load packages, we add them manually in csasdown
+        kableExtra.latex.load_packages = FALSE,
+        # Stop chunk output (echo) running into the margins
+        width = 80,
+        # Don't use scientific notation (stops tables from showing 1.2e3, etc.)
+        scipen = 999)
 ```
 
 ```{r load-libraries, cache=FALSE}
-options(scipen = 999)
-# `french` and `prepub` variables are extracted from the YAML headers above and
-#  are used throughout the document. To make the document all in french, change
-#  the line in the YAML header above to `french: true`
 meta <- rmarkdown::metadata$output
-if (length(grep("pdf", names(meta)))) {
-  options(french = meta$`csasdown::resdoc_pdf`$french)
-  prepub <- meta$`csasdown::resdoc_pdf`$prepub
-} else if (length(grep("word", names(meta)))) {
-  options(french = meta$`csasdown::resdoc_word`$french)
-  prepub <- meta$`csasdown::resdoc_word`$prepub
+j <- rmarkdown::metadata
+if(is.null(meta)){
+  # This knitr chunk has been run in R without running bookdown::render_book("index.Rmd")
+  # so rmarkdown::metadata$output is not populated
+  options(french = FALSE)
+}else{
+  if (length(grep("pdf", names(meta)))) {
+    options(french = meta$`csasdown::resdoc_pdf`$french)
+    prepub <- meta$`csasdown::resdoc_pdf`$prepub
+  } else if (length(grep("word", names(meta)))) {
+    options(french = meta$`csasdown::resdoc_word`$french)
+    prepub <- meta$`csasdown::resdoc_word`$prepub
+  }
 }
 csl <- "csl/csas.csl"
-fr_toggle <- getOption("french")
-if (is.null(fr_toggle)) {
-  stop("French toggle was not set up correctly in YAML header in index.Rmd. ",
+if (is.null(getOption("french"))) {
+  stop("`french` was not set up correctly in YAML header in index.Rmd. ",
        "It must be true or false",
        call. = FALSE)
 }
-if (fr_toggle) {
+if (getOption("french")) {
   csl <- "csl/csas-french.csl"
   options(OutDec = ",")
 }
 
+knit_hooks$set(needs_trans = function(before, options){
+  if(getOption("french") && options$needs_trans){
+    if (before){
+      paste0("\\
+       \\begin{lrbox}{\\userinput}
+       \\begin{minipage}{\\dimexpr\\linewidth-2\\fboxsep-2\\fboxrule}
+       \\textcolor{red}{\\textbf{Needs translation - \\textcolor{blue}{knitr chunk: ", options$label, "}}}
+       \\begin{lstlisting}
+      ")
+    } else {
+      "
+       \\end{lstlisting}
+       \\end{minipage}
+       \\end{lrbox}
+       \\noindent
+       \\fbox{\\usebox{\\userinput}}
+      "
+    }
+  }
+})
+
 library(csasdown)
 library(gfutilities)
-library(gfiscamutils)
+devtools::load_all("C:/github/pbs-assess/gfiscamutils/")
+#library(gfiscamutils)
 library(ggplot2)
 library(gridExtra)
 library(kableExtra)
@@ -138,9 +177,9 @@ library(dplyr)
 library(purrr)
 library(here)
 library(gfplot)
-#devtools::load_all("C:/github/pbs-assess/gfiscamutils/")
-devtools::load_all()
+devtools::load_all(".")
 
+bc <- "British Columbia"
 sp <- "Arrowtooth flounder"
 
 # This is a vector of bridge models that will be plotted against each other.
