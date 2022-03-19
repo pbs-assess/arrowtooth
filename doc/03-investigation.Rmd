@@ -2,7 +2,7 @@
 
 (ref:fig-bridge-biomass) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel). Points on the left represent $R_0$ values.
 
-```{r bridge-biomass, fig.cap = "(ref:fig-bridge-biomass)", out.width = "100%"}
+```{r bridge-biomass-investigation, fig.cap = "(ref:fig-bridge-biomass)", out.width = "100%"}
 mdl_grp <- 1
 cowplot::plot_grid(
   plot_ts_mpd(models$bridge_models[[mdl_grp]],
@@ -17,7 +17,7 @@ cowplot::plot_grid(
 
 (ref:fig-bridge-recruitment) Maximum Posterior Density (MPD) estimates of recruitment. Points on the left represent $R_0$ estimates.
 
-```{r bridge-recruitment, fig.cap = "(ref:fig-bridge-recruitment)", out.width = "100%" , fig.pos="H"}
+```{r bridge-recruitment-investigation, fig.cap = "(ref:fig-bridge-recruitment)", out.width = "100%" , fig.pos="H"}
 plot_ts_mpd(models$bridge_models[[mdl_grp]],
             type = "rt",
             legend_title = "Bridge models") +
@@ -28,7 +28,7 @@ plot_ts_mpd(models$bridge_models[[mdl_grp]],
 
 (ref:fig-bridge-index-fits) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only.
 
-```{r bridge-index-fits, fig.cap = "(ref:fig-bridge-index-fits)", out.width = "100%" , fig.pos="H"}
+```{r bridge-index-fits-investigation, fig.cap = "(ref:fig-bridge-index-fits)", out.width = "100%" , fig.pos="H"}
 plot_index_fit_mpd(models$bridge_models[[mdl_grp]],
                    surv_index = survey_index,
                    legend_title = "Bridge models")
@@ -73,7 +73,7 @@ plot_index_fit_mpd(models$bridge_models[[mdl_grp]],
 
 # Parameter estimates
 
-```{r bridge-param-table, results = 'asis'}
+```{r bridge-param-table-investigation, results = 'asis'}
 param_est_mpd_table(
   models$bridge_models[[mdl_grp]],
   format = "latex",
@@ -85,13 +85,12 @@ param_est_mpd_table(
 
 \begin{landscapepage}
 
-```{r bridge-likelihoods, results = 'asis'}
+```{r bridge-likelihoods-investigation, results = 'asis'}
 likelihood_table(models$bridge_models[[mdl_grp]],
                  model_col_widths = "4em",
                  font_size = 5,
                  format = "latex",
                  caption = "Negative log likelihoods included in the objective function for each model.")
-mdl_ind <- base_ind
 ```
 \end{landscapepage}
 
@@ -119,9 +118,33 @@ plot_tv_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
            title = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", QCS index"), gear = 3)
 ```
 
+(ref:fig-selectivity-tv-hs) Time-varying selectivity estimates for the HS index of abundance.
+
+```{r selectivity-tv-hs, fig.cap = "(ref:fig-selectivity-tv-hs)"}
+plot_tv_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+           #show_maturity = TRUE,
+           title = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", HS index"), gear = 4)
+```
+
+(ref:fig-selectivity-tv-wcvi) Time-varying selectivity estimates for the WCVI index of abundance.
+
+```{r selectivity-tv-wcvi, fig.cap = "(ref:fig-selectivity-tv-wcvi)"}
+plot_tv_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+           #show_maturity = TRUE,
+           title = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", WCVI index"), gear = 5)
+```
+
+(ref:fig-selectivity-tv-wchg) Time-varying selectivity estimates for the WCVI index of abundance.
+
+```{r selectivity-tv-wchg, fig.cap = "(ref:fig-selectivity-tv-wchg)"}
+plot_tv_selex(models$bridge_models[[mdl_grp]][[mdl_ind]],
+           #show_maturity = TRUE,
+           title = paste(names(models$bridge_models[[mdl_grp]])[mdl_ind], ", WCHG index"), gear = 6)
+```
+
 \clearpage
 
-```{r bridge-sel-param-table, results = 'asis'}
+```{r bridge-sel-param-table-investigation, results = 'asis'}
 sel_param_est_mpd_table(
   models$bridge_models[[mdl_grp]],
   format = "latex",
@@ -160,36 +183,36 @@ The age composition fits for this model are shown in Figures \@ref(fig:bridge-ag
 
 (ref:fig-bridge-age-fit-1) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
-```{r bridge-agefit-1, fig.cap = "(ref:fig-bridge-age-fit-1)"}
+```{r bridge-agefit-1-investigation, fig.cap = "(ref:fig-bridge-age-fit-1)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 1)
 ```
 
 (ref:fig-bridge-age-fit-2) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
-```{r bridge-agefit-2, fig.cap = "(ref:fig-bridge-age-fit-2)", fig.asp = 1.4}
+```{r bridge-agefit-2-investigation, fig.cap = "(ref:fig-bridge-age-fit-2)", fig.asp = 1.4}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 2)
 ```
 
 (ref:fig-bridge-age-fit-3) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
-```{r bridge-agefit-3, fig.cap = "(ref:fig-bridge-age-fit-3)"}
+```{r bridge-agefit-3-investigation, fig.cap = "(ref:fig-bridge-age-fit-3)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 3)
 ```
 
 (ref:fig-bridge-age-fit-5) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
-```{r bridge-agefit-5, fig.cap = "(ref:fig-bridge-age-fit-5)"}
+```{r bridge-agefit-5-investigation, fig.cap = "(ref:fig-bridge-age-fit-5)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 4)
 ```
 (ref:fig-bridge-age-fit-6) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
-```{r bridge-agefit-6, fig.cap = "(ref:fig-bridge-age-fit-6)"}
+```{r bridge-agefit-6-investigation, fig.cap = "(ref:fig-bridge-age-fit-6)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 5)
 ```
 
 (ref:fig-bridge-age-fit-7) Maximum Posterior Density (MPD) age comp fits for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear. Bars are standardized composition data, lines are the model fits, red for female and blue for male.
 
-```{r bridge-agefit-7, fig.cap = "(ref:fig-bridge-age-fit-7)"}
+```{r bridge-agefit-7-investigation, fig.cap = "(ref:fig-bridge-age-fit-7)"}
 plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
 ```
 
@@ -201,7 +224,7 @@ plot_agecomp_fits_splitsex(models$bridge_models[[mdl_grp]][[mdl_ind]], 6)
 
 (ref:fig-bridge-age-resid-1) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'FT COMM' gear.
 
-```{r bridge-age-resid-1, fig.cap = "(ref:fig-bridge-age-resid-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+```{r bridge-age-resid-1-investigation, fig.cap = "(ref:fig-bridge-age-resid-1)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 1
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
@@ -214,7 +237,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 
 (ref:fig-bridge-age-resid-2) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'WB COMM' gear.
 
-```{r bridge-age-resid-2, fig.cap = "(ref:fig-bridge-age-resid-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+```{r bridge-age-resid-2-investigation, fig.cap = "(ref:fig-bridge-age-resid-2)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 2
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
@@ -227,7 +250,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 
 (ref:fig-bridge-age-resid-3) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN QCS' gear.
 
-```{r bridge-age-resid-3, fig.cap = "(ref:fig-bridge-age-resid-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+```{r bridge-age-resid-3-investigation, fig.cap = "(ref:fig-bridge-age-resid-3)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 3
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
@@ -240,7 +263,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 
 (ref:fig-bridge-age-resid-4) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN HS' gear.
 
-```{r bridge-age-resid-4, fig.cap = "(ref:fig-bridge-age-resid-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+```{r bridge-age-resid-4-investigation, fig.cap = "(ref:fig-bridge-age-resid-4)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 4
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
@@ -253,7 +276,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 
 (ref:fig-bridge-age-resid-5) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCVI' gear.
 
-```{r bridge-age-resid-5, fig.cap = "(ref:fig-bridge-age-resid-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+```{r bridge-age-resid-5-investigation, fig.cap = "(ref:fig-bridge-age-resid-5)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 5
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
@@ -266,7 +289,7 @@ plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_i
 
 (ref:fig-bridge-age-resid-6) Maximum Posterior Density (MPD) age comp residuals for the '`r names(models$bridge_models[[mdl_grp]])[mdl_ind]``' model, for the 'SYN WCHG' gear.
 
-```{r bridge-age-resid-6, fig.cap = "(ref:fig-bridge-age-resid-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
+```{r bridge-age-resid-6-investigation, fig.cap = "(ref:fig-bridge-age-resid-6)", fig.pos = "H", fig.asp = 1.2, fig.height = 11}
 gear <- 6
 plot_age_year_birthyear_residuals(model = models$bridge_models[[mdl_grp]][[mdl_ind]],
                                   model_name = names(models$bridge_models[[mdl_grp]])[mdl_ind],
