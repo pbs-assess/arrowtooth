@@ -12,7 +12,27 @@ As a reminder, the 2015 base model was a female-only catch-at-age model with 4 i
 ```
 
 ```{r bridging-para-02-en, eval = !fr(), results = 'asis'}
-b()
+b("Each model in this list is based on the previous one with only one change made so incremental changes can be tracked.
+
+1. 2015 Base model (@grandin2017)
+
+1. Extracted the data for the 2015 model using the [gfplot](https://github.com/pbs-assess/gfplot) package, which has been used in several assessments and in the [gfsynopsis](https://github.com/pbs-assess/gfsynopsis) report. Ran the 2015 model without any modifications other than this data change.
+
+1. Using the same data extraction methods as in the first step, appended data up to and including 2021.
+
+1. Switched the age comp likelihood from Multivariate Normal Logistic to the saturating parameterization of the Dirichlet-Multinomial (@thorson2017)
+
+1. Add the WCHG Synoptic survey index and age comps
+
+1. Change the model to two fleets. This splits the commercial trawl catch into catch from Freezer Trawlers (FT COMM) and wet boats (WB COMM).
+
+1. Added the Discard CPUE index. This was suggested by the Technical Working Group (TWG) and is an index for vessels that were not fishing for ",  sp, " and therefore were discarding all that they caught incidentally. The selectivity could not be estimated for this index since there are no age composition data for it, so its selectivity was fixed to values representative of other estimated selectivities from other gears (Table \\@ref(tab:bridge-sel-param-table)).
+
+1. Convert model to split-sex.
+
+1. Change fishing year to Feb. 21 - Feb 20, which is the range currently used by fisheries management for the fishing year.
+
+1. Fixed male Natural mortality to be 0.2, and female to be 0.35. These are the values that are used in the Gulf of Alaska assessment.")
 ```
 ```{r bridging-para-02-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<bridging-para-02-en>>
