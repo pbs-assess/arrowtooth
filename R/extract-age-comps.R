@@ -47,6 +47,11 @@ extract_age_comps <- function(catch_sets,
   }else{
     stop("type must be 'commercial' or 'survey'", call. = FALSE)
   }
+  nsamp <- samples %>%
+    group_by(year, sex) %>%
+    summarize(length(unique(sample_id))) %>%
+    filter(year > 1995)
+  #browser()
 
   j <- ac %>%
     select(-species_common_name, -survey_abbrev)

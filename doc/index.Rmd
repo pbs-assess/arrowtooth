@@ -28,6 +28,8 @@ french_abstract: |
 header: "Draft working paper --- Do not cite or circulate" # or "" to omit
 output:
  csasdown::resdoc_pdf:
+   # build_rds is a toggle to re-build all the RDS files for the models
+   build_rds: true
    keep_md: true
    french: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
@@ -116,20 +118,23 @@ options(# Prevent xtable from adding a timestamp comment to the table code it pr
         scipen = 999)
 ```
 
-```{r load-libraries, cache=FALSE}
+```{r model-setup, cache=FALSE}
 meta <- rmarkdown::metadata$output
 j <- rmarkdown::metadata
 if(is.null(meta)){
   # This knitr chunk has been run in R without running bookdown::render_book("index.Rmd")
   # so rmarkdown::metadata$output is not populated
   options(french = FALSE)
+  build_rds <- FALSE
 }else{
   if (length(grep("pdf", names(meta)))) {
     options(french = meta$`csasdown::resdoc_pdf`$french)
     prepub <- meta$`csasdown::resdoc_pdf`$prepub
+    build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
   } else if (length(grep("word", names(meta)))) {
     options(french = meta$`csasdown::resdoc_word`$french)
     prepub <- meta$`csasdown::resdoc_word`$prepub
+    build_rds <- meta$`csasdown::resdoc_word`$build_rds
   }
 }
 csl <- "csl/csas.csl"
@@ -166,7 +171,7 @@ knit_hooks$set(needs_trans = function(before, options){
 
 library(csasdown)
 library(gfutilities)
-devtools::load_all("C:/github/pbs-assess/gfiscamutils/")
+devtools::load_all("D:/github/pbs-assess/gfiscamutils/")
 #library(gfiscamutils)
 library(ggplot2)
 library(gridExtra)
@@ -185,32 +190,29 @@ sp <- "Arrowtooth flounder"
 # This is a vector of bridge models that will be plotted against each other.
 # This must either be NULL or set to a vector of directories
 
+#bridge_models_dirs <- list(c("01-base-2015",
 bridge_models_dirs <- list(c("01-base-2015",
                              "02-bridge-update-data-to-2014",
                              "03-bridge-update-data-to-2021",
-                             "04-bridge-add-wchg",
-                             "05-bridge-switch-to-dm-likelihood",
+                             "04-bridge-add-wchg"),
+                           c("05-bridge-switch-to-dm-likelihood",
                              "06-bridge-switch-to-2-fleet-model",
                              "07-bridge-add-discard-cpue",
                              "08-bridge-switch-to-split-sex",
                              "09-bridge-switch-fishing-year-to-feb-21-feb-20",
                              "10-bridge-fix-m"))
-                             #"11-bridge-remove-wchg-from-09"))
 
+#bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
 bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
                              "Update data to 2014 (one fleet, single sex)",
                              "Update data to 2021 (one fleet, single sex)",
-                             "Add WCHG survey index and age comps",
-                             "Switch to DM likelihood (one fleet, single sex)",
+                             "Add WCHG survey index and age comps"),
+                            c("Switch to DM likelihood (one fleet, single sex)",
                              "Change to two-fleet model (two fleet, single sex)",
                              "Add Discard CPUE index (two fleets, single sex)",
                              "Convert model to split sex (two fleets, split sex)",
                              "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
                              "Fix male M=0.35, female M=0.2 (two fleets, split sex)"))
-
-bridge_models_dirs <- list(c("09-bridge-switch-fishing-year-to-feb-21-feb-20"))
-bridge_models_text <- list(c("Split-sex, two-fleet, Feb 21-Feb 20"))
-
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
@@ -226,6 +228,7 @@ sens_models_text <- NULL
 sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
 
 if(here() == "/home/rstudio"){
+  # For an Rstudio server spawned inside a Docker container
   drs <- set_dirs(nongit_dir = file.path(dirname(here("arrowtooth")), "arrowtooth-nongit"),
                   base_model_dir = "base",
                   bridge_models_dirs = bridge_models_dirs,
@@ -240,7 +243,7 @@ if(here() == "/home/rstudio"){
 models <- model_setup(main_dirs = drs,
                       bridge_models_text = bridge_models_text,
                       sens_models_text = sens_models_text,
-                      overwrite_rds_files = FALSE)
+                      overwrite = build_rds)
 
 dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-oct10-2021.rds"))
 # Remove 2014 WCHG index point
@@ -267,7 +270,7 @@ if(!file.exists(discard_cpue_file)){
 }
 stitched_syn_file <- file.path(data_dir, "stitched-syn-index.rds")
 if(!file.exists(stitched_syn_file)){
-  stop("Stiched Synoptics file does not exist: ", stitched_syn_file, call. = FALSE)
+  stop("Stitched Synoptics file does not exist: ", stitched_syn_file, call. = FALSE)
 }
 
 iphc <- readRDS(iphc_file)$series_ABCD_full$ser_longest
@@ -289,7 +292,7 @@ catch <- dat$catch
 cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
-theme_set(theme_pbs())
+theme_set(gfiscam_theme())
 
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 

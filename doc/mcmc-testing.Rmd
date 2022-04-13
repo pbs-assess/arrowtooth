@@ -1,0 +1,7 @@
+# MCMC output
+
+```{r base-mcmc-biomass, fig.cap = "(ref:fig-base-mcmc-biomiass)", out.width = "100%"}
+make.biomass.mcmc.plot(models$bridge_models[[1]],
+                       bridge_models_text[[1]],
+                       ylim = c(0, 1e6))
+```

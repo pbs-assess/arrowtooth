@@ -4,7 +4,7 @@
 #' @export
 update_gf_packages <- function(git_dir = "C:/github"){
   if(tolower(Sys.getenv("USERNAME")) == "grandin"){
-    git_dir <- "C:/github/pbs-assess"
+    git_dir <- "D:/github/pbs-assess"
   }
   orig_dir <- getwd()
   on.exit(setwd(orig_dir))
