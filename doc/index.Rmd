@@ -171,8 +171,11 @@ knit_hooks$set(needs_trans = function(before, options){
 
 library(csasdown)
 library(gfutilities)
-devtools::load_all("D:/github/pbs-assess/gfiscamutils/")
-#library(gfiscamutils)
+if(user == "grandin"){
+  devtools::load_all("D:/github/pbs-assess/gfiscamutils/")
+}else{
+  library(gfiscamutils)
+}
 library(ggplot2)
 library(gridExtra)
 library(kableExtra)
