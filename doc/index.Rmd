@@ -42,7 +42,7 @@ output:
    # build_rds is a toggle to re-build all the RDS files for the models
    build_rds: false
    keep_md: true
-   french: false
+   french: true
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
    # the document. If false, any changes you have made to the style file in your project
    # will remain between compilations. If true, your changes will be lost when you compile
@@ -132,23 +132,24 @@ options(# Prevent xtable from adding a timestamp comment to the table code it pr
 ```
 
 ```{r model-setup, cache = FALSE}
+# Libraries in alphabetical order
+library(csasdown)
 library(devtools)
-library(gfutilities)
+library(dplyr)
 if(user == "grandin"){
   load_all("D:/github/pbs-assess/gfiscamutils/")
 }else{
   library(gfiscamutils)
 }
-library(csasdown)
+library(gfplot)
+library(gfutilities)
 library(ggplot2)
 library(gridExtra)
+library(here)
 library(kableExtra)
+library(purrr)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
-library(dplyr)
-library(purrr)
-library(here)
-library(gfplot)
 devtools::load_all(".")
 
 meta <- rmarkdown::metadata$output
@@ -158,43 +159,43 @@ if(is.null(meta)){
   build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
 }
 
+# These are in rosettafish so don't need french versions here
 bc <- "British Columbia"
 sp <- "Arrowtooth flounder"
 
-# This is a vector of bridge models that will be plotted against each other.
-# This must either be NULL or set to a vector of directories
+# This is a list of vectors of bridge groups (bridge models that will be
+# plotted against each other). It can be `NULL` if to be ignored.
+bridge_models_dirs <- 
+  list(c("01-base-2015",
+         "02-bridge-update-data-to-2014",
+         "03-bridge-update-data-to-2021",
+         "04-bridge-add-wchg"),
+       c("05-bridge-switch-to-dm-likelihood",
+         "06-bridge-switch-to-2-fleet-model",
+         "07-bridge-add-discard-cpue",
+         "08-bridge-switch-to-split-sex",
+         "09-bridge-switch-fishing-year-to-feb-21-feb-20",
+         "10-bridge-fix-m"))
 
-#bridge_models_dirs <- list(c("01-base-2015",
-bridge_models_dirs <- list(c("01-base-2015",
-                             "02-bridge-update-data-to-2014",
-                             "03-bridge-update-data-to-2021",
-                             "04-bridge-add-wchg"),
-                           c("05-bridge-switch-to-dm-likelihood",
-                             "06-bridge-switch-to-2-fleet-model",
-                             "07-bridge-add-discard-cpue",
-                             "08-bridge-switch-to-split-sex",
-                             "09-bridge-switch-fishing-year-to-feb-21-feb-20",
-                             "10-bridge-fix-m"))
-
-#bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
-bridge_models_text <- list(c("2015 Base model (one fleet, single sex)",
-                             "Update data to 2014 (one fleet, single sex)",
-                             "Update data to 2021 (one fleet, single sex)",
-                             "Add WCHG survey index and age comps"),
-                            c("Switch to DM likelihood (one fleet, single sex)",
-                             "Change to two-fleet model (two fleet, single sex)",
-                             "Add Discard CPUE index (two fleets, single sex)",
-                             "Convert model to split sex (two fleets, split sex)",
-                             "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
-                             "Fix male M=0.35, female M=0.2 (two fleets, split sex)"))
+bridge_models_text <- 
+  list(c("2015 Base model (one fleet, single sex)",
+         "Update data to 2014 (one fleet, single sex)",
+         "Update data to 2021 (one fleet, single sex)",
+         "Add WCHG survey index and age comps"),
+       c("Switch to DM likelihood (one fleet, single sex)",
+         "Change to two-fleet model (two fleet, single sex)",
+         "Add Discard CPUE index (two fleets, single sex)",
+         "Convert model to split sex (two fleets, split sex)",
+         "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
+         "Fix male M=0.35, female M=0.2 (two fleets, split sex)"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 
-# This is a list of groups of sensitivities that will be plotted against each other.
-# The base model will be prepended to each group later in set_dirs() so that it is first
-# on the plots for each group.
-# This must either be NULL or set to a list of vectors of directories
+# This is a list of vectors of sensitivity groups (sensitivity models that
+# will be plotted against each other). It can be `NULL` if to be ignored.
+# The base model will be prepended to each group later in set_dirs() so that
+# it is first on the plots for each group.
 sens_models_dirs <- NULL
 sens_models_text <- NULL
 
@@ -203,7 +204,8 @@ sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
 
 if(here() == "/home/rstudio"){
   # For an Rstudio server spawned inside a Docker container
-  drs <- set_dirs(nongit_dir = file.path(dirname(here("arrowtooth")), "arrowtooth-nongit"),
+  drs <- set_dirs(nongit_dir = file.path(dirname(here("arrowtooth")),
+                                         "arrowtooth-nongit"),
                   base_model_dir = "base",
                   bridge_models_dirs = bridge_models_dirs,
                   sens_models_dirs = sens_models_dirs)
@@ -219,10 +221,6 @@ models <- model_setup(main_dirs = drs,
                       sens_models_text = sens_models_text,
                       overwrite = build_rds)
 
-dat <- readRDS(file.path(drs$nongit_dir, "data", "arrowtooth-flounder-oct10-2021.rds"))
-# Remove 2014 WCHG index point
-dat$survey_index<- dat$survey_index[-which(dat$survey_index$survey_abbrev == "SYN WCHG" & dat$survey_index$year == 2014), ]
- 
 month_fishing_starts <- 2
 day_fishing_starts <- 21
 
@@ -251,6 +249,9 @@ iphc <- readRDS(iphc_file)$series_ABCD_full$ser_longest
 discard_cpue <- read_csv(discard_cpue_file)
 stitched_syn <- readRDS(stitched_syn_file)
 
+dat <- readRDS(file.path(drs$nongit_dir, "data",
+                         "arrowtooth-flounder-oct10-2021.rds"))
+
 # These must be removed for call to add_extra_indices()
 survey_index <- dat$survey_index %>% 
   select(-species_common_name, -species_science_name)
@@ -259,13 +260,21 @@ survey_index <- add_extra_indices(survey_index,
                                   discard_cpue = discard_cpue,
                                   stitched_syn = stitched_syn)
 
+# Remove 2014 WCHG index point
+wchg_2014_row <- 
+  survey_index$survey_abbrev == "SYN WCHG" & survey_index$year == 2014
+
+dat$survey_index <- dat$survey_index[-which(wchg_2014_row), ]
+ 
+
 survey_sets <- dat$survey_sets
 survey_samples <- dat$survey_samples
 commercial_samples <- dat$commercial_samples
-catch <- dat$catch
+catch <- tidy_catch(dat$catch, areas =c("3[CD]+", "5[ABCDE]+"))
 cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision
+
 theme_set(gfiscam_theme())
 
 # Data extraction for iSCAM models:
@@ -274,6 +283,5 @@ theme_set(gfiscam_theme())
 #                        discard_cpue = discard_cpue,
 #                        stitched_syn = stitched_syn,
 #                        data_path = data_output_dir)
-
 
 ```

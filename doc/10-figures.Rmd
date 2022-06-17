@@ -1,9 +1,8 @@
 # Figures
 
-(ref:fig-catch-en) Catch caption
-(ref:fig-catch-fr) French caption here
+(ref:fig-catch-en) Commercial catch of `r sp` by area.
+(ref:fig-catch-fr) Captures commerciales de `r en2fr(sp)` par zone.
 
 ```{r fig-catch, fig.caption = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
-
-
+plot_catch(catch, french = fr())
 ```
