@@ -73,7 +73,9 @@ output:
    highlight: tango
 # ------------
 # End of options to set
-knit: bookdown::render_book
+knit: (function(input, ...) {
+       csasdown::render('_bookdown.yml')
+      })
 link-citations: true
 bibliography: bib/refs.bib
 # Any extra LaTeX code for the header:
@@ -134,11 +136,10 @@ library(devtools)
 library(gfutilities)
 if(user == "grandin"){
   load_all("D:/github/pbs-assess/gfiscamutils/")
-  load_all("D:/github/pbs-assess/csasdown/")
 }else{
-  library(csasdown)
   library(gfiscamutils)
 }
+library(csasdown)
 library(ggplot2)
 library(gridExtra)
 library(kableExtra)
@@ -149,6 +150,13 @@ library(purrr)
 library(here)
 library(gfplot)
 devtools::load_all(".")
+
+meta <- rmarkdown::metadata$output
+if(is.null(meta)){
+  build_rds <- FALSE
+}else{
+  build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
+}
 
 bc <- "British Columbia"
 sp <- "Arrowtooth flounder"
@@ -269,7 +277,3 @@ theme_set(gfiscam_theme())
 
 
 ```
-
----
-csl: `r csl`    
----
