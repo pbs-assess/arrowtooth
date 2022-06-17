@@ -1,7 +1,227 @@
-# MCMC output
-
-```{r base-mcmc-biomass, fig.cap = "(ref:fig-base-mcmc-biomiass)", out.width = "100%"}
-make.biomass.mcmc.plot(models$bridge_models[[1]],
-                       bridge_models_text[[1]],
-                       ylim = c(0, 1e6))
+```{r mcmc-output-header-en, eval = !fr(), results = 'asis'}
+cat("# MCMC output")
 ```
+
+```{r mcmc-output-header-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# Sortie MCMC")
+```
+
+(ref:fig-base-mcmc-biomass-en) Median posterior spawning biomass for the Reference Case. The shaded area represents the 95% credible interval. The point and bars represent the median estimate of B\textsubscript{0} and with a credible interval of 95%. Median estimates with credible intervals for reference points 0.2B\textsubscript{0}, 0.4B\textsubscript{0}, 0.4B\textsubscript{MSY}, and 0.8B\textsubscript{MSY} are shown as horizontal shaded areas.
+
+(ref:fig-base-mcmc-biomass-fr) Biomasse féconde médiane postérieure pour le scénario de référence. La zone ombrée représente l'intervalle crédible de 95%. Le point et les barres représentent l'estimation médiane de B\textsubscript{0} et avec un intervalle crédible de 95%. Les estimations médianes avec intervalles crédibles pour les points de référence 0,2B\textsubscript{0}, 0,4B\textsubscript{0}, 0,4B\textsubscript{MSY}, et 0,8B\textsubscript{MSY} sont représentées par des zones ombrées horizontales.
+
+```{r base-mcmc-biomass, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-biomass-fr)", "(ref:fig-base-mcmc-biomass-en)"), out.width = "100%"}
+plot_biomass_mcmc(models$base_model,
+                  show_bo_lines = TRUE,
+                  show_bmsy_lines = TRUE,
+                  angle_x_labels = TRUE,
+                  leg_loc = "none")
+```
+
+```{r base-decision-table, results = 'asis'}
+#proj_options <- as_tibble(models$base_model$proj$ctl.options, rownames = "var")
+proj_yr <- models$base_model$dat$end.yr + 2
+#proj_yr <- (proj_options %>% filter(var == "nyrmeanm") %>% pull(V1)) + 2
+cap <- paste0("Decision table for the base model showing posterior ",
+              "probabilities that the ", proj_yr, " projected biomass ",
+              "$B_t$ is below a set of candidate reference points and ",
+              "benchmarks.")
+if(fr()){
+  cap <- paste0("Tableau de décision pour le modèle de base montrant les ",
+                "probabilités postérieures probabilités que la ",
+                proj_yr, " biomasse projetée $B_t$ est inférieure à un ",
+                "ensemble de points de référence candidats et points de ",
+                "référence.")
+}
+table_decisions(models$base_model,
+                caption = cap,
+                format = "latex",
+                escape = FALSE,
+                digits = 3,
+                font_size = 10)
+```
+
+```{r base-sbt-median-table, results = 'asis'}
+cap <- paste0("Posterior median spawning biomass value estimates")
+if(fr()){
+cap <- paste0("French here")
+}
+table_ts_values_mcmc(models$bridge_grps[[3]],
+                     value = "sbt",
+                     type = "median",
+                     extra_header = toupper(letters[1:(length(models) + 2)]),
+                     ex_line_sep = 0,
+                     ex_align = "r",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 10,
+                     model_col_widths = "8em")
+```
+
+\begin{landscapepage}
+```{r bridge-likelihood-table, results = 'asis'}
+likelihood_table(models$bridge_grps[[3]],
+                 format = "latex",
+                 font_size = 7,
+                 caption = ifelse(fr(),
+                                  "Valeurs de vraisemblance des composantes pour les modèles de ponts.",
+                                  "Component likelihood values for the bridge models."),
+                 model_col_widths = "5em")%>%
+      column_spec(1, width = "5em")
+```
+\end{landscapepage}
+
+(ref:fig-base-mcmc-age-fits-gear-1-en) Age fits for Freezer trawlers. The dark red line is the median of the posterior and the shaded area the 95% credible interval.
+
+(ref:fig-base-mcmc-age-fits-gear-1-fr) Ajustements de l'âge pour les chalutiers Freezer. La ligne rouge foncée est la médiane de la postérieure et la zone ombragée l'intervalle crédible à 95%.
+
+```{r base-age-fits-gear-1, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-age-fits-gear-1-fr)", "(ref:fig-base-mcmc-age-fits-gear-1-en)"), out.width = "100%"}
+plot_age_fits_mcmc(models$base_model,
+                   gear = 1,
+                   text_title_size = NULL)
+```
+
+(ref:fig-base-mcmc-age-fits-gear-2-first-half-en) Age fits for the Shoreside fleet from 1996-2005. The dark red line is the median of the posterior and the shaded area the 95% credible interval.
+
+(ref:fig-base-mcmc-age-fits-gear-2-first-half-fr) Ajustements d'âge pour la flotte Shoreside de 1996 à 2005. La ligne rouge foncée est la médiane de la postérieure et la zone ombragée l'intervalle crédible à 95%.
+
+```{r base-age-fits-gear-2-first-half, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-age-fits-gear-2-first-half-fr)", "(ref:fig-base-mcmc-age-fits-gear-2-first-half-en)"), out.width = "100%"}
+plot_age_fits_mcmc(models$base_model,
+                   gear = 2,
+                   yrs = 1996:2005,
+                   text_title_size = NULL)
+```
+
+(ref:fig-base-mcmc-age-fits-gear-2-second-half-en) Age fits for the Shoreside fleet from 2006-2019. The dark red line is the median of the posterior and the shaded area the 95% credible interval.
+
+(ref:fig-base-mcmc-age-fits-gear-2-second-half-fr) Ajustements d'âge pour la flotte Shoreside de 2006 à 2019. La ligne rouge foncée est la médiane de la postérieure et la zone ombragée l'intervalle crédible à 95%.
+
+```{r base-age-fits-gear-2-second-half, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-age-fits-gear-2-second-half-fr)", "(ref:fig-base-mcmc-age-fits-gear-2-second-half-en)"), out.width = "100%"}
+plot_age_fits_mcmc(models$base_model,
+                   gear = 2,
+                   yrs = 2006:2019,
+                   text_title_size = NULL)
+```
+
+\clearpage
+
+```{r mcmc-diag-header-en, eval = !fr(), results = 'asis'}
+cat("## MCMC diagnostics")
+```
+
+```{r mcmc-diag-header-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<mcmc-diag-header-en>>
+```
+
+(ref:fig-base-mcmc-autocor-en) Autocorrelation for key parameters in the base model. The lag in the autocorrelation calculation is 100.
+
+(ref:fig-base-mcmc-autocor-fr) Autocorrélation pour les paramètres clés du modèle de base. Le décalage dans le calcul de l'autocorrélation est de 100.
+
+```{r fig-base-mcmc-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-autocor-fr)", "(ref:fig-base-mcmc-autocor-en)"), out.width = "100%"}
+plot_autocor_mcmc(models$base_model,
+                  param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                               "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                               "bmsy", "bo", "sbo"),
+                  plot_sel = FALSE)
+```
+
+(ref:fig-base-mcmc-pairs-en) Pairs plot showing correlation between key parameters in the base model.
+
+(ref:fig-base-mcmc-pairs-fr) Graphique en paires montrant la corrélation entre les paramètres clés du modèle de base.
+
+```{r fig-base-mcmc-pairs, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-pairs-fr)", "(ref:fig-base-mcmc-pairs-en)"), out.width = "100%"}
+plot_pairs_mcmc(models$base_model,
+                #list_param_names = T,
+                param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                             "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo"),
+                plot_sel = FALSE)
+```
+
+(ref:fig-base-mcmc-priors-posts-en) Priors and posterior densities for the base model.
+
+(ref:fig-base-mcmc-priors-posts-fr) Priors et densités postérieures pour le modèle de base.
+
+```{r fig-base-mcmc-priors-posts, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-priors-posts-fr)", "(ref:fig-base-mcmc-priors-posts-en)"), out.width = "100%"}
+plot_priors_posts_mcmc(models$base_model)
+```
+
+(ref:fig-base-mcmc-traces-en) Traceplot showing parameter values of each posterior for key parameters in the base model.
+
+(ref:fig-base-mcmc-traces-fr) Traceplot montrant les valeurs des paramètres de chaque postérieure pour les paramètres clés du modèle de base.
+
+```{r fig-base-mcmc-traces, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-traces-fr)", "(ref:fig-base-mcmc-traces-en)"), out.width = "100%"}
+plot_traces_mcmc(models$base_model,
+                 param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                              "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                              "bmsy", "bo", "sbo"))
+```
+
+(ref:fig-base-mcmc-effn-en) Summary histograms of MCMC diagnostics for all model parameters. The level of autocorrelation in the chain (distribution across lag times, i.e., distance between samples in the chain, shown in the top left panel) influences the effective sample size (top right panel) used to estimate posterior distributions. The Geweke statistic (lower left panel) tests for equality between means located in the first part of the chain against means in the last part of the chain. The Heidelberger and Welch statistic (lower right panel) tests if the sampled values come from a stationary distribution by comparing different sections of the chain.
+
+(ref:fig-base-mcmc-effn-fr) Histogrammes sommaires des diagnostics MCMC pour tous les paramètres du modèle. Le niveau d'autocorrélation dans la chaîne (distribution entre les temps de retard, c'est-à-dire la distance entre les échantillons dans la chaîne, indiquée dans le panneau supérieur gauche) influence la taille effective de l'échantillon (panneau supérieur droit) utilisée pour estimer les distributions postérieures. La statistique de Geweke (panneau inférieur gauche) teste l'égalité entre les moyennes situées dans la première partie de la chaîne par rapport aux moyennes situées dans la dernière partie de la chaîne. La statistique de Heidelberger et Welch (panneau inférieur droit) teste si les valeurs échantillonnées proviennent d'une distribution stationnaire en comparant différentes sections de la chaîne.
+
+
+```{r fig-base-mcmc-effn, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-effn-fr)", "(ref:fig-base-mcmc-effn-en)"), out.width = "100%"}
+plot_param_stats_mcmc(models$base_model)
+```
+
+```{r fig-base-mcmc-sel, fig.cap = "Selectivity", out.width = "100%"}
+plot_selex_mcmc(models$base_model)
+```
+
+```{r fig-base-mcmc-gear-sel, fig.cap = "Selectivity", out.width = "100%"}
+plot_selex_gear_mcmc(models$base_model, gear = 3)
+```
+
+```{r fig-base-mcmc-index-fits, fig.cap = "Index fits", out.width = "100%"}
+plot_index_mcmc(models$base_model, surv_index = survey_index)
+```
+
+
+\clearpage
+
+```{r base-parameter-est-median-table, results = 'asis'}
+cap <- paste0("Posterior median estimates of key parameters from the Reference Case. Subscripts on $q$ (catchability), $\\hat{a}$ (selectivity age-at-50\\%), and $\\hat{\\gamma}$ (standard deviation on selectivity age-at-50\\%) indicate sex and fleet/survey.")
+if(fr()){
+  cap <- paste0("Estimations médianes postérieures des paramètres clés du scénario de référence. Les indices sur $q$ (capturabilité), $\\hat{a}$ (sélectivité âge à 50\\%), et $\\hat{\\gamma}$ (écart type sur la sélectivité âge à 50\\%) indiquent le sexe et la flotte/enquête.")
+}
+table_param_est_mcmc(models$bridge_grps[[3]][[1]],
+                     type = "ci",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 10,
+                     model_col_widths = "8em")
+```
+\clearpage
+
+```{r base-parameter-est-ci-table, results = 'asis'}
+cap <- paste0("Posterior credible interval (2.5\\textsuperscript{th} and 97.5\\textsuperscript{th} percentiles) estimates of key parameters from the Reference Case. Subscripts on $q$ (catchability), $\\hat{a}$ (selectivity age-at-50\\%), and $\\hat{\\gamma}$ indicate sex and fleet/survey.")
+if(fr()){
+  cap <- paste0("Estimations de l'intervalle crédible a posteriori (percentiles 2,5e et 97,5e) des paramètres clés du scénario de référence. Les indices sur $q$ (capturabilité), $\\hat{a}$ (sélectivité âge à 50\\%) et $\\hat{\\gamma}$ indiquent le sexe et la flotte/enquête.")
+}
+table_param_est_mcmc(models$base_model,
+                     type = "ci",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 10,
+                     model_col_widths = "10em")
+```
+
+```{r base-ref-points-table, results = 'asis'}
+cap <- paste0("Posterior median and credible interval (2.5\\textsuperscript{th} and 97.5\\textsuperscript{th} percentiles) calculations for reference points for the Reference Case.")
+if(fr()){
+  cap <- paste0("Calculs de la médiane postérieure et de l'intervalle crédible (percentiles de 2,5e et 97,5e) pour les points de référence du scénario de référence.")
+}
+table_ref_points_mcmc(models$bridge_grps[[3]],
+                      type = "ci",
+                      caption = cap,
+                      digits = 2,
+                      font_size = 8,
+                      model_col_widths = "10em",
+                      ord = c(1, 13, 14, 11, 12,
+                              4,  7,  2, 15, 16,
+                              3,  6,  9, 10,  5,
+                              8))
+```
+

@@ -1,5 +1,6 @@
 ---
 title: "Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2021"
+french_title: "Évaluation du stock de la plie à dents de flèche (Atheresthes stomias) sur la côte ouest de la Colombie-Britannique en 2021 Colombie-Britannique en 2021"
 author: |
   Chris J. Grandin^1^ and
   Sean C. Anderson^1^
@@ -8,20 +9,30 @@ address: |
   ^1^Pacific Biological Station\
      Fisheries and Oceans Canada, 3190 Hammond Bay Road\
      Nanaimo, British Columbia, V9T 6N7, Canada
+french_address: |
+  ^1^Station biologique du Pacifique\
+     Pêches et Océans Canada, 3190 Hammond Bay Road\
+     Nanaimo, Colombie-Britannique, V9T 6N7, Canada\
+  \smallskip
+  ^2^Loin, très loin\
+     Une autre galaxie
 month: October
+french_month: Octobre
 year: 2021
 report_number: nnn
 region: Pacific Region
+french_region: "Région du Pacifique"
 isbn: "978-0-660-38322-4"
+cat_no: "Fs70-6/2021-012E-PDF"
 citation_other_language: "Grandin, C.J. et Anderson, S.C. Title Here (*Latin Species Name*). DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2019/nnn. iv + 13 p."
 
 abstract: |
-  Arrowtooth Flounder(*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable.
+  Arrowtooth Flounder (*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable.
 
   In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
 
 french_abstract: |
-  La plie à dents de flèche(*Atheresthes stomias*, Turbot) est une composante importante de la pêche au chalut de fond en Colombie-Britannique. Elle est gérée comme un stock de toute la côte, avec un TAC de 4 000 t et des prises de 10 679 t en 2014. Avant l'introduction des chalutiers congélateurs au milieu des années 2000, on comprend que la plupart des prises historiques de la limande à dents de flèche étaient rejetées en mer. Cela était dû en grande partie à la protéolyse, qui se produit dans le tissu musculaire de cette espèce peu de temps après la capture, rendant la chair peu appétissante.
+  La plie à dents de flèche (*Atheresthes stomias*, Turbot) est une composante importante de la pêche au chalut de fond en Colombie-Britannique. Elle est gérée comme un stock de toute la côte, avec un TAC de 4 000 t et des prises de 10 679 t en 2014. Avant l'introduction des chalutiers congélateurs au milieu des années 2000, on comprend que la plupart des prises historiques de la limande à dents de flèche étaient rejetées en mer. Cela était dû en grande partie à la protéolyse, qui se produit dans le tissu musculaire de cette espèce peu de temps après la capture, rendant la chair peu appétissante.
   
   Au cours de la dernière décennie, des marchés ont été créés pour les filets qui ont été congelés en mer, et la flotte de chalutiers congélateurs a pris une proportion croissante des prises côtières. Traduit avec www.DeepL.com/Translator (version gratuite)
 
@@ -29,7 +40,7 @@ header: "Draft working paper --- Do not cite or circulate" # or "" to omit
 output:
  csasdown::resdoc_pdf:
    # build_rds is a toggle to re-build all the RDS files for the models
-   build_rds: true
+   build_rds: false
    keep_md: true
    french: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
@@ -46,7 +57,7 @@ output:
    # draft_watermark is a toggle to show/not show a DRAFT watermark across every page
    draft_watermark: false
    # include_section_nums, if true includes section numbering in the document body,
-   # if false, no numbering in the document budy but the TOC will still show numbering
+   # if false, no numbering in the document body but the TOC will still show numbering
    include_section_nums: true
    # highlight is the theme to use for code output. Must be one of the list given by:
    # pandoc --list-highlight-styles
@@ -87,7 +98,7 @@ fig_out_width <- "6in"
 fig_dpi <- 180
 fig_align <- "center"
 fig_pos <- "htb"
-user <- Sys.getenv("USER")
+user <- Sys.getenv("USERNAME")
 opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -118,62 +129,14 @@ options(# Prevent xtable from adding a timestamp comment to the table code it pr
         scipen = 999)
 ```
 
-```{r model-setup, cache=FALSE}
-meta <- rmarkdown::metadata$output
-j <- rmarkdown::metadata
-if(is.null(meta)){
-  # This knitr chunk has been run in R without running bookdown::render_book("index.Rmd")
-  # so rmarkdown::metadata$output is not populated
-  options(french = FALSE)
-  build_rds <- FALSE
-}else{
-  if (length(grep("pdf", names(meta)))) {
-    options(french = meta$`csasdown::resdoc_pdf`$french)
-    prepub <- meta$`csasdown::resdoc_pdf`$prepub
-    build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
-  } else if (length(grep("word", names(meta)))) {
-    options(french = meta$`csasdown::resdoc_word`$french)
-    prepub <- meta$`csasdown::resdoc_word`$prepub
-    build_rds <- meta$`csasdown::resdoc_word`$build_rds
-  }
-}
-csl <- "csl/csas.csl"
-if (is.null(getOption("french"))) {
-  stop("`french` was not set up correctly in YAML header in index.Rmd. ",
-       "It must be true or false",
-       call. = FALSE)
-}
-if (getOption("french")) {
-  csl <- "csl/csas-french.csl"
-  options(OutDec = ",")
-}
-
-knit_hooks$set(needs_trans = function(before, options){
-  if(getOption("french") && options$needs_trans){
-    if (before){
-      paste0("\\
-       \\begin{lrbox}{\\userinput}
-       \\begin{minipage}{\\dimexpr\\linewidth-2\\fboxsep-2\\fboxrule}
-       \\textcolor{red}{\\textbf{Needs translation - \\textcolor{blue}{knitr chunk: ", options$label, "}}}
-       \\begin{lstlisting}
-      ")
-    } else {
-      "
-       \\end{lstlisting}
-       \\end{minipage}
-       \\end{lrbox}
-       \\noindent
-       \\fbox{\\usebox{\\userinput}}
-      "
-    }
-  }
-})
-
-library(csasdown)
+```{r model-setup, cache = FALSE}
+library(devtools)
 library(gfutilities)
 if(user == "grandin"){
-  devtools::load_all("D:/github/pbs-assess/gfiscamutils/")
+  load_all("D:/github/pbs-assess/gfiscamutils/")
+  load_all("D:/github/pbs-assess/csasdown/")
 }else{
+  library(csasdown)
   library(gfiscamutils)
 }
 library(ggplot2)

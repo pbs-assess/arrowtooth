@@ -1,106 +1,19 @@
 # Tables
 
-```{r bridge-likelihood-table, results = 'asis'}
-# likelihood_table(models[[2]],
-#                  format = "latex",
-#                  font_size = 7,
-#                  caption = ifelse(french,
-#                                   "French goes here",
-#                                   "Component likelihood values for the bridge models."))
-```
+```{r overall-catch-table, results = "asis"}
+cap <- paste0("Recent coastwide commercial fishery catch (t) for ",
+              sp, " by gear type.")
+if(fr()){
+cap <- paste0("Récentes captures (t) de la pêche commerciale côtière ",
+              "de ", sp, " par type d'engin de pêche.")
+}
 
-```{r bridge1-param-settings-table, results = 'asis'}
-param_settings_table(models$bridge_models[[1]][[6]],
-                     format = "latex",
-                     font_size = 7,
-                     caption = ifelse(french,
-                                      "French goes here",
-                                      "Number of parameters estimated, bounds, and prior parameterizations for the model 'Change fishing year to Feb 21 - Feb 20'."))
-```
-
-```{r bridge1-param-table, results = 'asis'}
-param_est_mpd_table(models$bridge_models[[1]],
-                    format = "latex",
-                    digits = 3,
-                    font_size = 7,
-                    model_col_widths = "5em",
-                    caption = ifelse(french,
-                                     "French goes here",
-                                     "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index.")) 
-```
-\clearpage
-
-```{r bridge1-sel-param-table, results = 'asis'}
-sel_param_est_mpd_table(models$bridge_models[[1]],
-                        format = "latex",
-                        digits = 3,
-                        font_size = 7,
-                        model_col_widths = NULL,
-                        caption = ifelse(french,
-                                         "French goes here",
-                                         "A comparison of Bridge model selectivity parameter estimates. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear, which has been estimated are labelled as such. Dashes are not applicable parameters for that model.")) 
-```
-
-```{r bridge2-param-settings-table, results = 'asis'}
-param_settings_table(models$bridge_models[[2]][[6]],
-                     format = "latex",
-                     font_size = 7,
-                     caption = ifelse(french,
-                                      "French goes here",
-                                      "Number of parameters estimated, bounds, and prior parameterizations for the two-fleet model 'Convert to split-sex'."))
-```
-
-```{r bridge2-param-table, results = 'asis'}
-param_est_mpd_table(models$bridge_models[[2]],
-                    format = "latex",
-                    digits = 3,
-                    font_size = 7,
-                    model_col_widths = "5em",
-                    caption = ifelse(french,
-                                     "French goes here",
-                                     "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with two fleets.")) 
-```
-\clearpage
-
-```{r bridge2-sel-param-table, results = 'asis'}
-sel_param_est_mpd_table(models$bridge_models[[2]],
-                        format = "latex",
-                        digits = 3,
-                        font_size = 7,
-                        model_col_widths = NULL,
-                        caption = ifelse(french,
-                                         "French goes here",
-                                         "A comparison of Bridge model selectivity parameter estimates for the two-fleet models. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear, which has been estimated are labelled as such. Dashes are not applicable parameters for that model.")) 
-```
-
-```{r bridge3-param-settings-table, results = 'asis'}
-param_settings_table(models$bridge_models[[3]][[7]],
-                     format = "latex",
-                     font_size = 7,
-                     caption = ifelse(french,
-                                      "French goes here",
-                                      "Number of parameters estimated, bounds, and prior parameterizations for the two-fleet model 'Replace 3 Synoptic surveys with Stitched'."))
-```
-
-```{r bridge3-param-table, results = 'asis'}
-param_est_mpd_table(models$bridge_models[[3]],
-                    format = "latex",
-                    digits = 3,
-                    font_size = 7,
-                    model_col_widths = "5em",
-                    caption = ifelse(french,
-                                     "French goes here",
-                                     "Bridge model parameter estimates for the primary parameters, reference points, and catchability estimates ($q$) for each index for the models with two fleets.")) 
-```
-\clearpage
-
-```{r bridge3-sel-param-table, results = 'asis'}
-sel_param_est_mpd_table(models$bridge_models[[3]],
-                        format = "latex",
-                        digits = 3,
-                        font_size = 7,
-                        model_col_widths = NULL,
-                        caption = ifelse(french,
-                                         "French goes here",
-                                         "A comparison of Bridge model selectivity parameter estimates for the two-fleet models. The number in parentheses in the 'Type' column represents the iSCAM code for the type of selectivity used. For example, a Logistic selectivity can have type '1' or '6'. The '6' allows for fixing the selectivity parameters. In the 'Fixed' column all blank entries are estimated parameters, fixed parameters are labelled 'Yes', and selectivities mirrored to another gear, which has been estimated are labelled as such. Dashes are not applicable parameters for that model.")) 
+# Table function not finished
+# table_catch(catch_df,
+#             gear_rm = c("trawl", "LONGLINE"),
+#             digits = 1,
+#             caption = cap,
+#             start_yr = 1996,
+#             font_size = 8,
+#             gear_col_widths = "6em")
 ```

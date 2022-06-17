@@ -28,6 +28,8 @@ resdoc.pdf
 resdoc.knit.md
 resdoc.utf8.md
 test
+tmp-*
+tmp_*
 xaringan-themer.css
 
 *.cpp
