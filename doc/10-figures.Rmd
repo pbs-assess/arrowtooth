@@ -1,8 +1,30 @@
 # Figures
 
 (ref:fig-catch-en) Commercial catch of `r sp` by area.
+
 (ref:fig-catch-fr) Captures commerciales de `r en2fr(sp)` par zone.
 
-```{r fig-catch, fig.caption = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
+```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 plot_catch(catch, french = fr())
 ```
+
+(ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model. The
+solid black line is the median of the posteriors, the shaded ribbon
+encapsulated by dotted lines covers the 95% Credible interval for the
+posteriors, the point at $B_0$ is the median estimate for the unfished
+biomass, and the vertical line over that point is the 95% Credible interval
+for that parameter.
+
+(ref:fig-base-sb-fr) Biomasse de frai de `r en2fr(sp)` pour le modèle de base.
+Le site ligne noire pleine est la médiane des postérieures, le ruban ombragé
+encapsulé par des lignes pointillées couvre l'intervalle crédible à 95% pour
+les le point à $B_0$ est l'estimation médiane de la biomasse non pêchée, et la
+ligne verticale sur ce point est l'intervalle crédible à 95% pour les biomasse
+non pêchée, et la ligne verticale au-dessus de ce point est l'intervalle
+crédible à 95% pour ce paramètre.
+
+```{r fig-base-sb, fig.cap = ifelse(fr(), "(ref:fig-base-sb-fr)", "(ref:fig-base-sb-en)")}
+gfiscamutils::plot_biomass_mcmc(base_model, angle_x_labels = TRUE)
+```
+
+\clearpage

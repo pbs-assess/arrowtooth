@@ -42,7 +42,7 @@ output:
    # build_rds is a toggle to re-build all the RDS files for the models
    build_rds: false
    keep_md: true
-   french: true
+   french: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
    # the document. If false, any changes you have made to the style file in your project
    # will remain between compilations. If true, your changes will be lost when you compile
@@ -279,6 +279,7 @@ age_precision <- dat$age_precision
 
 theme_set(gfiscam_theme())
 
+base_model <- models$base_model
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 
 #                        iphc = iphc,
