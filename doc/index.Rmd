@@ -96,10 +96,10 @@ if (is_latex_output()) {
 }
 fig_asp <- 0.618
 fig_width <- 9
-fig_out_width <- "6in"
+fig_out_width <- "5.5in"
 fig_dpi <- 180
 fig_align <- "center"
-fig_pos <- "htb"
+fig_pos <- "H"
 user <- Sys.getenv("USERNAME")
 opts_chunk$set(
   collapse = TRUE,
@@ -153,10 +153,9 @@ library(tidylog, warn.conflicts = FALSE)
 devtools::load_all(".")
 
 meta <- rmarkdown::metadata$output
-if(is.null(meta)){
-  build_rds <- FALSE
-}else{
-  build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
+build_rds <- FALSE
+if(!is.null(meta)){
+  build_rds <- meta$`csasdown:::resdoc_pdf`$build_rds
 }
 
 # These are in rosettafish so don't need french versions here
@@ -223,6 +222,7 @@ models <- model_setup(main_dirs = drs,
                       sens_models_text = sens_models_text,
                       overwrite = build_rds)
 
+
 month_fishing_starts <- 2
 day_fishing_starts <- 21
 
@@ -279,7 +279,31 @@ age_precision <- dat$age_precision
 
 theme_set(gfiscam_theme())
 
-base_model <- models$base_model
+
+models$base_model <- replace_gear_names(models$base_model,
+                                        old_gear_names = "Wet boats",
+                                        new_gear_names = "Shoreside")
+
+models$bridge_grps[[1]] <- 
+  replace_gear_names(models$bridge_grps[[1]],
+                    old_gear_names = "Wet boats",
+                    new_gear_names = "Shoreside",
+                    old_gear_abbrevs = "WB COMM",
+                    new_gear_abbrevs = "SS COMM")
+
+models$bridge_grps[[2]] <- 
+  replace_gear_names(models$bridge_grps[[2]],
+                    old_gear_names = "Wet boats",
+                    new_gear_names = "Shoreside",
+                    old_gear_abbrevs = "WB COMM",
+                    new_gear_abbrevs = "SS COMM")
+
+base_model <- models$base_model[[1]]
+
+mcmc_chain_length <- 400000
+mcmc_sample_freq <- 200
+mcmc_num_samples <- 2000
+
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 
 #                        iphc = iphc,
