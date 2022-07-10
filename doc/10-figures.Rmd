@@ -24,7 +24,87 @@ non pêchée, et la ligne verticale au-dessus de ce point est l'intervalle
 crédible à 95% pour ce paramètre.
 
 ```{r fig-base-sb, fig.cap = ifelse(fr(), "(ref:fig-base-sb-fr)", "(ref:fig-base-sb-en)")}
-gfiscamutils::plot_biomass_mcmc(base_model, angle_x_labels = TRUE)
+plot_biomass_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
+```
+
+(ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The
+black points are the medians of the posteriors, the vertical black lines
+are the 95% Credible intervals for the posteriors, the point at $R_0$
+is the median estimate for the initial recruitment parameter $R_0$,
+and the vertical line over that point and shaded ribbon across the time series
+is the 95% Credible interval for that parameter.
+
+(ref:fig-base-recr-fr) Recrutement de `r en2fr(sp)` pour le modèle de base.
+Les points noirs de points noirs sont les médianes des postérieurs, les
+lignes noires verticales sont les intervalles crédibles à 95 % pour les
+valeurs postérieures, le point à $R_0$ est l'estimation médiane du paramètre
+de recrutement initial $R_0$ est l'estimation médiane pour le paramètre de
+recrutement initial $R_0$, et la ligne verticale sur ce point et le ruban
+ombragé sur la série temporelle est l'intervalle crédible à 95% pour ce
+paramètre.
+
+```{r fig-base-recr, fig.cap = ifelse(fr(), "(ref:fig-base-recr-fr)", "(ref:fig-base-recr-en)")}
+plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
+```
+
+(ref:fig-base-priors-posts-en) Prior probability distributions used in the base model (blue shaded areas) overlaid with posterior distribution histograms. The solid red line is the mode of the prior distribution, the vertical solid black line is the mean of the prior, and the vertical dashed black lines represent one standard deviation from the mean. Plots that are entirely shaded blue show uniform priors which are shaded underneath the prior value.
+
+(ref:fig-base-priors-posts-fr)  Distributions de probabilité antérieures utilisées dans le modèle de base (zones ombrées en bleu) superposées aux histogrammes de distribution postérieure. La ligne rouge pleine est le mode de la distribution antérieure, la ligne noire pleine verticale est la moyenne de la distribution antérieure, et les lignes noires pointillées verticales représentent un écart type de la moyenne. Les graphiques qui sont entièrement ombrés en bleu montrent des antériorités uniformes qui sont ombrées sous la valeur de l'antériorité.
+
+```{r fig-base-priors-posts, fig.cap = ifelse(fr(), "(ref:fig-base-priors-posts-fr)", "(ref:fig-base-priors-posts-en)")}
+plot_priors_posts_mcmc(base_model, text_title_size = NULL)
+```
+
+(ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first 1,000 were removed as a burn-in period.
+
+(ref:fig-base-trace-fr) French goes here
+
+```{r fig-base-trace, fig.cap = ifelse(fr(), "(ref:fig-base-trace-fr)", "(ref:fig-base-trace-en)")}
+plot_traces_mcmc(base_model,
+                 plot_sel = FALSE, 
+                 param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                              "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                              "bmsy", "bo", "sbo"),
+                 text_title_size = NULL)
+```
+
+(ref:fig-base-autocor-en) Autocorrelation plots for MCMC output of estimated lead parameters in the base model. See Figure \@ref(fig:fig-base-trace) for parameter descriptions.
+
+(ref:fig-base-autocor-fr) French goes here
+
+```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)")}
+plot_autocor_mcmc(base_model, 
+                  plot_sel = FALSE, 
+                  param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                               "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                               "bmsy", "bo", "sbo"),
+                  text_title_size = NULL)
+```
+
+(ref:fig-base-trace-selex-en) Trace plots for MCMC output of estimated selectivity parameters in the base model. See Figure \@ref(fig:fig-base-trace) for parameter descriptions.
+
+(ref:fig-base-trace-selex-fr) French goes here
+
+```{r fig-base-trace-selex, fig.cap = ifelse(fr(), "(ref:fig-base-trace-selex-fr)", "(ref:fig-base-trace-selex-en)")}
+plot_traces_mcmc(base_model,
+                 plot_sel = TRUE, 
+                 param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                              "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                              "bmsy", "bo", "sbo"),
+                 text_title_size = NULL)
+```
+
+(ref:fig-base-autocor-selex-en) Autocorrelation plots for MCMC output of estimated selectivity parameters in the base model. See Figure \@ref(fig:fig-base-trace) for parameter descriptions.
+
+(ref:fig-base-autocor-selex-fr) French goes here
+
+```{r fig-base-autocor-selex, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-selex-fr)", "(ref:fig-base-autocor-selex-en)")}
+plot_autocor_mcmc(base_model, 
+                  plot_sel = TRUE, 
+                  param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                               "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                               "bmsy", "bo", "sbo"),
+                  text_title_size = NULL)
 ```
 
 \clearpage
