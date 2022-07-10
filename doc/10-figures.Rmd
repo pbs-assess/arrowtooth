@@ -120,4 +120,16 @@ plot_pairs_mcmc(base_model,
                 text_title_size = NULL)
 ```
 
+(ref:fig-base-index-fits-en) Index fits for the base model. The light brown points and vertical lines show the index values and CVs; the black points show the medians of the posteriors; the black solid vertical lines show the 95% credible intervals for the posteriors. The two lines connecting points along the time series are only present for aesthetic value. The 2014 WCHG Synoptic index point is shown but was not included in the model.
+
+(ref:fig-base-index-fits-fr) Ajustements de l'indice pour le modèle de base. Les points et les lignes verticales marron clair montrent les valeurs de l'indice et les CV ; les points noirs montrent les médianes des valeurs postérieures ; les lignes verticales pleines noires montrent les intervalles crédibles à 95% pour les valeurs postérieures. Les deux lignes reliant les points le long de la série chronologique ne sont présentes que pour des raisons esthétiques. Le point d'indice Synoptic WCHG de 2014 est indiqué mais n'a pas été inclus dans le modèle.
+
+```{r fig-base-index-fits, fig.cap = ifelse(fr(), "(ref:fig-base-index-fits-fr)", "(ref:fig-base-index-fits-en)")}
+plot_index_mcmc(base_model,
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = NULL,
+                text_title_size = NULL)
+```
+
 \clearpage
