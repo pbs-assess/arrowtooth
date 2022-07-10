@@ -300,6 +300,11 @@ models$bridge_grps[[2]] <-
 
 base_model <- models$base_model[[1]]
 
+base_all_gears <- gear_lu_table(base_model, "all")
+base_age_gears <- gear_lu_table(base_model, "age")
+base_index_gears <- gear_lu_table(base_model, "index")
+base_fleet_gears <- gear_lu_table(base_model, "fleet")
+
 mcmc_chain_length <- 400000
 mcmc_sample_freq <- 200
 mcmc_num_samples <- 2000
