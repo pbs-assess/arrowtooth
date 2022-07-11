@@ -132,4 +132,50 @@ plot_index_mcmc(base_model,
                 text_title_size = NULL)
 ```
 
+(ref:fig-base-index-resids-en) Index Log standardized residuals. The points are the median of the posteriors for the $\epsilon$ parameter in iSCAM. The vertical lines represent the 95% credible intervals for those posteriors.
+
+(ref:fig-base-index-resids-fr) Indice Log des résidus normalisés. Les points représentent la médiane des valeurs postérieures pour le paramètre $\epsilon$ dans iSCAM. Les lignes verticales représentent les intervalles crédibles à 95 % pour ces valeurs postérieures.
+
+```{r fig-base-index-resids, fig.cap = ifelse(fr(), "(ref:fig-base-index-resids-fr)", "(ref:fig-base-index-resids-en)")}
+plot_index_mcmc(base_model,
+                type = "resids",
+                surv_index = survey_index,
+                leg_loc = NULL,
+                text_title_size = NULL)
+```
+
+(ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
+
+(ref:fig-base-age-fits-ft-fr) French here
+
+```{r fig-base-age-fits-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ft-fr)", "(ref:fig-base-age-fits-ft-en)")}
+plot_age_fits_mcmc(base_model, gear = 1)
+```
+
+(ref:fig-base-age-resids-ft-en) Age composition log standardized residuals for each sex for the Freezer trawler fleet. The boxplots have boxes that range from the 25^th^ to 75^th^ percentiles. The whiskers extend to 1.5 x the Interquartile range (IRQ - distance between the first and third quartiles). Plus symbols are outliers from the range of 1.5 x IRQ.
+
+(ref:fig-base-age-resids-ft-fr) French here
+
+```{r fig-base-age-resids-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ft-fr)", "(ref:fig-base-age-resids-ft-en)")}
+plot_age_fits_mcmc(base_model, gear = 1)
+```
+
+
+
+
+
+(ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
+
+(ref:fig-base-age-fits-ss-firsthalf-fr) French here
+
+```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-firsthalf-fr)", "(ref:fig-base-age-fits-ss-firsthalf-en)")}
+plot_age_fits_mcmc(base_model, gear = 2, yrs = 1996:2007)
+```
+(ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
+
+(ref:fig-base-age-fits-ss--secondhalf-fr) French here
+
+```{r fig-base-age-fits--secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss--secondhalf-fr)", "(ref:fig-base-age-fits-ss--secondhalf-en)")}
+plot_age_fits_mcmc(base_model, gear = 2, yrs = 2008:2022)
+```
 \clearpage
