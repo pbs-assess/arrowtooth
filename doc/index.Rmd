@@ -279,24 +279,51 @@ age_precision <- dat$age_precision
 
 theme_set(gfiscam_theme())
 
-
-models$base_model <- replace_gear_names(models$base_model,
-                                        old_gear_names = "Wet boats",
-                                        new_gear_names = "Shoreside")
+models$base_model <- 
+  replace_gear_names(models$base_model,
+                     old_gear_names = c("Freezer", "Wet boats"),
+                     new_gear_names = c("Freezer Trawlers", "Shoreside"),
+                     old_gear_abbrevs = "WB COMM",
+                     new_gear_abbrevs = "SS COMM")
 
 models$bridge_grps[[1]] <- 
   replace_gear_names(models$bridge_grps[[1]],
-                    old_gear_names = "Wet boats",
-                    new_gear_names = "Shoreside",
-                    old_gear_abbrevs = "WB COMM",
-                    new_gear_abbrevs = "SS COMM")
+                     old_gear_names = c("Freezer", "Wet boats"),
+                     new_gear_names = c("Freezer Trawlers", "Shoreside"),
+                     old_gear_abbrevs = "WB COMM",
+                     new_gear_abbrevs = "SS COMM")
 
 models$bridge_grps[[2]] <- 
   replace_gear_names(models$bridge_grps[[2]],
-                    old_gear_names = "Wet boats",
-                    new_gear_names = "Shoreside",
-                    old_gear_abbrevs = "WB COMM",
-                    new_gear_abbrevs = "SS COMM")
+                     old_gear_names = c("Freezer", "Wet boats"),
+                     new_gear_names = c("Freezer Trawlers", "Shoreside"),
+                     old_gear_abbrevs = "WB COMM",
+                     new_gear_abbrevs = "SS COMM")
+
+gear_names <- models$base_model[[1]]$dat$gear_names
+if(fr()){
+  gear_names_fr <- map_chr(gear_names, ~{
+    if(grepl("Synoptic", .x)){
+      j <- str_split(.x, " ")[[1]]
+      paste(j[1], en2fr(j[2]))
+    }else{
+      en2fr(.x)
+    }
+  })
+  
+  models$base_model <- 
+    replace_gear_names(models$base_model,
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+  models$bridge_grps[[1]] <- 
+    replace_gear_names(models$bridge_grps[[1]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+  models$bridge_grps[[2]] <- 
+    replace_gear_names(models$bridge_grps[[2]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+}
 
 base_model <- models$base_model[[1]]
 
