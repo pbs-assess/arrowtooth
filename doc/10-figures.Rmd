@@ -144,6 +144,8 @@ plot_index_mcmc(base_model,
                 text_title_size = NULL)
 ```
 
+\clearpage
+
 (ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
 
 (ref:fig-base-age-fits-ft-fr) French here
@@ -157,12 +159,10 @@ plot_age_fits_mcmc(base_model, gear = 1)
 (ref:fig-base-age-resids-ft-fr) French here
 
 ```{r fig-base-age-resids-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ft-fr)", "(ref:fig-base-age-resids-ft-en)")}
-plot_age_fits_mcmc(base_model, gear = 1)
+plot_age_resids_mcmc(base_model, gear = 1)
 ```
 
-
-
-
+\clearpage
 
 (ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
 
@@ -171,11 +171,91 @@ plot_age_fits_mcmc(base_model, gear = 1)
 ```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-firsthalf-fr)", "(ref:fig-base-age-fits-ss-firsthalf-en)")}
 plot_age_fits_mcmc(base_model, gear = 2, yrs = 1996:2007)
 ```
-(ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
 
-(ref:fig-base-age-fits-ss--secondhalf-fr) French here
+(ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-firsthalf-ss) for plot details.
 
-```{r fig-base-age-fits--secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss--secondhalf-fr)", "(ref:fig-base-age-fits-ss--secondhalf-en)")}
+(ref:fig-base-age-fits-ss-secondhalf-fr) French here
+
+```{r fig-base-age-fits-secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-secondhalf-fr)", "(ref:fig-base-age-fits-ss-secondhalf-en)")}
 plot_age_fits_mcmc(base_model, gear = 2, yrs = 2008:2022)
 ```
+
+(ref:fig-base-age-resids-ss-en) Age composition log standardized residuals for each sex for the Shoreside fleet. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
+
+(ref:fig-base-age-resids-ss-fr) French here
+
+```{r fig-base-age-resids-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ss-fr)", "(ref:fig-base-age-resids-ss-en)")}
+plot_age_resids_mcmc(base_model, gear = 2)
+```
+
 \clearpage
+
+(ref:fig-base-age-fits-qcs-en) Age composition fits for each sex for the `r qcs`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
+
+(ref:fig-base-age-fits-qcs-fr) French here
+
+```{r fig-base-age-fits-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-qcs-fr)", "(ref:fig-base-age-fits-qcs-en)")}
+plot_age_fits_mcmc(base_model, gear = 3)
+```
+
+(ref:fig-base-age-resids-qcs-en) Age composition log standardized residuals for each sex for the `r qcs`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
+
+(ref:fig-base-age-resids-qcs-fr) French here
+
+```{r fig-base-age-resids-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-qcs-fr)", "(ref:fig-base-age-resids-qcs-en)")}
+plot_age_resids_mcmc(base_model, gear = 3)
+```
+
+\clearpage
+
+(ref:fig-base-age-fits-hss-en) Age composition fits for each sex for the `r hss`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
+
+(ref:fig-base-age-fits-hss-fr) French here
+
+```{r fig-base-age-fits-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-hss-fr)", "(ref:fig-base-age-fits-hss-en)")}
+plot_age_fits_mcmc(base_model, gear = 4)
+```
+
+(ref:fig-base-age-resids-hss-en) Age composition log standardized residuals for each sex for the `r hss`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
+
+(ref:fig-base-age-resids-hss-fr) French here
+
+```{r fig-base-age-resids-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-hss-fr)", "(ref:fig-base-age-resids-hss-en)")}
+plot_age_resids_mcmc(base_model, gear = 4)
+```
+
+\clearpage
+
+(ref:fig-base-age-fits-wcvis-en) Age composition fits for each sex for the `r wcvis`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
+
+(ref:fig-base-age-fits-wcvis-fr) French here
+
+```{r fig-base-age-fits-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wcvis-fr)", "(ref:fig-base-age-fits-wcvis-en)")}
+plot_age_fits_mcmc(base_model, gear = 5)
+```
+
+(ref:fig-base-age-resids-wcvis-en) Age composition log standardized residuals for each sex for the `r wcvis`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
+
+(ref:fig-base-age-resids-wcvis-fr) French here
+
+```{r fig-base-age-resids-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wcvis-fr)", "(ref:fig-base-age-resids-wcvis-en)")}
+plot_age_resids_mcmc(base_model, gear = 5)
+```
+
+\clearpage
+
+(ref:fig-base-age-fits-wchgs-en) Age composition fits for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
+
+(ref:fig-base-age-fits-wchgs-fr) French here
+
+```{r fig-base-age-fits-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wchgs-fr)", "(ref:fig-base-age-fits-wchgs-en)")}
+plot_age_fits_mcmc(base_model, gear = 6)
+```
+
+(ref:fig-base-age-resids-wchgs-en) Age composition log standardized residuals for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
+
+(ref:fig-base-age-resids-wchgs-fr) French here
+
+```{r fig-base-age-resids-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wchgs-fr)", "(ref:fig-base-age-resids-wchgs-en)")}
+plot_age_resids_mcmc(base_model, gear = 6)
+```

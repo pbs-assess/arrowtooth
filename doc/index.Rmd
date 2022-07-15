@@ -279,6 +279,8 @@ age_precision <- dat$age_precision
 
 theme_set(gfiscam_theme())
 
+# Gear names are set in the data file for each model
+# Make the commercial gear names be Freezer Trawlers and Shoreside
 models$base_model <- 
   replace_gear_names(models$base_model,
                      old_gear_names = c("Freezer", "Wet boats"),
@@ -302,6 +304,7 @@ models$bridge_grps[[2]] <-
 
 gear_names <- models$base_model[[1]]$dat$gear_names
 if(fr()){
+# Translate all gear names to French
   gear_names_fr <- map_chr(gear_names, ~{
     if(grepl("Synoptic", .x)){
       j <- str_split(.x, " ")[[1]]
@@ -335,6 +338,11 @@ base_fleet_gears <- gear_lu_table(base_model, "fleet")
 mcmc_chain_length <- 400000
 mcmc_sample_freq <- 200
 mcmc_num_samples <- 2000
+
+qcs <- "Queen Charlotte Sound Survey"
+hss <- "Hecate Strait Synoptic Survey"
+wcvis <- "West Coast Vancouver Island Survey"
+wchgs <- "West Coast Haida Gwaii Survey"
 
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 
