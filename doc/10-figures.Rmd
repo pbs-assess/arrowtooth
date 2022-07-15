@@ -8,6 +8,8 @@
 plot_catch(catch, french = fr())
 ```
 
+<!-- Biomass and recruitment -------------------------------------------------->
+
 (ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model. The
 solid black line is the median of the posteriors, the shaded ribbon
 encapsulated by dotted lines covers the 95% Credible interval for the
@@ -46,6 +48,8 @@ paramètre.
 ```{r fig-base-recr, fig.cap = ifelse(fr(), "(ref:fig-base-recr-fr)", "(ref:fig-base-recr-en)")}
 plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
 ```
+
+<!-- MCMC diagnostics -------------------------------------------------------->
 
 (ref:fig-base-priors-posts-en) Prior probability distributions used in the base model (blue shaded areas) overlaid with posterior distribution histograms. The solid red line is the mode of the prior distribution, the vertical solid black line is the mean of the prior, and the vertical dashed black lines represent one standard deviation from the mean. Plots that are entirely shaded blue show uniform priors which are shaded underneath the prior value.
 
@@ -120,6 +124,8 @@ plot_pairs_mcmc(base_model,
                 text_title_size = NULL)
 ```
 
+<!-- Index fits and residuals ------------------------------------------------>
+
 (ref:fig-base-index-fits-en) Index fits for the base model. The light brown points and vertical lines show the index values and CVs; the black points show the medians of the posteriors; the black solid vertical lines show the 95% credible intervals for the posteriors. The two lines connecting points along the time series are only present for aesthetic value. The 2014 WCHG Synoptic index point is shown but was not included in the model.
 
 (ref:fig-base-index-fits-fr) Ajustements de l'indice pour le modèle de base. Les points et les lignes verticales marron clair montrent les valeurs de l'indice et les CV ; les points noirs montrent les médianes des valeurs postérieures ; les lignes verticales pleines noires montrent les intervalles crédibles à 95% pour les valeurs postérieures. Les deux lignes reliant les points le long de la série chronologique ne sont présentes que pour des raisons esthétiques. Le point d'indice Synoptic WCHG de 2014 est indiqué mais n'a pas été inclus dans le modèle.
@@ -145,6 +151,8 @@ plot_index_mcmc(base_model,
 ```
 
 \clearpage
+
+<!-- Age fits and residuals -------------------------------------------------->
 
 (ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
 
@@ -259,3 +267,25 @@ plot_age_fits_mcmc(base_model, gear = 6)
 ```{r fig-base-age-resids-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wchgs-fr)", "(ref:fig-base-age-resids-wchgs-en)")}
 plot_age_resids_mcmc(base_model, gear = 6)
 ```
+
+\clearpage
+
+<!-- Selectivity ------------------------------------------------------------->
+
+(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% credible interval for those estimates. `r qcs` is not shown because it was estimated with time-varying selectivity. See Figure \@ref(fig:fig-base-mcmc-selex-qcs) for those plots.
+
+(ref:fig-base-selex-fr) French goes here
+
+```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
+plot_selex_mcmc(base_model)
+```
+
+(ref:fig-base-selex-qcs-en) Estimated selectivities for the `r qcs` in the base model. The time series is broken into selectivity blocks of years, `r qcs_sel_ranges`.
+
+(ref:fig-base-selex-qcs-fr) French goes here
+
+```{r fig-base-mcmc-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-selex-qcs-fr)", "(ref:fig-base-selex-qcs-en)")}
+plot_selex_gear_mcmc(base_model, gear = 3)
+```
+
+\clearpage

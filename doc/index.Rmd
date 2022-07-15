@@ -344,6 +344,22 @@ hss <- "Hecate Strait Synoptic Survey"
 wcvis <- "West Coast Vancouver Island Survey"
 wchgs <- "West Coast Haida Gwaii Survey"
 
+# Text for selectivity block year ranges
+qcs_tv_yr_start <- base_model$ctl$start.yr.time.block[3, ]
+qcs_tv_yr_start[1] <- base_model$dat$start.yr
+qcs_tv_yr_end <- c(qcs_tv_yr_start[2:length(qcs_tv_yr_start)] - 1,
+                   base_model$dat$end.yr)
+if(length(qcs_tv_yr_start) == 2){
+  qcs_sel_ranges <- paste(paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end),
+                          collapse = " and ")
+}else{
+  qcs_sel_ranges <- paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end)
+  tmp <- qcs_sel_ranges[length(qcs_sel_ranges)]
+  qcs_sel_ranges <- paste(qcs_sel_ranges[-length(qcs_sel_ranges)],
+                          collapse = ", ")
+  qcs_sel_ranges <- paste0(qcs_sel_ranges, ", and ", tmp)
+}
+
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 
 #                        iphc = iphc,
