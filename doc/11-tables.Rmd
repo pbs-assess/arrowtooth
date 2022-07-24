@@ -61,3 +61,17 @@ table_param_settings(base_model,
                      col_widths = "4em",
                      caption = cap)
 ```
+
+```{r param-estimates-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible interval estimates of key ",
+              "parameters for the base model.")
+if(fr()){
+cap <- paste0("Estimations de la médiane postérieure et de l'intervalle ",
+              "crédible à 95 \\% des paramètres clés pour le modèle de base")
+}
+
+table_param_est_mcmc(base_model,
+                     font_size = 8,
+                     caption = cap,
+                     bold_header = FALSE)
+```
