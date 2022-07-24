@@ -1,19 +1,35 @@
 # Tables
 
 ```{r overall-catch-table, results = "asis"}
-cap <- paste0("Recent coastwide commercial fishery catch (t) for ",
-              sp, " by gear type.")
+cap <- paste0("Recent coastwide commercial fishery landings and discards (t) ",
+              "for ", sp, ".")
 if(fr()){
-cap <- paste0("Récentes captures (t) de la pêche commerciale côtière ",
-              "de ", sp, " par type d'engin de pêche.")
+cap <- paste0("Débarquements et rejets récents de la pêche commerciale ",
+              "côtière (t) pour ", sp, ".")
 }
 
-# Table function not finished
-# table_catch(catch_df,
-#             gear_rm = c("trawl", "LONGLINE"),
-#             digits = 1,
-#             caption = cap,
-#             start_yr = 1996,
-#             font_size = 8,
-#             gear_col_widths = "6em")
+table_catch(catch,
+            digits = 1,
+            caption = cap,
+            start_yr = 1996,
+            font_size = 8,
+            gear_col_widths = "6em")
+```
+
+```{r area-catch-table, results = "asis"}
+cap <- paste0("Recent commercial fishery landings and discards (t) ",
+              "for ", sp, " by area.")
+if(fr()){
+cap <- paste0("Débarquements et rejets récents de la pêche commerciale ",
+              "côtière (t) pour ", sp, " par zone.")
+}
+
+table_catch(catch,
+            digits = 1,
+            caption = cap,
+            start_yr = 1996,
+            by_area = TRUE,
+            font_size = 8,
+            gear_col_widths = "6em")
+
 ```
