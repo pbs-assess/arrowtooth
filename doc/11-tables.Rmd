@@ -75,3 +75,28 @@ table_param_est_mcmc(base_model,
                      caption = cap,
                      bold_header = FALSE)
 ```
+
+```{r reference-points-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible interval of proposed ",
+              "reference points for the base model. Biomass numbers are in ",
+              "thousands of tonnes. Subscript 1 signifies the Freezer ",
+              "trawler fleet, subscript 2 signifies the Shoreside fleet. ")
+if(fr()){
+cap <- paste0("Médiane postérieure et intervalle crédible à 95 \\% des ",
+              "points de référence proposés pour le modèle de base. Les ",
+              "chiffres de la biomasse sont exprimés en milliers de tonnes. ",
+              "L'indice 1 désigne la flotte de chalutiers congélateurs, ",
+              "l'indice 2 désigne la flotte côtière.")
+}
+
+table_ref_points_mcmc(base_model,
+                      type = "median",
+                      caption = cap,
+                      digits = 2,
+                      font_size = 8,
+                      model_col_widths = "10em",
+                      ord = c(1, 13, 14, 11, 12,
+                              4,  7,  2, 15, 16,
+                              3,  6,  9, 10,  5,
+                              8))
+```
