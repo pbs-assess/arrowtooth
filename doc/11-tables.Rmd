@@ -33,3 +33,17 @@ table_catch(catch,
             gear_col_widths = "6em")
 
 ```
+
+```{r survey-index-data-table, results = "asis"}
+cap <- paste0("Indices of abundance and CVs for the base model.")
+if(fr()){
+cap <- paste0("Indices d'abondance et CV pour le modèle de base.")
+}
+
+table_index_values(base_model,
+                   digits = 2,
+                   caption = cap,
+                   font_size = 8,
+                   col_widths = "3em")
+
+```
