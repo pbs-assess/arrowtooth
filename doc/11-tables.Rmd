@@ -100,3 +100,85 @@ table_ref_points_mcmc(base_model,
                               3,  6,  9, 10,  5,
                               8))
 ```
+
+```{r biomass-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible intervals of spawning ",
+              "biomass for the base model. Values are in thousands of tonnes.")
+if(fr()){
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% de la ",
+              "biomasse féconde pour le modèle de base. Les valeurs sont ",
+              "exprimées en milliers de tonnes.")
+}
+
+table_ts_values_mcmc(base_model,
+                     value = "sbt",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 8)
+```
+
+```{r depletion-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible intervals for relative ",
+              "spawning biomass for the base model.")
+if(fr()){
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% pour ",
+              "la biomasse frayante relative pour le modèle de base.")
+}
+
+table_ts_values_mcmc(base_model,
+                     value = "depl",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 8)
+
+```
+
+```{r recruitment-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible intervals for recruitment ",
+              "for the base model. Values are in millions of fish.")
+if(fr()){
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% du ",
+              "recrutement pour le modèle de base. Les valeurs sont exprimées ",
+              "en millions de poissons.")
+}
+
+table_ts_values_mcmc(base_model,
+                     value = "rt",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 8)
+```
+
+```{r instantaneous-fishing-mortality-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible intervals for fishing mortality ",
+              "for the base model.")
+if(fr()){
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% pour la ",
+              "mortalité par pêche pour le modèle de base.")
+}
+
+# mdls <- list(base_model, models$bridge_grps[[2]][[5]])
+# class(mdls) <- mdl_lst_cls
+# mdl_txt <- c("Base model", as.character(bridge_models_text[[2]][[5]]))
+
+table_ts_values_mcmc(base_model,
+                     value = "ft",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 8)
+```
+
+```{r annual-harvest-rate-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible intervals for annnual harvest ",
+              "rate ($U_t$) for the base model.")
+if(fr()){
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% pour le ",
+              "taux de récolte annuel ($U_t$) pour le modèle de base.")
+}
+
+table_ts_values_mcmc(base_model,
+                     value = "ut",
+                     caption = cap,
+                     digits = 2,
+                     font_size = 8)
+```
