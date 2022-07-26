@@ -182,3 +182,15 @@ table_ts_values_mcmc(base_model,
                      digits = 2,
                      font_size = 8)
 ```
+
+```{r maturity-at-age-table, results = "asis"}
+cap <- paste0("Age-at-5\\%, 50\\%, and 95\\% maturity by sex. Number of specimens ",
+              "used in the calculation is also given.")
+if(fr()){
+cap <- paste0("Âge à 5 \\%, 50 \\% et 95 \\% de maturité par sexe. Le nombre de ",
+              "spécimens utilisés dans le calcul est également indiqué.")
+}
+
+table_maturity(survey_samples,
+               digits = 2)
+```
