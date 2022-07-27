@@ -190,16 +190,30 @@ table_ts_values_mcmc(base_model,
 ```
 
 ```{r maturity-at-age-table, results = "asis"}
-cap <- paste0("Values used in the iSCAM models for Age-at-50\\% and SD-at-50\\% ",
-              "maturity by sex. Number of specimens used in the calculation is ",
-              "also given.")
+cap <- paste0("Values used in the iSCAM models for Age-at-50\\% and ",
+              "SD-at-50\\% maturity by sex. Number of specimens used in ",
+              "the calculation is also given.")
 if(fr()){
 cap <- paste0("Valeurs utilisées dans les modèles iSCAM pour la maturité ",
-              "Age-at-50\\% et SD-at-50\\% par sexe. Le nombre de spécimens utilisés ",
-              "dans le calcul est également indiqué.")
+              "Age-at-50\\% et SD-at-50\\% par sexe. Le nombre de spécimens ",
+              "utilisés dans le calcul est également indiqué.")
 }
 
 table_maturity(survey_samples,
                digits = 2,
                caption = cap)
+```
+
+```{r sens-param-settings-table, results = "asis"}
+cap <- paste0("A summary of parameter changes to the base model for ",
+              "each sensitivity.")
+if(fr()){
+cap <- paste0("Un résumé des changements de paramètres du modèle de base ",
+              "pour chaque sensibilité.")
+}
+
+table_sens_param_changes(sens_models_text_no_base,
+                         sens_changes_text,
+                         col_widths = "20em",
+                         caption = cap)
 ```

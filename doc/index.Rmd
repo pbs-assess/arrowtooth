@@ -212,25 +212,79 @@ sens_models_dirs <-
        c("012-selex-equal-maturity"),
        c("013-stitched-index"))
 sens_models_text <-
-  list(c("sigma = 0.1",
-         "Estimate total variance"),
+  list(c("$\\sigma$ = 0.1",
+         ifelse(fr(),
+                "Estimation de la variance totale",
+                "Estimate total variance")),
        c("tau = 1.0",
          "tau = 0.6"),
-       c("Low steepness"),
-       c("Female M tight prior",
-         "Female M loose prior"),
-       c("Male M tight prior",
-         "Male M loose prior"),
-       c("Catchability prior mean = 1.0",
-         "Catchability loose prior"),
-       c("Selex equals maturity"),
-       c("Stitched index and DCPUE only"))
+       c(ifelse(fr(),
+                "Faible pente",
+                "Low steepness")),
+       c(ifelse(fr(),
+                "Femelle M serrée avant",
+                "Female M tight prior"),
+         ifelse(fr(), 
+                "Femelle M lâche avant",
+                "Female M loose prior")),
+       c(ifelse(fr(),
+                "Mâle M serré avant",
+                "Male M tight prior"),
+         ifelse(fr(),
+                "Mâle M lâche avant",
+                "Male M loose prior")),
+       c(ifelse(fr(),
+                "Moyenne antérieure de capturabilité = 1.0",
+                "Catchability prior mean = 1.0"),
+         ifelse(fr(),
+                "La capturabilité lâche avant",
+                "Catchability loose prior")),
+       c(ifelse(fr(),
+                "Sélectivité égale maturité",
+                "Selectivity equals maturity")),
+       c(ifelse(fr(),
+         "Index cousu et DCPUE uniquement",
+         "Stitched index and DCPUE only")))
+
+# This will be used to generate the sensitivity parameter table later
+sens_models_text_no_base <- sens_models_text
 
 # Add base model text to each sensitivity group
 sens_models_text <- map(sens_models_text, ~{c("Base model", .x)})
 
 # Make these factors so that they can be reordered in the legends later
 sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
+
+sens_changes_text <-
+  list(c("$\\vartheta^2$ = 1.538; $\\rho$ = 0.059",
+         "$\\vartheta^2$ estimated; $\\rho$ = 0.059"),
+       c("$\\vartheta^2$ = 0.962; $\\rho$ = 0.038",
+         "$\\vartheta^2$ = 2.500; $\\rho$ = 0.100"),
+       c("$h$ = Beta($\\alpha$ = 11.72, $\\beta$ = 4.56)"),
+       c(ifelse(fr(),
+                "ln($M_{Femelle}$) = Normale(ln(0.35), 0.5)",
+                "ln($M_{Female}$) = Normal(ln(0.35), 0.5)"),
+         ifelse(fr(),
+                "ln($M_{Femelle}$) = Normale(ln(0.35), 2.5)",
+                "ln($M_{Female}$) = Normal(ln(0.35), 2.5)")),
+       c(ifelse(fr(),
+                "ln($M_{M\\hat{a}le}$) = Normale(ln(0.2), 0.5)",
+                "ln($M_{Male}$) = Normal(ln(0.2), 0.5)"),
+         ifelse(fr(),
+                "ln($M_{M\\hat{a}le}$) = Normale(ln(0.2), 2.5)",
+                "ln($M_{Male}$) = Normal(ln(0.2), 2.5)")),
+       c(ifelse(fr(),
+                "Moyenne antérieure de capturabilité = 1.0",
+                "Catchability prior mean = 1.0"),
+         ifelse(fr(),
+                "Catchabilité antérieure sd = 1.5",
+                "Catchability prior sd = 1.5")),
+       c(ifelse(fr(),
+                "Paramètres de sélectivité des pêcheries = maturité ($A_{50\\%}$ and $SD_{50\\%}$)",
+                "Fishery selectivity parameters = maturity ($A_{50\\%}$ and $SD_{50\\%}$)")),
+       c(ifelse(fr(),
+         "Pas d'enquêtes individuelles en tant qu'indices",
+         "No individual surveys as indices")))
 
 if(here() == "/home/rstudio"){
   # For an Rstudio server spawned inside a Docker container
