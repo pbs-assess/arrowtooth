@@ -335,8 +335,12 @@ models$bridge_grps[[2]] <-
 
 gear_names <- models$base_model[[1]]$dat$gear_names
 if(fr()){
-# Translate all gear names to French
+  # Translate all gear names to French
+  # Note 'Shoreside' is the same in both languages 
   gear_names_fr <- map_chr(gear_names, ~{
+    if(.x == "HS Multispecies Assemblage"){
+      return("HS Assemblage multi-espèces")
+    }
     if(grepl("Synoptic", .x)){
       j <- str_split(.x, " ")[[1]]
       paste(j[1], en2fr(j[2]))
