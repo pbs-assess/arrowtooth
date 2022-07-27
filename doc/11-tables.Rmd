@@ -1,4 +1,10 @@
-# Tables
+```{r tables-01-en, eval = !fr(), results = 'asis'}
+cat("# Tables")
+```
+
+```{r tables-01-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# Tableaux")
+```
 
 ```{r overall-catch-table, results = "asis"}
 cap <- paste0("Recent coastwide commercial fishery landings and discards (t) ",
