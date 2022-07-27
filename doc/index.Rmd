@@ -133,13 +133,15 @@ options(# Prevent xtable from adding a timestamp comment to the table code it pr
 
 ```{r model-setup, cache = FALSE}
 # Libraries in alphabetical order
-library(csasdown)
+
 library(devtools)
 library(dplyr)
 if(user == "grandin"){
   load_all("D:/github/pbs-assess/gfiscamutils/")
+  load_all("D:/github/pbs-assess/csasdown/")
 }else{
   library(gfiscamutils)
+  library(csasdown)
 }
 library(gfplot)
 library(gfutilities)
@@ -195,8 +197,37 @@ bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 # will be plotted against each other). It can be `NULL` if to be ignored.
 # The base model will be prepended to each group later in set_dirs() so that
 # it is first on the plots for each group.
-sens_models_dirs <- NULL
-sens_models_text <- NULL
+sens_models_dirs <-
+  list(c("001-sigma-0.1",
+         "002-estimate-total-variance"),
+       c("003-tau-1.0",
+         "004-tau-0.6"),
+       c("005-low-steepness"),
+       c("006-m-female-tight-prior",
+         "007-m-female-loose-prior"),
+       c("008-m-male-tight-prior",
+         "009-m-male-loose-prior"),
+       c("010-qk-mean-1.0",
+         "011-qk-loose-prior"),
+       c("012-selex-equal-maturity"),
+       c("013-stitched-index"))
+sens_models_text <-
+  list(c("sigma = 0.1",
+         "Estimate total variance"),
+       c("tau = 1.0",
+         "tau = 0.6"),
+       c("Low steepness"),
+       c("Female M tight prior",
+         "Female M loose prior"),
+       c("Male M tight prior",
+         "Male M loose prior"),
+       c("Catchability prior mean = 1.0",
+         "Catchability loose prior"),
+       c("Selex equals maturity"),
+       c("Stitched index and DCPUE only"))
+
+# Add base model text to each sensitivity group
+sens_models_text <- map(sens_models_text, ~{c("Base model", .x)})
 
 # Make these factors so that they can be reordered in the legends later
 sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
