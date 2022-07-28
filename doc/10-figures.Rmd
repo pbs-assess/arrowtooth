@@ -1,6 +1,6 @@
 # Figures
 
-<!-- Catch ------------------------------------------------------------------->
+<!-- Catch/CPUE -------------------------------------------------------------->
 
 (ref:fig-catch-spatial-en) Spatial distribution of commercial catch from
 `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.
@@ -8,9 +8,20 @@
 (ref:fig-catch-spatial-fr) Distribution spatiale des captures commerciales de
 `r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`.
 
-```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)")}
+```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)"), out.width = "6in"}
 plot_catch_spatial(dat$catch_spatial, start_year = base_model$dat$start.yr)
 ```
+
+(ref:fig-cpue-spatial-en) Spatial distribution of commercial CPUE from
+`r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.
+
+(ref:fig-cpue-spatial-fr) Distribution spatiale de la CPUE commerciales de
+`r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`.
+
+```{r fig-cpue-spatial, fig.cap = ifelse(fr(), "(ref:fig-cpue-spatial-fr)", "(ref:fig-cpue-spatial-en)"), out.width = "6in"}
+plot_cpue_spatial(dat$cpue_spatial, start_year = base_model$dat$start.yr)
+```
+
 (ref:fig-catch-en) Commercial catch of `r sp` by area.
 
 (ref:fig-catch-fr) Captures commerciales de `r en2fr(sp)` par zone.
@@ -170,7 +181,7 @@ plot_index_mcmc(base_model,
 (ref:fig-base-age-fits-ft-fr) French here
 
 ```{r fig-base-age-fits-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ft-fr)", "(ref:fig-base-age-fits-ft-en)")}
-plot_age_fits_mcmc(base_model, gear = 1)
+plot_age_fits_mcmc(base_model, gear = 1, text_title_size = NULL)
 ```
 
 (ref:fig-base-age-resids-ft-en) Age composition log standardized residuals for each sex for the Freezer trawler fleet. The boxplots have boxes that range from the 25^th^ to 75^th^ percentiles. The whiskers extend to 1.5 x the Interquartile range (IRQ - distance between the first and third quartiles). Plus symbols are outliers from the range of 1.5 x IRQ.
@@ -178,7 +189,7 @@ plot_age_fits_mcmc(base_model, gear = 1)
 (ref:fig-base-age-resids-ft-fr) French here
 
 ```{r fig-base-age-resids-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ft-fr)", "(ref:fig-base-age-resids-ft-en)")}
-plot_age_resids_mcmc(base_model, gear = 1)
+plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL)
 ```
 
 \clearpage
