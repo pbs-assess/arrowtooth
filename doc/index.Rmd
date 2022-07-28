@@ -198,19 +198,19 @@ bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 # The base model will be prepended to each group later in set_dirs() so that
 # it is first on the plots for each group.
 sens_models_dirs <-
-  list(c("001-sigma-0.1",
-         "002-estimate-total-variance"),
-       c("003-tau-1.0",
-         "004-tau-0.6"),
-       c("005-low-steepness"),
-       c("006-m-female-tight-prior",
-         "007-m-female-loose-prior"),
-       c("008-m-male-tight-prior",
-         "009-m-male-loose-prior"),
-       c("010-qk-mean-1.0",
-         "011-qk-loose-prior"),
-       c("012-selex-equal-maturity"),
-       c("013-stitched-index"))
+  list(c("01-sigma-0.1",
+         "02-estimate-total-variance"),
+       c("03-tau-1.0",
+         "04-tau-0.6"),
+       c("05-low-steepness"),
+       c("06-m-female-tight-prior",
+         "07-m-female-loose-prior"),
+       c("08-m-male-tight-prior",
+         "09-m-male-loose-prior"),
+       c("10-qk-mean-1.0",
+         "11-qk-loose-prior"),
+       c("12-selex-equal-maturity"),
+       c("13-stitched-index"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,1",
@@ -302,7 +302,6 @@ if(here() == "/home/rstudio"){
                   check_dir_exists = FALSE)
 }else{
   drs <- set_dirs(base_model_dir = "base",
-                  bridge_models_dir = "001-bridge-models",
                   bridge_models_dirs = bridge_models_dirs,
                   sens_models_dirs = sens_models_dirs,
                   check_dir_exists = FALSE)
@@ -358,11 +357,14 @@ wchg_2014_row <-
   survey_index$survey_abbrev == "SYN WCHG" & survey_index$year == 2014
 
 dat$survey_index <- dat$survey_index[-which(wchg_2014_row), ]
- 
 
-survey_sets <- dat$survey_sets
-survey_samples <- dat$survey_samples
-commercial_samples <- dat$commercial_samples
+# Areas 3CD and 5ABCDE only 
+survey_sets <- dat$survey_sets |> 
+  filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
+survey_samples <- dat$survey_samples |> 
+  filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
+commercial_samples <- dat$commercial_samples |> 
+  filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
 catch <- tidy_catch(dat$catch, areas =c("3[CD]+", "5[ABCDE]+"))
 cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll

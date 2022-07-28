@@ -3,8 +3,8 @@ cat("# Introduction
 `r sp` (*`r sp_science`*, Family `r sp_family`, also commonly called `r sp_colloq`), is a species of flatfish that occurs in the offshore waters of `r bc`. `r sp` are primarily taken by the groundfish bottom trawl fishery, although they are also encountered by hook and line fisheries, particularly those targeting Pacific Halibut (*Hippoglossus stenolepis*). Prior to the introduction of freezer trawlers in the `r bc` groundfish fleet in the mid-2000s, most of the historical catch of `r sp` is understood to have been discarded at sea. Proteolysis occurs in the muscle tissue of this species a short time after it is caught, making the flesh mushy and unpalatable. In the past five years, Asian markets have been established for fillets that have been frozen at sea as soon as possible after capture to reduce proteolysis. There is also an Asian market for the frills. The stock was last assessed by @grandin2017, who presented an age-structured Bayesian model using the iSCAM platform. This stock assessment covers the combined Pacific Marine Fisheries Commission (PMFC) major areas 3CD and 5ABCDE off the west coast of `r bc`.")
 ```
 
-```{r intro-para-01-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("`r firstup(en2fr(sp))` (*`r sp_science`*, famille `r sp_family`, également appelé communément `r sp_colloq`), est une espèce de poisson plat que l'on trouve dans les eaux du large de la Colombie-Britannique. Il est principalement capturé par la pêche au chalut de fond, bien qu'il soit également pêché à la ligne et à l'hameçon, en particulier par les pêcheurs de flétan du Pacifique (*Hippoglossus stenolepis*). Avant l'introduction de chalutiers congélateurs dans la flotte de pêche au poisson de fond de la mer du Nord au milieu des années 2000, la plupart des prises historiques du flétan du Pacifique étaient rejetées en mer. La protéolyse se produit dans le tissu musculaire de cette espèce peu de temps après sa capture, ce qui rend la chair pâteuse et peu appétissante. Au cours des cinq dernières années, des marchés asiatiques ont été créés pour les filets qui ont été congelés en mer le plus rapidement possible après la capture afin de réduire la protéolyse. Il existe également un marché asiatique pour les fressures. Le stock a été évalué pour la dernière fois par @grandin2017, qui a présenté un modèle bayésien structuré par âge utilisant la plateforme iSCAM. Cette évaluation du stock couvre les grandes zones combinées 3CD et 5ABCDE de la Commission des pêches maritimes du Pacifique (PMFC) au large de la côte ouest de la `r bc`.")
+```{r intro-para-01-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<intro-para-01-en>>
 ```
 
 ```{r intro-para-02-en, eval = !fr(), results = 'asis'}
@@ -26,7 +26,7 @@ cat("The purpose of this stock assessment is to update management advice for `r 
 ```{r intro-para-04-en, eval = !fr(), results = 'asis'}
 cat("## Biological background
   
-`r sp` are distinguished by their large mouth and arrow-shaped teeth, for which the species is named [@hart1973]. Their distribution ranges from Baja California to the eastern Bering Sea (@hart1973). In `r bc` the species inhabits depths from 50--900 m (@arf2001).")
+`r sp` are distinguished by their large mouth and arrow-shaped teeth, for which the species is named. Their distribution ranges from Baja California to the eastern Bering Sea [@hart1973]. In `r bc` the species inhabits depths from 50--900 m [@arf2001].")
 ```
 ```{r intro-para-04-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-04-en>>
@@ -55,7 +55,7 @@ cat("Juvenile `r sp` feed primarily on mobile prey such as cumaceans, carideans 
 ```{r intro-para-08-en, eval = !fr(), results = 'asis'}
 cat("## Fishery and management history
   
-`r sp` has been managed on a status-quo basis in recent years, with an annual allocation of 15,000 t for the groundfish trawl fleet since 2006. Before that time, there were no limits on catches or discards of `r sp`. The areas of high CPUE in Dixon Entrance seen in Figure \@ref(fig:cpue) are mainly from this test fishery.")
+`r sp` has been managed on a status-quo basis in recent years, with an annual allocation of 15,000 t for the groundfish trawl fleet from 2006-2018 and 5,000 t since 2019. Before that time, there were no limits on catches or discards of `r sp`. The areas of high CPUE in Dixon Entrance seen in Figure \@ref(fig:cpue) are mainly from this test fishery.")
 ```
 ```{r intro-para-08-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-08-en>>

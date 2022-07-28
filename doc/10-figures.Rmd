@@ -1,5 +1,16 @@
 # Figures
 
+<!-- Catch ------------------------------------------------------------------->
+
+(ref:fig-catch-spatial-en) Spatial distribution of commercial catch from
+`r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.
+
+(ref:fig-catch-spatial-fr) Distribution spatiale des captures commerciales de
+`r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`.
+
+```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)")}
+plot_catch_spatial(dat$catch_spatial, start_year = base_model$dat$start.yr)
+```
 (ref:fig-catch-en) Commercial catch of `r sp` by area.
 
 (ref:fig-catch-fr) Captures commerciales de `r en2fr(sp)` par zone.
