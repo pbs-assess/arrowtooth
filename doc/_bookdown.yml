@@ -1,7 +1,12 @@
 book_filename: "resdoc"
-rmd_files: ["tmp-index.Rmd",
-            "tmp-01-introduction.Rmd",
-            "tmp-10-figures.Rmd",
-            "tmp-11-tables.Rmd",
-            "tmp-99-references.Rmd"]
+rmd_files: ["index.Rmd",
+            "01-introduction.Rmd",
+            #"02-stock-assessment-modelling.Rmd",
+            #"02-bridging.Rmd",
+            #"03-investigation.Rmd",
+            #"10-figures.Rmd",
+            #"11-tables.Rmd",
+            #"mcmc-testing.Rmd",
+            #"biological.Rmd",
+            "99-references.Rmd"]
 delete_merged_file: true

@@ -1,0 +1,98 @@
+```{r sam-stock-modelling-en, eval = !fr(), results = 'asis'}
+cat("# Stock Assessment Modelling
+  
+We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition ofthe catch data indicated that commercial catches are comprised of approximately 70% females; see Appendix XX, Table XX.
+
+The model was fit to commercial catch data from two fleets, six indices of abundance with associated coeffcients of variation, and to age composition data from the commercial trawl fleets and four of the six indices. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix XX) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
+
+Reference points based on Maximum Sustainable Yield (MSY), including the female spawning biomass ($B_{MSY}$) and the annual harvest rate producing MSY ($U_{MSY}$), were estimated along with reference points based on estimated equilibrium unfished spawning biomass, $B_0$ (Section XX). A harvest decision table (Table \@ref(tab:decision-table)) was created by projecting the assessment model one year into the future under a range of constant catch levels. For each level of catch, decision tables show the probability that projected spawning biomass in `r base_model$dat$end.yr + 2` will be less than spawning biomass-based reference points, and the probablity that `r base_model$dat$end.yr + 2` harvest rate will be greater than harvest rate-based reference points (Section XX).
+")
+```
+
+```{r sam-stock-modelling-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<sam-stock-modelling-en>>
+```
+
+```{r sam-data-inputs-en, eval = !fr(), results = 'asis'}
+cat("# Data Inputs
+## Data Sources
+
+Data were extracted using the R package [gfdata](https://github.com/pbs-assess/gfdata) which applies standard SQL routines to several databases and reconstructs the various time series accordingly. The databases accessed for this assessment are:
+
+1. GFBioSQL - Contains all modern biological sample data for surveys and commercial fisheries. This database includes most of the groundfish specimen data collected since the 1950s.
+2. PacHarvTrawl - Contains Canadian trawl landing data from 1996 to March 31, 2007.
+3. GFFOS - Contains Canadian trawl landings from April 1, 2007 to present. This database is essentially a copy of the Fisheries and Oceans Canada (DFO) Fishery Operations (FOS) database with a slightly different structure that makes it easier for our assessment needs.
+
+")
+```
+
+```{r sam-data-inputs-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<sam-data-inputs-en>>
+```
+
+```{r sam-catch-data-en, eval = !fr(), results = 'asis'}
+cat("## Catch Data
+    
+Commercial fishing data are presented in this document for the period January 1, `r base_model$dat$start.yr` to December 31, `r base_model$dat$end.yr`. Landings and discards are shown in Table \@ref(tab:overall-catch-table). The current assessment fits a two-sex Bayesian age-structured model to catch, survey, and age-composition data from the years `r base_model$dat$start.yr` to `r base_model$dat$end.yr`, for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E(West Coast Haida Gwaii).
+
+Prior to the introduction of freezer trawlers into the British Columbia groundfish trawl fleet in 2005, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to flesh proteolysis, as discussed above. In many cases entire tows were discarded, precluding the use of ratio estimators or other statistical methods of estimating unobserved discards. All catch data prior to the introduction of 100% at-sea observer coverage in 1996 were therefore omitted from this assessment, on the recommendation of our industry advisors and technical working group, and follows what was done in the last assessment [@grandin2017]. See Section XX for further discussion and research recommendations.
+")
+```
+
+```{r sam-catch-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<sam-catch-data-en>>
+```
+```{r sam-abundance-indices-en, eval = !fr(), results = 'asis'}
+cat("## Abundance Indices
+
+Six fishery independent indices of abundance were used in this assessment:
+
+1. `r qcs`
+2. `r hsmas`
+3. `r hss`
+4. `r wcvis`
+5. `r wchgs`
+6. `r dcpue`
+
+**`r qcs`**
+The `r qcs` has been conducted from July–August in 2003, 2004, and in odd years starting in 2005. The survey area is divided into 2km by 2km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 50–125 m, 125–200 m, 200–330 m, and 330–500 m. Each year blocks are randomly selected within each depth strata. In addition, for the purposes of allocating blocks, the  survey is divided into northern and southern spatial strata.
+
+**`r hsmas`**
+A series of multi-species groundfish bottom trawl surveys were conducted in Hecate Strait in May-June of 1984, 1987, 1989, 1991, 1993, 1995, 1996, 1998, 2000, 2002, and 2003 (@westrheim1984; @fargo1984; @fargo1988; @wilson1991; @hand1994; @workman1996; @workman1997; @choromanski2002; @choromanski2005). The present assessment only utilizes observations from 1996 until the survey ended in 2003. The original design of this survey assigned fishing locations by 10 fathom depth intervals within a 10 nautical mile grid of Hecate Strait. The survey was post-stratifed using 10 fathom depth intervals for the entire survey area, thereby treating each depth interval as a single stratum. Despite attempts to apply post-sampling stratification, this approach had high survey variance [@sinclair2007]. In 2004 the `r hsmas` was discontinued in favour of the `r hss` (described below).
+
+**`r hss`**
+The `r hss` is part of a coordinated set of long-term surveys that together cover the continental shelf and upper slope of most of the British Columbia coast. The `r qcs` and `r wcvis` described in this section are part of the same set of surveys. All the synoptic surveys follow a random depth stratifed design. The relative allocation of blocks amongst depth strata was determined by modelling the expected catches of groundfish and determining the target number of tows per stratum that would provide the most precise catch rate data for as many species as possible. The `r hss` has been conducted from May–June in odd years starting in 2005. The survey area is divided into 2km by 2km blocks and each blockis assigned one of four depth strata based on the average bottom depthin the block. The four depth strata for this survey are 10–70 m, 70–130 m, 130–220 m, and 220–500 m. Each year blocks are randomly selected within each depth strata.
+
+**`r wcvis`**
+The `r wcvis` has been conducted from May–June in even years starting in 2004. The survey area is divided into 2km by 2km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 50–125 m, 125–200 m, 200–330 m, and 330–500 m. Each year blocks are randomly selected within each depth strata. In addition, for the purposes of allocating blocks, the survey is divided into northern and southern spatial strata.
+
+**`r wchgs`**
+The `r wchgs` has been conducted from August-September in even years starting in 2006. The survey area is divided into 2km by 2km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block.
+
+**`r dcpue`**
+The `r dcpue` Index was suggested by stakeholders as a possible way to create an index of abundance that would span every year in the assessment time period. The index is constructed using amounts of discarded `r sp` as a proxy for catch-per-unit-effort. See Appendix XX for more details.
+
+")
+```
+
+```{r sam-abundance-indices-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<sam-abundance-indices-en>>
+```
+
+```{r sam-swept-area-en, eval = !fr(), results = 'asis'}
+cat("## Swept area analysis for Indices of abundance
+  
+For all surveys, the swept area estimate of biomass in year $y$ was obtained by summing the product of the CPUE and the area surveyed across the surveyed strata $i$:
+
+")
+```
+
+\begin{equation}
+  1 + 1 = 2
+  (\#eq:reaction)
+\end{equation}
+
+
+```{r sam-swept-area-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<sam-swept-area-en>>
+```

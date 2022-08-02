@@ -437,9 +437,11 @@ mcmc_sample_freq <- 200
 mcmc_num_samples <- 2000
 
 qcs <- "Queen Charlotte Sound Survey"
+hsmas <- "Hecate Strait Multispecies Assemblage Survey"
 hss <- "Hecate Strait Synoptic Survey"
 wcvis <- "West Coast Vancouver Island Survey"
 wchgs <- "West Coast Haida Gwaii Survey"
+dcpue <- "Discard CPUE Index"
 
 # Text for selectivity block year ranges
 qcs_tv_yr_start <- base_model$ctl$start.yr.time.block[3, ]
