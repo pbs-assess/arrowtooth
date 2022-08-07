@@ -157,7 +157,7 @@ devtools::load_all(".")
 meta <- rmarkdown::metadata$output
 build_rds <- FALSE
 if(!is.null(meta)){
-  build_rds <- meta$`csasdown:::resdoc_pdf`$build_rds
+  build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
 }
 
 # These are in rosettafish so don't need french versions here
@@ -310,7 +310,7 @@ if(here() == "/home/rstudio"){
 models <- model_setup(main_dirs = drs,
                       bridge_models_text = bridge_models_text,
                       sens_models_text = sens_models_text,
-                      overwrite = build_rds)
+                      overwrite_rds_files = build_rds)
 
 
 month_fishing_starts <- 2
