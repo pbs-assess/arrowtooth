@@ -436,11 +436,11 @@ mcmc_chain_length <- 400000
 mcmc_sample_freq <- 200
 mcmc_num_samples <- 2000
 
-qcs <- "Queen Charlotte Sound Survey"
+qcs <- "Queen Charlotte Sound Synoptic Survey"
 hsmas <- "Hecate Strait Multispecies Assemblage Survey"
 hss <- "Hecate Strait Synoptic Survey"
-wcvis <- "West Coast Vancouver Island Survey"
-wchgs <- "West Coast Haida Gwaii Survey"
+wcvis <- "West Coast Vancouver Island Synoptic Survey"
+wchgs <- "West Coast Haida Gwaii Synoptic Survey"
 dcpue <- "Discard CPUE Index"
 
 # Text for selectivity block year ranges
