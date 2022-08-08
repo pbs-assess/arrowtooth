@@ -113,8 +113,8 @@ opts_chunk$set(
   fig.width = fig_width,
   out.width = fig_out_width,
   echo = FALSE,
-  autodep = isTRUE(user == "seananderson"),
-  cache = isTRUE(user == "seananderson"),
+  #autodep = isTRUE(user == "seananderson"),
+  #cache = isTRUE(user == "seananderson"),
   cache.comments = FALSE,
   dev = fig_out_type,
   dpi = fig_dpi,
@@ -139,7 +139,10 @@ library(dplyr)
 if(user == "grandin"){
   load_all("D:/github/pbs-assess/gfiscamutils/")
   load_all("D:/github/pbs-assess/csasdown/")
-}else{
+}else if(user == "seananderson"){
+  load_all("~/src/gfiscamutils/")
+  load_all("~/src/csasdown/")
+} else {
   library(gfiscamutils)
   library(csasdown)
 }
