@@ -313,4 +313,14 @@ plot_selex_mcmc(base_model)
 plot_selex_gear_mcmc(base_model, gear = 3)
 ```
 
+<!-- Reference points -------------------------------------------------------->
+
+(ref:fig-base-ref-points-en) Reference point posterior distributions for the base model. Subscripts are 1 = Freezer trawlers and 2 = Shoreside.
+
+(ref:fig-base-ref-points-fr) Distributions postérieures des points de référence pour le modèle de base. Les indices sont 1 = chalutiers congélateurs et 2 = chalutiers côtiers.
+
+```{r fig-base-ref-points, fig.cap = ifelse(fr(), "(ref:fig-base-ref-points-fr)", "(ref:fig-base-ref-points-en)")}
+plot_ref_points(base_model)
+```
+
 \clearpage

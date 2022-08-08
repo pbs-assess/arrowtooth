@@ -1,10 +1,10 @@
 ```{r scam-model-description-en, eval = !fr(), results = 'asis'}
-cat("# Statistical Catch-at-age Model
-## Model Description
+cat("## Statistical Catch-at-age Model {#scam-model}
+### Model Description {#scam-model-desc}
 
 A two-sex, Bayesian statistical catch-at-age model was applied to assess the coastwide stock status of `r sp`. The model is based on the Integrated Statistical Catch Age Model (iSCAM) framework, @martell2011. Full model details are provided in Appendix XX.
 
-We define a base model with fixed and estimated parameters described in Table \@ref(tab:param-settings-table). A total of `r num_params` model parameters were conditionally estimated by the base model (Table \@ref(tab:param-settings-table) show some of these). The model estimated time series of log recruitment anomalies and log fishing mortality rates; and time-invariant values of unfished recruitment, steepness of the Beverton-Holt stock-recruit relationship, natural mortality, average recruitment and logistic selectivity parameters for the two commercial fisheries and the four synoptic surveys. Prior probability distributions for the base model are shown in Table \@ref(tab:param-settings-table) and Figure \@ref(fig:fig-base-priors-posts) and described in Section \@ref(sec:scam-priors-en). Model sensitivity to fixed parameters and to assumed prior probability distributions are presented in a later section.
+We define a base model with fixed and estimated parameters described in Table \@ref(tab:param-settings-table). A total of `r num_params` model parameters were conditionally estimated by the base model (Table \@ref(tab:param-settings-table) show some of these). The model estimated time series of log recruitment anomalies and log fishing mortality rates; and time-invariant values of unfished recruitment, steepness of the Beverton-Holt stock-recruit relationship, natural mortality, average recruitment and logistic selectivity parameters for the two commercial fisheries and the four synoptic surveys. Prior probability distributions for the base model are shown in Table \@ref(tab:param-settings-table) and Figure \@ref(fig:fig-base-priors-posts) and described in Section \@ref(scam-model-priors). Model sensitivity to fixed parameters and to assumed prior probability distributions are presented in a later section.
 
 The model was conditioned on observed catch data (`r ct_start_yr`--`r ct_end_yr`), which were assumed to be known without error. The model was fit to five survey indices of abundance, the Discard CPUE index, and to age composition data from the two commercial fisheries and the four synoptic surveys. Biological parameters determining weight-at-age and maturity-at-age schedules were estimated independently (Appendix XX) and input to the assessment model as fixed parameters that remained constant over time.
 
@@ -22,18 +22,102 @@ Variance components of the modelwere partitioned using an errors in variables ap
 ```
 
 ```{r scam-priors-en, eval = !fr(), results = 'asis'}
-cat("# Prior Probability Distributions
+cat("### Prior Probability Distributions {#scam-model-priors}
 
 Prior probability distributions for the base model are shown in Figure \@ref(fig:fig-base-priors-posts) and Table \@ref(tab:param-settings-table). Model sensitivities to assumed prior distributions are presented in Sections XX, XX, and XX.
 
 Unifor prior probability distributions were assumed for $ln(R_0)$, $ln(R)$, $ln(R_{init})$ and selectivity parameters (Table \@ref(tab:param-settings-table)). A Beta distribution was assumed for the steepness ($h$) of the stock-recruit relationship, with shape parameters that resulted in a distribution with mean = $0.85$ and CV = $0.10$ (Beta($\alpha = 14.15$, $\beta = 2.497$)). This prior was based on a literature review on steepness parameters for Pacific flatfish species done by @holt2016 and was used in the 2015 `r sp` assessment. A review of steepness estimates for flatfish species by @maunder2012 suggested that flatfish steepness using a Beverton-Holt stock-recruit relationship may be around $0.94$ (where $h$ approaching $1.0$ implies recruitment is independent of spawning biomass).
 
-A normal distribution was assumed for $ln(M)$ for both sexes with mean = $ln(0.35)$ and SD = $1.2$ for males and mean = $ln(0.2)$ and SD = $1.2$ for females (in log space). @holt2014 reviewed the literature and stock assessments and assumed a prior probability distribution for M with mean = $0.2$ in their assessment of British Columbia RockSole (*Lepidopsetta spp.*). @spies2013 assumed a value of M = $0.35$ for males and M = $0.2$ for females in the assessment of Gulf of Alaska Arrowtooth Flounder, as well as for the Bering Sea Aleutian Islands stock (@spies2013).
+A normal distribution was assumed for $ln(M)$ for both sexes with mean = $ln(0.35)$ and SD = $1.2$ for males and mean = $ln(0.2)$ and SD = $1.2$ for females (in log space). @holt2016 reviewed the literature and stock assessments and assumed a prior probability distribution for M with mean = $0.2$ in their assessment of British Columbia RockSole (*Lepidopsetta spp.*). @spies2013 assumed a value of M = $0.35$ for males and M = $0.2$ for females in the assessment of Gulf of Alaska Arrowtooth Flounder, as well as for the Bering Sea Aleutian Islands stock (@spies2013).
 
 Normal prior probability distributions were assumed for the survey catchability parameters $q_k$ for each survey $k$, where $2 <= k <= 5$. Normal distributions with mean = $ln(0.5)$ and SD = $1.5$ in log space were selected because the survey estimates of biomass were derived from swept area analysis (Eqs. \@ref(eq:swept-area), \@ref(eq:cpue-density), and \@ref(eq:survey-biomass-variance)) and could therefore reasonably be expected to be within 1–2 orders of magnitude of unity. A large standard deviation was used to reflect ignorance of the scale ofthe swept area analysis compared with the true biomass.")
 ```
 
 ```{r scam-priors-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<scam-priors-en>>
+```
+
+```{r scam-fishery-reference-points-en, eval = !fr(), results = 'asis'}
+cat("### Fishery Reference Points {#scam-ref-points}
+
+The DFO Fishery Decision-making Framework Incorporating the Precautionary Approach(PA) policy [@dfo2009] requires stock status to be characterized using three reference points:
+
+1. A Reference Removal Rate
+1. An Upper StockReference point (USR)
+1. A Limit ReferencePoint (LRP)
+
+Provisional values of USR = $0.8B_{MSY}$ and LRP = $0.4_B{MSY}$ are suggested in the absence of stock-specific reference points. The framework suggests a limit reference removal rate of $F_{MSY}$. Therefore, we refer to the reference removal rate as the limit removal rate (LRR) throughout this document.
+ 
+A harvest control rule based on these reference points that is coincident with the choice of LRP, USR, and LRR would apply a linear reduction in fishing mortality as the stock falls below the USR, and would cease fishing when the stock reaches the LRP. This relationship has been illustrated as a figure many times and is depicted in Figure 6, @grandin2017.
+
+The $F_{MSY}$ (and annual harvest rate $U_{MSY}$) are estimated as very large in this model due to selectivity being greater than maturity, as described in section XX. We therefore present alternative candidate reference points for `r sp` that are less reliant on estimated selectivity. We suggest an USR = $0.4B_0$ and a LRP = $0.2B_0$. These thresholds are consistent with biomass targets and limits in place in other jusrisdictions including Australia [@smith2007] and the U.S.A. [@restropo1998]. They were also used in the last assessment for `r sp` in `r bc` [@grandin2017].")
+```
+
+```{r scam-fishery-reference-points-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-fishery-reference-points-en>>
+```
+
+
+```{r scam-results-model-diagnostics-en, eval = !fr(), results = 'asis'}
+cat("## Fishery Reference Points
+### Model diagnostics {#scam-model-diag}
+
+The joint posterior distribution was numerically approximated using the Markov Chain Monte Carlo (MCMC) routines built into AD Model Builder [@fournier2012]. For the base model and all sensitivity cases, posterior samples were drawn systematically every `r f(mcmc_sample_freq)` iterations from a chain of length `r f(mcmc_chain_length)`, resulting in `r f(mcmc_num_samples)` posterior samples (the first 1,000 samples were dropped to allow for suffcient burn-in). Convergence was diagnosed using visual inspection of the traceplots (Figure \@ref(fig:fig-base-trace)) and visual examination of autocorrelation in posterior chains (Figure \@ref(fig:fig-base-autocor)). Autocorrelation was minor for all parameters and there was no strong evidence for lack of convergence.")
+```
+
+```{r scam-results-model-diagnostics-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-model-diagnostics-en>>
+```
+
+```{r scam-results-fits-to-data-en, eval = !fr(), results = 'asis'}
+cat("### Fits to Data {#scam-data-fits}
+
+Fits to all indices of abundance are shown in Figure \@ref(fig:fig-base-index-fits). Fits to the indices of abundance appeared reasonable, with all but one credible intervals for fits falling within the CV for the indices. The `r wcvis` has a large fluctuation high and low for successive years of the survey from 2008-2016 which is difficult for the model to fit. In that case, the model fit in between the points which is reasonable. The `r qcs` had reasonable fits except for the 2016 point which is underestimated and not within the uncertainty range. The `r dcpue` fit particularly well. It is the only index to have a value for every year in the assessment year range. Log standardized residuals (Figure \@ref(fig:fig-base-index-resids)) show mostly even distribution of positive and negative residuals, with only the `r dcpue` having a slight tendency to be estimated low.
+
+Fits and log standardized residuals for age compositions are shown in Figures \@ref(fig:fig-base-age-fits-ft)-\@ref(fig:fig-base-age-resids-wchgs). Fits were reasonable and there were no strong patterns in the residuals. There was a slight tendency toward overfitting the age compositions overall with this model.")
+```
+
+```{r scam-results-fits-to-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-fits-to-data-en>>
+```
+
+```{r scam-results-parameter-estimates-en, eval = !fr(), results = 'asis'}
+cat("### Parameter Estimates {#scam-param-ests}
+
+Prior and posterior probability distributions of estimated parameters are shown in Figure \@ref(fig:fig-base-priors-posts). The median and credible interval (2.5th and 97.5th percentile) posterior parameter estimates are shown in Table \@ref(tab:param-estimates-table). With the exception of steepness, the posterior estimates did not appear to be strongly infuenced by the prior probability distributions. The posterior probability distribution for steepness, $h$, was very similar to the prior distribution, suggesting that there was little information about this parameter in the available data. Sensitivity to the assumed prior for steepness is tested in section XX. 
+
+Normal prior probability distributions were used for the log catchability parameters $ln(q_k)$ for the indices of abundance (Figure \@ref(fig:fig-base-priors-posts)). Posterior estimates tended to overlap with the left-hand tail of the prior distributions for each index. Sensitivity analyses (discussed in Section XX) indicated that posterior estimates of catchability were sensitive to the mean and standard deviation of the prior distribution.
+
+Pairs plots of posterior samples (Figure \@ref(fig:fig-base-pairs)) indicated that posterior estimates of $R_0$ and $\bar(R)$ were negatively correlated with the catchability parameters. This and the infuence of the prior distributions on posterior estimates of catchability indicated that there was limited information in the available data to estimate these important scaling parameters.")
+```
+
+```{r scam-results-parameter-estimates-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-parameter-estimates-en>>
+```
+
+```{r scam-results-selectivity-en, eval = !fr(), results = 'asis'}
+cat("### Selectivity {#scam-selex}
+
+Selectivity-at-age was estimated for the two fisheries and the synoptic surveys (Figures \@ref(fig:fig-base-mcmc-selex) and \@ref(fig:fig-base-mcmc-selex-qcs)). The `r dcpue` and `r hsmas` fixed selectivities are also shown in Figure \@ref(fig:fig-base-mcmc-selex). Selectivity was blocked into two time periods for the `r qcs`, `r ct_start_yr`-`r base_model$ctl$start.yr.time.block[3, 2] - 1`, and `r base_model$ctl$start.yr.time.block[3, 2]`-`r base_model$dat$end.yr`. This was done to improve fits to the indices and diagnostics.
+
+Posterior estimates of age-at-50%-harvest ($\hat{a}_k$) and the standard deviation in the logistic selectivity ogive ($\hat{\gamma}_k$) are provided in Table \@ref(tab:param-estimates-table). The median posterior estimates of age-at-50%-harvest were for females for all gears except for the `r wchgs` which had a much higher estimate for males compared to females. The estimates of standard deviation were similar between sexes.
+
+These estimates were further to the right than expected, but were consistent with the available age composition data (Figure XX), which indicate very few observations of younger fish, especially in the latter part of the timeseries. Numerous tests of alternative model confgurations did not result in a lower estimate of age-at-50%-harvest for any gear/sex combination.
+
+`r sp` are thought to mature at around `r f(base_model$dat$age.at.50.mat[1], 1)` years of age for females and `r f(base_model$dat$age.at.50.mat[2], 1)` years of age for females (Figure XX). Therefore, it appears that individuals have several opportunities to spawn before they become vulnerable to the fishery. This in turn resulted in estimates of maximum sustainable harvest rate $U_{MSY}$ approaching 1 (discussed in section XX), implying that under theoretical equilibrium conditions, all of the vulnerable (i.e., fully-selected) biomass could be harvested because the population could be sustained by younger spawners that are invulnerable to the fishery. This isa theoretical condition subject to the assumptions in the stock assessment model and the data limitations therein. We strongly advise against this as a harvest strategy and suggest that the age-at-50%-harvest in the trawl fisheries are a primary axis of uncertainty in this stock assessment.")
+```
+```{r scam-results-selectivity-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-selectivity-en>>
+```
+
+```{r scam-results-ref-points-en, eval = !fr(), results = 'asis'}
+cat("### Fishery Reference Points {#scam-fishery-ref-points}
+
+Posterior estimates of fishery reference points from the base model are provided in Table \@ref(tab:reference-points-table) and Figure 18. The posterior unfshedfemale spawning biomass(B0)was highly uncertain, with median 492, 062 t and credibility interval ranging from 249, 722 t to 1, 245, 031 t (Table6).Posterior credibility intervalsfor the candidate LRP 0.2B0 and USR 0.4B0 are also provided in Table6.
+")
+```
+
+```{r scam-results-ref-points-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-ref-points-en>>
 ```
 
