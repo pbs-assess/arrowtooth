@@ -1,9 +1,12 @@
 ```{r intro-para-01-en, eval = !fr(), results = 'asis'}
-cat('# Introduction
-    
-`r sp` (*`r sp_science`*, Family `r sp_family`, also commonly called `r sp_colloq`), is a species of flatfish that occurs in the offshore waters of `r bc`. `r sp` are primarily taken by the groundfish bottom trawl fishery, although they are also encountered by hook and line fisheries, particularly those targeting Pacific Halibut (*Hippoglossus stenolepis*). Prior to the introduction of freezer trawlers in the `r bc` groundfish fleet in the mid-2000s, most of the historical catch of `r sp` is understood to have been discarded at sea. Proteolysis occurs in the muscle tissue of this species a short time after it is caught, making the flesh mushy and unpalatable. In the past five years, Asian markets have been established for fillets that have been frozen at sea as soon as possible after capture to reduce proteolysis. There is also an Asian market for the frills. The stock was last assessed by @grandin2017, who presented an age-structured Bayesian model using the iSCAM platform. This stock assessment covers the combined Pacific Marine Fisheries Commission (PMFC) major areas 3CD and 5ABCDE off the west coast of `r bc`.')
+cat("# Introduction
+
+`r sp` (*`r sp_science`*, Family `r sp_family`, also commonly called `r sp_colloq`), is a species of flatfish that occurs in the offshore waters of `r bc`. `r sp` are primarily taken by the groundfish bottom trawl fishery, although they are also encountered by hook and line fisheries, particularly those targeting Pacific Halibut (*Hippoglossus stenolepis*). Prior to the introduction of freezer trawlers in the `r bc` groundfish fleet in the mid-2000s, most of the historical catch of `r sp` is understood to have been discarded at sea. Proteolysis occurs in the muscle tissue of this species a short time after it is caught, making the flesh mushy and unpalatable. In the past five years, Asian markets have been established for fillets that have been frozen at sea as soon as possible after capture to reduce proteolysis. There is also an Asian market for the frills. The stock was last assessed by @grandin2017, who presented an age-structured Bayesian model using the iSCAM platform. This stock assessment covers the combined Pacific Marine Fisheries Commission (PMFC) major areas 3CD and 5ABCDE off the west coast of `r bc`.")
 ```
 
+```{r jhbasaskjc}
+print("This is a non-cat chunk")
+```
 
 ```{r intro-para-01-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-01-en>>

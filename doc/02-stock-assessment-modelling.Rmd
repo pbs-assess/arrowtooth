@@ -1,6 +1,6 @@
 ```{r sam-stock-modelling-en, eval = !fr(), results = 'asis'}
 cat("# Stock Assessment Modelling
-  
+
 We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition ofthe catch data indicated that commercial catches are comprised of approximately 70% females; see Appendix XX, Table XX.
 
 The model was fit to commercial catch data from two fleets, six indices of abundance with associated coeffcients of variation, and to age composition data from the commercial trawl fleets and four of the six indices. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix XX) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
@@ -84,14 +84,45 @@ cat("## Swept area analysis for Indices of abundance
   
 For all surveys, the swept area estimate of biomass in year $y$ was obtained by summing the product of the CPUE and the area surveyed across the surveyed strata $i$:
 
+\begin{equation} 
+  B_y = \sum_{i=1}^{k} C_{y_i} A_i = \sum_{i=1}^{k} B_{y_i}
+(\#eq:swept-area)
+\end{equation} 
+
+where $C_{y_i}$ is the mean CPUE density ($kg/km^2$) for species in stratum $i$, $A_i$ is the area of stratum $i$, $B_{y_i}$ is the biomass of `r sp` in stratum $i$ for year $y$, and $k$ is the number of strata.
+
+CPUE($C_{y_i}$) for `r sp` in stratum $i$ for year $y$ was calculated as a density in $kg/km^2$ by:
+
+\begin{equation} 
+  C_{y_i} = \frac{1}{n_{y_i}} \sum_{j=1}^{n_{y_i}} \frac{W_{y_i,j}}{D_{y_i,j}w_{y_i,j}} 
+(\#eq:cpue-density)
+\end{equation} 
+
+where $W_{y_i,j}$ is the catch weight in $kg$ for `r sp` in stratum $i$, year $y$, and tow $j$, $D_{y_i,j}$ is the distance travelled in $km$ for tow $j$ in stratum $i$ and year $y$, $w_{y_i,j}$ is the net opening in $km$ by tow $j$, stratum $i$, and year $y$, and $n_{y_i}$ is the number of tows in stratum $i$.
+
+The variance of the survey biomass estimate $V_y$ for `r sp` in year $y$ is calculated in $kg^2$ as follows:
+
+\begin{equation} 
+  V_y = \sum_{i=1}^{k} \frac{\sigma_{y_i}^2 A_i^2}{n_{y_i}} = \sum_{i=1}^{k} V_{y_i} 
+(\#eq:survey-biomass-variance)
+\end{equation} 
+
+where $\sigma_{y_i}^2$ is the variance of the CPUE in $kg^2/km^4$ for year $y$ in stratum $i$, $V_{y_i} is the variance of `r sp` in stratum $i$ for year $y$, where $\sigma_{y_i}^2$ was obtained from bootstrapped samples (see below).
+
+The CV for `r sp` for each year $y$ was calculated as follows:
+
+\begin{equation} 
+  (CV)_y = \frac{V_y^{1/2}}{B_y}
+(\#eq:survey-cv)
+\end{equation} 
+
+where $(CV)_y$ is the CV for year $y$.
+
+One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95\\% confidence regions for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
+
+Fishery CPUE was not used as an index of abundance due to the behaviour of the fishery. `r sp` are targeted on known grounds, and the location information is shared among fishermen, so there is a bias towards a high CPUE.
 ")
 ```
-
-\begin{equation}
-  1 + 1 = 2
-  (\#eq:reaction)
-\end{equation}
-
 
 ```{r sam-swept-area-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<sam-swept-area-en>>
