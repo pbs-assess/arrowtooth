@@ -459,6 +459,19 @@ if(length(qcs_tv_yr_start) == 2){
   qcs_sel_ranges <- paste0(qcs_sel_ranges, ", and ", tmp)
 }
 
+# Number of parameters estimated (from PAR file)
+num_params <- base_model$par |>
+  map_dbl(~{j <- strsplit(as.character(.x), split = " ")[[1]]
+  j <- j[j != ""]
+  length(j)
+  }) |> sum()
+
+# Catch table
+ct <- as_tibble(base_model$dat$catch)
+ct_start_yr <- min(ct$year)
+ct_end_yr <- max(ct$year)
+
+
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 
 #                        iphc = iphc,

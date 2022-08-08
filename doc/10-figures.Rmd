@@ -29,7 +29,7 @@ plot_cpue_spatial(dat$cpue_spatial, start_year = base_model$dat$start.yr)
 ```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 yrs <- sort(unique(catch$year))
 plot_catch(catch, french = fr(), xlim = c(min(yrs), max(yrs))) +
-  scale_x_continuous(yrs, breaks = seq(minyr, yrs[length(yrs)], by = 2)) +
+  scale_x_continuous(yrs, breaks = seq(min(yrs), yrs[length(yrs)], by = 2)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5))
 ```
 

@@ -1,0 +1,39 @@
+```{r scam-model-description-en, eval = !fr(), results = 'asis'}
+cat("# Statistical Catch-at-age Model
+## Model Description
+
+A two-sex, Bayesian statistical catch-at-age model was applied to assess the coastwide stock status of `r sp`. The model is based on the Integrated Statistical Catch Age Model (iSCAM) framework, @martell2011. Full model details are provided in Appendix XX.
+
+We define a base model with fixed and estimated parameters described in Table \@ref(tab:param-settings-table). A total of `r num_params` model parameters were conditionally estimated by the base model (Table \@ref(tab:param-settings-table) show some of these). The model estimated time series of log recruitment anomalies and log fishing mortality rates; and time-invariant values of unfished recruitment, steepness of the Beverton-Holt stock-recruit relationship, natural mortality, average recruitment and logistic selectivity parameters for the two commercial fisheries and the four synoptic surveys. Prior probability distributions for the base model are shown in Table \@ref(tab:param-settings-table) and Figure \@ref(fig:fig-base-priors-posts) and described in Section \@ref(sec:scam-priors-en). Model sensitivity to fixed parameters and to assumed prior probability distributions are presented in a later section.
+
+The model was conditioned on observed catch data (`r ct_start_yr`--`r ct_end_yr`), which were assumed to be known without error. The model was fit to five survey indices of abundance, the Discard CPUE index, and to age composition data from the two commercial fisheries and the four synoptic surveys. Biological parameters determining weight-at-age and maturity-at-age schedules were estimated independently (Appendix XX) and input to the assessment model as fixed parameters that remained constant over time.
+
+Survey biomass indices were treated as relative abundance indices that are directly proportional to the survey vulnerable biomass at the beginning of each year. Observation errors in relative abundance indices were assumed to be log-normally distributed. The catchability parameter $q_k$ was estimated for each index $k$. Prior probability distributions for $ln(q_k)$ are described in Section \@ref(sec:scam-priors-en).
+
+Age-composition observations were assumed to come from a Dirichlet-multinomial distribution. No age-reading errors were assumed.
+
+Selectivity-at-age for the trawl fisheries, five surveys, and Discard CPUE index was modelled usinga two-parameter logistic function with asymptote at 1. Age-at-50%-vulnerability($\hat{a}_k$) and the standard deviation of the logistic selectivity curve ($\hat{\gamma}_k$) for each gear $k$ were estimated for the trawl fisheries and the synoptic surveys. No age composition data were available for the `r hsmas` and `r dcpue` so selectivity was fixed with $\hat{a}_k = 9$ and $\hat{\gamma}_k = 1.5$, similar to estimated values for the other gears. Sensitivity runs (not included in this document) indicated that there was little model sensitivity to this assumption.
+
+Variance components of the modelwere partitioned using an errors in variables approach. The key variance parameter is the inverse of the total variance (i.e., $\vartheta^2$, total precision). The total variance is partitioned into observation and process error components by the model parameter $\rho$ which represents the proportion of the total variance that is due to observation error (@punt1999; @deriso2007). The total variance is partitioned into observation errors ($\sigma$) and process errors ($\tau$) using Eq. XX (from appendix D in 2015). The parameters $\vartheta^2$ and $\rho$ were fixed in the current assessment (Table \@ref(tab:param-settings-table)) at values that gave $\sigma = 0.2$ and $\tau = 0.8$. See Section XX for sensitivity analyses to this assumption. See Appendix XX for further details on the treatment of variance in this assessment.")
+```
+
+```{r scam-model-description-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-model-description-en>>
+```
+
+```{r scam-priors-en, eval = !fr(), results = 'asis'}
+cat("# Prior Probability Distributions
+
+Prior probability distributions for the base model are shown in Figure \@ref(fig:fig-base-priors-posts) and Table \@ref(tab:param-settings-table). Model sensitivities to assumed prior distributions are presented in Sections XX, XX, and XX.
+
+Unifor prior probability distributions were assumed for $ln(R_0)$, $ln(R)$, $ln(R_{init})$ and selectivity parameters (Table \@ref(tab:param-settings-table)). A Beta distribution was assumed for the steepness ($h$) of the stock-recruit relationship, with shape parameters that resulted in a distribution with mean = $0.85$ and CV = $0.10$ (Beta($\alpha = 14.15$, $\beta = 2.497$)). This prior was based on a literature review on steepness parameters for Pacific flatfish species done by @holt2016 and was used in the 2015 `r sp` assessment. A review of steepness estimates for flatfish species by @maunder2012 suggested that flatfish steepness using a Beverton-Holt stock-recruit relationship may be around $0.94$ (where $h$ approaching $1.0$ implies recruitment is independent of spawning biomass).
+
+A normal distribution was assumed for $ln(M)$ for both sexes with mean = $ln(0.35)$ and SD = $1.2$ for males and mean = $ln(0.2)$ and SD = $1.2$ for females (in log space). @holt2014 reviewed the literature and stock assessments and assumed a prior probability distribution for M with mean = $0.2$ in their assessment of British Columbia RockSole (*Lepidopsetta spp.*). @spies2013 assumed a value of M = $0.35$ for males and M = $0.2$ for females in the assessment of Gulf of Alaska Arrowtooth Flounder, as well as for the Bering Sea Aleutian Islands stock (@spies2013).
+
+Normal prior probability distributions were assumed for the survey catchability parameters $q_k$ for each survey $k$, where $2 <= k <= 5$. Normal distributions with mean = $ln(0.5)$ and SD = $1.5$ in log space were selected because the survey estimates of biomass were derived from swept area analysis (Eqs. \@ref(eq:swept-area), \@ref(eq:cpue-density), and \@ref(eq:survey-biomass-variance)) and could therefore reasonably be expected to be within 1–2 orders of magnitude of unity. A large standard deviation was used to reflect ignorance of the scale ofthe swept area analysis compared with the true biomass.")
+```
+
+```{r scam-priors-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-priors-en>>
+```
+

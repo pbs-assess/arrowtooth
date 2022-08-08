@@ -118,7 +118,7 @@ The CV for `r sp` for each year $y$ was calculated as follows:
 
 where $(CV)_y$ is the CV for year $y$.
 
-One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95\\% confidence regions for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
+One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95% confidence regions for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
 
 Fishery CPUE was not used as an index of abundance due to the behaviour of the fishery. `r sp` are targeted on known grounds, and the location information is shared among fishermen, so there is a bias towards a high CPUE.
 ")
