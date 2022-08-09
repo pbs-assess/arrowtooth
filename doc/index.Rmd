@@ -481,9 +481,10 @@ ref_pts <- as_tibble(base_model$mcmccalcs$params_quants)
 
 # Projected biomass
 end_yr <- base_model$dat$end.yr
-proj_yr <- end_yr + 1
+assess_yr <- end_yr + 1
+proj_yr <- assess_yr + 1
 sbt_quants <- as_tibble(base_model$mcmccalcs$sbt_quants)
-proj_bio <- sbt_quants[, as.character(proj_yr)] |> pull()
+proj_bio <- sbt_quants[, as.character(assess_yr)] |> pull()
 
 # Fishing mortality
 f_max_by_gear <- map_dbl(base_model$mcmccalcs$ft_quants, ~{
@@ -498,8 +499,59 @@ f_ci <- base_model$mcmccalcs$ft_quants[[which_f_max]][, base_model$mcmccalcs$ft_
 
 # Relative spawning biomass
 depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
-  select(!!sym(as.character(proj_yr))) |> 
+  select(!!sym(as.character(assess_yr))) |> 
   pull()
+
+# Decision table values - B_2023 < B_2022
+table_dec <- table_decisions(base_model, ret_df = TRUE)
+probs_catch_0 <- table_dec |> filter(tac == 0) |> unlist()
+probs_catch_10 <- table_dec |> filter(tac == 10) |> unlist()
+probs_catch_50 <- table_dec |> filter(tac == 50) |> unlist()
+prob_proj_less_assess_0 <- probs_catch_0[length(probs_catch_0)]
+prob_proj_less_assess_10 <- probs_catch_10[length(probs_catch_10)]
+prob_proj_less_assess_50 <- probs_catch_50[length(probs_catch_50)]
+
+probs_proj_less_assess <- table_dec[, ncol(table_dec)] |>
+  pull() |> 
+  as.numeric()
+which_prob_less_50_50 <- which(probs_proj_less_assess < 0.5)
+which_prob_less_50_50 <- which_prob_less_50_50[length(which_prob_less_50_50)]
+prob_less_50_50 <- table_dec[which_prob_less_50_50, ]
+prob_greater_50_50 <- table_dec[which_prob_less_50_50 + 1, ]
+
+val_less_50_50 <- pull(prob_less_50_50[, ncol(prob_less_50_50)])
+
+# Decision table values - B_2023 < 0.4B0
+below_04bo <- table_dec |> 
+  select(paste0(proj_yr, "_04bo")) |> 
+  pull() |> 
+  as.numeric()
+range_below_04bo <- c(min(below_04bo), max(below_04bo))
+
+# Decision table values - B_2023 < 0.2B0
+below_02bo <- table_dec |> 
+  select(paste0(proj_yr, "_02bo")) |> 
+  pull() |> 
+  as.numeric()
+range_below_02bo <- c(min(below_02bo), max(below_02bo))
+which_prob_greater_50_50_02bo <- which(below_02bo > 0.5)[1]
+prob_greater_50_50_02bo <- below_02bo[which_prob_greater_50_50_02bo]
+row_greater_50_50_02bo <- table_dec[which_prob_greater_50_50_02bo, ]
+
+# Decision table values - B_2023 < 0.8BMSY
+below_08bmsy <- table_dec |> 
+  select(paste0(proj_yr, "_08bmsy")) |> 
+  pull() |> 
+  as.numeric()
+range_below_08bmsy <- c(min(below_08bmsy), max(below_08bmsy))
+
+# Decision table values - B_2023 < 0.4BMSY
+below_04bmsy <- table_dec |> 
+  select(paste0(proj_yr, "_04bmsy")) |> 
+  pull() |> 
+  as.numeric()
+range_below_04bmsy <- c(min(below_04bmsy), max(below_04bmsy))
+
 
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 
