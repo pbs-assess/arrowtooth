@@ -100,7 +100,7 @@ fig_out_width <- "5.5in"
 fig_dpi <- 180
 fig_align <- "center"
 fig_pos <- "H"
-user <- Sys.getenv("USERNAME")
+user <- Sys.info()[["user"]]
 opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
@@ -113,8 +113,8 @@ opts_chunk$set(
   fig.width = fig_width,
   out.width = fig_out_width,
   echo = FALSE,
-  #autodep = isTRUE(user == "seananderson"),
-  #cache = isTRUE(user == "seananderson"),
+  autodep = isTRUE(user == "seananderson"),
+  cache = isTRUE(user == "seananderson"),
   cache.comments = FALSE,
   dev = fig_out_type,
   dpi = fig_dpi,
@@ -131,7 +131,7 @@ options(# Prevent xtable from adding a timestamp comment to the table code it pr
         scipen = 999)
 ```
 
-```{r model-setup, cache = FALSE}
+```{r library-setup, cache = FALSE}
 # Libraries in alphabetical order
 
 library(devtools)
@@ -140,7 +140,7 @@ if(user == "grandin"){
   load_all("D:/github/pbs-assess/gfiscamutils/")
   load_all("D:/github/pbs-assess/csasdown/")
 }else if(user == "seananderson"){
-  load_all("~/src/gfiscamutils/")
+  library(gfiscamutils)
   load_all("~/src/csasdown/")
 } else {
   library(gfiscamutils)
@@ -162,7 +162,9 @@ build_rds <- FALSE
 if(!is.null(meta)){
   build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
 }
+```
 
+```{r model-setup, cache.lazy = FALSE}
 # These are in rosettafish so don't need french versions here
 bc <- "British Columbia"
 sp <- "Arrowtooth flounder"
