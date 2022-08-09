@@ -1,0 +1,94 @@
+# Geostat
+
+\newcommand{\s}{\boldsymbol{s}}
+
+We applied a geostatistical spatiotemporal model to standardize ... [e.g., @shelton2014; @thorson2015; @anderson2019synopsis] to account
+
+The delta/hurdle model (herein referred to as $\Delta$-model) is defined based on a probability of encounter model and a positive catch model.
+The probability of encounter is defined as
+
+\begin{equation}
+\mathrm{Pr} [C > 0] = p,
+\end{equation}
+
+where $C$ is the observed catch $p$ is the probability of encounter.
+The positive component given encounter is defined as
+
+\begin{equation}
+\mathrm{Pr} [C = c \vert C > 0] = \mathrm{Gamma}\left(c, \gamma, \lambda / \gamma \right),
+\end{equation}
+
+where $c$ is the observed catch given $C > 0$, $\gamma$ is the shape parameter, $\lambda$ is the expected value, and $\lambda / \gamma$ combined is the scale parameter.
+
+The linear component of the binomial encounter model is defined as
+
+\begin{align}
+p_{\s,t} &=
+\mathrm{logit}^{-1} \left(\beta_0^\mathrm{Bin} +
+f (d_{\s,t}) +
+\omega_{\s}^\mathrm{Bin} +
+\delta_{\s,t}^\mathrm{Bin} \right),
+\end{align}
+
+where the superscript $\mathrm{Bin}$ denotes binomial component parameters.
+The parameter $\beta_0^\mathrm{Bin}$ is an intercept,
+$f (d_{\s,t})$ indicates a penalized smoother function for depth with upper basis dimension of 5,
+$\omega_{\s}^\mathrm{Bin}$ is a spatial random field value:
+
+\begin{align}
+\boldsymbol{\omega} &\sim \operatorname{MVNormal} \left( \boldsymbol{0}, \boldsymbol{\Sigma}_\omega \right),\\
+\end{align}
+
+and $\delta_{\s,t}^\mathrm{Bin}$ is a spatiotemporal random field value that is assumed to follow a random walk
+
+\begin{align}
+\boldsymbol{\delta}_{t=1} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}),\\
+\boldsymbol{\delta}_{t>1} &= \boldsymbol{\delta}_{t-1} +  \boldsymbol{\epsilon_{t-1}},  \:
+\boldsymbol{\epsilon_{t-1}} \sim \operatorname{MVNormal} \left(\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon} \right).
+\end{align}
+
+The linear component of the Gamma positive catch model is defined as
+
+\begin{align}
+\lambda_{\s,t} &=
+\exp \left(\beta_0^\mathrm{Pos} +
+f (d_{\s,t}) +
+\omega_{\s}^\mathrm{Pos} +
+\delta_{\s,t}^\mathrm{Pos} +
+O_{\s,t} \right),
+\end{align}
+
+where the superscript $\mathrm{Pos}$ denotes positive component parameters, $O_{\s, t}$ represents an offset variable (here log area swept) and the other parameters have a similar definition to the binomial model above.
+
+We also considered a Tweedie model with the linear component defined as
+
+\begin{align}
+\mu_{\s,t} &=
+\exp \left(\beta_0 +
+f (d_{\s,t}) +
+\omega_{\s} +
+O_{\s,t} +
+\delta_{\s,t} 
+\right),
+\end{align}
+
+where the parameters have a similar definition as above in the binomial and Gamma models but the data are accounted for with a single observation distribution---the Tweedie---with associate mean, power, and scale parameters.
+
+Furthermore, we considered versions of the above models without depth as a predictor.
+In total, we fit four models: $\Delta$-Gamma with depth, $\Delta$-Gamma without depth, Tweedie with depth, and Tweedie without depth.
+
+The total biomass for a given year $t$ is then calculated as:
+
+\begin{equation}
+\sum^{n_j}_{j = 1} p_j \lambda_j a_j
+\end{equation}
+
+where $j$ indexes $n_j$ grid cells, $p_j$ is the probability of encounter in grid cell $j$, $\lambda_j$ is the expected catch conditional on encounter, and $a_j$ is the area of grid cell $j$ (4 km^2^).
+
+Plot of raw data blubble plots
+
+standard error by model table?
+
+Indexes from 4 models
+
+Possibly QQ plots?
