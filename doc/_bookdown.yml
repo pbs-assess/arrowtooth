@@ -3,6 +3,8 @@ rmd_files: ["index.Rmd",
             "01-introduction.Rmd",
             "02-stock-assessment-modelling.Rmd",
             "03-statistical-catch-at-age-model.Rmd",
+            "04-sensitivity-analyses.Rmd",
+            "05-recommendations-and-yield-options.Rmd",
             "10-figures.Rmd",
             "11-tables.Rmd",
             "99-references.Rmd"]

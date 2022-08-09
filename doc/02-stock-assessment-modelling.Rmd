@@ -80,7 +80,7 @@ The `r dcpue` Index was suggested by stakeholders as a possible way to create an
 ```
 
 ```{r sam-swept-area-en, eval = !fr(), results = 'asis'}
-cat("## Swept area analysis for Indices of abundance
+cat("**Swept area analysis for Indices of abundance**
   
 For all surveys, the swept area estimate of biomass in year $y$ was obtained by summing the product of the CPUE and the area surveyed across the surveyed strata $i$:
 

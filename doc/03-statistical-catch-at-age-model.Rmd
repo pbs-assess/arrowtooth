@@ -59,7 +59,7 @@ The $F_{MSY}$ (and annual harvest rate $U_{MSY}$) are estimated as very large in
 
 
 ```{r scam-results-model-diagnostics-en, eval = !fr(), results = 'asis'}
-cat("## Fishery Reference Points
+cat("## Results
 ### Model diagnostics {#scam-model-diag}
 
 The joint posterior distribution was numerically approximated using the Markov Chain Monte Carlo (MCMC) routines built into AD Model Builder [@fournier2012]. For the base model and all sensitivity cases, posterior samples were drawn systematically every `r f(mcmc_sample_freq)` iterations from a chain of length `r f(mcmc_chain_length)`, resulting in `r f(mcmc_num_samples)` posterior samples (the first 1,000 samples were dropped to allow for suffcient burn-in). Convergence was diagnosed using visual inspection of the traceplots (Figure \@ref(fig:fig-base-trace)) and visual examination of autocorrelation in posterior chains (Figure \@ref(fig:fig-base-autocor)). Autocorrelation was minor for all parameters and there was no strong evidence for lack of convergence.")
@@ -113,11 +113,72 @@ These estimates were further to the right than expected, but were consistent wit
 ```{r scam-results-ref-points-en, eval = !fr(), results = 'asis'}
 cat("### Fishery Reference Points {#scam-fishery-ref-points}
 
-Posterior estimates of fishery reference points from the base model are provided in Table \@ref(tab:reference-points-table) and Figure 18. The posterior unfshedfemale spawning biomass(B0)was highly uncertain, with median 492, 062 t and credibility interval ranging from 249, 722 t to 1, 245, 031 t (Table6).Posterior credibility intervalsfor the candidate LRP 0.2B0 and USR 0.4B0 are also provided in Table6.
-")
+Posterior estimates of fishery reference points from the base model are provided in Table \@ref(tab:reference-points-table) and Figure \@ref(fig:fig-base-ref-points). The posterior unfished spawning biomass ($SB_0$) had a median `r f(ref_pts$sbo[2] * 1000)` t and credibility interval ranging from `r f(ref_pts$sbo[1] * 1000)` t to `r f(ref_pts$sbo[3] * 1000)` t (Table \@ref(tab:reference-points-table)). Posterior credibility intervals for the candidate LRP $0.2B_0$ and USR $0.4B_0$ are also provided in Table \@ref(tab:reference-points-table).
+
+Reference points based on maximum sustainable yield ($MSY$) were strongly impacted by estimates of selectivity in the the trawl fisheries described in the previous section. Because the selectivity ogives (Figure \@ref(fig:fig-base-mcmc-selex)) were estimated to be to the right of the maturity ogive (Figure XX), the median estimates of $F_{MSY}$ were `r f(ref_pts$fmsy_fleet1[2], 2)` for the Freezer trawler fleet and `r f(ref_pts$fmsy_fleet2[2], 2)` for the Shoreside fleet (Table \@ref(tab:reference-points-table)). These instantaneous fishing mortalities convert to an annual harvest rate approaching 1 for both fleets, through the equation $U_{MSY} = 1-e^{F_{MSY}}$, implying that all of the vulnerable biomass (i.e., the biomass thatis selected by the fishing gear) could be harvested because the population can be sustained by the spawning biomass that is invulnerable to the fishery (i.e., fish that are between 6 and 9 years old). The relationship between age at maturity and age at first harvest and its effect on fishery reference points was discussed by @myers1998, who described a fishing strategy where overfishing could be avoided by allowing all fish to spawn before they were available to be caught. @froese2004 also discusses reduction in risks of overfishing by allowing fish to spawn before they are caught.
+
+It is important to understand the distinction between vulnerable biomass and spawning biomass. The fishery reference points $F_{MSY}$ and $U_{MSY}$ refer to catch of the vulnerable biomass $VB_t$, which is determined by the selectivity function:
+
+\begin{equation} 
+  VB_{t,k} = \sum_{a} N_{a,t} w_{a,t} v_{a,t,k}
+(\#eq:vuln-biomass)
+\end{equation} 
+
+where $a$ is age, $t$ is year, $k$ is the trawl fishery (Freezer trawlers or Shoreside), $N$ is the population number, $w$ is the average weight-at-age, and $v$ is the vulnerability-at-age in the trawl fisheries (i.e. selectivity) (Figure \@ref(fig:fig-base-mcmc-selex)).
+
+When the selectivity ogive is located to the right of the maturity ogive, this means that a larger proportion of the total population is mature than vulnerable to the fishery. A comparison between vulnerable biomass and spawning biomass is provided in Section \@ref(scam-biomass)
+
+The median posterior estimate of $B_{MSY}$ (and 95% credibility interval), conditional on estimated trawl selectivities and resulting $F_{MSY}$ values, was `r f(ref_pts$bmsy[2] * 1000)` t (`r f(ref_pts$bmsy[1] * 1000)`-`r f(ref_pts$bmsy[3] * 1000)`) (Table \@ref(tab:reference-points-table)). Posterior credibility intervals for the default LRP $0.4B_{MSY}$ and USR $0.8B_{MSY}$ are also provided in Table \@ref(tab:reference-points-table). The candidate $B_0$-based LRP and USR were approximately twice as large as the candidate $B_{MSY}$-based reference points, i.e., $B_0$-based reference points were more precautionary than the $B_{MSY}$-based reference points (Table \@ref(tab:reference-points-table)).")
 ```
 
 ```{r scam-results-ref-points-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<scam-results-ref-points-en>>
 ```
 
+```{r scam-results-biomass-en, eval = !fr(), results = 'asis'}
+cat("### Biomass {#scam-biomass}
+
+The base model estimates the female spawning biomass to have been on a decreasing trajectory since 2004 (Figure \@ref(fig:fig-base-sb); Table \@ref(tab:biomass-table)). The posterior median (and 95% credibility interval) female spawning biomass in `r proj_yr` is projected to be `r f(proj_bio[2] * 1000)` t (`r f(proj_bio[1] * 1000)`-`r f(proj_bio[3] * 1000)`) (Table \@ref(tab:reference-points-table)). The median projected beginning-of-year `r proj_yr` spawning biomass, which incorporates fishing mortality arising from the observed `r end_yr` catch, is considerably higher than median estimates of both the default USR of $0.8B_{MSY}$ and the default LRP of $0.4B_{MSY}$ (Figure \@ref(fig:fig-base-sb); Table \@ref(tab:reference-points-table)).
+
+The `r proj_yr` spawning biomass was projected to be slightly below the candidate USR $0.4B_0$ and above the LRP $0.2B_0$ (Figure \@ref(fig:fig-base-sb-bo), Table \@ref(tab:reference-points-table)).
+
+For comparison, posterior estimates of vulnerable biomass and spawning biomass are shown together in Figure \@ref(fig:fig-base-sb-vuln-compare). The two estimated vulnerable biomasses are considerably smaller than the spawning biomass, due to the relatively early age at maturity compared to the estimated age-at-50%-harvest, discussed in Section \@ref(scam-ref-points).")
+```
+
+```{r scam-results-biomass-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-biomass-en>>
+```
+
+```{r scam-results-recruitment-en, eval = !fr(), results = 'asis'}
+cat("### Recruitment {#scam-recruitment}
+
+Median posterior estimates (and 95% credibility interval) of age-1 recruits are shown in Figure \@ref(fig:fig-base-recr) and Table \@ref(tab:recruitment-table). The 95% posterior credibility intervals are extremely large around the estimates of 2020 and 2021 recruitment. This is expected since there is no information in the data about the strength of this year class and can be seen in Figure 28 of @edwards2022 as one recent example.
+
+Projected recruitment anomalies for 2021 and 2022 were drawn randomly from a normal distribution, $~N(0,\tau)$. For most of the time series prior to 2008, recruitment was estimated to fluctuate around the long-term average, with little variation around $R_0$. However, since 2009 annual recruitment has been below average.
+
+The reduced recruitment of the last 13 years is evident in most of the survey index data (\@ref(fig:fig-base-index-fits)).")
+```
+
+```{r scam-results-recruitment-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-recruitment-en>>
+```
+```{r scam-results-fishing-mortality-en, eval = !fr(), results = 'asis'}
+cat("### Fishing mortality {#scam-fishing-mortality}
+
+Median posterior estimates of fishing mortality (and 95% credibility interval) are shown in Figure \@ref(fig:fig-base-f) and Table \@ref(tab:instantaneous-fishing-mortality-table). The median posterior estimate of fishing mortality is estimated to have peaked in `r which_f_max_yr` in the `r which_f_max_gear` fishery at `r f(f_max, 3)`  (`r f(f_ci[1], 3)`-`r f(f_ci[3], 3)`) as a result of a test fishery described in Section \@ref(test-fishery) Fishing mortality rates converted to annual harvest rates can be found in Table \@ref(tab:annual-harvest-rate-table).
+")
+```
+
+```{r scam-results-fishing-mortality-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-fishing-mortality-en>>
+```
+
+```{r scam-results-depletion-en, eval = !fr(), results = 'asis'}
+cat("### Relative spawning biomass {#scam-depletion}
+
+Median posterior estimates (and 95% credibility interval) of relative female spawning biomass $B_t/B_0$ are shown in Figure \@ref(fig:fig-base-depletion). The size of the 95% credible interval is amplified when compared to the absolute spawning biomass due to large uncertainty in the estimate of $B_0$ (Figure \@ref(fig:fig-base-sb-bo); Table \@ref(tab:reference-points-table)). The median posterior projected estimate of `r proj_yr` relative biomass is `r f(depl_end[2], 3)` (`r f(depl_end[1], 3)`-`r f(depl_end[3], 3)`) (Figure \@ref(fig:fig-base-depletion), Table \@ref(tab:depletion-table)).")
+```
+
+```{r scam-results-depletion-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-results-depletion-en>>
+```

@@ -471,6 +471,30 @@ ct <- as_tibble(base_model$dat$catch)
 ct_start_yr <- min(ct$year)
 ct_end_yr <- max(ct$year)
 
+# Reference points (table values)
+ref_pts <- as_tibble(base_model$mcmccalcs$params_quants)
+
+# Projected biomass
+end_yr <- base_model$dat$end.yr
+proj_yr <- end_yr + 1
+sbt_quants <- as_tibble(base_model$mcmccalcs$sbt_quants)
+proj_bio <- sbt_quants[, as.character(proj_yr)] |> pull()
+
+# Fishing mortality
+f_max_by_gear <- map_dbl(base_model$mcmccalcs$ft_quants, ~{
+  max(.x[2,])
+})
+f_max <- max(f_max_by_gear)
+which_f_max <- which(f_max == f_max_by_gear)
+which_f_max_gear <- base_model$dat$fleet_gear_names[which_f_max]
+which_f_max_yr <- names(which(base_model$mcmccalcs$ft_quants[[which_f_max]][2, ] == f_max))
+
+f_ci <- base_model$mcmccalcs$ft_quants[[which_f_max]][, base_model$mcmccalcs$ft_quants[[which_f_max]][2, ] == f_max]
+
+# Relative spawning biomass
+depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
+  select(!!sym(as.character(proj_yr))) |> 
+  pull()
 
 # Data extraction for iSCAM models:
 # extract_survey_indices(survey_index, 

@@ -1,0 +1,14 @@
+```{r decisions-en, eval = !fr(), results = 'asis'}
+cat("# Recommendations and Yield Options {#decisions}
+## Decision Tables
+### Base Model {#decisions-base}
+
+Performance measureswere calculated overa sequence of alternative `r end_yr` projected catch levels and are based on one-year projections to `r proj_yr`. Projected, bias-corrected log recruitment anomalies in `r end_yr` and `r proj_yr` were drawn randomly from a normal distribution, $~N(0,\tau)$.
+
+Median (and 95% credibility interval) posterior estimates of reference points (MSY and $B_0$-based reference points) and benchmarks(B1996, B2015, F2014)were providedinTable6. Decision tables are presented showing predicted probabilities of undesirable states under alternative 2015 projected catch levels.
+")
+```
+
+```{r decisions-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<decisions-en>>
+```

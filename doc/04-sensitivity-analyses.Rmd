@@ -1,0 +1,115 @@
+```{r scam-sensitivity-analyses-en, eval = !fr(), results = 'asis'}
+cat("## Sensitivity Analyses {#scam-sens-analyses}
+
+We tested sensitivity of the model outputs as follows:
+
+1. Decrease $\sigma$ to 0.1 from 0.2 (changes $\vartheta^2$ and $\rho$) 
+1. Estimate total variance ($\vartheta^2$)
+1. Increase $\tau$ to 1.0 from 0.8
+1. Decrease $\tau$ to 0.6 from 0.8
+1. Decrease mean of $h$ prior to 0.72 from 0.85
+1. Tighter prior on $M_{Female}$ (estimate $M_{Female}$)
+1. Looser prior on $M_{Female}$ (estimate $M_{Female}$)
+1. Tighter prior on $M_{Male}$ (estimate $M_{Male}$)
+1. Looser prior on $M_{Male}$ (estimate $M_{Male}$)
+1. Increase catchability priors mean to 1.0 from 0.5 ($q_k$ for all $k$)
+1. Looser catchability priors ($q_k$ for all $k$)
+1. Selectivity curves equal maturity ogive for all gears
+1. Stitched index and DCPUE only, no individual surveys
+
+Results are presented below. The full list of sensitivity scenarios is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). In all sensitivity runs, posterior samples were drawn systematically every `r f(mcmc_sample_freq)` iterations from a chain of length `r f(mcmc_chain_length)`, resulting in `r f(mcmc_num_samples)` posterior samples. The frst 1,000 sampleswere dropped to allow for suffcient burn-in.")
+```
+
+```{r scam-sensitivity-analyses-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sensitivity-analyses-en>>
+```
+
+```{r scam-sens-sigma-en, eval = !fr(), results = 'asis'}
+cat("## Decreasing $\sigma$ and estimating $\vartheta^2$ {#scam-sens-sigma}
+
+Decreasing $\sigma$ in the model to 0.1 does not change the absolute biomass trajectory nor the estimate of $B_0$ substantially (Figure \@ref(fig:fig-sens-variance)), so the stock status remains very similar to having a $\sigma$ value of 0.2 (Figure \@ref(fig:fig-sens-variance-rel)).
+
+Estimating total variance ($\vartheta^2$) gives a lower historical absolute biomass while also estimating a larger $B_0$ value and a much larger uncertainty on that $B_0$ estimate. This results in a lower stock status overall, with the historical period being more affected (Figure \@ref(fig:fig-sens-variance-rel)).
+")
+```
+
+```{r scam-sens-sigma-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-sigma-en>>
+```
+
+```{r scam-sens-tau-en, eval = !fr(), results = 'asis'}
+cat("### Modifying $\tau$ {#scam-sens-tau}
+
+
+")
+```
+
+```{r scam-sens-tau-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-tau-en>>
+```
+
+```{r scam-sens-h-en, eval = !fr(), results = 'asis'}
+cat("### Decresing mean of $h$ prior {#scam-sens-h}
+
+
+")
+```
+
+```{r scam-sens-h-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-h-en>>
+```
+
+```{r scam-sens-m-fem-en, eval = !fr(), results = 'asis'}
+cat("### Modifying prior on $M_{Female}$ {#scam-sens-m-fem}
+
+
+")
+```
+
+```{r scam-sens-m-fem-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-m-fem-en>>
+```
+
+```{r scam-sens-m-mal-en, eval = !fr(), results = 'asis'}
+cat("### Modifying prior on $M_{Male}$ {#scam-sens-m-mal}
+
+
+")
+```
+
+```{r scam-sens-m-mal-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-m-mal-en>>
+```
+
+```{r scam-sens-q-en, eval = !fr(), results = 'asis'}
+cat("### Modifying catchability priors $q_k$ {#scam-sens-q}
+
+
+")
+```
+
+```{r scam-sens-q-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-q-en>>
+```
+
+```{r scam-sens-sel-mat-en, eval = !fr(), results = 'asis'}
+cat("### Setting selectivities equal to maturity {#scam-sens-sel-mat}
+
+
+")
+```
+
+```{r scam-sens-sel-mat-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-sel-mat-en>>
+```
+
+```{r scam-sens-stitched-en, eval = !fr(), results = 'asis'}
+cat("### Stitched surveys and DCPUE only {#scam-sens-stitched}
+
+
+")
+```
+
+```{r scam-sens-stitched-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-stitched-en>>
+```

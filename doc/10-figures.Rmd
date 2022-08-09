@@ -35,25 +35,45 @@ plot_catch(catch, french = fr(), xlim = c(min(yrs), max(yrs))) +
 
 <!-- Biomass and recruitment -------------------------------------------------->
 
-(ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model. The
+(ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with
+$B_{MSY}$ reference points. The
 solid black line is the median of the posteriors, the shaded ribbon
 encapsulated by dotted lines covers the 95% Credible interval for the
 posteriors, the point at $B_0$ is the median estimate for the unfished
 biomass, and the vertical line over that point is the 95% Credible interval
 for that parameter.
 
-(ref:fig-base-sb-fr) Biomasse de frai de `r en2fr(sp)` pour le modèle de base.
-Le site ligne noire pleine est la médiane des postérieures, le ruban ombragé
-encapsulé par des lignes pointillées couvre l'intervalle crédible à 95% pour
-les le point à $B_0$ est l'estimation médiane de la biomasse non pêchée, et la
-ligne verticale sur ce point est l'intervalle crédible à 95% pour les biomasse
-non pêchée, et la ligne verticale au-dessus de ce point est l'intervalle
-crédible à 95% pour ce paramètre.
+(ref:fig-base-sb-fr) French here
 
 ```{r fig-base-sb, fig.cap = ifelse(fr(), "(ref:fig-base-sb-fr)", "(ref:fig-base-sb-en)")}
-plot_biomass_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
+plot_biomass_mcmc(base_model,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bmsy_lines = TRUE)
 ```
 
+(ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with
+$B_0$ reference points. See Figure \@ref(fig:fig-base-sb) for more information.
+
+(ref:fig-base-sb-bo-fr) French here
+
+```{r fig-base-sb-bo, fig.cap = ifelse(fr(), "(ref:fig-base-sb-bo-fr)", "(ref:fig-base-sb-bo-en)")}
+plot_biomass_mcmc(base_model,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% credible interval shaded. The two blue vulnerable biomass trajectories have their 95% credible interval contained withing the dotted lines of their respective colors.
+
+(ref:fig-base-sb-vuln-compare-fr) French here
+
+```{r fig-base-sb-vuln-compare, fig.cap = ifelse(fr(), "(ref:fig-base-sb-vuln-compare-fr)", "(ref:fig-base-sb-vuln-compare-en)")}
+plot_vuln_mcmc(base_model,
+               inc_sbt = TRUE,
+               quant_df = "sbt_quants",
+               angle_x_labels = TRUE)
+```
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The
 black points are the medians of the posteriors, the vertical black lines
 are the 95% Credible intervals for the posteriors, the point at $R_0$
@@ -73,6 +93,30 @@ paramètre.
 ```{r fig-base-recr, fig.cap = ifelse(fr(), "(ref:fig-base-recr-fr)", "(ref:fig-base-recr-en)")}
 plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
 ```
+
+<!-- Fishing mortality ------------------------------------------------------->
+
+(ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries. The shaded area represents the 95\\% credible interval.
+
+(ref:fig-base-f-fr) French here
+
+```{r fig-base-f, fig.cap = ifelse(fr(), "(ref:fig-base-f-fr)", "(ref:fig-base-f-en)")}
+plot_f_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
+```
+
+<!-- Relative spawning biomass ----------------------------------------------->
+
+(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% credible interval.
+
+(ref:fig-base-depletion-fr) French here
+
+```{r fig-base-depletion, fig.cap = ifelse(fr(), "(ref:fig-base-depletion-fr)", "(ref:fig-base-depletion-en)")}
+plot_biomass_mcmc(base_model,
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL)
+```
+
 
 <!-- MCMC diagnostics -------------------------------------------------------->
 
@@ -321,6 +365,33 @@ plot_selex_gear_mcmc(base_model, gear = 3)
 
 ```{r fig-base-ref-points, fig.cap = ifelse(fr(), "(ref:fig-base-ref-points-fr)", "(ref:fig-base-ref-points-en)")}
 plot_ref_points(base_model)
+```
+
+<!-- Sensitivities ----------------------------------------------------------->
+
+<!-- Vartheta and sigma ------------------------------------------------------>
+
+(ref:fig-sens-variance-en) Spawning biomass for sensitivities pertaining to changes in the $\vartheta^2$ and $\rho$ parameters.
+
+(ref:fig-sens-variance-fr) French here
+
+```{r fig-sens-variance, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-fr)", "(ref:fig-sens-variance-en)")}
+plot_biomass_mcmc(models$sens_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the $\vartheta^2$ and $\rho$ parameters.
+
+(ref:fig-sens-variance-rel-fr) French here
+
+```{r fig-sens-variance-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-rel-fr)", "(ref:fig-sens-variance-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[1]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
 ```
 
 \clearpage

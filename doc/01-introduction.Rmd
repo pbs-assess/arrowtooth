@@ -58,9 +58,15 @@ cat("Juvenile `r sp` feed primarily on mobile prey such as cumaceans, carideans 
 <<intro-para-07-en>>
 ```
 ```{r intro-para-08-en, eval = !fr(), results = 'asis'}
-cat("## Fishery and management history
+cat("## Fishery and management history {#test-fishery}
   
-`r sp` has been managed on a status-quo basis in recent years, with an annual allocation of 15,000 t for the groundfish trawl fleet from 2006-2018 and 5,000 t since 2019. Before that time, there were no limits on catches or discards of `r sp`. The areas of high CPUE in Dixon Entrance seen in Figure \@ref(fig:cpue) are mainly from this test fishery.")
+`r sp` has been managed on a status-quo basis in recent years, with an annual allocation of 15,000 t for the groundfish trawl fleet from 2006-2018 and 5,000 t since 2019. Before that time, there were no limits on catches or discards of `r sp`. A test fishery was opened in 2005 to determine marketability and economic viability of `r sp` for industry. The areas of high CPUE in the east area of Dixon Entrance seen in Figure \@ref(fig:fig-cpue-spatial) are mainly from this test fishery. The increased catch in 2005 can be seen in Figure Figure \@ref(fig:fig-catch), especially in the northern areas; 5ABCDE. Unfortunately, due to rapid proteolysis of the flesh, the fishery was not profitable and a large drop in catch is evident after 2005 (Figure \@ref(fig:fig-catch)) when the test fishery ended abruptly.
+
+The increase in catch seen from 2010-2014 was due to four freezer trawlers joining the fleet. There has been a decline in annual catches since 2015, with a very large decrease occuring since 2018 (Figure \@ref(fig:fig-catch)). The large decrease is due to a quota reduction imposed by fisheries managers based on index declines and reports of reduced availability of `r sp` in normal fishing grounds.
+
+Prior to the introduction of freezer trawlers, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to proteolysis of the flesh if catches were not landed and frozen quickly after capture. Prior to the introduction of 100% at-sea observer coverage in the 'r bc` groundfsh fleets in 1996, reporting of `r sp` discards in fishery logbooks was voluntary. Since `r sp` were not managed with quotas before 1996, there was little incentive for skippers to record discards accurately or at all. Therefore the quantity of discards in the pre-1996 period is highly uncertain and no catch reconstruction prior to 1996 could be made.
+
+Any foreign or U.S. catches were taken outside Canadian management zones and not used in this assessment.")
 ```
 ```{r intro-para-08-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-08-en>>
