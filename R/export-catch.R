@@ -50,6 +50,7 @@ export_catch <- function(ct,
   catch_ss <- extract_fleet_catch(ct, include = FALSE) |>
     tidy_catch(areas = areas)|>
     group_by(year) |>
+    filter(year %in% years) |>
     summarize(round(sum(value / divisor), digits)) |>
     complete(year = years) |>
     rename(catch = 2)
