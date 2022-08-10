@@ -1,0 +1,145 @@
+\clearpage
+
+# DISCARD CPUE INDEX STANDARDIZATION
+
+We draw on methods as written in @anderson2019synopsis and @forrest2020pcod, reproducing them in parts here for completeness.
+
+We sought to generate an index of `r sp` abundance from discard commercial trawl catch per unit effort data that was standardized for depth, fishing locality (defined spatial regions), month, vessel, and latitude.
+
+## DEFINING THE COMMERCIAL DISCARD FLEET
+
+Before fitting a standardization model, we had to filter and manipulate the
+available catch and effort data to generate a dataset appropriate for model
+fitting.
+
+Commercial groundfish bottom trawl data from 1996 to present have been recorded
+to the fishing-event level in the presence of on-board observers or video
+monitoring.
+
+Since we have data on individual vessels for this modern fleet, and in keeping with previous analyses for Pacific groundfish stocks, we defined a 'fleet' for the modern dataset that includes only vessels that qualify by passing some criteria of regularly catching `r sp`.
+We follow the approach used in a number of recent BC groundfish stock assessments by requiring vessels to have caught the species in at least 100 tows across all years of interest, and to have passed a threshold of five trips (trips that recorded some of the species) for at least five years---all from 1996 to 2021 inclusive
+
+## DEFINING THE STANDARDIZATION MODEL PREDICTORS
+
+For depth and latitude, we binned the values into a sequence of bands to allow for nonlinear relationships between these predictors and CPUE [e.g. @maunder2004a].
+For depth, we binned trawl depth into bands 25m wide.
+For latitude, we used bands that were 0.1 degrees wide. 
+To ensure sufficient data to estimate a coefficient for each factor level, we limited the range of depth bins to those that fell within the 0.1% to 99.9% cumulative probability of positive observations and then removed any factor levels (across all predictors) that contained fewer than 0.1% of the positive observations.
+
+Predictors that are treated as factors in a statistical model need a reference
+or base level---a level from which the other coefficients for that variable
+estimate a difference. 
+The base level then becomes the predictor value that is used in the prediction for the standardized index. 
+We chose the most frequent factor level as the base level --- a common choice for these types of models [@maunder2004a]. 
+For example, we set the base month as the most common month observed in the dataset filtered for only tows where the species was caught.
+This choice of base level only affects the intercept or relative magnitude of our index because of the form of our model (discussed below). 
+This relative magnitude should not affect the outcomes of the stock assessment model because we estimated separate catchabilities for each commercial CPUE index.
+
+## A TWEEDIE GLMM INDEX STANDARDIZATION MODEL
+
+Fisheries CPUE data contains both zeros and positive continuous values. A
+variety of approaches have been used in the fishery literature to model such
+data. One approach has been to fit a delta-GLM (generalized linear model) --- a
+model that fits the zero vs. non-zero values with a logistic regression (a
+binomial GLM and a logit link) and the positive values with a linear regression
+fit to log-transformed data or a Gamma GLM with a log link [e.g. @maunder2004a;
+@thorson2013]. The probability of a non-zero CPUE from the first component can
+then be multiplied by the expected CPUE from the second component to derive an
+unconditional estimate of CPUE. However, this approach suffers from a number of
+issues outlined in REF.
+
+Instead we use a Tweedie GLMM. 
+The Tweedie distribution [@jorgensen1987] solves the above problems [e.g. @candy2004; @shono2008; @foster2013; @lecomte2013; @thorson2017] but has not seen widespread use presumably mostly because of the computational expense of calculating the Tweedie probability density function. 
+Recently, the Tweedie density function has been introduced to the software TMB [@kristensen2016] and can be fit relatively quickly to large datasets and for models with many fixed and random effect parameters either with custom written TMB models or via the glmmTMB R package [@brooks2017].
+
+We fit the Tweedie GLMM (generalized linear mixed effect model) as
+
+\begin{align}
+   (\#eq:cpue-tweedie)
+  y_i &\sim \mathrm{Tweedie}(\mu_i, p, \phi), \quad 1 < p < 2,\\
+  \mu_i &= \exp \left(
+  \bm{X}_i \bm{\beta}
+  + \alpha^\mathrm{locality}_{j[i]}
+  + \alpha^\mathrm{locality-year}_{k[i]}
+  + \alpha^\mathrm{vessel}_{l[i]}
+  \right),\\
+\alpha^\mathrm{locality}_j &\sim
+  \mathrm{Normal}(0, \sigma^2_{\alpha \; \mathrm{locality}}),\\
+ (\#eq:cpue-locality-year)
+\alpha^\mathrm{locality-year}_k &\sim
+  \mathrm{Normal}(0, \sigma^2_{\alpha \; \mathrm{locality-year}}),\\
+ (\#eq:cpue-vessel)
+\alpha^\mathrm{vessel}_l &\sim
+  \mathrm{Normal}(0, \sigma^2_{\alpha \; \mathrm{vessel}}),
+\end{align}
+
+where $i$ represents a single trip (historical data) or tow (modern data), $y_i$ represents the catch (kg) per unit effort (hours trawled), $\bm{X_i}$ represents a vector of fixed-effect predictors (historical: depth bins, months; modern: depth bins, months, latitude bins), $\bm{\beta}$ represents a vector of coefficients, and $\mu_i$ represents the expected CPUE in a trip or tow. The random effect intercepts ($\alpha$ symbols) are allowed to vary from the overall intercept by locality $j$ (\(\alpha^\mathrm{locality}_j\)), locality-year $k$ (\(\alpha^\mathrm{locality-year}_k\)), and vessel $l$ (\(\alpha^\mathrm{vessel}_l\)) (for the modern dataset only) and are constrained by normal distributions with respective standard deviations denoted by $\sigma$ parameters.
+
+We can then calculate the standardized estimate of CPUE for year $t$, $\mu_t$,
+as
+
+\begin{equation}
+  \mu_t = \exp \left(\bm{X}_t \bm{\beta} \right)
+\end{equation}
+
+where $\bm{X_t}$ represents a vector of predictors set to the reference ($r$) levels with the year set to the year of interest. Because each of the $\alpha$ random intercepts is set to zero, the index is predicted for an average locality, locality-year, and vessel (for modern data).
+We estimated the fixed effects with maximum marginal likelihood while integrating over the random effects with the statistical software TMB via the R package glmmTMB. We used standard errors ($\mathrm{SE}$) as calculated by TMB on $\log (\mu_t)$ via the delta method. 
+We then calculated the 95\% Wald confidence intervals as $\exp (\mu_t \pm 1.96 \mathrm{SE}_t)$.
+
+For comparison, we calculated an unstandardized timeseries using a similar procedure but without any of the covariates other than a factor predictor for each year. 
+This is similar to calculating the geometric mean of CPUE each year but with an assumed Tweedie observation model instead of a lognormal observation model that does not allow for zeros.
+
+```{r bubble-utils}
+bub <- function(.n) {
+  knitr::include_graphics(here::here("arrowtooth-nongit", "cpue-figs", paste0("bubble-plots-", .n, ".png")), dpi = NA)
+}
+cpuefold <- here::here("arrowtooth-nongit", "cpue-figs")
+
+cpue_cap_text <- function(type) {
+  paste0("Bubble plots showing distribution of the \\textbf{", type, 
+    "} predictor by year. The area and colour of each circle ",
+    "represents the number of fishing events.")
+}
+```
+
+```{r cpue-bubble1-en, fig.cap=cpue_cap_text("locality"), eval=!fr(), out.width="6in", results='asis'}
+bub(1)
+```
+
+```{r cpue-bubble2-en, fig.cap=cpue_cap_text("depth"), eval=!fr(), out.width="6in", results='asis'}
+bub(2)
+```
+
+```{r cpue-bubble3-en, fig.cap=cpue_cap_text("latitude"), eval=!fr(), out.width="6in", results='asis'}
+bub(3)
+```
+
+```{r cpue-bubble4-en, fig.cap=paste0(cpue_cap_text("vessel"), " The vessel ID numbers of have anonymized by randomly sorting the vessels and assigning sequential numbers.") , eval=!fr(), out.width="6in", results='asis'}
+bub(4)
+```
+
+```{r cpue-bubble5-en, fig.cap=cpue_cap_text("month"), eval=!fr(), out.width="6in", results='asis'}
+bub(5)
+```
+
+```{r cpue-catch-effort-en, fig.cap=paste0("Total catch and effort from the discard fleet of ", sp, "."), eval=!fr(), out.width="6in", results='asis'}
+ knitr::include_graphics(file.path(cpuefold, "catch-effort-1.png"), dpi = NA)
+```
+
+```{r cpue-coef-fixed-en, fig.cap="Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level. Dots, thick, and thin lines represent mean, 50\\%, and 95\\% confidence intervals.", eval=!fr(), out.width="6in", results='asis'}
+ knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot1-1.png"), dpi = NA)
+```
+
+```{r cpue-coef-re1-en, fig.cap="Random intercept values in log space for locality and vessel.", eval=!fr(), out.width="\\textwidth", results='asis'}
+ knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot2-1.png"), dpi = NA)
+```
+
+```{r cpue-coef-re2-en, fig.cap="Random intercept values for the locality-year interaction effect. Panel labels represent IDs for the localities.", eval=!fr(), out.width="\\textwidth", results='asis'}
+ knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot3-1.png"), dpi = NA)
+```
+
+```{r cpue-stand-index-en, fig.cap="CPUE indices. The red line is the standardized version, the black solid line is a version with only a year predictor with the Tweedie observation model, the dashed line is the summed catch for the species divided by effort for all species each year. The ribbons indicate the 95\\% (Wald) confidence intervals.", eval=!fr(), out.width="\\textwidth", results='asis'}
+ knitr::include_graphics(file.path(cpuefold, "predictions-stand-1.png"), dpi = NA)
+```
+
+\clearpage
