@@ -11,7 +11,8 @@ source(here("geostat/utils.R"))
 dat <- prep_data()
 list_species <- "arrowtooth flounder"
 
-if (!file.exists("~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-depth")) {
+f <- here("arrowtooth-nongit/geostat-figs/")
+if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
   out <- purrr::map(list_species, ~
       fit_index(
         dat,
@@ -42,17 +43,16 @@ if (!file.exists("~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-depth")) {
         family = delta_gamma()
       )
   ) %>% setNames(list_species)
-  saveRDS(out, file = "~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-depth")
-  saveRDS(out_nodepth, file = "~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-nodepth")
-  saveRDS(out_dg, file = "~/src/arrowtooth/arrowtooth-nongit/geo-delta-gamma-depth")
-  saveRDS(out_dg_nodepth, file = "~/src/arrowtooth/arrowtooth-nongit/geo-delta-gamma-nodepth")
+  saveRDS(out, file = file.path(f, "geo-tweedie-depth.rds"))
+  saveRDS(out_nodepth, file = file.path(f, "geo-tweedie-nodepth.rds"))
+  saveRDS(out_dg, file = file.path(f, "geo-delta-gamma-depth.rds"))
+  saveRDS(out_dg_nodepth, file = file.path(f, "geo-delta-gamma-nodepth.rds"))
 } else {
-  out <- readRDS("~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-depth")
-  out_nodepth <- readRDS("~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-nodepth")
-  out_dg <- readRDS("~/src/arrowtooth/arrowtooth-nongit/geo-delta-gamma-depth")
-  out_dg_nodepth <- readRDS("~/src/arrowtooth/arrowtooth-nongit/geo-delta-gamma-nodepth")
+  out <- readRDS(file.path(f, "geo-tweedie-depth.rds"))
+  out_nodepth <- readRDS(file.path(f, "geo-tweedie-nodepth.rds"))
+  out_dg <- readRDS(file.path(f, "geo-delta-gamma-depth.rds"))
+  out_dg_nodepth <- readRDS(file.path(f, "geo-delta-gamma-nodepth.rds"))
 }
-
 
 index_dg_nodepth <- purrr::map_dfr(out_dg_nodepth, "index", .id = "species")
 index_nodepth <- purrr::map_dfr(out_nodepth, "index", .id = "species")
@@ -95,6 +95,7 @@ g <- g + ylab("Biomass (tonnes)") +
   scale_colour_brewer(palette = "Set2") +
   scale_linetype_manual(values = c(2, 1))
 g
+ggsave(here("arrowtooth-nongit/geostat-figs/geostat-indexes.png"), width = 7, height = 4)
 
 # AIC(out$`arrowtooth flounder`$fit)
 # AIC(out_nodepth$`arrowtooth flounder`$fit)
@@ -106,6 +107,7 @@ ind <- index %>%
   bind_rows(index_dg) %>%
   bind_rows(index_dg_nodepth) %>%
   mutate(cv = sqrt(exp(se^2) - 1))
+saveRDS(ind, here("arrowtooth-nongit/geostat-figs/geostat-stitched-index.rds"))
 
 group_by(ind, type) %>%
   summarise(mean_cv = mean(cv))
@@ -113,28 +115,23 @@ group_by(ind, type) %>%
 simulate(out$`arrowtooth flounder`$fit, 200) %>%
   dharma_residuals(out$`arrowtooth flounder`$fit)
 
-simulate(out_dg$`arrowtooth flounder`$fit, 200) %>%
+simulate(out_dg_nodepth$`arrowtooth flounder`$fit, 200) %>%
   dharma_residuals(out$`arrowtooth flounder`$fit)
 
 simulate(out_dg_nodepth$`arrowtooth flounder`$fit, 200) %>%
   dharma_residuals(out$`arrowtooth flounder`$fit)
 
-r0 <- residuals(out$`arrowtooth flounder`$fit, "mle-mcmc",
-  model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
+# r0 <- residuals(out$`arrowtooth flounder`$fit, "mle-mcmc",
+#   model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
+#
+# r1 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
+#   model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
+#
+# r2 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
+#   model = 2L, mcmc_iter = 101, mcmc_warmup = 100)
 
-r1 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
-  model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
-
-r2 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
-  model = 2L, mcmc_iter = 101, mcmc_warmup = 100)
-
-saveRDS(out, file = "~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-depth")
-saveRDS(out_nodepth, file = "~/src/arrowtooth/arrowtooth-nongit/geo-tweedie-nodepth")
-saveRDS(out_dg, file = "~/src/arrowtooth/arrowtooth-nongit/geo-delta-gamma-depth")
-saveRDS(out_dg_nodepth, file = "~/src/arrowtooth/arrowtooth-nongit/geo-delta-gamma-nodepth")
-
-m <- out_dg$`arrowtooth flounder`$fit
-nd <- readRDS(here("grids/synoptic_grid.rds"))
+m <- out_dg_nodepth$`arrowtooth flounder`$fit
+nd <- readRDS(here("arrowtooth-nongit/geostat-figs/synoptic_grid.rds"))
 fitted_yrs <- sort(unique(dat$year))
 nd <- make_grid(nd, years = fitted_yrs)
 nd <- na.omit(nd)
@@ -154,6 +151,7 @@ coords <- coord_equal(
 )
 utm_labs <- labs(x = "Easting", y = "Northing")
 
+library(rosettafish)
 plot_multiyear_survey_sets <- function(dat, survey_abbrev,
   density_lab = "", french = FALSE) {
   density_lab <- if (french) {
@@ -172,7 +170,7 @@ plot_multiyear_survey_sets <- function(dat, survey_abbrev,
       size = 0.7, col = "grey60"
     ) +
     coords +
-    geom_point(alpha = 0.8, pch = 21) +
+    geom_point(alpha = 0.5, pch = 21) +
     facet_wrap(~year) +
     geom_polygon(
       data = coast, aes_string(x = "X", y = "Y", group = "PID"),
@@ -194,34 +192,49 @@ plot_multiyear_survey_sets <- function(dat, survey_abbrev,
     gfplot::theme_pbs()
 }
 
-dat %>%
-  # filter(year %in% 2005:2007) %>%
+g <- dat %>%
+  filter(year %in% 2003:2012) %>%
   arrange(-density) %>%
-  plot_multiyear_survey_sets()
+  plot_multiyear_survey_sets() +
+  facet_wrap(~year, ncol = 3)
 # data <- dplyr::filter(data, !(year == 2014 & survey_abbrev == "SYN WCHG")) # not used
+ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-raw1.png"), width = 9, height = 11)
 
-plot_map <- function(dat, column) {
+g <- dat %>%
+  filter(year > 2012) %>%
+  arrange(-density) %>%
+  plot_multiyear_survey_sets() +
+  facet_wrap(~year, ncol = 3)
+ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-raw2.png"), width = 9, height = 10)
+
+plot_map <- function(dat, column, max_colour) {
   ggplot(dat, aes_string("X", "Y", fill = column, colour = column)) +
     geom_polygon(
       data = coast, aes_string(x = "X", y = "Y", group = "PID"),
       fill = "grey87", col = "grey70", lwd = 0.2, inherit.aes = FALSE
     ) +
     geom_tile(width = 2, height = 2) +
-    scale_colour_viridis_c(trans = "sqrt") +
-    scale_fill_viridis_c(trans = "sqrt") +
+    scale_colour_viridis_c(trans = "sqrt", limits = c(0, max_colour)) +
+    scale_fill_viridis_c(trans = "sqrt", limits = c(0, max_colour)) +
     coord_fixed() +
     coords +
-    utm_labs
+    utm_labs +
+    facet_wrap(vars(year), ncol = 3) +
+  labs(fill = "Biomass density", colour = "Biomass density") +
+    gfplot::theme_pbs()
 }
 
-p %>%
+pp <- p %>%
   mutate(est_total = plogis(est1) * exp(est2)) %>%
-  mutate(est_total = ifelse(est_total > quantile(est_total, probs = 0.995), quantile(est_total, probs = 0.995), est_total)) %>%
-  # filter(year %in% 2007:2009) %>%
-  plot_map("est_total") +
-  facet_wrap(vars(year)) +
-  labs(fill = "Biomass density", colour = "Biomass density") +
-  gfplot::theme_pbs()
+  mutate(est_total = ifelse(est_total > quantile(est_total, probs = 0.995), quantile(est_total, probs = 0.995), est_total))
+
+g <- pp %>% filter(year <= 2012) %>%
+  plot_map("est_total", max_colour = max(pp$est_total))
+ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-pred1.png"), width = 9, height = 11)
+
+g <- pp %>% filter(year > 2012) %>%
+  plot_map("est_total", max_colour = max(pp$est_total))
+ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-pred2.png"), width = 9, height = 10)
 
 # ggsave("")
 

@@ -1,5 +1,7 @@
 prep_data <- function(region = c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG")) {
-  dat <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug10-2021.rds"))$survey_sets %>%
+  # dat <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug10-2021.rds"))$survey_sets %>%
+  #   dplyr::filter(survey_abbrev %in% region)
+  dat <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_sets %>%
     dplyr::filter(survey_abbrev %in% region)
   # change from per m2 to per km2:
   dat$density <- dat[["density_kgpm2"]] * 1000000
@@ -29,13 +31,14 @@ fit_index <- function(dat,
   region <- unique(dat$survey_abbrev)
 
   ctrl <- sdmTMBcontrol(newton_loops = 1L)
+  dat <- dplyr::filter(dat, !is.na(depth_m))
 
   mesh <- make_mesh(dat, c("X", "Y"), cutoff = 20)
   # plot(mesh$mesh, asp = 1)
   # points(dat$X, dat$Y, pch = ".")
   # mesh$mesh$n
 
-  nd <- readRDS(here("grids/synoptic_grid.rds")) %>%
+  nd <- readRDS(here("arrowtooth-nongit/geostat-figs/synoptic_grid.rds")) %>%
     dplyr::filter(survey %in% region)
   fitted_yrs <- sort(unique(dat$year))
   nd <- make_grid(nd, years = fitted_yrs)
