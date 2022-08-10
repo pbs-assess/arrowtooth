@@ -68,7 +68,7 @@ extract_age_comps <- function(catch_sets,
       filter(!is.na(year))
     k <- k[order(j$year),]
     k[is.na(k)] <- 0
-browser()
+
     # Plus group
     plus <- k[, grepl("2[0-9]+", names(k))] %>% rowSums %>% as_tibble() %>% `names<-`("20")
     without_plus <- k[, !grepl("2[0-9]+", names(k))]
