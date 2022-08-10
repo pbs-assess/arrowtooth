@@ -1,3 +1,6 @@
+# do <- readRDS(here("geostat/bc-trawl-env.rds"))
+# dg <- readRDS(here("geostat/bc-trawl-grid-env.rds"))
+
 library(dplyr)
 library(ggplot2)
 library(here)
@@ -101,10 +104,11 @@ g
 ind <- index %>%
   bind_rows(index_nodepth) %>%
   bind_rows(index_dg) %>%
-  bind_rows(index_dg_nodepth)
+  bind_rows(index_dg_nodepth) %>%
+  mutate(cv = sqrt(exp(se^2) - 1))
 
 group_by(ind, type) %>%
-  summarise(mean_se = mean(se))
+  summarise(mean_cv = mean(cv))
 
 simulate(out$`arrowtooth flounder`$fit, 200) %>%
   dharma_residuals(out$`arrowtooth flounder`$fit)
