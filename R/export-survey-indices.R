@@ -1,5 +1,5 @@
 #' Extract the female survey index data for pasting into the iSCAM data file.
-#' The 'Discard CPUE' index must be multiplied by the proportions female from the commerciual fishery
+#' The 'Discard CPUE' index must be multiplied by the proportions female from the commercial fishery
 #' so `comm_samples` is required
 #'
 #' @details The CV can be calculated as CV = SD / MEAN or from the Standard error: CV = sqrt(exp(SE^2) - 1)
@@ -26,15 +26,19 @@
 #' si <- gfdata::get_survey_index("arrowtooth flounder")
 #' extract_survey_indices (survey_index, start_year = 1996, end_year = 2019, species_category = 1)
 #' }
-extract_survey_indices <- function(survey_index,
-                                   surv_series = c(2, 3, 4, 5, 17),
-                                   surv_series_names = c("SYN QCS", "OTHER HS MSA", "SYN HS", "SYN WCVI", "SYN WCHG"),
-                                   iphc = NULL,
-                                   discard_cpue = NULL,
-                                   stitched_syn = NULL,
-                                   write_to_file = TRUE,
-                                   append = FALSE,
-                                   ...){
+export_survey_indices <- function(survey_index,
+                                  surv_series = c(2, 3, 4, 5, 17),
+                                  surv_series_names = c("SYN QCS",
+                                                        "OTHER HS MSA",
+                                                        "SYN HS",
+                                                        "SYN WCVI",
+                                                        "SYN WCHG"),
+                                  iphc = NULL,
+                                  discard_cpue = NULL,
+                                  stitched_syn = NULL,
+                                  write_to_file = TRUE,
+                                  append = FALSE,
+                                  ...){
 
   if(!is.null(iphc)){
     iphc <- iphc %>%
@@ -100,10 +104,18 @@ extract_survey_indices <- function(survey_index,
   surv_indices <- bind_cols(survey_years_index, area, group, sex, wt, timing) %>%
     arrange(gear, survey, year)
 
+  surv_names <- select(surv_indices, survey) |>
+    mutate(survey = paste0("   # ", survey))
+
+  # Place survey names as comments as the last column
+  surv_indices <- bind_cols(select(surv_indices, -survey), surv_names)
+
   if(write_to_file){
     nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
     dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
-    fn <- file.path(nongit_dir, "data-output/survey-indices.txt")
+    fn <- file.path(nongit_dir,
+                    file.path("data-output",
+                              paste0("survey-indices-", Sys.Date(), ".txt")))
     write.table(surv_indices, fn, quote = FALSE, row.names = FALSE, append = append)
     message("Survey indices written to ", fn)
   }else{

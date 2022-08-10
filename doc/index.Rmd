@@ -347,7 +347,7 @@ discard_cpue <- read_csv(discard_cpue_file)
 stitched_syn <- readRDS(stitched_syn_file)
 
 dat <- readRDS(file.path(drs$nongit_dir, "data",
-                         "arrowtooth-flounder-oct10-2021.rds"))
+                         "arrowtooth-flounder-aug10-2022.rds"))
 
 # These must be removed for call to add_extra_indices()
 survey_index <- dat$survey_index %>% 
@@ -368,9 +368,22 @@ survey_sets <- dat$survey_sets |>
   filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
 survey_samples <- dat$survey_samples |> 
   filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
+survey_samples_syn <- survey_samples |> 
+  filter(survey_abbrev %in% c("SYN QCS",
+                              "SYN HS",
+                              "SYN WCVI",
+                              "SYN WCHG"))
 commercial_samples <- dat$commercial_samples |> 
   filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
+
+# Total catch
 catch <- tidy_catch(dat$catch, areas =c("3[CD]+", "5[ABCDE]+"))
+# Catch by fleet
+catch_ft <- extract_fleet_catch(dat$catch) |> 
+  tidy_catch(areas = c("3[CD]+", "5[ABCDE]+"))
+catch_ss <- extract_fleet_catch(dat$catch, include = FALSE) |> 
+  tidy_catch(areas = c("3[CD]+", "5[ABCDE]+"))
+
 cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
 age_precision <- dat$age_precision

@@ -1,9 +1,11 @@
-#' Extract the commercial age proportions for pasting into the iSCAM data file.
+#' Extract the commercial age proportions for pasting into the iSCAM data file
 #'
-#' @param catch_sets Data frame as output by [gfdata::get_catch()] or [gfdata::get_survey_sets()]
-#' @param samples Data frame as output by [gfdata::get_commercial_samples()] or [gfdata::get_survey_samples()]
-#' @param type One of 'commercial' or 'survey'. Whichever is set requires objects `catch_sets` and `samples`
-#' represent that type. See examples.
+#' @param catch_sets Data frame as output by [gfdata::get_catch()]
+#' or [gfdata::get_survey_sets()]
+#' @param samples Data frame as output by [gfdata::get_commercial_samples()]
+#' or [gfdata::get_survey_samples()]
+#' @param type One of 'commercial' or 'survey'. Whichever is set requires
+#' objects `catch_sets` and `samples` represent that type. See examples.
 #' @param gear_num Number of gear to be written in output file
 #' @param surv_series_name Name of a survey to extract. To extract multiple at once, use [extract_survey_age_comps()].
 #' See the values in `survey_abbrev` column of data frame returned by [gfdata::get_survey_samples()] for names
@@ -66,7 +68,7 @@ extract_age_comps <- function(catch_sets,
       filter(!is.na(year))
     k <- k[order(j$year),]
     k[is.na(k)] <- 0
-
+browser()
     # Plus group
     plus <- k[, grepl("2[0-9]+", names(k))] %>% rowSums %>% as_tibble() %>% `names<-`("20")
     without_plus <- k[, !grepl("2[0-9]+", names(k))]
@@ -85,87 +87,26 @@ extract_age_comps <- function(catch_sets,
     k <- bind_cols(yrs, gear, area, group, sex, k, samps)
     k %>% mutate(total = paste0("#", total))
   }) %>% bind_rows
-
+browser()
   if(write_to_file){
     nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
     dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
     if(type == "commercial"){
-      fn <- file.path(nongit_dir, "data-output/commercial-age-proportions.txt")
+      fn <- file.path(nongit_dir, file.path("data-output",
+                                            paste0("commercial-age-proportions-",
+                                                   Sys.Date(),
+                                                   ".txt")))
       write.table(jj, fn, quote = FALSE, row.names = FALSE, append = append)
       message("Commercial age proportions written to ", fn)
     }else{
-      fn <- file.path(nongit_dir, "data-output/survey-age-proportions.txt")
-      write.table(jj, fn, quote = FALSE, row.names = FALSE, append = append)
+      fn <- file.path(nongit_dir, file.path("data-output",
+                                            paste0("survey-age-proportions-",
+                                                   Sys.Date(),
+                                                   ".txt")))
+write.table(jj, fn, quote = FALSE, row.names = FALSE, append = append)
       message("Survey age proportions written to ", fn)
     }
   }else{
     jj
-  }
-}
-
-#' Extract the survey age proportions for pasting into the iSCAM data file.
-#'
-#' @param surv_series_names See the values in `survey_abbrev` column of data frame returned
-#'  by [gfdata::get_survey_samples()] for names of surveys to include
-#' @param write_to_file if `TRUE`, write the output to a file. If `FALSE` return the output data frame
-#' @param ... Arguments to pass to [extract_age_comps()]
-#'
-#' @return if `write_to_file` is `TRUE`, return nothing, else return the data frame containing the age comps
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' survey_sets <- gfdata::get_survey_sets("arrowtooth flounder")
-#' survey_samples <- gfdata::get_survey_samples("arrowtooth flounder")
-#' extract_survey_age_comps(catch_sets = survey_sets, samples = survey_samples)
-#' }
-extract_survey_age_comps <- function(surv_series_names = c("SYN QCS",
-                                                           "OTHER HS MSA",
-                                                           "SYN HS",
-                                                           "SYN WCVI",
-                                                           "SYN WCHG"),
-                                     write_to_file = TRUE,
-                                     ...){
-
-  j <- map2(surv_series_names, seq_along(surv_series_names), function(x = .x, y = .y, ...){
-    extract_age_comps(type = "survey", surv_series_name = x, write_to_file = FALSE, ...) %>%
-      mutate(gear = y + 1)
-  }, ...) %>%
-    bind_rows()
-
-  if(write_to_file){
-    nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
-    dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
-    fn <- file.path(nongit_dir, "data-output/survey-age-proportions.txt")
-    write.table(j, fn, quote = FALSE, row.names = FALSE)
-    message("Survey age proportions written to ", fn)
-  }else{
-    j
-  }
-}
-
-#' Extract commercial samples by fleet, where fleet is defined by a vector of vessel ids
-#'
-#' @param comm Output from [gfdata::get_commercial_samples()]
-#' @param vessel_ids A vector of vessel IDs to include in the commercial samples if `include` is `TRUE`,
-#' or exclude if `include` is `FALSE`
-#' @param include include or exclude the `vessel_ids` from the returned commercial samples data set
-#'
-#' @return A filtered commercial samples data frame
-#' @export
-extract_fleet_samples <- function(comm,
-                                  vessel_ids = c(568,   # VIKING ENTERPRISE
-                                                 592,   # NORTHERN ALLIANCE
-                                                 569,   # OSPREY NO. 1
-                                                 595,   # RAW SPIRIT
-                                                 608,   # PACIFIC LEGACY NO. 1
-                                                        # SUNDEROEY (not yet in GFBIO - July 2021)
-                                                 1727), # VIKING ALLIANCE
-                                  include = TRUE){
-
-  if(include){
-    comm %>% filter(vessel_id %in% vessel_ids)
-  }else{
-    comm %>% filter(!vessel_id %in% vessel_ids)
   }
 }

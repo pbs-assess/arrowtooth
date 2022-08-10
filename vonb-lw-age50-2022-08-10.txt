@@ -1,0 +1,8 @@
+female male comments
+61.7695997 47.1587886 # -asymptotic length (linf)
+0.1815153 0.273536 # -brody growth coefficient (k)
+-0.478988 -0.2580476 # -theoretical age at zero length (tt0)
+0.0000076 0.0000095 # -scalar in length-weight allometry (alpha)
+3.0515274 2.9741834 # -power parameter in length-weight allometry (beta)
+6.2381463 5.2441949 # -age at 50% maturity
+1.6467835 2.0430129 # -std at 50% maturity
