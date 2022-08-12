@@ -7,7 +7,8 @@
 export_iscam_data(dat)
 }
 \arguments{
-\item{dat}{Output from \code{\link[gfdata:get_data]{gfdata::cache_pbs_data()}}}
+\item{dat}{Output from \code{\link[gfdata:get_data]{gfdata::cache_pbs_data()}}. Make sure to set the
+argument \code{unsorted_only = FALSE} for arrowtooth}
 }
 \value{
 Nothing, creates several files for cutting/pasting into iSCAM

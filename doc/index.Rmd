@@ -348,10 +348,10 @@ stitched_syn <- readRDS(stitched_syn_file)
 
 # dat <- readRDS(file.path(drs$nongit_dir, "data",
 #                          "arrowtooth-flounder-june11-2021.rds"))
-dat <- readRDS(file.path(drs$nongit_dir, "data",
-                         "arrowtooth-flounder-oct10-2021.rds"))
 # dat <- readRDS(file.path(drs$nongit_dir, "data",
-#                          "arrowtooth-flounder-aug10-2022.rds"))
+#                          "arrowtooth-flounder-oct10-2021.rds"))
+dat <- readRDS(file.path(drs$nongit_dir, "data",
+                         "arrowtooth-flounder-aug11-2022.rds"))
 
 # These must be removed for call to add_extra_indices()
 survey_index <- dat$survey_index %>% 

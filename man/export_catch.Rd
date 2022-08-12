@@ -12,9 +12,11 @@ export_catch(
   divisor = 1e+06,
   digits = 4,
   write_files = TRUE,
+  single_fleet = FALSE,
   fns = c(paste0("catch-ft-", Sys.Date(), ".txt"), paste0("catch-ss-", Sys.Date(),
     ".txt")),
-  middle_text = c(gear = 1, group = 1, area = 1, sex = 0, type = 1)
+  middle_text = c(gear = 1, group = 1, area = 1, sex = 0, type = 1),
+  ...
 )
 }
 \arguments{
@@ -34,6 +36,9 @@ export_catch(
 \item{fns}{A vector of two filenames}
 
 \item{middle_text}{A vector of middle column data to insert in the output}
+
+\item{...}{Arguments passed to \code{\link[gfplot:plot_catch]{gfplot::tidy_catch()}} and in turn, to
+\code{\link[gfplot:plot_catch]{gfplot::set_fishing_year()}}}
 }
 \value{
 Nothing is \code{write_files} is \code{TRUE}. A list of two data frames if
