@@ -317,7 +317,6 @@ models <- model_setup(main_dirs = drs,
                       sens_models_text = sens_models_text,
                       overwrite_rds_files = build_rds)
 
-
 month_fishing_starts <- 2
 day_fishing_starts <- 21
 
@@ -368,22 +367,24 @@ wchg_2014_row <-
 dat$survey_index <- dat$survey_index[-which(wchg_2014_row), ]
 
 # Areas 3CD and 5ABCDE only 
+major_areas <- c("03","04", "05", "06", "07", "08", "09")
+tidy_areas <- c("3[CD]+", "5[ABCDE]+")
 survey_sets <- dat$survey_sets |> 
-  filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
+  filter(major_stat_area_code %in% major_areas)
 survey_samples <- dat$survey_samples |> 
-  filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
+  filter(major_stat_area_code %in% major_areas)
 survey_samples_syn <- survey_samples |> 
   filter(survey_abbrev %in% c("SYN QCS",
                               "SYN HS",
                               "SYN WCVI",
                               "SYN WCHG"))
 commercial_samples <- dat$commercial_samples |> 
-  filter(major_stat_area_code %in% c("03","04", "05", "06", "07", "08", "09"))
+  filter(major_stat_area_code %in% major_areas)
 comm_ft <- extract_fleet_samples(commercial_samples)
 comm_ss <- extract_fleet_samples(commercial_samples, include = FALSE)
 
 # Total catch
-catch <- tidy_catch(dat$catch, areas =c("3[CD]+", "5[ABCDE]+"))
+catch <- tidy_catch(dat$catch, areas = tidy_areas)
 # Catch by fleet
 catch_ft <- extract_fleet_catch(dat$catch) #|> 
   #tidy_catch(areas = c("3[CD]+", "5[ABCDE]+"))
