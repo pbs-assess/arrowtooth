@@ -89,11 +89,13 @@ We then calculated the 95\% Wald confidence intervals as $\exp (\mu_t \pm 1.96 \
 For comparison, we calculated an unstandardized timeseries using a similar procedure but without any of the covariates other than a factor predictor for each year. 
 This is similar to calculating the geometric mean of CPUE each year but with an assumed Tweedie observation model instead of a lognormal observation model that does not allow for zeros.
 
+
 ```{r bubble-utils}
+cpuefold <- file.path(drs$nongit_dir, "cpue-figs")
+
 bub <- function(.n) {
-  knitr::include_graphics(here::here("arrowtooth-nongit", "cpue-figs", paste0("bubble-plots-", .n, ".png")), dpi = NA)
+  knitr::include_graphics(file.path(cpuefold, paste0("bubble-plots-", .n, ".png")), dpi = NA)
 }
-cpuefold <- here::here("arrowtooth-nongit", "cpue-figs")
 
 cpue_cap_text <- function(type) {
   paste0("Bubble plots showing distribution of the \\textbf{", type, 
