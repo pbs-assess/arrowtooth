@@ -5,6 +5,7 @@
 .Rproj.user
 
 _book
+_bookdown_*
 _main*
 all.bib
 csas-style
