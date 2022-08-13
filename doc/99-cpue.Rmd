@@ -1,6 +1,6 @@
 \clearpage
 
-# DISCARD CPUE INDEX STANDARDIZATION
+# DISCARD CPUE INDEX STANDARDIZATION {#dcpue}
 
 We draw on methods as written in @anderson2019synopsis and @forrest2020pcod, reproducing them in parts here for completeness.
 

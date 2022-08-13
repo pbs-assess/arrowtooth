@@ -2,7 +2,7 @@
 # command, and include a descriptor chunk in data.R. Source this file, then run
 # `devtools::document()` and `devtools::build()`
 
-mcmc_chain_length <- 2000
+chain_length <- 2000
 mcsave <- 1
 mcscale <- 0
 maxfn <- 2000
@@ -26,10 +26,10 @@ qcsss <- paste(qcs, "Synoptic Survey")
 hsss <- paste(hs, "Synoptic Survey")
 hsmas <- paste(hs, "Multispecies Assemblage Survey")
 
-assess_yr <- 2020
+assess_yr <- 2022
 last_assess_yr <- 2015
-start_catch_yr <- 1954
-end_catch_yr <- assess_yr
+start_catch_yr <- 1996
+end_catch_yr <- assess_yr - 1
 age_plus <- 20
 
 use_data(mcmc_chain_length, overwrite = TRUE)
