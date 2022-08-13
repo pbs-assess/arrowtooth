@@ -7,6 +7,14 @@
 #' If `NULL`, no filtering will occur
 #' @param areas The areas to filter for. If `NULL`, no filtering
 #' will occur
+#' @param maturity_code The maturity code as found in the GFBio database
+#' @param maturity_convention_code The maturity convention code as
+#' found in the GFBio database
+#' @param digits The number of digits each number should have in the
+#' output
+#' @param write_file Logical. If `TRUE`, write the output to the file,
+#' if `FALSE`, return the output as an object
+#' @param fn Tje file name
 #'
 #' @return If `write_file` is `FALSE`, a table of the parameter estimates
 #' @export

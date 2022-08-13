@@ -12,8 +12,6 @@ Description: Provides a framework to run models and produce a CSAS stock assessm
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
 Depends: R (>= 3.6.0)
 Imports:
     adnuts,
@@ -63,3 +61,6 @@ Remotes:
     pbs-assess/rosettafish
 URL: https://github.com/pbs-assess/arrowtooth
 BugReports: https://github.com/pbs-assess/arrowtooth/issues
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.0
+Config/testthat/edition: 3

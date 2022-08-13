@@ -25,6 +25,19 @@ If \code{NULL}, no filtering will occur}
 
 \item{areas}{The areas to filter for. If \code{NULL}, no filtering
 will occur}
+
+\item{maturity_code}{The maturity code as found in the GFBio database}
+
+\item{maturity_convention_code}{The maturity convention code as
+found in the GFBio database}
+
+\item{digits}{The number of digits each number should have in the
+output}
+
+\item{write_file}{Logical. If \code{TRUE}, write the output to the file,
+if \code{FALSE}, return the output as an object}
+
+\item{fn}{Tje file name}
 }
 \value{
 If \code{write_file} is \code{FALSE}, a table of the parameter estimates

@@ -8,6 +8,8 @@
 #' @param digits Number of significant figures to output
 #' @param write_files Logical. If `TRUE`, write the catch tables to files. If
 #' `FALSE`, return a list of two data frames
+#' @param single_fleet Logical. If `TRUE`, the catch will be for one fleet,
+#' which contains the sum of all catch for both fleets
 #' @param fns A vector of two filenames
 #' @param middle_text A vector of middle column data to insert in the output
 #' @param ... Arguments passed to [gfplot::tidy_catch()] and in turn, to
@@ -16,6 +18,12 @@
 #' @return Nothing is `write_files` is `TRUE`. A list of two data frames if
 #' `write_files` is `FALSE`
 #' @importFrom lubridate month day
+#' @importFrom gfiscamutils vec2df modify_model_path
+#' @importFrom gfplot tidy_catch fit_vb
+#' @importFrom dplyr bind_cols
+#' @importFrom here here
+#' @importFrom utils write.table
+#' @importFrom tibble enframe
 #' @export
 export_catch <- function(ct,
                          areas = c("3[CD]+", "5[ABCDE]+"),

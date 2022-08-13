@@ -33,6 +33,9 @@ export_catch(
 \item{write_files}{Logical. If \code{TRUE}, write the catch tables to files. If
 \code{FALSE}, return a list of two data frames}
 
+\item{single_fleet}{Logical. If \code{TRUE}, the catch will be for one fleet,
+which contains the sum of all catch for both fleets}
+
 \item{fns}{A vector of two filenames}
 
 \item{middle_text}{A vector of middle column data to insert in the output}

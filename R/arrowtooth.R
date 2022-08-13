@@ -14,4 +14,4 @@ NULL
 
 # from: https://github.com/jennybc/googlesheets/blob/master/R/googlesheets.R
 # quiets concerns of R CMD check re: the .'s that appear in pipelines
-utils::globalVariables(c("."))
+utils::globalVariables(c(".", "total"))
