@@ -180,8 +180,7 @@ bridge_models_dirs <-
          "06-bridge-switch-to-2-fleet-model",
          "07-bridge-add-discard-cpue",
          "08-bridge-switch-to-split-sex",
-         "09-bridge-switch-fishing-year-to-feb-21-feb-20",
-         "10-bridge-fix-m"))
+         "09-bridge-switch-fishing-year-to-feb-21-feb-20"))
 
 bridge_models_text <- 
   list(c("2015 Base model (one fleet, single sex)",
@@ -192,8 +191,7 @@ bridge_models_text <-
          "Change to two-fleet model (two fleet, single sex)",
          "Add Discard CPUE index (two fleets, single sex)",
          "Convert model to split sex (two fleets, split sex)",
-         "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
-         "Fix male M=0.35, female M=0.2 (two fleets, split sex)"))
+         "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
@@ -214,8 +212,7 @@ sens_models_dirs <-
          "09-m-male-loose-prior"),
        c("10-qk-mean-1.0",
          "11-qk-loose-prior"),
-       c("12-selex-equal-maturity"),
-       c("13-stitched-index"))
+       c("12-selex-equal-maturity"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,1",
@@ -252,10 +249,7 @@ sens_models_text <-
                 "Looser prior on $q_{k}$")),
        c(ifelse(fr(),
                 "Courbe de sélectivité égale à l'ogive de maturité",
-                "Selectivity curve equals maturity ogive")),
-       c(ifelse(fr(),
-         "Index cousu et DCPUE uniquement",
-         "Stitched index and DCPUE only")))
+                "Selectivity curve equals maturity ogive")))
 
 # This will be used to generate the sensitivity parameter table later
 sens_models_text_no_base <- sens_models_text
@@ -292,10 +286,7 @@ sens_changes_text <-
                 "$q_k$ prior sd = 1.5 for all $k$")),
        c(ifelse(fr(),
                 "Paramètres de sélectivité des pêcheries = maturité ($A_{50\\%}$ and $SD_{50\\%}$)",
-                "Fishery selectivity parameters = maturity ($A_{50\\%}$ and $SD_{50\\%}$)")),
-       c(ifelse(fr(),
-         "Pas d'enquêtes individuelles en tant qu'indices",
-         "No individual surveys as indices")))
+                "Fishery selectivity parameters = maturity ($A_{50\\%}$ and $SD_{50\\%}$)")))
 
 if(here() == "/home/rstudio"){
   # For an Rstudio server spawned inside a Docker container
