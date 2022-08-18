@@ -132,7 +132,7 @@ options(# Prevent xtable from adding a timestamp comment to the table code it pr
 options("knitr.graphics.rel_path" = FALSE) # Fixes weird bug where knitr::include_graphics() thinks the non-git folder is relative!??
 ```
 
-```{r library-setup, cache = FALSE}
+```{r library-setup, cache = FALSE, fig.keep='none'}
 # Libraries in alphabetical order
 
 library(devtools)
