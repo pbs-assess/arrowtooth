@@ -5,7 +5,7 @@ We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian esti
 
 The model was fit to commercial catch data from two fleets, six indices of abundance with associated coeffcients of variation, and to age composition data from the commercial trawl fleets and four of the six indices. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix XX) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
 
-Reference points based on Maximum Sustainable Yield (MSY), including the female spawning biomass ($B_{MSY}$) and the annual harvest rate producing MSY ($U_{MSY}$), were estimated along with reference points based on estimated equilibrium unfished spawning biomass, $B_0$ (Section XX). A harvest decision table (Table \@ref(tab:decision-table)) was created by projecting the assessment model one year into the future under a range of constant catch levels. For each level of catch, decision tables show the probability that projected spawning biomass in `r base_model$dat$end.yr + 2` will be less than spawning biomass-based reference points, and the probablity that `r base_model$dat$end.yr + 2` harvest rate will be greater than harvest rate-based reference points (Section XX).
+Reference points based on Maximum Sustainable Yield (MSY), including the female spawning biomass ($B_\mathrm{MSY}$) and the annual harvest rate producing MSY ($U_\mathrm{MSY}$), were estimated along with reference points based on estimated equilibrium unfished spawning biomass, $B_0$ (Section XX). A harvest decision table (Table \@ref(tab:decision-table)) was created by projecting the assessment model one year into the future under a range of constant catch levels. For each level of catch, decision tables show the probability that projected spawning biomass in `r base_model$dat$end.yr + 2` will be less than spawning biomass-based reference points, and the probablity that `r base_model$dat$end.yr + 2` harvest rate will be greater than harvest rate-based reference points (Section XX).
 ")
 ```
 
@@ -17,11 +17,11 @@ Reference points based on Maximum Sustainable Yield (MSY), including the female 
 cat("## Data Inputs
 ### Data Sources
 
-Data were extracted using the R package [gfdata](https://github.com/pbs-assess/gfdata) which applies standard SQL routines to several databases and reconstructs the various time series accordingly. The databases accessed for this assessment are:
+Data were extracted using the R package [gfdata](https://github.com/pbs-assess/gfdata) (REF), which applies standard SQL routines to several databases and reconstructs the various time series accordingly. The databases accessed for this assessment were:
 
-1. GFBioSQL - Contains all modern biological sample data for surveys and commercial fisheries. This database includes most of the groundfish specimen data collected since the 1950s.
-2. PacHarvTrawl - Contains Canadian trawl landing data from 1996 to March 31, 2007.
-3. GFFOS - Contains Canadian trawl landings from April 1, 2007 to present. This database is essentially a copy of the Fisheries and Oceans Canada (DFO) Fishery Operations (FOS) database with a slightly different structure that makes it easier for our assessment needs.
+1. GFBioSQL: Contains all modern biological sample data for surveys and commercial fisheries. This database includes most of the groundfish specimen data collected since the 1950s.
+2. PacHarvTrawl: Contains Canadian trawl landing data from 1996 to March 31, 2007.
+3. GFFOS: Contains Canadian trawl landings from April 1, 2007 to present. This database is essentially a copy of the Fisheries and Oceans Canada (DFO) Fishery Operations (FOS) database with a slightly different structure that makes it easier for our assessment needs.
 
 ")
 ```
@@ -70,7 +70,9 @@ The `r wcvis` has been conducted from May–June in even years starting in 2004.
 The `r wchgs` has been conducted from August-September in even years starting in 2006. The survey area is divided into 2km by 2km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block.
 
 **`r dcpue`**
-The `r dcpue` Index was suggested by stakeholders as a possible way to create an index of abundance that would span every year in the assessment time period. The index is constructed using amounts of discarded `r sp` as a proxy for catch-per-unit-effort. See Appendix XX for more details.
+A standard standardized commercial CPUE index was not used due to the behaviour of the fishery.
+`r sp` are targeted on known grounds, and the location information is shared among fishermen, so there is a bias towards a high CPUE.
+Instead, a `r dcpue` Index was suggested by stakeholders as an approach to create an index of abundance that would span every year in the assessment and be less influenced by changes in targetting behaviour than a standard commerical CPUE index. The index was constructed using catch per unit effort for a defined 'fleet' of vessels and only included tows in which 100% of `r sp` were discarded. See Appendix XX for more details.
 
 ")
 ```
@@ -119,8 +121,9 @@ The CV for `r sp` for each year $y$ was calculated as follows:
 where $(CV)_y$ is the CV for year $y$.
 
 One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95% confidence regions for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
+  
+We also included a set of geostatistical-model-standardized indexes in our sensitivity analyses (Appendix XX).
 
-Fishery CPUE was not used as an index of abundance due to the behaviour of the fishery. `r sp` are targeted on known grounds, and the location information is shared among fishermen, so there is a bias towards a high CPUE.
 ")
 ```
 
@@ -142,7 +145,7 @@ Age composition data represented the whole coast, for the following years:
 1. `r wcvis`
 1. `r wchgs`
 
-Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed weighting scheme that adjusted for unequal sampling effort across spatial or temporal strata. For commercial data, these strata comprised quarterly periods within a year. For survey samples, the strata were defined by the survey design. A description of the methods used to calculate weighted age frequencies is given in Appendix XX. This is the same method that was used in the 2015 `r sp` assessment [@grandin2017]. The methods are coded into the **gfplot** package. The 2015 assessment used custom code as the **gfplot** package was not yet available.
+Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed weighting scheme that adjusted for unequal sampling effort across spatial or temporal strata. For commercial data, these strata comprised quarterly periods within a year. For survey samples, the strata were defined by the survey design. A description of the methods used to calculate weighted age frequencies is given in Appendix XX. This is the same method that was used in the 2015 `r sp` assessment [@grandin2017]. The methods are coded into the **gfplot** package (REF). The 2015 assessment used custom code as the **gfplot** package was not yet available.
 
 Commercial ageing requests included randomly chosen samples from many vessels across both commercial fleets.")
 ```

@@ -168,8 +168,8 @@ if(!is.null(meta)){
 
 ```{r model-setup, cache.lazy = FALSE}
 # These are in rosettafish so don't need french versions here
-bc <- "British Columbia"
-sp <- "Arrowtooth flounder"
+bc <- "BC"
+sp <- "Arrowtooth Flounder"
 
 # This is a list of vectors of bridge groups (bridge models that will be
 # plotted against each other). It can be `NULL` if to be ignored.

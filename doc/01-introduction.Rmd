@@ -1,7 +1,7 @@
 ```{r intro-para-01-en, eval = !fr(), results = 'asis'}
 cat("# Introduction
 
-`r sp` (*`r sp_science`*, Family `r sp_family`, also commonly called `r sp_colloq`), is a species of flatfish that occurs in the offshore waters of `r bc`. `r sp` are primarily taken by the groundfish bottom trawl fishery, although they are also encountered by hook and line fisheries, particularly those targeting Pacific Halibut (*Hippoglossus stenolepis*). Prior to the introduction of freezer trawlers in the `r bc` groundfish fleet in the mid-2000s, most of the historical catch of `r sp` is understood to have been discarded at sea. Proteolysis occurs in the muscle tissue of this species a short time after it is caught, making the flesh mushy and unpalatable. In the past five years, Asian markets have been established for fillets that have been frozen at sea as soon as possible after capture to reduce proteolysis. There is also an Asian market for the frills. The stock was last assessed by @grandin2017, who presented an age-structured Bayesian model using the iSCAM platform. This stock assessment covers the combined Pacific Marine Fisheries Commission (PMFC) major areas 3CD and 5ABCDE off the west coast of `r bc`.")
+`r sp` (*`r sp_science`*, Family `r sp_family`, also commonly called `r sp_colloq`), is a species of flatfish that occurs in the offshore waters of British Columbia (`r bc`). `r sp` are primarily taken by the groundfish bottom trawl fishery, although they are also encountered by hook and line fisheries, particularly those targeting Pacific Halibut (*Hippoglossus stenolepis*). Prior to the introduction of freezer trawlers in the `r bc` groundfish fleet in the mid-2000s, most of the historical catch of `r sp` is understood to have been discarded at sea. Proteolysis occurs in the muscle tissue of this species a short time after it is caught, making the flesh mushy and unpalatable. In the past five years, Asian markets have been established for fillets that have been frozen at sea as soon as possible after capture to reduce proteolysis. There is also an Asian market for the frills. The stock was last assessed by @grandin2017, who presented an age-structured Bayesian model using the iSCAM platform (REF). This stock assessment covers the combined Pacific Marine Fisheries Commission (PMFC) major areas 3CD and 5ABCDE off the west coast of `r bc`.")
 ```
 
 ```{r jhbasaskjc}
@@ -22,7 +22,7 @@ cat("## Purpose of document
 ```
 
 ```{r intro-para-03-en, eval = !fr(), results = 'asis'}
-cat("The purpose of this stock assessment is to update management advice for `r sp` stocks in `r bc` as requested by the Pacific Groundfish Management Unit (GMU). This assessment identifies reference points for `r sp` that are consistent with the DFO Decision-making Framework Incorporating the Precautionary Approach [@dfo2009] and characterizes stock status relative to these reference points, using a Bayesian, age-structured stock assessment model. Management advice is provided in the form of decision tables which forecast the impacts of a range of harvest levels on `r sp`stock status relative to these reference points.")
+cat("The purpose of this stock assessment is to update management advice for `r sp` stocks in `r bc` as requested by the Pacific Groundfish Management Unit (GMU). This assessment identifies reference points for `r sp` that are consistent with the DFO Decision-making Framework Incorporating the Precautionary Approach [@dfo2009] and characterizes stock status relative to these reference points using a Bayesian, age-structured stock assessment model. Management advice is provided in the form of decision tables, which forecast the impacts of a range of harvest levels on `r sp` stock status relative to these reference points.")
 ```
 ```{r intro-para-03-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-03-en>>
@@ -31,7 +31,7 @@ cat("The purpose of this stock assessment is to update management advice for `r 
 ```{r intro-para-04-en, eval = !fr(), results = 'asis'}
 cat("## Biological background
   
-`r sp` are distinguished by their large mouth and arrow-shaped teeth, for which the species is named. Their distribution ranges from Baja California to the eastern Bering Sea [@hart1973]. In `r bc` the species inhabits depths from 50--900 m [@arf2001].")
+`r sp` are distinguished by their large mouth and arrow-shaped teeth, for which the species is named. Their distribution ranges from Baja California to the eastern Bering Sea [@hart1973]. In `r bc`, the species inhabits depths from 50--900 m [@arf2001].")
 ```
 ```{r intro-para-04-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-04-en>>
@@ -45,14 +45,14 @@ cat("`r sp` exhibit sexual dimorphism. After sexual maturity, females grow faste
 ```
 
 ```{r intro-para-06-en, eval = !fr(), results = 'asis'}
-cat("`r sp` are batch spawners with peak spawning occurring at depths deeper than 350 m in the fall and winter months, although the timing of spawning may vary inter-annually [@arf1995]. The species produces pelagic eggs, followed by a pelagic larval stage that may last several months [@arf1995]. Fecundity of this species is poorly understood [@dicosimo1998]. One and two year old fish occupy shallower depths than adults, but by the age of three or four years old, they are generally found in deeper water with adults [@arf2001]. `r sp` appear to occupy separate spawning (winter) and feeding (summer) areas, and undergo seasonal bathymetric movement from shallower to deeper water in the fall and winter [@arf2001].")
+cat("`r sp` are batch spawners with peak spawning occurring at depths deeper than 350 m in the fall and winter months, although the timing of spawning may vary inter-annually [@arf1995]. The species produces pelagic eggs, followed by a pelagic larval stage that may last several months [@arf1995]. Fecundity of this species is poorly understood [@dicosimo1998]. One- and two-year-old fish occupy shallower depths than adults, but by the age of three or four years old, they are generally found in deeper water with adults [@arf2001]. `r sp` appear to occupy separate spawning (winter) and feeding (summer) areas, and undergo seasonal bathymetric movement from shallower to deeper water in the fall and winter [@arf2001].")
 ```
 ```{r intro-para-06-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-06-en>>
 ```
 
 ```{r intro-para-07-en, eval = !fr(), results = 'asis'}
-cat("Juvenile `r sp` feed primarily on mobile prey such as cumaceans, carideans and amphipods. Adults are piscivorous and cannibalistic, feeding on Pacific Herring (*Clupea pallasii*), juvenile Walleye Pollock (*Theragra chalcogramma*) and Pacific Sandlance (*Ammodytes hexapterus*), among other species [@fargo1981].")
+cat("Juvenile `r sp` feed primarily on mobile prey such as cumaceans, carideans and amphipods. Adults are piscivorous and cannibalistic, feeding on Pacific Herring (*Clupea pallasii*), juvenile Walleye Pollock (*Theragra chalcogramma*), and Pacific Sandlance (*Ammodytes hexapterus*), among other species [@fargo1981].")
 ```
 ```{r intro-para-07-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-07-en>>
@@ -60,13 +60,13 @@ cat("Juvenile `r sp` feed primarily on mobile prey such as cumaceans, carideans 
 ```{r intro-para-08-en, eval = !fr(), results = 'asis'}
 cat("## Fishery and management history {#test-fishery}
   
-`r sp` has been managed on a status-quo basis in recent years, with an annual allocation of 15,000 t for the groundfish trawl fleet from 2006-2018 and 5,000 t since 2019. Before that time, there were no limits on catches or discards of `r sp`. A test fishery was opened in 2005 to determine marketability and economic viability of `r sp` for industry. The areas of high CPUE in the east area of Dixon Entrance seen in Figure \@ref(fig:fig-cpue-spatial) are mainly from this test fishery. The increased catch in 2005 can be seen in Figure Figure \@ref(fig:fig-catch), especially in the northern areas; 5ABCDE. Unfortunately, due to rapid proteolysis of the flesh, the fishery was not profitable and a large drop in catch is evident after 2005 (Figure \@ref(fig:fig-catch)) when the test fishery ended abruptly.
+`r sp` has been managed on a status-quo basis in recent years, with an annual allocation of 15,000 t for the groundfish trawl fleet from 2006-2018 and 5,000 t since 2019. Before that time, there were no limits on catches or discards of `r sp`. A test fishery was opened in 2005 to determine marketability and economic viability of `r sp` for industry. The areas of high CPUE in the east area of Dixon Entrance seen in Figure \@ref(fig:fig-cpue-spatial) are mainly from this test fishery. The increased catch in 2005 can be seen in Figure Figure \@ref(fig:fig-catch), especially in the northern areas; 5ABCDE. However, due to rapid proteolysis of the flesh, the fishery was not profitable and a large drop in catch is evident after 2005 (Figure \@ref(fig:fig-catch)) when the test fishery ended abruptly.
 
-The increase in catch seen from 2010-2014 was due to four freezer trawlers joining the fleet. There has been a decline in annual catches since 2015, with a very large decrease occuring since 2018 (Figure \@ref(fig:fig-catch)). The large decrease is due to a quota reduction imposed by fisheries managers based on index declines and reports of reduced availability of `r sp` in normal fishing grounds.
+The increase in catch seen from 2010--2014 was due to four freezer trawlers joining the fleet. There has been a decline in annual catches since 2015, with a particularly large decrease occuring since 2018 (Figure \@ref(fig:fig-catch)). The large decrease is due to a quota reduction imposed by fisheries managers based on abundance index declines and reports of reduced availability of `r sp` in normal fishing grounds.
 
-Prior to the introduction of freezer trawlers, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to proteolysis of the flesh if catches were not landed and frozen quickly after capture. Prior to the introduction of 100% at-sea observer coverage in the 'r bc` groundfsh fleets in 1996, reporting of `r sp` discards in fishery logbooks was voluntary. Since `r sp` were not managed with quotas before 1996, there was little incentive for skippers to record discards accurately or at all. Therefore the quantity of discards in the pre-1996 period is highly uncertain and no catch reconstruction prior to 1996 could be made.
+Prior to the introduction of freezer trawlers, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to proteolysis of the flesh if catches were not landed and frozen quickly after capture. Prior to the introduction of 100% at-sea observer coverage in the `r bc` groundfsh fleets in 1996, reporting of `r sp` discards in fishery logbooks was voluntary. Since `r sp` were not managed with quotas before 1996, there was little incentive for skippers to record discards accurately or at all. Therefore the quantity of discards in the pre-1996 period is highly uncertain and no catch reconstruction prior to 1996 could be made.
 
-Any foreign or U.S. catches were taken outside Canadian management zones and not used in this assessment.")
+Any foreign or U.S. catches were taken outside Canadian management zones and were not used in this assessment.")
 ```
 ```{r intro-para-08-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-08-en>>
