@@ -236,6 +236,72 @@ g <- pp %>% filter(year > 2012) %>%
   plot_map("est_total", max_colour = max(pp$est_total))
 ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-pred2.png"), width = 9, height = 10)
 
+.f <- here("arrowtooth-nongit/geostat-figs/mcmc-resids.rda")
+if (!file.exists(.f)) {
+  r0 <- residuals(out$`arrowtooth flounder`$fit, "mle-mcmc",
+    model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
+  r1 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
+    model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
+  r2 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
+    model = 2L, mcmc_iter = 101, mcmc_warmup = 100)
+  save(r0, r1, r2, file = here("arrowtooth-nongit/geostat-figs/mcmc-resids.rda"))
+} else {
+  load(.f)
+}
+
+png(here("arrowtooth-nongit/geostat-figs/qq-mcmc-coast.png"), width = 7, height = 7, units = "in", res = 200)
+par(mfrow = c(2, 2), cex = 0.8)
+qqnorm(r1, main = "Binomial");qqline(r1)
+qqnorm(r2, main = "Gamma");qqline(r2)
+qqnorm(r0, main = "Tweedie");qqline(r0)
+dev.off()
+
+group_by(ind, type) %>%
+  summarise(mean_cv = mean(cv))
+
+dd <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_index
+dd <- dd %>% filter(survey_abbrev %in%  c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG"))
+.files <- list.files(here("arrowtooth-nongit/survey-geostat"), full.names = TRUE, pattern = "^i-arrow")
+ind_geo <- purrr::map_dfr(.files, readRDS)
+
+g <- bind_rows(ind_geo %>% filter(model == "no-depth") %>%
+    mutate(model = "Geostatistical (no depth)"),
+  select(dd, year, lwr = lowerci, upr = upperci, est = biomass, survey = survey_abbrev) %>%
+    mutate(model = "Design-based")) %>%
+  ggplot(aes(year, est / 1000, colour = model, fill = model))
+g <- g +
+  geom_ribbon(aes(ymin = lwr / 1000, ymax = upr / 1000),
+    alpha = 0.2, colour = NA) +
+  geom_line(alpha = 1, lty = 1, lwd = 0.5)
+g <- g +
+  # geom_pointrange(aes(ymin = lwr / 1000, ymax = upr / 1000), position = position_dodge(width = 0))
+  geom_point(pch = 21, fill = NA)
+g <- g + ylab("Biomass (tonnes)") +
+  coord_cartesian(
+    # ylim = c(0, max(ind$upr / 1000) * 1.03),
+    expand = FALSE, xlim = range(ind$year) + c(-0.25, 0.25)
+  ) +
+  gfplot::theme_pbs() +
+  theme(axis.title.x = element_blank()) +
+  facet_wrap(~survey, scales = "free_y") +
+  labs(fill = "Type", colour = "Type") +
+  scale_fill_brewer(palette = "Set2") +
+  scale_colour_brewer(palette = "Set2")
+g
+ggsave(here("arrowtooth-nongit/geostat-figs/geostat-individual-vs-design.png"), width = 7, height = 4)
+
+
+s <- c(1, 3, 4, 16)
+out <- lapply(s, function(.s) {
+  cat(.s, "\n")
+  m <- readRDS(paste0("~/src/gfindex/models/m-arrowtooth-flounder-", .s, "-no-depth.rds"))
+  r1 <- residuals(m, type = "mle-mcmc", mcmc_iter = 101, mcmc_warmup = 100, model = 1)
+  r2 <- residuals(m, type = "mle-mcmc", mcmc_iter = 101, mcmc_warmup = 100, model = 2)
+  data.frame(r1 = r1, r2 = r2)
+})
+
+
+
 # ggsave("")
 
 # g <- ggplot(ind, aes(year, est / 1000)) +
