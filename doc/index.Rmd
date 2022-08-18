@@ -129,6 +129,7 @@ options(# Prevent xtable from adding a timestamp comment to the table code it pr
         width = 80,
         # Don't use scientific notation (stops tables from showing 1.2e3, etc.)
         scipen = 999)
+options("knitr.graphics.rel_path" = FALSE) # Fixes weird bug where knitr::include_graphics() thinks the non-git folder is relative!??
 ```
 
 ```{r library-setup, cache = FALSE}
