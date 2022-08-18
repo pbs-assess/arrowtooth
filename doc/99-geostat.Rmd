@@ -107,10 +107,19 @@ knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-p
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-indexes.png"), dpi = NA)
 ```
 
+```{r geo-individual-en, fig.cap="Individual geostatistical indices compared to design-based indices.", eval=!fr(), results='asis'}
+ knitr::include_graphics(here("arrowtooth-nongit/geostat-figs/geostat-individual-vs-design.png"), dpi = NA)
+```
+
 <!-- standard error by model table? -->
 
 <!-- Indexes from 4 models -->
 
 <!-- Possibly QQ plots? -->
+
+```{r}
+
+```
+
 
 \clearpage
