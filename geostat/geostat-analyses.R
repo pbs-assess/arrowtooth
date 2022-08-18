@@ -8,10 +8,12 @@ library(sdmTMB)
 
 source(here("geostat/utils.R"))
 
+dr <- paste0(here(), "-nongit")
+
 dat <- prep_data()
 list_species <- "arrowtooth flounder"
 
-f <- here("arrowtooth-nongit/geostat-figs/")
+f <- file.path(dr, "geostat-figs")
 if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
   out <- purrr::map(list_species, ~
       fit_index(
@@ -95,7 +97,7 @@ g <- g + ylab("Biomass (tonnes)") +
   scale_colour_brewer(palette = "Set2") +
   scale_linetype_manual(values = c(2, 1))
 g
-ggsave(here("arrowtooth-nongit/geostat-figs/geostat-indexes.png"), width = 7, height = 4)
+ggsave(file.path(f, "geostat-indexes.png"), width = 7, height = 4)
 
 # AIC(out$`arrowtooth flounder`$fit)
 # AIC(out_nodepth$`arrowtooth flounder`$fit)
@@ -107,19 +109,19 @@ ind <- index %>%
   bind_rows(index_dg) %>%
   bind_rows(index_dg_nodepth) %>%
   mutate(cv = sqrt(exp(se^2) - 1))
-saveRDS(ind, here("arrowtooth-nongit/geostat-figs/geostat-stitched-index.rds"))
+saveRDS(ind, file.path(f, "geostat-stitched-index.rds"))
 
 group_by(ind, type) %>%
   summarise(mean_cv = mean(cv))
 
-simulate(out$`arrowtooth flounder`$fit, 200) %>%
-  dharma_residuals(out$`arrowtooth flounder`$fit)
-
-simulate(out_dg_nodepth$`arrowtooth flounder`$fit, 200) %>%
-  dharma_residuals(out$`arrowtooth flounder`$fit)
-
-simulate(out_dg_nodepth$`arrowtooth flounder`$fit, 200) %>%
-  dharma_residuals(out$`arrowtooth flounder`$fit)
+# simulate(out$`arrowtooth flounder`$fit, 200) %>%
+#   dharma_residuals(out$`arrowtooth flounder`$fit)
+#
+# simulate(out_dg_nodepth$`arrowtooth flounder`$fit, 200) %>%
+#   dharma_residuals(out$`arrowtooth flounder`$fit)
+#
+# simulate(out_dg_nodepth$`arrowtooth flounder`$fit, 200) %>%
+#   dharma_residuals(out$`arrowtooth flounder`$fit)
 
 # r0 <- residuals(out$`arrowtooth flounder`$fit, "mle-mcmc",
 #   model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
@@ -131,7 +133,7 @@ simulate(out_dg_nodepth$`arrowtooth flounder`$fit, 200) %>%
 #   model = 2L, mcmc_iter = 101, mcmc_warmup = 100)
 
 m <- out_dg_nodepth$`arrowtooth flounder`$fit
-nd <- readRDS(here("arrowtooth-nongit/geostat-figs/synoptic_grid.rds"))
+nd <- readRDS(file.path(f, "synoptic_grid.rds"))
 fitted_yrs <- sort(unique(dat$year))
 nd <- make_grid(nd, years = fitted_yrs)
 nd <- na.omit(nd)
@@ -198,14 +200,14 @@ g <- dat %>%
   plot_multiyear_survey_sets() +
   facet_wrap(~year, ncol = 3)
 # data <- dplyr::filter(data, !(year == 2014 & survey_abbrev == "SYN WCHG")) # not used
-ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-raw1.png"), width = 9, height = 11)
+ggsave(file.path(f, "geostat-map-raw1.png"), width = 9, height = 11)
 
 g <- dat %>%
   filter(year > 2012) %>%
   arrange(-density) %>%
   plot_multiyear_survey_sets() +
   facet_wrap(~year, ncol = 3)
-ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-raw2.png"), width = 9, height = 10)
+ggsave(file.path(f, "geostat-map-raw2.png"), width = 9, height = 10)
 
 plot_map <- function(dat, column, max_colour) {
   ggplot(dat, aes_string("X", "Y", fill = column, colour = column)) +
@@ -230,38 +232,38 @@ pp <- p %>%
 
 g <- pp %>% filter(year <= 2012) %>%
   plot_map("est_total", max_colour = max(pp$est_total))
-ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-pred1.png"), width = 9, height = 11)
+ggsave(file.path(f, "geostat-map-pred1.png"), width = 9, height = 11)
 
 g <- pp %>% filter(year > 2012) %>%
   plot_map("est_total", max_colour = max(pp$est_total))
-ggsave(here("arrowtooth-nongit/geostat-figs/geostat-map-pred2.png"), width = 9, height = 10)
+ggsave(file.path(f, "geostat-map-pred2.png"), width = 9, height = 10)
 
-.f <- here("arrowtooth-nongit/geostat-figs/mcmc-resids.rda")
-if (!file.exists(.f)) {
-  r0 <- residuals(out$`arrowtooth flounder`$fit, "mle-mcmc",
-    model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
-  r1 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
-    model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
-  r2 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
-    model = 2L, mcmc_iter = 101, mcmc_warmup = 100)
-  save(r0, r1, r2, file = here("arrowtooth-nongit/geostat-figs/mcmc-resids.rda"))
-} else {
-  load(.f)
-}
-
-png(here("arrowtooth-nongit/geostat-figs/qq-mcmc-coast.png"), width = 7, height = 7, units = "in", res = 200)
-par(mfrow = c(2, 2), cex = 0.8)
-qqnorm(r1, main = "Binomial");qqline(r1)
-qqnorm(r2, main = "Gamma");qqline(r2)
-qqnorm(r0, main = "Tweedie");qqline(r0)
-dev.off()
+# .f <- file.path(f, "mcmc-resids.rda")
+# if (!file.exists(.f)) {
+#   r0 <- residuals(out$`arrowtooth flounder`$fit, "mle-mcmc",
+#     model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
+#   r1 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
+#     model = 1L, mcmc_iter = 101, mcmc_warmup = 100)
+#   r2 <- residuals(out_dg$`arrowtooth flounder`$fit, "mle-mcmc",
+#     model = 2L, mcmc_iter = 101, mcmc_warmup = 100)
+#   save(r0, r1, r2, file = file.path(f, "mcmc-resids.rda"))
+# } else {
+#   load(.f)
+# }
+#
+# png(file.path(f, "qq-mcmc-coast.png"), width = 7, height = 7, units = "in", res = 200)
+# par(mfrow = c(2, 2), cex = 0.8)
+# qqnorm(r1, main = "Binomial");qqline(r1)
+# qqnorm(r2, main = "Gamma");qqline(r2)
+# qqnorm(r0, main = "Tweedie");qqline(r0)
+# dev.off()
 
 group_by(ind, type) %>%
   summarise(mean_cv = mean(cv))
 
-dd <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_index
+dd <- readRDS(file.path(dr, "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_index
 dd <- dd %>% filter(survey_abbrev %in%  c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG"))
-.files <- list.files(here("arrowtooth-nongit/survey-geostat"), full.names = TRUE, pattern = "^i-arrow")
+.files <- list.files(file.path(dr, "survey-geostat"), full.names = TRUE, pattern = "^i-arrow")
 ind_geo <- purrr::map_dfr(.files, readRDS)
 
 g <- bind_rows(ind_geo %>% filter(model == "no-depth") %>%
@@ -288,17 +290,17 @@ g <- g + ylab("Biomass (tonnes)") +
   scale_fill_brewer(palette = "Set2") +
   scale_colour_brewer(palette = "Set2")
 g
-ggsave(here("arrowtooth-nongit/geostat-figs/geostat-individual-vs-design.png"), width = 7, height = 4)
+ggsave(file.path(f, "geostat-individual-vs-design.png"), width = 7, height = 4)
 
 
-s <- c(1, 3, 4, 16)
-out <- lapply(s, function(.s) {
-  cat(.s, "\n")
-  m <- readRDS(paste0("~/src/gfindex/models/m-arrowtooth-flounder-", .s, "-no-depth.rds"))
-  r1 <- residuals(m, type = "mle-mcmc", mcmc_iter = 101, mcmc_warmup = 100, model = 1)
-  r2 <- residuals(m, type = "mle-mcmc", mcmc_iter = 101, mcmc_warmup = 100, model = 2)
-  data.frame(r1 = r1, r2 = r2)
-})
+# s <- c(1, 3, 4, 16)
+# out <- lapply(s, function(.s) {
+#   cat(.s, "\n")
+#   m <- readRDS(paste0("~/src/gfindex/models/m-arrowtooth-flounder-", .s, "-no-depth.rds"))
+#   r1 <- residuals(m, type = "mle-mcmc", mcmc_iter = 101, mcmc_warmup = 100, model = 1)
+#   r2 <- residuals(m, type = "mle-mcmc", mcmc_iter = 101, mcmc_warmup = 100, model = 2)
+#   data.frame(r1 = r1, r2 = r2)
+# })
 
 
 
