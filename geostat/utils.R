@@ -1,7 +1,7 @@
-prep_data <- function(region = c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG")) {
+prep_data <- function(folder, region = c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG")) {
   # dat <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug10-2021.rds"))$survey_sets %>%
   #   dplyr::filter(survey_abbrev %in% region)
-  dat <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_sets %>%
+  dat <- readRDS(file.path(folder, "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_sets %>%
     dplyr::filter(survey_abbrev %in% region)
   # change from per m2 to per km2:
   dat$density <- dat[["density_kgpm2"]] * 1000000
@@ -15,6 +15,7 @@ prep_data <- function(region = c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG")) {
 
 fit_index <- function(dat,
   species = "arrowtooth flounder",
+  folder = ".",
   formula = catch_weight ~ s(log_depth, k = 5),
   family = tweedie(),
   cutoff = 20,
@@ -38,7 +39,7 @@ fit_index <- function(dat,
   # points(dat$X, dat$Y, pch = ".")
   # mesh$mesh$n
 
-  nd <- readRDS(here("arrowtooth-nongit/geostat-figs/synoptic_grid.rds")) %>%
+  nd <- readRDS(file.path(folder, "geostat-figs", "synoptic_grid.rds")) %>%
     dplyr::filter(survey %in% region)
   fitted_yrs <- sort(unique(dat$year))
   nd <- make_grid(nd, years = fitted_yrs)

@@ -10,7 +10,7 @@ source(here("geostat/utils.R"))
 
 dr <- paste0(here(), "-nongit")
 
-dat <- prep_data()
+dat <- prep_data(folder = dr)
 list_species <- "arrowtooth flounder"
 
 f <- file.path(dr, "geostat-figs")
@@ -18,6 +18,7 @@ if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
   out <- purrr::map(list_species, ~
       fit_index(
         dat,
+        folder = dr,
         species = .x
       )
   ) %>% setNames(list_species)
@@ -25,6 +26,7 @@ if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
   out_nodepth <- purrr::map(list_species, ~
       fit_index(
         dat,
+        folder = dr,
         species = .x,
         formula = catch_weight ~ 1,
       )
@@ -32,6 +34,7 @@ if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
   out_dg_nodepth <- purrr::map(list_species, ~
       fit_index(
         dat,
+        folder = dr,
         species = .x,
         formula = catch_weight ~ 1,
         family = delta_gamma()
@@ -41,6 +44,7 @@ if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
   out_dg <- purrr::map(list_species, ~
       fit_index(
         dat,
+        folder = dr,
         species = .x,
         family = delta_gamma()
       )
