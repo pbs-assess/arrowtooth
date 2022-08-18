@@ -3,23 +3,40 @@
 <!-- Catch/CPUE -------------------------------------------------------------->
 
 (ref:fig-catch-spatial-en) Spatial distribution of commercial catch from
-`r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.
+`r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`. 
+The colour scale is log10 transformed. 
+Cells are 7 km wide and are only shown in cases where there are at least 3 unique vessels in a given cell to meet privacy requirements.
 
 (ref:fig-catch-spatial-fr) Distribution spatiale des captures commerciales de
-`r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`.
+`r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`. 
+L'échelle de couleurs est transformée en log10. 
+Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y a au moins trois bateaux uniques dans une cellule donnée pour qu’on puisse satisfaire aux exigences en matière de confdentialité.
 
 ```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)"), out.width = "6in"}
-plot_catch_spatial(dat$catch_spatial, start_year = base_model$dat$start.yr)
+plot_catch_spatial(dat$catch_spatial, 
+                   start_year = base_model$dat$start.yr,
+                   fill_scale = ggplot2::scale_fill_viridis_c(trans = "log10", option = "D"),
+                   colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D")
+  )
 ```
 
 (ref:fig-cpue-spatial-en) Spatial distribution of commercial CPUE from
 `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.
+The colour scale is log10 transformed. 
+Cells are 7 km wide and are only shown in cases where there are at least 3 unique vessels in a given cell to meet privacy requirements.
+
 
 (ref:fig-cpue-spatial-fr) Distribution spatiale de la CPUE commerciales de
 `r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`.
+L'échelle de couleurs est transformée en log10. 
+Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y a au moins trois bateaux uniques dans une cellule donnée pour qu’on puisse satisfaire aux exigences en matière de confdentialité.
+
 
 ```{r fig-cpue-spatial, fig.cap = ifelse(fr(), "(ref:fig-cpue-spatial-fr)", "(ref:fig-cpue-spatial-en)"), out.width = "6in"}
-plot_cpue_spatial(dat$cpue_spatial, start_year = base_model$dat$start.yr)
+plot_cpue_spatial(dat$cpue_spatial, 
+                  start_year = base_model$dat$start.yr,
+                  fill_scale = ggplot2::scale_fill_viridis_c(trans = "log10", option = "D"),
+                  colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"))
 ```
 
 (ref:fig-catch-en) Commercial catch of `r sp` by area.
