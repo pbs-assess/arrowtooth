@@ -87,19 +87,19 @@ b_t \sum^{n_j}_{j = 1} p_{j,t} \lambda_{j,t} a_{j,t},
 
 where $j$ indexes $n_j$ grid cells, $p_j$ is the probability of encounter in grid cell $j$, $\lambda_j$ is the expected catch conditional on encounter in grid cell $j$, and $a_j$ is the area of grid cell $j$ (4 km^2^).
 
-```{r geo-bubble1-en, fig.cap="Raw survey data bubble plot for 2003 to 2011.", out.width="\\textwidth", eval=!fr(), results='asis'}
+```{r geo-bubble1-en, fig.cap="Raw survey data bubble plot for 2003 to 2012.", out.width="\\textwidth", eval=!fr(), results='asis'}
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-raw1.png"), dpi = NA)
 ```
 
-```{r geo-bubble2-en, fig.cap="Raw survey data bubble plot for 2012 to 2021.", out.width="\\textwidth", eval=!fr(), results='asis'}
+```{r geo-bubble2-en, fig.cap="Raw survey data bubble plot for 2013 to 2021.", out.width="\\textwidth", eval=!fr(), results='asis'}
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-raw2.png"), dpi = NA)
 ```
 
-```{r geo-predmap1-en, fig.cap="Predicted biomass density (units TODO) for 2003 to 2011.", out.width="\\textwidth", eval=!fr(), results='asis'}
+```{r geo-predmap1-en, fig.cap="Predicted biomass density (units TODO) for 2003 to 2012.", out.width="\\textwidth", eval=!fr(), results='asis'}
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-pred1.png"), dpi = NA)
 ```
 
-```{r geo-predmap2-en, fig.cap="Predicted biomass density (units TODO) for 2003 to 2011.", out.width="\\textwidth", eval=!fr(), results='asis'}
+```{r geo-predmap2-en, fig.cap="Predicted biomass density (units TODO) for 2013 to 2021.", out.width="\\textwidth", eval=!fr(), results='asis'}
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-pred2.png"), dpi = NA)
 ```
 
