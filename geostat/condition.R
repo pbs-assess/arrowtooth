@@ -7,7 +7,7 @@ source(here("geostat/utils.R"))
 dr <- paste0(here(), "-nongit")
 
 dir.create(file.path(dr, "geostat-figs"), showWarnings = FALSE)
-d <- readRDS(file.path(df, "data", "arrowtooth-flounder-aug10-2021.rds"))
+d <- readRDS(file.path(dr, "data", "arrowtooth-flounder-aug10-2021.rds"))
 
 dat <- d$survey_samples
 dset <- d$survey_sets
