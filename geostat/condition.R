@@ -4,8 +4,10 @@ library(sdmTMB)
 library(here)
 source(here("geostat/utils.R"))
 
-dir.create(here("arrowtooth-nongit/geostat-figs"), showWarnings = FALSE)
-d <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug10-2021.rds"))
+dr <- paste0(here(), "-nongit")
+
+dir.create(file.path(dr, "geostat-figs"), showWarnings = FALSE)
+d <- readRDS(file.path(df, "data", "arrowtooth-flounder-aug10-2021.rds"))
 
 dat <- d$survey_samples
 dset <- d$survey_sets
@@ -65,7 +67,7 @@ sanity(fit)
 # v <- visreg::visreg(fit, xvar = "log_depth")
 # ggplot(v$res, aes(log_depth, cond_fac)) + geom_line()
 
-png(here("arrowtooth-nongit/geostat-figs/condition-smoother.png"), width = 6, height = 4, units = "in", res = 200)
+png(file.path(dr, "geostat-figs", "condition-smoother.png"), width = 6, height = 4, units = "in", res = 200)
 plot_smooth(fit, select = 1)
 dev.off()
 
@@ -87,7 +89,7 @@ ggplot(ind, aes(year, exp(est), ymin = exp(lwr), ymax = exp(upr))) +
   gfplot::theme_pbs() +
   ylab("Condition factor") + xlab("Year")
 
-ggsave(here("arrowtooth-nongit/geostat-figs/condition-coastwide.png"), width = 6, height = 4)
+ggsave(file.path(dr, "geostat-figs", "condition-coastwide.png"), width = 6, height = 4)
 
 out <- split(nd, nd$survey) %>%
   purrr::map(function(.x) {
@@ -107,7 +109,7 @@ ggplot(outs, aes(year, exp(est), ymin = exp(lwr), ymax = exp(upr), colour = surv
   ylab("Condition factor") + xlab("Year") +
   labs(fill = "Survey", colour = "Survey")
   # facet_wrap(~survey)
-ggsave(here("arrowtooth-nongit/geostat-figs/condition-by-survey.png"), width = 6, height = 4)
+ggsave(file.path(dr, "geostat-figs", "condition-by-survey.png"), width = 6, height = 4)
 
 pmap <- predict(fit, newdata = nd)
 
@@ -119,4 +121,4 @@ g <- ggplot(pmap, aes(X, Y, fill = est)) +
   coord_fixed() +
   labs(fill = "Condition anomaly\n(log space)")
 
-ggsave(here("arrowtooth-nongit/geostat-figs/condition-map.png"), width = 10, height = 10)
+ggsave(file.path(dr, "geostat-figs", "condition-map.png"), width = 10, height = 10)
