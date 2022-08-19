@@ -118,6 +118,52 @@ saveRDS(ind, file.path(f, "geostat-stitched-index.rds"))
 group_by(ind, type) %>%
   summarise(mean_cv = mean(cv))
 
+data_dir <- file.path("../arrowtooth-nongit/", "data")
+discard_cpue_file <- file.path(data_dir,
+  "cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year.csv")
+discard_cpue <- readr::read_csv(discard_cpue_file)
+discard_cpue <- dplyr::filter(discard_cpue, formula_version == "Full standardization")
+
+ind_cent <- ind %>% group_by(type) %>%
+  mutate(geo_mean = exp(mean(log_est))) %>%
+  mutate(
+    est = est / geo_mean,
+    lwr = lwr / geo_mean,
+    upr = upr / geo_mean,
+    type = paste0("Survey ", type),
+    type2 = "a-survey"
+  )
+
+cpue_cent <- discard_cpue %>%
+  mutate(geo_mean = exp(mean(est_link[year %in% 2003:2021]))) %>%
+  mutate(
+    est = est / geo_mean,
+    lwr = lwr / geo_mean,
+    upr = upr / geo_mean,
+    type = "Discard CPUE",
+    type2 = "b-cpue"
+  )
+
+comb <- cpue_cent %>% bind_rows(ind_cent)
+levels(comb$type) <- c("Discard CPUE", "Survey Tweedie s(depth)", "Survey Tweedie",
+  "Survey Delta-Gamma s(depth)", "Survey Delta-Gamma")
+
+cols <- c("grey30", RColorBrewer::brewer.pal(4, "Set2"))
+
+comb %>%
+  ggplot(aes(year, est, colour = type, fill = type,
+    ymin = lwr, ymax = upr, lty = type2)) +
+  gfplot::theme_pbs() +
+  geom_ribbon(alpha = 0.3, colour = NA) +
+  geom_line() +
+  scale_fill_manual(values = cols) +
+  scale_color_manual(values = cols) +
+  labs(fill = "Type", colour = "Type") +
+  ylab("Scaled index") + xlab("Year") +
+  guides(lty = "none")
+
+ggsave(file.path(f, "geostat-indexes-cpue.png"), width = 7, height = 4)
+
 # simulate(out$`arrowtooth flounder`$fit, 200) %>%
 #   dharma_residuals(out$`arrowtooth flounder`$fit)
 #
