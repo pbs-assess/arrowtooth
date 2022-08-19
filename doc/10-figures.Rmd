@@ -1,6 +1,70 @@
 # Figures
 
 
+<!-- Age composition -------------------------------------------------------------->
+
+(ref:fig-ages-en) Example age-frequency plot. Female fish are shown as
+coloured (or black) circles and male fish are shown behind as light grey
+circles. The total number of fish aged for a given survey or fishery and year are
+indicated along the top of the panels. Diagonal lines are shown at five-year
+intervals to facilitate tracing cohorts through time. 
+
+(ref:fig-ages-fr) Exemple de graphique de la fréquence selon l’âge. Les poissons femelles sont représentés par des cercles colorés (ou noirs), et les poissons mâles sont représentés derrière par des cercles gris clair. Le nombre total de poissons dont l’âge a été déterminé pour un relevé ou une pêcherie et une année donnés est indiqué en haut des panneaux. Les lignes diagonales sont représentées à des intervalles de cinq ans pour faciliter le suivi des cohortes au fl du temps.
+
+```{r fig-ages, fig.cap = ifelse(fr(), "(ref:fig-ages-fr)", "(ref:fig-ages-en)"), fig.asp = 1}
+
+ss <- tidy_ages_raw(dat$survey_samples,
+  sample_type = "survey"
+)
+
+ss$survey_abbrev <- factor(ss$survey_abbrev)
+s_ages <- plot_ages(ss,
+  survey_cols = stats::setNames(
+    c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62"),
+    c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI")
+  )
+) +
+  facet_wrap(~survey_abbrev, nrow = 1, scales = "free_x") +
+  guides(fill = "none", colour = "none") +
+  theme(
+    plot.title = element_blank(),
+    axis.title = element_blank()
+  )
+
+
+sc <- tidy_ages_raw(comm_ss,
+  sample_type = "commercial"
+) %>% mutate(
+  survey_abbrev = "Shoreside"
+)
+
+sf <- tidy_ages_raw(comm_ft,
+  sample_type = "commercial"
+) %>% mutate(
+  survey_abbrev = "Freezer Trawlers"
+)
+
+sb <- suppressWarnings(bind_rows(sc, sf))
+
+sb$survey_abbrev <- factor(sb$survey_abbrev)
+
+c_ages <- plot_ages(sb,
+  survey_cols = stats::setNames(c("black", "black"), c("Freezer Trawlers", "Shoreside"))
+) +
+  guides(fill = "none", colour = "none") +
+  theme(
+    plot.title = element_blank(),
+    axis.title = element_blank()
+  )
+
+grid.arrange(s_ages, c_ages,
+  nrow = 2,
+  # heights = c(1.1,1),
+  left = en2fr("Ages (years)", fr()),
+  bottom = en2fr("Year sampled", fr())
+)
+```
+
 <!-- Growth -------------------------------------------------------------->
 
 (ref:fig-vb-en) 
@@ -48,6 +112,104 @@ grid.arrange(g_3, g_1, g_4, g_cw,
              bottom = en2fr("Age (years)", fr()))
 
 ```
+
+
+
+<!-- Maturity -------------------------------------------------------------->
+
+(ref:fig-mat-en) Age- and length-at-maturity ogive plots. Maturity ogives are fit as logistic regressions to individual fish specimens, which are categorized as mature vs. not mature. The solid black lines represent fits to the female fish and the dashed grey lines represent fits to the male fish. The vertical lines indicate the estimated age or length at 50\\% maturity. Text on the panels indicates the estimated age and length at 5, 50 and 95\\% maturity for females (F) and males (M). Model fits are only shown for cases where there are at least 20 mature and 20 immature males and females. Short rug lines along the top and bottom of each panel represent up to 1500 randomly chosen individual fish with a small amount of random jittering in the case of ages to help differentiate individual fish. Models are fit to all available survey samples regardless of time of year. See Appendix H in Anderson et al. (2019) for details.
+<!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
+
+(ref:fig-mat-fr) L’âge-et-la-longueur-à-maturité pour les courbes de fréquences cumulées. Les courbes de fréquences cumulées de maturité sont ajustées en tant que régressions logistiques aux spécimens de poissons individuels, qui sont classés comme étant matures ou non matures. Les lignes noires pleines représentent les ajustements aux poissons femelles et les lignes grises tiretées représentent les ajustements aux poissons mâles. Les lignes verticales indiquent l’âge ou la longueur estimée à 50% de maturité. Le texte sur les panneaux indique l’âge et la longueur estimés à 5, 50 et 95% de maturité pour les femelles (F) et les mâles (M). Les ajustements du modèle ne sont montrés que dans les cas où il y a au moins 20 mâles et 20 femelles matures et 20 mâles et 20 femelles immatures. De courtes lignes le long du haut et du bas de chaque panneau représentent jusqu’à 1 500 poissons individuels choisis au hasard, avec une petite gigue aléatoire dans le cas des âges pour aider à différencier les poissons individuels. Les modèles sont ajustés à tous les échantillons de relevé disponibles, quelle que soit la période de l’année. Voir l'annexe H dans Anderson et al. (2019) pour plus de détails.
+
+```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1}
+plot_mat_panels <- function(data, type = "age"){
+.m <- fit_mat_ogive(data, type = type, sample_id_re = FALSE)
+
+.p <- plot_mat_ogive(.m, prediction_type = "all") +
+  guides(colour = "none", fill = "none", lty = "none") +
+  ggplot2::guides(lty = "none", colour = "none") +
+  theme(axis.title.y = element_blank())
+if(type == "age"){
+  .p + ggplot2::labs(x = en2fr("Age (years)", fr()), 
+                y = en2fr("Probability mature", fr()))
+}
+if(type == "length"){
+  .p + ggplot2::labs(x = paste0(en2fr("Length", fr()), " (cm)"), 
+                y = paste0(en2fr("Probability mature", fr()))) 
+}
+.p
+}
+
+
+ma_cw <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(1, 3, 4, 16)) %>% 
+  plot_mat_panels() + 
+  ggtitle(en2fr("Coastwide trawl surveys", fr())) 
+
+ml_cw <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(1, 3, 4, 16)) %>% 
+  plot_mat_panels(type = "length") + 
+  ggtitle("")
+
+ma_1 <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(1)) %>% 
+  plot_mat_panels() +
+  theme(axis.title = element_blank()) + 
+  ggtitle(en2fr("SYN QCS (5AB)", fr())) 
+
+ml_1 <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(1)) %>% 
+  plot_mat_panels(type = "length") +
+  theme(axis.title = element_blank()) + 
+  ggtitle("")
+
+ma_3 <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(3)) %>% 
+  plot_mat_panels() +
+  theme(axis.title = element_blank()) + 
+  ggtitle(en2fr("SYN HS (5CD)", fr()))
+
+ml_3 <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(3)) %>% 
+  plot_mat_panels(type = "length") +
+  theme(axis.title = element_blank()) + 
+  ggtitle("")
+
+ma_4 <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(4)) %>% 
+  plot_mat_panels() +
+  theme(axis.title = element_blank()) + ggtitle(en2fr("SYN WCVI (3CD)", fr())) 
+
+ml_4 <- dat$survey_samples %>% 
+  filter(survey_series_id %in% c(4)) %>% 
+  plot_mat_panels(type = "length") +
+  theme(axis.title = element_blank()) + 
+  ggtitle("")
+
+
+# # maturities not looked at in the freezer trawl samples
+# # and too few from shoreside to be useful
+# ma_ss <- comm_ss %>% 
+#   filter(!is.na(age)) %>%
+#   plot_mat_panels(type = "age") + 
+#   theme(axis.title = element_blank()) + 
+#   ggtitle(en2fr("Commercial trawl (Shoreside)", fr())) 
+# 
+# ml_ss <- comm_ss %>% 
+#   plot_mat_panels(type = "length") + 
+#   theme(axis.title = element_blank()) + 
+#   ggtitle("")
+
+grid.arrange(#ma_ss, ml_ss,
+             ma_3, ml_3,
+             ma_1, ml_1,
+             ma_4, ml_4,
+             ma_cw, ml_cw,
+             ncol = 2,
+             left = paste0(en2fr("Probability mature", fr())))
+```
+
 
 <!-- Catch/CPUE -------------------------------------------------------------->
 
