@@ -210,6 +210,115 @@ grid.arrange(#ma_ss, ml_ss,
              left = paste0(en2fr("Probability mature", fr())))
 ```
 
+ <!-- Length compositions: --------------------------------------------------------->
+
+(ref:fig-lengths-en) Length-frequency plot where female fish are shown as coloured bars and male fish are shown behind as light grey bars. The total number of fish measured for a given survey and year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. The commercial male and female fish are combined (black bars) since many are unsexed. 
+
+(ref:fig-lengths-fr) Graphique de la fréquence selon la longueur où les poissons femelles sont représentés par des barres colorées et les poissons mâles sont représentés derrière par des barres gris clair. Le nombre total de poissons mesurés pour un relevé et une année donnés est indiqué au coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s’il y a plus de 20 poissons mesurés pour une combinaison donnée de relevé et d’année. Les poissons commerciaux mâles et femelles sont combinés (barres noires), car plusieurs d’entre eux ne sont pas sexués. 
+
+```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1}
+
+find_length_outliers <- function(xx) {
+  yy <- stats::pnorm(xx,
+    mean = mean(xx, na.rm = TRUE),
+    sd = stats::sd(xx, na.rm = TRUE), log.p = TRUE
+  )
+  zz <- stats::qnorm(yy, log.p = TRUE)
+  out <- zz[zz > 4 & !is.na(zz)]
+  if (length(out) > 1L) {
+    return(xx[which(zz > 4)])
+  } else {
+    return(numeric(0))
+  }
+}
+
+length_samples_survey <- filter(
+  dat$survey_samples,
+  !length %in% find_length_outliers(dat$survey_samples$length)
+)
+
+length_samples_ft <- filter(
+  comm_ft,
+  !length %in% find_length_outliers(comm_ft$length)
+)
+
+length_samples_ss <- filter(
+  comm_ss,
+  !length %in% find_length_outliers(comm_ss$length)
+)
+
+
+bin_width1 <- diff(quantile(length_samples_survey$length,
+  na.rm = TRUE,
+  probs = c(0, 1)
+)) / 20
+
+bin_width2 <- diff(quantile(length_samples_ft$length,
+  na.rm = TRUE, probs = c(0, 1)
+)) / 20
+
+bin_width3 <- diff(quantile(length_samples_ss$length,
+  na.rm = TRUE, probs = c(0, 1)
+)) / 20
+
+bin_width <- mean(c(bin_width1, bin_width2, bin_width3), na.rm = TRUE)
+
+ss <- tidy_lengths_raw(length_samples_survey,
+  bin_size = bin_width,
+  sample_type = "survey"
+)
+
+sf <- length_samples_ft %>%
+  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  tidy_lengths_raw(
+    bin_size = bin_width,
+    sample_type = "commercial", spp_cat_code = 1
+  ) %>%
+  mutate(
+    survey_abbrev = "Freezer Trawlers"
+  )
+
+sc <- length_samples_ss %>%
+  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  tidy_lengths_raw(
+    bin_size = bin_width,
+    sample_type = "commercial", spp_cat_code = 1
+  ) %>%
+  mutate(
+    survey_abbrev = "Shoreside"
+  )
+
+min_total <- 20
+
+sc_old <- filter(sc, year < 1995) # are we interested in length frequencies pre-1980?
+sc <- filter(sc, year > 1995)
+sb <- suppressWarnings(bind_rows(ss, sc, sf))
+sb$survey_abbrev <- factor(sb$survey_abbrev,
+  levels = c(
+    "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
+    en2fr("Freezer Trawlers", fr()), en2fr("Shoreside", fr())
+  )
+)
+sb$year <- factor(sb$year, levels = seq(1996, 2021))
+
+  g_lengths <- plot_lengths(sb, 
+    survey_cols = stats::setNames(
+    c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", "#000000", "#000000"),
+    c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI", 
+    en2fr("Freezer Trawlers", fr()),
+    en2fr("Shoreside", fr()))
+  ),
+    bin_size = bin_width, min_total = min_total
+  ) +
+    # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
+    guides(colour = "none", fill = "none") +
+    ggtitle("") +
+    ggplot2::xlab(paste(en2fr("Length", french), "(cm)")) +
+    ggplot2::ylab(en2fr("Relative length frequency", french)) 
+  
+g_lengths
+```
+
 
 <!-- Catch/CPUE -------------------------------------------------------------->
 
