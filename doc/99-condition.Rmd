@@ -1,0 +1,58 @@
+# TRENDS IN BODY CONDITION
+
+We investigated spatiotemporal patterns in `r sp` body condition [@nash2006a] with body condition (hereafter 'condition') indexing the 'plumpness' of an organism.
+We do so by fitting a coastwide geostatistical  model to the residuals from the `r sp` length-weight relationship following other recent approaches [@thorson2015condition; @lindmark2022].
+
+## CONDITION MODEL
+
+We first fit a non-spatial length-weight model of the form $\log (W_i) \sim$ Student-t $(\mathrm{df} = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom (df) of the Student-t distribution is set to 3 to be robust to outliers. The variables $a$ and $b$ represent the estimated length-weight parameters.
+We fit these separately for male and female fish.
+
+We then calculated condition factor $K^\mathrm{cond}$ as $W_i / \widehat{W}_i$ where $\widehat{W}_i$ refers to the predicted weight from the above weight-length model.
+We removed condition factor values that were greater than the 0.995 quantile or less than the 0.005 quantile to lessen the effect of outliers.
+
+We then fit a geostatistical model following the methods in Appendix \@ref(app:geostat).
+Our model was of the form
+
+\begin{align}
+K^\mathrm{cond}_{s,t} &\sim \operatorname{Lognormal} \left(\mu^\mathrm{cond}_{s,t}, \sigma^\mathrm{cond} \right),\\
+\mu^\mathrm{cond}_{s,t} &= \exp \left(\beta_0 + f (d_{s,t}) + \delta_{s,t} \right).
+\end{align}
+
+Here, $\beta_0$ is a global intercept, $f (d_{s,t})$ is a penalized smoother for depth, and $\delta_{s,t}$ represents a spatiotemporal random field that follows a random walk
+
+\begin{align}
+\boldsymbol{\delta}_{t=1} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}),\\
+\boldsymbol{\delta}_{t>1} &= \boldsymbol{\delta}_{t-1} +  \boldsymbol{\epsilon_{t-1}},  \:
+\boldsymbol{\epsilon_{t-1}} \sim \operatorname{MVNormal} \left(\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon} \right).
+\end{align}
+
+We considered a model that included a spatial random field; however, the variance of this random field was estimated near zero and so we excluded it in our final model.
+We then calculated an annual condition-factor index as the average predicted $K^\mathrm{cond}_{s,t}$ across all survey 4 km $\times$ 4 km grid cells each year.
+
+## CONDITION RESULTS
+
+Our modeling reveals an overall decline in coastwide body condition from around 2004 until 2012, an increase until 2015, and a subsequent decline in recent years leveling off since 2019 (Fig. \@ref(fig:condition-index-en)).
+However, when split up by survey, we see that this overall trend masks differences that we see along the coast (Fig. \@ref(fig:condition-index-surv-en)).
+Condition within SYN WCVI has been declining since around 2015, but condition in other survey regions has remained relatively stable in those years (Fig. \@ref(fig:condition-index-surv-en)).
+Furthermore, the coastwide index trend of an increase from 2012 to 2015 was driven largely by SYN QCS (Fig. \@ref(fig:condition-index-surv-en)).
+We can also see these trends when looking at the spatial predictions through time (Fig. \@ref(fig:condition-map-en)).
+The depth smoother indicates a higher condition factor in deeper waters (Fig. \@ref(fig:condition-smoother-en)), which coincides with a higher condition factor in SYN WCHG, which covers deeper regions than the other surveys.
+
+## CONDITION FIGURES
+
+```{r condition-index-en, fig.cap="Coastwide condition index. Lines and ribbons indicate means and 95\\% confidence intervals.", out.width="4.2in", eval=!fr(), results='asis'}
+knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-coastwide.png"), dpi = NA)
+```
+
+```{r condition-index-surv-en, fig.cap="Condition index split by survey region. Lines and ribbons indicate means and 95\\% confidence intervals.", out.width="4.9in", eval=!fr(), results='asis'}
+knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-by-survey.png"), dpi = NA)
+```
+
+```{r condition-map-en, fig.cap="Coastwide map of modelled condition anomalies. Values are shown in log space such that blue values are plumper than expected and red values less plump than expected. X and Y axes are in UTM zone 9 units of km.", out.width="\\textwidth", eval=!fr(), results='asis'}
+knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-map.png"), dpi = NA)
+```
+
+```{r condition-smoother-en, fig.cap="Log depth smoother from the condition model. Line represents mean and the ribbon 95\\% confidence intervals. Horizontal rug lines are shown on the bottom where data are present.", out.width="5.0in", eval=!fr(), results='asis'}
+knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-smoother.png"), dpi = NA)
+```

@@ -1,6 +1,6 @@
 \clearpage
 
-# GEOSTATISTICAL STANDARDIZATION OF SURVEY INDICES
+# GEOSTATISTICAL STANDARDIZATION OF SURVEY INDICES {#app:geostat}
 
 \newcommand{\s}{\boldsymbol{s}}
 
@@ -128,6 +128,7 @@ The Laplace approximation, as implemented in TMB, is used to integrate over rand
 We followed this optimization with a Newton optimizer, `stats::optimHess()` to further reduce the negative log likelihood.
 To ensure our final optimization was consistent with convergence,
 we checked that all gradients with respect to fixed effects were < 0.001 and that Hessian matrices were positive-definite.
+We constructed our SPDE meshes such that the minimum allowed distance between vertices in the mesh (INLA `cutoff`) was 20 km in the coastwide model; 10 km for SYN QCS, SYN HS, and SYN WCVI; and 7 km for SYN WCHG (smaller survey area with a sharp depth transition).
 
 ## MODELLED INDICES
 
