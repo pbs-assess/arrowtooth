@@ -22,9 +22,7 @@ vb_f <- fit_vb(data, sex = "female", method = "tmb",
 
 plot_vb(object_female = vb_f, object_male = vb_m, french = fr()) +
       guides(colour = "none", fill = "none", lty = "none") +
-  # not sure why I can't force the axes to be the same?
-      # scale_x_continuous(limits = c(0, 30)) + scale_y_continuous(limits = c(0,70)) +
-      theme(axis.title = element_blank())
+      theme(axis.title = element_blank()) + coord_cartesian(xlim = c(0, 25), ylim = c(0, 75))
       # xlab(en2fr("Age (years)", french)) + ylab(paste0(en2fr("Length",french), " (cm)"))
 }
 
