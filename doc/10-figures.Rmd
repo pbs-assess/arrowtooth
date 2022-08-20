@@ -8,12 +8,14 @@ coloured (or black) circles and male fish are shown behind as light grey
 circles. The total number of fish aged for a given survey or fishery and year are
 indicated along the top of the panels. Diagonal lines are shown at five-year
 intervals to facilitate tracing cohorts through time. 
+TODO explain weighting
 
 (ref:fig-ages-fr) Exemple de graphique de la fréquence selon l’âge. Les poissons femelles sont représentés par des cercles colorés (ou noirs), et les poissons mâles sont représentés derrière par des cercles gris clair. Le nombre total de poissons dont l’âge a été déterminé pour un relevé ou une pêcherie et une année donnés est indiqué en haut des panneaux. Les lignes diagonales sont représentées à des intervalles de cinq ans pour faciliter le suivi des cohortes au fl du temps.
+TODO translate weighting
 
 ```{r fig-ages, fig.cap = ifelse(fr(), "(ref:fig-ages-fr)", "(ref:fig-ages-en)"), fig.asp = 1}
 
-ss <- tidy_ages_raw(dat$survey_samples,
+ss <- tidy_ages_weighted(dat$survey_samples, dat_survey_sets = dat$survey_sets,
   sample_type = "survey"
 )
 
@@ -32,13 +34,13 @@ s_ages <- plot_ages(ss,
   )
 
 
-sc <- tidy_ages_raw(comm_ss,
+sc <- tidy_ages_weighted(comm_ss, dat_catch = dat$catch,
   sample_type = "commercial"
 ) %>% mutate(
   survey_abbrev = "Shoreside"
 )
 
-sf <- tidy_ages_raw(comm_ft,
+sf <- tidy_ages_weighted(comm_ft, dat_catch = dat$catch,
   sample_type = "commercial"
 ) %>% mutate(
   survey_abbrev = "Freezer Trawlers"
