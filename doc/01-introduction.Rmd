@@ -38,8 +38,9 @@ cat("## Biological background
 ```
 
 ```{r intro-para-05-en, eval = !fr(), results = 'asis'}
-cat("`r sp` exhibit sexual dimorphism. After sexual maturity, females grow faster than males and reach a larger maximum size (Appendix XX, Figure XX). Theoretical maximum length, $L_{\infty}$, is estimated to be XX cm for females and XX cm for males in `r bc` although the maximum sizes which have been observed are XX cm for females and XX cm for males (Figure XX). Age-at-50%-maturity for females is thought to occur around age XX y for females and XX y for males. The maximum observed age is XX y for females and XX y for males. There were few observations of fish over 20 y in the dataset, and this assessment assumes a plus group of 20 y (Figure XX).")
+cat("`r sp` exhibit sexual dimorphism. After sexual maturity, females grow faster than males and reach a larger maximum size (Appendix XX, Figure \@ref(fig:fig-lengths)). Theoretical maximum length, $L_{\infty}$, is estimated to be `r round(vb_f$pars$linf, 1)` cm for females and `r round(vb_m$pars$linf, 1)` cm for males in `r bc` although the maximum sizes which have been observed are `r round(max(filter(all_length_samples, sex == 2)$length, na.rm = T), 1)` cm for females and `r round(max(filter(all_length_samples, sex == 1)$length, na.rm = T), 1)` cm for males (Figure \@ref(fig:fig-vb)). Age-at-50%-maturity for females is thought to occur around age `r round(mat_fit$mat_perc$f.p0.5, 1)` y for females and `r round(mat_fit$mat_perc$m.p0.5, 1)` y for males. The maximum observed age is `r round(max(filter(all_age_samples, sex == 2)$age, na.rm = T), 1)` y for females and `r round(max(filter(all_age_samples, sex == 1)$age, na.rm = T), 1)` y for males. There were few observations of fish over 20 y in the dataset, and this assessment assumes a plus group of 20 y (Figure \@ref(fig:fig-ages)).")
 ```
+
 ```{r intro-para-05-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-05-en>>
 ```
