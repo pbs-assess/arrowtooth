@@ -126,7 +126,7 @@ grid.arrange(g_3, g_1, g_4, g_cw,
 
 ```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1, out.width = "6in"}
 plot_mat_panels <- function(data, type = "age"){
-.m <- fit_mat_ogive(data, type = type, sample_id_re = FALSE)
+.m <- fit_mat_ogive(data, type = type, sample_id_re = TRUE, year_re = FALSE)
 
 .p <- plot_mat_ogive(.m, prediction_type = "all") +
   guides(colour = "none", fill = "none", lty = "none") +
@@ -222,36 +222,6 @@ TODO: translate weighting description?
 
 ```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1, out.width = "6in"}
 
-find_length_outliers <- function(xx) {
-  yy <- stats::pnorm(xx,
-    mean = mean(xx, na.rm = TRUE),
-    sd = stats::sd(xx, na.rm = TRUE), log.p = TRUE
-  )
-  zz <- stats::qnorm(yy, log.p = TRUE)
-  out <- zz[zz > 4 & !is.na(zz)]
-  if (length(out) > 1L) {
-    return(xx[which(zz > 4)])
-  } else {
-    return(numeric(0))
-  }
-}
-
-length_samples_survey <- filter(
-  dat$survey_samples,
-  !length %in% find_length_outliers(dat$survey_samples$length)
-)
-
-length_samples_ft <- filter(
-  comm_ft,
-  !length %in% find_length_outliers(comm_ft$length)
-)
-
-length_samples_ss <- filter(
-  comm_ss,
-  !length %in% find_length_outliers(comm_ss$length)
-)
-
-
 bin_width1 <- diff(quantile(length_samples_survey$length,
   na.rm = TRUE,
   probs = c(0, 1)
@@ -308,21 +278,23 @@ sb$survey_abbrev <- factor(sb$survey_abbrev,
 )
 sb$year <- factor(sb$year, levels = seq(1996, 2021))
 
-  g_lengths <- plot_lengths(sb, 
-    survey_cols = stats::setNames(
+g_lengths <- plot_lengths(sb,
+  survey_cols = stats::setNames(
     c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", "#000000", "#000000"),
-    c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI", 
-    en2fr("Freezer Trawlers", fr()),
-    en2fr("Shoreside", fr()))
+    c(
+      "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
+      en2fr("Freezer Trawlers", fr()),
+      en2fr("Shoreside", fr())
+    )
   ),
-    bin_size = bin_width, min_total = min_total
-  ) +
-    # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
-    guides(colour = "none", fill = "none") +
-    ggtitle("") +
-    ggplot2::xlab(paste(en2fr("Length", fr()), "(cm)")) +
-    ggplot2::ylab(en2fr("Relative length frequency", fr())) 
-  
+  bin_size = bin_width, min_total = min_total
+) +
+  # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
+  guides(colour = "none", fill = "none") +
+  ggtitle("") +
+  ggplot2::xlab(paste(en2fr("Length", fr()), "(cm)")) +
+  ggplot2::ylab(en2fr("Relative length frequency", fr()))
+
 g_lengths
 ```
 
