@@ -13,7 +13,7 @@ TODO explain weighting
 (ref:fig-ages-fr) Exemple de graphique de la fréquence selon l’âge. Les poissons femelles sont représentés par des cercles colorés (ou noirs), et les poissons mâles sont représentés derrière par des cercles gris clair. Le nombre total de poissons dont l’âge a été déterminé pour un relevé ou une pêcherie et une année donnés est indiqué en haut des panneaux. Les lignes diagonales sont représentées à des intervalles de cinq ans pour faciliter le suivi des cohortes au fl du temps.
 TODO translate weighting
 
-```{r fig-ages, fig.cap = ifelse(fr(), "(ref:fig-ages-fr)", "(ref:fig-ages-en)"), fig.asp = 1}
+```{r fig-ages, fig.cap = ifelse(fr(), "(ref:fig-ages-fr)", "(ref:fig-ages-en)"), fig.asp = 1, out.width = "6in"}
 
 ss <- tidy_ages_weighted(dat$survey_samples, dat_survey_sets = dat$survey_sets,
   sample_type = "survey"
@@ -124,7 +124,7 @@ grid.arrange(g_3, g_1, g_4, g_cw,
 
 (ref:fig-mat-fr) L’âge-et-la-longueur-à-maturité pour les courbes de fréquences cumulées. Les courbes de fréquences cumulées de maturité sont ajustées en tant que régressions logistiques aux spécimens de poissons individuels, qui sont classés comme étant matures ou non matures. Les lignes noires pleines représentent les ajustements aux poissons femelles et les lignes grises tiretées représentent les ajustements aux poissons mâles. Les lignes verticales indiquent l’âge ou la longueur estimée à 50% de maturité. Le texte sur les panneaux indique l’âge et la longueur estimés à 5, 50 et 95% de maturité pour les femelles (F) et les mâles (M). Les ajustements du modèle ne sont montrés que dans les cas où il y a au moins 20 mâles et 20 femelles matures et 20 mâles et 20 femelles immatures. De courtes lignes le long du haut et du bas de chaque panneau représentent jusqu’à 1 500 poissons individuels choisis au hasard, avec une petite gigue aléatoire dans le cas des âges pour aider à différencier les poissons individuels. Les modèles sont ajustés à tous les échantillons de relevé disponibles, quelle que soit la période de l’année. Voir l'annexe H dans Anderson et al. (2019) pour plus de détails.
 
-```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1}
+```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1, out.width = "6in"}
 plot_mat_panels <- function(data, type = "age"){
 .m <- fit_mat_ogive(data, type = type, sample_id_re = FALSE)
 
@@ -215,10 +215,12 @@ grid.arrange(#ma_ss, ml_ss,
  <!-- Length compositions: --------------------------------------------------------->
 
 (ref:fig-lengths-en) Length-frequency plot where female fish are shown as coloured bars and male fish are shown behind as light grey bars. The total number of fish measured for a given survey and year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. The commercial male and female fish are combined (black bars) since many are unsexed. 
+TODO: describe weighting?
 
 (ref:fig-lengths-fr) Graphique de la fréquence selon la longueur où les poissons femelles sont représentés par des barres colorées et les poissons mâles sont représentés derrière par des barres gris clair. Le nombre total de poissons mesurés pour un relevé et une année donnés est indiqué au coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s’il y a plus de 20 poissons mesurés pour une combinaison donnée de relevé et d’année. Les poissons commerciaux mâles et femelles sont combinés (barres noires), car plusieurs d’entre eux ne sont pas sexués. 
+TODO: translate weighting description?
 
-```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1}
+```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1, out.width = "6in"}
 
 find_length_outliers <- function(xx) {
   yy <- stats::pnorm(xx,
@@ -265,14 +267,16 @@ bin_width3 <- diff(quantile(length_samples_ss$length,
 
 bin_width <- mean(c(bin_width1, bin_width2, bin_width3), na.rm = TRUE)
 
-ss <- tidy_lengths_raw(length_samples_survey,
+ss <- tidy_lengths_weighted(length_samples_survey,
+  dat_survey_sets = dat$survey_sets,
   bin_size = bin_width,
   sample_type = "survey"
 )
 
 sf <- length_samples_ft %>%
   mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
-  tidy_lengths_raw(
+  tidy_lengths_weighted(
+    dat_catch = dat$catch,
     bin_size = bin_width,
     sample_type = "commercial", spp_cat_code = 1
   ) %>%
@@ -282,7 +286,8 @@ sf <- length_samples_ft %>%
 
 sc <- length_samples_ss %>%
   mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
-  tidy_lengths_raw(
+  tidy_lengths_weighted(
+    dat_catch = dat$catch,
     bin_size = bin_width,
     sample_type = "commercial", spp_cat_code = 1
   ) %>%
@@ -315,8 +320,8 @@ sb$year <- factor(sb$year, levels = seq(1996, 2021))
     # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
     guides(colour = "none", fill = "none") +
     ggtitle("") +
-    ggplot2::xlab(paste(en2fr("Length", french), "(cm)")) +
-    ggplot2::ylab(en2fr("Relative length frequency", french)) 
+    ggplot2::xlab(paste(en2fr("Length", fr()), "(cm)")) +
+    ggplot2::ylab(en2fr("Relative length frequency", fr())) 
   
 g_lengths
 ```
