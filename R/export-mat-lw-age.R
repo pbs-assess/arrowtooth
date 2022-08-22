@@ -10,6 +10,12 @@
 #' @param maturity_code The maturity code as found in the GFBio database
 #' @param maturity_convention_code The maturity convention code as
 #' found in the GFBio database
+#' @param ageing_method_codes A numeric vector of ageing method codes to filter
+#'   on. Defaults to `NULL`, which brings in all valid ageing codes
+#'   See [gfdata::get_age_methods()].
+#' @param usability_codes An optional vector of usability codes.
+#'   All usability codes not in this vector will be omitted.
+#'   Set to `NULL` to include all samples
 #' @param digits The number of digits each number should have in the
 #' output
 #' @param write_file Logical. If `TRUE`, write the output to the file,
@@ -31,8 +37,10 @@ export_mat_lw_age <- function(surv_samples,
                                         "07",
                                         "08",
                                         "09"),
-                              maturity_code = 5,
+                              maturity_code = 3,
                               maturity_convention_code = 4,
+                              ageing_method_codes = NULL,
+                              usability_codes = c(0, 1, 2, 6),
                               digits = 7,
                               write_file = TRUE,
                               fn = paste0("vonb-lw-age50-", Sys.Date(), ".txt")){
@@ -42,12 +50,21 @@ export_mat_lw_age <- function(surv_samples,
   if(!is.null(surv_abbrevs)){
     surv_samples <- surv_samples |>
       filter(survey_abbrev %in% surv_abbrevs)
-
   }
   if(!is.null(areas)){
     surv_samples <- surv_samples |>
       filter(major_stat_area_code %in% areas)
   }
+  if(!is.null(usability_codes)){
+    surv_samples <- surv_samples |>
+      filter(usability_code %in% usability_codes)
+  }
+  if(!is.null(ageing_method_codes)){
+    surv_samples <- surv_samples |>
+      filter(ageing_method %in% ageing_method_codes)
+  }
+
+  surv_samples <- surv_samples[!duplicated(surv_samples$specimen_id), , drop = FALSE] # critical!
 
   # Von B fits
   vb_f <- fit_vb(surv_samples, sex = "female")
@@ -61,18 +78,22 @@ export_mat_lw_age <- function(surv_samples,
   lw_m <- gfplot::fit_length_weight(surv_samples, sex = "male")
   mal_pars <- c(mal_pars, exp(lw_m$pars$log_a), lw_m$pars$b)
 
+  # a50 is only here to compare with the a50_non_log output using browser()
+  a50 <- fit_mat_ogive(surv_samples, type = "age")
+
   # Age-at-50% fits
   if(!is.null(maturity_convention_code) && !is.null(maturity_code)){
     surv_samples <- surv_samples |>
       filter(!is.na(age),
              !is.na(maturity_code),
-             sex %in% 1:2) %>%
-      filter(maturity_convention_code %in% !!maturity_convention_code) %>%
+             sex %in% 1:2,
+             maturity_convention_code != 9) |>
+      #filter(maturity_convention_code %in% !!maturity_convention_code) |>
       select(age, sex, maturity_code)
 
-    age_prop_mature <- map(1:2, ~{
+    age_prop_mature <- map(1:2, function(sx){
       surv_samples %>%
-        filter(sex == .x) %>%
+        filter(sex == sx) %>%
         group_by(age) %>%
         mutate(is_mature = ifelse(maturity_code < !!maturity_code, FALSE, TRUE)) %>%
         summarize(prop_mature = sum(is_mature) / n()) %>%
@@ -80,11 +101,11 @@ export_mat_lw_age <- function(surv_samples,
     })
 
     mat_model <- function(par, age, prop_mature){
-      prop_m <- 1 / (1 + exp(- ((age - par[1]) / par[2])))
+      prop_m <- 1 / (1 + exp(- par[2] * (age - par[1])))
       sum((prop_m - prop_mature) ^ 2)
     }
 
-    a50 <- map2(age_prop_mature, 1:2, ~{
+    a50_non_log <- map2(age_prop_mature, 1:2, ~{
       conv <- optim(par = c(5, 3),
                     fn = mat_model,
                     method = "L-BFGS-B",
@@ -101,8 +122,8 @@ export_mat_lw_age <- function(surv_samples,
       conv
     })
 
-    mal_pars <- c(mal_pars, a50[[1]]$par[1], a50[[1]]$par[2])
-    fem_pars <- c(fem_pars, a50[[2]]$par[1], a50[[2]]$par[2])
+    mal_pars <- c(mal_pars, a50_non_log[[1]]$par[1], a50_non_log[[1]]$par[2])
+    fem_pars <- c(fem_pars, a50_non_log[[2]]$par[1], a50_non_log[[2]]$par[2])
   }
 
   mal_pars <- enframe(mal_pars, name = NULL)

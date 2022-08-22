@@ -10,8 +10,10 @@ export_mat_lw_age(
   surv_samples,
   surv_abbrevs = c("SYN QCS", "SYN WCVI", "SYN HS", "SYN WCHG"),
   areas = c("03", "04", "05", "06", "07", "08", "09"),
-  maturity_code = 5,
+  maturity_code = 3,
   maturity_convention_code = 4,
+  ageing_method_codes = NULL,
+  usability_codes = c(0, 1, 2, 6),
   digits = 7,
   write_file = TRUE,
   fn = paste0("vonb-lw-age50-", Sys.Date(), ".txt")
@@ -30,6 +32,14 @@ will occur}
 
 \item{maturity_convention_code}{The maturity convention code as
 found in the GFBio database}
+
+\item{ageing_method_codes}{A numeric vector of ageing method codes to filter
+on. Defaults to \code{NULL}, which brings in all valid ageing codes
+See \code{\link[gfdata:lookup]{gfdata::get_age_methods()}}.}
+
+\item{usability_codes}{An optional vector of usability codes.
+All usability codes not in this vector will be omitted.
+Set to \code{NULL} to include all samples}
 
 \item{digits}{The number of digits each number should have in the
 output}
