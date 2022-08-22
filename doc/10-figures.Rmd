@@ -504,16 +504,41 @@ plot_autocor_mcmc(base_model,
 plot_pairs_mcmc(base_model,
                 plot_sel = FALSE,
                 param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
-                             "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
                              "bmsy", "bo", "sbo"),
                 text_title_size = NULL)
 ```
 
+(ref:fig-base-pairs-sel-en) Pairs plots for MCMC estimated selectivity parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. See Figure \@ref(fig:fig-base-trace-selex) for parameter descriptions.
+
+(ref:fig-base-pairs-sel-fr) French here
+
+```{r fig-base-pairs-sel, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-sel-fr)", "(ref:fig-base-pairs-sel-en)")}
+# Remove 4 and 7 because they are fixed in the model (HSMAS and DCPUE indices) and will produce NAs
+plot_pairs_mcmc(base_model,
+                plot_sel = TRUE,
+                param_rm = c("selage4_male",
+                             "selage4_female",
+                             "selsd4_male",
+                             "selsd4_female",
+                             "selage7_male",
+                             "selage7_female",
+                             "selsd7_male",
+                             "selsd7_female"),
+                text_title_size = NULL)
+```
+
+
+
 <!-- Index fits and residuals ------------------------------------------------>
 
-(ref:fig-base-index-fits-en) Index fits for the base model. The light brown points and vertical lines show the index values and CVs; the black points show the medians of the posteriors; the black solid vertical lines show the 95% credible intervals for the posteriors. The two lines connecting points along the time series are only present for aesthetic value. The 2014 WCHG Synoptic index point is shown but was not included in the model.
+(ref:fig-base-index-fits-en) Index fits for the base model. The light brown points and vertical lines show the index values and CVs; the black points show the medians of the posteriors; the black solid vertical lines show the 95% credible intervals for the posteriors. The two lines connecting points along the time series are only present for aesthetic value.
 
-(ref:fig-base-index-fits-fr) Ajustements de l'indice pour le modèle de base. Les points et les lignes verticales marron clair montrent les valeurs de l'indice et les CV ; les points noirs montrent les médianes des valeurs postérieures ; les lignes verticales pleines noires montrent les intervalles crédibles à 95% pour les valeurs postérieures. Les deux lignes reliant les points le long de la série chronologique ne sont présentes que pour des raisons esthétiques. Le point d'indice Synoptic WCHG de 2014 est indiqué mais n'a pas été inclus dans le modèle.
+<!-- The 2014 WCHG Synoptic index point is shown but was not included in the model. -->
+
+(ref:fig-base-index-fits-fr) French here
 
 ```{r fig-base-index-fits, fig.cap = ifelse(fr(), "(ref:fig-base-index-fits-fr)", "(ref:fig-base-index-fits-en)")}
 plot_index_mcmc(base_model,
@@ -637,21 +662,21 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 
 \clearpage
 
-(ref:fig-base-age-fits-wchgs-en) Age composition fits for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
+<!-- (ref:fig-base-age-fits-wchgs-en) Age composition fits for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details. -->
 
-(ref:fig-base-age-fits-wchgs-fr) French here
+<!-- (ref:fig-base-age-fits-wchgs-fr) French here -->
 
-```{r fig-base-age-fits-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wchgs-fr)", "(ref:fig-base-age-fits-wchgs-en)")}
-plot_age_fits_mcmc(base_model, gear = 6, text_title_size = NULL)
-```
+<!-- ```{r fig-base-age-fits-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wchgs-fr)", "(ref:fig-base-age-fits-wchgs-en)")} -->
+<!-- plot_age_fits_mcmc(base_model, gear = 6, text_title_size = NULL) -->
+<!-- ``` -->
 
-(ref:fig-base-age-resids-wchgs-en) Age composition log standardized residuals for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
+<!-- (ref:fig-base-age-resids-wchgs-en) Age composition log standardized residuals for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details. -->
 
-(ref:fig-base-age-resids-wchgs-fr) French here
+<!-- (ref:fig-base-age-resids-wchgs-fr) French here -->
 
-```{r fig-base-age-resids-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wchgs-fr)", "(ref:fig-base-age-resids-wchgs-en)")}
-plot_age_resids_mcmc(base_model, gear = 6, text_title_size = NULL)
-```
+<!-- ```{r fig-base-age-resids-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wchgs-fr)", "(ref:fig-base-age-resids-wchgs-en)")} -->
+<!-- plot_age_resids_mcmc(base_model, gear = 6, text_title_size = NULL) -->
+<!-- ``` -->
 
 \clearpage
 
@@ -723,9 +748,9 @@ plot_biomass_mcmc(models$sens_grps[[2]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the $\tau$ parameter.
+(ref:fig-sens-tau-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the $\tau$ parameter.
 
-(ref:fig-sens-variance-rel-fr) French here
+(ref:fig-sens-tau-rel-fr) French here
 
 ```{r fig-sens-tau-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-tau-rel-fr)", "(ref:fig-sens-tau-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[2]],
