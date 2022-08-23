@@ -7,14 +7,133 @@ After that, all subsequent sections will be turned into appendices. -->
 
 ```{r appendix-data-para-1-en, eval = !fr(), results = 'asis'}
 cat("# Biological Data Appendix {#app:bio-data-appendix}
-This appendix summarizes the biological data for `r sp`.")
+This appendix summarizes the biological data for `r sp` in `r bc`. All biological parameters were estimated from synoptic survey data only. These data were aggregated from the four synoptic surveys which are run off the West coast of `r bc`, the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
 ```
 
 ```{r appendix-data-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<appendix-data-para-1-en>>
 ```
 
-<!-- Age composition -------------------------------------------------------------->
+```{r appendix-data-para-2-en, eval = !fr(), results = 'asis'}
+cat("## Length and Weight model {#length-weight-model}
+All valid length/weight pairs of data were extracted based on the criteria shown in table A.1. The length-weight equation used was:
+
+\begin{equation}
+W_s = \alpha L_s^{\beta_s}
+(\#eq:length-weight)
+\end{equation}
+
+where $\alpha_s$ and $\beta_s$ are parameters for sex $s$ and $L_s$ and $W_s$ are paired length-weight observations.
+
+We applied Eq. \@ref(eq:length-weight) to survey observations for the three synoptic surveys used in this assessment from PMFC areas 3CD and 5ABCDE combined.
+    ")
+```
+
+```{r appendix-data-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<appendix-data-para-2-en>>
+```
+
+```{r appendix-data-para-3-en, eval = !fr(), results = 'asis'}
+cat("## Von-Bertalanffy Model {#vonb-model}
+We used the von-Bertalanffy function to estimate growth rates for `r sp`:
+
+\begin{equation}
+L_s = L_{\infty_s}(1 - e^{-k_s (a_s - t_{0_s})})
+(\#eq:vonb)
+\end{equation}
+
+where $L_{\infty_s}$, $k_s$, and $t_{0_s}$ are parameters specific to sex $s$ and $L_s$ and $a_s$ are paired length-age observations.
+
+We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surveys used in this assessment from PMFC areas 3CD and 5ABCDE combined.
+")
+```
+
+```{r appendix-data-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<appendix-data-para-3-en>>
+```
+
+```{r appendix-data-para-4-en, eval = !fr(), results = 'asis'}
+cat("## Maturity-at-age model
+The maturity-at-age model used for `r sp` estimates age-at-50% maturity ($a_{s_{50\%}}$) and standard deviation of age-at-50% maturity ($\sigma_{s_{50\%}}$) by applying the L-BFGS-B quasi-Newton algorithm to minimize the sum-of-squares between the observed and expected proportion mature:
+
+\begin{equation}
+P_{a_s} = \frac{1}{1 + e^{-\sigma_{s_{50\%}}(a_s-a_{s_{50\%}})}}
+(\#eq:mat-at-age)
+\end{equation}
+
+where $P_{a_s}$ is the observed proportion mature at age $a_s$ for sex $s$. 
+
+\clearpage
+## Figures
+")
+```
+
+```{r appendix-data-para-4-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<appendix-data-para-4-en>>
+```
+
+<!-- Length/weight ----------------------------------------------------------->
+
+(ref:fig-length-weight-en) Length/weight fits by sex.
+
+(ref:fig-length-weight-fr) French here
+
+```{r fig-length-weight, fig.cap = ifelse(fr(), "(ref:fig-length-weight-fr)", "(ref:fig-length-weight-en)"), fig.asp = 1, out.width = "6in"}
+
+if(!exists("data_dir")){
+  stop("`data_dir` does not exist. If running from command line, ",
+       "source('index.Rmd') to set up all project variables", call. = FALSE)
+}
+lw_fn <- file.path(data_dir, "fit_lw_output.rds")
+if(file.exists(lw_fn)){
+  lw_lst <- readRDS(lw_fn)  
+}else{
+  lw_lst <- list(
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "male"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "male"),
+    fit_length_weight(survey_samples_syn, sex = "female"),
+    fit_length_weight(survey_samples_syn, sex = "male"))
+  saveRDS(lw_lst, lw_fn)
+}
+lw_title_lst <- list(
+  en2fr("SYN QCS (5AB)", fr()),
+  en2fr("SYN HS (5CD)", fr()),
+  en2fr("SYN WCVI (3CD)", fr()),
+  en2fr("Coastwide", fr()))
+
+plot_lw_panels <- function(lw_f, lw_m){
+  plot_length_weight(object_female = lw_f,
+                     object_male = lw_m,
+                     french = fr()) +
+    guides(colour = "none", fill = "none", lty = "none") +
+    theme(axis.title = element_blank())
+}
+
+lw_plot_lst <- list(
+  plot_lw_panels(lw_lst[[1]], lw_lst[[2]]) +
+  ggtitle(lw_title_lst[[1]]),
+  
+  plot_lw_panels(lw_lst[[3]], lw_lst[[4]]) +
+  ggtitle(lw_title_lst[[2]]),
+  
+  plot_lw_panels(lw_lst[[5]], lw_lst[[6]]) +
+  ggtitle(lw_title_lst[[3]]),
+
+  plot_lw_panels(lw_lst[[7]], lw_lst[[8]]) +
+  ggtitle(lw_title_lst[[4]]))
+
+grid.arrange(grobs = lw_plot_lst,
+             ncol = 2,
+             left = paste0(en2fr("Length", fr()), " (cm)"),
+             bottom = en2fr("Weight (kg)", fr()))
+
+```
+
+<!-- Age composition --------------------------------------------------------->
 
 (ref:fig-ages-en) Example age-frequency plot. Female fish are shown as
 coloured (or black) circles and male fish are shown behind as light grey
