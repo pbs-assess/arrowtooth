@@ -1,3 +1,11 @@
+#' Return the location of the bash scripts for this package on your machine
+#'
+#' @return The full path where the bash scripts are located
+#' @export
+get_bash_path <- function(){
+  file.path(system.file(package = "arrowtooth"), "bash-scripts")
+}
+
 #' Call [shell()] or [system()] depending on the Operating System
 #'
 #' @param ... Pass all arguments to the command function
