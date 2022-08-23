@@ -67,7 +67,7 @@ grid.arrange(s_ages, c_ages,
 )
 ```
 
-<!-- Growth -------------------------------------------------------------->
+<!-- Growth ------------------------------------------------------------------>
 
 (ref:fig-vb-en) 
 The length-age growth curve is a von-Bertalanffy model.
@@ -80,50 +80,57 @@ Text on the panels shows the parameter estimates and open grey circles represent
 (ref:fig-vb-fr) TODO
 
 ```{r fig-vb, fig.cap = ifelse(fr(), "(ref:fig-vb-fr)", "(ref:fig-vb-en)"), out.width = "6in"}
-plot_vb_panels <- function(data){
-  vb_m <- fit_vb(data,
-                 sex = "male",
-                 method = "tmb",
-                 too_high_quantile = 1)
-  vb_f <- fit_vb(data,
-                 sex = "female",
-                 method = "tmb",
-                 too_high_quantile = 1)
 
-  plot_vb(object_female = vb_f, object_male = vb_m, french = fr()) +
+vb_fn <- file.path(data_dir, "fit_vb_output.rds")
+if(file.exists(vb_fn)){
+  vb_lst <- readRDS(vb_fn)  
+}else{
+  vb_lst <- list(
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS")),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN HS")),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "male"),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN WCVI")),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "male"),
+    fit_vb(survey_samples_syn),
+    fit_vb(survey_samples_syn, sex = "male"))
+  saveRDS(vb_lst, vb_fn)
+}
+vb_title_lst <- list(
+  en2fr("SYN QCS (5AB)", fr()),
+  en2fr("SYN HS (5CD)", fr()),
+  en2fr("SYN WCVI (3CD)", fr()),
+  en2fr("Coastwide", fr()))
+
+plot_vb_panels <- function(vb_f, vb_m){
+  plot_vb(object_female = vb_f,
+          object_male = vb_m,
+          french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
-    theme(axis.title = element_blank()) + coord_cartesian(xlim = c(0, 25), ylim = c(0, 75))
-  # xlab(en2fr("Age (years)", french)) + ylab(paste0(en2fr("Length",french), " (cm)"))
+    theme(axis.title = element_blank()) +
+    coord_cartesian(xlim = c(0, 25), ylim = c(0, 75))
 }
 
-g_cw <- survey_samples_syn |>
-  plot_vb_panels() +
-  ggtitle(en2fr("Coastwide", fr()))
+vb_plot_lst <- list(
+  plot_vb_panels(vb_lst[[1]], vb_lst[[2]]) +
+  ggtitle(vb_title_lst[[1]]),
+  
+  plot_vb_panels(vb_lst[[3]], vb_lst[[4]]) +
+  ggtitle(vb_title_lst[[2]]),
+  
+  plot_vb_panels(vb_lst[[5]], vb_lst[[6]]) +
+  ggtitle(vb_title_lst[[3]]),
 
-g_1 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN QCS") |>
-  plot_vb_panels() +
-  ggtitle(en2fr("SYN QCS (5AB)", fr()))
+  plot_vb_panels(vb_lst[[7]], vb_lst[[8]]) +
+  ggtitle(vb_title_lst[[4]]))
 
-g_3 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN HS") |>
-  plot_vb_panels() +
-  ggtitle(en2fr("SYN HS (5CD)", fr()))
-
-g_4 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN WCVI") |>
-  plot_vb_panels() +
-  ggtitle(en2fr("SYN WCVI (3CD)", fr()))
-
-grid.arrange(g_3, g_1, g_4, g_cw,
+grid.arrange(grobs = vb_plot_lst,
              ncol = 2,
              left = paste0(en2fr("Length", fr()), " (cm)"),
              bottom = en2fr("Age (years)", fr()))
 ```
 
-
-
-<!-- Maturity -------------------------------------------------------------->
+<!-- Maturity ---------------------------------------------------------------->
 
 (ref:fig-mat-en) Age- and length-at-maturity ogive plots. Maturity ogives are fit as logistic regressions to individual fish specimens, which are categorized as mature vs. not mature. The solid black lines represent fits to the female fish and the dashed grey lines represent fits to the male fish. The vertical lines indicate the estimated age or length at 50\\% maturity. Text on the panels indicates the estimated age and length at 5, 50 and 95\\% maturity for females (F) and males (M). Model fits are only shown for cases where there are at least 20 mature and 20 immature males and females. Short rug lines along the top and bottom of each panel represent up to 1500 randomly chosen individual fish with a small amount of random jittering in the case of ages to help differentiate individual fish. Models are fit to all available survey samples regardless of time of year. See Appendix H in Anderson et al. (2019) for details.
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
@@ -131,87 +138,73 @@ grid.arrange(g_3, g_1, g_4, g_cw,
 (ref:fig-mat-fr) L’âge-et-la-longueur-à-maturité pour les courbes de fréquences cumulées. Les courbes de fréquences cumulées de maturité sont ajustées en tant que régressions logistiques aux spécimens de poissons individuels, qui sont classés comme étant matures ou non matures. Les lignes noires pleines représentent les ajustements aux poissons femelles et les lignes grises tiretées représentent les ajustements aux poissons mâles. Les lignes verticales indiquent l’âge ou la longueur estimée à 50% de maturité. Le texte sur les panneaux indique l’âge et la longueur estimés à 5, 50 et 95% de maturité pour les femelles (F) et les mâles (M). Les ajustements du modèle ne sont montrés que dans les cas où il y a au moins 20 mâles et 20 femelles matures et 20 mâles et 20 femelles immatures. De courtes lignes le long du haut et du bas de chaque panneau représentent jusqu’à 1 500 poissons individuels choisis au hasard, avec une petite gigue aléatoire dans le cas des âges pour aider à différencier les poissons individuels. Les modèles sont ajustés à tous les échantillons de relevé disponibles, quelle que soit la période de l’année. Voir l'annexe H dans Anderson et al. (2019) pour plus de détails.
 
 ```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1, out.width = "6in"}
-plot_mat_panels <- function(data, type = "age"){
 
-  .m <- fit_mat_ogive(data, type = type, sample_id_re = TRUE, year_re = FALSE)
+mat_fn <- file.path(data_dir, "fit_mat_ogive_output.rds")
+if(file.exists(mat_fn)){
+  mat_lst <- readRDS(mat_fn)
+}else{
+  mat_lst <- list(
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN QCS")),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN QCS"), type = "length"),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN HS")),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN HS"), type = "length"),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN WCVI")),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), type = "length"),
+    fit_mat_ogive(survey_samples_syn),
+    fit_mat_ogive(survey_samples_syn, type = "length"))
+  saveRDS(mat_lst, mat_fn)
+}
+mat_title_lst <- list(
+  en2fr("SYN QCS (5AB)", fr()),
+  "",
+  en2fr("SYN HS (5CD)", fr()),
+  "",
+  en2fr("SYN WCVI (3CD)", fr()),
+  "",
+  en2fr("Coastwide synoptic trawl surveys", fr()),
+  "")
 
-  .p <- plot_mat_ogive(.m, prediction_type = "all") +
+plot_mat_panels <- function(fit_obj, type = "age"){
+  p <- plot_mat_ogive(fit_obj) +
     guides(colour = "none", fill = "none", lty = "none") +
     ggplot2::guides(lty = "none", colour = "none") +
     theme(axis.title.y = element_blank())
-  if(type == "age"){
-    .p + ggplot2::labs(x = en2fr("Age (years)", fr()),
-                       y = en2fr("Probability mature", fr()))
-  }
-  if(type == "length"){
-    .p + ggplot2::labs(x = paste0(en2fr("Length", fr()), " (cm)"),
-                       y = paste0(en2fr("Probability mature", fr())))
-  }
-  .p
+  p
 }
 
-ma_cw <- survey_samples_syn |>
-  plot_mat_panels() +
-  ggtitle(en2fr("Coastwide synoptic trawl surveys", fr()))
-
-ml_cw <- survey_samples_syn |>
-  plot_mat_panels(type = "length") +
-  ggtitle("")
-
-ma_1 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN QCS") |>
-  plot_mat_panels() +
+ma_plot_lst <- list(
+  plot_mat_panels(mat_lst[[1]]) +
   theme(axis.title = element_blank()) +
-  ggtitle(en2fr("SYN QCS (5AB)", fr())) 
+  ggtitle(mat_title_lst[[1]]),
 
-ml_1 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN QCS") |>
-  plot_mat_panels(type = "length") +
+  plot_mat_panels(mat_lst[[2]]) +
+  ggtitle(mat_title_lst[[2]]),
+
+  plot_mat_panels(mat_lst[[3]]) +
   theme(axis.title = element_blank()) +
-  ggtitle("")
+  ggtitle(mat_title_lst[[3]]),
 
-ma_3 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN HS") |>
-  plot_mat_panels() +
+  plot_mat_panels(mat_lst[[4]]) +
   theme(axis.title = element_blank()) +
-  ggtitle(en2fr("SYN HS (5CD)", fr()))
+  ggtitle(mat_title_lst[[4]]),
 
-ml_3 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN HS") |>
-  plot_mat_panels(type = "length") +
+  plot_mat_panels(mat_lst[[5]]) +
   theme(axis.title = element_blank()) +
-  ggtitle("")
+  ggtitle(mat_title_lst[[5]]),
 
-ma_4 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN WCVI") |>
-  plot_mat_panels() +
+  plot_mat_panels(mat_lst[[6]]) +
   theme(axis.title = element_blank()) +
-  ggtitle(en2fr("SYN WCVI (3CD)", fr()))
+  ggtitle(mat_title_lst[[6]]),
 
-ml_4 <- survey_samples |>
-  filter(survey_abbrev %in% "SYN WCVI") |>
-  plot_mat_panels(type = "length") +
-  theme(axis.title = element_blank()) +
-  ggtitle("")
+  plot_mat_panels(mat_lst[[7]]) +
+  ggtitle(mat_title_lst[[7]]) +
+  xlab(en2fr("Age (years)", fr())),
 
-# # maturities not looked at in the freezer trawl samples
-# # and too few from shoreside to be useful
-# ma_ss <- comm_ss %>% 
-#   filter(!is.na(age)) %>%
-#   plot_mat_panels(type = "age") + 
-#   theme(axis.title = element_blank()) + 
-#   ggtitle(en2fr("Commercial trawl (Shoreside)", fr())) 
-# 
-# ml_ss <- comm_ss %>% 
-#   plot_mat_panels(type = "length") + 
-#   theme(axis.title = element_blank()) + 
-#   ggtitle("")
+  plot_mat_panels(mat_lst[[8]]) +
+  ggtitle(mat_title_lst[[8]]) +
+  xlab(paste0(en2fr("Length", fr()), " (cm)")))
 
-grid.arrange(#ma_ss, ml_ss,
-             ma_3, ml_3,
-             ma_1, ml_1,
-             ma_4, ml_4,
-             ma_cw, ml_cw,
+grid.arrange(grobs = ma_plot_lst,
              ncol = 2,
              left = paste0(en2fr("Probability mature", fr())))
 ```
