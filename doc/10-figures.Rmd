@@ -81,6 +81,10 @@ Text on the panels shows the parameter estimates and open grey circles represent
 
 ```{r fig-vb, fig.cap = ifelse(fr(), "(ref:fig-vb-fr)", "(ref:fig-vb-en)"), out.width = "6in"}
 
+if(!exists("data_dir")){
+  stop("`data_dir` does not exist. If running from command line, ",
+       "source('index.Rmd') to set up all project variables", call. = FALSE)
+}
 vb_fn <- file.path(data_dir, "fit_vb_output.rds")
 if(file.exists(vb_fn)){
   vb_lst <- readRDS(vb_fn)  
