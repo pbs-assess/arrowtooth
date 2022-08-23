@@ -29,23 +29,27 @@ objects \code{catch_sets} and \code{samples} represent that type. See examples.}
 
 \item{gear_num}{Number of gear to be written in output file}
 
-\item{surv_series_name}{Name of a survey to extract. To extract multiple at once, use \code{\link[=extract_survey_age_comps]{extract_survey_age_comps()}}.
-See the values in \code{survey_abbrev} column of data frame returned by \code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} for names}
+\item{surv_series_name}{Name of a survey to extract.
+See the values in \code{survey_abbrev} column of data frame returned by
+\code{\link[gfdata:get_data]{gfdata::get_survey_samples()}} for names}
 
 \item{sex}{sex code, "M" = male, "F" = female.
 For split sex (full age comps for each sex) use sex = c("M", "F")}
 
-\item{write_to_file}{If \code{TRUE} write the output to the file. If \code{FALSE} return it}
+\item{write_to_file}{If \code{TRUE} write the output to the file. If \code{FALSE}
+return it}
 
-\item{fn_append}{Text to append to the filename so that different fleets can be run
-a wrapper function}
+\item{fn_append}{Text to append to the filename so that different fleets
+can be run}
 
-\item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE}, overwrite the file}
+\item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE},
+overwrite the file}
 
 \item{...}{Arguments to pass to \code{\link[gfplot:tidy_comps]{gfplot::tidy_ages_weighted()}}}
 }
 \value{
-if \code{write_to_file} is \code{TRUE}, return nothing, else return the data frame containing the age comps
+if \code{write_to_file} is \code{TRUE}, return nothing, else return the data
+frame containing the age comps
 }
 \description{
 Extract the commercial age proportions for pasting into the iSCAM data file

@@ -23,6 +23,7 @@
 #' @param fn Tje file name
 #'
 #' @return If `write_file` is `FALSE`, a table of the parameter estimates
+#' @importFrom gfplot fit_mat_ogive
 #' @export
 export_mat_lw_age <- function(surv_samples,
                               surv_abbrevs = c("SYN QCS",

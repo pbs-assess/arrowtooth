@@ -7,17 +7,21 @@
 #' @param type One of 'commercial' or 'survey'. Whichever is set requires
 #' objects `catch_sets` and `samples` represent that type. See examples.
 #' @param gear_num Number of gear to be written in output file
-#' @param surv_series_name Name of a survey to extract. To extract multiple at once, use [extract_survey_age_comps()].
-#' See the values in `survey_abbrev` column of data frame returned by [gfdata::get_survey_samples()] for names
+#' @param surv_series_name Name of a survey to extract.
+#' See the values in `survey_abbrev` column of data frame returned by
+#' [gfdata::get_survey_samples()] for names
 #' @param sex sex code, "M" = male, "F" = female.
 #'  For split sex (full age comps for each sex) use sex = c("M", "F")
-#' @param write_to_file If `TRUE` write the output to the file. If `FALSE` return it
-#' @param fn_append Text to append to the filename so that different fleets can be run
-#' a wrapper function
-#' @param append If `TRUE`, append the output to the file. If `FALSE`, overwrite the file
+#' @param write_to_file If `TRUE` write the output to the file. If `FALSE`
+#' return it
+#' @param fn_append Text to append to the filename so that different fleets
+#' can be run
+#' @param append If `TRUE`, append the output to the file. If `FALSE`,
+#' overwrite the file
 #' @param ... Arguments to pass to [gfplot::tidy_ages_weighted()]
 #'
-#' @return if `write_to_file` is `TRUE`, return nothing, else return the data frame containing the age comps
+#' @return if `write_to_file` is `TRUE`, return nothing, else return the data
+#' frame containing the age comps
 #' @importFrom tidyr complete
 #' @export
 #'

@@ -14,4 +14,5 @@ NULL
 
 # from: https://github.com/jennybc/googlesheets/blob/master/R/googlesheets.R
 # quiets concerns of R CMD check re: the .'s that appear in pipelines
-utils::globalVariables(c(".", "total"))
+utils::globalVariables(c(".", "total", "usability_code", "ageing_method", "is_mature",
+                         "log_est", "wt"))
