@@ -232,23 +232,23 @@ sens_models_text <-
                 "Diminuer la moyenne de $h$ avant 0,72",
                 "Decrease mean of $h$ prior to 0.72")),
        c(ifelse(fr(),
-                "Priorité plus stricte sur $M_{Femelle}$",
-                "Tighter prior on $M_{Female}$"),
+                "Priorité plus stricte sur $M_\\mathrm{Femelle}$",
+                "Tighter prior on $M_\\mathrm{Female}$"),
          ifelse(fr(), 
-                "Priorité plus lâche sur $M_{Femelle}$",
-                "Looser prior on $M_{Female}$")),
+                "Priorité plus lâche sur $M_\\mathrm{Femelle}$",
+                "Looser prior on $M_\\mathrm{Female}$")),
        c(ifelse(fr(),
-                "Priorité plus stricte sur $M_{M\\hat{a}le}$",
-                "Tighter prior on $M_{Male}$"),
+                "Priorité plus stricte sur $M_\\mathrm{M\\hat{a}le}$",
+                "Tighter prior on $M_\\mathrm{Male}$"),
          ifelse(fr(),
-                "Priorité plus faible sur $M_{M\\hat{a}le}$",
-                "Looser prior on $M_{Male}$")),
+                "Priorité plus faible sur $M_\\mathrm{M\\hat{a}le}$",
+                "Looser prior on $M_\\mathrm{Male}$")),
        c(ifelse(fr(),
-                "Augmenter la moyenne antérieure de $q_k$ à 1,0",
-                "Increase $q_k$ prior mean to 1.0"),
+                "Augmenter la moyenne antérieure de $q_\\mathrm{k}$ à 1,0",
+                "Increase $q_\\mathrm{k}$ prior mean to 1.0"),
          ifelse(fr(),
-                "Priorité plus faible sur $q_{k}$",
-                "Looser prior on $q_{k}$")),
+                "Priorité plus faible sur $q_\\mathrm{k}$",
+                "Looser prior on $q_\\mathrm{k}$")),
        c(ifelse(fr(),
                 "Courbe de sélectivité égale à l'ogive de maturité",
                 "Selectivity curve equals maturity ogive")))
@@ -269,26 +269,26 @@ sens_changes_text <-
          "$\\vartheta^2$ = 2.500; $\\rho$ = 0.100"),
        c("$h$ = Beta($\\alpha$ = 11.72, $\\beta$ = 4.56)"),
        c(ifelse(fr(),
-                "ln($M_{Femelle}$) = Normale(ln(0.35), 0.5)",
-                "ln($M_{Female}$) = Normal(ln(0.35), 0.5)"),
+                "ln($M_\\mathrm{Femelle}$) = Normale(ln(0.35), 0.5)",
+                "ln($M_\\mathrm{Female}$) = Normal(ln(0.35), 0.5)"),
          ifelse(fr(),
-                "ln($M_{Femelle}$) = Normale(ln(0.35), 2.5)",
-                "ln($M_{Female}$) = Normal(ln(0.35), 2.5)")),
+                "ln($M_\\mathrm{Femelle}$) = Normale(ln(0.35), 2.5)",
+                "ln($M_\\mathrm{Female}$) = Normal(ln(0.35), 2.5)")),
        c(ifelse(fr(),
-                "ln($M_{M\\hat{a}le}$) = Normale(ln(0.2), 0.5)",
-                "ln($M_{Male}$) = Normal(ln(0.2), 0.5)"),
+                "ln($M_\\mathrm{M\\hat{a}le}$) = Normale(ln(0.2), 0.5)",
+                "ln($M_\\mathrm{Male}$) = Normal(ln(0.2), 0.5)"),
          ifelse(fr(),
-                "ln($M_{M\\hat{a}le}$) = Normale(ln(0.2), 2.5)",
-                "ln($M_{Male}$) = Normal(ln(0.2), 2.5)")),
+                "ln($M_\\mathrm{M\\hat{a}le}$) = Normale(ln(0.2), 2.5)",
+                "ln($M_\\mathrm{Male}$) = Normal(ln(0.2), 2.5)")),
        c(ifelse(fr(),
-                "Moyenne antérieure de $q_k$ = 1,0 pour tous les $k$",
-                "$q_k$ prior mean = 1.0 for all $k$"),
+                "Moyenne antérieure de $q_\\mathrm{k}$ = 1,0 pour tous les $k$",
+                "$q_\\mathrm{k}$ prior mean = 1.0 for all $k$"),
          ifelse(fr(),
-                "$q_k$ prior sd = 1,5 pour tous les $k$",
-                "$q_k$ prior sd = 1.5 for all $k$")),
+                "$q_\\mathrm{k}$ prior sd = 1,5 pour tous les $k$",
+                "$q_\\mathrm{k}$ prior sd = 1.5 for all $k$")),
        c(ifelse(fr(),
-                "Paramètres de sélectivité des pêcheries = maturité ($A_{50\\%}$ and $SD_{50\\%}$)",
-                "Fishery selectivity parameters = maturity ($A_{50\\%}$ and $SD_{50\\%}$)")))
+                "Paramètres de sélectivité des pêcheries = maturité ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)",
+                "Fishery selectivity parameters = maturity ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)")))
 
 if(here() == "/home/rstudio"){
   # For an Rstudio server spawned inside a Docker container
@@ -614,13 +614,17 @@ all_age_samples <- bind_rows(dat$survey_samples, comm_ft, comm_ss) %>%
 # it seems there's one extreme outlier... 50 y, also size and sex wouldn't make sense so definite error
 
 # TODO: should the reported values (and coastwide plot) be for just from the 4 trawl surveys combined? Doesn't seem to fit as well if commercial samples added. 
-vb_m <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
-               sex = "male", method = "tmb", too_high_quantile = 1)
+#vb_m <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#               sex = "male", method = "tmb", too_high_quantile = 1)
 
-vb_f <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
-               sex = "female", method = "tmb", too_high_quantile = 1)
+#vb_f <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#               sex = "female", method = "tmb", too_high_quantile = 1)
 
-mat_fit <- fit_mat_ogive(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
-                         type = "age", sample_id_re = TRUE, year_re = FALSE)
+#mat_fit <- fit_mat_ogive(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#                         type = "age", sample_id_re = TRUE, year_re = FALSE)
+#                     
+# Use function from this package as it is (very) slightly different than what 
+# fit_mat_ogive() returns, and is what is input into the model
+mat_fit <- export_mat_lw_age(dat$survey_samples, write_file = FALSE)
 # TODO: what random effects wanted? If year, than params are saved as mat_fit$mat_perc$mean$f.mean.p0.5 and mat_fit$mat_perc$mean$m.mean.p0.5 instead of mat_fit$mat_perc$f.p0.5 and mat_fit$mat_perc$m.p0.5. I assume fig:fig-mat should also be made to match 
 ```
