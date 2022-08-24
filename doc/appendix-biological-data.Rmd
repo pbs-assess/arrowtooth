@@ -1,7 +1,7 @@
 
 ```{r appendix-data-para-1-en, eval = !fr(), results = 'asis'}
 cat("# Biological Data Appendix {#app:bio-data-appendix}
-This appendix summarizes the biological data for `r sp` in `r bc`. All biological parameters were estimated from synoptic survey data only. These data were aggregated from the four synoptic surveys which are run off the West coast of `r bc`, the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
+This appendix summarizes the biological data for `r sp` in `r bc`. The length and age compositions collected from both surveys and commercial sources are illustrated (Figures \@ref(fig:fig-lengths) and \@ref(fig:fig-ages)); however, all biological parameters were estimated from synoptic survey data only. The values used in the assessment were aggregated from the four synoptic surveys that are each run biennially off the West coast of `r bc`, the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
 ```
 
 ```{r appendix-data-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -19,7 +19,7 @@ W_s = \alpha L_s^{\beta_s}
 
 where $\alpha_s$ and $\beta_s$ are parameters for sex $s$ and $L_s$ and $W_s$ are paired length-weight observations.
 
-We applied Eq. \@ref(eq:length-weight) to survey observations for the three synoptic surveys used in this assessment from PMFC areas 3CD and 5ABCDE combined.
+We applied Eq. \@ref(eq:length-weight) to survey observations for the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-length-weight)).
     ")
 ```
 
@@ -38,7 +38,7 @@ L_s = L_{\infty_s}(1 - e^{-k_s (a_s - t_{0_s})})
 
 where $L_{\infty_s}$, $k_s$, and $t_{0_s}$ are parameters specific to sex $s$ and $L_s$ and $a_s$ are paired length-age observations.
 
-We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surveys used in this assessment from PMFC areas 3CD and 5ABCDE combined.
+We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-vb)).
 ")
 ```
 
@@ -57,6 +57,8 @@ P_{a_s} = \frac{1}{1 + e^{-\sigma_{s_{50\%}}(a_s-a_{s_{50\%}})}}
 
 where $P_{a_s}$ is the observed proportion mature at age $a_s$ for sex $s$. 
 
+The same equation can also be applied to lengths instead of ages. We applied Eq. \@ref(eq:mat-at-age) to survey observations of both age and length from the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-mat)).
+
 \clearpage
 ## Figures
 ")
@@ -66,70 +68,90 @@ where $P_{a_s}$ is the observed proportion mature at age $a_s$ for sex $s$.
 <<appendix-data-para-4-en>>
 ```
 
-<!-- Length/weight ----------------------------------------------------------->
+<!-- Length compositions: --------------------------------------------------------->
 
-(ref:fig-length-weight-en) Length/weight fits by sex. 
- The length-weight curve is of the form $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers.
-The variables *a* and *b* represent the estimated length-weight parameters. Female model fits are indicated as solid black lines and male model fits are indicated as dashed grey lines. Text on the panels shows the parameter estimates and open grey circles represent individual fish that the models are fit to. These figures include all survey samples. See Appendix H in Anderson et al. (2019) for details. 
+(ref:fig-lengths-en) Length-frequency plot where female fish are shown as coloured bars and male fish are shown behind as light grey bars. The total number of fish measured for a given survey and year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. The commercial male and female fish are combined (black bars) since many are unsexed. 
+TODO: describe weighting?
 
-(ref:fig-length-weight-fr) Ajustement du modèle pour le poids en fonction de la longueur et du sexe. 
-La courbe de croissance de la longueur selon le poids est de la forme $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$, où $W_i$ et $L_i$ représentent le poids et la longueur pour les poissons i et σ représente l’échelle des erreurs d’observation.
-Nous avons fxé les degrés de liberté de la distribution de Student t à 3 pour conférer une certaine robustesse par rapport aux valeurs aberrantes.
-Les variables a et b représentent les paramètres de la longueur selon le poids estimés. Les ajustements du modèle pour les femelles sont indiqués par des lignes pleines noires, et les ajustements du modèle pour les mâles sont indiqués par des lignes grises tiretées. Le texte sur les panneaux montre les estimations des paramètres, et les cercles gris ouverts représentent les poissons individuels auxquels les modèles sont ajustés. Ces chiffres comprennent tous les échantillons du relevé. Voir l'annexe H dans Anderson et al. (2019) pour plus de détails.
+(ref:fig-lengths-fr) Graphique de la fréquence selon la longueur où les poissons femelles sont représentés par des barres colorées et les poissons mâles sont représentés derrière par des barres gris clair. Le nombre total de poissons mesurés pour un relevé et une année donnés est indiqué au coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s’il y a plus de 20 poissons mesurés pour une combinaison donnée de relevé et d’année. Les poissons commerciaux mâles et femelles sont combinés (barres noires), car plusieurs d’entre eux ne sont pas sexués. 
+TODO: translate weighting description?
 
-```{r fig-length-weight, fig.cap = ifelse(fr(), "(ref:fig-length-weight-fr)", "(ref:fig-length-weight-en)"), fig.asp = 1, out.width = "6in"}
+```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1, out.width = "6in"}
 
-if(!exists("data_dir")){
-  stop("`data_dir` does not exist. If running from command line, ",
-       "source('index.Rmd') to set up all project variables", call. = FALSE)
-}
-lw_fn <- file.path(data_dir, "fit_lw_output.rds")
-if(file.exists(lw_fn)){
-  lw_lst <- readRDS(lw_fn)  
-}else{
-  lw_lst <- list(
-    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "female"),
-    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
-    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "female"),
-    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "male"),
-    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "female"),
-    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "male"),
-    fit_length_weight(survey_samples_syn, sex = "female"),
-    fit_length_weight(survey_samples_syn, sex = "male"))
-  saveRDS(lw_lst, lw_fn)
-}
-lw_title_lst <- list(
-  en2fr("SYN QCS (5AB)", fr()),
-  en2fr("SYN HS (5CD)", fr()),
-  en2fr("SYN WCVI (3CD)", fr()),
-  en2fr("Coastwide", fr()))
+bin_width1 <- diff(quantile(length_samples_survey$length,
+  na.rm = TRUE,
+  probs = c(0, 1)
+)) / 20
 
-plot_lw_panels <- function(lw_f, lw_m){
-  plot_length_weight(object_female = lw_f,
-                     object_male = lw_m,
-                     french = fr()) +
-    guides(colour = "none", fill = "none", lty = "none") +
-    theme(axis.title = element_blank())
-}
+bin_width2 <- diff(quantile(length_samples_ft$length,
+  na.rm = TRUE, probs = c(0, 1)
+)) / 20
 
-lw_plot_lst <- list(
-  plot_lw_panels(lw_lst[[1]], lw_lst[[2]]) +
-  ggtitle(lw_title_lst[[1]]),
-  
-  plot_lw_panels(lw_lst[[3]], lw_lst[[4]]) +
-  ggtitle(lw_title_lst[[2]]),
-  
-  plot_lw_panels(lw_lst[[5]], lw_lst[[6]]) +
-  ggtitle(lw_title_lst[[3]]),
+bin_width3 <- diff(quantile(length_samples_ss$length,
+  na.rm = TRUE, probs = c(0, 1)
+)) / 20
 
-  plot_lw_panels(lw_lst[[7]], lw_lst[[8]]) +
-  ggtitle(lw_title_lst[[4]]))
+bin_width <- mean(c(bin_width1, bin_width2, bin_width3), na.rm = TRUE)
 
-grid.arrange(grobs = lw_plot_lst,
-             ncol = 2,
-             left = paste0(en2fr("Length", fr()), " (cm)"),
-             bottom = en2fr("Weight (kg)", fr()))
+ss <- tidy_lengths_weighted(length_samples_survey,
+  dat_survey_sets = dat$survey_sets,
+  bin_size = bin_width,
+  sample_type = "survey"
+)
 
+sf <- length_samples_ft %>%
+  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  tidy_lengths_weighted(
+    dat_catch = dat$catch,
+    bin_size = bin_width,
+    sample_type = "commercial", spp_cat_code = 1
+  ) %>%
+  mutate(
+    survey_abbrev = "Freezer Trawlers"
+  )
+
+sc <- length_samples_ss %>%
+  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  tidy_lengths_weighted(
+    dat_catch = dat$catch,
+    bin_size = bin_width,
+    sample_type = "commercial", spp_cat_code = 1
+  ) %>%
+  mutate(
+    survey_abbrev = "Shoreside"
+  )
+
+min_total <- 20
+
+sc_old <- filter(sc, year < 1995) # are we interested in length frequencies pre-1980?
+sc <- filter(sc, year > 1995)
+sb <- suppressWarnings(bind_rows(ss, sc, sf))
+sb$survey_abbrev <- factor(sb$survey_abbrev,
+  levels = c(
+    "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
+    en2fr("Freezer Trawlers", fr()), en2fr("Shoreside", fr())
+  )
+)
+sb$year <- factor(sb$year, levels = seq(1996, 2021))
+
+g_lengths <- plot_lengths(sb,
+  survey_cols = stats::setNames(
+    c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", "#000000", "#000000"),
+    c(
+      "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
+      en2fr("Freezer Trawlers", fr()),
+      en2fr("Shoreside", fr())
+    )
+  ),
+  bin_size = bin_width, min_total = min_total
+) +
+  # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
+  guides(colour = "none", fill = "none") +
+  ggtitle("") +
+  ggplot2::xlab(paste(en2fr("Length", fr()), "(cm)")) +
+  ggplot2::ylab(en2fr("Relative length frequency", fr()))
+
+g_lengths
 ```
 
 <!-- Age composition --------------------------------------------------------->
@@ -197,6 +219,76 @@ grid.arrange(s_ages, c_ages,
   bottom = en2fr("Year sampled", fr())
 )
 ```
+
+<!-- Length/weight ----------------------------------------------------------->
+
+(ref:fig-length-weight-en) Length/weight fits by sex. 
+The length-weight curve is of the form $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers.
+The variables $a$ and $b$ represent the estimated length-weight parameters. Female model fits are indicated as solid black lines and male model fits are indicated as dashed grey lines. Text on the panels shows the parameter estimates and open grey circles represent individual fish that the models are fit to. These figures include all survey samples. See Appendix H in Anderson et al. (2019) for details. 
+
+(ref:fig-length-weight-fr) Ajustement du modèle pour le poids en fonction de la longueur et du sexe. 
+La courbe de croissance de la longueur selon le poids est de la forme $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$, où $W_i$ et $L_i$ représentent le poids et la longueur pour les poissons i et σ représente l’échelle des erreurs d’observation.
+Nous avons fxé les degrés de liberté de la distribution de Student t à 3 pour conférer une certaine robustesse par rapport aux valeurs aberrantes.
+Les variables a et b représentent les paramètres de la longueur selon le poids estimés. Les ajustements du modèle pour les femelles sont indiqués par des lignes pleines noires, et les ajustements du modèle pour les mâles sont indiqués par des lignes grises tiretées. Le texte sur les panneaux montre les estimations des paramètres, et les cercles gris ouverts représentent les poissons individuels auxquels les modèles sont ajustés. Ces chiffres comprennent tous les échantillons du relevé. Voir l'annexe H dans Anderson et al. (2019) pour plus de détails.
+
+```{r fig-length-weight, fig.cap = ifelse(fr(), "(ref:fig-length-weight-fr)", "(ref:fig-length-weight-en)"), out.width = "6in"}
+
+if(!exists("data_dir")){
+  stop("`data_dir` does not exist. If running from command line, ",
+       "source('index.Rmd') to set up all project variables", call. = FALSE)
+}
+lw_fn <- file.path(data_dir, "fit_lw_output.rds")
+if(file.exists(lw_fn)){
+  lw_lst <- readRDS(lw_fn)  
+}else{
+  lw_lst <- list(
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "male"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "male"),
+    fit_length_weight(survey_samples_syn, sex = "female"),
+    fit_length_weight(survey_samples_syn, sex = "male"))
+  saveRDS(lw_lst, lw_fn)
+}
+lw_title_lst <- list(
+  en2fr("SYN QCS (5AB)", fr()),
+  en2fr("SYN HS (5CD)", fr()),
+  en2fr("SYN WCVI (3CD)", fr()),
+  en2fr("Coastwide", fr()))
+
+plot_lw_panels <- function(lw_f, lw_m){
+  plot_length_weight(object_female = lw_f,
+                     object_male = lw_m,
+                     french = fr()) +
+    guides(colour = "none", fill = "none", lty = "none") +
+    
+    # coord_cartesian(xlim = c(0, 85), ylim = c(0, 6.7)) +
+    xlim(0, 85) +
+    theme(axis.title = element_blank())
+}
+
+lw_plot_lst <- list(
+  plot_lw_panels(lw_lst[[1]], lw_lst[[2]]) +
+  ggtitle(lw_title_lst[[1]]),
+  
+  plot_lw_panels(lw_lst[[3]], lw_lst[[4]]) +
+  ggtitle(lw_title_lst[[2]]),
+  
+  plot_lw_panels(lw_lst[[5]], lw_lst[[6]]) +
+  ggtitle(lw_title_lst[[3]]),
+
+  plot_lw_panels(lw_lst[[7]], lw_lst[[8]]) +
+  ggtitle(lw_title_lst[[4]]))
+
+grid.arrange(grobs = lw_plot_lst,
+             ncol = 2,
+             bottom = paste0(en2fr("Length", fr()), " (cm)"),
+             left = en2fr("Weight (kg)", fr()))
+
+```
+
 
 <!-- Growth ------------------------------------------------------------------>
 
@@ -299,43 +391,52 @@ mat_title_lst <- list(
   en2fr("Coastwide synoptic trawl surveys", fr()),
   "")
 
-plot_mat_panels <- function(fit_obj, type = "age"){
+plot_mat_panels <- function(fit_obj){
   p <- plot_mat_ogive(fit_obj) +
     guides(colour = "none", fill = "none", lty = "none") +
-    ggplot2::guides(lty = "none", colour = "none") +
+    ggplot2::guides(lty = "none", colour = "none") + 
     theme(axis.title.y = element_blank())
   p
 }
 
 ma_plot_lst <- list(
   plot_mat_panels(mat_lst[[1]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
   theme(axis.title = element_blank()) +
   ggtitle(mat_title_lst[[1]]),
 
   plot_mat_panels(mat_lst[[2]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
   ggtitle(mat_title_lst[[2]]),
 
   plot_mat_panels(mat_lst[[3]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
   theme(axis.title = element_blank()) +
   ggtitle(mat_title_lst[[3]]),
 
   plot_mat_panels(mat_lst[[4]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
   theme(axis.title = element_blank()) +
   ggtitle(mat_title_lst[[4]]),
 
   plot_mat_panels(mat_lst[[5]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
   theme(axis.title = element_blank()) +
   ggtitle(mat_title_lst[[5]]),
 
   plot_mat_panels(mat_lst[[6]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
   theme(axis.title = element_blank()) +
   ggtitle(mat_title_lst[[6]]),
 
   plot_mat_panels(mat_lst[[7]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
   ggtitle(mat_title_lst[[7]]) +
   xlab(en2fr("Age (years)", fr())),
 
   plot_mat_panels(mat_lst[[8]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
   ggtitle(mat_title_lst[[8]]) +
   xlab(paste0(en2fr("Length", fr()), " (cm)")))
 
@@ -344,88 +445,4 @@ grid.arrange(grobs = ma_plot_lst,
              left = paste0(en2fr("Probability mature", fr())))
 ```
 
- <!-- Length compositions: --------------------------------------------------------->
-
-(ref:fig-lengths-en) Length-frequency plot where female fish are shown as coloured bars and male fish are shown behind as light grey bars. The total number of fish measured for a given survey and year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. The commercial male and female fish are combined (black bars) since many are unsexed. 
-TODO: describe weighting?
-
-(ref:fig-lengths-fr) Graphique de la fréquence selon la longueur où les poissons femelles sont représentés par des barres colorées et les poissons mâles sont représentés derrière par des barres gris clair. Le nombre total de poissons mesurés pour un relevé et une année donnés est indiqué au coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s’il y a plus de 20 poissons mesurés pour une combinaison donnée de relevé et d’année. Les poissons commerciaux mâles et femelles sont combinés (barres noires), car plusieurs d’entre eux ne sont pas sexués. 
-TODO: translate weighting description?
-
-```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1, out.width = "6in"}
-
-bin_width1 <- diff(quantile(length_samples_survey$length,
-  na.rm = TRUE,
-  probs = c(0, 1)
-)) / 20
-
-bin_width2 <- diff(quantile(length_samples_ft$length,
-  na.rm = TRUE, probs = c(0, 1)
-)) / 20
-
-bin_width3 <- diff(quantile(length_samples_ss$length,
-  na.rm = TRUE, probs = c(0, 1)
-)) / 20
-
-bin_width <- mean(c(bin_width1, bin_width2, bin_width3), na.rm = TRUE)
-
-ss <- tidy_lengths_weighted(length_samples_survey,
-  dat_survey_sets = dat$survey_sets,
-  bin_size = bin_width,
-  sample_type = "survey"
-)
-
-sf <- length_samples_ft %>%
-  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
-  tidy_lengths_weighted(
-    dat_catch = dat$catch,
-    bin_size = bin_width,
-    sample_type = "commercial", spp_cat_code = 1
-  ) %>%
-  mutate(
-    survey_abbrev = "Freezer Trawlers"
-  )
-
-sc <- length_samples_ss %>%
-  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
-  tidy_lengths_weighted(
-    dat_catch = dat$catch,
-    bin_size = bin_width,
-    sample_type = "commercial", spp_cat_code = 1
-  ) %>%
-  mutate(
-    survey_abbrev = "Shoreside"
-  )
-
-min_total <- 20
-
-sc_old <- filter(sc, year < 1995) # are we interested in length frequencies pre-1980?
-sc <- filter(sc, year > 1995)
-sb <- suppressWarnings(bind_rows(ss, sc, sf))
-sb$survey_abbrev <- factor(sb$survey_abbrev,
-  levels = c(
-    "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
-    en2fr("Freezer Trawlers", fr()), en2fr("Shoreside", fr())
-  )
-)
-sb$year <- factor(sb$year, levels = seq(1996, 2021))
-
-g_lengths <- plot_lengths(sb,
-  survey_cols = stats::setNames(
-    c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", "#000000", "#000000"),
-    c(
-      "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
-      en2fr("Freezer Trawlers", fr()),
-      en2fr("Shoreside", fr())
-    )
-  ),
-  bin_size = bin_width, min_total = min_total
-) +
-  # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
-  guides(colour = "none", fill = "none") +
-  ggtitle("") +
-  ggplot2::xlab(paste(en2fr("Length", fr()), "(cm)")) +
-  ggplot2::ylab(en2fr("Relative length frequency", fr()))
-
-g_lengths
-```
+ 
