@@ -74,9 +74,9 @@ where $P_{a_s}$ is the observed proportion mature at age $a_s$ for sex $s$.
 
 <!-- Length/weight ----------------------------------------------------------->
 
-(ref:fig-length-weight-en) Length/weight fits by sex.
+(ref:fig-length-weight-en) Length/weight fits by sex. The length-weight curve is of the form $\\log (W_i) \\sim$ Student-t $(df = 3, \\log(a) + b \\log(L_i), \\sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers. The variables $a$ and $b$ represent the estimated length-weight parameters. Female model fits are indicated as solid black lines and male model fits are indicated as dashed grey lines. Text on the panels shows the parameter estimates and open grey circles represent individual fish that the models are fit to. These figures include all survey samples. See Appendix H in Anderson et al. (2019) for details.
 
-(ref:fig-length-weight-fr) French here
+(ref:fig-length-weight-fr) Ajustement du modèle pour le poids en fonction de la longueur et du sexe. La courbe de croissance de la longueur selon le poids est de la forme $\\log (W_i) \\sim$ Student-t $(df = 3, \\log(a) + b \\log(L_i), \\sigma),$, où $W_i$ et $L_i$ représentent le poids et la longueur pour les poissons i et σ représente l’échelle des erreurs d’observation. Nous avons fxé les degrés de liberté de la distribution de Student t à 3 pour conférer une certaine robustesse par rapport aux valeurs aberrantes. Les variables a et b représentent les paramètres de la longueur selon le poids estimés. Les ajustements du modèle pour les femelles sont indiqués par des lignes pleines noires, et les ajustements du modèle pour les mâles sont indiqués par des lignes grises tiretées. Le texte sur les panneaux montre les estimations des paramètres, et les cercles gris ouverts représentent les poissons individuels auxquels les modèles sont ajustés. Ces chiffres comprennent tous les échantillons du relevé. Voir l'annexe H dans Anderson et al. (2019) pour plus de détails.
 
 ```{r fig-length-weight, fig.cap = ifelse(fr(), "(ref:fig-length-weight-fr)", "(ref:fig-length-weight-en)"), fig.asp = 1, out.width = "6in"}
 
