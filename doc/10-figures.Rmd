@@ -13,7 +13,12 @@ L'échelle de couleurs est transformée en log10.
 Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y a au moins trois bateaux uniques dans une cellule donnée pour qu’on puisse satisfaire aux exigences en matière de confdentialité.
 
 ```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)"), out.width = "6in"}
+## if the location of labels needs moving...
+# labels <- gfplot:::boundary_labels(9, xmin = 120)
+# labels[labels$label %in% c("4B"),]$X <- 885
 plot_catch_spatial(dat$catch_spatial, 
+                   show_majorbound = TRUE, 
+                   # major_labels = labels,
                    start_year = base_model$dat$start.yr,
                    fill_scale = ggplot2::scale_fill_viridis_c(trans = "log10", option = "D"),
                    colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D")
@@ -34,6 +39,7 @@ Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y
 
 ```{r fig-cpue-spatial, fig.cap = ifelse(fr(), "(ref:fig-cpue-spatial-fr)", "(ref:fig-cpue-spatial-en)"), out.width = "6in"}
 plot_cpue_spatial(dat$cpue_spatial, 
+                  show_majorbound = TRUE, 
                   start_year = base_model$dat$start.yr,
                   fill_scale = ggplot2::scale_fill_viridis_c(trans = "log10", option = "D"),
                   colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"))
