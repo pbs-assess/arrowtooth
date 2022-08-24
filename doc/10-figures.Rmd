@@ -130,13 +130,14 @@ plot_f_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
 
 <!-- Relative spawning biomass ----------------------------------------------->
 
-(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% credible interval.
+(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% credible interval. Horizontal lines indicate the 0.2 $B_0$ (solid, red) and 0.4 $B_0$ (dashed, green) reference points. Because the ribbon represents relative spawning biomass (depletion) and the reference points are with respect to $B_0$, all uncertainty about the ratio of the spawning biomass to the reference points is captured in the ribbon and the reference points are shown as point values.
 
 (ref:fig-base-depletion-fr) French here
 
 ```{r fig-base-depletion, fig.cap = ifelse(fr(), "(ref:fig-base-depletion-fr)", "(ref:fig-base-depletion-en)")}
 plot_biomass_mcmc(base_model,
                   rel = TRUE,
+                  show_bo_lines = TRUE,
                   angle_x_labels = TRUE,
                   text_title_size = NULL)
 ```
