@@ -27,7 +27,7 @@ cat_no: "Fs70-6/2021-012E-PDF"
 citation_other_language: "Grandin, C.J. et Anderson, S.C. Title Here (*Latin Species Name*). DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2019/nnn. iv + 13 p."
 
 abstract: |
-  Arrowtooth Flounder (*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a TAC of 4,000 t and catch of 10,679 t in 2014. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable.
+  Arrowtooth Flounder (*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a current TAC of 5,000 t and catch of 3,051 t in 2021. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable.
 
   In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
 
@@ -214,7 +214,8 @@ sens_models_dirs <-
          "09-m-male-loose-prior"),
        c("10-qk-mean-1.0",
          "11-qk-loose-prior"),
-       c("12-selex-equal-maturity"))
+       c("12-selex-equal-maturity"),
+       c("13-geostat-surveys"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,1",
@@ -251,7 +252,10 @@ sens_models_text <-
                 "Looser prior on $q_\\mathrm{k}$")),
        c(ifelse(fr(),
                 "Courbe de sélectivité égale à l'ogive de maturité",
-                "Selectivity curve equals maturity ogive")))
+                "Selectivity curve equals maturity ogive")),
+       c(ifelse(fr(),
+                "Indices d'enquête basés sur la géostatistique",
+                "Geostatistical based survey indices")))
 
 # This will be used to generate the sensitivity parameter table later
 sens_models_text_no_base <- sens_models_text
@@ -288,7 +292,10 @@ sens_changes_text <-
                 "$q_\\mathrm{k}$ prior sd = 1.5 for all $k$")),
        c(ifelse(fr(),
                 "Paramètres de sélectivité des pêcheries = maturité ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)",
-                "Fishery selectivity parameters = maturity ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)")))
+                "Fishery selectivity parameters = maturity ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)")),
+       c(ifelse(fr(),
+                "Indices d'enquête géostatistique (Annexe : \\@ref(app:geostat))",
+                "Geostatistical survey indices (Appendix \\@ref(app:geostat))")))
 
 if(here() == "/home/rstudio"){
   # For an Rstudio server spawned inside a Docker container
