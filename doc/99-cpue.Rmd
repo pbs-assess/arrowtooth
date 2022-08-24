@@ -1,6 +1,6 @@
 \clearpage
 
-# DISCARD CPUE INDEX STANDARDIZATION {#dcpue}
+# DISCARD CPUE INDEX STANDARDIZATION {#app:dcpue}
 
 We draw on methods as written in @anderson2019synopsis and @forrest2020pcod, reproducing them in parts here for completeness.
 We sought to generate an index of `r sp` abundance from discard commercial trawl catch per unit effort (CPUE) data that was standardized for depth, fishing locality (defined spatial regions), month, vessel, and latitude.
