@@ -5,7 +5,7 @@
 # sed -i -e 's/\r$//' run_mcmcs_base.sh
 
 model_path=/mnt/d/github/pbs-assess/arrowtooth-project/arrowtooth-nongit/models-mcmc-runs/base
-chain_length=1000000
+chain_length=10000000
 save_freq=$(expr $chain_length / 2000)
 
 if [ -d "$model_path" ]; then

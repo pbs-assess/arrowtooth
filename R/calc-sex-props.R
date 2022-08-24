@@ -351,7 +351,7 @@ calc_sex_props_surv <- function(dat,
                                 lw_params = NA,
                                 surv_series = 1,
                                 ...){
-
+  browser()
   # 1. Convert all lengths to weights by sex where then don't exist
   d <- convert_length_to_weight_by_sex(dat, lw_params)
 
@@ -552,7 +552,7 @@ props_surv <- function(surv_series = 1:4,
     ungroup() %>%
     mutate(trip_id = year)
 
-  future_map(surv_series, ~{
+  map(surv_series, ~{
     make_sex_props(dat = surv_samples,
                    surv_series = .x,
                    type = "survey",
