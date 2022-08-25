@@ -9,7 +9,7 @@ export_catch(
   ct,
   areas = c("3[CD]+", "5[ABCDE]+"),
   years = 1996:2021,
-  divisor = 1e+06,
+  divisor = 1000000,
   digits = 4,
   write_files = TRUE,
   single_fleet = FALSE,

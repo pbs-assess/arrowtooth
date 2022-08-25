@@ -6,8 +6,8 @@
 \usage{
 extract_fleet_catch(
   catch,
-  vessel_names = c("VIKING ENTERPRISE", "NORTHERN ALLIANCE", "OSPREY NO 1",
-    "RAW SPIRIT", "PACIFIC LEGACY NO. 1", "SUNDEROEY", "VIKING ALLIANCE"),
+  vessel_names = c("VIKING ENTERPRISE", "NORTHERN ALLIANCE", "OSPREY NO 1", "RAW SPIRIT",
+    "PACIFIC LEGACY NO. 1", "SUNDEROEY", "VIKING ALLIANCE"),
   include = TRUE
 )
 }
