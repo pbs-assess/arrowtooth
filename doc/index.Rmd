@@ -138,8 +138,8 @@ options("knitr.graphics.rel_path" = FALSE) # Fixes weird bug where knitr::includ
 library(devtools)
 library(dplyr)
 if(user == "grandin"){
-  load_all("D:/github/pbs-assess/gfiscamutils/")
-  load_all("D:/github/pbs-assess/csasdown/")
+  load_all("../../../gfiscamutils")
+  load_all("../../../csasdown")
 }else if(user == "seananderson"){
   library(gfiscamutils)
   load_all("~/src/gfiscamutils/")

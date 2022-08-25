@@ -4,7 +4,8 @@
 # Run this to fix 'bad interpreter' issue:
 # sed -i -e 's/\r$//' run_mcmcs_base.sh
 
-model_path=/mnt/d/github/pbs-assess/arrowtooth-project/arrowtooth-nongit/models-mcmc-runs/base
+project_path=`Rscript -e "cat(gsub('(.*)/.*$', '\\\\\\1', here::here()))"`
+model_path=$project_path/arrowtooth-nongit/models-mcmc-runs/base
 chain_length=10000000
 save_freq=$(expr $chain_length / 2000)
 
@@ -28,6 +29,4 @@ fi
  cd mcmc/; \
  iscam -mcmc $chain_length -mcsave $save_freq; \
  iscam -mceval; \
- echo; \
- echo "Base model MCMC/MCeval complete"; \
- echo) &
+ echo "Base model MCMC/MCeval complete";) &

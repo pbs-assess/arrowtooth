@@ -18,9 +18,10 @@
          12-selex-equal-maturity \
          13-geostat-surveys)
 
-models_path=/mnt/d/github/pbs-assess/arrowtooth-project/arrowtooth-nongit/models-mcmc-runs
+project_path=`Rscript -e "cat(gsub('(.*)/.*$', '\\\\\\1', here::here()))"`
+models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
 model_group=02-sens-models
-chain_length=1000000
+chain_length=10000000
 save_freq=$(expr $chain_length / 2000)
 
 for model in ${models[@]}; do
