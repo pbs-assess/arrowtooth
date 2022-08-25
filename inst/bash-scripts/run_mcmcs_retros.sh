@@ -25,7 +25,6 @@ save_freq=$(expr $chain_length / 2000)
 for model in ${models[@]}; do
   (trap 'kill 0' SIGINT; \
    retro_year=$(echo $model | sed -n -E -e 's/^[0-9]+-retrospective-([0-9]+)-years$/\1/p')
-   echo "retro year = $retro_year"; \
    echo; \
    echo "Running MPD/MCMC/MCeval for $model in a subshell"; \
    echo "Command is: iscam -retro $retro_year -mcmc $chain_length -mcsave $save_freq"; \
