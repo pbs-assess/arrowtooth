@@ -156,7 +156,7 @@ where $P_y$ is the proportion female by weight for year $y$ and $W_{y,s}$ for $s
 
 ```{r appendix-prop-results-en, eval = !fr(), results = 'asis'}
 cat("## Results
-Table \@ref(tab:prop-female-table) shows the proportions female for the commercial trawl fishery and the four synoptic surveys. The means of all the years included in the table are shown in the last row. There is very good agreement between the survey and commercial mean proportions and the mean of the means is `r total_prop_female`. That is the proportion used as an input to all models (base, bridging, and sensitivities) in this assessment.
+Table \@ref(tab:prop-female-table) shows the proportions female for the commercial trawl fishery and the four synoptic surveys. The means of all the years included in the table are shown in the last row. There is very good agreement between the survey and commercial mean proportions and therefore it is reasonable to take the mean of the means to arrive at a single value for overall proportion of females in the `r sp` stock in `r bc`. The mean of the means for the synoptic surveys and the commercial fishery is `r total_prop_female`. That is the proportion used as an input to all models (base, bridging, sensitivities, and retrospectives) in this assessment.
 
 Tables \@ref(tab:prop-female-comm-weights-table) and \@ref(tab:prop-female-surv-weights-table) give a summary of the data used for the proportion female calculations. In most years there is a large number of weights included.
 ")
