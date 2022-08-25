@@ -16,6 +16,7 @@ Depends: R (>= 3.6.0)
 Imports:
     adnuts,
     crayon,
+    csasdown,
     devtools,
     dplyr,
     DLMtool,
@@ -23,6 +24,7 @@ Imports:
     gfiscamutils,
     gfplot,
     here,
+    kableExtra,
     lubridate,
     purrr,
     RColorBrewer,

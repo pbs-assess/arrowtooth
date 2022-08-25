@@ -1,0 +1,199 @@
+```{r appendix-prop-para-1-en, eval = !fr(), results = 'asis'}
+cat("# Proportion Female Analysis {#app:prop-female}
+## Introduction
+The split-sex model requires a proportion of females as an input. In the Gulf of Alaska, observer length frequencies were used to determine that the stock is approximately 70% female (@goa2021). In `r bc`, both commercial fishery and synoptic survey data were used to determine the proportion female. This appendix descibes the weighting algorithm used, which is the same as what was used in @grandin2017 and based on the methods applied in @holt2016. The analysis here is based on aggregated area data for a coastwide stock.
+
+## Data Selection
+Age data were selected based on the following criteria:
+
+**Commercial trawl fishery**
+
+1. Species category
+  a. Included codes:
+    i. Unsorted
+    ii. Discards
+  b. Rejected codes:
+    i. Unknown
+    ii. Sorted
+    iii. Keepers
+    iv. Longline
+2. Sample type
+  a. Included codes:
+    i. Total catch
+    ii. Random
+    iii. Random from randomly assigned set
+    iv. Random from set after randomly assigned set
+    v. Random from set requested by vessel master
+  b. Rejected codes
+    i. Selected (various codes)
+    ii. Stratified
+    iii. Unknown sample for NMFS Triennial survey
+3. Gear code
+  a. Included codes:
+    i. Bottom trawl
+    ii. Unknown trawl
+  b. Rejected codes
+    i. Unknown
+    ii. Trap
+    iii. Gillnet
+    iv. Handline
+    v. Longline
+    vi. Midwater trawl
+    v. Troll
+    vi. Seine
+    vii. Jig
+    viii. Recreational
+    ix. Various other obscure catch methods
+
+**Synoptic surveys**
+All available age data were used
+
+**Years**
+Age data from 1996 to 2019 were used. There is no age data available after 2019.
+
+**Quarters of the year**
+1 = January 1 - March 31
+2 = April 1 - June 30
+3 = July 1 - September 30
+4 = October 1 - December 31
+
+**Areas**
+Coastwide, defined as areas 3CD and 5ABCDE aggregated.
+
+**Sex**
+Males and females only. Some records have the sex recorded as unknown or unsexed. Those records along with records with NULL sex were removed.
+
+## Commercial Trawl Fishery
+Observations within a sample are likely to be correlated due to the small area which is trawled in a single fishing event. In addition, trip samples may be correlated due to single vessel fishing practices. This algorithm calculates a sex-specifc mean weight by trip, calculated from individual sex-specific length observations converted to weight using Eq. XX, then uses Eqs.XX–XX to estimate proportion of females.
+
+## Synoptic Surveys
+For surveys,the same algorithm is followed except that the quarter of the year is not included in the calculation. This is because the surveys are single events which occur during the summer months only.
+")
+```
+
+```{r appendix-prop-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<appendix-prop-para-1-en>>
+```
+
+```{r appendix-prop-equations-en, eval = !fr(), results = 'asis'}
+cat("## Equations
+Specimens without weight data but with length data have their weights calculated as follows:
+
+\begin{equation}
+\hat{w}_{i,j,s} = \alpha_s l_{i,j,s}^{\beta_s}
+(\#eq:specimen-wt)
+\end{equation}
+
+where $\alpha_s$ and $\beta_s$ are parameters for sex $s$ and $w_{i,j,s}$ and $l_{i,j,s}$ are paired length-weight observations for specimen $i$ in sample $j$.
+
+Total weight for each sample is the sum of the specimens in the sample:
+
+\begin{equation}
+W_{j,s,t} = \sum_{i=1}^{N_{j,s,t}}{\hat{w}_{i,j,s,t}}
+(\#eq:sample-wt)
+\end{equation}
+
+where $W_{j,s,t}$ is the total weight for sample $j$, sex $s$, trip $t$, and $N_{j,s,t}$ is the number of specimens in sample $j$ for sex $s$.
+
+Calculation of the mean sample weight by trip and sex is given by:
+
+\begin{equation}
+W_{s,t} = \frac{\sum\limits_{j=1}^{K_t}{W_{j,s,t}S_{j,t}}}{\sum\limits_{j=1}^{K_t}{S_{j,t}}}
+(\#eq:mean-sample-wt)
+\end{equation}
+
+where $W_{s,t}$ is the mean weight for sex $s$ and trip $t$, weighted by sample weight, where $K_t$ is the number of samples in trip $t$, and $S_{j,t}$ is the sample weight for sample $j$ from trip $t$.
+
+To calculate the total catch weight for sampled hauls in each trip, we use the following:
+
+\begin{equation}
+C_t = \sum_{j=1}^{K_t}{C_{j,k}}
+(\#eq:catch-wt)
+\end{equation}
+
+where $C_t$ isthe total catch weight for sampled hauls for trip $t$, $K_t$ is the number of samples in trip $t$, and $C_{j,t}$ is the catch weight associated with sample $j$ and trip $t$.
+
+The total weight in eacxh quarter of the year by sex is given by:
+
+\begin{equation}
+W_{q,s} = \frac{\sum\limits_{t=1}^{T_q}{W_{q,s,t}R_{q,t}}}{\sum\limits_{t=1}^{T_q}{R_{q,t}}}
+(\#eq:quarter-wt)
+\end{equation}
+
+where $W_{q,s}$ is the total weight for sex $s$ and quarter of year $q$, $R_{q,t}$ is the trip weight for all sampled trips in quarter $q$, and $T_q$ is the number of sampled trips in quarter $q$.
+
+The total catch weight for sampled hauls per quarter of the year is:
+
+\begin{equation}
+C_q = \sum_{t=1}^{K_q}{C_t}
+(\#eq:total-catch-quarter)
+\end{equation}
+
+where $C_q$ is the total catch weight for sampled hauls for quarter $q$, $K_q$ is the number of trips in quarter $q$, and $C_t$ is the catch weight associted with trip $t$.
+
+Now, the total weight by year and sex is calculated from:
+
+\begin{equation}
+W_{y,s} = \frac{\sum\limits_{q=1}^{4}{W_{q,y,s}C_{q,y}}}{\sum\limits_{q=1}^{4}{C_{q,y}}}
+(\#eq:total-catch-year)
+\end{equation}
+
+where $W_{s,y}$ is the total weight for year $y$, sex $s$, $W_{q,y,s}$ is the weight in quarter $q$ of year $y$, and $C_{q,y}$ is the catch in quarter $q$ of year $y$.
+
+Finally, the proportion female is given by:
+
+\begin{equation}
+P_y = \frac{W_{y,s=Female}}{W_{y,s=Male} + W_{y,s=Female}}
+(\#eq:prop-female)
+\end{equation}
+
+where $P_y$ is the proportion female by weight for year $y$ and $W_{y,s}$ for $s=Female$ and $s=Male$ are given by Eq. \@ref(eq:total-catch-year).
+")
+```
+
+```{r appendix-prop-equations-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<appendix-prop-equations-en>>
+```
+
+```{r appendix-prop-results-en, eval = !fr(), results = 'asis'}
+cat("## Results
+
+Table \@ref(tab:prop-female-table) shows the proportions female for the commercial trawl fishery and the four synoptic surveys. The means of all the years included in the table are shown in the last row. There is very good agreement between the survey and commercial mean proportions and the mean of the means is `r total_prop_female`. That is the proportion used as an input to all models (base, bridging, and sensitivities) in this assessment.
+
+Tables \@ref(tab:prop-female-comm-weights-table) and \@ref(tab:prop-female-surv-weights-table) give a summary of the data used for the proportion female calculations. In most years there is a large number of weights included.
+")
+```
+
+```{r appendix-prop-results-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<appendix-prop-results-en>>
+```
+
+```{r prop-female-table, results = "asis"}
+
+cap <- paste0("Proportion of female ", sp, " in the commercial trawl fishery and ",
+              "three synoptic surveys coastwide")
+if(fr()){
+  cap <- paste0("French here")
+}
+
+table_prop_female(prop_female_lst, digits = 2, caption = cap)
+
+```
+
+```{r prop-female-comm-weights-table, results = "asis"}
+cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp,
+              " in the commercial trawl fishery")
+if(fr()){
+  cap <- paste0("French here")
+}
+table_prop_female_weights(dat$commercial_samples, end_yr = 2019, caption = cap)
+```
+
+```{r prop-female-surv-weights-table, results = "asis"}
+cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp,
+              " in the synoptic surveys")
+if(fr()){
+  cap <- paste0("French here")
+}
+table_prop_female_weights(dat$survey_samples, type = "survey", end_yr = 2019, caption = cap)
+```

@@ -637,42 +637,29 @@ mat_fit <- export_mat_lw_age(dat$survey_samples, write_file = FALSE)
 ```
 
 ```{r proportion-female}
-# Commercial fishery
-ac_coast <- tidy_ages_weighted(dat$commercial_samples,
-                               sample_type = "commercial",
-                               dat_catch = dat$catch)
-lc_coast <- tidy_lengths_weighted(dat$commercial_samples,
-                                  sample_type = "commercial",
-                                  dat_catch = dat$catch)
-aprop_coast <- calc_female_props(ac_coast, type = "age")
-lprop_coast <- calc_female_props(lc_coast, type = "length")
-comm_props <- full_join(aprop_coast, lprop_coast, by = "year") |> 
-  select(-c(type.x, type.y)) |> 
-  rename(`Proportion female by age` = female_prop.x,
-         `Proportion female by length` = female_prop.y)
-comm_prop_fem_by_age <- mean(pull(comm_props[, 2]), na.rm = TRUE)
-comm_prop_fem_by_length <- mean(pull(comm_props[, 3]), na.rm = TRUE)
 
-# Synoptic surveys
-as_coast <- survey_samples_syn %>%
-  tidy_ages_weighted(sample_type = "survey",
-                     dat_survey_sets = dat$survey_sets) %>% 
-  mutate(survey_abbrev = as.character(survey_abbrev))
-ls_coast <- survey_samples_syn |> 
-  tidy_lengths_weighted(sample_type = "survey",
-                        dat_survey_sets = dat$survey_sets)
-aprop_coast <- calc_female_props(as_coast, type = "age")
-lprop_coast <- calc_female_props(ls_coast, type = "length")
-surv_props <- full_join(aprop_coast, lprop_coast, by = "year") |> 
-  select(-c(type.x, type.y)) |> 
-  rename(`Proportion female by age` = female_prop.x,
-         `Proportion female by length` = female_prop.y)
-surv_prop_fem_by_age <- mean(pull(surv_props[, 2]), na.rm = TRUE)
-surv_prop_fem_by_length <- mean(pull(surv_props[, 3]), na.rm = TRUE)
+if(!exists("data_dir")){
+  stop("`data_dir` does not exist. If running from command line, ",
+       "source('index.Rmd') to set up all project variables", call. = FALSE)
+}
 
-prop_female <- mean(comm_prop_fem_by_age,
-                    comm_prop_fem_by_length,
-                    surv_prop_fem_by_age,
-                    surv_prop_fem_by_length)
-prop_male <- 1 - prop_female
+prop_female_fn <- file.path(data_dir, "prop_female_output.rds")
+if(file.exists(prop_female_fn)){
+  prop_female_lst <- readRDS(prop_female_fn)
+}else{
+  comm_prop <- props_comm(dat$commercial_samples)
+  surv_prop <- props_surv(surv_series = c(1, 3, 4, 16),
+                          surv_series_names = c("qcsss", "hsss", "wcviss", "wchgss"),
+                          surv_samples = dat$survey_samples,
+                          surv_sets = dat$survey_sets)
+  prop_female_lst <- list(comm_prop, surv_prop)
+  saveRDS(prop_female_lst, prop_female_fn)
+}
+
+prop_female_table <- table_prop_female(prop_female_lst, return_df = TRUE)
+total_prop_female <- f(tail(prop_female_table, 1)[-1] |>
+                         unlist() |>
+                         as.numeric() |>
+                         mean(),
+                       2)
 ```

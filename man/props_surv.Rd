@@ -16,9 +16,8 @@ props_surv(
 
 props_surv_data_summary(
   surv_samples,
-  surv_series = 1:4,
-  surv_series_names = c("QCS Synoptic", "HS Multispecies", "HS Synoptic",
-    "WCVI Synoptic")
+  surv_series = c(1, 3, 4, 16),
+  surv_series_names = c("QCS", "HS", "WCVI", "WCHG")
 )
 
 export_survey_indices(

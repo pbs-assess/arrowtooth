@@ -351,7 +351,7 @@ calc_sex_props_surv <- function(dat,
                                 lw_params = NA,
                                 surv_series = 1,
                                 ...){
-  browser()
+
   # 1. Convert all lengths to weights by sex where then don't exist
   d <- convert_length_to_weight_by_sex(dat, lw_params)
 
@@ -509,7 +509,16 @@ props_comm <- function(d,
     d <- d %>% filter(gear_code %in% gear)
   }
   d <- d %>%
-    select(trip_start_date, major_stat_area_code, trip_id, sample_id, year, sex, length, weight, catch_weight, vessel_id)
+    select(trip_start_date,
+           major_stat_area_code,
+           trip_id,
+           sample_id,
+           year,
+           sex,
+           length,
+           weight,
+           catch_weight,
+           vessel_id)
 
   if(all(is.na(d$weight))){
     stop("All weights are NA for your dataset, LW relationship cannot be calculated.",
@@ -684,11 +693,11 @@ props_comm_data_summary <- function(comm_samples,
 #' @return A data frame summarizing the data
 #' @export
 props_surv_data_summary <- function(surv_samples,
-                                    surv_series = 1:4,
-                                    surv_series_names = c("QCS Synoptic",
-                                                          "HS Multispecies",
-                                                          "HS Synoptic",
-                                                          "WCVI Synoptic")){
+                                    surv_series = c(1, 3, 4, 16),
+                                    surv_series_names = c("QCS",
+                                                          "HS",
+                                                          "WCVI",
+                                                          "WCHG")){
 
   d <- surv_samples %>%
     group_by(sample_id) %>%
