@@ -2,7 +2,6 @@
 cat("# Proportion Female Analysis {#app:prop-female}
 ## Introduction
 The split-sex model requires a proportion of females as an input. In the Gulf of Alaska, observer length frequencies were used to determine that the stock is approximately 70% female (@goa2021). In `r bc`, both commercial fishery and synoptic survey data were used to determine the proportion female. This appendix descibes the weighting algorithm used, which is the same as what was used in @grandin2017 and based on the methods applied in @holt2016. The analysis here is based on aggregated area data for a coastwide stock.
-
 ## Data Selection
 Age data were selected based on the following criteria:
 
@@ -46,7 +45,7 @@ Age data were selected based on the following criteria:
     ix. Various other obscure catch methods
 
 **Synoptic surveys**
-All available age data were used
+All available age data from the synoptic surveys were used.
 
 **Years**
 Age data from 1996 to 2019 were used. There is no age data available after 2019.
@@ -62,10 +61,8 @@ Coastwide, defined as areas 3CD and 5ABCDE aggregated.
 
 **Sex**
 Males and females only. Some records have the sex recorded as unknown or unsexed. Those records along with records with NULL sex were removed.
-
 ## Commercial Trawl Fishery
 Observations within a sample are likely to be correlated due to the small area which is trawled in a single fishing event. In addition, trip samples may be correlated due to single vessel fishing practices. This algorithm calculates a sex-specifc mean weight by trip, calculated from individual sex-specific length observations converted to weight using Eq. XX, then uses Eqs.XX–XX to estimate proportion of females.
-
 ## Synoptic Surveys
 For surveys,the same algorithm is followed except that the quarter of the year is not included in the calculation. This is because the surveys are single events which occur during the summer months only.
 ")
@@ -157,7 +154,6 @@ where $P_y$ is the proportion female by weight for year $y$ and $W_{y,s}$ for $s
 
 ```{r appendix-prop-results-en, eval = !fr(), results = 'asis'}
 cat("## Results
-
 Table \@ref(tab:prop-female-table) shows the proportions female for the commercial trawl fishery and the four synoptic surveys. The means of all the years included in the table are shown in the last row. There is very good agreement between the survey and commercial mean proportions and the mean of the means is `r total_prop_female`. That is the proportion used as an input to all models (base, bridging, and sensitivities) in this assessment.
 
 Tables \@ref(tab:prop-female-comm-weights-table) and \@ref(tab:prop-female-surv-weights-table) give a summary of the data used for the proportion female calculations. In most years there is a large number of weights included.
