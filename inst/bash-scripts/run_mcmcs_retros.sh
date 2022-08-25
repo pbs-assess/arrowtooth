@@ -19,7 +19,7 @@ project_path=`Rscript -e "cat(gsub('(.*)/.*$', '\\\\\\1', here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
 base_path=$models_path/base
 model_group=03-retrospective-models
-chain_length=2000
+chain_length=10000000
 save_freq=$(expr $chain_length / 2000)
 
 for model in ${models[@]}; do
