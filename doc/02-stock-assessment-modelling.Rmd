@@ -1,7 +1,7 @@
 ```{r sam-stock-modelling-en, eval = !fr(), results = 'asis'}
 cat("# Stock Assessment Modelling
 
-We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition ofthe catch data indicated that commercial catches are comprised of approximately 70% females; see Appendix XX, Table XX.
+We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition of the commercial and survey sample data indicated that the stock is composed of approximately `r total_prop_female`% females; see Appendix \@ref(app:prop-female), Table \@ref(tab:prop-female-table). All models in this assessment including the base model, bridging models, sensitivy models, and retrospectives were run using `r total_prop_female`% as the proportion of females in the stock.
 
 The model was fit to commercial catch data from two fleets, six indices of abundance with associated coeffcients of variation, and to age composition data from the commercial trawl fleets and four of the six indices. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix XX) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
 

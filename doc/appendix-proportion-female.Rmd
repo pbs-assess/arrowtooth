@@ -3,46 +3,48 @@ cat("# Proportion Female Analysis {#app:prop-female}
 ## Introduction
 The split-sex model requires a proportion of females as an input. In the Gulf of Alaska, observer length frequencies were used to determine that the stock is approximately 70% female (@goa2021). In `r bc`, both commercial fishery and synoptic survey data were used to determine the proportion female. This appendix descibes the weighting algorithm used, which is the same as what was used in @grandin2017 and based on the methods applied in @holt2016. The analysis here is based on aggregated area data for a coastwide stock.
 ## Data Selection
-Age data were selected based on the following criteria:
+Both commercial and synoptic sample age data were filtered for input into the proportion female routine.
 
 **Commercial trawl fishery**
 
+The following three attributes were used to filter the age data for the commercial trawl fishery:
+
 1. Species category
-  a. Included codes:
-    i. Unsorted
-    ii. Discards
-  b. Rejected codes:
-    i. Unknown
-    ii. Sorted
-    iii. Keepers
-    iv. Longline
+   a. Included codes:
+      i. Unsorted
+      i. Discards
+   b. Rejected codes:
+      i. Unknown
+      i. Sorted
+      i. Keepers
+      i. Longline
 2. Sample type
-  a. Included codes:
-    i. Total catch
-    ii. Random
-    iii. Random from randomly assigned set
-    iv. Random from set after randomly assigned set
-    v. Random from set requested by vessel master
-  b. Rejected codes
-    i. Selected (various codes)
-    ii. Stratified
-    iii. Unknown sample for NMFS Triennial survey
+   a. Included codes:
+      i. Total catch
+      i. Random
+      i. Random from randomly assigned set
+      i. Random from set after randomly assigned set
+      i. Random from set requested by vessel master
+   b. Rejected codes
+      i. Selected (various codes)
+      i. Stratified
+      i. Unknown sample for NMFS Triennial survey
 3. Gear code
-  a. Included codes:
-    i. Bottom trawl
-    ii. Unknown trawl
-  b. Rejected codes
-    i. Unknown
-    ii. Trap
-    iii. Gillnet
-    iv. Handline
-    v. Longline
-    vi. Midwater trawl
-    v. Troll
-    vi. Seine
-    vii. Jig
-    viii. Recreational
-    ix. Various other obscure catch methods
+   a. Included codes:
+      i. Bottom trawl
+      i. Unknown trawl
+   b. Rejected codes
+      i. Unknown
+      i. Trap
+      i. Gillnet
+      i. Handline
+      i. Longline
+      i. Midwater trawl
+      i. Troll
+      i. Seine
+      i. Jig
+      i. Recreational
+      i. Various other obscure catch methods
 
 **Synoptic surveys**
 All available age data from the synoptic surveys were used.

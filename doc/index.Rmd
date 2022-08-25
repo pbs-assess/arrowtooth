@@ -657,9 +657,9 @@ if(file.exists(prop_female_fn)){
 }
 
 prop_female_table <- table_prop_female(prop_female_lst, return_df = TRUE)
-total_prop_female <- f(tail(prop_female_table, 1)[-1] |>
+total_prop_female <- f(100 * tail(prop_female_table, 1)[-1] |>
                          unlist() |>
                          as.numeric() |>
                          mean(),
-                       2)
+                       0)
 ```
