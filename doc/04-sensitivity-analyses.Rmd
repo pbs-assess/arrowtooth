@@ -8,16 +8,16 @@ We tested sensitivity of the model outputs as follows:
 1. Increase $\tau$ to 1.0 from 0.8
 1. Decrease $\tau$ to 0.6 from 0.8
 1. Decrease mean of $h$ prior to 0.72 from 0.85
-1. Tighter prior on $M_{Female}$ (estimate $M_{Female}$)
-1. Looser prior on $M_{Female}$ (estimate $M_{Female}$)
-1. Tighter prior on $M_{Male}$ (estimate $M_{Male}$)
-1. Looser prior on $M_{Male}$ (estimate $M_{Male}$)
+1. Tighter prior on $M_\mathrm{Female}$ (estimate $M_\mathrm{Female}$)
+1. Looser prior on $M_\mathrm{Female}$ (estimate $M_\mathrm{Female}$)
+1. Tighter prior on $M_\mathrm{Male}$ (estimate $M_\mathrm{Male}$)
+1. Looser prior on $M_\mathrm{Male}$ (estimate $M_\mathrm{Male}$)
 1. Decrease catchability priors mean to 1.0 from 0.5 ($q_k$ for all $k$)
 1. Looser catchability priors ($q_k$ for all $k$)
 1. Selectivity curves equal maturity ogive for all gears
-1. Geostatistical model-based survey indices (Section \@ref(#Geostat))
+1. Geostatistical model-based survey indices (Section \@ref(app:geostat))
 
-Results are presented below. The full list of sensitivity scenarios is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). In all sensitivity runs, posterior samples were drawn systematically every `r f(mcmc_sample_freq)` iterations from a chain of length `r f(mcmc_chain_length)`, resulting in `r f(mcmc_num_samples)` posterior samples. The frst 1,000 sampleswere dropped to allow for suffcient burn-in.")
+Results are presented below. The full list of sensitivity scenarios is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). In all sensitivity runs, posterior samples were drawn systematically every `r f(mcmc_sample_freq)` iterations from a chain of length `r f(mcmc_chain_length)`, resulting in `r f(mcmc_num_samples)` posterior samples. The first 1,000 samples were dropped to allow for suffcient burn-in.")
 ```
 
 ```{r scam-sensitivity-analyses-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
