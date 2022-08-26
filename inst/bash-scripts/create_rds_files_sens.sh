@@ -23,7 +23,8 @@
          12-selex-equal-maturity \
          13-geostat-surveys)
 
-models_path=/mnt/d/github/pbs-assess/arrowtooth-project/arrowtooth-nongit/models-mcmc-runs
+project_path=`Rscript -e "cat(here::here()))"`
+models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
 model_group=02-sens-models
 
 for model in ${models[@]}; do

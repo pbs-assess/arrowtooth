@@ -9,7 +9,8 @@
 # Run this to fix 'bad interpreter' issue:
 # sed -i -e 's/\r$//' create_rds_files_base.sh
 
-model_path=/mnt/d/github/pbs-assess/arrowtooth-project/arrowtooth-nongit/models-mcmc-runs/base
+project_path=`Rscript -e "cat(here::here()))"`
+model_path=$project_path/arrowtooth-nongit/models-mcmc-runs/base
 
 echo
 echo "Creating RDS file for base model in a subshell"
