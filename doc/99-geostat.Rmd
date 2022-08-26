@@ -138,7 +138,7 @@ The most noticeable difference was that including a smoother for depth slightly 
 The geostatistical coastwide stitched survey indices all showed a strong resemblance to the commercial Discard CPUE index (Fig. \@ref(fig:geo-indexes-cpue-en)) with mostly overlapping confidence intervals, marked declines from 2010 to 2021, and a dip in the mid 2000s.
 There was some discrepancy in the initial year of the survey (2003) with the Discard CPUE being slightly higher,  although the majority of the confidence intervals still overlap.
 
-## GEOSTATISTICAL INDEX FIGURES
+## GEOSTATISTICAL INDEX FIGURES {#geostat-figs}
 
 ```{r geo-bubble1-en, fig.cap="Survey data bubble plot for 2003 to 2012. The area and colour of circles corresponds to set density. Sets with zero Arrowtooth Flounder catch are indicated with a grey cross.", out.width="\\textwidth", eval=!fr(), results='asis'}
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-raw1.png"), dpi = NA)
