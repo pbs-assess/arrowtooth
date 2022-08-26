@@ -15,7 +15,7 @@
          09-retrospective-9-years \
          10-retrospective-10-years)
 
-project_path=`Rscript -e "cat(here::here()))"`
+project_path=`Rscript -e "cat(here::here())"`
 models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
 base_path=$models_path/base
 model_group=03-retrospective-models

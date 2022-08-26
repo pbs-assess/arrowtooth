@@ -20,7 +20,7 @@
          09-bridge-switch-fishing-year-to-feb-21-feb-20 \
          10-remove-wchg)
 
-project_path=`Rscript -e "cat(here::here()))"`
+project_path=`Rscript -e "cat(here::here())"`
 models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
 model_group=01-bridge-models
 
