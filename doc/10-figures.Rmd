@@ -179,9 +179,9 @@ plot_autocor_mcmc(base_model,
                   text_title_size = NULL)
 ```
 
-(ref:fig-base-trace-selex-en) Trace plots for MCMC output of estimated selectivity parameters in the base model. $\hat{a}$ are the estimates of selectivity-at-age-50%, $\hat{\gamma}$ are the estimated standard deviations on selectivity-at-age-50%. The numerical indices on the two parameters represent: `r paste(base_all_gears$gear, " = ", base_all_gears$gear_name, collapse = ", ")`.
+(ref:fig-base-trace-selex-en) Trace plots for MCMC output of estimated selectivity parameters in the base model. $\hat{a}$ are the estimates of selectivity-at-age-50%, $\hat{\gamma}$ are the estimated standard deviations on selectivity-at-age-50%. The letter subscripts F and M correspond to female and male, and the numerical subscripts represent the gear as follows: `r paste(base_all_gears$gear, " = ", base_all_gears$gear_name, collapse = ", ")`.
 
-(ref:fig-base-trace-selex-fr) Tracés de la sortie MCMC des paramètres de sélectivité estimés dans le modèle de base. Les $\hat{a}$ sont les estimations de la sélectivité à l'âge de 50 %, les $\hat{\gamma}$ sont les écarts types estimés de la sélectivité à l'âge de 50 %. Les indices numériques sur les deux paramètres représentent : `r paste(base_all_gears$gear, " = ", base_all_gears$gear_name, collapse = ", ")`.
+(ref:fig-base-trace-selex-fr) French here
 
 ```{r fig-base-trace-selex, fig.cap = ifelse(fr(), "(ref:fig-base-trace-selex-fr)", "(ref:fig-base-trace-selex-en)")}
 plot_traces_mcmc(base_model,
@@ -236,7 +236,8 @@ plot_pairs_mcmc(base_model,
                              "selage7_female",
                              "selsd7_male",
                              "selsd7_female"),
-                text_title_size = NULL)
+                text_title_size = NULL,
+                point_size = 0.5)
 ```
 
 
