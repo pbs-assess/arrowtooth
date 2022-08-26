@@ -9,7 +9,7 @@
 # Run this to fix 'bad interpreter' issue:
 # sed -i -e 's/\r$//' create_rds_files_base.sh
 
-project_path=`Rscript -e "cat(here::here())"`
+project_path=`Rscript -e "cat(dirname(here::here()))"`
 model_path=$project_path/arrowtooth-nongit/models-mcmc-runs/base
 
 echo

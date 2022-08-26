@@ -23,7 +23,7 @@
          12-selex-equal-maturity \
          13-geostat-surveys)
 
-project_path=`Rscript -e "cat(here::here())"`
+project_path=`Rscript -e "cat(dirname(here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
 model_group=02-sens-models
 
