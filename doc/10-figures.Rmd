@@ -72,7 +72,8 @@ for that parameter.
 plot_biomass_mcmc(base_model,
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
-                  show_bmsy_lines = TRUE)
+                  show_bmsy_lines = TRUE,
+                  ylim = c(0, 250))
 ```
 
 (ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with
@@ -85,8 +86,26 @@ plot_biomass_mcmc(base_model,
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
-                  bo_refpt_colors = c("salmon", "darkgreen"))
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 250))
 ```
+
+<!-- Relative spawning biomass ----------------------------------------------->
+
+(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% credible interval. Horizontal lines indicate the 0.2 $B_0$ (solid, red) and 0.4 $B_0$ (dashed, green) reference points. Because the ribbon represents relative spawning biomass (depletion) and the reference points are with respect to $B_0$, all uncertainty about the ratio of the spawning biomass to the reference points is captured in the ribbon and the reference points are shown as point values.
+
+(ref:fig-base-depletion-fr) French here
+
+```{r fig-base-depletion, fig.cap = ifelse(fr(), "(ref:fig-base-depletion-fr)", "(ref:fig-base-depletion-en)")}
+plot_biomass_mcmc(base_model,
+                  rel = TRUE,
+                  show_bo_lines = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  ylim = c(0, 2))
+```
+
+<!-- Vulnerable spawning biomass --------------------------------------------->
 
 (ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% credible interval shaded. The two blue vulnerable biomass trajectories have their 95% credible interval contained withing the dotted lines of their respective colors.
 
@@ -96,7 +115,8 @@ plot_biomass_mcmc(base_model,
 plot_vuln_mcmc(base_model,
                inc_sbt = TRUE,
                quant_df = "sbt_quants",
-               angle_x_labels = TRUE)
+               angle_x_labels = TRUE,
+               ylim = c(0, 250))
 ```
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The
 black points are the medians of the posteriors, the vertical black lines
@@ -127,21 +147,6 @@ plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
 ```{r fig-base-f, fig.cap = ifelse(fr(), "(ref:fig-base-f-fr)", "(ref:fig-base-f-en)")}
 plot_f_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
 ```
-
-<!-- Relative spawning biomass ----------------------------------------------->
-
-(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% credible interval. Horizontal lines indicate the 0.2 $B_0$ (solid, red) and 0.4 $B_0$ (dashed, green) reference points. Because the ribbon represents relative spawning biomass (depletion) and the reference points are with respect to $B_0$, all uncertainty about the ratio of the spawning biomass to the reference points is captured in the ribbon and the reference points are shown as point values.
-
-(ref:fig-base-depletion-fr) French here
-
-```{r fig-base-depletion, fig.cap = ifelse(fr(), "(ref:fig-base-depletion-fr)", "(ref:fig-base-depletion-en)")}
-plot_biomass_mcmc(base_model,
-                  rel = TRUE,
-                  show_bo_lines = TRUE,
-                  angle_x_labels = TRUE,
-                  text_title_size = NULL)
-```
-
 
 <!-- MCMC diagnostics -------------------------------------------------------->
 
