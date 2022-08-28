@@ -458,9 +458,10 @@ base_age_gears <- gear_lu_table(base_model, "age")
 base_index_gears <- gear_lu_table(base_model, "index")
 base_fleet_gears <- gear_lu_table(base_model, "fleet")
 
-mcmc_chain_length <- 400000
-mcmc_sample_freq <- 200
+mcmc_chain_length <- 10000000
 mcmc_num_samples <- 2000
+mcmc_sample_freq <- mcmc_chain_length / mcmc_num_samples
+mcmc_burn_in <- 1000
 
 qcs <- "Queen Charlotte Sound Synoptic Survey"
 hsmas <- "Hecate Strait Multispecies Assemblage Survey"
