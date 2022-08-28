@@ -8,6 +8,7 @@ table_prop_female_weights(
   samples = NULL,
   type = c("commercial", "survey"),
   end_yr = 2019,
+  ord = c("QCS", "HS", "WCVI", "WCHG"),
   return_df = FALSE,
   ...
 )
@@ -20,6 +21,9 @@ table_prop_female_weights(
 
 \item{end_yr}{The last year to include in the table
 \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
+
+\item{ord}{A vector of survey names as they appear in the output data frame,
+in the order you want them in the output. If \code{NULL}, order will be ignored}
 
 \item{return_df}{If \code{TRUE}, return a data .frame instead of a}
 
