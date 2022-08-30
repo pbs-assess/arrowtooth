@@ -81,7 +81,7 @@ This is similar to calculating the geometric mean of CPUE each year but with an 
 cpuefold <- file.path(drs$nongit_dir, "cpue-figs")
 
 bub <- function(.n) {
-  knitr::include_graphics(file.path(cpuefold, paste0("bubble-plots-", .n, ".png")), dpi = NA)
+  knitr::include_graphics(file.path(cpuefold, paste0("bubble-plots-", .n, "-1.png")), dpi = NA)
 }
 
 cpue_cap_text <- function(type) {
