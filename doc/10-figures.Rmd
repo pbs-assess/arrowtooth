@@ -446,7 +446,20 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   rel = TRUE,
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
-                  show_bo_lines = TRUE)
+                  show_bo_lines = TRUE,
+                  ylim = c(0, 2))
+```
+
+(ref:fig-sens-variance-priors-en) Priors and posteriors for the sensitivity where the total variance parameter, $\vartheta^2$ is estimated. The prior for $\vartheta^2$ does not contribute any information to its estimate, while other posteriors remain almost the same as in the base model (Figure \@ref(fig:fig-base-priors-posts)).
+
+(ref:fig-sens-variance-priors-fr) French here
+
+```{r fig-sens-variance-priors, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-priors-fr)", "(ref:fig-sens-variance-priors-en)")}
+plot_priors_posts_mcmc(models$sens_grps[[1]][[3]], c("sel",
+                                                     "bo",
+                                                     "tau",
+                                                     "sigma"),
+                       text_title_size = NULL)
 ```
 
 <!-- Tau --------------------------------------------------------------------->
