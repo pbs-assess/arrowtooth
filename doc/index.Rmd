@@ -399,28 +399,6 @@ age_precision <- dat$age_precision
 theme_set(gfiscam_theme())
 
 # Gear names are set in the data file for each model
-# Make the commercial gear names be Freezer Trawlers and Shoreside
-models$base_model <- 
-  replace_gear_names(models$base_model,
-                     old_gear_names = c("Freezer", "Wet boats"),
-                     new_gear_names = c("Freezer Trawlers", "Shoreside"),
-                     old_gear_abbrevs = "WB COMM",
-                     new_gear_abbrevs = "SS COMM")
-
-models$bridge_grps[[1]] <- 
-  replace_gear_names(models$bridge_grps[[1]],
-                     old_gear_names = c("Freezer", "Wet boats"),
-                     new_gear_names = c("Freezer Trawlers", "Shoreside"),
-                     old_gear_abbrevs = "WB COMM",
-                     new_gear_abbrevs = "SS COMM")
-
-models$bridge_grps[[2]] <- 
-  replace_gear_names(models$bridge_grps[[2]],
-                     old_gear_names = c("Freezer", "Wet boats"),
-                     new_gear_names = c("Freezer Trawlers", "Shoreside"),
-                     old_gear_abbrevs = "WB COMM",
-                     new_gear_abbrevs = "SS COMM")
-
 gear_names <- models$base_model[[1]]$dat$gear_names
 if(fr()){
   # Translate all gear names to French
