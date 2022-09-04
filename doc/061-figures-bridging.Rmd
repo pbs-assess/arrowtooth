@@ -1,0 +1,83 @@
+## Bridge model figures
+
+(ref:fig-bridge-biomass-en) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel). Points on the left represent $R_0$ values.
+
+(ref:fig-bridge-biomass-fr) French caption here
+
+```{r bridge-biomass, fig.cap = ifelse(fr(), "(ref:fig-bridge-biomass-fr)", "(ref:fig-bridge-biomass-en)"), out.width = "100%"}
+base_ind <- 10
+mdl_grp <- 1
+cowplot::plot_grid(
+  plot_biomass_mcmc(models$bridge_grps[[mdl_grp]],
+                    legend_title = "Bridge models",
+                    angle_x_labels = TRUE),
+  plot_biomass_mcmc(models$bridge_grps[[mdl_grp]],
+                    rel = TRUE,
+                    legend_title = paste0("Bridge models group ", mdl_grp),
+                    angle_x_labels = TRUE) +
+    coord_cartesian(ylim = c(0, 1)), nrow = 2)
+
+```
+
+(ref:fig-bridge-recr-en) Maximum Posterior Density (MPD) estimates of recruitment. Points on the left represent $R_0$ estimates.
+
+(ref:fig-bridge-recr-fr) French caption here
+
+```{r bridge-recruitment, fig.cap = ifelse(fr(), "(ref:fig-bridge-recr-fr)", "(ref:fig-bridge-recr-en)"), out.width = "100%" , fig.pos="H"}
+plot_recr_mcmc(models$bridge_grps[[mdl_grp]],
+               legend_title = paste0("Bridge models group ", mdl_grp),
+               angle_x_labels = TRUE)
+```
+
+(ref:fig-bridge-index-fits-en) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only.
+
+(ref:fig-bridge-index-fits-fr) French caption here
+
+```{r bridge-index-fits, fig.cap = ifelse(fr(), "(ref:fig-bridge-index-fits-fr)", "(ref:fig-bridge-index-fits-en)"), out.width = "100%" , fig.pos = "H"}
+plot_index_mcmc(models$bridge_grps[[mdl_grp]],
+                surv_index = survey_index,
+                legend_title = "Bridge models",
+                leg_loc = "facet")
+```
+
+```{r bridging-para-11-en, eval = !fr(), results = 'asis'}
+cat("## Index residuals")
+```
+```{r bridging-para-11-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-11-en>>
+```
+
+(ref:fig-bridge-index-resid-qcs) Maximum Posterior Density (MPD) residuals for the QCS survey index.
+
+```{r bridge-index-resids-qcs, fig.cap = "(ref:fig-bridge-index-resid-qcs)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN QCS")
+```
+(ref:fig-bridge-index-resid-hs) Maximum Posterior Density (MPD) residuals for the HS survey index.
+
+```{r bridge-index-resids-hs, fig.cap = "(ref:fig-bridge-index-resid-hs)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN HS")
+```
+
+(ref:fig-bridge-index-resid-msa) Maximum Posterior Density (MPD) residuals for the MSA survey index.
+
+```{r bridge-index-resids-msa, fig.cap = "(ref:fig-bridge-index-resid-msa)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "OTHER HS MSA")
+```
+(ref:fig-bridge-index-resid-wcvi) Maximum Posterior Density (MPD) residuals for the WCVI survey index.
+
+```{r bridge-index-resids-wcvi, fig.cap = "(ref:fig-bridge-index-resid-wcvi)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN WCVI")
+```
+
+(ref:fig-bridge-index-resid-wchg) Maximum Posterior Density (MPD) residuals for the WCHG survey index.
+
+```{r bridge-index-resids-wchg, fig.cap = "(ref:fig-bridge-index-resid-wchg)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN WCHG")
+```
+(ref:fig-bridge-index-resid-dcpue) Maximum Posterior Density (MPD) residuals for the DCPUE index.
+
+```{r bridge-index-resids-dcpue, fig.cap = "(ref:fig-bridge-index-resid-dcpue)", fig.pos = "H"}
+plot_index_resids_mpd(models$bridge_models[[1]], gear = "DCPUE", angle_x_labels = TRUE)
+```
+
+\clearpage

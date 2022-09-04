@@ -1,0 +1,192 @@
+## Sensitivity model figures
+
+<!-- Vartheta and sigma ------------------------------------------------------>
+
+(ref:fig-sens-variance-en) Spawning biomass for sensitivities pertaining to changes in the $\vartheta^2$ and $\rho$ parameters.
+
+(ref:fig-sens-variance-fr) French here
+
+```{r fig-sens-variance, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-fr)", "(ref:fig-sens-variance-en)")}
+plot_biomass_mcmc(models$sens_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the $\vartheta^2$ and $\rho$ parameters.
+
+(ref:fig-sens-variance-rel-fr) French here
+
+```{r fig-sens-variance-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-rel-fr)", "(ref:fig-sens-variance-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[1]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  ylim = c(0, 2))
+```
+
+(ref:fig-sens-variance-priors-en) Priors and posteriors for the sensitivity where the total variance parameter, $\vartheta^2$ is estimated. The prior for $\vartheta^2$ does not contribute any information to its estimate, while other posteriors remain almost the same as in the base model (Figure \@ref(fig:fig-base-priors-posts)).
+
+(ref:fig-sens-variance-priors-fr) French here
+
+```{r fig-sens-variance-priors, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-priors-fr)", "(ref:fig-sens-variance-priors-en)")}
+plot_priors_posts_mcmc(models$sens_grps[[1]][[3]], c("sel",
+                                                     "bo",
+                                                     "tau",
+                                                     "sigma"),
+                       text_title_size = NULL)
+```
+
+<!-- Tau --------------------------------------------------------------------->
+
+(ref:fig-sens-tau-en) Spawning biomass for sensitivities pertaining to changes in the $\tau$ parameter.
+
+(ref:fig-sens-tau-fr) French here
+
+```{r fig-sens-tau, fig.cap = ifelse(fr(), "(ref:fig-sens-tau-fr)", "(ref:fig-sens-tau-en)")}
+plot_biomass_mcmc(models$sens_grps[[2]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-tau-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the $\tau$ parameter.
+
+(ref:fig-sens-tau-rel-fr) French here
+
+```{r fig-sens-tau-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-tau-rel-fr)", "(ref:fig-sens-tau-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[2]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+<!-- Steepness --------------------------------------------------------------->
+
+(ref:fig-sens-steepness-en) Spawning biomass for sensitivities pertaining to changes in the Steepness ($h$) parameter.
+
+(ref:fig-sens-steepness-fr) French here
+
+```{r fig-sens-steepness, fig.cap = ifelse(fr(), "(ref:fig-sens-steepness-fr)", "(ref:fig-sens-steepness-en)")}
+plot_biomass_mcmc(models$sens_grps[[3]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-steepness-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the Steepness ($h$) parameter.
+
+(ref:fig-sens-steepness-rel-fr) French here
+
+```{r fig-sens-steepness-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-steepness-rel-fr)", "(ref:fig-sens-steepness-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[3]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+<!-- Female M ---------------------------------------------------------------->
+
+(ref:fig-sens-female-m-en) Spawning biomass for sensitivities pertaining to changes in the Female natural mortality ($M_{Female}$) parameter. In the base model, this parameter is fixed. In both sensitivities, it is estimated in addition to the changes in prior. The Male natural mortality parameter remains fixed.
+
+(ref:fig-sens-female-m-fr) French here
+
+```{r fig-sens-female-m, fig.cap = ifelse(fr(), "(ref:fig-sens-female-m-fr)", "(ref:fig-sens-female-m-en)")}
+plot_biomass_mcmc(models$sens_grps[[4]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-female-m-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the Female natural mortality ($M_{Female}$) parameter.
+
+(ref:fig-sens-female-m-rel-fr) French here
+
+```{r fig-sens-female-m-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-female-m-rel-fr)", "(ref:fig-sens-female-m-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[4]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+<!-- Male M ------------------------------------------------------------------>
+
+(ref:fig-sens-male-m-en) Spawning biomass for sensitivities pertaining to changes in the Male natural mortality ($M_{Male}$) parameter. In the base model, this parameter is fixed. In both sensitivities, it is estimated in addition to the changes in prior. The Female natural mortality parameter remains fixed.
+
+(ref:fig-sens-male-m-fr) French here
+
+```{r fig-sens-male-m, fig.cap = ifelse(fr(), "(ref:fig-sens-male-m-fr)", "(ref:fig-sens-male-m-en)")}
+plot_biomass_mcmc(models$sens_grps[[5]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-male-m-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the Male natural mortality ($M_{Female}$) parameter.
+
+(ref:fig-sens-male-m-rel-fr) French here
+
+```{r fig-sens-male-m-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-male-m-rel-fr)", "(ref:fig-sens-male-m-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[5]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+<!-- Catchability ------------------------------------------------------------>
+
+(ref:fig-sens-q-en) Spawning biomass for the sensitivities pertaining to changes in the Catchability ($q_k$) parameters. For these sensitivities all gears ($k$) are modified in the same way.
+
+(ref:fig-sens-q-fr) French here
+
+```{r fig-sens-q-m, fig.cap = ifelse(fr(), "(ref:fig-sens-q-fr)", "(ref:fig-sens-q-en)")}
+plot_biomass_mcmc(models$sens_grps[[6]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-q-rel-en) Relative spawning biomass for the sensitivities pertaining to changes in the Catchability ($q_k$) parameters.
+
+(ref:fig-sens-q-rel-fr) French here
+
+```{r fig-sens-q-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-q-rel-fr)", "(ref:fig-sens-q-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[6]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+<!-- Selectivity ------------------------------------------------------------->
+
+(ref:fig-sens-selex-en) Spawning biomass for the sensitivity in which the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters are set equal to the maturity for the two commercial trawl gears ($k$).
+
+(ref:fig-sens-selex-fr) French here
+
+```{r fig-sens-selex-m, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-fr)", "(ref:fig-sens-selex-en)")}
+plot_biomass_mcmc(models$sens_grps[[7]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities pertaining to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters.
+
+(ref:fig-sens-selex-rel-fr) French here
+
+```{r fig-sens-selex-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-rel-fr)", "(ref:fig-sens-selex-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[7]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE)
+```
+
+
+\clearpage
