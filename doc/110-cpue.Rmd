@@ -11,7 +11,7 @@ Before fitting a standardization model, we had to filter and manipulate the
 available catch and effort data to generate a dataset appropriate for model
 fitting.
 The unique aspect in this analysis, compared to similar CPUE analysis in other BC recent stock assessments, is that we started by filtering all bottom trawl commercial fishing event data to only include those events for which `r sp` were caught and all `r sp` were discarded.
-This approach was suggested by industry representatives at a Technical Working Group meeting as an approach to avoid tows targetting `r sp` and minimize issues related to changes in `r sp` targeting behavior over time.
+This approach was suggested by industry representatives at a Technical Working Group meeting as an approach to avoid tows targeting `r sp` and minimize issues related to changes in `r sp` targeting behavior over time.
 
 Commercial groundfish bottom trawl data from 1996 to present have been recorded
 to the fishing-event level in the presence of on-board observers or video

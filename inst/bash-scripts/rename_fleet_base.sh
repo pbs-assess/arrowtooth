@@ -5,7 +5,7 @@
 # sed -i -e 's/\r$//' rename_fleet_base.sh
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
-model_path=$project_path/arrowtooth-nongit/models-input-files-test/base
+model_path=$project_path/arrowtooth-nongit/models/base
 
 echo
 echo "Renaming fleet for the base model"; \

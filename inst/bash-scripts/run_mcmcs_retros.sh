@@ -16,7 +16,7 @@
          10-retrospective-10-years)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
-models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
+models_path=$project_path/arrowtooth-nongit/models
 base_path=$models_path/base
 model_group=03-retrospective-models
 chain_length=10000000

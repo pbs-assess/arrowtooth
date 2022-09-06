@@ -182,7 +182,9 @@ bridge_models_dirs <-
          "06-bridge-switch-to-2-fleet-model",
          "07-bridge-add-discard-cpue",
          "08-bridge-switch-to-split-sex",
-         "09-bridge-switch-fishing-year-to-feb-21-feb-20"))
+         "09-bridge-switch-fishing-year-to-feb-21-feb-20",
+         "10-remove-wchg",
+         "11-fix-natural-mortalities"))
 
 bridge_models_text <- 
   list(c("2015 Base model (one fleet, single sex)",
@@ -193,7 +195,9 @@ bridge_models_text <-
          "Change to two-fleet model (two fleet, single sex)",
          "Add Discard CPUE index (two fleets, single sex)",
          "Convert model to split sex (two fleets, split sex)",
-         "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)"))
+         "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
+         "Remove WCHG age comps and index",
+         "Fix natural mortalities"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})

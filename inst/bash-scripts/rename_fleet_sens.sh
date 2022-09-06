@@ -19,7 +19,7 @@
          13-geostat-surveys)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
-models_path=$project_path/arrowtooth-nongit/models-input-files-test
+models_path=$project_path/arrowtooth-nongit/models
 model_group=02-sens-models
 
 for model in ${models[@]}; do

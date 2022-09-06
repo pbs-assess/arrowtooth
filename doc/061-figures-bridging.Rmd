@@ -50,7 +50,7 @@ cat("## Index residuals")
 (ref:fig-bridge-index-resid-qcs) Maximum Posterior Density (MPD) residuals for the QCS survey index.
 
 ```{r bridge-index-resids-qcs, fig.cap = "(ref:fig-bridge-index-resid-qcs)", fig.pos = "H"}
-plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN QCS")
+plot_index_mcmc(models$bridge_grps[[1]], type = "resids", gear = 1, surv_index = survey_index)
 ```
 (ref:fig-bridge-index-resid-hs) Maximum Posterior Density (MPD) residuals for the HS survey index.
 

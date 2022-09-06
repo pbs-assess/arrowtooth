@@ -19,7 +19,7 @@
          13-geostat-surveys)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
-models_path=$project_path/arrowtooth-nongit/models-mcmc-runs
+models_path=$project_path/arrowtooth-nongit/models
 model_group=02-sens-models
 chain_length=10000000
 save_freq=$(expr $chain_length / 2000)

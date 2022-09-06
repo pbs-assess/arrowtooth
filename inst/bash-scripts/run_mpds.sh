@@ -16,7 +16,7 @@
          12-selex-equal-maturity \
          13-stitched-index)
 
-models_path=/mnt/d/github/pbs-assess/arrowtooth-project/arrowtooth-nongit/test-models-input-files-new
+models_path=/mnt/d/github/pbs-assess/arrowtooth-project/arrowtooth-nongit/models
 model_group=02-sens-models
 
 for model in ${models[@]}; do
