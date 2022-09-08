@@ -102,7 +102,7 @@ plot_biomass_mcmc(base_model,
                   show_bo_lines = TRUE,
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
-                  ylim = c(0, 2))
+                  ylim = c(0, 2.5))
 ```
 
 <!-- Vulnerable spawning biomass --------------------------------------------->

@@ -10,12 +10,13 @@ mdl_grp <- 1
 cowplot::plot_grid(
   plot_biomass_mcmc(models$bridge_grps[[mdl_grp]],
                     legend_title = "Bridge models",
-                    angle_x_labels = TRUE),
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1000)),
   plot_biomass_mcmc(models$bridge_grps[[mdl_grp]],
                     rel = TRUE,
                     legend_title = paste0("Bridge models group ", mdl_grp),
-                    angle_x_labels = TRUE) +
-    coord_cartesian(ylim = c(0, 1)), nrow = 2)
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1.5)))
 
 ```
 
@@ -26,7 +27,8 @@ cowplot::plot_grid(
 ```{r bridge-recruitment, fig.cap = ifelse(fr(), "(ref:fig-bridge-recr-fr)", "(ref:fig-bridge-recr-en)"), out.width = "100%" , fig.pos="H"}
 plot_recr_mcmc(models$bridge_grps[[mdl_grp]],
                legend_title = paste0("Bridge models group ", mdl_grp),
-               angle_x_labels = TRUE)
+               angle_x_labels = TRUE,
+               leg_loc = c(0, 1)) # legend on top left 
 ```
 
 (ref:fig-bridge-index-fits-en) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only.
@@ -47,37 +49,41 @@ cat("## Index residuals")
 <<bridging-para-11-en>>
 ```
 
-(ref:fig-bridge-index-resid-qcs) Maximum Posterior Density (MPD) residuals for the QCS survey index.
+(ref:fig-bridge-index-resids) Log standardized residuals for the indices used in the first four bridge models.
 
 ```{r bridge-index-resids-qcs, fig.cap = "(ref:fig-bridge-index-resid-qcs)", fig.pos = "H"}
-plot_index_mcmc(models$bridge_grps[[1]], type = "resids", gear = 1, surv_index = survey_index)
-```
-(ref:fig-bridge-index-resid-hs) Maximum Posterior Density (MPD) residuals for the HS survey index.
-
-```{r bridge-index-resids-hs, fig.cap = "(ref:fig-bridge-index-resid-hs)", fig.pos = "H"}
-plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN HS")
-```
-
-(ref:fig-bridge-index-resid-msa) Maximum Posterior Density (MPD) residuals for the MSA survey index.
-
-```{r bridge-index-resids-msa, fig.cap = "(ref:fig-bridge-index-resid-msa)", fig.pos = "H"}
-plot_index_resids_mpd(models$bridge_models[[1]], gear = "OTHER HS MSA")
-```
-(ref:fig-bridge-index-resid-wcvi) Maximum Posterior Density (MPD) residuals for the WCVI survey index.
-
-```{r bridge-index-resids-wcvi, fig.cap = "(ref:fig-bridge-index-resid-wcvi)", fig.pos = "H"}
-plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN WCVI")
-```
-
-(ref:fig-bridge-index-resid-wchg) Maximum Posterior Density (MPD) residuals for the WCHG survey index.
-
-```{r bridge-index-resids-wchg, fig.cap = "(ref:fig-bridge-index-resid-wchg)", fig.pos = "H"}
-plot_index_resids_mpd(models$bridge_models[[1]], gear = "SYN WCHG")
-```
-(ref:fig-bridge-index-resid-dcpue) Maximum Posterior Density (MPD) residuals for the DCPUE index.
-
-```{r bridge-index-resids-dcpue, fig.cap = "(ref:fig-bridge-index-resid-dcpue)", fig.pos = "H"}
-plot_index_resids_mpd(models$bridge_models[[1]], gear = "DCPUE", angle_x_labels = TRUE)
+legend <- cowplot::get_legend(plot_index_mcmc(models$bridge_grps[[1]],
+                                              type = "resids",
+                                              gear = 1,
+                                              surv_index = survey_index))
+p <- cowplot::plot_grid(
+  plot_index_mcmc(models$bridge_grps[[1]],
+                  type = "resids",
+                  gear = 1,
+                  surv_index = survey_index,
+                  leg_loc = NULL),
+  plot_index_mcmc(models$bridge_grps[[1]],
+                  type = "resids",
+                  gear = 2,
+                  surv_index = survey_index,
+                  leg_loc = NULL),
+  plot_index_mcmc(models$bridge_grps[[1]],
+                  type = "resids",
+                  gear = 3,
+                  surv_index = survey_index,
+                  leg_loc = NULL),
+  plot_index_mcmc(models$bridge_grps[[1]],
+                  type = "resids",
+                  gear = 4,
+                  surv_index = survey_index,
+                  leg_loc = NULL),
+  plot_index_mcmc(models$bridge_grps[[1]],
+                  type = "resids",
+                  gear = 5,
+                  surv_index = survey_index,
+                  leg_loc = NULL))
+  # Place legend in empty grid cell
+  p + cowplot::draw_grob(legend, 2/3, -1/6, 1/3, 0.5)
 ```
 
 \clearpage

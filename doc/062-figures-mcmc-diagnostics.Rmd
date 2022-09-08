@@ -63,7 +63,7 @@ plot_autocorr_mcmc(base_model,
 ```{r fig-base-pairs, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-fr)", "(ref:fig-base-pairs-en)")}
 plot_pairs_mcmc(base_model,
                 plot_sel = FALSE,
-                param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
+                param_rm = c("m1", "m2", "rho", "ssb",
                              "msy1", "msy2",
                              "fmsy1", "fmsy2",
                              "umsy1", "umsy2",
