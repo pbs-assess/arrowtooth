@@ -1,53 +1,98 @@
 ## Bridge model figures
 
-(ref:fig-bridge-biomass-en) Maximum Posterior Density (MPD) estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel). Points on the left represent $R_0$ values.
+(ref:fig-bridge-group1-biomass-en) MCMC estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the first four bridging models. Points and bars on the left in the top panel represent $B_0$ values and 95% credible interval.
 
-(ref:fig-bridge-biomass-fr) French caption here
+(ref:fig-bridge-group1-biomass-fr) French caption here
 
-```{r bridge-biomass, fig.cap = ifelse(fr(), "(ref:fig-bridge-biomass-fr)", "(ref:fig-bridge-biomass-en)"), out.width = "100%"}
-base_ind <- 10
-mdl_grp <- 1
+```{r bridge-biomass-group1, fig.cap = ifelse(fr(), "(ref:fig-bridge-group1-biomass-fr)", "(ref:fig-bridge-group1-biomass-en)"), out.width = "100%"}
 cowplot::plot_grid(
-  plot_biomass_mcmc(models$bridge_grps[[mdl_grp]],
-                    legend_title = "Bridge models",
+  plot_biomass_mcmc(models$bridge_grps[[1]],
+                    legend_title = "Bridge models group 1",
                     angle_x_labels = TRUE,
-                    ylim = c(0, 1000)),
-  plot_biomass_mcmc(models$bridge_grps[[mdl_grp]],
+                    ylim = c(0, 1000)) +
+    theme(legend.key.size = unit(0.1, 'cm')),
+          # legend.key.height = unit(1, 'cm'),
+          # legend.key.width = unit(1, 'cm'),
+          # legend.title = element_text(size=14),
+          # legend.text = element_text(size=10)),
+  plot_biomass_mcmc(models$bridge_grps[[1]],
                     rel = TRUE,
-                    legend_title = paste0("Bridge models group ", mdl_grp),
+                    leg_loc = NULL,
                     angle_x_labels = TRUE,
-                    ylim = c(0, 1.5)))
+                    ylim = c(0, 1.5)),
+  ncol = 1)
 
 ```
 
-(ref:fig-bridge-recr-en) Maximum Posterior Density (MPD) estimates of recruitment. Points on the left represent $R_0$ estimates.
+(ref:fig-bridge-group2-biomass-en) MCMC estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the second group of bridging models. Points and bars on the left in the top panel represent $B_0$ values and 95% credible interval.
 
-(ref:fig-bridge-recr-fr) French caption here
+(ref:fig-bridge-group2-biomass-fr) French caption here
 
-```{r bridge-recruitment, fig.cap = ifelse(fr(), "(ref:fig-bridge-recr-fr)", "(ref:fig-bridge-recr-en)"), out.width = "100%" , fig.pos="H"}
-plot_recr_mcmc(models$bridge_grps[[mdl_grp]],
-               legend_title = paste0("Bridge models group ", mdl_grp),
-               angle_x_labels = TRUE,
-               leg_loc = c(0, 1)) # legend on top left 
+```{r bridge-biomass-group2, fig.cap = ifelse(fr(), "(ref:fig-bridge-group2-biomass-fr)", "(ref:fig-bridge-group2-biomass-en)"), out.width = "100%"}
+cowplot::plot_grid(
+  plot_biomass_mcmc(models$bridge_grps[[2]],
+                    legend_title = "Bridge models group 2",
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 300)) +
+    theme(legend.key.size = unit(0.1, 'cm')),
+  plot_biomass_mcmc(models$bridge_grps[[2]],
+                    rel = TRUE,
+                    leg_loc = NULL,
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1.5)),
+  ncol = 1)
+
 ```
 
-(ref:fig-bridge-index-fits-en) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only.
+(ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the third group of bridging models. Points and bars on the left in the top panel represent $B_0$ values and 95% credible interval.
 
-(ref:fig-bridge-index-fits-fr) French caption here
+(ref:fig-bridge-group3-biomass-fr) French caption here
 
-```{r bridge-index-fits, fig.cap = ifelse(fr(), "(ref:fig-bridge-index-fits-fr)", "(ref:fig-bridge-index-fits-en)"), out.width = "100%" , fig.pos = "H"}
-plot_index_mcmc(models$bridge_grps[[mdl_grp]],
-                surv_index = survey_index,
-                legend_title = "Bridge models",
-                leg_loc = "facet")
+```{r bridge-biomass-group3, fig.cap = ifelse(fr(), "(ref:fig-bridge-group3-biomass-fr)", "(ref:fig-bridge-group3-biomass-en)"), out.width = "100%"}
+cowplot::plot_grid(
+  plot_biomass_mcmc(models$bridge_grps[[3]],
+                    legend_title = "Bridge models group 3",
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 300)) +
+    theme(legend.key.size = unit(0.1, 'cm')),
+  plot_biomass_mcmc(models$bridge_grps[[3]],
+                    rel = TRUE,
+                    leg_loc = NULL,
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1.5)),
+  ncol = 1)
+
 ```
 
-```{r bridging-para-11-en, eval = !fr(), results = 'asis'}
-cat("## Index residuals")
-```
-```{r bridging-para-11-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<bridging-para-11-en>>
-```
+
+
+
+
+
+
+
+
+
+<!-- (ref:fig-bridge-index-fits-en) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only. -->
+
+<!-- (ref:fig-bridge-index-fits-fr) French caption here -->
+
+<!-- ```{r bridge-index-fits, fig.cap = ifelse(fr(), "(ref:fig-bridge-index-fits-fr)", "(ref:fig-bridge-index-fits-en)"), out.width = "100%" , fig.pos = "H"} -->
+<!-- plot_index_mcmc(models$bridge_grps[[mdl_grp]], -->
+<!--                 surv_index = survey_index, -->
+<!--                 legend_title = "Bridge models", -->
+<!--                 leg_loc = "facet") -->
+<!-- ``` -->
+
+
+
+
+
+
+
+
+
+
 
 (ref:fig-bridge-index-resids) Log standardized residuals for the indices used in the first four bridge models.
 

@@ -181,10 +181,11 @@ bridge_models_dirs <-
        c("05-bridge-switch-to-dm-likelihood",
          "06-bridge-switch-to-2-fleet-model",
          "07-bridge-add-discard-cpue",
-         "08-bridge-switch-to-split-sex",
-         "09-bridge-switch-fishing-year-to-feb-21-feb-20",
+         "08-bridge-switch-to-split-sex"),
+       c("09-bridge-switch-fishing-year-to-feb-21-feb-20",
          "10-remove-wchg",
-         "11-fix-natural-mortalities"))
+         "11-fix-natural-mortalities",
+         "12-qcs-tv-selex"))
 
 bridge_models_text <- 
   list(c("2015 Base model (one fleet, single sex)",
@@ -194,10 +195,11 @@ bridge_models_text <-
        c("Switch to DM likelihood (one fleet, single sex)",
          "Change to two-fleet model (two fleet, single sex)",
          "Add Discard CPUE index (two fleets, single sex)",
-         "Convert model to split sex (two fleets, split sex)",
-         "Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
+         "Convert model to split sex (two fleets, split sex)"),
+       c("Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
          "Remove WCHG age comps and index",
-         "Fix natural mortalities"))
+         "Fix natural mortalities",
+         "QCS survey 2 block TV selex"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
@@ -207,27 +209,23 @@ bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 # The base model will be prepended to each group later in set_dirs() so that
 # it is first on the plots for each group.
 sens_models_dirs <-
-  list(c("01-sigma-0.1",
-         "02-estimate-total-variance"),
-       c("03-tau-1.0",
-         "04-tau-0.6"),
-       c("05-low-steepness"),
-       c("06-m-female-tight-prior",
-         "07-m-female-loose-prior"),
-       c("08-m-male-tight-prior",
-         "09-m-male-loose-prior"),
-       c("10-qk-mean-1.0",
-         "11-qk-loose-prior"),
-       c("12-selex-equal-maturity"),
-       c("13-geostat-surveys"))
+  list(c("01-sigma-0.135",
+         "02-tau-1.0",
+         "03-tau-0.6"),
+       c("04-low-steepness"),
+       c("05-m-female-tight-prior",
+         "06-m-female-loose-prior"),
+       c("07-m-male-tight-prior",
+         "08-m-male-loose-prior"),
+       c("09-qk-mean-1.0",
+         "10-qk-loose-prior"),
+       c("11-selex-equal-maturity"),
+       c("12-geostat-surveys"))
 sens_models_text <-
   list(c(ifelse(fr(),
-                "Diminuer $\\sigma$ à 0,1",
-                "Decrease $\\sigma$ to 0.1"),
+                "Diminuer $\\sigma$ à 0,135",
+                "Decrease $\\sigma$ to 0.135"),
          ifelse(fr(),
-                "Estimation de la variance totale",
-                "Estimate total variance")),
-       c(ifelse(fr(),
                 "Augmenter $\\tau$ à 1,0",
                 "Increase $\\tau$ to 1.0"),
          ifelse(fr(),
@@ -272,8 +270,7 @@ sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
 
 sens_changes_text <-
   list(c("$\\vartheta^2$ = 1.538; $\\rho$ = 0.059",
-         "$\\vartheta^2$ estimated; $\\rho$ = 0.059"),
-       c("$\\vartheta^2$ = 0.962; $\\rho$ = 0.038",
+         "$\\vartheta^2$ = 0.962; $\\rho$ = 0.038",
          "$\\vartheta^2$ = 2.500; $\\rho$ = 0.100"),
        c("$h$ = Beta($\\alpha$ = 11.72, $\\beta$ = 4.56)"),
        c(ifelse(fr(),
@@ -444,6 +441,7 @@ mcmc_chain_length <- 10000000
 mcmc_num_samples <- 2000
 mcmc_sample_freq <- mcmc_chain_length / mcmc_num_samples
 mcmc_burn_in <- 1000
+mcmc_actual_samples <- mcmc_num_samples - mcmc_burn_in
 
 qcs <- "Queen Charlotte Sound Synoptic Survey"
 hsmas <- "Hecate Strait Multispecies Assemblage Survey"
@@ -452,6 +450,17 @@ wcvis <- "West Coast Vancouver Island Synoptic Survey"
 wchgs <- "West Coast Haida Gwaii Synoptic Survey"
 dcpue <- "Discard CPUE Index"
 
+la <- "2015 assessment"
+tv_block1 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
+                                  gear == "QCS Synoptic", block == 1)$start_year),
+                    "--", 
+                    unique(filter(base_model$mcmccalcs$selest_quants,
+                                  gear == "QCS Synoptic", block == 1)$end_year))
+tv_block2 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
+                                  gear == "QCS Synoptic", block == 2)$start_year),
+                    "--", 
+                    unique(filter(base_model$mcmccalcs$selest_quants,
+                                  gear == "QCS Synoptic", block == 2)$end_year))
 # Text for selectivity block year ranges
 qcs_tv_yr_start <- base_model$ctl$start.yr.time.block[3, ]
 qcs_tv_yr_start[1] <- base_model$dat$start.yr
@@ -617,6 +626,12 @@ all_age_samples <- bind_rows(dat$survey_samples, comm_ft, comm_ss) %>%
 # fit_mat_ogive() returns, and is what is input into the model
 mat_fit <- export_mat_lw_age(dat$survey_samples, write_file = FALSE)
 # TODO: what random effects wanted? If year, than params are saved as mat_fit$mat_perc$mean$f.mean.p0.5 and mat_fit$mat_perc$mean$m.mean.p0.5 instead of mat_fit$mat_perc$f.p0.5 and mat_fit$mat_perc$m.p0.5. I assume fig:fig-mat should also be made to match 
+
+# Natural mortality values in the control file
+
+param_ctl_table <- models$bridge_grps[[3]][[2]]$ctl$params |> as_tibble(rownames = "param")
+male_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_male") |> pull(ival))
+female_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_female") |> pull(ival))
 ```
 
 ```{r proportion-female}

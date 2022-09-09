@@ -142,7 +142,7 @@ Age composition data represented the whole coast, for the following years:
 1. `r wcvis`
 1. `r wchgs`
 
-Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed weighting scheme that adjusted for unequal sampling effort across spatial or temporal strata. For commercial data, these strata comprised quarterly periods within a year. For survey samples, the strata were defined by the survey design. A description of the methods used to calculate weighted age frequencies is given in Appendix XX. This is the same method that was used in the 2015 `r sp` assessment [@grandin2017]. The methods are coded into the **gfplot** package (REF). The 2015 assessment used custom code as the **gfplot** package was not yet available.
+Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed weighting scheme that adjusted for unequal sampling effort across spatial or temporal strata. For commercial data, these strata comprised quarterly periods within a year. For survey samples, the strata were defined by the survey design. A description of the methods used to calculate weighted age frequencies is given in Appendix XX. This is the same method that was used in the `r la` [@grandin2017]. The methods are coded into the **gfplot** package (REF). The `r la` used custom code as the **gfplot** package was not yet available.
 
 Commercial ageing requests included randomly chosen samples from many vessels across both commercial fleets.")
 ```
