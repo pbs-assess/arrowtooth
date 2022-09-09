@@ -191,15 +191,15 @@ bridge_models_text <-
   list(c("2015 Base model (one fleet, single sex)",
          "Update data to 2014 (one fleet, single sex)",
          "Update data to 2021 (one fleet, single sex)",
-         "Add WCHG survey index and age comps"),
+         "Add WCHG survey (one fleet, single sex)"),
        c("Switch to DM likelihood (one fleet, single sex)",
          "Change to two-fleet model (two fleet, single sex)",
          "Add Discard CPUE index (two fleets, single sex)",
          "Convert model to split sex (two fleets, split sex)"),
-       c("Change fishing year to Feb 21 - Feb 20 (two fleets, split sex)",
-         "Remove WCHG age comps and index",
-         "Fix natural mortalities",
-         "QCS survey 2 block TV selex"))
+       c("Change year start to Feb 21 (two fleets, split sex)",
+         "Remove WCHG survey (two fleets, split sex)",
+         "Fix natural mortalities (two fleets, split sex)",
+         "QCS survey TV selectivity (two fleets, split sex)"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})

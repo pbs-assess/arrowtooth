@@ -1,11 +1,11 @@
 ```{r bridging-para-01-en, eval = !fr(), results = 'asis'}
 cat("# Model bridging
     
-A set of bridging models was run to determine the effects of incremental model modifications while moving from the single-sex, single-fleet 2015 model to the split-sex, two-fleet model used in this assessment.
+A set of bridging models was run to determine the effects of incremental model modifications while moving from the single-sex, single-fleet `r la` model to the split-sex, two-fleet model used in this assessment.
 
-The base model from the `r la` (@grandin2017) was run with the newest version of the iSCAM code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age comp fits were determined to be identical. The 2015 model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
+The base model from the `r la` [@grandin2017] was run with the newest version of the iSCAM code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age comp fits were determined to be identical. The 2015 model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
 
-The Technical Working Group (TWG) agreed that the model should be split-sex, based on the sexual dimorphism seen and there being 8 more years of data since the `r la`, which allowed for an adequate number of age proportion specimens for each sex.
+The Technical Working Group (TWG) agreed that the model should be split-sex, based on the sexual dimorphism obseved in the age and legnth data for this species and there being 8 more years of data since the `r la`, which allowed for an larger number of age proportion specimens for each sex.
 
 All bridge models were run using MCMC with a chain length of `r f(mcmc_chain_length)`, a sample frequency of `r f(mcmc_sample_freq)`, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples actually used.
 ")
@@ -39,9 +39,9 @@ cat("Each model in this list is based on the previous one with only one change m
 ```{r bridging-para-03-en, eval = !fr(), results = 'asis'}
 cat("Figure \@ref(fig:bridge-biomass-group1) shows the absolute and relative spawning biomass for the first four bridging models in the list above (list items 1-4). Changing the data extraction method for all data up to 2014 does not have much effect, with only a small difference in 2015 absolute biomass and a very small difference in 2015 relative biomass. Small changes in data are mainly due to changes in survey indices, which are caused by survey blocks being removed from the entire survey series. These blocks were found to be unfishable or inappropriate for the index in the surveys since 2014 and were removed from the entire series, changing the historical indices slightly from those included in the `r la`.
 
-Adding the data from 2015--2021 causes a large effect in the model. The biomass begins dropping more quickly as far back as 2002, with a steep drop from 2011--2020. From 2021--2022 the model shows in upward trend.
+Adding the data from 2015--`r base_model$dat$end.yr` causes a large effect in the model (Figure \@ref(fig:bridge-biomass-group1)). The biomass begins dropping more quickly as far back as 2002, with a relatively steep drop from 2010--2020. From 2021--2022 the model shows the beginnings of an upward trend.
 
-Adding the `r wchgs` age compositions and index into the model has a scaling effect in the earlier part of the trajectory, but both absolute and relative biomasses are near identical for 2022.
+Adding the `r wchgs` age compositions and index into the model has a scaling effect in the earlier part of the trajectory, but both absolute and relative biomasses are near identical for 2022 (Figure \@ref(fig:bridge-biomass-group1)).
 
 ")
 ```
@@ -53,11 +53,11 @@ Adding the `r wchgs` age compositions and index into the model has a scaling eff
 ```{r bridging-para-04-en, eval = !fr(), results = 'asis'}
 cat("Figure \@ref(fig:bridge-biomass-group2) shows the absolute and relative spawning biomass for the second group of four bridging models (list items 5-8). Changing the age weighting to a parameterized form, the saturated Dirichlet Multinomial (DM) [@thorson2016], causes a drop in absolute biomass. The first model in Figure \@ref(fig:bridge-biomass-group2), when compared to the last model in Figure \@ref(fig:bridge-biomass-group1) shows this. The inital biomass estimate also drops, however, so the relative biomass remains at a similar level with the change to DM.
     
-The commercial trawl was split into two fleets, the `r base_model$dat$fleet_gear_names[1]` and `r base_model$dat$fleet_gear_names[2]` fleets. This changed the model internals significantly but had negligible effect on the biomass and relative biomass trajectories.
+The commercial trawl was split into two fleets, the `r base_model$dat$fleet_gear_names[1]` and `r base_model$dat$fleet_gear_names[2]` fleets. This changed the model internals significantly but had negligible effect on the biomass and relative biomass trajectories (Figure \@ref(fig:bridge-biomass-group2)).
 
 Adding the Discard CPUE (DCPUE) index to the model had no effect to the output biomass. The details of the DCPUE are given in Appendix \@ref(app:dcpue).
 
-The next step in the bridging was to convert the model into split-sex. All previous bridge models were female-only and this step involved significant improvements to the iSCAM model code. This change caused a drop in end-year biomass and relative biomass, and some overall scaling up of the historical relative biomass trajectory.
+The next step in the bridging was to convert the model into split-sex. All previous bridge models were female-only and this step involved significant improvements to the iSCAM model code. This change caused a drop in end-year biomass and relative biomass, and some overall scaling up of the historical relative biomass trajectory (Figure \@ref(fig:bridge-biomass-group2)).
 
 ")
 ```
@@ -69,11 +69,11 @@ The next step in the bridging was to convert the model into split-sex. All previ
 ```{r bridging-para-05-en, eval = !fr(), results = 'asis'}
 cat("The biomass plots for the final group of four bridging model (list items 9-12) is in Figure \@ref(fig:bridge-biomass-group3). The fishing year was changed from what it was in the `r la`, January 1--December 31 to February 21--February 20. This change was made to reflect the actual date of February 21 that the annual fishery is started in Canada. The effect of this is negligble on the median of the absolute and relative biomass, but interestingly the credible interval of the absolute biomass is lowered significantly. The credible interval on the $B_0$ estimate is still as high as the previous model, conversion to split sex, so that effect is not carried over to the relative biomass.
     
-The `r wchgs` was removed, as it was in the `r la`, as it has very little effect on the biomass (Figure \@ref(fig:bridge-biomass-group3)) and some troubling selectivity estimates.
+The `r wchgs` was removed, as it was in the `r la`, as it has very little effect on the biomass and some troubling selectivity estimates (Figure \@ref(fig:bridge-biomass-group3)).
 
-The natural mortalities coming from the model at this point were about the same, `r f(models$bridge_grps[[3]][[2]]$mcmccalcs$m_male_quants[,1][2], 2)` for males and `r f(models$bridge_grps[[3]][[2]]$mcmccalcs$m_female_quants[,1][2], 2)` for females. While the value for males made sense, the female value was much lower than what was expected. The `r la` estimated a value of 0.314 for female natural mortality and the Gulf of Alaska (GOA) assessment use a fixed value of 0.35 [@spies2019]. We decided to fix the natural mortalities at the same values as the GOA assessment, which are 0.2 for males and 0.35 for females.
+The natural mortalities coming from the model at this point were about the same, `r f(models$bridge_grps[[3]][[2]]$mcmccalcs$m_male_quants[,1][2], 2)` for males and `r f(models$bridge_grps[[3]][[2]]$mcmccalcs$m_female_quants[,1][2], 2)` for females. While the value for males made sense, the female value was much lower than what was expected (Figure \@ref(fig:bridge-biomass-group3)). The `r la` estimated a value of 0.314 for female natural mortality and the Gulf of Alaska (GOA) assessment use a fixed value of 0.35 [@spies2019]. We decided to fix the natural mortalities at the same values as the GOA assessment, which are 0.2 for males and 0.35 for females.
 
-The fit to the `r qcs` index was found to be unacceptable, so attempts were made to improve it. The only modification that yielded a better fit without producing unrealistic selectivity parameter estimates was to employ time-varying selectivity for the `r qcs`. Selectivities for two time blocks were estimated, `r tv_block1` and `r tv_block2`. Other block reanges and addition of more blocks were examined but none performed as well as the two-block configuration that was settled on.
+The fit to the `r qcs` index was found to be unacceptable with the previous model, so attempts were made to improve it. The only modification that yielded a better fit without producing unrealistic selectivity parameter estimates was to employ time-varying selectivity for the `r qcs`. Selectivities for two year blocks were estimated, `r tv_block1` and `r tv_block2`. Other year block ranges, addition of more year blocks, and addition of TV selectivity to other survey indices were examined but none performed as well as the two-block `r qcs` configuration, so that was settled on for the base model (Figure \@ref(fig:bridge-biomass-group3)).
 
 ")
 ```

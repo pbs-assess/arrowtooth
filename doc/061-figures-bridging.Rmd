@@ -1,6 +1,6 @@
 ## Bridge model figures
 
-(ref:fig-bridge-group1-biomass-en) MCMC estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the first four bridging models. Points and bars on the left in the top panel represent $B_0$ values and 95% credible interval.
+(ref:fig-bridge-group1-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the first four bridging models. Points and bars on the left in the left panel represent $B_0$ values and 95% credible interval. The first model in the legend has a shaded ribbon representing the credible interval (CI), the others have dotted lines the same color as the medians which represent the CI.
 
 (ref:fig-bridge-group1-biomass-fr) French caption here
 
@@ -11,20 +11,16 @@ cowplot::plot_grid(
                     angle_x_labels = TRUE,
                     ylim = c(0, 1000)) +
     theme(legend.key.size = unit(0.1, 'cm')),
-          # legend.key.height = unit(1, 'cm'),
-          # legend.key.width = unit(1, 'cm'),
-          # legend.title = element_text(size=14),
-          # legend.text = element_text(size=10)),
   plot_biomass_mcmc(models$bridge_grps[[1]],
                     rel = TRUE,
                     leg_loc = NULL,
                     angle_x_labels = TRUE,
                     ylim = c(0, 1.5)),
-  ncol = 1)
+  ncol = 2)
 
 ```
 
-(ref:fig-bridge-group2-biomass-en) MCMC estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the second group of bridging models. Points and bars on the left in the top panel represent $B_0$ values and 95% credible interval.
+(ref:fig-bridge-group2-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the second group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
 
 (ref:fig-bridge-group2-biomass-fr) French caption here
 
@@ -40,11 +36,11 @@ cowplot::plot_grid(
                     leg_loc = NULL,
                     angle_x_labels = TRUE,
                     ylim = c(0, 1.5)),
-  ncol = 1)
+  ncol = 2)
 
 ```
 
-(ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (top panel) and relative spawning biomass (bottom panel) for the third group of bridging models. Points and bars on the left in the top panel represent $B_0$ values and 95% credible interval.
+(ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the third group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
 
 (ref:fig-bridge-group3-biomass-fr) French caption here
 
@@ -60,75 +56,45 @@ cowplot::plot_grid(
                     leg_loc = NULL,
                     angle_x_labels = TRUE,
                     ylim = c(0, 1.5)),
-  ncol = 1)
+  ncol = 2)
 
 ```
 
+<!-- (ref:fig-bridge-index-resids) Log standardized residuals for the indices used in the first four bridge models. -->
 
-
-
-
-
-
-
-
-
-<!-- (ref:fig-bridge-index-fits-en) Maximum Posterior Density (MPD) index fits. The black points with bars represent the index data points and CVs as calculated using the bootstrapping method included in the GFBioSQL database. The lines representing the fits are just connecting the point estimates and they are not meant to represent data between the points. They are a visual aid only. -->
-
-<!-- (ref:fig-bridge-index-fits-fr) French caption here -->
-
-<!-- ```{r bridge-index-fits, fig.cap = ifelse(fr(), "(ref:fig-bridge-index-fits-fr)", "(ref:fig-bridge-index-fits-en)"), out.width = "100%" , fig.pos = "H"} -->
-<!-- plot_index_mcmc(models$bridge_grps[[mdl_grp]], -->
-<!--                 surv_index = survey_index, -->
-<!--                 legend_title = "Bridge models", -->
-<!--                 leg_loc = "facet") -->
+<!-- ```{r bridge-index-resids-qcs, fig.cap = "(ref:fig-bridge-index-resid-qcs)", fig.pos = "H"} -->
+<!-- legend <- cowplot::get_legend(plot_index_mcmc(models$bridge_grps[[1]], -->
+<!--                                               type = "resids", -->
+<!--                                               gear = 1, -->
+<!--                                               surv_index = survey_index)) -->
+<!-- p <- cowplot::plot_grid( -->
+<!--   plot_index_mcmc(models$bridge_grps[[1]], -->
+<!--                   type = "resids", -->
+<!--                   gear = 1, -->
+<!--                   surv_index = survey_index, -->
+<!--                   leg_loc = NULL), -->
+<!--   plot_index_mcmc(models$bridge_grps[[1]], -->
+<!--                   type = "resids", -->
+<!--                   gear = 2, -->
+<!--                   surv_index = survey_index, -->
+<!--                   leg_loc = NULL), -->
+<!--   plot_index_mcmc(models$bridge_grps[[1]], -->
+<!--                   type = "resids", -->
+<!--                   gear = 3, -->
+<!--                   surv_index = survey_index, -->
+<!--                   leg_loc = NULL), -->
+<!--   plot_index_mcmc(models$bridge_grps[[1]], -->
+<!--                   type = "resids", -->
+<!--                   gear = 4, -->
+<!--                   surv_index = survey_index, -->
+<!--                   leg_loc = NULL), -->
+<!--   plot_index_mcmc(models$bridge_grps[[1]], -->
+<!--                   type = "resids", -->
+<!--                   gear = 5, -->
+<!--                   surv_index = survey_index, -->
+<!--                   leg_loc = NULL)) -->
+<!--   # Place legend in empty grid cell -->
+<!--   p + cowplot::draw_grob(legend, 2/3, -1/6, 1/3, 0.5) -->
 <!-- ``` -->
-
-
-
-
-
-
-
-
-
-
-
-(ref:fig-bridge-index-resids) Log standardized residuals for the indices used in the first four bridge models.
-
-```{r bridge-index-resids-qcs, fig.cap = "(ref:fig-bridge-index-resid-qcs)", fig.pos = "H"}
-legend <- cowplot::get_legend(plot_index_mcmc(models$bridge_grps[[1]],
-                                              type = "resids",
-                                              gear = 1,
-                                              surv_index = survey_index))
-p <- cowplot::plot_grid(
-  plot_index_mcmc(models$bridge_grps[[1]],
-                  type = "resids",
-                  gear = 1,
-                  surv_index = survey_index,
-                  leg_loc = NULL),
-  plot_index_mcmc(models$bridge_grps[[1]],
-                  type = "resids",
-                  gear = 2,
-                  surv_index = survey_index,
-                  leg_loc = NULL),
-  plot_index_mcmc(models$bridge_grps[[1]],
-                  type = "resids",
-                  gear = 3,
-                  surv_index = survey_index,
-                  leg_loc = NULL),
-  plot_index_mcmc(models$bridge_grps[[1]],
-                  type = "resids",
-                  gear = 4,
-                  surv_index = survey_index,
-                  leg_loc = NULL),
-  plot_index_mcmc(models$bridge_grps[[1]],
-                  type = "resids",
-                  gear = 5,
-                  surv_index = survey_index,
-                  leg_loc = NULL))
-  # Place legend in empty grid cell
-  p + cowplot::draw_grob(legend, 2/3, -1/6, 1/3, 0.5)
-```
 
 \clearpage
