@@ -22,6 +22,23 @@ table_catch(catch,
             gear_col_widths = "6em")
 ```
 
+```{r ft-catch-table, results = "asis"}
+cap <- paste0("Recent coastwide commercial fishery landings and discards ",
+              "(t) of ", sp, " for the ", base_model$dat$fleet_gear_names[1],
+              " fleet.")              
+if(fr()){
+cap <- paste0("French here")
+}
+
+table_catch_fleet(list(catch_ft, catch_ss),
+                  base_model$dat$fleet_gear_names,
+                  digits = 1,
+                  caption = cap,
+                  start_yr = 1996,
+                  font_size = 8,
+                  gear_col_widths = "6em")
+```
+
 ```{r area-catch-table, results = "asis"}
 cap <- paste0("Recent commercial fishery landings and discards (t) ",
               "for ", sp, " by area.")

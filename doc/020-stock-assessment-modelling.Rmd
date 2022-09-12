@@ -1,7 +1,6 @@
 ```{r sam-stock-modelling-en, eval = !fr(), results = 'asis'}
 cat("# Stock Assessment Modelling
-
-We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition of the commercial and survey sample data indicated that the stock is composed of approximately `r total_prop_female`% females; see Appendix \@ref(app:prop-female), Table \@ref(tab:prop-female-table). All models in this assessment including the base model, bridging models, sensitivy models, and retrospectives were run using `r total_prop_female`% as the proportion of females in the stock.
+We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition of the commercial and survey sample data indicated that the stock is composed of approximately `r total_prop_female`% females; see Appendix \@ref(app:prop-female), Table \@ref(tab:prop-female-table). All models in this assessment including the base model, bridging models, sensitivity models, and retrospectives were run using `r total_prop_female`% as the proportion of females in the stock. Bridging models 1 and 2, prior to the addition of data up to 2021 used 70% for the proportion female, to align with what was used in the `r la`.
 
 The model was fit to commercial catch data from two fleets, six indices of abundance with associated coeffcients of variation, and to age composition data from the commercial trawl fleets and four of the six indices. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix \@ref(app:bio-data-appendix)) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
 
@@ -16,7 +15,6 @@ Reference points based on Maximum Sustainable Yield (MSY), including the female 
 ```{r sam-data-inputs-en, eval = !fr(), results = 'asis'}
 cat("## Data Inputs
 ### Data Sources
-
 Data were extracted using the R package [gfdata](https://github.com/pbs-assess/gfdata) (REF), which applies standard SQL routines to several databases and reconstructs the various time series accordingly. The databases accessed for this assessment were:
 
 1. GFBioSQL: Contains all modern biological sample data for surveys and commercial fisheries. This database includes most of the groundfish specimen data collected since the 1950s.
@@ -32,8 +30,7 @@ Data were extracted using the R package [gfdata](https://github.com/pbs-assess/g
 
 ```{r sam-catch-data-en, eval = !fr(), results = 'asis'}
 cat("### Catch Data
-    
-Commercial fishing data are presented in this document for the period January 1, `r base_model$dat$start.yr` to December 31, `r base_model$dat$end.yr`. Landings and discards are shown in Table \@ref(tab:overall-catch-table). The current assessment fits a two-sex Bayesian age-structured model to catch, survey, and age-composition data from the years `r base_model$dat$start.yr` to `r base_model$dat$end.yr`, for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E(West Coast Haida Gwaii).
+Commercial fishing data are presented for the period January 1, `r base_model$dat$start.yr` to December 31, `r base_model$dat$end.yr`. Landings and discards are shown in Table \@ref(tab:overall-catch-table). The current assessment fits a two-sex Bayesian age-structured model to catch, survey, and age-composition data from the years `r base_model$dat$start.yr` to `r base_model$dat$end.yr`, for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E(West Coast Haida Gwaii).
 
 Prior to the introduction of freezer trawlers into the British Columbia groundfish trawl fleet in 2005, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to flesh proteolysis, as discussed above. In many cases entire tows were discarded, precluding the use of ratio estimators or other statistical methods of estimating unobserved discards. All catch data prior to the introduction of 100% at-sea observer coverage in 1996 were therefore omitted from this assessment, on the recommendation of our industry advisors and technical working group, and follows what was done in the last assessment [@grandin2017].
 ")

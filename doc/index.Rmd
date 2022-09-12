@@ -387,13 +387,23 @@ commercial_samples <- dat$commercial_samples |>
 comm_ft <- extract_fleet_samples(commercial_samples)
 comm_ss <- extract_fleet_samples(commercial_samples, include = FALSE)
 
-# Total catch
-catch <- tidy_catch(dat$catch, areas = tidy_areas)
+# Aggregated commercial catch
+month_start <- 2
+day_start <- 21
+catch <- tidy_catch(dat$catch,
+                    areas = tidy_areas,
+                    month_fishing_starts = month_start,
+                    day_fishing_starts = day_start)
 # Catch by fleet
-catch_ft <- extract_fleet_catch(dat$catch) #|> 
-  #tidy_catch(areas = c("3[CD]+", "5[ABCDE]+"))
-catch_ss <- extract_fleet_catch(dat$catch, include = FALSE) #|> 
-  #tidy_catch(areas = c("3[CD]+", "5[ABCDE]+"))
+catch_ft <- extract_fleet_catch(dat$catch) |> 
+  tidy_catch(areas = tidy_areas,
+             month_fishing_starts = month_start,
+             day_fishing_starts = day_start)
+
+catch_ss <- extract_fleet_catch(dat$catch, include = FALSE) |> 
+  tidy_catch(areas = tidy_areas,
+             month_fishing_starts = month_start,
+             day_fishing_starts = day_start)
 
 cpue_spatial <- dat$cpue_spatial
 cpue_spatial_ll <- dat$cpue_spatial_ll
