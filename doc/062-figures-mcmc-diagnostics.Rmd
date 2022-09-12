@@ -15,7 +15,7 @@ plot_priors_posts_mcmc(base_model, text_title_size = NULL)
 ```{r fig-base-trace, fig.cap = ifelse(fr(), "(ref:fig-base-trace-fr)", "(ref:fig-base-trace-en)")}
 plot_traces_mcmc(base_model,
                  plot_sel = FALSE, 
-                 param_rm = c("m1", "m2", "rho", "vartheta", "ssb"),
+                 param_rm = c("m1", "m2", "rho", "ssb"),
                  text_title_size = NULL)
 ```
 
@@ -26,7 +26,7 @@ plot_traces_mcmc(base_model,
 ```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)")}
 plot_autocorr_mcmc(base_model,
                    plot_sel = FALSE, 
-                   param_rm = c("m1", "m2", "rho", "vartheta", "ssb"),
+                   param_rm = c("m1", "m2", "rho", "ssb"),
                    text_title_size = NULL,
                    lag_max = 1000,
                    col = "blue",
@@ -81,14 +81,14 @@ plot_pairs_mcmc(base_model,
 # Remove 4 and 7 because they are fixed in the model (HSMAS and DCPUE indices) and will produce NAs
 plot_pairs_mcmc(base_model,
                 plot_sel = TRUE,
-                param_rm = c("selage4_male",
-                             "selage4_female",
-                             "selsd4_male",
-                             "selsd4_female",
-                             "selage7_male",
-                             "selage7_female",
-                             "selsd7_male",
-                             "selsd7_female"),
+                param_rm = c("selage4_male_block1",
+                             "selage4_female_block1",
+                             "selsd4_male_block1",
+                             "selsd4_female_block1",
+                             "selage7_male_block1",
+                             "selage7_female_block1",
+                             "selsd7_male_block1",
+                             "selsd7_female_block1"),
                 text_title_size = NULL,
                 tick_label_size = 4,
                 point_size = 0.25)

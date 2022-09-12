@@ -3,9 +3,9 @@ cat("# Stock Assessment Modelling
 
 We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition of the commercial and survey sample data indicated that the stock is composed of approximately `r total_prop_female`% females; see Appendix \@ref(app:prop-female), Table \@ref(tab:prop-female-table). All models in this assessment including the base model, bridging models, sensitivy models, and retrospectives were run using `r total_prop_female`% as the proportion of females in the stock.
 
-The model was fit to commercial catch data from two fleets, six indices of abundance with associated coeffcients of variation, and to age composition data from the commercial trawl fleets and four of the six indices. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix XX) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
+The model was fit to commercial catch data from two fleets, six indices of abundance with associated coeffcients of variation, and to age composition data from the commercial trawl fleets and four of the six indices. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix \@ref(app:bio-data-appendix)) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
 
-Reference points based on Maximum Sustainable Yield (MSY), including the female spawning biomass ($B_\mathrm{MSY}$) and the annual harvest rate producing MSY ($U_\mathrm{MSY}$), were estimated along with reference points based on estimated equilibrium unfished spawning biomass, $B_0$ (Section XX). A harvest decision table (Table \@ref(tab:decision-table)) was created by projecting the assessment model one year into the future under a range of constant catch levels. For each level of catch, decision tables show the probability that projected spawning biomass in `r base_model$dat$end.yr + 2` will be less than spawning biomass-based reference points, and the probablity that `r base_model$dat$end.yr + 2` harvest rate will be greater than harvest rate-based reference points (Section XX).
+Reference points based on Maximum Sustainable Yield (MSY), including the female spawning biomass ($B_\mathrm{MSY}$) and the annual harvest rate producing MSY ($U_\mathrm{MSY}$), were estimated along with reference points based on estimated equilibrium unfished spawning biomass, $B_0$ (Section \@ref(decisions)). A harvest decision table (Table \@ref(tab:decision-table)) was created by projecting the assessment model one year into the future under a range of constant catch levels. For each level of catch, decision tables show the probability that projected spawning biomass in `r base_model$dat$end.yr + 2` will be less than spawning biomass-based reference points, and the probablity that `r base_model$dat$end.yr + 2` harvest rate will be greater than harvest rate-based reference points (Section \@ref(decisions)).
 ")
 ```
 
@@ -35,7 +35,7 @@ cat("### Catch Data
     
 Commercial fishing data are presented in this document for the period January 1, `r base_model$dat$start.yr` to December 31, `r base_model$dat$end.yr`. Landings and discards are shown in Table \@ref(tab:overall-catch-table). The current assessment fits a two-sex Bayesian age-structured model to catch, survey, and age-composition data from the years `r base_model$dat$start.yr` to `r base_model$dat$end.yr`, for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E(West Coast Haida Gwaii).
 
-Prior to the introduction of freezer trawlers into the British Columbia groundfish trawl fleet in 2005, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to flesh proteolysis, as discussed above. In many cases entire tows were discarded, precluding the use of ratio estimators or other statistical methods of estimating unobserved discards. All catch data prior to the introduction of 100% at-sea observer coverage in 1996 were therefore omitted from this assessment, on the recommendation of our industry advisors and technical working group, and follows what was done in the last assessment [@grandin2017]. See Section XX for further discussion and research recommendations.
+Prior to the introduction of freezer trawlers into the British Columbia groundfish trawl fleet in 2005, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to flesh proteolysis, as discussed above. In many cases entire tows were discarded, precluding the use of ratio estimators or other statistical methods of estimating unobserved discards. All catch data prior to the introduction of 100% at-sea observer coverage in 1996 were therefore omitted from this assessment, on the recommendation of our industry advisors and technical working group, and follows what was done in the last assessment [@grandin2017].
 ")
 ```
 
@@ -119,7 +119,7 @@ where $(CV)_y$ is the CV for year $y$.
 
 One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95% confidence regions for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
   
-We also included a set of geostatistical-model-standardized indexes in our sensitivity analyses (Appendix XX).
+We also included a set of geostatistical-model-standardized indexes in our sensitivity analyses (Appendix \@ref(app:geostat)).
 
 ")
 ```
@@ -135,12 +135,12 @@ Ages for the the years 1996--2019 are included in this assessment, from the two 
 
 Age composition data represented the whole coast, for the following years:
 
-1. Freezer trawlers (Figure XX), 1996--2019
-1. Shoreside (Figure XX)
-1. `r qcs`
-1. `r hss`
-1. `r wcvis`
-1. `r wchgs`
+1. Freezer trawlers (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[1]])$year), collapse = '--')`
+1. Shoreside (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[2]])$year), collapse = '--')`
+1. `r qcs` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[3]])$year), collapse = '--')`
+1. `r hss` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[4]])$year), collapse = '--')`
+1. `r wcvis` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[5]])$year), collapse = '--')`
+1. `r wchgs` (Figure \@ref(fig:fig-ages)), 2016--2018, (not included in the base model)
 
 Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed weighting scheme that adjusted for unequal sampling effort across spatial or temporal strata. For commercial data, these strata comprised quarterly periods within a year. For survey samples, the strata were defined by the survey design. A description of the methods used to calculate weighted age frequencies is given in Appendix XX. This is the same method that was used in the `r la` [@grandin2017]. The methods are coded into the **gfplot** package (REF). The `r la` used custom code as the **gfplot** package was not yet available.
 
@@ -152,13 +152,17 @@ Commercial ageing requests included randomly chosen samples from many vessels ac
 ```
 
 ```{r sam-length-data-en, eval = !fr(), results = 'asis'}
-cat("### Commercial length data
+cat("### Length data
 
-Length data from the freezer trawler and shoreside fleets are shown in Figure XX. These data are presented to check whether or not there is evidence for differences in the age composition of the catch in the freezer trawl fleet compared to the shoreside fleet. Since 2006, when freezer trawlers began fishing for `r sp`, they have taken an increasingly large proportion of the catch.
+Length data from the freezer trawler and shoreside fleets, and from the synoptic surveys are shown in Figure \@ref(fig:fig-lengths). Survey lengths are show by sex, and commercial lengths are aggregated. Some of the commercial length histograms are bimodal, indicating the sexual dimorphism of this species.
 
-Females have been sampled more often than males in both fleets. This difference in sampling is due to the proportion of females in the population being higher than males (Appendix XX).
+Females did not vary in length significantly between the two fleets, with both having an overall median of `r median(length_samples_ft$length, na.rm = TRUE)` cm. Males had a median of `r median(filter(length_samples_ft, sex == 1)$length, na.rm = TRUE)` for the Freezer trawler fleet and `r median(filter(length_samples_ss, sex == 1)$length, na.rm = TRUE)` cm for the Shoreside fleet. Females had a median of `r median(filter(length_samples_ft, sex == 2)$length, na.rm = TRUE)` for the Freezer trawler fleet and `r median(filter(length_samples_ss, sex == 2)$length, na.rm = TRUE)` cm for the Shoreside fleet.
 
-Females did not vary in length signifcantly between the two fleets, with both having a median around XXcm. Males had a median of around XXcm for both fleets, except for in 2006–2007, when freezer trawler samples showed slightly larger males. The low sample size (N = 97) in 2006 suggests that this may not be representative of the population.")
+both fleets, except for in 2006–2007, when freezer trawler samples showed slightly larger males. The low sample size (N = 97) in 2006 suggests that this may not be representative of the population.")
+
+
+Females have been sampled more often than males in both fleets. This difference in sampling is due to the proportion of females in the population being higher than males. Appendix \@ref(app:prop-female) describes in detail how the proportion female was calculated.
+
 ```
 
 ```{r sam-length-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}

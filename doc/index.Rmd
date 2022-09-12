@@ -185,7 +185,8 @@ bridge_models_dirs <-
        c("09-bridge-switch-fishing-year-to-feb-21-feb-20",
          "10-remove-wchg",
          "11-fix-natural-mortalities",
-         "12-qcs-tv-selex"))
+         "12-qcs-tv-selex",
+         "13-estimate-total-variance"))
 
 bridge_models_text <- 
   list(c("2015 Base model (one fleet, single sex)",
@@ -199,7 +200,8 @@ bridge_models_text <-
        c("Change year start to Feb 21 (two fleets, split sex)",
          "Remove WCHG survey (two fleets, split sex)",
          "Fix natural mortalities (two fleets, split sex)",
-         "QCS survey TV selectivity (two fleets, split sex)"))
+         "QCS survey TV selectivity (two fleets, split sex)",
+         "Estimate total variance and QCS TV (two fleets, split sex)"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
@@ -211,16 +213,16 @@ bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
 sens_models_dirs <-
   list(c("01-sigma-0.135",
          "02-tau-1.0",
-         "03-tau-0.6"),
-       c("04-low-steepness"),
+         "03-tau-0.6",
+         "04-low-steepness"),
        c("05-m-female-tight-prior",
-         "06-m-female-loose-prior"),
-       c("07-m-male-tight-prior",
+         "06-m-female-loose-prior",
+         "07-m-male-tight-prior",
          "08-m-male-loose-prior"),
        c("09-qk-mean-1.0",
          "10-qk-loose-prior"),
-       c("11-selex-equal-maturity"),
-       c("12-geostat-surveys"))
+       c("11-selex-equal-maturity",
+         "12-geostat-surveys"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,135",
@@ -230,8 +232,8 @@ sens_models_text <-
                 "Increase $\\tau$ to 1.0"),
          ifelse(fr(),
                 "Diminuer $\\tau$ de 0,6",
-                "Decrease $\\tau$ to 0.6")),
-       c(ifelse(fr(),
+                "Decrease $\\tau$ to 0.6"),
+        ifelse(fr(),
                 "Diminuer la moyenne de $h$ avant 0,72",
                 "Decrease mean of $h$ prior to 0.72")),
        c(ifelse(fr(),
@@ -239,8 +241,8 @@ sens_models_text <-
                 "Estimate $M_{Female}$ with prior sd = 0.6"),
          ifelse(fr(), 
                 "Estimation de $M_{femme}$ avec sd préalable = 1.6",
-                "Estimate $M_{Female}$ with prior sd = 1.6")),
-       c(ifelse(fr(),
+                "Estimate $M_{Female}$ with prior sd = 1.6"),
+        ifelse(fr(),
                 "Estimation de $M_{homme}$ avec sd préalable = 0.6",
                 "Estimate $M_{Male}$ with prior sd = 0.6"),
          ifelse(fr(),
@@ -254,8 +256,8 @@ sens_models_text <-
                 "Looser prior on $q_k$")),
        c(ifelse(fr(),
                 "Courbe de sélectivité égale à l'ogive de maturité",
-                "Selectivity curve equals maturity ogive")),
-       c(ifelse(fr(),
+                "Selectivity curve equals maturity ogive"),
+        ifelse(fr(),
                 "Indices d'enquête basés sur la géostatistique",
                 "Geostatistical based survey indices")))
 
@@ -271,15 +273,15 @@ sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
 sens_changes_text <-
   list(c("$\\vartheta^2$ = 1.538; $\\rho$ = 0.059",
          "$\\vartheta^2$ = 0.962; $\\rho$ = 0.038",
-         "$\\vartheta^2$ = 2.500; $\\rho$ = 0.100"),
-       c("$h$ = Beta($\\alpha$ = 11.72, $\\beta$ = 4.56)"),
+         "$\\vartheta^2$ = 2.500; $\\rho$ = 0.100",
+        "$h$ = Beta($\\alpha$ = 11.72, $\\beta$ = 4.56)"),
        c(ifelse(fr(),
                 "ln($M_\\mathrm{Femelle}$) = Normale(ln(0.35), 0.5)",
                 "ln($M_\\mathrm{Female}$) = Normal(ln(0.35), 0.5)"),
          ifelse(fr(),
                 "ln($M_\\mathrm{Femelle}$) = Normale(ln(0.35), 2.5)",
-                "ln($M_\\mathrm{Female}$) = Normal(ln(0.35), 2.5)")),
-       c(ifelse(fr(),
+                "ln($M_\\mathrm{Female}$) = Normal(ln(0.35), 2.5)"),
+         ifelse(fr(),
                 "ln($M_\\mathrm{M\\hat{a}le}$) = Normale(ln(0.2), 0.5)",
                 "ln($M_\\mathrm{Male}$) = Normal(ln(0.2), 0.5)"),
          ifelse(fr(),
@@ -293,8 +295,8 @@ sens_changes_text <-
                 "$q_\\mathrm{k}$ prior sd = 1.5 for all $k$")),
        c(ifelse(fr(),
                 "Paramètres de sélectivité des pêcheries = maturité ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)",
-                "Fishery selectivity parameters = maturity ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)")),
-       c(ifelse(fr(),
+                "Fishery selectivity parameters = maturity ($A_\\mathrm{50\\%}$ and $SD_\\mathrm{50\\%}$)"),
+         ifelse(fr(),
                 "Indices d'enquête géostatistique (Annexe : \\@ref(app:geostat))",
                 "Geostatistical survey indices (Appendix \\@ref(app:geostat))")))
 

@@ -135,7 +135,7 @@ ombragé sur la série temporelle est l'intervalle crédible à 95% pour ce
 paramètre.
 
 ```{r fig-base-recr, fig.cap = ifelse(fr(), "(ref:fig-base-recr-fr)", "(ref:fig-base-recr-en)")}
-plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
+plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL, leg_loc = NULL)
 ```
 
 <!-- Fishing mortality ------------------------------------------------------->
@@ -161,7 +161,8 @@ plot_index_mcmc(base_model,
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = NULL,
-                text_title_size = NULL)
+                text_title_size = NULL,
+                base_color = "royalblue")
 ```
 
 (ref:fig-base-index-resids-en) Index Log standardized residuals. The points are the median of the posteriors for the $\epsilon$ parameter in iSCAM. The vertical lines represent the 95% credible intervals for those posteriors.
@@ -173,7 +174,7 @@ plot_index_mcmc(base_model,
                 type = "resids",
                 surv_index = survey_index,
                 leg_loc = NULL,
-                text_title_size = NULL)
+                text_title_size = NULL, base_color = "royalblue")
 ```
 
 \clearpage
