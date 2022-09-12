@@ -1,6 +1,5 @@
 ```{r bridging-para-01-en, eval = !fr(), results = 'asis'}
 cat("# Model bridging
-    
 A set of bridging models was run to determine the effects of incremental model modifications while moving from the single-sex, single-fleet `r la` model to the split-sex, two-fleet model used in this assessment.
 
 The base model from the `r la` [@grandin2017] was run with the newest version of the iSCAM code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age comp fits were determined to be identical. The 2015 model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
@@ -28,7 +27,8 @@ cat("Each model in this list is based on the previous one with only one change m
 1. Changed fishing year to Feb. 21 - Feb. 20, which is the range currently used by fisheries management for the fishing year.
 1. Removed the `r wchgs` index and age comps. It was not contributing anything to the assessment and the estimated selectivities were not viable due to too few samples. Its removal was suggested by the Technical Working Group (TWG).
 1. Fixed both male and female natural morality parameters. The estimated values were quite low for this species based on previous assessments in the area (@grandin2017, @spies2019).
-
+1. Added time-varying selectivity for the `r qcss`. Three year blocks were added in an attempt to improve the index fit for the survey.
+1. Enable estimation of total variance ($\vartheta$).
 ")
 ```
 
@@ -67,7 +67,7 @@ The next step in the bridging was to convert the model into split-sex. All previ
 ```
 
 ```{r bridging-para-05-en, eval = !fr(), results = 'asis'}
-cat("The biomass plots for the final group of four bridging model (list items 9-12) is in Figure \@ref(fig:bridge-biomass-group3). The fishing year was changed from what it was in the `r la`, January 1--December 31 to February 21--February 20. This change was made to reflect the actual date of February 21 that the annual fishery is started in Canada. The effect of this is negligble on the median of the absolute and relative biomass, but interestingly the credible interval of the absolute biomass is lowered significantly. The credible interval on the $B_0$ estimate is still as high as the previous model, conversion to split sex, so that effect is not carried over to the relative biomass.
+cat("The biomass plots for the final group of four bridging model (list items 9-13) is in Figure \@ref(fig:bridge-biomass-group3). For the first of these models, the fishing year was changed from what it was in the `r la`, January 1--December 31 to February 21--February 20. This change was made to reflect the start date for the fishery each year in Canada (February 21). The effect of this is negligble on the median of the absolute and relative biomass, but interestingly it shrinks the credible interval of the absolute biomass. However, the credible interval on the $B_0$ estimate is still very similar to the previous model, so the effect is not carried over to the relative biomass.
     
 The `r wchgs` was removed, as it was in the `r la`, as it has very little effect on the biomass and some troubling selectivity estimates (Figure \@ref(fig:bridge-biomass-group3)).
 
