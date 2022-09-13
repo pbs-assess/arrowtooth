@@ -121,15 +121,20 @@ opts_chunk$set(
   fig.align = fig_align,
   fig.pos = fig_pos
 )
-options(# Prevent xtable from adding a timestamp comment to the table code it produces
-        xtable.comment = FALSE,
-        # Don't allow kableExtra to load packages, we add them manually in csasdown
-        kableExtra.latex.load_packages = FALSE,
-        # Stop chunk output (echo) running into the margins
-        width = 80,
-        # Don't use scientific notation (stops tables from showing 1.2e3, etc.)
-        scipen = 999)
-options("knitr.graphics.rel_path" = FALSE) # Fixes weird bug where knitr::include_graphics() thinks the non-git folder is relative!??
+options(
+  # Prevent xtable from adding a timestamp comment to the table code
+  # it produces
+  xtable.comment = FALSE,
+  # Don't allow kableExtra to load packages, we add them manually in
+  # csasdown
+  kableExtra.latex.load_packages = FALSE,
+  # Stop chunk output (echo) running into the margins
+  width = 80,
+  # Don't use scientific notation (stops tables from showing 1.2e3, etc.)
+  scipen = 999)
+# Fixes weird bug where knitr::include_graphics() thinks the non-git folder
+# is relative
+options(knitr.graphics.rel_path = FALSE)
 ```
 
 ```{r library-setup, cache = FALSE, fig.keep='none'}
@@ -171,7 +176,7 @@ source("load-models.R", local = knitr::knit_global())
 ```
 
 ```{r data-setup, cache.lazy = FALSE}
-# This chunk required that the chunk above that loads load-models.R is run
+# This chunk requires that the chunk above that loads load-models.R is run
 
 bc <- "British Columbia"
 sp <- "Arrowtooth Flounder"
@@ -204,10 +209,6 @@ iphc <- readRDS(iphc_file)$series_ABCD_full$ser_longest
 discard_cpue <- read_csv(discard_cpue_file)
 stitched_syn <- readRDS(stitched_syn_file)
 
-# dat <- readRDS(file.path(drs$nongit_dir, "data",
-#                          "arrowtooth-flounder-june11-2021.rds"))
-# dat <- readRDS(file.path(drs$nongit_dir, "data",
-#                          "arrowtooth-flounder-oct10-2021.rds"))
 dat <- readRDS(file.path(drs$nongit_dir, "data",
                          "arrowtooth-flounder-aug11-2022.rds"))
 
@@ -432,15 +433,6 @@ below_04bmsy <- table_dec |>
   pull() |> 
   as.numeric()
 range_below_04bmsy <- c(min(below_04bmsy), max(below_04bmsy))
-
-
-# Data extraction for iSCAM models:
-# extract_survey_indices(survey_index, 
-#                        iphc = iphc,
-#                        discard_cpue = discard_cpue,
-#                        stitched_syn = stitched_syn,
-#                        data_path = data_output_dir)
-
 ```
 
 ```{r biological-params}
