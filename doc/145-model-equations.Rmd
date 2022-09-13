@@ -1,6 +1,6 @@
 % Some macros for equations found in tables
 \def\beq{\vspace{-5ex} \begin{fleqn} \begin{equation}}
-\def\eeq{\end{equation} \end{fleqn} \vspace{-5ex}}
+\def\eeq{\end{equation} \end{fleqn} \vspace{10ex}}
 \def\tabline{\vspace{2ex} \hrule \vspace{2ex}}
 % new page macro
 \def\newp{\vfill \break}
@@ -72,7 +72,7 @@ The total variance is partitioned into observation and process error components 
 The unobserved state variables in Eq. \@ref(eq:df18) include the numbers-at-age in year $t$ ($N_{t,a}$), the total biomass in year $t$ ($B_{t}$), the spawning stock biomass ($SB_{t}$) and the total age-specific total mortality rate ($Z_{t,a}$).
 The initial numbers-at-age in the first year (Eq. \@ref(eq:df19) and the annual recruits (Eq. \@ref(eq:df20) are treated as estimated parameters and used to initialize the numbers-at-age array.
 
-Vulnerability-at-age is here assumed time-invariant and is modelled using a two-parameter logistic function (Eq. \@ref(eq:df21).
+Vulnerability-at-age is here assumed time-invariant and is modeled using a two-parameter logistic function (Eq. \@ref(eq:df21).
 The annual fishing mortality for each gear $k$ in year $t$ is the exponent of the estimated vector $\Gamma_{k,t}$ (Eq. \@ref(eq:df22).
 The vector of log fishing mortality rate parameters $\Gamma_{k,t}$ is a bounded vector with a minimum value of $-30.0$ and an upper bound of $3.0$.
 In arithmetic space this corresponds to a minimum value of $9.36e^{-14}$ and a maximum value of $20.01$ for annual fishing mortality rates.
@@ -273,11 +273,11 @@ For the Pacific herring, a bounded recruitment uniform prior was specified for  
 The scaling parameter $q$ for each of the surveys is not treated as an unknown parameter within the code; rather, the maximum posterior density estimate for $ln(q)$ conditional on all other parameters is used to scale the predicted spawning biomass to the observed acoustic biomass index.
 The priors for the log of both survey $q$'s are assumed to be informative $\emph{N}(-0.569,0.276)$ for the AM1. For AM2 the prior on $q_1$ was assumed uninformative $\emph{N}(0,1)$ and informative for $q_2$ $\emph{N}(1,0.01)$
 
-
 \clearpage
 
 ## Tables
 
+```{=latex}
 \FloatBarrier
 \begin{table}[!h]
 \centering
@@ -292,6 +292,7 @@ $s$ & & Index for sex\\
 $a$ & & Index for age\\
 $t$ & & Index for year\\
 $k$ & & Index for gear\\
+$b$ & & Index for year block in time-varying selectivity \\
 \multicolumn{3}{l}{\textbf{Model dimensions}}\\
 $S$ & $`r base_model$dat$num.sex`$ & Number of sexes\\
 $\acute{a}, A$ & $`r base_model$dat$start.age`$, $`r base_model$dat$end.age`$ & Youngest and oldest age class ($A$ is a plus group)\\
@@ -310,12 +311,12 @@ $R_o$ & & Age-$\acute{a}$ recruits in unfished conditions\\
 $h$ & & Steepness of the stock-recruitment relationship\\
 $\bar{R}$ & & Average age-$\acute{a}$ recruitment from year $\acute{t}$ to $T$\\
 $\bar{R}_{init}$ & & Average age-$\acute{a}$ recruitment in year $\acute{t}-1$ \\
-$M_s$ & & Instantaneous natural mortality rate \\
-$\hat{a}_k, \hat{\gamma}_k$ & & Selectivity parameters for gear $k$ \\
-$\Gamma_{k,t}$ & & Logarithm of the instantaneous fishing mortality for gear $k$ in year $t$\\
+$M_s$ & & Instantaneous natural mortality rate for sex $s$\\
+$\hat{a}_{k,s,b}, \hat{\gamma}_{k,s,b}$ & & Selectivity parameters for gear $k$, sex $s$, year block $b$ \\
+$\Gamma_{k,s,t}$ & & Logarithm of the instantaneous fishing mortality for gear $k$, sex $s$, year $t$\\
 $\omega_t$ & & Age-$\acute{a}$ deviates from $\bar{R}$ for years $\acute{t}$ to $T$\\
 $\omega_{init,t}$ & & Age-$\acute{a}$ deviates from $\bar{R}_{init}$ for year $\acute{t}$\\
-$q_s$ & & Catchability parameter for survey $k$\\
+$q_k$ & & Catchability parameter for survey $k$\\
 $\rho$ & & Fraction of the total variance associated with observation error\\
 $\vartheta^2$ & & Total precision (inverse of variance) of the total error\\
 \multicolumn{3}{l}{\textbf{Standard deviations}}\\
@@ -326,9 +327,9 @@ $\sigma_C$ & & Standard deviation in observed catch by gear\\
 $\delta_t$ & & Annual recruitment residual\\
 $\eta_t$ & & Residual error in predicted catch\\
 \multicolumn{3}{l}{\textbf{Fixed Growth \& maturity parameters}}\\
-$l_{\infty s}$ & & Asymptotic length in mm sex $s$ \\
-$\acute{k}_s$ & & Brody growth coefficient sex $s$ \\
-$t_{o s}$ & & Theoretical age at zero length sex $s$ \\
+$l_{\infty s}$ & & Asymptotic length for sex $s$ \\
+$\acute{k}_s$ & & Brody growth coefficient for sex $s$ \\
+$t_{o s}$ & & Theoretical age at zero length for sex $s$ \\
 $\acute{a}_s$ & & Scalar in length-weight allometry for sex $s$\\
 $\acute{b}_s$ & & Power parameter in length-weight allometry for sex $s$\\
 $\dot{a}_s$ & & Age at 50\% maturity for sex $s$ \\
@@ -337,9 +338,11 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 \end{tabular}
 \end{table}
 \FloatBarrier
+```
 
 \clearpage
 
+```{=latex}
 \FloatBarrier
 \begin{table}[b]
 \centering
@@ -349,7 +352,8 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 \begin{tabular}{l}
 \hline \\
 \vbox{\begin{center}\bf{Parameters}\end{center}\vspace{2ex}} \\
-\vbox{\beq \Theta = (R_o,h,M)\,; \ \ \ R_o>0; \ \ \ 0.2 \leq h < 1.0; \ \ \ M > 0 \label{eq:df1} \eeq} \\
+\\
+\vbox{\beq \Theta = (R_o,h,M_s)\,; \ \ \ R_o>0; \ \ \ 0.2 \leq h < 1.0; \ \ \ M_s > 0 \label{eq:df1} \eeq} \\
 \vbox{\beq \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s,\hat{a}_k,\hat{\gamma}_k) \label{eq:df2} \eeq} \\
 \vbox{\begin{center}\bf{Age-schedule information}\end{center}\vspace{2ex}}
 \\
@@ -361,23 +365,22 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 \\
 \vbox{\beq f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1} \label{eq:df6} \eeq} \\
 \vbox{\begin{center}\bf{Survivorship}\end{center}\vspace{2ex}}
-\vbox{\beq \iota_a = \begin{cases}
+\\
+\vbox{\beq \iota_a,s = \begin{cases}
 \frac{1}{S}, & a = 1 \\
-\iota_{a-1}e^{-M}, & a > 1 \\
-\frac{\iota_{a-1}}{(1-e^{-M})}, & a = A \\
+\iota_{a-1}e^{-M_s}, & a > 1, a < A \\
+\frac{\iota_{a-1}}{(1-e^{-M_s})}, & a = A \\
 \end{cases}
 \label{eq:df7}
 \eeq} \\
-\vspace{4ex} \\
-\vbox{\beq \iota_a = \begin{cases}
+\vspace{1ex} \\
+\vbox{\beq \iota_a,s = \begin{cases}
 \frac{1}{S}, & a = 1 \\
-\hat{\iota}_{a-1,s}e^{-M-F_ev_{a-1,s}}, & a > 1 \\
+\hat{\iota}_{a-1,s}e^{-M_s-F_{e}v_{a-1,s}}, & a > 1, a < A \\
 \frac{\hat{\iota}_{a-1,s}e^{-M-F_ev_{a-1,s}}}{(1-e^{-M-F_e v_{a,s}})}, & a = A \\
 \end{cases}
 \label{eq:df8}
 \eeq} \\
-\\
-\\
 \vbox{\begin{center}\bf{Incidence functions}\end{center}} \\
 \\
 \\
@@ -385,52 +388,53 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 \phi_e=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{a,s} f_{a,s}
 \label{eq:df9}
 \eeq} \\
-\vspace{2ex} \\
+\\
 \vbox{\beq \phi_B=\sum_{s=1}^S\sum_{a=1}^\infty \iota_a w_{a,s} v_{a,s},\ \ \
 \phi_b=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{as} w_{a,s} v_{a,s}
 \label{eq:df10}
 \eeq} \\
-\vspace{2ex} \\
+\\
 \vbox{\beq \phi_q=\sum_{s=1}^S\sum_{a=1}^\infty
 \frac{ \hat{\iota}_{a,s} w_{a,s} v_{a,s}}{M+F_ev_{a,s}}
 \left(1-e^{(-M-F_ev_{a,s})}\right)
 \label{eq:df11}
 \eeq} \\
-\vspace{1ex} \\
+\vspace{-7ex} \\
 \vbox{\begin{center}\bf{Steady-state conditions}\end{center}\vspace{-4ex}} \\
+\\
+\\
+\\
 \vbox{\beq B_o=R_o\phi_B \label{eq:df12} \eeq} \\
 \\
-\vbox{\beq R_e=R_o \dfrac{\kappa-\phi_E/\phi_e}{\kappa-1} \label{df13} \eeq} \\
-\vbox{\beq \kappa=\frac{4h}{1-h} \label{eq:df13} \eeq} \\[2.5ex]
+\vbox{\beq \kappa=\frac{4h}{1-h} \label{eq:df13} \eeq} \\
 \vbox{\beq R_e=R_o \frac{\kappa-\frac{\phi_E}{\phi_e}}{\kappa-1}\ \ \ (Beverton-Holt) \label{eq:df14} \eeq}\\
 \vbox{\beq C_e=F_e R_e\phi_q \label{eq:df15} \eeq} \\
 
 \end{tabular}
 \end{table}
 \FloatBarrier
-
+```
 \clearpage
 
+```{=latex}
 \FloatBarrier
 \begin{table}[b]
 \centering
-\caption{\label{tab:catch-age-model} Statistical catch-age model using Baranov
-  catch.}
+\caption{\label{tab:catch-age-model} Statistical catch-age model using Baranov catch.}
 \begin{tabular}{l}
 \hline \\
-\vbox{\begin{center}\bf{Estimated parameters}\end{center}\vspace{-1ex}}
+\vbox{\begin{center}\bf{Estimated or fixed parameters}\end{center}\vspace{-1ex}}
 \\
 \\
-\vbox{\beq \Theta= (R_0,h,M,\overline{R},\overline{R}_{init},\vartheta^2,\rho,\Gamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{init,t}\}_{t=\acute{t}-A}^{t=\acute{t}-1})  \label{eq:df16} \eeq} \\
 \\
-\vbox{\beq \sigma=\sqrt{\rho}\vartheta, \;  \;  \; \; \tau=\sqrt{(1-\rho)}\vartheta \label{eq:df17} \eeq} \\
-\vspace{2ex}
+\vbox{\beq \Theta= (R_0,h,M_s,\overline{R},\overline{R}_{init},\vartheta^2,\rho,\Gamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{init,t}\}_{t=\acute{t}-A}^{t=\acute{t}-1})  \label{eq:df16} \eeq} \\
 \\
-\vbox{\begin{center}\bf{Unobserved states}\end{center}\vspace{-4ex}} \\
+\vbox{\beq \sigma=\frac{\sqrt{\rho}}{\vartheta}, \;  \;  \; \; \tau=\frac{\sqrt{(1-\rho)}}{\vartheta} \label{eq:df17} \eeq} \\
+\vbox{\begin{center}\bf{Unobserved states}\end{center}} \\
+\\
 \\
 \vbox{\beq N_{t,a,s},\; B_t,s,\; Z_{t,a,s}  \label{eq:df18} \eeq} \\
-\vspace{2ex} \\
-\vbox{\begin{center}\bf{Initial states}\end{center}\vspace{-4ex}}
+\vbox{\begin{center}\bf{Initial states}\end{center}}
 \\
 \\
 \\
@@ -438,20 +442,18 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 \\
 \vbox{\beq N_{t,a,s}=\frac{1}{S}\bar{R}e^{\omega_{t}};\ \ \ 1\leq t\leq T;\ \ \ a=1 \label{eq:df20} \eeq} \\
 \\
-\\
 \vbox{\beq v_{k,a}= \frac{1}{1+e^{-\frac{\left(a - \hat{a}_k\right)}{\hat{\gamma}_k}}} \label{eq:df21} \eeq} \\
 \\
 \vbox{\beq  F_{k,t}=e^{\Gamma_{k,t}} \label{eq:df22} \eeq} \\
-\\
-\vbox{\begin{center}\bf{State dynamics ($t>1$)}\end{center}\vspace{-4ex}} \\
+\vbox{\begin{center}\bf{State dynamics ($t>1$)}\end{center}} \\
 \\
 \\
 \vbox{\beq  B_{t,s}=\sum_a N_{t,a,s}f_{a,s} \label{eq:df23} \eeq} \\
 \\
-\vbox{\beq  Z_{t,a,s}=M+\sum_k F_{k,t} v_{k,t,a,s}  \label{eq:df24} \eeq} \\[2ex]
+\vbox{\beq  Z_{t,a,s}=M_s+\sum_k F_{k,t} v_{k,t,a,s}  \label{eq:df24} \eeq}
 \\
 \vbox{\beq \hat{C}_{k,t}=\sum _ s\sum _ a\frac {N_{{t,a,s}}w_{{a,s}}F_{k,t} v_{{k,t,a,s}} ( 1-{e^{-Z_{t,a,s}}} ) }{Z_{t,a,s}}^{\eta_t}  \label{eq:df25} \eeq} \\
-\vspace{4ex} \\
+\\
 \vbox{\beq N_{t,a,s} = \begin{cases}
            \frac{s_oE_{t-1}}{1+\beta E_{t-1}} e^{(\omega_t-0.5\tau^2)} & a=1 \\
            N_{t-1,a-1,s} e^{(-Z_{t-1,a-1,s})} &a>1 \\
@@ -460,7 +462,7 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
        \label{eq:df26}
        \eeq} \\
 \\
-\vbox{\begin{center}\bf{Recruitment model}\end{center}\vspace{-4ex}} \\
+\vbox{\begin{center}\bf{Recruitment model}\end{center}} \\
 \\
 \\
 \vbox{\beq R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}\ \ \ (Beverton-Holt) \label{eq:df27} \eeq} \\
@@ -468,5 +470,6 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 \end{tabular}
 \end{table}
 \FloatBarrier
+```
 
 \clearpage
