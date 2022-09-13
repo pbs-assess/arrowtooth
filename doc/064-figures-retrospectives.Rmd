@@ -1,0 +1,28 @@
+(ref:fig-retro-biomass-en) Spawning biomass retrospectives.
+
+(ref:fig-retro-biomass-fr) French here
+
+```{r fig-retro-biomass, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-fr)", "(ref:fig-retro-biomass-en)")}
+plot_biomass_mcmc(models$retro_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 250))
+
+```
+
+(ref:fig-retro-biomass-rel-en) Relative spawning biomass retrospectives.
+
+(ref:fig-retro-biomass-rel-fr) French here
+
+```{r fig-retro-biomass-rel, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-rel-fr)", "(ref:fig-retro-biomass-rel-en)")}
+plot_biomass_mcmc(models$retro_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  rel = TRUE,
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 2))
+
+```
