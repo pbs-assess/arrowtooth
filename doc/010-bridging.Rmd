@@ -1,5 +1,5 @@
 ```{r bridging-para-01-en, eval = !fr(), results = 'asis'}
-cat("# Model bridging
+cat("# Model bridging {#bridging}
 A set of bridging models was run to determine the effects of incremental model modifications while moving from the single-sex, single-fleet `r la` model to the split-sex, two-fleet model used in this assessment.
 
 The base model from the `r la` [@grandin2017] was run with the newest version of the iSCAM code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age comp fits were determined to be identical. The 2015 model was a female-only catch-at-age model with 4 indices of abundance which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
