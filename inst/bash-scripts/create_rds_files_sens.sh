@@ -9,7 +9,7 @@
 # Run this to fix 'bad interpreter' issue:
 # sed -i -e 's/\r$//' create_rds_files_sens.sh
 
- models=(01-sigma-0.1 \
+ models=(01-sigma-0.135 \
          02-tau-1.0 \
          03-tau-0.6 \
          04-low-steepness \
