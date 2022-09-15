@@ -203,7 +203,6 @@ coords <- coord_equal(
 )
 utm_labs <- labs(x = "Easting", y = "Northing")
 
-library(rosettafish)
 plot_multiyear_survey_sets <- function(dat, survey_abbrev,
   density_lab = "", french = FALSE) {
   density_lab <- if (french) {
@@ -233,8 +232,8 @@ plot_multiyear_survey_sets <- function(dat, survey_abbrev,
     labs(
       fill = density_lab,
       colour = density_lab,
-      size = density_lab, x = en2fr("Easting", translate = french),
-      y = en2fr("Northing", translate = french)
+      size = density_lab, x = tr("Easting", translate = french),
+      y = tr("Northing")
     ) +
     guides(
       size = guide_legend(order = 1),

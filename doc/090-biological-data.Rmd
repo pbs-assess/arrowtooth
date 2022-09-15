@@ -129,7 +129,7 @@ sb <- suppressWarnings(bind_rows(ss, sc, sf))
 sb$survey_abbrev <- factor(sb$survey_abbrev,
   levels = c(
     "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
-    en2fr("Freezer Trawlers", fr()), en2fr("Shoreside", fr())
+    tr("Freezer Trawlers"), tr("Shoreside")
   )
 )
 sb$year <- factor(sb$year, levels = seq(1996, 2021))
@@ -139,8 +139,8 @@ g_lengths <- plot_lengths(sb,
     c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", "#000000", "#000000"),
     c(
       "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
-      en2fr("Freezer Trawlers", fr()),
-      en2fr("Shoreside", fr())
+      tr("Freezer Trawlers"),
+      tr("Shoreside")
     )
   ),
   bin_size = bin_width, min_total = min_total
@@ -148,8 +148,8 @@ g_lengths <- plot_lengths(sb,
   # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
   guides(colour = "none", fill = "none") +
   ggtitle("") +
-  ggplot2::xlab(paste(en2fr("Length", fr()), "(cm)")) +
-  ggplot2::ylab(en2fr("Relative length frequency", fr()))
+  ggplot2::xlab(paste(tr("Length"), "(cm)")) +
+  ggplot2::ylab(tr("Relative length frequency"))
 
 g_lengths
 ```
@@ -215,8 +215,8 @@ c_ages <- plot_ages(sb,
 grid.arrange(s_ages, c_ages,
   nrow = 2,
   # heights = c(1.1,1),
-  left = en2fr("Ages (years)", fr()),
-  bottom = en2fr("Year sampled", fr())
+  left = tr("Ages (years)"),
+  bottom = tr("Year sampled")
 )
 ```
 
@@ -253,10 +253,10 @@ if(file.exists(lw_fn)){
   saveRDS(lw_lst, lw_fn)
 }
 lw_title_lst <- list(
-  en2fr("SYN QCS (5AB)", fr()),
-  en2fr("SYN HS (5CD)", fr()),
-  en2fr("SYN WCVI (3CD)", fr()),
-  en2fr("Coastwide", fr()))
+  tr("SYN QCS (5AB)"),
+  tr("SYN HS (5CD)"),
+  tr("SYN WCVI (3CD)"),
+  tr("Coastwide"))
 
 plot_lw_panels <- function(lw_f, lw_m){
   plot_length_weight(object_female = lw_f,
@@ -284,8 +284,8 @@ lw_plot_lst <- list(
 
 grid.arrange(grobs = lw_plot_lst,
              ncol = 2,
-             bottom = paste0(en2fr("Length", fr()), " (cm)"),
-             left = en2fr("Weight (kg)", fr()))
+             bottom = paste0(tr("Length"), " (cm)"),
+             left = tr("Weight (kg)"))
 
 ```
 
@@ -324,10 +324,10 @@ if(file.exists(vb_fn)){
   saveRDS(vb_lst, vb_fn)
 }
 vb_title_lst <- list(
-  en2fr("SYN QCS (5AB)", fr()),
-  en2fr("SYN HS (5CD)", fr()),
-  en2fr("SYN WCVI (3CD)", fr()),
-  en2fr("Coastwide", fr()))
+  tr("SYN QCS (5AB)"),
+  tr("SYN HS (5CD)"),
+  tr("SYN WCVI (3CD)"),
+  tr("Coastwide"))
 
 plot_vb_panels <- function(vb_f, vb_m){
   plot_vb(object_female = vb_f,
@@ -353,8 +353,8 @@ vb_plot_lst <- list(
 
 grid.arrange(grobs = vb_plot_lst,
              ncol = 2,
-             left = paste0(en2fr("Length", fr()), " (cm)"),
-             bottom = en2fr("Age (years)", fr()))
+             left = paste0(tr("Length"), " (cm)"),
+             bottom = tr("Age (years)"))
 ```
 
 <!-- Maturity ---------------------------------------------------------------->
@@ -382,13 +382,13 @@ if(file.exists(mat_fn)){
   saveRDS(mat_lst, mat_fn)
 }
 mat_title_lst <- list(
-  en2fr("SYN QCS (5AB)", fr()),
+  tr("SYN QCS (5AB)"),
   "",
-  en2fr("SYN HS (5CD)", fr()),
+  tr("SYN HS (5CD)"),
   "",
-  en2fr("SYN WCVI (3CD)", fr()),
+  tr("SYN WCVI (3CD)"),
   "",
-  en2fr("Coastwide synoptic trawl surveys", fr()),
+  tr("Coastwide synoptic trawl surveys"),
   "")
 
 plot_mat_panels <- function(fit_obj){
@@ -433,16 +433,16 @@ ma_plot_lst <- list(
   plot_mat_panels(mat_lst[[7]]) +
   coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
   ggtitle(mat_title_lst[[7]]) +
-  xlab(en2fr("Age (years)", fr())),
+  xlab(tr("Age (years)")),
 
   plot_mat_panels(mat_lst[[8]]) +
   coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
   ggtitle(mat_title_lst[[8]]) +
-  xlab(paste0(en2fr("Length", fr()), " (cm)")))
+  xlab(paste0(tr("Length"), " (cm)")))
 
 grid.arrange(grobs = ma_plot_lst,
              ncol = 2,
-             left = paste0(en2fr("Probability mature", fr())))
+             left = paste0(tr("Probability mature")))
 ```
 
  

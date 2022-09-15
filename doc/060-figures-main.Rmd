@@ -47,7 +47,7 @@ plot_cpue_spatial(dat$cpue_spatial,
 
 (ref:fig-catch-en) Commercial catch of `r sp` by area.
 
-(ref:fig-catch-fr) Captures commerciales de `r en2fr(sp)` par zone.
+(ref:fig-catch-fr) Captures commerciales de `r tr(sp)` par zone.
 
 ```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 yrs <- sort(unique(catch$year))
@@ -125,7 +125,7 @@ is the median estimate for the initial recruitment parameter $R_0$,
 and the vertical line over that point and shaded ribbon across the time series
 is the 95% Credible interval for that parameter.
 
-(ref:fig-base-recr-fr) Recrutement de `r en2fr(sp)` pour le modèle de base.
+(ref:fig-base-recr-fr) Recrutement de `r tr(sp)` pour le modèle de base.
 Les points noirs de points noirs sont les médianes des postérieurs, les
 lignes noires verticales sont les intervalles crédibles à 95 % pour les
 valeurs postérieures, le point à $R_0$ est l'estimation médiane du paramètre

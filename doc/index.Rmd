@@ -10,7 +10,7 @@ address: |
      Fisheries and Oceans Canada, 3190 Hammond Bay Road\
      Nanaimo, British Columbia, V9T 6N7, Canada
 french_address: |
-  ^1^Station biologique du Pacifique\
+  ^1^Station bioslogique du Pacifique\
      Pêches et Océans Canada, 3190 Hammond Bay Road\
      Nanaimo, Colombie-Britannique, V9T 6N7, Canada\
   \smallskip
@@ -79,8 +79,8 @@ knit: (function(input, ...) {
 link-citations: true
 bibliography: bib/refs.bib
 # Any extra LaTeX code for the header:
-# header-includes:
-# - \usepackage{tikz}
+header-includes:
+  - \usepackage{amsmath}
 ---
 
 ```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
@@ -279,9 +279,9 @@ if(fr()){
     }
     if(grepl("Synoptic", .x)){
       j <- str_split(.x, " ")[[1]]
-      paste(j[1], en2fr(j[2]))
+      paste(j[1], tr(j[2]))
     }else{
-      en2fr(.x)
+      tr(.x)
     }
   })
   
