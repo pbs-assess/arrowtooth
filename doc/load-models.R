@@ -13,7 +13,7 @@ bridge_models_dirs <-
          "10-remove-wchg",
          "11-fix-natural-mortalities",
          "12-qcs-tv-selex",
-         "13-estimate-total-variance"))
+         "13-estimate-total-variance-qcs-tv"))
 
 bridge_models_text <-
   list(c("2015 Base model (one fleet, single sex)",

@@ -19,7 +19,9 @@
          08-bridge-switch-to-split-sex \
          09-bridge-switch-fishing-year-to-feb-21-feb-20 \
          10-remove-wchg \
-         11-fix-natural-mortalities)
+         11-fix-natural-mortalities \
+         12-qcs-tv-selex \
+         13-estimate-total-variance-qcs-tv)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models
