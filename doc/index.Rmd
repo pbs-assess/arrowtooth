@@ -524,46 +524,20 @@ total_prop_female <- f(100 * tail(prop_female_table, 1)[-1] |>
 
 ```{r model-param-value-calcs}
 
-get_parvals <- function(model, val, digits = 0){
-  mcmccalcs <- model$mcmccalcs
-  if(val == "bo"){
-    bo <- as_tibble(mcmccalcs$params_quants)$bo
-    med <- f(bo[2], digits)
-    ci <- paste0(f(bo[1], digits),
-                 "--",
-                 f(bo[3], digits),
-                 " (width ",
-                 f(bo[3] - bo[1], digits), ")")
-    endyr <- max(names(as_tibble(mcmccalcs$sbt_quants)))
-  }else{
-    quant_col <- paste0(val, "_quants")
-    endyr <- max(names(as_tibble(mcmccalcs[[quant_col]])))
-    parm <- as_tibble(mcmccalcs[[quant_col]])
-    end_out <- pull(parm[endyr])
-    med <- f(end_out[2], digits)
-    ci <- paste0(f(end_out[1], digits),
-                 "--",
-                 f(end_out[3], digits),
-                 " (width ",
-                 f(end_out[3] - end_out[1], digits), ")")
-  }
-  c(med = med, ci = ci, endyr = endyr)
-}
+base_bo <- get_parvals(base_model, "bo")
+base_sbt <- get_parvals(base_model, "sbt")
+base_depl <- get_parvals(base_model, "depl")
 
-bridge_1_4_bo <- get_parvals(models$bridge_grps[[1]][[4]], "bo")
-bridge_1_4_sbt <- get_parvals(models$bridge_grps[[1]][[4]], "sbt")
-bridge_1_4_depl <- get_parvals(models$bridge_grps[[1]][[4]], "depl", 2)
-
-bridge_2_1_bo <- get_parvals(models$bridge_grps[[2]][[1]], "bo")
-bridge_2_1_sbt <- get_parvals(models$bridge_grps[[2]][[1]], "sbt")
-bridge_2_1_depl <- get_parvals(models$bridge_grps[[2]][[1]], "depl", 2)
-
-bridge_2_4_bo <- get_parvals(models$bridge_grps[[2]][[4]], "bo")
-bridge_2_4_sbt <- get_parvals(models$bridge_grps[[2]][[4]], "sbt")
-bridge_2_4_depl <- get_parvals(models$bridge_grps[[2]][[4]], "depl", 2)
-
-bridge_3_1_bo <- get_parvals(models$bridge_grps[[3]][[1]], "bo")
-bridge_3_1_sbt <- get_parvals(models$bridge_grps[[3]][[1]], "sbt")
-bridge_3_1_depl <- get_parvals(models$bridge_grps[[3]][[1]], "depl", 2)
-
+bvals <- get_group_parvals(models$bridge_grps)
+svals <- get_group_parvals(models$sens_grps, remove_first = TRUE)
+# Now, to get the b0 median for the first sensitivity model in the third model group:
+# svals[[3]][[1]]$bo[1]
+# b0 CI range:
+# svals[[3]][[1]]$bo[2]
+# sbt median:
+# svals[[3]][[1]]$sbt[1]
+# sbt CI range:
+# svals[[3]][[1]]$sbt[2]
+# sbt end year:
+# svals[[3]][[1]]$sbt[3
 ```
