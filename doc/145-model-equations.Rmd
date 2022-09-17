@@ -426,6 +426,7 @@ Assumptions in this steady-state model include:
   f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1} &&
   \label{eq:df06}
 \end{flalign}
+
    
 **Survivorship**
 
@@ -446,6 +447,7 @@ Assumptions in this steady-state model include:
   \end{cases} &&
 \label{eq:df08}
 \end{flalign}
+
    
 **Incidence functions**
 
@@ -467,6 +469,7 @@ Assumptions in this steady-state model include:
   \left(1-e^{(-M_s-F_ev_{a,s})}\right) &&
   \label{eq:df11}
 \end{flalign}
+
    
 **Steady-state conditions**
 
@@ -592,6 +595,7 @@ Also, the equations used in the application of partials for $F_\mathrm{MSY}$ cal
   \end{cases} &&
   \label{eq:df30}
 \end{flalign}
+
 
 **Partials for incidence functions**
 

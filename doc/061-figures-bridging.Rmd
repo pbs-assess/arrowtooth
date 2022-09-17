@@ -40,6 +40,19 @@ cowplot::plot_grid(
 
 ```
 
+(ref:fig-bridge-group1-index-en) MCMC fits to the indices of abundance for the first group of bridging models.
+
+(ref:fig-bridge-group1-biomass-fr) French caption here
+
+```{r bridge-index-group1, fig.cap = ifelse(fr(), "(ref:fig-bridge-group1-index-fr)", "(ref:fig-bridge-group1-index-en)"), out.width = "100%"}
+plot_index_mcmc(models$bridge_grps[[1]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = c(0.55, 1),
+                text_title_size = NULL,
+                base_color = "royalblue")
+```
+
 (ref:fig-bridge-group2-index-en) MCMC fits to the indices of abundance for the second group of bridging models.
 
 (ref:fig-bridge-group2-biomass-fr) French caption here

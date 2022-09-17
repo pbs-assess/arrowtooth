@@ -8,16 +8,17 @@ We tested sensitivity of the model outputs as follows:
 1. Increase $\tau$ to 1.0 from 0.8
 1. Decrease $\tau$ to 0.6 from 0.8
 1. Decrease mean of $h$ prior to 0.72 from 0.85
-1. Tighter prior on $M_\mathrm{Female}$ (estimate $M_\mathrm{Female}$)
-1. Looser prior on $M_\mathrm{Female}$ (estimate $M_\mathrm{Female}$)
-1. Tighter prior on $M_\mathrm{Male}$ (estimate $M_\mathrm{Male}$)
-1. Looser prior on $M_\mathrm{Male}$ (estimate $M_\mathrm{Male}$)
+1. Tighter prior on $M_\mathrm{female}$ (estimate $M_\mathrm{female}$)
+1. Looser prior on $M_\mathrm{female}$ (estimate $M_\mathrm{female}$)
+1. Tighter prior on $M_\mathrm{male}$ (estimate $M_\mathrm{male}$)
+1. Looser prior on $M_\mathrm{male}$ (estimate $M_\mathrm{male}$)
 1. Decrease catchability priors mean to 1.0 from 0.5 ($q_k$ for all $k$)
 1. Looser catchability priors ($q_k$ for all $k$)
 1. Selectivity curves equal maturity ogive for all gears
 1. Geostatistical model-based survey indices (Section \@ref(app:geostat))
 
-Results are presented below. The full list of sensitivity scenarios is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). In all sensitivity runs, posterior samples were drawn systematically every `r f(mcmc_sample_freq)` iterations from a chain of length `r f(mcmc_chain_length)`, resulting in `r f(mcmc_num_samples)` posterior samples. The first 1,000 samples were dropped to allow for suffcient burn-in.")
+The full list of sensitivity scenarios is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). All sensitivity models were run using MCMC with a chain length of `r f(mcmc_chain_length)`, a sample frequency of `r f(mcmc_sample_freq)`, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples actually used.
+")
 ```
 
 ```{r scam-sensitivity-analyses-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -25,11 +26,21 @@ Results are presented below. The full list of sensitivity scenarios is provided 
 ```
 
 ```{r scam-sens-sigma-en, eval = !fr(), results = 'asis'}
-cat("## Decreasing $\sigma$ and estimating $\vartheta^2$ {#scam-sens-sigma}
+cat("## Decreasing $\sigma$ and adjusting $\tau$ {#sens-sigma}
 
-Decreasing $\sigma$ in the model to 0.1 does not change the absolute biomass trajectory nor the estimate of $B_0$ substantially (Figure \@ref(fig:fig-sens-variance)), so the stock status remains very similar to having a $\sigma$ value of 0.2 (Figure \@ref(fig:fig-sens-variance-rel)).
+ISCAM uses an error parameterization which includes two parameters, $\vartheta^2$ and $\rho$ which are the total variance and the proportion of total variance associated with observation errors [@iscam]. Observation error ($\sigma$) and process error ($\tau$) cannot be estimated directly, instead there is a calculation done to translate those values to and from the two parameters in the model (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)). The initial values of $\sigma$ and $\tau$ in the base model are 0.2 and 0.8 respectively. These translate to initial values for $\vartheta^2$ and $\rho$ of `r base_vartheta` and `r base_rho` respectively. The base model estimate of $\vartheta^2$ has a median and credible interval of `r base_vartheta_est`. The $\rho$ parameter is fixed.
 
-Estimating total variance ($\vartheta^2$) gives a lower historical absolute biomass while also estimating a larger $B_0$ value and a much larger uncertainty on that $B_0$ estimate. This results in a lower stock status overall, with the historical period being more affected (Figure \@ref(fig:fig-sens-variance-rel)).
+Reducing the observation error by decreasing $\sigma$ from 0.2 to 0.135 increased the initial values for $\vartheta^2$ from `r base_vartheta` to `r sens01_vartheta` while approximately halving $\rho$ from `r base_rho` to `r sens01_rho`. The median estimate of $\vartheta^2$ was `r sens01_vartheta_est`. There were no other changes to the model, so the choice for initial values for these parameters is clearly an important factor for what the estimates will be. This modification did not have much of an effect on the absolute biomass trajectory (Figure \@ref(fig:fig-sens-variance)), but it did increase the estimate of $B_0$ from`r base_sbo[1]` to `r svals[[1]][[2]]$sbo[1]` t (Figure \@ref(fig:fig-sens-variance)). The increase in the $B_0$ estimate caused a scaling downward of the relative biomass trajectory (Figure \@ref(fig:fig-sens-variance-rel)). There were no substantial changes to the index fits, age fits, or selectivities. The posterior for $\vartheta^2$ more closely matched the prior for this model than for the base model (Figure \@ref(fig:fig-sens-variance-prior-post), compare to Figure \@ref(fig:fig-base-priors-posts)) .
+
+Setting the initial value for $\tau$ to 0.6 and 1.0, had little effect on absolute biomass. Calculating  $\vartheta^2$ and $\rho$ when $\tau = 1.0$ (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)) gave inital values of `r sens02_vartheta` and `r sens02_rho` respectively. For $\tau = 0.6$, the initial values were `r sens03_vartheta` and `r sens03_rho` respectively. The estimates for $\vartheta^2$ were `r sens02_vartheta_est` and `r sens03_vartheta_est` respectively. The estimates of $B_0$ were scaled up and down, following $\tau$ being set higher or lower respectively, which resulted in scaling of the relative biomnass trajectory up or down with respect to the base model (Figure \@ref(fig:fig-sens-variance-rel)).
+
+Figure \@ref(fig:sens-index-group1) show the index fits for sensitivity group1. The model where $\tau = 0.6$ has a slightly different fit for the `r qcs`. It shows higher estimates for 2012--2017 and a lower drop for the last few years to present.
+
+## Decreasing the mean of the steepness prior {#sens-h}
+
+Decreasing the steepness prior mean from `r h_prior_base[1]` to `r h_prior_sens01[1]` and changing the CV from `r h_prior_base[2]` to `r h_prior_sens01[2]` produced very little change in both absolute biomass and $B_0$ (Figure \@ref(fig:fig-sens-variance)), despite having a different posterior returned (Figure \@ref(fig:sens-steepness-prior)). The prior for $h$ is very influential on the posterior, but varying the $h$ estimate in this way doe not have much effect on the absolute or relative biomass.
+
+}
 ")
 ```
 

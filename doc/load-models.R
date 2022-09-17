@@ -10,10 +10,10 @@ bridge_models_dirs <-
          "07-bridge-add-discard-cpue",
          "08-bridge-switch-to-split-sex"),
        c("09-bridge-switch-fishing-year-to-feb-21-feb-20",
-         "10-remove-wchg",
-         "11-fix-natural-mortalities",
-         "12-qcs-tv-selex",
-         "13-estimate-total-variance-qcs-tv"))
+         "10-bridge-remove-wchg",
+         "11-bridge-fix-natural-mortalities",
+         "12-bridge-qcs-tv-selex",
+         "13-bridge-estimate-total-variance-qcs-tv"))
 
 bridge_models_text <-
   list(c("2015 Base model (one fleet, single sex)",
@@ -129,7 +129,9 @@ retro_models_dirs <-
          "02-retrospective-2-years",
          "03-retrospective-3-years",
          "04-retrospective-4-years",
-         "05-retrospective-5-years"))
+         "05-retrospective-5-years",
+         "06-retrospective-6-years",
+         "07-retrospective-7-years"))
 retro_models_text <-
   list(c(ifelse(fr(),
                 "Modèle de base moins 1 an de données",
@@ -145,7 +147,13 @@ retro_models_text <-
                 "Base model - 4 years data"),
          ifelse(fr(),
                 "Modèle de base moins 5 ans de données",
-                "Base model - 5 years data")))
+                "Base model - 5 years data"),
+         ifelse(fr(),
+                "Modèle de base moins 6 ans de données",
+                "Base model - 6 years data"),
+         ifelse(fr(),
+                "Modèle de base moins 7 ans de données",
+                "Base model - 7 years data")))
 # Add base model text to each retrospective group
 retro_models_text <- map(retro_models_text, ~{c("Base model", .x)})
 # Make these factors so that they can be reordered in the legends later

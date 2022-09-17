@@ -5,7 +5,14 @@
 (ref:fig-base-priors-posts-fr)  Distributions de probabilité antérieures utilisées dans le modèle de base (zones ombrées en bleu) superposées aux histogrammes de distribution postérieure. La ligne rouge pleine est le mode de la distribution antérieure, la ligne noire pleine verticale est la moyenne de la distribution antérieure, et les lignes noires pointillées verticales représentent un écart type de la moyenne. Les graphiques qui sont entièrement ombrés en bleu montrent des antériorités uniformes qui sont ombrées sous la valeur de l'antériorité.
 
 ```{r fig-base-priors-posts, fig.cap = ifelse(fr(), "(ref:fig-base-priors-posts-fr)", "(ref:fig-base-priors-posts-en)")}
-plot_priors_posts_mcmc(base_model, text_title_size = NULL)
+plot_priors_posts_mcmc(base_model,
+                       param_rm = c("sel",
+                                    "bo",
+                                    "tau",
+                                    "sigma",
+                                    "log_m_sex1",
+                                    "log_m_sex2"),
+                       text_title_size = NULL)
 ```
 
 (ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. MSY-base parameters have numerical subscripts of either 1 or 2; those correspond to the two commercial trawl fleets, `r base_model$dat$fleet_gear_names[1]` and `r base_model$dat$fleet_gear_names[2]` respectively. $q$ parameters represent catchability for the survey indices, with numerical indices representing: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
