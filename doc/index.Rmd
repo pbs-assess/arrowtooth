@@ -569,7 +569,18 @@ sens02_vartheta_row <- sens02_inp_params |> filter(param == "vartheta")
 sens02_vartheta <- f(sens02_vartheta_row |> pull(ival), 2)
 sens02_rho_row <- sens02_inp_params |> filter(param == "rho")
 sens02_rho <- f(sens02_rho_row |> pull(ival), 3)
-sens02_vartheta_est <- f(as_tibble(models$sens_grps[[1]][[3]]$mcmccalcs$params_quants)$vartheta, 2)
+sens02_vartheta_est_raw <- f(as_tibble(models$sens_grps[[1]][[3]]$mcmccalcs$params_quants)$vartheta, 2)
+sens02_vartheta_est <- paste0(sens02_vartheta_est_raw[2],
+                            " (", sens02_vartheta_est_raw[1], "--", sens02_vartheta_est_raw[3], ")")
+
+sens03_inp_params <- as_tibble(rownames_to_column(as.data.frame(models$sens_grps[[1]][[4]]$ctl$params), var = "param"))
+sens03_vartheta_row <- sens03_inp_params |> filter(param == "vartheta")
+sens03_vartheta <- f(sens03_vartheta_row |> pull(ival), 2)
+sens03_rho_row <- sens03_inp_params |> filter(param == "rho")
+sens03_rho <- f(sens03_rho_row |> pull(ival), 3)
+sens03_vartheta_est_raw <- f(as_tibble(models$sens_grps[[1]][[4]]$mcmccalcs$params_quants)$vartheta, 2)
+sens03_vartheta_est <- paste0(sens03_vartheta_est_raw[2],
+                            " (", sens03_vartheta_est_raw[1], "--", sens03_vartheta_est_raw[3], ")")
 
 vartheta_sens_sigma <- f(models$sens_grps[[1]][[2]]$ctl$params[rownames(base_model$ctl$params) == "vartheta", ][1], 2)
 rho_sens_sigma <- f(models$sens_grps[[1]][[2]]$ctl$params[rownames(base_model$ctl$params) == "rho", ][1], 3)
