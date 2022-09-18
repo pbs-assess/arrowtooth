@@ -592,8 +592,30 @@ p2_base <- base_model$ctl$params[rownames(base_model$ctl$params) == "h", ]["p2"]
 h_prior_base <- f(calc_beta_mean_cv(p1_base, p2_base), 2)
 p1_sens01 <- models$sens_grps[[1]][[5]]$ctl$params[rownames(models$sens_grps[[1]][[5]]$ctl$params) == "h", ]["p1"]
 p2_sens01 <- models$sens_grps[[1]][[5]]$ctl$params[rownames(models$sens_grps[[1]][[5]]$ctl$params) == "h", ]["p2"]
-h_prior_sens01 <- f(calc_beta_mean_cv(setNames(p1_sens, NULL), setNames(p2_sens, NULL)), 2)
+h_prior_sens01 <- f(calc_beta_mean_cv(setNames(p1_sens01, NULL), setNames(p2_sens01, NULL)), 2)
 
+# M_male priors and estimates
+sens_male_inp_params <- as_tibble(rownames_to_column(as.data.frame(models$sens_grps[[2]][[3]]$ctl$params), var = "param"))
+sens_male_m_row <- sens_male_inp_params |> filter(param == "log_m_male")
+sens_male_m_ival <- f(sens_male_m_row |> pull(ival) |> exp(), 2)
+sens_male_m_tight_est_raw <- f(as_tibble(models$sens_grps[[2]][[4]]$mcmccalcs$params_quants)$m_sex1, 2)
+sens_male_m_tight_est <- paste0(sens_male_m_tight_est_raw[2],
+                            " (", sens_male_m_tight_est_raw[1], "--", sens_male_m_tight_est_raw[3], ")")
+sens_male_m_loose_est_raw <- f(as_tibble(models$sens_grps[[2]][[5]]$mcmccalcs$params_quants)$m_sex2, 2)
+sens_male_m_loose_est <- paste0(sens_male_m_loose_est_raw[2],
+                            " (", sens_male_m_loose_est_raw[1], "--", sens_male_m_loose_est_raw[3], ")")
 
+# qk priors and estimates
+base_qk_inp_params <- base_model$ctl$surv.q
+base_qk_mean <- exp(base_qk_inp_params[rownames(base_qk_inp_params) == "priormeanlog"])[1]
+base_qk_sd <- base_qk_inp_params[rownames(base_qk_inp_params) == "priorsd"][1]
+
+sens_qk_inp_params <- models$sens_grps[[3]][[2]]$ctl$surv.q
+sens_qk_mean <- exp(sens_qk_inp_params[rownames(sens_qk_inp_params) == "priormeanlog"])[1]
+sens_qk_sd <- sens_qk_inp_params[rownames(sens_qk_inp_params) == "priorsd"][1]
+
+sens_qkp_inp_params <- models$sens_grps[[3]][[3]]$ctl$surv.q
+sens_qkp_mean <- exp(sens_qkp_inp_params[rownames(sens_qkp_inp_params) == "priormeanlog"])[1]
+sens_qkp_sd <- sens_qkp_inp_params[rownames(sens_qkp_inp_params) == "priorsd"][1]
 
 ```

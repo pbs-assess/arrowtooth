@@ -26,21 +26,20 @@ The full list of sensitivity scenarios is provided in Table \@ref(tab:sens-param
 ```
 
 ```{r scam-sens-sigma-en, eval = !fr(), results = 'asis'}
-cat("## Decreasing $\sigma$ and adjusting $\tau$ {#sens-sigma}
+cat("### Decreasing $\sigma$ and adjusting $\tau$ {#sens-sigma}
 
-ISCAM uses an error parameterization which includes two parameters, $\vartheta^2$ and $\rho$ which are the total variance and the proportion of total variance associated with observation errors [@iscam]. Observation error ($\sigma$) and process error ($\tau$) cannot be estimated directly, instead there is a calculation done to translate those values to and from the two parameters in the model (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)). The initial values of $\sigma$ and $\tau$ in the base model are 0.2 and 0.8 respectively. These translate to initial values for $\vartheta^2$ and $\rho$ of `r base_vartheta` and `r base_rho` respectively. The base model estimate of $\vartheta^2$ has a median and credible interval of `r base_vartheta_est`. The $\rho$ parameter is fixed.
+ISCAM uses an error parameterization which includes two parameters, $\vartheta^2$ and $\rho$ which are the total variance and the proportion of total variance associated with observation errors [@iscam]. Observation error ($\sigma$) and process error ($\tau$) cannot be estimated directly, instead there is a calculation done to translate those values to and from the two parameters in the model (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)). The initial values of $\sigma$ and $\tau$ in the base model are 0.2 and 0.8 respectively. These translate to initial values for $\vartheta^2$ and $\rho$ of `r base_vartheta` and `r base_rho` respectively. The base model estimate of $\vartheta^2$ has a median and credible interval of `r base_vartheta_est`. The $\rho$ parameter was fixed for the base, and all sensitivity models.
 
-Reducing the observation error by decreasing $\sigma$ from 0.2 to 0.135 increased the initial values for $\vartheta^2$ from `r base_vartheta` to `r sens01_vartheta` while approximately halving $\rho$ from `r base_rho` to `r sens01_rho`. The median estimate of $\vartheta^2$ was `r sens01_vartheta_est`. There were no other changes to the model, so the choice for initial values for these parameters is clearly an important factor for what the estimates will be. This modification did not have much of an effect on the absolute biomass trajectory (Figure \@ref(fig:fig-sens-variance)), but it did increase the estimate of $B_0$ from`r base_sbo[1]` to `r svals[[1]][[2]]$sbo[1]` t (Figure \@ref(fig:fig-sens-variance)). The increase in the $B_0$ estimate caused a scaling downward of the relative biomass trajectory (Figure \@ref(fig:fig-sens-variance-rel)). There were no substantial changes to the index fits, age fits, or selectivities. The posterior for $\vartheta^2$ more closely matched the prior for this model than for the base model (Figure \@ref(fig:fig-sens-variance-prior-post), compare to Figure \@ref(fig:fig-base-priors-posts)) .
+Reducing the observation error by decreasing $\sigma$ from 0.2 to 0.135 increased the initial value of $\vartheta^2$ from `r base_vartheta` to `r sens01_vartheta` while approximately halving $\rho$ from `r base_rho` to `r sens01_rho`. The median estimate of $\vartheta^2$ was `r sens01_vartheta_est`. There were no other changes to the model, so the choice for initial values for these parameters are correlated to their estimates. There was not much effect on the absolute biomass trajectory (Figure \@ref(fig:fig-sens-variance)), but the estimate of $B_0$ was increased from `r base_sbo[1]` to `r svals[[1]][[2]]$sbo[1]` t (Figure \@ref(fig:fig-sens-variance)). The increase in the $B_0$ estimate caused a scaling downward of the relative biomass trajectory (Figure \@ref(fig:fig-sens-variance-rel)). There were no substantial changes to the index fits, age fits, or selectivities. The posterior for $\vartheta^2$ was affected more by the prior for this model than for the base model (Figure \@ref(fig:fig-sens-variance-prior-post), compare to base model Figure \@ref(fig:fig-base-priors-posts)) .
 
-Setting the initial value for $\tau$ to 0.6 and 1.0, had little effect on absolute biomass. Calculating  $\vartheta^2$ and $\rho$ when $\tau = 1.0$ (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)) gave inital values of `r sens02_vartheta` and `r sens02_rho` respectively. For $\tau = 0.6$, the initial values were `r sens03_vartheta` and `r sens03_rho` respectively. The estimates for $\vartheta^2$ were `r sens02_vartheta_est` and `r sens03_vartheta_est` respectively. The estimates of $B_0$ were scaled up and down, following $\tau$ being set higher or lower respectively, which resulted in scaling of the relative biomnass trajectory up or down with respect to the base model (Figure \@ref(fig:fig-sens-variance-rel)).
+Setting the initial value for $\tau$ to 0.6 and 1.0, had little effect on absolute biomass. Calculating $\vartheta^2$ and $\rho$ when $\tau = 1.0$ (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)) gave inital values of `r sens02_vartheta` and `r sens02_rho` respectively. For $\tau = 0.6$, the initial values were `r sens03_vartheta` and `r sens03_rho` respectively. The estimates for $\vartheta^2$ were `r sens02_vartheta_est` and `r sens03_vartheta_est` for sensitivity models with $\tau = 1.0$ and $\tau = 0.6$ respectively. The estimates of $B_0$ were scaled up and down, following $\tau$ being set higher or lower respectively, which resulted in scaling of the relative biomass trajectory up or down with respect to the base model (Figure \@ref(fig:fig-sens-variance-rel)).
 
-Figure \@ref(fig:sens-index-group1) show the index fits for sensitivity group1. The model where $\tau = 0.6$ has a slightly different fit for the `r qcs`. It shows higher estimates for 2012--2017 and a lower drop for the last few years to present.
+Figure \@ref(fig:sens-index-group1) shows the index fits for sensitivity group 1. The model where $\tau = 0.6$ has a slightly different fit for the `r qcs`. It shows higher estimates for 2013--2017 and a slightly futher drop for the last few years to present.
 
-## Decreasing the mean of the steepness prior {#sens-h}
+### Decreasing the mean of the steepness prior {#sens-h}
 
-Decreasing the steepness prior mean from `r h_prior_base[1]` to `r h_prior_sens01[1]` and changing the CV from `r h_prior_base[2]` to `r h_prior_sens01[2]` produced very little change in both absolute biomass and $B_0$ (Figure \@ref(fig:fig-sens-variance)), despite having a different posterior returned (Figure \@ref(fig:sens-steepness-prior)). The prior for $h$ is very influential on the posterior, but varying the $h$ estimate in this way doe not have much effect on the absolute or relative biomass.
+Decreasing the steepness prior mean from `r h_prior_base[1]` to `r h_prior_sens01[1]` and changing the CV from `r h_prior_base[2]` to `r h_prior_sens01[2]` produced very little change in both absolute biomass and $B_0$ (Figure \@ref(fig:fig-sens-variance)), despite having a different posterior (Figure \@ref(fig:sens-steepness-prior), compare to base model Figure \@ref(fig:fig-base-priors-posts)). The prior for $h$ is very influential on the posterior, but varying the $h$ estimate in this way did not have much effect on the absolute or relative biomass.
 
-}
 ")
 ```
 
@@ -48,53 +47,26 @@ Decreasing the steepness prior mean from `r h_prior_base[1]` to `r h_prior_sens0
 <<scam-sens-sigma-en>>
 ```
 
-```{r scam-sens-tau-en, eval = !fr(), results = 'asis'}
-cat("### Modifying $\tau$ {#scam-sens-tau}
+```{r scam-sens-m-en, eval = !fr(), results = 'asis'}
+cat("### Modifying prior on $M_{Female}$ and $M_{male}$ {#sens-m}
 
-
-")
-```
-
-```{r scam-sens-tau-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-tau-en>>
-```
-
-```{r scam-sens-h-en, eval = !fr(), results = 'asis'}
-cat("### Decresing mean of $h$ prior {#scam-sens-h}
-
+In the base model, the natural mortality parameters $M_{female}$ and $M_{male}$ are fixed to 0.2 and 0.35 respectively. Four sensitivity models were run, to estimate each $M$ parameter with broad and narrow prior SDs. Figure \@ref(fig:fig-sens-m) shows the absolute biomass trajectories for these models. The relative spawning biomass trajectories are shown in Figure \@ref(fig:fig-sens-m-rel). Estimating $M_{female}$ with both narrow and broad priors produced identical estimates to each other and the base model, because they estimated $M_{female}$ as `r unique(models$sens_grps[[2]][[2]]$mcmccalcs$params$m_sex1)[1]`, which is the fixed value in the base model. The sensitivity models that estimate $M_{male}$ produce very different estimates of biomass and in the case of the broad prior, a different $B_0$ estimate as well. $M_{male}$ was estimated as `r sens_male_m_tight_est` and `r sens_male_m_loose_est` for the narrow and broad priors respectively. The estimate of male natural mortality for the broad prior is unrealistic for this species. Fixed values in other assessments are 0.2 for females and 0.35 for males (@spies2021, @spies2019, @grandin2017). The fishing mortality for the two sensitivities to the $M_{male}$ parameter is inflated (\@ref(fig:fig-sens-m-f)). This is an attempt by the model to equalize total mortality $Z = M + F$ to account for the reduction in $M$, so that it can fit the survey indices.
 
 ")
 ```
 
-```{r scam-sens-h-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-h-en>>
-```
-
-```{r scam-sens-m-fem-en, eval = !fr(), results = 'asis'}
-cat("### Modifying prior on $M_{Female}$ {#scam-sens-m-fem}
-
-
-")
-```
-
-```{r scam-sens-m-fem-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-m-fem-en>>
-```
-
-```{r scam-sens-m-mal-en, eval = !fr(), results = 'asis'}
-cat("### Modifying prior on $M_{Male}$ {#scam-sens-m-mal}
-
-
-")
-```
-
-```{r scam-sens-m-mal-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-m-mal-en>>
+```{r scam-sens-m-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-m-en>>
 ```
 
 ```{r scam-sens-q-en, eval = !fr(), results = 'asis'}
-cat("### Modifying catchability priors $q_k$ {#scam-sens-q}
+cat("### Modifying catchability priors $q_k$ {#sens-q}
 
+The catchability parameters are $q_k$ where $k$ is the gear, one for each trawl fleet and survey index (`r paste(base_model$dat$gear_names, collapse = ", ")`). These parameters are have an initial value and prior SD. In the base model those are `r base_qk_mean` and `r base_qk_sd` respectively.
+
+Two sensitivity models were run to test the $q_k$ parameter influences. In the first, the means for all gears were increased from `r base_qk_mean` to `r sens_qk_mean`, and the SD remained at `r sens_qk_sd`. In the second, the prior was broadened by setting the SD for all the gears to `r sens_qkp_sd`. The means for that model remained at `r sens_qkp_mean`.
+
+The 
 
 ")
 ```

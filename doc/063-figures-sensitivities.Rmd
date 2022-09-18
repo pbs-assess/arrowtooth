@@ -72,7 +72,7 @@ plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
 
 <!-- Natural mortality ------------------------------------------------------->
 
-(ref:fig-sens-m-en) Spawning biomass for sensitivities including changes in the natural mortality ($M$) parameters. In the base model, this parameter is fixed for both male and females. In these sensitivities, it is estimated in addition to the changes in prior.
+(ref:fig-sens-m-en) Spawning biomass for sensitivities to changes in the natural mortality ($M$) parameters. In the base model, this parameter is fixed for both male and females. In these sensitivities, it is estimated in addition to the changes in prior.
 
 (ref:fig-sens-m-fr) French here
 
@@ -83,7 +83,7 @@ plot_biomass_mcmc(models$sens_grps[[2]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-m-rel-en) Relative spawning biomass for sensitivities pertaining to changes in the natural mortality ($M$) parameters.
+(ref:fig-sens-m-rel-en) Relative spawning biomass for sensitivities to changes in the natural mortality ($M$) parameters.
 
 (ref:fig-sens-m-rel-fr) French here
 
@@ -93,6 +93,14 @@ plot_biomass_mcmc(models$sens_grps[[2]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-m-f-en) Fishing mortality $F$ for sensitivities to changes in the natural mortality ($M$) parameters.
+
+(ref:fig-sens-m-f-fr) French here
+
+```{r fig-sens-m-f, fig.cap = ifelse(fr(), "(ref:fig-sens-m-f-fr)", "(ref:fig-sens-m-f-en)")}
+plot_f_mcmc(models$sens_grps[[2]], leg_loc = c(0, 1))
 ```
 
 <!-- Catchability ------------------------------------------------------------>
