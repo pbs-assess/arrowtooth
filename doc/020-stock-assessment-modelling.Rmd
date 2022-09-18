@@ -155,11 +155,9 @@ Length data from the freezer trawler and shoreside fleets, and from the synoptic
 
 Females did not vary in length significantly between the two fleets, with both having an overall median of `r median(length_samples_ft$length, na.rm = TRUE)` cm. Males had a median of `r median(filter(length_samples_ft, sex == 1)$length, na.rm = TRUE)` for the Freezer trawler fleet and `r median(filter(length_samples_ss, sex == 1)$length, na.rm = TRUE)` cm for the Shoreside fleet. Females had a median of `r median(filter(length_samples_ft, sex == 2)$length, na.rm = TRUE)` for the Freezer trawler fleet and `r median(filter(length_samples_ss, sex == 2)$length, na.rm = TRUE)` cm for the Shoreside fleet.
 
-both fleets, except for in 2006–2007, when freezer trawler samples showed slightly larger males. The low sample size (N = 97) in 2006 suggests that this may not be representative of the population.")
+both fleets, except for in 2006–2007, when freezer trawler samples showed slightly larger males. The low sample size (N = 97) in 2006 suggests that this may not be representative of the population.
 
-
-Females have been sampled more often than males in both fleets. This difference in sampling is due to the proportion of females in the population being higher than males. Appendix \@ref(app:prop-female) describes in detail how the proportion female was calculated.
-
+Females have been sampled more often than males in both fleets. This difference in sampling is due to the proportion of females in the population being higher than males. Appendix \@ref(app:prop-female) describes in detail how the proportion female was calculated.")
 ```
 
 ```{r sam-length-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
