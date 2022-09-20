@@ -307,7 +307,7 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 plot_selex_mcmc(base_model)
 ```
 
-<!-- (ref:fig-base-selex-qcs-en) Estimated selectivities for the `r qcs` in the base model. The time series is broken into selectivity blocks of years, `r qcs_sel_ranges`. -->
+<!-- (ref:fig-base-selex-qcs-en) Estimated selectivities for the `r qcs` in the base model. The time series is broken into selectivity blocks of years, TODO r qcs_sel_ranges. -->
 
 <!-- (ref:fig-base-selex-qcs-fr) French goes here -->
 
