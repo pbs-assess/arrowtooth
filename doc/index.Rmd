@@ -546,64 +546,110 @@ svals <- get_group_parvals(models$sens_grps)
 # sbt end year:
 # svals[[3]][[2]]$sbt[3
 
-base_inp_params <- as_tibble(rownames_to_column(as.data.frame(base_model$ctl$params), var = "param"))
-base_vartheta_row <- base_inp_params |> filter(param == "vartheta")
-base_vartheta <- f(base_vartheta_row |> pull(ival), 2)
-base_rho_row <- base_inp_params |> filter(param == "rho")
-base_rho <- f(base_rho_row |> pull(ival), 3)
-base_vartheta_est_raw <- f(as_tibble(base_model$mcmccalcs$params_quants)$vartheta, 2)
-base_vartheta_est <- paste0(base_vartheta_est_raw[2],
-                            " (", base_vartheta_est_raw[1], "--", base_vartheta_est_raw[3], ")")
+# Extract parameter values from the table found in the control file
+#
+# @param model The iSCAM model
+# @param param The parameter name (row)
+# @param value The value (column)
+# @param digits The number of decimal points to return
+#
+# @return The value or row
+# @export
+get_ctl_params <- function(model, param = NULL, value = NULL, ...){
+  inp_params <- as_tibble(rownames_to_column(as.data.frame(model$ctl$params),
+                                             var = "param"))
 
-sens01_inp_params <- as_tibble(rownames_to_column(as.data.frame(models$sens_grps[[1]][[2]]$ctl$params), var = "param"))
-sens01_vartheta_row <- sens01_inp_params |> filter(param == "vartheta")
-sens01_vartheta <- f(sens01_vartheta_row |> pull(ival), 2)
-sens01_rho_row <- sens01_inp_params |> filter(param == "rho")
-sens01_rho <- f(sens01_rho_row |> pull(ival), 3)
-sens01_vartheta_est_raw <- f(as_tibble(models$sens_grps[[1]][[2]]$mcmccalcs$params_quants)$vartheta, 2)
-sens01_vartheta_est <- paste0(sens01_vartheta_est_raw[2],
-                            " (", sens01_vartheta_est_raw[1], "--", sens01_vartheta_est_raw[3], ")")
+  if(!is.null(param)){
+    inp_params <- filter(inp_params, param == !!param)
+  }
+  if(!is.null(value)){
+    return(pull(inp_params, value))
+  }
+  inp_params
+}
 
-sens02_inp_params <- as_tibble(rownames_to_column(as.data.frame(models$sens_grps[[1]][[3]]$ctl$params), var = "param"))
-sens02_vartheta_row <- sens02_inp_params |> filter(param == "vartheta")
-sens02_vartheta <- f(sens02_vartheta_row |> pull(ival), 2)
-sens02_rho_row <- sens02_inp_params |> filter(param == "rho")
-sens02_rho <- f(sens02_rho_row |> pull(ival), 3)
-sens02_vartheta_est_raw <- f(as_tibble(models$sens_grps[[1]][[3]]$mcmccalcs$params_quants)$vartheta, 2)
-sens02_vartheta_est <- paste0(sens02_vartheta_est_raw[2],
-                            " (", sens02_vartheta_est_raw[1], "--", sens02_vartheta_est_raw[3], ")")
+get_param_est <- function(model, param = NULL, est_digits = 2, ...){
+  if(is.null(param)){
+    stop("Must provode `param` name", call. = FALSE)
+  }
+  
+  if(param == "log_m_female"){
+    param ="m_sex1"
+  }
+  if(param == "log_m_male"){
+    param ="m_sex2"
+  }
+  raw <- as_tibble(model$mcmccalcs$params_quants)[[param]]
+  paste0(f(raw[2], est_digits), " (", f(raw[1], est_digits), "--", f(raw[3], est_digits), ")")
+}
 
-sens03_inp_params <- as_tibble(rownames_to_column(as.data.frame(models$sens_grps[[1]][[4]]$ctl$params), var = "param"))
-sens03_vartheta_row <- sens03_inp_params |> filter(param == "vartheta")
-sens03_vartheta <- f(sens03_vartheta_row |> pull(ival), 2)
-sens03_rho_row <- sens03_inp_params |> filter(param == "rho")
-sens03_rho <- f(sens03_rho_row |> pull(ival), 3)
-sens03_vartheta_est_raw <- f(as_tibble(models$sens_grps[[1]][[4]]$mcmccalcs$params_quants)$vartheta, 2)
-sens03_vartheta_est <- paste0(sens03_vartheta_est_raw[2],
-                            " (", sens03_vartheta_est_raw[1], "--", sens03_vartheta_est_raw[3], ")")
+get_param_vals <- function(model, param, est = TRUE, ...){
+  out <- NULL
+  out$init <- get_ctl_params(model, param, "ival", ...)
+  out$p1 <- get_ctl_params(model, param, "p1", ...)
+  out$p2 <- get_ctl_params(model, param, "p2", ...)
+  if(est){
+    out$est <- get_param_est(model, param, ...)
+  }
+  out
+}
 
-vartheta_sens_sigma <- f(models$sens_grps[[1]][[2]]$ctl$params[rownames(base_model$ctl$params) == "vartheta", ][1], 2)
-rho_sens_sigma <- f(models$sens_grps[[1]][[2]]$ctl$params[rownames(base_model$ctl$params) == "rho", ][1], 3)
-vartheta_est_sens_sigma <- f(as_tibble(models$sens_grps[[1]][[2]]$mcmccalcs$params_quants)$vartheta, 2)
+base_vartheta <- get_param_vals(base_model, "vartheta", est = FALSE, digits = 5)
+base_rho <- get_param_vals(base_model, "rho", est = FALSE, digits = 5)
+base_sig_tau <- calc_sig_tau(get_param_vals(base_model, "rho", est = FALSE)$init,
+                             get_param_vals(base_model, "vartheta", est = FALSE)$init)
+base_sig <- f(base_sig_tau[1], 1)
+base_tau <- f(base_sig_tau[2], 1)
 
-# Steepness prior values
-p1_base <- base_model$ctl$params[rownames(base_model$ctl$params) == "h", ]["p1"]
-p2_base <- base_model$ctl$params[rownames(base_model$ctl$params) == "h", ]["p2"]
-h_prior_base <- f(calc_beta_mean_cv(p1_base, p2_base), 2)
-p1_sens01 <- models$sens_grps[[1]][[5]]$ctl$params[rownames(models$sens_grps[[1]][[5]]$ctl$params) == "h", ]["p1"]
-p2_sens01 <- models$sens_grps[[1]][[5]]$ctl$params[rownames(models$sens_grps[[1]][[5]]$ctl$params) == "h", ]["p2"]
-h_prior_sens01 <- f(calc_beta_mean_cv(setNames(p1_sens01, NULL), setNames(p2_sens01, NULL)), 2)
+base_h <- get_param_vals(base_model, "h")
+base_h_prior1 <- calc_beta_mean_cv(base_h$p1, base_h$p2)[1]
+base_h_prior2 <- calc_beta_mean_cv(base_h$p1, base_h$p2)[2]
+base_h_prior_params <- paste(f(base_h_prior1, 2),
+                             ",",
+                             f(base_h_prior2, 2))
+base_m_female <- get_param_vals(base_model, "log_m_female")
+base_m_male <- get_param_vals(base_model, "log_m_male")
 
-# M_male priors and estimates
-sens_male_inp_params <- as_tibble(rownames_to_column(as.data.frame(models$sens_grps[[2]][[3]]$ctl$params), var = "param"))
-sens_male_m_row <- sens_male_inp_params |> filter(param == "log_m_male")
-sens_male_m_ival <- f(sens_male_m_row |> pull(ival) |> exp(), 2)
-sens_male_m_tight_est_raw <- f(as_tibble(models$sens_grps[[2]][[4]]$mcmccalcs$params_quants)$m_sex1, 2)
-sens_male_m_tight_est <- paste0(sens_male_m_tight_est_raw[2],
-                            " (", sens_male_m_tight_est_raw[1], "--", sens_male_m_tight_est_raw[3], ")")
-sens_male_m_loose_est_raw <- f(as_tibble(models$sens_grps[[2]][[5]]$mcmccalcs$params_quants)$m_sex2, 2)
-sens_male_m_loose_est <- paste0(sens_male_m_loose_est_raw[2],
-                            " (", sens_male_m_loose_est_raw[1], "--", sens_male_m_loose_est_raw[3], ")")
+sens_1_2_vartheta <- get_param_vals(models$sens_grps[[1]][[2]], "vartheta")
+sens_1_2_rho <- get_param_vals(models$sens_grps[[1]][[2]], "rho", est = FALSE)
+sens_1_2_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[2]],
+                                                           "rho", est = FALSE)$init,
+                                 get_param_vals(models$sens_grps[[1]][[2]],
+                                                           "vartheta")$init)
+sens_1_2_sig <- f(sens_1_2_sig_tau[1], 3)
+sens_1_2_tau <- f(sens_1_2_sig_tau[2], 1)
+
+sens_1_3_vartheta <- get_param_vals(models$sens_grps[[1]][[3]], "vartheta")
+sens_1_3_rho <- get_param_vals(models$sens_grps[[1]][[3]], "rho", est = FALSE)
+sens_1_3_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[3]],
+                                                           "rho", est = FALSE)$init,
+                                 get_param_vals(models$sens_grps[[1]][[3]],
+                                                           "vartheta")$init)
+sens_1_3_sig <- f(sens_1_3_sig_tau[1], 1)
+sens_1_3_tau <- f(sens_1_3_sig_tau[2], 1)
+
+
+sens_1_4_vartheta <- get_param_vals(models$sens_grps[[1]][[4]], "vartheta")
+sens_1_4_rho <- get_param_vals(models$sens_grps[[1]][[4]], "rho", est = FALSE)
+sens_1_4_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[4]],
+                                                           "rho", est = FALSE)$init,
+                                 get_param_vals(models$sens_grps[[1]][[4]],
+                                                           "vartheta")$init)
+
+sens_1_4_sig <- f(sens_1_4_sig_tau[1], 1)
+sens_1_4_tau <- f(sens_1_4_sig_tau[2], 1)
+
+sens_1_5_h <- get_param_vals(models$sens_grps[[1]][[5]], "h")
+sens_1_5_h_prior1 <- calc_beta_mean_cv(sens_1_5_h$p1, sens_1_5_h$p2)[1]
+sens_1_5_h_prior2 <- calc_beta_mean_cv(sens_1_5_h$p1, sens_1_5_h$p2)[2]
+sens_1_5_h_prior_params <- paste(f(sens_1_5_h_prior1, 2),
+                             ",",
+                             f(sens_1_5_h_prior2, 2))
+
+sens_2_2_m_female <- get_param_vals(models$sens_grps[[2]][[2]], "log_m_female")
+sens_2_3_m_female <- get_param_vals(models$sens_grps[[2]][[3]], "log_m_female")
+sens_2_4_m_male <- get_param_vals(models$sens_grps[[2]][[4]], "log_m_male")
+sens_2_5_m_male <- get_param_vals(models$sens_grps[[2]][[5]], "log_m_male")
 
 # qk priors and estimates
 base_qk_inp_params <- base_model$ctl$surv.q
