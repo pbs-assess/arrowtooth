@@ -4,7 +4,8 @@ french_title: "Évaluation du stock de la plie à dents de flèche (Atheresthes 
 author: |
   Chris J. Grandin^1^ and
   Sean C. Anderson^1^
-author_list: "Grandin, C.J. and Anderson, S.C."
+  Philina A. English^1^
+author_list: "Grandin, C.J. and Anderson, S.C. and English, P.A."
 address: |
   ^1^Pacific Biological Station\
      Fisheries and Oceans Canada, 3190 Hammond Bay Road\
