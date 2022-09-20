@@ -346,11 +346,7 @@ la <- "2015 assessment"
 # }
 
 # Number of parameters estimated (from PAR file)
-num_params <- base_model$par |>
-  map_dbl(~{j <- strsplit(as.character(.x), split = " ")[[1]]
-  j <- j[j != ""]
-  length(j)
-  }) |> sum()
+num_params <- get_num_params_est(base_model)
 
 # Catch table
 ct <- as_tibble(base_model$dat$catch)
