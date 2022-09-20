@@ -45,9 +45,9 @@ plot_cpue_spatial(dat$cpue_spatial,
                   colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"))
 ```
 
-(ref:fig-catch-en) Commercial catch of `r sp` by area.
+(ref:fig-catch-en) Commercial catch of `r sp` by area. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006.
 
-(ref:fig-catch-fr) Captures commerciales de `r tr(sp)` par zone.
+(ref:fig-catch-fr) Captures commerciales de `r tr(sp)` par zone. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, l'année 2005 correspond à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006.
 
 ```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 yrs <- sort(unique(catch$year))
@@ -102,7 +102,7 @@ plot_biomass_mcmc(base_model,
                   show_bo_lines = TRUE,
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
-                  ylim = c(0, 2.5))
+                  ylim = c(0, 0.8))
 ```
 
 <!-- Vulnerable spawning biomass --------------------------------------------->
@@ -307,13 +307,13 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 plot_selex_mcmc(base_model)
 ```
 
-(ref:fig-base-selex-qcs-en) Estimated selectivities for the `r qcs` in the base model. The time series is broken into selectivity blocks of years, `r qcs_sel_ranges`.
+<!-- (ref:fig-base-selex-qcs-en) Estimated selectivities for the `r qcs` in the base model. The time series is broken into selectivity blocks of years, `r qcs_sel_ranges`. -->
 
-(ref:fig-base-selex-qcs-fr) French goes here
+<!-- (ref:fig-base-selex-qcs-fr) French goes here -->
 
-```{r fig-base-mcmc-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-selex-qcs-fr)", "(ref:fig-base-selex-qcs-en)")}
-plot_selex_gear_mcmc(base_model, gear = 3)
-```
+<!-- ```{r fig-base-mcmc-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-selex-qcs-fr)", "(ref:fig-base-selex-qcs-en)")} -->
+<!-- plot_selex_gear_mcmc(base_model, gear = 3) -->
+<!-- ``` -->
 
 <!-- Reference points -------------------------------------------------------->
 

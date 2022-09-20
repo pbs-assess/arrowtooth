@@ -247,6 +247,7 @@ comm_ss <- extract_fleet_samples(commercial_samples, include = FALSE)
 # Aggregated commercial catch
 month_start <- 2
 day_start <- 21
+dat$catch <- dat$catch |> filter(year < 2022)
 catch <- tidy_catch(dat$catch,
                     areas = tidy_areas,
                     month_fishing_starts = month_start,
@@ -320,31 +321,32 @@ wchgs <- "West Coast Haida Gwaii Synoptic Survey"
 dcpue <- "Discard CPUE Index"
 
 la <- "2015 assessment"
-tv_block1 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
-                                  gear == "QCS Synoptic", block == 1)$start_year),
-                    "--", 
-                    unique(filter(base_model$mcmccalcs$selest_quants,
-                                  gear == "QCS Synoptic", block == 1)$end_year))
-tv_block2 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
-                                  gear == "QCS Synoptic", block == 2)$start_year),
-                    "--", 
-                    unique(filter(base_model$mcmccalcs$selest_quants,
-                                  gear == "QCS Synoptic", block == 2)$end_year))
+# tv_block1 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 1)$start_year),
+#                     "--", 
+#                     unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 1)$end_year))
+# tv_block2 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 2)$start_year),
+#                     "--", 
+#                     unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 2)$end_year))
+
 # Text for selectivity block year ranges
-qcs_tv_yr_start <- base_model$ctl$start.yr.time.block[3, ]
-qcs_tv_yr_start[1] <- base_model$dat$start.yr
-qcs_tv_yr_end <- c(qcs_tv_yr_start[2:length(qcs_tv_yr_start)] - 1,
-                   base_model$dat$end.yr)
-if(length(qcs_tv_yr_start) == 2){
-  qcs_sel_ranges <- paste(paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end),
-                          collapse = " and ")
-}else{
-  qcs_sel_ranges <- paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end)
-  tmp <- qcs_sel_ranges[length(qcs_sel_ranges)]
-  qcs_sel_ranges <- paste(qcs_sel_ranges[-length(qcs_sel_ranges)],
-                          collapse = ", ")
-  qcs_sel_ranges <- paste0(qcs_sel_ranges, ", and ", tmp)
-}
+# qcs_tv_yr_start <- base_model$ctl$start.yr.time.block[3, ]
+# qcs_tv_yr_start[1] <- base_model$dat$start.yr
+# qcs_tv_yr_end <- c(qcs_tv_yr_start[2:length(qcs_tv_yr_start)] - 1,
+#                    base_model$dat$end.yr)
+# if(length(qcs_tv_yr_start) == 2){
+#   qcs_sel_ranges <- paste(paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end),
+#                           collapse = " and ")
+# }else{
+#   qcs_sel_ranges <- paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end)
+#   tmp <- qcs_sel_ranges[length(qcs_sel_ranges)]
+#   qcs_sel_ranges <- paste(qcs_sel_ranges[-length(qcs_sel_ranges)],
+#                           collapse = ", ")
+#   qcs_sel_ranges <- paste0(qcs_sel_ranges, ", and ", tmp)
+# }
 
 # Number of parameters estimated (from PAR file)
 num_params <- base_model$par |>

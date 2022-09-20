@@ -98,7 +98,7 @@ Pairs plots of posterior samples (Figure \@ref(fig:fig-base-pairs)) indicated th
 ```{r scam-results-selectivity-en, eval = !fr(), results = 'asis'}
 cat("### Selectivity {#scam-selex}
 
-Selectivity-at-age was estimated for the two fisheries and the synoptic surveys (Figures \@ref(fig:fig-base-mcmc-selex) and \@ref(fig:fig-base-mcmc-selex-qcs)). The `r dcpue` and `r hsmas` fixed selectivities are also shown in Figure \@ref(fig:fig-base-mcmc-selex). Selectivity was blocked into two time periods for the `r qcs`, `r ct_start_yr`-`r base_model$ctl$start.yr.time.block[3, 2] - 1`, and `r base_model$ctl$start.yr.time.block[3, 2]`-`r base_model$dat$end.yr`. This was done to improve fits to the indices and diagnostics.
+Selectivity-at-age was estimated for the two fisheries and the synoptic surveys (Figures \@ref(fig:fig-base-mcmc-selex) and \@ref(fig:fig-base-mcmc-selex-qcs)). The `r dcpue` and `r hsmas` fixed selectivities are also shown in Figure \@ref(fig:fig-base-mcmc-selex).
 
 Posterior estimates of age-at-50%-harvest ($\hat{a}_k$) and the standard deviation in the logistic selectivity ogive ($\hat{\gamma}_k$) are provided in Table \@ref(tab:param-estimates-table). The median posterior estimates of age-at-50%-harvest were for females for all gears except for the `r wchgs` which had a much higher estimate for males compared to females. The estimates of standard deviation were similar between sexes.
 
