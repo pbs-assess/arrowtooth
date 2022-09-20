@@ -48,7 +48,7 @@ cowplot::plot_grid(
 plot_index_mcmc(models$bridge_grps[[1]],
                 type = "fits",
                 surv_index = survey_index,
-                leg_loc = c(0.55, 1),
+                leg_loc = "facet",
                 text_title_size = NULL,
                 base_color = "royalblue")
 ```
@@ -62,6 +62,8 @@ plot_index_mcmc(models$bridge_grps[[2]],
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = c(0.55, 1),
+                leg_size = 0.3,
+                leg_text_size = 3,
                 text_title_size = NULL,
                 base_color = "royalblue")
 ```
