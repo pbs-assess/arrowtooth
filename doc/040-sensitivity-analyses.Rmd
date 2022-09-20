@@ -1,5 +1,5 @@
 ```{r scam-sensitivity-analyses-en, eval = !fr(), results = 'asis'}
-cat("## Sensitivity Analyses {#scam-sens-analyses}
+cat("## Sensitivity Analyses {#sens-analyses}
 
 We tested sensitivity of the model outputs as follows:
 

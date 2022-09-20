@@ -230,7 +230,7 @@ plot_age_resids_mcmc(base_model, gear = 2, text_title_size = NULL)
 (ref:fig-base-age-fits-qcs-fr) French here
 
 ```{r fig-base-age-fits-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-qcs-fr)", "(ref:fig-base-age-fits-qcs-en)")}
-plot_age_fits_mcmc(base_model, gear = 3, text_title_size = NULL)
+plot_age_fits_mcmc(base_model, gear = 3, text_title_size = NULL, sample_size_y = 0.15)
 ```
 
 (ref:fig-base-age-resids-qcs-en) Age composition log standardized residuals for each sex for the `r qcs`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
@@ -248,7 +248,7 @@ plot_age_resids_mcmc(base_model, gear = 3, text_title_size = NULL)
 (ref:fig-base-age-fits-hss-fr) French here
 
 ```{r fig-base-age-fits-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-hss-fr)", "(ref:fig-base-age-fits-hss-en)")}
-plot_age_fits_mcmc(base_model, gear = 4, text_title_size = NULL)
+plot_age_fits_mcmc(base_model, gear = 4, text_title_size = NULL, sample_size_y = 0.15)
 ```
 
 (ref:fig-base-age-resids-hss-en) Age composition log standardized residuals for each sex for the `r hss`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
@@ -266,7 +266,7 @@ plot_age_resids_mcmc(base_model, gear = 4, text_title_size = NULL)
 (ref:fig-base-age-fits-wcvis-fr) French here
 
 ```{r fig-base-age-fits-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wcvis-fr)", "(ref:fig-base-age-fits-wcvis-en)")}
-plot_age_fits_mcmc(base_model, gear = 5, text_title_size = NULL)
+plot_age_fits_mcmc(base_model, gear = 5, text_title_size = NULL, sample_size_y = 0.15)
 ```
 
 (ref:fig-base-age-resids-wcvis-en) Age composition log standardized residuals for each sex for the `r wcvis`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details.
