@@ -11,7 +11,7 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
-                  ylim = c(0, 300))
+                  ylim = c(0, 380))
 ```
 
 (ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities to changes in the $\vartheta^2$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters.
@@ -24,7 +24,7 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
-                  ylim = c(0, 2))
+                  ylim = c(0, 0.8))
 ```
 
 (ref:fig-sens-variance-prior-post-en) Relative spawning biomass for sensitivities to changes in the $\vartheta^2$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters.
@@ -126,6 +126,16 @@ plot_biomass_mcmc(models$sens_grps[[3]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE)
+```
+
+(ref:fig-sens-q-q-en) Catchability estimates for the sensitivities to changes in the Catchability ($q_k$) parameters.
+
+(ref:fig-sens-q-q-fr) French here
+
+```{r fig-sens-q-q, fig.cap = ifelse(fr(), "(ref:fig-sens-q-q-fr)", "(ref:fig-sens-q-q-en)")}
+plot_q_mcmc(models$sens_grps[[3]],
+            leg_loc = "facet",
+            gear = NULL)
 ```
 
 <!-- Selectivity and Geostat surveys ----------------------------------------->

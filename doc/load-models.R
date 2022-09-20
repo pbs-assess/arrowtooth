@@ -12,8 +12,7 @@ bridge_models_dirs <-
        c("09-bridge-switch-fishing-year-to-feb-21-feb-20",
          "10-bridge-remove-wchg",
          "11-bridge-fix-natural-mortalities",
-         "12-bridge-qcs-tv-selex",
-         "13-bridge-estimate-total-variance-qcs-tv"))
+         "12-bridge-qcs-tv-selex"))
 
 bridge_models_text <-
   list(c("2015 Base model (one fleet, single sex)",
@@ -27,8 +26,7 @@ bridge_models_text <-
        c("Change year start to Feb 21 (two fleets, split sex)",
          "Remove WCHG survey (two fleets, split sex)",
          "Fix natural mortalities (two fleets, split sex)",
-         "QCS survey TV selectivity (two fleets, split sex)",
-         "Estimate total variance and QCS TV (two fleets, split sex)"))
+         "QCS survey TV selectivity (two fleets, split sex)"))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
