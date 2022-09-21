@@ -280,7 +280,7 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 
 <!-- (ref:fig-base-age-fits-wchgs-en) Age composition fits for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details. -->
 
-<!-- (ref:fig-base-age-fits-wchgs-fr) French here -->
+<!-- (ref:fig-base-age-fits-wchgs-fr) -->
 
 <!-- ```{r fig-base-age-fits-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wchgs-fr)", "(ref:fig-base-age-fits-wchgs-en)")} -->
 <!-- plot_age_fits_mcmc(base_model, gear = 6, text_title_size = NULL) -->
@@ -288,7 +288,7 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 
 <!-- (ref:fig-base-age-resids-wchgs-en) Age composition log standardized residuals for each sex for the `r wchgs`. See Figure \@ref(fig:fig-base-age-resids-ft) for plot details. -->
 
-<!-- (ref:fig-base-age-resids-wchgs-fr) French here -->
+<!-- (ref:fig-base-age-resids-wchgs-fr)  -->
 
 <!-- ```{r fig-base-age-resids-wchgs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wchgs-fr)", "(ref:fig-base-age-resids-wchgs-en)")} -->
 <!-- plot_age_resids_mcmc(base_model, gear = 6, text_title_size = NULL) -->
