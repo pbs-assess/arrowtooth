@@ -614,6 +614,8 @@ sens_1_2_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[2]],
                                                            "vartheta")$init)
 sens_1_2_sig <- f(sens_1_2_sig_tau[1], 3)
 sens_1_2_tau <- f(sens_1_2_sig_tau[2], 1)
+sens_1_2_h <- get_param_vals(models$sens_grps[[1]][[2]], "h")
+sens_1_2_sbo <- get_param_vals(models$sens_grps[[1]][[2]], "sbo")
 
 sens_1_3_vartheta <- get_param_vals(models$sens_grps[[1]][[3]], "vartheta")
 sens_1_3_rho <- get_param_vals(models$sens_grps[[1]][[3]], "rho", est = FALSE)
@@ -623,6 +625,7 @@ sens_1_3_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[3]],
                                                            "vartheta")$init)
 sens_1_3_sig <- f(sens_1_3_sig_tau[1], 1)
 sens_1_3_tau <- f(sens_1_3_sig_tau[2], 1)
+sens_1_3_sbo <- get_param_vals(models$sens_grps[[1]][[3]], "sbo")
 
 
 sens_1_4_vartheta <- get_param_vals(models$sens_grps[[1]][[4]], "vartheta")
@@ -631,6 +634,7 @@ sens_1_4_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[4]],
                                                            "rho", est = FALSE)$init,
                                  get_param_vals(models$sens_grps[[1]][[4]],
                                                            "vartheta")$init)
+sens_1_4_sbo <- get_param_vals(models$sens_grps[[1]][[4]], "sbo")
 
 sens_1_4_sig <- f(sens_1_4_sig_tau[1], 1)
 sens_1_4_tau <- f(sens_1_4_sig_tau[2], 1)
