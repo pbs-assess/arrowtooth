@@ -124,8 +124,13 @@ p <- predict(fit_tv, newdata = nd, se_fit = TRUE, re_form = NA)
 # add annual mean temperature for colouring the year lines
 td <- readRDS(file.path(dr, "data", "trawl_temp.rds")) %>% group_by(fishing_event_id) %>% summarise(temp = mean(avg, na.rm =T))
 td <- left_join(ds, td) %>% filter(depth_m < 200 & depth_m > 100) %>% group_by(year) %>% summarise(yr_mean_temp = mean(temp, na.rm = T))
-p2 <- left_join(p, td) %>% filter(year != 2020) # temp data missing for 2020
+p2 <- left_join(p, td) %>%
+  filter(log_depth < log(450)) %>%
+  filter(year != 2020) # temp data missing for 2020
 
+## check pattern within years of certain surveys
+# yrs <- ds %>% filter(survey_abbrev == "SYN WCVI")
+# p2 <- p2 %>% filter(year %in% unique(yrs$year))
 
 png(file.path(dr, "geostat-figs", "condition-tv-raw-poly-3.png"), width = 6, height = 4, units = "in", res = 200)
 
@@ -135,14 +140,16 @@ ggplot(p2, aes(log_depth, exp(est),
               group = as.factor(year)
 )) +
   geom_line(aes(colour = yr_mean_temp), lwd = 1) +
-  # geom_ribbon(aes(fill = yr_mean_temp), alpha = 0.1) +
+  geom_ribbon(aes(fill = yr_mean_temp), alpha = 0.05) +
   scale_colour_viridis_c(option = "plasma") +
   scale_fill_viridis_c(option = "plasma") +
   scale_x_continuous(trans = "exp",
                      breaks = c(log(100), log(200), log(300), log(400), log(500)),
                      labels = c("100", "200", "300", "400", "500")) +
   coord_cartesian(expand = F) +
-  labs(x = "Depth (m)", y = "Predicted condition factor", colour = "Mean bottom \ntemperature at \n100-200 m \ndepths")+
+  labs(x = "Depth (m)", y = "Predicted condition factor",
+       fill = "Mean bottom \ntemperature at \n100-200 m \ndepths",
+       colour = "Mean bottom \ntemperature at \n100-200 m \ndepths")+
   gfplot::theme_pbs()
 
 dev.off()
