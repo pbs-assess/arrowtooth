@@ -2,12 +2,14 @@ library(ggplot2)
 library(dplyr)
 library(sdmTMB)
 library(here)
+library(scales)
+
 source(here("geostat/utils.R"))
 
 dr <- paste0(here(), "-nongit")
 
 dir.create(file.path(dr, "geostat-figs"), showWarnings = FALSE)
-d <- readRDS(file.path(dr, "data", "arrowtooth-flounder-aug10-2021.rds"))
+d <- readRDS(file.path(dr, "data", "arrowtooth-flounder-aug11-2022.rds"))
 
 dat <- d$survey_samples
 dset <- d$survey_sets
@@ -65,11 +67,86 @@ fit <- sdmTMB(cond_fac ~ 1 + s(log_depth),
 sanity(fit)
 
 # v <- visreg::visreg(fit, xvar = "log_depth")
-# ggplot(v$res, aes(log_depth, cond_fac)) + geom_line()
+# ggplot(v$res, aes(log_depth, visregRes)) + geom_point()
 
 png(file.path(dr, "geostat-figs", "condition-smoother.png"), width = 6, height = 4, units = "in", res = 200)
-plot_smooth(fit, select = 1)
+
+plot_smooth(fit, select = 1, ggplot = TRUE, rug = FALSE) +
+  scale_x_continuous(trans = "exp",
+                     breaks = c(log(100), log(200), log(300), log(400), log(500)),
+                     labels = c("100", "200", "300", "400", "500")) +
+  scale_y_continuous(breaks = c(0.97, 1, 1.03, 1.06, 1.09)) +
+  coord_cartesian(expand = FALSE) +
+  ylab("Predicted condition factor") +
+  xlab("Depth (m)") +
+  ggplot2::geom_rug(
+    data = fit$data, mapping = ggplot2::aes_string(x = "log_depth"),
+    sides = "t", inherit.aes = FALSE, alpha = 0.01, size = 0.5
+  ) +
+  gfplot::theme_pbs()
+
 dev.off()
+
+
+
+## time-varying depth effect on condition
+
+fit_tv <- sdmTMB(cond_fac ~ 0 + s(year),
+              time_varying = ~ 0 + poly(log_depth, 3, raw = T),
+              mesh = mesh2,
+              data = ds,
+              spatial = "on",
+              spatiotemporal = "iid",
+              silent = FALSE,
+              time = "year",
+              family = lognormal(link = "log"),
+              control = sdmTMBcontrol(newton_loops = 1L),
+              priors = sdmTMBpriors(
+                matern_s = pc_matern(range_gt = 25, sigma_lt = 2),
+                matern_st = pc_matern(range_gt = 25, sigma_lt = 2)
+              ))
+sanity(fit_tv)
+
+AIC(fit_tv)
+
+
+nd <- expand.grid(
+  log_depth = seq(min(ds$log_depth),
+                     max(ds$log_depth),
+                     length.out = 50
+  ),
+  year = unique(ds$year) # all years
+)
+
+p <- predict(fit_tv, newdata = nd, se_fit = TRUE, re_form = NA)
+
+# add annual mean temperature for colouring the year lines
+td <- readRDS(file.path(dr, "data", "trawl_temp.rds")) %>% group_by(fishing_event_id) %>% summarise(temp = mean(avg, na.rm =T))
+td <- left_join(ds, td) %>% filter(depth_m < 200 & depth_m > 100) %>% group_by(year) %>% summarise(yr_mean_temp = mean(temp, na.rm = T))
+p2 <- left_join(p, td) %>% filter(year != 2020) # temp data missing for 2020
+
+
+png(file.path(dr, "geostat-figs", "condition-tv-raw-poly-3.png"), width = 6, height = 4, units = "in", res = 200)
+
+ggplot(p2, aes(log_depth, exp(est),
+              ymin = exp(est - 1.96 * est_se),
+              ymax = exp(est + 1.96 * est_se),
+              group = as.factor(year)
+)) +
+  geom_line(aes(colour = yr_mean_temp), lwd = 1) +
+  # geom_ribbon(aes(fill = yr_mean_temp), alpha = 0.1) +
+  scale_colour_viridis_c(option = "plasma") +
+  scale_fill_viridis_c(option = "plasma") +
+  scale_x_continuous(trans = "exp",
+                     breaks = c(log(100), log(200), log(300), log(400), log(500)),
+                     labels = c("100", "200", "300", "400", "500")) +
+  coord_cartesian(expand = F) +
+  labs(x = "Depth (m)", y = "Predicted condition factor", colour = "Mean bottom \ntemperature at \n100-200 m \ndepths")+
+  gfplot::theme_pbs()
+
+dev.off()
+
+
 
 nd <- readRDS(here("geostat/synoptic_grid.rds"))
 fitted_yrs <- sort(unique(ds$year))
