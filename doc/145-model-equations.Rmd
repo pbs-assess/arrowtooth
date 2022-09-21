@@ -31,22 +31,13 @@ cat("## Analytic Methods: Equilibrium Considerations
 ### A Steady-State Age-Structured Model
 For the steady-state conditions represented in Section \@ref(model-steady-state), we assume the parameter vector $\Theta$ in Eq. \@ref(eq:df01) is unknown and would be estimated by fitting ISCAM to data.
 
-For a given set of growth parameters and maturity-at-age parameters defined by Eq. \@ref(eq:df02), growth is assumed to follow von Bertalanffy (Eq. \@ref(eq:df03)). Mean weight-at-age is given by the allometric relationship in Eq. \@ref(eq:df04), and the age-specific vulnerability and fecundity are given by age-based logistic functions (Eqns. \@ref(eq:df05) and \@ref(eq:df06)).
-The terms vulnerability and selectivity are used interchangeably throughout this document, although, technically, selectivity refers to the fishing gear, while vulnerability refers to all processes affecting the availability of fish to the fishery. Selectivity parameters can be fixed or estimated.
+For a given set of growth parameters and maturity-at-age parameters defined by Eq. \@ref(eq:df02), growth is assumed to follow von Bertalanffy (Eq. \@ref(eq:df03)). Mean weight-at-age is given by the allometric relationship in Eq. \@ref(eq:df04), and the age-specific vulnerability and fecundity are given by age-based logistic functions (Eqns. \@ref(eq:df05) and \@ref(eq:df06)). The terms vulnerability and selectivity are used interchangeably throughout this document, although, technically, selectivity refers to the fishing gear, while vulnerability refers to all processes affecting the availability of fish to the fishery. Selectivity parameters can be fixed or estimated.
 
-Survivorship for unfished and fished populations is defined by Eqns. \@ref(eq:df07) and \@ref(eq:df08), respectively.
-It is assumed that all individuals ages $A$ and older (i.e., the plus group) have the same total
-mortality rate. The incidence functions refer to the life-time or per-recruit quantities such as spawning biomass per recruit ($\phi_E$ and $\phi_e$, Eq. \@ref(eq:df09)) or vulnerable biomass per recruit ($\phi_B$ and $\phi_b$, Eq. \@ref(eq:df10)). Note that upper and lower case subscripts denote unfished and fished conditions, respectively. Unfished spawning biomass is given by Eq. \@ref(eq:df12) and the recruitment compensation ratio
-[@myers1998] is given by Eq. \@ref(eq:df13). The steady-state equilibrium recruitment $R_e$ is given by Eq. \@ref(eq:df14). It is assumed that recruitment follows a Beverton-Holt stock recruitment model of the form shown in Eq. \@ref(eq:df14), where the maximum juvenile survival rate $s_o$ is given by:
-
-  \[s_o=\frac{\kappa}{\phi_E}\]
+Survivorship for unfished and fished populations is defined by Eqns. \@ref(eq:df07) and \@ref(eq:df08), respectively. It is assumed that all individuals ages $A$ and older (i.e., the plus group) have the same total mortality rate. The incidence functions refer to the life-time or per-recruit quantities such as spawning biomass per recruit ($\phi_E$ and $\phi_e$, Eq. \@ref(eq:df09)) or vulnerable biomass per recruit ($\phi_B$ and $\phi_b$, Eq. \@ref(eq:df10)). Note that upper and lower case subscripts denote unfished and fished conditions, respectively. Unfished spawning biomass is given by Eq. \@ref(eq:df12) and the recruitment compensation ratio [@myers1998] is given by Eq. \@ref(eq:df13). The steady-state equilibrium recruitment $R_e$ is given by Eq. \@ref(eq:df14). It is assumed that recruitment follows a Beverton-Holt stock recruitment model of the form shown in Eq. \@ref(eq:df14), where the maximum juvenile survival rate $s_o$ is given by:
+\[s_o=\frac{\kappa}{\phi_E}\]
 and the density-dependent term is given by:
-  \[\beta=\frac{\kappa-1}{R_{{o}}\phi_{{E}}}\]
-which simplifies to Eq. \@ref(eq:df14).
-
-The equilibrium yield $C_e$ for a given fishing mortality rate is given by Eq. \@ref(eq:df15).
-
-These steady-state conditions are critical for determining various reference points such as \emph{F}\subscr{MSY} and \emph{B}\subscr{MSY}.")
+\[\beta=\frac{\kappa-1}{R_{{o}}\phi_{{E}}}\]
+which simplifies to Eq. \@ref(eq:df14). The equilibrium yield $C_e$ for a given fishing mortality rate is given by Eq. \@ref(eq:df15). These steady-state conditions are critical for determining various reference points such as \emph{F}\subscr{MSY} and \emph{B}\subscr{MSY}.")
 ```
 
 ```{r app-model-eq-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -55,11 +46,7 @@ These steady-state conditions are critical for determining various reference poi
 
 ```{r app-model-eq-para-3-en, eval = !fr(), results = 'asis'}
 cat("### MSY-based Reference Points
-When defining reference points for this assessment, the two commercial trawl fleets were used to calculate MSY quantities.
-
-ISCAM calculates \emph{F}\subscr{MSY} by finding the value of \emph{F}\subscr{e} that results in the zero derivative of Eq. \@ref(eq:df15). This is accomplished numerically using a Newton-Raphson method where an initial guess for \emph{F}\subscr{MSY} is set equal to 1.5$M$, then use Eq. \@ref(eq:df34) to iteratively find $F_\mathrm{MSY}$. The partial derivatives on the right hand side of Eq. \@ref(eq:df34) are defined in Eqns. \@ref(eq:df35) and \@ref(eq:df36).
-
-Given an estimate of \emph{F}\subscr{MSY}, other reference points such as MSY and \emph{B}\subscr{MSY} are calculated using the equations in Section \@ref(model-steady-state).")
+When defining reference points for this assessment, the two commercial trawl fleets were used to calculate MSY quantities. ISCAM calculates \emph{F}\subscr{MSY} by finding the value of \emph{F}\subscr{e} that results in the zero derivative of Eq. \@ref(eq:df15). This is accomplished numerically using a Newton-Raphson method where an initial guess for \emph{F}\subscr{MSY} is set equal to 1.5$M$, then use Eq. \@ref(eq:df34) to iteratively find $F_\mathrm{MSY}$. The partial derivatives on the right hand side of Eq. \@ref(eq:df34) are defined in Eqns. \@ref(eq:df35) and \@ref(eq:df36). Given an estimate of \emph{F}\subscr{MSY}, other reference points such as MSY and \emph{B}\subscr{MSY} are calculated using the equations in Section \@ref(model-steady-state).")
 ```
 
 ```{r app-model-eq-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -70,14 +57,13 @@ Given an estimate of \emph{F}\subscr{MSY}, other reference points such as MSY an
 cat("## Analytic Methods: State Dynamics
 The estimated parameter vector in ISCAM is defined in Eq. \@ref(eq:df16) in Section \@ref(model-catch-age). The estimated parameters $R_0$, $h$, and $M$, are the leading population parameters that define the overall scale and productivity of the population.
 
-Variance components of the model were partitioned using an errors in variables approach. The key variance parameter is the inverse of the total variance $\vartheta^2$ (i.e., total variance). This parameter can be fixed or estimated, and was estimated for this model. The total variance is partitioned into observation and process error components by the model parameter $\rho$, which represents the proportion of the total variance that is due to observation error (Eq. \@ref(eq:df17), @punt1999, @deriso2007).
+Variance components of the model were partitioned using an errors in variables approach. The key variance parameter is the inverse of the total variance $\vartheta^2$ (i.e., total variance). This parameter can be fixed or estimated, and was estimated for this model. The total variance is partitioned into observation and process error components by the model parameter $\rho$, which represents the proportion of the total variance that is due to observation error (Eq. \@ref(eq:df17)) [@punt1999; @deriso2007].
 
 The unobserved state variables in Eq. \@ref(eq:df18) include the numbers-at-age of sex $s$ in year $t$ ($N_{t,a,s}$), the spawning stock biomass in year $t$ ($SB_{t}$) and the total age-specific total mortality rate ($Z_{t,a,s}$). The initial numbers-at-age in the first year (Eq. \@ref(eq:df19)) and the annual recruits (Eq. \@ref(eq:df20)) are treated as estimated parameters and used to initialize the numbers-at-age array.
 
 Vulnerability-at-age is here assumed time-invariant and is modeled using a two-parameter logistic function (Eq. \@ref(eq:df21)). The annual fishing mortality for each gear $k$ in year $t$ is the exponent of the estimated vector $\Gamma_{k,t}$ (Eq. \@ref(eq:df22)). The vector of log fishing mortality rate parameters $\Gamma_{k,t}$ is a bounded vector with a minimum value of $-30.0$ and an upper bound of $3.0$. In arithmetic space this corresponds to a minimum value of $9.36e^{-14}$ and a maximum value of $20.01$ for annual fishing mortality rates. In years where there are zero reported catches for a given fleet, no corresponding fishing mortality rate parameter is estimated and the implicit assumption is there was no fishery in that year.
 
-State variables in each year are updated using Eqns. \@ref(eq:df23)--\@ref(eq:df26), where the spawning biomass is the product of the numbers-at-age and the mature biomass-at-age (Eq. \@ref(eq:df23)).
-The total mortality rate is given by Eq. \@ref(eq:df24), and the total catch (in weight) for each gear is given by Eq. \@ref(eq:df25), assuming that both natural and fishing mortality occur simultaneously throughout the year.
+State variables in each year are updated using Eqns. \@ref(eq:df23)--\@ref(eq:df26), where the spawning biomass is the product of the numbers-at-age and the mature biomass-at-age (Eq. \@ref(eq:df23)). The total mortality rate is given by Eq. \@ref(eq:df24), and the total catch (in weight) for each gear is given by Eq. \@ref(eq:df25), assuming that both natural and fishing mortality occur simultaneously throughout the year.
 
 Numbers-at-age are propagated over time using Eq. \@ref(eq:df26), where members of the plus group (age $A$) are all assumed to have the same total mortality rate.
 
@@ -244,12 +230,12 @@ To reiterate, these are the likelihood of the catch data $\ell_C$, likelihood of
 **Constraints**
 There are two specific constraints that are described here: (1) parameter bounds and (2) constraints to ensure that a parameter vector sums to 0.
 
-In ISCAM the user must specify the lower and upper bounds for the leading parameters defined in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{init}),\rho,\vartheta$). All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
+In ISCAM the user must specify the lower and upper bounds for the leading parameters defined in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$). All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
 
 Estimated fishing mortality rates are also constrained (in log space) to have a minimum value of -30, and a maximum value of 3.0, also hard-wired. Log annual recruitment deviations are also constrained to have minimum and maximum values of -15.0 and 15.0 and there is an additional constraint to ensure the vector of deviations sums to 0. This is necessary in order to be able to estimate the average recruitment $\bar{R}$. 
 
 **Priors for parameters**
-Each of the seven leading parameters (eight if there are two sexes) specified in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{init}),\rho,\vartheta$) are declared as bounded parameters and in addition the user can also specify an informative prior distribution for each of these parameters. Five distinct prior distributions can be implemented: uniform, normal, lognormal, beta and a gamma distribution. See Table \@ref(tab:param-settings-table) for inital values and prior types and values used for this `r sp` assessment.")
+Each of the seven leading parameters (eight if there are two sexes) specified in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$) are declared as bounded parameters and in addition the user can also specify an informative prior distribution for each of these parameters. Five distinct prior distributions can be implemented: uniform, normal, lognormal, beta and a gamma distribution. See Table \@ref(tab:param-settings-table) for inital values and prior types and values used for this `r sp` assessment.")
 ```
 
 ```{r app-model-eq-para-8-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -298,12 +284,12 @@ $I_{k,t}$ & & relative abundance index for gear $k$ in year $t$\\
 $R_o$ & & Age-$\acute{a}$ recruits in unfished conditions\\
 $h$ & & Steepness of the stock-recruitment relationship\\
 $\bar{R}$ & & Average age-$\acute{a}$ recruitment from year $\acute{t}$ to $T$\\
-$\bar{R}_{init}$ & & Average age-$\acute{a}$ recruitment in year $\acute{t}-1$ \\
+$\bar{R}_\mathrm{init}$ & & Average age-$\acute{a}$ recruitment in year $\acute{t}-1$ \\
 $M_s$ & & Instantaneous natural mortality rate for sex $s$\\
 $\hat{a}_{k,s,b}, \hat{\gamma}_{k,s,b}$ & & Selectivity parameters for gear $k$, sex $s$, year block $b$ \\
 $\Gamma_{k,s,t}$ & & Logarithm of the instantaneous fishing mortality for gear $k$, sex $s$, year $t$\\
 $\omega_t$ & & Age-$\acute{a}$ deviates from $\bar{R}$ for years $\acute{t}$ to $T$\\
-$\omega_{init,t}$ & & Age-$\acute{a}$ deviates from $\bar{R}_{init}$ for year $\acute{t}$\\
+$\omega_\mathrm{init,t}$ & & Age-$\acute{a}$ deviates from $\bar{R}_\mathrm{init}$ for year $\acute{t}$\\
 $q_k$ & & Catchability parameter for survey $k$\\
 $\rho$ & & Fraction of the total variance associated with observation error\\
 $\vartheta^2$ & & Total precision (inverse of variance) of the total error\\
@@ -337,64 +323,66 @@ Assumptions in this steady-state model include:
 - Beverton-Holt type recruitment
 
 **Parameters** 
-Them model includes the main leading parameters
+The model includes the main leading parameters:
 \begin{flalign}
   \Theta = (R_o,h,M); \qquad R_o>0; \qquad 0.2 \leq h < 1.0; \qquad M_s > 0 &&
   \label{eq:df01} &&
-\end{flalign}
-and fixed growth and maturity parameters
+\end{flalign} and fixed growth and maturity parameters:
 \begin{flalign}
   \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s,\hat{a}_k,\hat{\gamma}_k) &&
   \label{eq:df02}     
 \end{flalign}
 
 **Age-schedule information**
+Length-at-age is defined as:
 \begin{flalign}
   l_{a,s}=l_{}\left(1-e^{\left(-k_s\left(a-t_{o,s}\right)\right)}\right) &&
   \label{eq:df03}
-\end{flalign}
+\end{flalign} and weight-at-age as:
 \begin{flalign}
-  w_{a,s}=\acute{a}_s(l_{a,s})^{\acute{b}_s} &&
+  w_{a,s}=\acute{a}_s(l_{a,s})^{\acute{b}_s}. &&
   \label{eq:df04}
-\end{flalign}
+\end{flalign} Vulnerability at age is defined as:
 \begin{flalign}
   v_a=\left(1+e^{\left(\frac{-(\hat{a}-a)}{\hat{\gamma}}\right)}\right)^{-1} &&
   \label{eq:df05}
-\end{flalign}
+\end{flalign} and fecundity at age as
 \begin{flalign}
-  f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1} &&
+  f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1}. &&
   \label{eq:df06}
 \end{flalign}
    
 **Survivorship**
-\begin{flalign}
-  I_{a,s} = \begin{cases}
-    \frac{1}{S}, & a = 1 \\
-    I_{a-1,s}e^{-M_s}, & 1 < a < A \\
-    \frac{I_{a-1,s}}{(1-e^{-M_s})}, & a = A \\
-  \end{cases} &&
-  \label{eq:df07}
-\end{flalign}
+Survivorship for unfished populations is defined as:
 \begin{flalign}
   \iota_{a,s} = \begin{cases}
     \frac{1}{S}, & a = 1 \\
-    \hat{\iota}_{a-1,s}e^{-M_s-F_{e}v_{a-1,s}}, & a > 1, a < A \\
+    \iota_{a-1,s}e^{-M_s}, & 1 < a < A \\
+    \frac{\iota_{a-1,s}}{(1-e^{-M_s})}, & a = A \\
+  \end{cases} &&
+  \label{eq:df07}
+\end{flalign} and for fished populations as:
+\begin{flalign}
+  \hat{\iota}_{a,s} = \begin{cases}
+    \frac{1}{S}, & a = 1 \\
+    \hat{\iota}_{a-1,s}e^{-M_s-F_{e}v_{a-1,s}}, & 1 < a < A \\
     \frac{\hat{\iota}_{a-1,s}e^{-M_s-F_ev_{a-1,s}}}{(1-e^{-M_s-F_e v_{a,s}})}, & a = A \\
   \end{cases} &&
 \label{eq:df08}
 \end{flalign}
    
 **Incidence functions**
+The incidence functions refer to the lifetime or per-recruit quantities. Spawning biomass per recruit for unfished or fished populations is defined as:
 \begin{flalign}
   \phi_E=\sum_{s=1}^S\sum_{a=1}^\infty \iota_a f_{a,s} & &
   \phi_e=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{a,s} f_{a,s} &&
   \label{eq:df09}
-\end{flalign}
+\end{flalign} Vulnerable biomass per recruit for unfished or fished populations is defined as:
 \begin{flalign}
   \phi_B=\sum_{s=1}^S\sum_{a=1}^\infty \iota_a w_{a,s} v_{a,s} & & &
   \phi_b=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{as} w_{a,s} v_{a,s} &&
   \label{eq:df10}
-\end{flalign}
+\end{flalign} Per recruit yield to the fishery is given by:
 \begin{flalign}
   \phi_q=\sum_{s=1}^S\sum_{a=1}^\infty
   \frac{\hat{\iota}_{a,s} w_{a,s} v_{a,s}}{M_s+F_ev_{a,s}}
@@ -403,19 +391,19 @@ and fixed growth and maturity parameters
 \end{flalign}
    
 **Steady-state conditions**
-
+Biomass in unfished conditions is defined as:
 \begin{flalign}
   B_o=R_o\phi_B &&
   \label{eq:df12}
-\end{flalign}
+\end{flalign} Equilibrium recruitment is defined according to the next two equations:
 \begin{flalign}
   \kappa=\frac{4h}{1-h} &&
   \label{eq:df13}
 \end{flalign}
 \begin{flalign}
-  R_e=R_o \frac{\kappa-\frac{\phi_E}{\phi_e}}{\kappa-1}; \qquad (Beverton-Holt) &&
+  R_e=R_o \frac{\kappa-\frac{\phi_E}{\phi_e}}{\kappa-1}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df14}
-\end{flalign}
+\end{flalign} Equilibrium yield for a given fishing mortality rate is given by:
 \begin{flalign}
   C_e=F_e R_e\phi_q &&
   \label{eq:df15}
@@ -426,7 +414,7 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 
 **Estimated or fixed parameters**
 \begin{flalign}
-  \Theta= (R_0,h,M_s,\overline{R},\overline{R}_{init},\vartheta^2,\rho,\Gamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{init,t}\}_{t=\acute{t}-A}^{t=\acute{t}-1}) &&
+  \Theta= (R_0,h,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\Gamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}-A}^{t=\acute{t}-1}) &&
   \label{eq:df16}
 \end{flalign}
 \begin{flalign}
@@ -442,7 +430,7 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 
 **Initial states**
 \begin{flalign}
-  N_{t,a,s}=\frac{1}{S}\overline{R}_{init}e^{\omega_{init,t}}e^{-M_s(a-1)}; \qquad (\acute{t}-A)<t<1; \qquad 2\leq a \leq A &&
+  N_{t,a,s}=\frac{1}{S}\overline{R}_{\mathrm{init}}e^{\omega_\mathrm{init,t}}e^{-M_s(a-1)}; \qquad (\acute{t}-A)<t<1; \qquad 2\leq a \leq A &&
   \label{eq:df19}
 \end{flalign}
 \begin{flalign}
@@ -483,7 +471,7 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 
 **Recruitment model**
 \begin{flalign}
-  R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}; \qquad (Beverton-Holt) &&
+  R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df27}
 \end{flalign}
 
