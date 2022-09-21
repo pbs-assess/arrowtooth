@@ -1,7 +1,7 @@
 prep_data <- function(folder, region = c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG")) {
   # dat <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug10-2021.rds"))$survey_sets %>%
   #   dplyr::filter(survey_abbrev %in% region)
-  dat <- readRDS(file.path(folder, "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_sets %>%
+  dat <- readRDS(file.path(folder, "data", "arrowtooth-flounder-aug11-2022.rds"))$survey_sets %>%
     dplyr::filter(survey_abbrev %in% region)
   # change from per m2 to per km2:
   dat$density <- dat[["density_kgpm2"]] * 1000000
@@ -72,7 +72,8 @@ fit_index <- function(dat,
   )
   s <- sanity(fit)
   if (s$all_ok && class(fit) != "try-error") {
-    if (bias_correct) TMB::openmp(n = 1L, DLL = "sdmTMB")
+    if (bias_correct)
+    TMB::openmp(n = 1L, DLL = "sdmTMB")
     ind <- get_index(fit, bias_correct = bias_correct, area = nd$cell_area / 100000)
   } else {
     ind <- NA

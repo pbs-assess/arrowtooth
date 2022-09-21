@@ -6,6 +6,8 @@ library(ggplot2)
 library(here)
 library(sdmTMB)
 
+library(gfiscamutils)
+
 source(here("geostat/utils.R"))
 
 dr <- paste0(here(), "-nongit")
@@ -31,6 +33,7 @@ if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
         formula = catch_weight ~ 1,
       )
   ) %>% setNames(list_species)
+
   out_dg_nodepth <- purrr::map(list_species, ~
       fit_index(
         dat,
@@ -232,7 +235,7 @@ plot_multiyear_survey_sets <- function(dat, survey_abbrev,
     labs(
       fill = density_lab,
       colour = density_lab,
-      size = density_lab, x = tr("Easting", translate = french),
+      size = density_lab, x = tr("Easting"),
       y = tr("Northing")
     ) +
     guides(
@@ -310,7 +313,7 @@ ggsave(file.path(f, "geostat-map-pred2.png"), width = 9, height = 10)
 group_by(ind, type) %>%
   summarise(mean_cv = mean(cv))
 
-dd <- readRDS(file.path(dr, "data", "arrowtooth-flounder-aug-10-2022.rds"))$survey_index
+dd <- readRDS(file.path(dr, "data", "arrowtooth-flounder-aug11-2022.rds"))$survey_index
 dd <- dd %>% filter(survey_abbrev %in%  c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG"))
 .files <- list.files(file.path(dr, "survey-geostat"), full.names = TRUE, pattern = "^i-arrow")
 ind_geo <- purrr::map_dfr(.files, readRDS)
