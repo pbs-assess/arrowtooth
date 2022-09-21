@@ -178,7 +178,7 @@ Median posterior estimates of fishing mortality (and 95% credibility interval) a
 ```{r scam-results-depletion-en, eval = !fr(), results = 'asis'}
 cat("### Relative spawning biomass {#scam-depletion}
 
-Median posterior estimates (and 95% credibility interval) of relative female spawning biomass $B_t/B_0$ are shown in Figure \@ref(fig:fig-base-depletion). The size of the 95% credible interval is amplified when compared to the absolute spawning biomass due to large uncertainty in the estimate of $B_0$ (Figure \@ref(fig:fig-base-sb-bo); Table \@ref(tab:reference-points-table)). The median posterior projected estimate of `r assess_yr` relative biomass is `r f(depl_end[2], 3)` (`r f(depl_end[1], 3)`-`r f(depl_end[3], 3)`) (Figure \@ref(fig:fig-base-depletion), Table \@ref(tab:depletion-table)).")
+Median posterior estimates (and 95% credible interval) of relative female spawning biomass $B_t/B_0$ are shown in Figure \@ref(fig:fig-base-depletion). The size of the 95% credible interval is amplified when compared to the absolute spawning biomass due to large uncertainty in the estimate of $B_0$ (Figure \@ref(fig:fig-base-sb-bo); Table \@ref(tab:reference-points-table)). The median posterior projected estimate of `r assess_yr` relative biomass is `r f(depl_end[2], 3)` (`r f(depl_end[1], 3)`-`r f(depl_end[3], 3)`) (Figure \@ref(fig:fig-base-depletion), Table \@ref(tab:depletion-table)).")
 ```
 
 ```{r scam-results-depletion-fr, eval = fr(), results = 'asis', needs_trans = TRUE}

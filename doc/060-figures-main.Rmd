@@ -61,9 +61,9 @@ plot_catch(catch, french = fr(), xlim = c(min(yrs), max(yrs))) +
 (ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with
 $B_{MSY}$ reference points. The
 solid black line is the median of the posteriors, the shaded ribbon
-encapsulated by dotted lines covers the 95% Credible interval for the
+encapsulated by dotted lines covers the 95% CI for the
 posteriors, the point at $B_0$ is the median estimate for the unfished
-biomass, and the vertical line over that point is the 95% Credible interval
+biomass, and the vertical line over that point is the 95% CI
 for that parameter.
 
 (ref:fig-base-sb-fr) French here
@@ -92,7 +92,7 @@ plot_biomass_mcmc(base_model,
 
 <!-- Relative spawning biomass ----------------------------------------------->
 
-(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% credible interval. Horizontal lines indicate the 0.2 $B_0$ (solid, red) and 0.4 $B_0$ (dashed, green) reference points. Because the ribbon represents relative spawning biomass (depletion) and the reference points are with respect to $B_0$, all uncertainty about the ratio of the spawning biomass to the reference points is captured in the ribbon and the reference points are shown as point values.
+(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% CI. Horizontal lines indicate the 0.2 $B_0$ (solid, red) and 0.4 $B_0$ (dashed, green) reference points. Because the ribbon represents relative spawning biomass (depletion) and the reference points are with respect to $B_0$, all uncertainty about the ratio of the spawning biomass to the reference points is captured in the ribbon and the reference points are shown as point values.
 
 (ref:fig-base-depletion-fr) French here
 
@@ -107,7 +107,7 @@ plot_biomass_mcmc(base_model,
 
 <!-- Vulnerable spawning biomass --------------------------------------------->
 
-(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% credible interval shaded. The two blue vulnerable biomass trajectories have their 95% credible interval contained withing the dotted lines of their respective colors.
+(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two blue vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colors.
 
 (ref:fig-base-sb-vuln-compare-fr) French here
 
@@ -120,10 +120,10 @@ plot_vuln_mcmc(base_model,
 ```
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The
 black points are the medians of the posteriors, the vertical black lines
-are the 95% Credible intervals for the posteriors, the point at $R_0$
+are the 95% CIs for the posteriors, the point at $R_0$
 is the median estimate for the initial recruitment parameter $R_0$,
 and the vertical line over that point and shaded ribbon across the time series
-is the 95% Credible interval for that parameter.
+is the 95% CI for that parameter.
 
 (ref:fig-base-recr-fr) Recrutement de `r tr(sp)` pour le modèle de base.
 Les points noirs de points noirs sont les médianes des postérieurs, les
@@ -140,7 +140,7 @@ plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL, leg_lo
 
 <!-- Fishing mortality ------------------------------------------------------->
 
-(ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries. The shaded area represents the 95\\% credible interval.
+(ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries. The shaded area represents the 95\\% CI.
 
 (ref:fig-base-f-fr) French here
 
@@ -150,7 +150,7 @@ plot_f_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
 
 <!-- Index fits and residuals ------------------------------------------------>
 
-(ref:fig-base-index-fits-en) Index fits for the base model. The light grey points and vertical lines show the index values and 95% confidence intervals; the blue points show the medians of the posteriors; the black solid vertical lines show the 95% credible intervals of the posteriors.
+(ref:fig-base-index-fits-en) Index fits for the base model. The light grey points and vertical lines show the index values and 95% confidence intervals; the blue points show the medians of the posteriors; the black solid vertical lines show the 95% CIs of the posteriors.
 <!-- The 2014 WCHG Synoptic index point is shown but was not included in the model. -->
 
 (ref:fig-base-index-fits-fr) French here
@@ -164,7 +164,7 @@ plot_index_mcmc(base_model,
                 base_color = "royalblue")
 ```
 
-(ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in iSCAM. The vertical lines represent the 95% credible intervals for those posteriors.
+(ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in iSCAM. The vertical lines represent the 95% CIs for those posteriors.
 
 (ref:fig-base-index-resids-fr) Indice Log des résidus normalisés. Les points représentent la médiane des valeurs postérieures pour le paramètre $\epsilon$ dans iSCAM. Les lignes verticales représentent les intervalles crédibles à 95 % pour ces valeurs postérieures.
 
@@ -180,7 +180,7 @@ plot_index_mcmc(base_model,
 
 <!-- Age fits and residuals -------------------------------------------------->
 
-(ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
+(ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% CIs. The solid red line that connects the median posterior points is shown for aesthetics.
 
 (ref:fig-base-age-fits-ft-fr) French here
 
@@ -198,7 +198,7 @@ plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL)
 
 \clearpage
 
-(ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% credible intervals. The solid red line that connects the median posterior points is shown for aesthetics.
+(ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% CIs. The solid red line that connects the median posterior points is shown for aesthetics.
 
 (ref:fig-base-age-fits-ss-firsthalf-fr) French here
 
@@ -298,7 +298,7 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 
 <!-- Selectivity ------------------------------------------------------------->
 
-(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% credible interval for those estimates. `r qcs` is not shown because it was estimated with time-varying selectivity. See Figure \@ref(fig:fig-base-mcmc-selex-qcs) for those plots.
+(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. `r qcs` is not shown because it was estimated with time-varying selectivity. See Figure \@ref(fig:fig-base-mcmc-selex-qcs) for those plots.
 
 (ref:fig-base-selex-fr) French goes here
 
