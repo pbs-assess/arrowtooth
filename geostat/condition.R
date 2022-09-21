@@ -93,10 +93,11 @@ dev.off()
 
 fit_tv <- sdmTMB(cond_fac ~ 0 + s(year),
               time_varying = ~ 0 + poly(log_depth, 3, raw = T),
-              mesh = mesh2,
+              mesh = mesh,
               data = ds,
+              # spatial = "off",
               spatial = "on",
-              spatiotemporal = "iid",
+              # spatiotemporal = "rw",
               silent = FALSE,
               time = "year",
               family = lognormal(link = "log"),

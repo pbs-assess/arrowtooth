@@ -21,7 +21,9 @@ Here, $\beta_0$ is a global intercept, $f (d_{s,t})$ is a penalized smoother for
   \boldsymbol{\epsilon_{t-1}} \sim \operatorname{MVNormal} \left(\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon} \right).
 \end{align}
 
-We considered a model that included a spatial random field; however, the variance of this random field was estimated near zero and so we excluded it in our final model. We then calculated an annual condition-factor index as the average predicted $K^\mathrm{cond}_{s,t}$ across all survey 4 km $\times$ 4 km grid cells each year.")
+We considered a model that included a spatial random field; however, the variance of this random field was estimated near zero and so we excluded it in our final model. We then calculated an annual condition-factor index as the average predicted $K^\mathrm{cond}_{s,t}$ across all survey 4 km $\times$ 4 km grid cells each year.
+
+Finally, we also explored a model configuration where depth was included as a non-orthogonal third-order polynomial that could evolve between years via a random walk. This model included independent spatial and spatiotemporal random fields and a smoother on year, because the previous random field configuration would not converge with the increased flexibility of a time-vary depth effect.")
 ```
 
 ```{r app-cond-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -33,9 +35,9 @@ cat("## CONDITION RESULTS
 Our modeling reveals an overall decline in coastwide body condition from around 2004 until 2012, an increase until 2015, and a subsequent decline in recent years leveling off since 2019 (Fig. \@ref(fig:condition-index)). However, when split up by survey, we see that this overall trend masks differences that we see along the coast (Fig. \@ref(fig:condition-index-surv)). The variation over time is relatively small compared to the between-region variation (Fig. \@ref(fig:condition-index-surv)).
 
 Condition within the `r wcvis` has been declining since around 2015, but condition in other survey regions has remained relatively stable in those years (Fig. \@ref(fig:condition-index-surv)). Furthermore, the coastwide index trend of an increase from 2012 to 2015 was driven largely by the `r qcs` (Fig. \@ref(fig:condition-index-surv)).
-
 We can also see these trends when looking at the spatial predictions through time (Fig. \@ref(fig:condition-map)).
-The depth smoother indicates a higher condition factor in deeper waters (Fig. \@ref(fig:condition-smoother)), which coincides with a higher condition factor in the `r wcvis`, which covers deeper regions than the other surveys.")
+
+The depth smoother indicates a higher condition factor in deeper waters (Fig. \@ref(fig:condition-smoother)), which coincides with a higher condition factor in the `r wcvis`, which covers deeper regions than the other surveys. When allowed to vary through time via a random walk, the effect of depth does not appear related to average bottom temperatures recorded on all tows at depths between 100 and 200 m for each year (Fig. \@ref(fig:condition-tv)).")
 ```
 
 ```{r app-cond-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -62,6 +64,10 @@ knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-by-
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-map.png"), dpi = NA)
 ```
 
-```{r condition-smoother, fig.cap = ifelse(fr(), "Lissage de la profondeur logarithmique à partir du modèle de condition. La ligne représente la moyenne et le ruban les intervalles de confiance à 95 \\%. Les lignes de rugosité horizontales sont représentées sur le fond lorsque des données sont présentes.", "Log depth smoother from the condition model. Line represents mean and the ribbon 95\\% confidence intervals. Horizontal rug lines are shown on the bottom where data are present."), out.width = "5.0in", results = 'asis'}
+```{r condition-smoother, fig.cap = ifelse(fr(), "Lissage de la profondeur logarithmique à partir du modèle de condition. La ligne représente la moyenne et le ruban les intervalles de confiance à 95 \\%. Les lignes de rugosité horizontales sont représentées en haut lorsque des données sont présentes.", "Log depth smoother from the condition model. Line represents mean and the ribbon 95\\% confidence intervals. Horizontal rug lines are shown on the top where data are present."), out.width = "5.0in", results = 'asis'}
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-smoother.png"), dpi = NA)
+```
+
+```{r condition-tv, fig.cap = ifelse(fr(), "Effet polynomial du troisième ordre variant dans le temps de la profondeur sur la condition. Les lignes sont colorées par les températures moyennes du fond enregistrées sur tous les traits de chalut à des profondeurs comprises entre 100 et 200 m pour chaque année.", "Time-varying third order polynomial effect of depth on condition. Lines are coloured by the mean bottom temperatures recorded on all trawl tows at depths between 100 and 200 m in each year. "), out.width = "5.0in", results = 'asis'}
+knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-tv-raw-poly-3.png"), dpi = NA)
 ```
