@@ -1,6 +1,6 @@
 ```{r acknowledgements-en, eval = !fr(), results = 'asis'}
 cat("# Acknowledgements
-We thank members of the `r sp` Technical Working Group (Robyn Forrest, Rowan Haigh, Paul Starr, Diedre Finn, Rob Tadey, Cruce Turris, and Brian Mose) for their valuable advice and insights throughout this project. More to come...
+We thank members of the `r sp` Technical Working Group (Robyn Forrest, Rowan Haigh, Paul Starr, Diedre Finn, Rob Tadey, Bruce Turris, and Brian Mose) for their valuable advice and insights throughout this project. More to come...
 ")
 ```
 
