@@ -306,14 +306,6 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 plot_selex_mcmc(base_model)
 ```
 
-<!-- (ref:fig-base-selex-qcs-en) Estimated selectivities for the `r qcs` in the base model. The time series is broken into selectivity blocks of years, TODO r qcs_sel_ranges. -->
-
-<!-- (ref:fig-base-selex-qcs-fr) French goes here -->
-
-<!-- ```{r fig-base-mcmc-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-selex-qcs-fr)", "(ref:fig-base-selex-qcs-en)")} -->
-<!-- plot_selex_gear_mcmc(base_model, gear = 3) -->
-<!-- ``` -->
-
 <!-- Reference points -------------------------------------------------------->
 
 (ref:fig-base-ref-points-en) Reference point posterior distributions for the base model. Subscripts are 1 = Freezer trawlers and 2 = Shoreside.

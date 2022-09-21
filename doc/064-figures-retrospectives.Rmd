@@ -1,6 +1,6 @@
 ## Retrospective figures for the base model
 
-(ref:fig-retro-biomass-en) Spawning biomass retrospectives.
+(ref:fig-retro-biomass-en) Spawning biomass for retrospective models comparing the base model with models with successively removed years of data. All models have the same parameterization, and were run as MCMCs in exactly the same way as the base model.
 
 (ref:fig-retro-biomass-fr) French here
 
@@ -9,12 +9,32 @@ plot_biomass_mcmc(models$retro_grps[[1]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
+                  line_width = 0.25,
+                  point_size = 1,
+                  palette = "Paired",
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 500))
+
+```
+
+(ref:fig-retro-biomass-closer-en) A closer view of Figure \@ref(fig:fig-retro-biomass), not showing the $B_0$ values.
+
+(ref:fig-retro-biomass-closer-fr) French here
+
+```{r fig-retro-biomass-closer, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-closer-fr)", "(ref:fig-retro-biomass-closer-en)")}
+plot_biomass_mcmc(models$retro_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.25,
+                  point_size = 1,
+                  palette = "Paired",
                   bo_refpt_colors = c("salmon", "darkgreen"),
                   ylim = c(0, 250))
 
 ```
 
-(ref:fig-retro-biomass-rel-en) Relative spawning biomass retrospectives.
+(ref:fig-retro-biomass-rel-en) Relative spawning biomass for retrospective models.
 
 (ref:fig-retro-biomass-rel-fr) French here
 
@@ -24,18 +44,15 @@ plot_biomass_mcmc(models$retro_grps[[1]],
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
                   rel = TRUE,
+                  line_width = 0.25,
+                  point_size = 1,
+                  palette = "Paired",
                   bo_refpt_colors = c("salmon", "darkgreen"),
-                  ylim = c(0, 2))
+                  ylim = c(0, 0.8))
 
 ```
 
-(ref:fig-retro-recr-en) Recruitment of `r sp` for the retrospective models.
-The points are the medians of the posteriors, the vertical lines
-are the 95% Credible intervals for the posteriors, the points at $R_0$
-are the median estimates for the initial recruitment parameters $R_0$,
-and the vertical lines over those points is the 95% Credible interval
-for $R_0$. The shaded ribbon is the $R_0$ credible interval across the
-whole time series for the base model. The models are slightly offset from
+(ref:fig-retro-recr-en) Recruitment of `r sp` for the retrospective models. The points are the medians of the posteriors, the vertical lines are the 95% Credible intervals for the posteriors, the points at $R_0$ are the median estimates for the initial recruitment parameters $R_0$, and the vertical lines over those points is the 95% Credible interval for $R_0$. The shaded ribbon is the $R_0$ credible interval across the whole time series for the base model. The models are slightly offset from
 each other for ease of viewing.
 
 (ref:fig-retro-recr-fr) French here
@@ -44,13 +61,28 @@ each other for ease of viewing.
 plot_recr_mcmc(models$retro_grps[[1]],
                angle_x_labels = TRUE,
                text_title_size = NULL,
-               leg_loc = c(0,1))
+               line_width = 0.5,
+               point_size = 1.5,
+               palette = "Paired",
+               leg_loc = c(0, 1))
 ```
 
-(ref:fig-retro-f-en) Fishing mortality for the base and retrospective models
-for the two trawl fisheries. The shaded area represents the 95% credible
-interval for the base model, the dotted lines represent the 95% credible
-interval for the retrospective models.
+(ref:fig-retro-recr-closer-en) Recruitment of `r sp` for the retrospective models. The points are the medians of the posteriors, the vertical lines are the 95% CIs for the posteriors, the points at $R_0$ are the median estimates for the initial recruitment parameters $R_0$, and the vertical lines over those points is the 95% CI for $R_0$. The shaded ribbon is the $R_0$ CI across the whole time series for the base model. The models are slightly offset from each other for ease of viewing.
+
+(ref:fig-retro-recr-closer-fr) French here
+
+```{r fig-retro-recr-closer-, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-closer-fr)", "(ref:fig-retro-recr-closer-en)")}
+plot_recr_mcmc(models$retro_grps[[1]],
+               angle_x_labels = TRUE,
+               text_title_size = NULL,
+               line_width = 0.5,
+               point_size = 1.5,
+               palette = "Paired",
+               leg_loc = c(0, 1),
+               ylim = c(0, 640))
+```
+
+(ref:fig-retro-f-en) Fishing mortality for the base and retrospective models for the two trawl fisheries. The shaded area represents the 95% CI for the base model, the dotted lines represent the 95% CI for the retrospective models.
 
 (ref:fig-base-f-fr) French here
 
@@ -58,10 +90,13 @@ interval for the retrospective models.
 plot_f_mcmc(models$retro_grps[[1]],
             angle_x_labels = TRUE,
             text_title_size = NULL,
+            line_width = 0.5,
+            point_size = 1.5,
+            palette = "Paired",
             leg_loc = c(0, 1))
 ```
 
-(ref:fig-retro-index-fits-en) Index fits for the base and retrospective models. The light grey points and vertical lines show the index values and CVs; the other colored points show the medians of the posteriors; the solid vertical lines show the 95% credible intervals for the posteriors. The lines connecting points along the time series are only present for aesthetic value.
+(ref:fig-retro-index-fits-en) Index fits for the base and retrospective models. The light grey points and vertical lines show the index values and CVs. The other colored points show the medians of the posteriors; the solid vertical lines show the 95% CIs for the posteriors. The lines connecting points along the time series are only present for aesthetic value.
 
 (ref:fig-retro-index-fits-fr) French here
 
@@ -71,22 +106,10 @@ plot_index_mcmc(models$retro_grps[[1]],
                 surv_index = survey_index,
                 leg_loc = "facet",
                 text_title_size = NULL,
-                base_color = "royalblue",
+                fit_line_width = 0.25,
+                fit_point_size = 1.5,
+                palette = "Paired",
                 errbar_width = 0.1,
                 dodge = 0.1)
 ```
 
-(ref:fig-retro-index-resids-en) Index Log standardized residuals for the base and retrospective models. The vertical lines represent the 95% credible intervals.
-
-(ref:fig-retro-index-resids-fr) French here
-
-```{r fig-retro-index-resids, fig.cap = ifelse(fr(), "(ref:fig-retro-index-resids-fr)", "(ref:fig-retro-index-resids-en)")}
-plot_index_mcmc(models$retro_grps[[1]],
-                type = "resids",
-                surv_index = survey_index,
-                leg_loc = "facet",
-                text_title_size = NULL,
-                base_color = "royalblue",
-                errbar_width = 0.1,
-                dodge = 0.1)
-```

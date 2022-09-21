@@ -103,9 +103,23 @@ plot_biomass_mcmc(models$sens_grps[[2]],
 plot_f_mcmc(models$sens_grps[[2]], leg_loc = c(0, 1))
 ```
 
+(ref:fig-sens-m-index-en) Index fits for sensitivity models that include estimation of $M$ parameters.
+
+(ref:fig-sens-m-index-fr) French here
+
+```{r fig-sens-m-index, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-m-index-fr)", "(ref:fig-sens-selex-m-index-en)")}
+plot_index_mcmc(models$sens_grps[[2]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL,
+                base_color = "royalblue")
+
+```
+
 <!-- Catchability ------------------------------------------------------------>
 
-(ref:fig-sens-q-en) Spawning biomass for the sensitivities to changes in the Catchability ($q_k$) parameters. For these sensitivities all gears ($k$) are modified in the same way.
+(ref:fig-sens-q-en) Spawning biomass for the sensitivities to changes in the catchability ($q_k$) parameters. For these sensitivities all gears ($k$) are modified in the same way.
 
 (ref:fig-sens-q-fr) French here
 
@@ -116,7 +130,7 @@ plot_biomass_mcmc(models$sens_grps[[3]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-q-rel-en) Relative spawning biomass for the sensitivities to changes in the Catchability ($q_k$) parameters.
+(ref:fig-sens-q-rel-en) Relative spawning biomass for the sensitivities to changes in the catchability ($q_k$) parameters.
 
 (ref:fig-sens-q-rel-fr) French here
 
@@ -128,7 +142,7 @@ plot_biomass_mcmc(models$sens_grps[[3]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-q-q-en) Catchability estimates for the sensitivities to changes in the Catchability ($q_k$) parameters.
+(ref:fig-sens-q-q-en) Catchability estimates for the sensitivities to changes in the catchability ($q_k$) parameters.
 
 (ref:fig-sens-q-q-fr) French here
 
@@ -138,20 +152,34 @@ plot_q_mcmc(models$sens_grps[[3]],
             gear = NULL)
 ```
 
+(ref:fig-sens-q-index-en) Index fits for sensitivity models that include changes in priors in catchability parameters.
+
+(ref:fig-sens-q-index-fr) French here
+
+```{r fig-sens-q-index, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-q-index-fr)", "(ref:fig-sens-selex-q-index-en)")}
+plot_index_mcmc(models$sens_grps[[3]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL,
+                base_color = "royalblue")
+
+```
+
 <!-- Selectivity and Geostat surveys ----------------------------------------->
 
-(ref:fig-sens-selex-en) Spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters and to a change from design-basded survey indices to geostatistical-based survey indices. Fot the selectivity sensitivity, the selectivities for the two commercial trawl fisheries are set equal to the maturity for the two commercial trawl gears ($k$).
+(ref:fig-sens-selex-en) Spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters and to a change from design-based survey indices to geostatistical-based survey indices. For the first selectivity sensitivity, the selectivities for the two commercial trawl fisheries are set equal to the maturity for the two commercial trawl gears ($k$). For the second, the `r qcs` has three year blocks or time-varying selectivity, 2003--2010, 2011--2016, and 2017--2021.
 
 (ref:fig-sens-selex-fr) French here
 
-```{r fig-sens-selex-m, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-fr)", "(ref:fig-sens-selex-en)")}
+```{r fig-sens-selex, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-fr)", "(ref:fig-sens-selex-en)")}
 plot_biomass_mcmc(models$sens_grps[[4]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters, and to a change from design-basded survey indices to geostatistical-based survey indices.
+(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters, and to a change from design-based survey indices to geostatistical-based survey indices.
 
 (ref:fig-sens-selex-rel-fr) French here
 
@@ -162,6 +190,29 @@ plot_biomass_mcmc(models$sens_grps[[4]],
                   text_title_size = NULL,
                   show_bo_lines = TRUE)
 ```
+
+(ref:fig-sens-selex-index-fits-en) Index fits for the sensitivity where the `r qcs` has time-varying selectivity.
+
+(ref:fig-sens-selex-index-fits-fr) French here
+
+```{r fig-sens-selex-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
+plot_selex_gear_mcmc(models$sens_grps[[4]][[4]], gear = 3)
+```
+
+(ref:fig-sens-selex-qcs-en) Index fits for sensitivity models that include changes in selectivity, and use of the geostatistical-based survey indices.
+
+(ref:fig-sens-selex-rel-fr) French here
+
+```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-rel-fr)", "(ref:fig-sens-selex-rel-en)")}
+plot_index_mcmc(models$sens_grps[[4]][[4]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = NULL,
+                text_title_size = NULL,
+                base_color = "royalblue")
+
+```
+
 
 
 \clearpage
