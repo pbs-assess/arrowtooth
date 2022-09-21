@@ -150,8 +150,7 @@ plot_f_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
 
 <!-- Index fits and residuals ------------------------------------------------>
 
-(ref:fig-base-index-fits-en) Index fits for the base model. The light brown points and vertical lines show the index values and CVs; the black points show the medians of the posteriors; the black solid vertical lines show the 95% credible intervals for the posteriors. The two lines connecting points along the time series are only present for aesthetic value.
-
+(ref:fig-base-index-fits-en) Index fits for the base model. The light grey points and vertical lines show the index values and 95% confidence intervals; the blue points show the medians of the posteriors; the black solid vertical lines show the 95% credible intervals of the posteriors.
 <!-- The 2014 WCHG Synoptic index point is shown but was not included in the model. -->
 
 (ref:fig-base-index-fits-fr) French here
@@ -165,7 +164,7 @@ plot_index_mcmc(base_model,
                 base_color = "royalblue")
 ```
 
-(ref:fig-base-index-resids-en) Index Log standardized residuals. The points are the median of the posteriors for the $\epsilon$ parameter in iSCAM. The vertical lines represent the 95% credible intervals for those posteriors.
+(ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in iSCAM. The vertical lines represent the 95% credible intervals for those posteriors.
 
 (ref:fig-base-index-resids-fr) Indice Log des résidus normalisés. Les points représentent la médiane des valeurs postérieures pour le paramètre $\epsilon$ dans iSCAM. Les lignes verticales représentent les intervalles crédibles à 95 % pour ces valeurs postérieures.
 
