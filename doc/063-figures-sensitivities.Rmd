@@ -2,7 +2,7 @@
 
 <!-- Vartheta and sigma, and steepness  -------------------------------------->
 
-(ref:fig-sens-variance-en) Spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters.
+(ref:fig-sens-variance-en) Spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters. The $B_0$ estimates for the '`r names(models$sens_grps[[1]])[2]`' and '`r names(models$sens_grps[[1]])[3]`' models are past the axis limits here. For the sake of clarity for the trajectories, they were left off the plot. They are estimated as `r sens_1_2_sbo$est` and `r sens_1_3_sbo$est` respectively.
 
 (ref:fig-sens-variance-fr) French here
 
@@ -11,7 +11,9 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
-                  ylim = c(0, 380))
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  ylim = c(0, 350))
 ```
 
 (ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities to changes in the $\vartheta^2$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters.
@@ -24,6 +26,8 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
                   ylim = c(0, 0.8))
 ```
 
@@ -40,20 +44,6 @@ plot_priors_posts_mcmc(models$sens_grps[[1]][[2]],
                                     "log_m_sex1",
                                     "log_m_sex2"))
 ```
-
-(ref:fig-sens-group1-index-en) MCMC fits to the indices of abundance for the first group of sensitivity models.
-
-(ref:fig-sens-group1-biomass-fr) French caption here
-
-```{r sens-index-group1, fig.cap = ifelse(fr(), "(ref:fig-sens-group1-index-fr)", "(ref:fig-sens-group1-index-en)"), out.width = "100%"}
-plot_index_mcmc(models$sens_grps[[1]],
-                type = "fits",
-                surv_index = survey_index,
-                leg_loc = "facet",
-                text_title_size = NULL,
-                base_color = "royalblue")
-```
-
 
 (ref:fig-sens-steepness-prior-en) Priors and posteriors for the sensitivity to steepness prior change. This should be compared with the base model in Figure \@ref(fig:fig-base-priors-posts).
 
