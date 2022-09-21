@@ -236,19 +236,14 @@ In the cases where the natural mortality rate is allowed to vary over time, the 
 
 ```{r app-model-eq-para-8-en, eval = !fr(), results = 'asis'}
 cat("### Parameter Estimation and Uncertainty
-Parameter estimation and quantifying uncertainty was carried out using the tools available in AD Model Builder.
-AD Model Builder (ADMB) is software for creating executable code to estimate the parameters and associated probability distributions for nonlinear statistical models. The software is freely available from \href{http://admb-project.org/}{the ADMB project}.
-The ADMB software was used to develop [gfiscam](https://github.com/pbs-assess/gfiscam), which was developed from the [original ISCAM project](https://sites.google.com/site/iscamproject/home).
+Parameter estimation and quantifying uncertainty was carried out using the tools available in AD Model Builder. AD Model Builder (ADMB) is software for creating executable code to estimate the parameters and associated probability distributions for nonlinear statistical models. The software is freely available from \href{http://admb-project.org/}{the ADMB project}. The ADMB software was used to develop [gfiscam](https://github.com/pbs-assess/gfiscam), which was developed from the [original ISCAM project](https://sites.google.com/site/iscamproject/home).
 
 There are five distinct components that make up the objective function that ADMB is minimizing:
-
 \[f = \mbox{negative loglikelihoods}+\mbox{constraints}+\mbox{priors for parameters}+\mbox{survey priors}+\mbox{convergence penalties}.\]
-
 The purpose of this section is to completely document all of the components that make up the objective function.
 
 **Negative log-likelihoods**
-The negative log-likelihoods pertain specifically elements that deal with the data and variance partitioning and have already been described in detail in earlier portions of Section \@ref(secObjFunc).
-There are four specific elements that make up the vector of the objective function:
+The negative log-likelihoods pertain specifically elements that deal with the data and variance partitioning and have already been described in detail in earlier portions of Section \@ref(secObjFunc). There are four specific elements that make up the vector of the objective function:
 \begin{equation}
   \vec{\ell}=\ell_C, \ell_I, \ell_A, \ell_\delta.
   \label{eq:df11}
@@ -260,9 +255,7 @@ There are two specific constraints that are described here:
 - Parameter bounds.
 - constraints to ensure that a parameter vector sums to 0.
 
-In ISCAM the user must specify the lower and upper bounds for the leading parameters defined in the control file
-($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{init}),\rho,\vartheta$).
-All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
+In ISCAM the user must specify the lower and upper bounds for the leading parameters defined in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{init}),\rho,\vartheta$). All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
 
 Estimated fishing mortality rates are also constrained (in log space) to have a minimum value of -30, and a maximum value of 3.0, also hard-wired. Log annual recruitment deviations are also constrained to have minimum and maximum values of -15.0 and 15.0 and there is an additional constraint to ensure the vector of deviations sums to 0. This is necessary in order to be able to estimate the average recruitment $\bar{R}$. Finally, the annual log deviations in natural mortality rates are constrained to lie between -5.0 and 5.0.
 
@@ -509,8 +502,7 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 \end{flalign}
 
 ### Partial derivatives
-These are the partial derivatives corresponding to components described in Section \@ref(model-staedy-state).
-Also, the equations used in the application of partials for $F_\mathrm{MSY}$ calculation are included in this section.
+These are the partial derivatives corresponding to components described in Section \@ref(model-staedy-state). Also, the equations used in the application of partials for $F_\mathrm{MSY}$ calculation are included in this section.
 
 **Mortality and Survival**
 \begin{flalign}
