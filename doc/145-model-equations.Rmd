@@ -46,7 +46,7 @@ which simplifies to Eq. \@ref(eq:df14). The equilibrium yield $C_e$ for a given 
 
 ```{r app-model-eq-para-3-en, eval = !fr(), results = 'asis'}
 cat("### MSY-based Reference Points
-When defining reference points for this assessment, the two commercial trawl fleets were used to calculate MSY quantities. ISCAM calculates \emph{F}\subscr{MSY} by finding the value of \emph{F}\subscr{e} that results in the zero derivative of Eq. \@ref(eq:df15). This is accomplished numerically using a Newton-Raphson method where an initial guess for \emph{F}\subscr{MSY} is set equal to 1.5$M$, then use Eq. \@ref(eq:df34) to iteratively find $F_\mathrm{MSY}$. The partial derivatives on the right hand side of Eq. \@ref(eq:df34) are defined in Eqns. \@ref(eq:df35) and \@ref(eq:df36). Given an estimate of \emph{F}\subscr{MSY}, other reference points such as MSY and \emph{B}\subscr{MSY} are calculated using the equations in Section \@ref(model-steady-state).")
+When defining reference points for this assessment, the two commercial trawl fleets were used to calculate MSY quantities. ISCAM calculates \emph{F}\subscr{MSY} by finding the value of \emph{F}\subscr{e} that results in the zero derivative of Eq. \@ref(eq:df15). This is accomplished numerically using a Newton-Raphson method where an initial guess for \emph{F}\subscr{MSY} is set equal to 1.5$M$ [@iscam; @grandin2017].")
 ```
 
 ```{r app-model-eq-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -67,8 +67,7 @@ State variables in each year are updated using Eqns. \@ref(eq:df23)--\@ref(eq:df
 
 Numbers-at-age are propagated over time using Eq. \@ref(eq:df26), where members of the plus group (age $A$) are all assumed to have the same total mortality rate.
 
-Recruitment to age $k$ is assumed to follow a Beverton-Holt model for `r sp` (Eq. \@ref(eq:df27)) where the maximum juvenile survival rate ($s_o$) is defined by $s_o=\kappa/\phi_E$.
-For the Beverton-Holt model, $\beta$ is derived by solving Eq. \@ref(eq:df27) for $\beta$ conditional on estimates of $h$ and $R_o$.")
+Recruitment to age $k$ is assumed to follow a Beverton-Holt model for `r sp` (Eq. \@ref(eq:df27)) where the maximum juvenile survival rate ($s_o$) is defined by $s_o=\kappa/\phi_E$. For the Beverton-Holt model, $\beta$ is derived by solving Eq. \@ref(eq:df27) for $\beta$ conditional on estimates of $h$ and $R_o$.")
 ```
 
 ```{r app-model-eq-para-4-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
