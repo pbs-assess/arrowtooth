@@ -4,22 +4,19 @@
 
 ```{r app-geostat-para-1-en, eval = !fr(), results = 'asis'}
 cat("# GEOSTATISTICAL STANDARDIZATION OF SURVEY INDICES {#app:geostat}
-We used geostatistical spatiotemporal GLMMs (generalized linear mixed effect models) as an alternative to standardize the survey indices [e.g., @shelton2014; @thorson2015ices; @anderson2019synopsis; @anderson2022sdmTMB].
+We used geostatistical spatiotemporal GLMMs (generalized linear mixed effect models) to standardize the survey indices as an alternative to the design-based estimators [e.g., @shelton2014; @thorson2015ices; @anderson2019synopsis; @anderson2022sdmTMB].
 We applied these models in two ways:
 1. to standardize individual survey indices for use in the stock assessment model and
 1. to 'stitch' the four synoptic trawl surveys into a single synthetic index for comparison with trends in estimated biomass from the stock assessment model and with the commercial discard CPUE index.
 
 ## INDIVIDUAL SURVEY MODELLING
-For the individual survey indices, we used delta/hurdle models (herein referred to as the $\Delta$-Gamma model [@aitchison1955]).
-In this model, synoptic survey catch (Figures \@ref(fig:geo-bubble1), \@ref(fig:geo-bubble2)) is defined based on a probability of encounter model and a positive catch model.
-
+For the individual survey indices, we used delta/hurdle models (herein referred to as the $\Delta$-Gamma model [@aitchison1955]). In this model, synoptic survey catch (Figures \@ref(fig:geo-bubble1), \@ref(fig:geo-bubble2)) is defined based on a probability of encounter model and a positive catch model.
 \begin{equation}
   \mathrm{Pr} [C > 0] = p,
 \end{equation}
 
 where $C$ is the observed catch $p$ is the probability of encounter.
 The positive component given encounter is defined as
-
 \begin{equation}
   \mathrm{Pr} [C = c \vert C > 0] = \mathrm{Gamma}\left(c, \gamma, \lambda / \gamma \right),
 \end{equation}
@@ -27,28 +24,22 @@ The positive component given encounter is defined as
 where $c$ is the observed catch given $C > 0$, $\gamma$ is the shape parameter, $\lambda$ is the expected value, and $\lambda / \gamma$ combined is the scale parameter.
 
 The linear component of the binomial encounter model is defined as
-
 \begin{align}
   p_{\s,t} &=
   \mathrm{logit}^{-1} \left(\alpha_k^\mathrm{Bin} + \omega_{\s}^\mathrm{Bin} + \epsilon{\s,t}^\mathrm{Bin} \right),
 \end{align}
 
-where the superscript $\mathrm{Bin}$ denotes binomial component parameters.
-The parameter $\alpha_k^\mathrm{Bin}$ is an intercept for each survey $k$,
-$\omega_{\s}^\mathrm{Bin}$ is a spatial random field value
-
+where the superscript $\mathrm{Bin}$ denotes binomial component parameters. The parameter $\alpha_k^\mathrm{Bin}$ is an intercept for each survey $k$, $\omega_{\s}^\mathrm{Bin}$ is a spatial random field value
 \begin{align}
   \boldsymbol{\omega} &\sim \operatorname{MVNormal} \left( \boldsymbol{0}, \boldsymbol{\Sigma}_\omega \right),
 \end{align}
 
 and $\epsilon_{\s,t}^\mathrm{Bin}$ is a spatiotemporal random field value
-
 \begin{align}
   \boldsymbol{\epsilon} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}).
 \end{align}
 
 The linear component of the Gamma positive catch model is defined as
-
 \begin{align}
   \lambda_{\s,t} &=
   \exp \left(\alpha_k^\mathrm{Pos} + \omega_{\s}^\mathrm{Pos} + \epsilon{\s,t}^\mathrm{Pos} +
@@ -71,21 +62,17 @@ For the survey stitching, the models took on a similar form except that:
 1. we considered a Tweedie observation error model as an alternative.
 
 The linear component of the binomial encounter model is defined as
-
 \begin{align}
   p_{\s,t} &=
   \mathrm{logit}^{-1} \left(\beta_0^\mathrm{Bin} + f (d_{\s,t}) + \omega_{\s}^\mathrm{Bin} + \delta{\s,t}^\mathrm{Bin} \right),
 \end{align}
 
-where the superscript $\mathrm{Bin}$ denotes binomial component parameters. The parameter $\beta_0^\mathrm{Bin}$ is an overall intercept,
-$f (d_{\s,t})$ is a penalized smoother function for log depth with upper basis dimension of 5, $\omega_{\s}^\mathrm{Bin}$ is a spatial random field value:
-
+where the superscript $\mathrm{Bin}$ denotes binomial component parameters. The parameter $\beta_0^\mathrm{Bin}$ is an overall intercept, $f (d_{\s,t})$ is a penalized smoother function for log depth with upper basis dimension of 5, $\omega_{\s}^\mathrm{Bin}$ is a spatial random field value:
 \begin{align}
   \boldsymbol{\omega} &\sim \operatorname{MVNormal} \left( \boldsymbol{0}, \boldsymbol{\Sigma}_\omega \right),
 \end{align}
 
 and $\delta_{\s,t}^\mathrm{Bin}$ is a random effect drawn from a spatiotemporal random field that is assumed to follow a random walk
-
 \begin{align}
   \boldsymbol{\delta}_{t=1} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}),\\
   \boldsymbol{\delta}_{t>1} &= \boldsymbol{\delta}_{t-1} +  \boldsymbol{\epsilon_{t-1}},  \:
@@ -93,7 +80,6 @@ and $\delta_{\s,t}^\mathrm{Bin}$ is a random effect drawn from a spatiotemporal 
 \end{align}
 
 The linear component of the Gamma positive catch model is defined as
-
 \begin{align}
   \lambda_{\s,t} &=
   \exp \left(\beta_0^\mathrm{Pos} + f (d_{\s,t}) + \omega_{\s}^\mathrm{Pos} + \delta_{\s,t}^\mathrm{Pos} +
@@ -103,21 +89,17 @@ The linear component of the Gamma positive catch model is defined as
 where the superscript $\mathrm{Pos}$ denotes positive component parameters, $O_{\s, t}$ represents an offset variable (here log area swept) and the other parameters have a similar definition to the binomial model above.
 
 We also considered a Tweedie model with the linear component defined as
-
 \begin{align}
   \mu_{\s,t} &= \exp \left(\beta_0 + f (d_{\s,t}) + \omega_{\s} + O_{\s,t} + \delta_{\s,t} \right),
 \end{align}
 
 where the parameters have a similar definition as above in the binomial and Gamma models but the data are accounted for with a single observation distribution---the Tweedie---with associated mean, power, and scale parameters.
 
-Furthermore, we considered versions of the above models without depth as a predictor.
-In total, we fit four models: $\Delta$-Gamma with depth, $\Delta$-Gamma without depth, Tweedie with depth, and Tweedie without depth.
-Predictions from the $\Delta$-Gamma without depth are shown in Figures \@ref(fig:geo-predmap1) and \@ref(fig:geo-predmap2) as examples.
+Furthermore, we considered versions of the above models without depth as a predictor. In total, we fit four models: $\Delta$-Gamma with depth, $\Delta$-Gamma without depth, Tweedie with depth, and Tweedie without depth. Predictions from the $\Delta$-Gamma without depth are shown in Figures \@ref(fig:geo-predmap1) and \@ref(fig:geo-predmap2) as examples.
 
 ## Calculating annual standardized biomass
 
 The total biomass $b$ for a given year $t$ is calculated as:
-
 \begin{equation}
   b_t \sum^{n_j}_{j = 1} p_{j,t} \lambda_{j,t} a_j,
 \end{equation}
