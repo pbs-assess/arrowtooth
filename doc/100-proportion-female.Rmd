@@ -77,75 +77,59 @@ For surveys,the same algorithm is followed except that the quarter of the year i
 ```{r appendix-prop-equations-en, eval = !fr(), results = 'asis'}
 cat("## Equations
 Specimens without weight data but with length data have their weights calculated as follows:
-
 \begin{equation}
 \hat{w}_{i,j,s} = \alpha_s l_{i,j,s}^{\beta_s}
 (\#eq:specimen-wt)
 \end{equation}
-
 where $\alpha_s$ and $\beta_s$ are parameters for sex $s$ and $w_{i,j,s}$ and $l_{i,j,s}$ are paired length-weight observations for specimen $i$ in sample $j$.
 
 Total weight for each sample is the sum of the specimens in the sample:
-
 \begin{equation}
 W_{j,s,t} = \sum_{i=1}^{N_{j,s,t}}{\hat{w}_{i,j,s,t}}
 (\#eq:sample-wt)
 \end{equation}
-
 where $W_{j,s,t}$ is the total weight for sample $j$, sex $s$, trip $t$, and $N_{j,s,t}$ is the number of specimens in sample $j$ for sex $s$.
 
 Calculation of the mean sample weight by trip and sex is given by:
-
 \begin{equation}
 W_{s,t} = \frac{\sum\limits_{j=1}^{K_t}{W_{j,s,t}S_{j,t}}}{\sum\limits_{j=1}^{K_t}{S_{j,t}}}
 (\#eq:mean-sample-wt)
 \end{equation}
-
 where $W_{s,t}$ is the mean weight for sex $s$ and trip $t$, weighted by sample weight, where $K_t$ is the number of samples in trip $t$, and $S_{j,t}$ is the sample weight for sample $j$ from trip $t$.
 
 To calculate the total catch weight for sampled hauls in each trip, we use the following:
-
 \begin{equation}
 C_t = \sum_{j=1}^{K_t}{C_{j,k}}
 (\#eq:catch-wt)
 \end{equation}
-
 where $C_t$ isthe total catch weight for sampled hauls for trip $t$, $K_t$ is the number of samples in trip $t$, and $C_{j,t}$ is the catch weight associated with sample $j$ and trip $t$.
 
-The total weight in eacxh quarter of the year by sex is given by:
-
+The total weight in each quarter of the year by sex is given by:
 \begin{equation}
 W_{q,s} = \frac{\sum\limits_{t=1}^{T_q}{W_{q,s,t}R_{q,t}}}{\sum\limits_{t=1}^{T_q}{R_{q,t}}}
 (\#eq:quarter-wt)
 \end{equation}
-
 where $W_{q,s}$ is the total weight for sex $s$ and quarter of year $q$, $R_{q,t}$ is the trip weight for all sampled trips in quarter $q$, and $T_q$ is the number of sampled trips in quarter $q$.
 
 The total catch weight for sampled hauls per quarter of the year is:
-
 \begin{equation}
 C_q = \sum_{t=1}^{K_q}{C_t}
 (\#eq:total-catch-quarter)
 \end{equation}
-
 where $C_q$ is the total catch weight for sampled hauls for quarter $q$, $K_q$ is the number of trips in quarter $q$, and $C_t$ is the catch weight associted with trip $t$.
 
 Now, the total weight by year and sex is calculated from:
-
 \begin{equation}
 W_{y,s} = \frac{\sum\limits_{q=1}^{4}{W_{q,y,s}C_{q,y}}}{\sum\limits_{q=1}^{4}{C_{q,y}}}
 (\#eq:total-catch-year)
 \end{equation}
-
 where $W_{s,y}$ is the total weight for year $y$, sex $s$, $W_{q,y,s}$ is the weight in quarter $q$ of year $y$, and $C_{q,y}$ is the catch in quarter $q$ of year $y$.
 
 Finally, the proportion female is given by:
-
 \begin{equation}
 P_y = \frac{W_{y,s=Female}}{W_{y,s=Male} + W_{y,s=Female}}
 (\#eq:prop-female)
 \end{equation}
-
 where $P_y$ is the proportion female by weight for year $y$ and $W_{y,s}$ for $s=Female$ and $s=Male$ are given by Eq. \@ref(eq:total-catch-year).
 ")
 ```

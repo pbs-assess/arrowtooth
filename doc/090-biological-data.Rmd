@@ -11,12 +11,10 @@ This appendix summarizes the biological data for `r sp` in `r bc`. The length an
 ```{r appendix-data-para-2-en, eval = !fr(), results = 'asis'}
 cat("## Length and Weight model {#length-weight-model}
 All valid length/weight pairs of data were extracted based on the criteria shown in table A.1. The length-weight equation used was:
-
 \begin{equation}
   W_s = \alpha L_s^{\beta_s}
   (\#eq:length-weight)
 \end{equation}
-
 where $\alpha_s$ and $\beta_s$ are parameters for sex $s$ and $L_s$ and $W_s$ are paired length-weight observations.
 
 We applied Eq. \@ref(eq:length-weight) to survey observations for the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-length-weight)).
@@ -30,12 +28,10 @@ We applied Eq. \@ref(eq:length-weight) to survey observations for the three syno
 ```{r appendix-data-para-3-en, eval = !fr(), results = 'asis'}
 cat("## Von-Bertalanffy Model {#vonb-model}
 We used the von-Bertalanffy function to estimate growth rates for `r sp`:
-
 \begin{equation}
   L_s = L_{\infty_s}(1 - e^{-k_s (a_s - t_{0_s})})
   (\#eq:vonb)
 \end{equation}
-
 where $L_{\infty_s}$, $k_s$, and $t_{0_s}$ are parameters specific to sex $s$ and $L_s$ and $a_s$ are paired length-age observations.
 
 We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-vb)).
@@ -49,12 +45,10 @@ We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surv
 ```{r appendix-data-para-4-en, eval = !fr(), results = 'asis'}
 cat("## Maturity-at-age model
 The maturity-at-age model used for `r sp` estimates age-at-50% maturity ($a_{s_{50\%}}$) and standard deviation of age-at-50% maturity ($\sigma_{s_{50\%}}$) by applying the L-BFGS-B quasi-Newton algorithm to minimize the sum-of-squares between the observed and expected proportion mature:
-
 \begin{equation}
   P_{a_s} = \frac{1}{1 + e^{-\sigma_{s_{50\%}}(a_s-a_{s_{50\%}})}}
   (\#eq:mat-at-age)
 \end{equation}
-
 where $P_{a_s}$ is the observed proportion mature at age $a_s$ for sex $s$. 
 
 The same equation can also be applied to lengths instead of ages. We applied Eq. \@ref(eq:mat-at-age) to survey observations of both age and length from the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-mat)).
@@ -444,5 +438,3 @@ grid.arrange(grobs = ma_plot_lst,
              ncol = 2,
              left = paste0(tr("Probability mature")))
 ```
-
- 
