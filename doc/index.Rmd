@@ -16,7 +16,7 @@ french_address: |
      Nanaimo, Colombie-Britannique, V9T 6N7, Canada\
 month: October
 french_month: Octobre
-year: 2021
+year: 2022
 report_number: nnn
 region: Pacific Region
 french_region: "Région du Pacifique"
