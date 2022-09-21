@@ -68,7 +68,7 @@ The catchability parameters are $q_k$ where $k$ is the gear, one for each trawl 
 
 Two sensitivity models were run to test the $q_k$ prior influence. In the first, the means for all gears were increased from `r base_qk_mean` to `r sens_qk_mean`, and the SD remained at `r sens_qk_sd`. In the second, the prior was broadened by setting the SD for all the gears to `r sens_qkp_sd`. The means for that model remained at `r sens_qkp_mean`.
 
-The catchability estimates for each gear do not vary substantially between models (Figure \@ref(fig:fig-sens-q-q)).
+The catchability estimates for each gear did not vary substantially between models (Figure \@ref(fig:fig-sens-q-q)).
 
 ")
 ```
