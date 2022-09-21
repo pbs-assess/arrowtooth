@@ -10,14 +10,11 @@ We then calculated condition factor $K^\mathrm{cond}$ as $W_i / \widehat{W}_i$ w
 We then fit a geostatistical model following the methods in Appendix \@ref(app:geostat).
 
 Our model was of the form:
-
 \begin{align}
   K^\mathrm{cond}_{s,t} &\sim \operatorname{Lognormal} \left(\mu^\mathrm{cond}_{s,t}, \sigma^\mathrm{cond} \right),\\
   \mu^\mathrm{cond}_{s,t} &= \exp \left(\beta_0 + f (d_{s,t}) + \delta_{s,t} \right).
 \end{align}
-
 Here, $\beta_0$ is a global intercept, $f (d_{s,t})$ is a penalized smoother for depth, and $\delta_{s,t}$ represents a spatiotemporal random field that follows a random walk
-
 \begin{align}
   \boldsymbol{\delta}_{t=1} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}),\\
   \boldsymbol{\delta}_{t>1} &= \boldsymbol{\delta}_{t-1} +  \boldsymbol{\epsilon_{t-1}},  \:
@@ -33,7 +30,7 @@ We considered a model that included a spatial random field; however, the varianc
 
 ```{r app-cond-para-2-en, eval = !fr(), results = 'asis'}
 cat("## CONDITION RESULTS
-Our modeling reveals an overall decline in coastwide body condition from around 2004 until 2012, an increase until 2015, and a subsequent decline in recent years leveling off since 2019 (Fig. \@ref(fig:condition-index)). However, when split up by survey, we see that this overall trend masks differences that we see along the coast (Fig. \@ref(fig:condition-index-surv)).
+Our modeling reveals an overall decline in coastwide body condition from around 2004 until 2012, an increase until 2015, and a subsequent decline in recent years leveling off since 2019 (Fig. \@ref(fig:condition-index)). However, when split up by survey, we see that this overall trend masks differences that we see along the coast (Fig. \@ref(fig:condition-index-surv)). The variation over time is relatively small compared to the between-region variation (Fig. \@ref(fig:condition-index-surv)).
 
 Condition within the `r wcvis` has been declining since around 2015, but condition in other survey regions has remained relatively stable in those years (Fig. \@ref(fig:condition-index-surv)). Furthermore, the coastwide index trend of an increase from 2012 to 2015 was driven largely by the `r qcs` (Fig. \@ref(fig:condition-index-surv)).
 
