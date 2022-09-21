@@ -1,6 +1,5 @@
 ```{r intro-para-01-en, eval = !fr(), results = 'asis'}
 cat("# Introduction
-
 `r sp` (*`r sp_science`*, Family `r sp_family`, also commonly called `r sp_colloq`), is a species of flatfish that occurs in the offshore waters of British Columbia (`r bc`). `r sp` are primarily taken by the groundfish bottom trawl fishery, although they are also encountered by hook and line fisheries, particularly those targeting Pacific Halibut (*Hippoglossus stenolepis*). Prior to the introduction of freezer trawlers in the `r bc` groundfish fleet in the mid-2000s, most of the historical catch of `r sp` is understood to have been discarded at sea. Proteolysis occurs in the muscle tissue of this species a short time after it is caught, making the flesh mushy and unpalatable. In the past five years, Asian markets have been established for fillets that have been frozen at sea as soon as possible after capture to reduce proteolysis. There is also an Asian market for the frills. The stock was last assessed by @grandin2017, who presented an age-structured Bayesian model using the iSCAM platform (REF). This stock assessment covers the combined Pacific Marine Fisheries Commission (PMFC) major areas 3CD and 5ABCDE off the west coast of `r bc`.")
 ```
 
@@ -10,7 +9,6 @@ cat("# Introduction
 
 ```{r intro-para-02-en, eval = !fr(), results = 'asis'}
 cat("## Purpose of document
-
 `r sp` is managed as a coastwide stock in `r bc` with the majority of the catch coming from Pacific Marine Fisheries Commission (PMFC) major areas 3CD; `r wcvi`, 5AB; `r qcs` and 5CD; `r hs` (Figures \@ref(fig:fig-catch-spatial) and \@ref(fig:fig-cpue-spatial), Table \@ref(tab:area-catch-table)). The Strait of Georgia (management area 4B) is not included in this stock assessment. The Total Allowable Catch (TAC) has been 5,000 t since February 21, 2020. The TAC was 15,000 t for many years prior to the reduction in 2020. February 21 is the start date for the `r sp` fishery each year.")
 ```
 ```{r intro-para-02-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -26,7 +24,6 @@ cat("The purpose of this stock assessment is to update management advice for `r 
 
 ```{r intro-para-04-en, eval = !fr(), results = 'asis'}
 cat("## Biological background
-  
 `r sp` are distinguished by their large mouth and arrow-shaped teeth, for which the species is named. Their distribution ranges from Baja California to the eastern Bering Sea [@hart1973]. In `r bc`, the species inhabits depths from 50--900 m [@arf2001].")
 ```
 
