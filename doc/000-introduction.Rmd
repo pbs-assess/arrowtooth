@@ -29,6 +29,7 @@ cat("## Biological background
   
 `r sp` are distinguished by their large mouth and arrow-shaped teeth, for which the species is named. Their distribution ranges from Baja California to the eastern Bering Sea [@hart1973]. In `r bc`, the species inhabits depths from 50--900 m [@arf2001].")
 ```
+
 ```{r intro-para-04-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-04-en>>
 ```
@@ -49,11 +50,13 @@ cat("`r sp` are batch spawners with peak spawning occurring at depths deeper tha
 ```
 
 ```{r intro-para-07-en, eval = !fr(), results = 'asis'}
-cat("Juvenile `r sp` feed primarily on mobile prey such as cumaceans, carideans, and amphipods. Adults are piscivorous and cannibalistic, feeding on Pacific Herring (*Clupea pallasii*), juvenile Walleye Pollock (*Theragra chalcogramma*), and Pacific Sandlance (*Ammodytes hexapterus*), among other species [@fargo1981].")
+cat("`r sp` have a diet comprised of zooplankton, fish, and benthic invertebrates. Juveniles feed primarily on mobile prey such as euphausiids, cumaceans, carideans, and amphipods. Adults are more piscivorous and cannibalistic, feeding on Pacific Herring (*Clupea pallasii*), juvenile Walleye Pollock (*Theragra chalcogramma*), and Pacific Sandlance (*Ammodytes hexapterus*), among other species [@fargo1981; @yang1993].")
 ```
+
 ```{r intro-para-07-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<intro-para-07-en>>
 ```
+
 ```{r intro-para-08-en, eval = !fr(), results = 'asis'}
 cat("## Fishery and management history {#intro-management}
 Prior to 2006 there were no limits on the amount of `r sp` that could be caught. In 2006 a TAC of 15,000 t was established and it remained at this level until 2017. In 2017 the TAC was increased to 17,500 t and remained there for two years until it was reduced to 14,000 t in 2019 as a precautionary measure to address concerns raised by the commercial trawl fleet about their oberved reduction in abundance of `r sp`. On January 30, 2020 GTAC recommended urgent, late changes to the 2020/21 Integrated Fisheries Management Plan (IFMP) to address declining `r sp` abundance on traditional fishing grounds [@dfomemo2020]. These changes included:
