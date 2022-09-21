@@ -14,8 +14,9 @@ We tested sensitivity of the model outputs as follows:
 1. Broader catchability priors, from SD = `r base_qk_sd` to `r sens_qkp_sd` ($q_k$ for all gears $k$)
 1. Selectivity curves equal maturity ogive for all gears
 1. Geostatistical model-based survey indices (Section \@ref(app:geostat))
+1. Estimate time-varying selectivity for the `r qcs`, to try to improve the survey index fit
 
-The full list of sensitivity scenarios is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). All sensitivity models were run using MCMC with a chain length of `r f(mcmc_chain_length)`, a sample frequency of `r f(mcmc_sample_freq)`, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples retained for inference.
+This list of sensitivity scenarios with more details is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). All sensitivity models were run using MCMC with a chain length of `r f(mcmc_chain_length)`, a sample frequency of `r f(mcmc_sample_freq)`, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples retained for inference.
 ")
 ```
 
