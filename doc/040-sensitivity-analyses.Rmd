@@ -62,7 +62,7 @@ This model is clearly very sensitive to the values chosen or estimated for natur
 ")
 ```
 
-<!-- $B_0$ estimate as well. $M_{male}$ was estimated as `r sens_2_4_m_male$est` and `r sens_2_5_m_male` for the narrow and broad priors respectively. The estimate of male natural mortality with the broad prior is too low for this species. Fixed values in other assessments are 0.2 for females and 0.35 for males (@spies2021, @spies2019, @grandin2017). The fishing mortality for the two sensitivities to the $M_{male}$ parameter is inflated (\@ref(fig:fig-sens-m-f)). This is an attempt by the model to equalize total mortality $Z = M + F$ to account for the reduction in $M$, so that it can fit the survey indices. -->
+<!-- $B_0$ estimate as well. $M_{male}$ was estimated as `r sens_2_4_m_male$est` and `r sens_2_5_m_male` for the narrow and broad priors respectively. The estimate of male natural mortality with the broad prior is too low for this species. Fixed values in other assessments are 0.2 for females and 0.35 for males [@goa2021, @spies2019, @grandin2017]. The fishing mortality for the two sensitivities to the $M_{male}$ parameter is inflated (\@ref(fig:fig-sens-m-f)). This is an attempt by the model to equalize total mortality $Z = M + F$ to account for the reduction in $M$, so that it can fit the survey indices. -->
 
 
 ```{r scam-sens-m-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
