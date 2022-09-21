@@ -71,7 +71,7 @@ plot_recr_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-recr-closer-fr) French here
 
-```{r fig-retro-recr-closer-, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-closer-fr)", "(ref:fig-retro-recr-closer-en)")}
+```{r fig-retro-recr-closer, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-closer-fr)", "(ref:fig-retro-recr-closer-en)")}
 plot_recr_mcmc(models$retro_grps[[1]],
                angle_x_labels = TRUE,
                text_title_size = NULL,
@@ -113,3 +113,19 @@ plot_index_mcmc(models$retro_grps[[1]],
                 dodge = 0.1)
 ```
 
+(ref:fig-retro-index-resids-en) Log standardized residuals for the base and retrospective model index fits.
+
+(ref:fig-retro-index-resids-fr) French here
+
+```{r fig-retro-index-resids, fig.cap = ifelse(fr(), "(ref:fig-retro-index-resids-fr)", "(ref:fig-retro-index-resids-en)")}
+plot_index_mcmc(models$retro_grps[[1]],
+                type = "resids",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL,
+                fit_line_width = 0.25,
+                fit_point_size = 1.5,
+                palette = "Paired",
+                errbar_width = 0.1,
+                dodge = 0.1)
+```
