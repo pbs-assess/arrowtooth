@@ -12,7 +12,6 @@ Comparing recruitment estimates (Figure \@ref(fig:fig-retro-recr)), most appear 
 
 There is a decrease in fishing mortality for the models prior to 2019 (Figure \@ref(fig:fig-retro-f)), which corresponds to the increasing biomass trend in those models. 
 
-The fits to the indices of abundance (Figure \@ref(fig:fig-retro-index-fits)) show a clear divergence for the models prior to 2019. The log standardized residuals (Figure \@ref(fig:fig-retro-index-resids)) show that indices for those models fit neither better nor worse overall than the post-2019 models. The post-2019 models have residuals that are more dispersed from each other than the pre-2019 models, which have very similar fits in most cases. This implies that the recent large drops in biomass in the indices are more difficult for the model to resolve, which would explain the difficulty for the model in fitting the `r qcs`, which does not show these drops.
-
+The fits to the indices of abundance (Figure \@ref(fig:fig-retro-index-fits)) show a clear divergence for the models prior to 2019. The log standardized residuals (Figure \@ref(fig:fig-retro-index-resids)) show that indices for those models fit neither better nor worse overall than the post-2019 models.
 ")
 ```
