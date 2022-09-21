@@ -117,10 +117,7 @@ It is assumed that the measurement errors in the catch observations are log-norm
   \eta_{k,t}=\ln(C_{k,t}+o) - \ln(\hat{C}_{k,t}+o)
   \label{eq:df1}
 \end{equation}
-where $o$ is a small constant ($e^{-10}$) to ensure the residual is defined in the case of a zero catch observation.
-The residuals are assumed to be normally distributed with a user-specified standard deviation $\sigma_{C}$.
-At present, it is assumed that observed catches for each gear $k$ have the same standard deviation.
-The negative log-likelihood (ignoring the scaling constant) for the catch data is given by:
+where $o$ is a small constant ($e^{-10}$) to ensure the residual is defined in the case of a zero catch observation. The residuals are assumed to be normally distributed with a user-specified standard deviation $\sigma_{C}$. At present, it is assumed that observed catches for each gear $k$ have the same standard deviation. The negative log-likelihood (ignoring the scaling constant) for the catch data is given by:
 \begin{equation}
   \ell_C = \sum_k[ T_k\ln(\sigma_C)+\frac{\sum_t(\eta_{k,t})^2}{2\sigma_C^2}]
   \label{eq:df2}
@@ -140,11 +137,9 @@ The residuals between the observed and predicted relative abundance index is giv
   \epsilon_{k,t} = \ln(I_{k,t}) - \ln(q_k)+\ln(V_{k,t})
   \label{eq:df4}
 \end{equation}
-where $I_{k,t}$ is the observed relative abundance index, $q_k$ is the catchability coefficient for index $k$, and $V_{k,t}$ is the predicted vulnerable biomass at the time of sampling.
-The catchability coefficient $q_k$ is evaluated at its conditional maximum likelihood estimate:
+where $I_{k,t}$ is the observed relative abundance index, $q_k$ is the catchability coefficient for index $k$, and $V_{k,t}$ is the predicted vulnerable biomass at the time of sampling. The catchability coefficient $q_k$ is evaluated at its conditional maximum likelihood estimate:
 \[q_k =\frac{1}{N_k} \sum_{t \in I_{k,t}} \ln(I_{k,t}) - \ln(V_{k,t}) \label{eq:df5}\]
-where $N_k$ is the number of relative abundance observations for index $k$ [@walters1994].
-The negative log-likelihood for relative abundance data is given by:
+where $N_k$ is the number of relative abundance observations for index $k$ [@walters1994]. The negative log-likelihood for relative abundance data is given by:
 \begin{equation}\label{eq:df5}
   \ell_I = \sum_k \sum_{t \in I_{k,t}} \ln(\sigma_{k,t})+\frac{\epsilon_{k,t}^2}{2\sigma_{k,t}^2}
 \end{equation}
@@ -152,9 +147,7 @@ where:
 \[\sigma_{k,t} = \frac{\rho \varphi^2}{\omega_{k,t}} \label{eq:df7}\]
 where $\rho \varphi^2$ is the proportion of the total error that is associated with observation errors, and $\omega_{k,t}$ is a user specified relative weight for observation $t$ from gear $k$.
 
-The $\omega_{k,t}$ terms allow each observation to be weighted relative to the total error $\rho \varphi^2$; for example, to omit a particular observation, set $\omega_{k,t}=0$, or to give 2 times the weight, then set $\omega_{k,t}=2.0$.
-To assume all observations have the same variance then simply set $\omega_{k,t}=1$.
-Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df32) is undefined; therefore, ISCAM adds a small constant to $\omega_{k,t}$ ($e^{-10}$, which is equivalent to assuming an extremely large variance) to ensure the likelihood can be evaluated. In this assessment, values for $\omega_{k,t}$ were set to inverse of the annual CVs from the survey (Table \@ref(tab:XX))")
+The $\omega_{k,t}$ terms allow each observation to be weighted relative to the total error $\rho \varphi^2$. Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df32) is undefined; therefore, ISCAM adds a small constant to $\omega_{k,t}$ ($e^{-10}$, which is equivalent to assuming an extremely large variance) to ensure the likelihood can be evaluated. In this assessment, values for $\omega_{k,t}$ were set to the inverse of the annual CVs from the survey or Discard CPUE index (Table \@ref(tab:XX))")
 ```
 
 ```{r app-model-eq-para-6-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -164,7 +157,7 @@ Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df32) is undefined; therefore, I
 ```{r app-model-eq-para-7-en, eval = !fr(), results = 'asis'}
 cat("### Age Composition Data
 **Multivariate Distribution**
-Sampling theory suggest that age composition data are derived from a multinomial distribution [@fournier1982]. However, ISCAM has always assumed that age-proportions are obtained from a multivariate logistic distribution [@schnute1995], [@richards1997]. ISCAM departs from the traditional multinomial model due to choices regarding weighting of the age-composition data in the objective function. First, the multinomial distribution requires the specification of an effective sample size. This weighting may be done arbitrarily or through iterative re-weighting [@mcallister1997, @gavaris2002], and in the case of multiple and potentially conflicting age-proportions this procedure may fail to converge properly. The assumed effective sample size can have a large impact on the overall model results.
+Sampling theory suggests that age composition data are derived from a multinomial distribution [@fournier1982]. However, ISCAM has always assumed that age-proportions are obtained from a multivariate logistic distribution [@schnute1995; @richards1997]. ISCAM departs from the traditional multinomial model due to choices regarding weighting of the age-composition data in the objective function. First, the multinomial distribution requires the specification of an effective sample size. This weighting may be done arbitrarily or through iterative re-weighting [@mcallister1997, @gavaris2002], and in the case of multiple and potentially conflicting age-proportions, this procedure may fail to converge. The assumed effective sample size can have a large impact on the overall model results.
 
 A feature of the multivariate logistic distribution is that the age-proportion data can be weighted based on the conditional maximum likelihood estimate of the variance in the age-proportions. Therefore, the contribution of the age-composition data to the overall objective function is 'self-weighting' and is conditional on other components in the model. Ignoring the subscript for gear type for clarity, the observed and predicted proportions-at-age must satisfy the constraint:
 \[\sum_{a=1}^A p_{t,a} = 1\]
@@ -174,8 +167,7 @@ for each year. The residuals between the observed ($p_{t,a}$) and predicted prop
 \end{equation}
 The conditional maximum likelihood estimate of the variance is given by
 \[\hat{\tau}^2=\frac{1}{(A-1)T}\sum_{t=1}^T\sum_{a=1}^A \eta_{t,a}^2\]
-and the negative log-likelihood evaluated at the conditional maximum likelihood
-estimate of the variance is given by:
+and the negative log-likelihood evaluated at the conditional maximum likelihood estimate of the variance is given by:
 \begin{equation}
   \ell_A = (A-1)T \ln(\hat{\tau}^2).
   \label{eq:df6}
@@ -186,7 +178,7 @@ The multivariate logistic was used in the `r la` and bridge models in this asses
 
 **Dirichlet Multinomial Distribution**
 The Dirichlet Multinomial (DM) was implemented in ISCAM for this assessment as a replacement for iterative reweighting of age data. Iterative reweighting approaches have several issues:
-1. Reweighting must be performed for each sensitivity, retrospecitve, and bridge model. The weighted data must be entered into ewach model manually.
+1. Reweighting must be performed for each sensitivity, retrospective, and bridge model. The weighted data must be entered into each model manually.
 1. The uncertaintly in the reweighting is not passed into the stock assessment model.
 1. Reweighting methods are generally ad-hoc.
 
@@ -226,8 +218,7 @@ Eqs. \@ref(eq:df7) and \@ref(eq:df8) are key for estimating unfished spawning st
 \end{equation}
 where $s_o$ is the maximum juvenile survival rate, and $\beta$ is the density effect on recruitment, and $B_o$ is the unfished spawning stock biomass.
 Unfished steady-state spawning stock biomass per recruit is given by $\phi_E$, which is the sum of products between age-specific survivorship and relative fecundity.
-
-In the cases where the natural mortality rate is allowed to vary over time, the calculation of $\phi_E$, and the corresponding unfished spawning stock biomass ($B_o$) is based on the average natural mortality rate over the entire time period. This subtle calculation has implications for reference point calculations in cases where there are increasing or decreasing trends in natural mortality rates trend upwards, estimates of $B_o$ decrease.")
+")
 ```
 
 ```{r app-model-eq-para-7-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -251,20 +242,14 @@ The negative log-likelihoods pertain specifically elements that deal with the da
 To reiterate, these are the likelihood of the catch data $\ell_C$, likelihood of the survey data $\ell_I$, the likelihood of the age-composition data $\ell_A$ and the likelihood of the stock-recruitment residuals $\ell_\delta$. Each of these elements are expressed in negative log-space, and ADMB attempts to estimate model parameters by minimizing the sum of these elements.
 
 **Constraints**
-There are two specific constraints that are described here:
-- Parameter bounds.
-- constraints to ensure that a parameter vector sums to 0.
+There are two specific constraints that are described here: (1) parameter bounds and (2) constraints to ensure that a parameter vector sums to 0.
 
 In ISCAM the user must specify the lower and upper bounds for the leading parameters defined in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{init}),\rho,\vartheta$). All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
 
-Estimated fishing mortality rates are also constrained (in log space) to have a minimum value of -30, and a maximum value of 3.0, also hard-wired. Log annual recruitment deviations are also constrained to have minimum and maximum values of -15.0 and 15.0 and there is an additional constraint to ensure the vector of deviations sums to 0. This is necessary in order to be able to estimate the average recruitment $\bar{R}$. Finally, the annual log deviations in natural mortality rates are constrained to lie between -5.0 and 5.0.
+Estimated fishing mortality rates are also constrained (in log space) to have a minimum value of -30, and a maximum value of 3.0, also hard-wired. Log annual recruitment deviations are also constrained to have minimum and maximum values of -15.0 and 15.0 and there is an additional constraint to ensure the vector of deviations sums to 0. This is necessary in order to be able to estimate the average recruitment $\bar{R}$. 
 
 **Priors for parameters**
-Each of the seven leading parameters (eight if there are two sexes) specified in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{init}),\rho,\vartheta$) are declared as bounded parameters and in addition the user can also specify an informative prior distribution for each of these parameters.
-
-Five distinct prior distributions can be implemented: uniform, normal, lognormal, beta and a gamma distribution.
-
-See Table \@ref(tab:param-settings-table) for inital values and prior types and values used for this `r sp` assessment.")
+Each of the seven leading parameters (eight if there are two sexes) specified in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{init}),\rho,\vartheta$) are declared as bounded parameters and in addition the user can also specify an informative prior distribution for each of these parameters. Five distinct prior distributions can be implemented: uniform, normal, lognormal, beta and a gamma distribution. See Table \@ref(tab:param-settings-table) for inital values and prior types and values used for this `r sp` assessment.")
 ```
 
 ```{r app-model-eq-para-8-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -348,15 +333,16 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 cat("### Steady-state age-structured model {#model-steady-state}
 Assumptions in this steady-state model include:
 - Unequal vulnerability-at-age
-- Age-specific natural mortality
 - Age-specific fecundity
 - Beverton-Holt type recruitment
 
 **Parameters** 
+Them model includes the main leading parameters
 \begin{flalign}
   \Theta = (R_o,h,M); \qquad R_o>0; \qquad 0.2 \leq h < 1.0; \qquad M_s > 0 &&
   \label{eq:df01} &&
 \end{flalign}
+and fixed growth and maturity parameters
 \begin{flalign}
   \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s,\hat{a}_k,\hat{\gamma}_k) &&
   \label{eq:df02}     
