@@ -68,6 +68,6 @@ knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-map
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-smoother.png"), dpi = NA)
 ```
 
-```{r condition-tv, fig.cap = ifelse(fr(), "Effet polynomial du troisième ordre variant dans le temps de la profondeur sur la condition. Les lignes sont colorées par les températures moyennes du fond enregistrées sur tous les traits de chalut à des profondeurs comprises entre 100 et 200 m pour chaque année.", "Time-varying third order polynomial effect of depth on condition. Lines are coloured by the mean bottom temperatures recorded on all trawl tows at depths between 100 and 200 m in each year. "), out.width = "5.0in", results = 'asis'}
+```{r condition-tv, fig.cap = ifelse(fr(), "Effet polynomial du troisième ordre variant dans le temps de la profondeur sur la condition. Les lignes sont colorées par les températures moyennes du fond (degrés C) enregistrées sur tous les traits de chalut à des profondeurs comprises entre 100 et 200 m pour chaque année.", "Time-varying third order polynomial effect of depth on condition. Lines are coloured by the mean bottom temperatures (degrees C) recorded on all trawl tows at depths between 100 and 200 m in each year. "), out.width = "5.0in", results = 'asis'}
 knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-tv-raw-poly-3.png"), dpi = NA)
 ```
