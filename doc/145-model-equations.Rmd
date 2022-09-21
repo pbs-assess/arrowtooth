@@ -102,34 +102,26 @@ It is assumed that the measurement errors in the catch observations are log-norm
 \begin{equation}
   \eta_{k,t}=\ln(C_{k,t}+o) - \ln(\hat{C}_{k,t}+o)
   \label{eq:df1}
-\end{equation}
-where $o$ is a small constant ($e^{-10}$) to ensure the residual is defined in the case of a zero catch observation. The residuals are assumed to be normally distributed with a user-specified standard deviation $\sigma_{C}$. At present, it is assumed that observed catches for each gear $k$ have the same standard deviation. The negative log-likelihood (ignoring the scaling constant) for the catch data is given by:
+\end{equation} where $o$ is a small constant ($e^{-10}$) to ensure the residual is defined in the case of a zero catch observation. The residuals are assumed to be normally distributed with a user-specified standard deviation $\sigma_{C}$. At present, it is assumed that observed catches for each gear $k$ have the same standard deviation. The negative log-likelihood (ignoring the scaling constant) for the catch data is given by:
 \begin{equation}
   \ell_C = \sum_k[ T_k\ln(\sigma_C)+\frac{\sum_t(\eta_{k,t})^2}{2\sigma_C^2}]
   \label{eq:df2}
-\end{equation}
-where $T_k$ is the total number of catch observations for gear type $k$.
+\end{equation} where $T_k$ is the total number of catch observations for gear type $k$.
 
 ### Relative Abundance Data
 The relative abundance data are assumed to be proportional to spawning biomass that is vulnerable to the sampling gear:
 \begin{equation}
   V_{k,t} = \sum_a SB_{t,a} e^{-\lambda_{k,t} Z_{t,a}} v_{k,a} w_a
   \label{eq:df3}
-\end{equation}
-where $v_{k,a}$ is the age-specific selectivity of gear $k$, and $w_a$ is the mean-weight-at-age.
-A user specified fraction of the total mortality $\lambda_{k,t}$ adjusts the numbers-at-age to correct for survey timing.
-The residuals between the observed and predicted relative abundance index is given by:
+\end{equation} where $v_{k,a}$ is the age-specific selectivity of gear $k$, and $w_a$ is the mean-weight-at-age. A user specified fraction of the total mortality $\lambda_{k,t}$ adjusts the numbers-at-age to correct for survey timing. The residuals between the observed and predicted relative abundance index is given by:
 \begin{equation}
   \epsilon_{k,t} = \ln(I_{k,t}) - \ln(q_k)+\ln(V_{k,t})
   \label{eq:df4}
-\end{equation}
-where $I_{k,t}$ is the observed relative abundance index, $q_k$ is the catchability coefficient for index $k$, and $V_{k,t}$ is the predicted vulnerable biomass at the time of sampling. The catchability coefficient $q_k$ is evaluated at its conditional maximum likelihood estimate:
-\[q_k =\frac{1}{N_k} \sum_{t \in I_{k,t}} \ln(I_{k,t}) - \ln(V_{k,t}) \label{eq:df5}\]
-where $N_k$ is the number of relative abundance observations for index $k$ [@walters1994]. The negative log-likelihood for relative abundance data is given by:
+\end{equation} where $I_{k,t}$ is the observed relative abundance index, $q_k$ is the catchability coefficient for index $k$, and $V_{k,t}$ is the predicted vulnerable biomass at the time of sampling. The catchability coefficient $q_k$ is evaluated at its conditional maximum likelihood estimate:
+\[q_k =\frac{1}{N_k} \sum_{t \in I_{k,t}} \ln(I_{k,t}) - \ln(V_{k,t}) \label{eq:df5}\] where $N_k$ is the number of relative abundance observations for index $k$ [@walters1994]. The negative log-likelihood for relative abundance data is given by:
 \begin{equation}\label{eq:df5}
   \ell_I = \sum_k \sum_{t \in I_{k,t}} \ln(\sigma_{k,t})+\frac{\epsilon_{k,t}^2}{2\sigma_{k,t}^2}
-\end{equation}
-where:
+\end{equation} where:
 \[\sigma_{k,t} = \frac{\rho \varphi^2}{\omega_{k,t}} \label{eq:df7}\]
 where $\rho \varphi^2$ is the proportion of the total error that is associated with observation errors, and $\omega_{k,t}$ is a user specified relative weight for observation $t$ from gear $k$.
 
@@ -150,15 +142,13 @@ A feature of the multivariate logistic distribution is that the age-proportion d
 for each year. The residuals between the observed ($p_{t,a}$) and predicted proportions ($\hat{p}_{t,a}$) is given by:
 \begin{equation}\label{eq:df33}
   \eta_{t,a}=\ln(p_{t,a})-\ln(\hat{p}_{t,a})-\frac{1}{A}\sum_{a=1}^A\left[\ln(p_{t,a})-\ln(\hat{p}_{t,a}) \right]
-\end{equation}
-The conditional maximum likelihood estimate of the variance is given by
+\end{equation} The conditional maximum likelihood estimate of the variance is given by
 \[\hat{\tau}^2=\frac{1}{(A-1)T}\sum_{t=1}^T\sum_{a=1}^A \eta_{t,a}^2\]
 and the negative log-likelihood evaluated at the conditional maximum likelihood estimate of the variance is given by:
 \begin{equation}
   \ell_A = (A-1)T \ln(\hat{\tau}^2).
   \label{eq:df6}
-\end{equation}
-In short, the multivariate logistic likelihood for age-composition data is just the log of the residual variance weighted by the number observations over years and ages.
+\end{equation} In short, the multivariate logistic likelihood for age-composition data is just the log of the residual variance weighted by the number observations over years and ages.
 
 The multivariate logistic was used in the `r la` and bridge models in this assessment prior to the `r bridge_models_text[[2]][1]` bridge model (Section \@ref(bridging)).
 
@@ -179,31 +169,26 @@ The effective sample size $n_{eff}$ is:
 \begin{equation}
   n_{eff} = \frac{n+n\beta}{n+\beta}
   \label{eq:dm-eff}
-\end{equation}
-The 'saturating' parameterization of the DM was implemeted in ISCAM. This parameterization will revert to the Multinomial distribution with sufficiently large $\beta$ (Eq. \@ref(eq:dm-eff)) i.e. $n_{eff} \simeq n$ when $\beta >> n$. It provides an upper bound on low values of $\hat{\beta}$, i.e. $n_{eff} \simeq 1 + \beta$ when $n >> \beta$.
+\end{equation} The 'saturating' parameterization of the DM was implemeted in ISCAM. This parameterization will revert to the Multinomial distribution with sufficiently large $\beta$ (Eq. \@ref(eq:dm-eff)) i.e. $n_{eff} \simeq n$ when $\beta >> n$. It provides an upper bound on low values of $\hat{\beta}$, i.e. $n_{eff} \simeq 1 + \beta$ when $n >> \beta$.
 
 ### Stock recruitment
 This stock assessment assumes Beverton-Holt recruitment. Annual recruitment and the initial age-composition are treated as latent variables in ISCAM, and residuals between estimated recruits and the deterministic stock-recruitment models are used to estimate unfished spawning stock biomass and recruitment compensation. The residuals between the estimated and predicted recruits is given by:
 \begin{equation}
   \delta_t = \ln(\bar{R}e^{w_t}) - R_t
   \label{eq:df7}
-\end{equation}
-where $R_t$ is given by Eq. \@ref(eq:df27), in which $k$ is the age at recruitment. A bias correction term for the lognormal process errors is included in Eq. \@ref(eq:df27).
+\end{equation} where $R_t$ is given by Eq. \@ref(eq:df27), in which $k$ is the age at recruitment. A bias correction term for the lognormal process errors is included in Eq. \@ref(eq:df27).
 
 The negative log likelihood for the recruitment deviations is given by the normal density (ignoring the scaling constant):
 \begin{equation}
   \ell_\delta = n\ln(\tau) + \frac{\sum_{t=1+k}^T \delta^2_t}{2\tau^2}
   \label{eq:df8}
-\end{equation}
-Eqs. \@ref(eq:df7) and \@ref(eq:df8) are key for estimating unfished spawning stock biomass and recruitment compensation via the recruitment models. The relationship between ($s_o,\beta$) and ($B_o,\kappa$) is given by:
+\end{equation} Eqs. \@ref(eq:df7) and \@ref(eq:df8) are key for estimating unfished spawning stock biomass and recruitment compensation via the recruitment models. The relationship between ($s_o,\beta$) and ($B_o,\kappa$) is given by:
 \begin{equation}\label{eq:df9}
   s_o = \frac{\kappa}{\phi_E}
 \end{equation}
 \begin{equation}\label{eq:df10}
-  \beta = \frac{\kappa-1}{B_o} /qquad (Beverton-Holt)
-\end{equation}
-where $s_o$ is the maximum juvenile survival rate, and $\beta$ is the density effect on recruitment, and $B_o$ is the unfished spawning stock biomass.
-Unfished steady-state spawning stock biomass per recruit is given by $\phi_E$, which is the sum of products between age-specific survivorship and relative fecundity.
+  \beta = \frac{\kappa-1}{B_o} \qquad (\mathrm{Beverton-Holt})
+\end{equation} where $s_o$ is the maximum juvenile survival rate, and $\beta$ is the density effect on recruitment, and $B_o$ is the unfished spawning stock biomass. Unfished steady-state spawning stock biomass per recruit is given by $\phi_E$, which is the sum of products between age-specific survivorship and relative fecundity.
 ")
 ```
 
@@ -217,15 +202,14 @@ Parameter estimation and quantifying uncertainty was carried out using the tools
 
 There are five distinct components that make up the objective function that ADMB is minimizing:
 \[f = \mbox{negative loglikelihoods}+\mbox{constraints}+\mbox{priors for parameters}+\mbox{survey priors}+\mbox{convergence penalties}.\]
-The purpose of this section is to completely document all of the components that make up the objective function.
+The purpose of this section is to document all of the components that make up the objective function.
 
 **Negative log-likelihoods**
 The negative log-likelihoods pertain specifically elements that deal with the data and variance partitioning and have already been described in detail in earlier portions of Section \@ref(secObjFunc). There are four specific elements that make up the vector of the objective function:
 \begin{equation}
   \vec{\ell}=\ell_C, \ell_I, \ell_A, \ell_\delta.
   \label{eq:df11}
-\end{equation}
-To reiterate, these are the likelihood of the catch data $\ell_C$, likelihood of the survey data $\ell_I$, the likelihood of the age-composition data $\ell_A$ and the likelihood of the stock-recruitment residuals $\ell_\delta$. Each of these elements are expressed in negative log-space, and ADMB attempts to estimate model parameters by minimizing the sum of these elements.
+\end{equation} To reiterate, these are the likelihood of the catch data $\ell_C$, likelihood of the survey data $\ell_I$, the likelihood of the age-composition data $\ell_A$ and the likelihood of the stock-recruitment residuals $\ell_\delta$. Each of these elements are expressed in negative log-space, and ADMB attempts to estimate model parameters by minimizing the sum of these elements.
 
 **Constraints**
 There are two specific constraints that are described here: (1) parameter bounds and (2) constraints to ensure that a parameter vector sums to 0.
@@ -423,12 +407,14 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 \end{flalign}
 
 **Unobserved states**
+The numbers-at-age, spawning stock biomass, and total mortality rates:
 \begin{flalign}
   N_{t,a,s}; \qquad B_{t,s}; \qquad Z_{t,a,s} &&
   \label{eq:df18}
 \end{flalign}
 
 **Initial states**
+The initial numbers-at-age in the first year and the annual recruits are treated as estimated parameters and used to initialize the numbers-at-age matrix:
 \begin{flalign}
   N_{t,a,s}=\frac{1}{S}\overline{R}_{\mathrm{init}}e^{\omega_\mathrm{init,t}}e^{-M_s(a-1)}; \qquad (\acute{t}-A)<t<1; \qquad 2\leq a \leq A &&
   \label{eq:df19}
@@ -436,30 +422,30 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 \begin{flalign}
   N_{t,a,s}=\frac{1}{S}\bar{R}e^{\omega_{t}}; \qquad 1\leq t\leq T; \qquad a=1 &&
   \label{eq:df20}
-\end{flalign}
+\end{flalign} Age-specific selectivity for gear type $k$ is a function of the selectivity parameters and the annual fishing mortality for each gear $k$ in year $t$:
 \begin{flalign}
   v_{k,a}= \frac{1}{1+e^{-\frac{\left(a - \hat{a}_k\right)}{\hat{\gamma}_k}}} &&
   \label{eq:df21}
-\end{flalign}
+\end{flalign} The annual fishing mortality for each gear $k$ in year $t$ is the exponent of the estimated vector $\Gamma_{k,t}$:
 \begin{flalign}
   F_{k,t}=e^{\Gamma_{k,t}} &&
   \label{eq:df22}
 \end{flalign}
 
 **State dynamics ($t>1$)**
-
+State variables in each year are updated using the following equations, where the spawning biomass is the product of the numbers-at-age and the mature biomass-at-age.
 \begin{flalign}
   B_{t,s}=\sum_a N_{t,a,s}f_{a,s} &&
   \label{eq:df23}
-\end{flalign}
+\end{flalign}  The total mortality rate is given by:
 \begin{flalign}
   Z_{t,a,s}=M_s+\sum_k F_{k,t} v_{k,t,a,s} &&
   \label{eq:df24}
-\end{flalign}
+\end{flalign} and the total catch (in weight) for each gear is given by:
 \begin{flalign}
   \hat{C}_{k,t}=\sum _ s\sum _ a\frac {N_{{t,a,s}}w_{{a,s}}F_{k,t} v_{{k,t,a,s}} ( 1-{e^{-Z_{t,a,s}}} ) }{Z_{t,a,s}}^{\eta_t} &&
   \label{eq:df25}
-\end{flalign}
+\end{flalign} assuming that both natural and fishing mortality occur simultaneously throughout the year. The numbers-at-age are propagated over time as:
 \begin{flalign}
   N_{t,a,s} = \begin{cases}
     \frac{s_oE_{t-1}}{1+\beta E_{t-1}} e^{(\omega_t-0.5\tau^2)} & a=1 \\
@@ -467,66 +453,15 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
     N_{t-1,a,s} e^{(-Z_{t-1,a,s})} & a=A \\
   \end{cases} &&
   \label{eq:df26}
-\end{flalign}
+\end{flalign} where members of the plus group (age A) are all assumed to have the same total mortality rate.
 
 **Recruitment model**
+Recruitment is defined as Beverton-Holt with a lognormal bias correction:
 \begin{flalign}
   R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df27}
 \end{flalign}
-
-### Partial derivatives
-These are the partial derivatives corresponding to components described in Section \@ref(model-staedy-state). Also, the equations used in the application of partials for $F_\mathrm{MSY}$ calculation are included in this section.
-
-**Mortality and Survival**
-\begin{flalign}
-  Z_a = M_a + F_e v_a &&
-  \label{eq:df28}
-\end{flalign}
-\begin{flalign}
-  S_a = 1 - e^{-Z_a} &&
-  \label{eq:df29}
-\end{flalign}
-
-**Partial for survivorship**
-\begin{flalign}
-  \frac{\partial \hat{\iota}_a}{\partial F_e} = \begin{cases}
-    0 & a = 1 \\
-    e^{-Z_{a-1}} \left(\frac{\partial \hat{\iota}_{a-1}}{\partial F_e} - \hat{\iota}_{a-1} v_{a-1}  \right) & 1 < a < A \\
-    \frac{\frac{\partial \hat{\iota}_{a-1}}{\partial F_e}}{1 - e^{-Z_a}} - \frac{\partial \hat{\iota}_{a-1} e^{-Z_a-1} v_a e^{-Z_a}}{(1 - e^{-Z_a})^2} & a = A \\
-  \end{cases} &&
-  \label{eq:df30}
-\end{flalign}
-
-**Partials for incidence functions**
-\begin{flalign}
-  \frac{\partial \phi_e}{\partial F_e} = \sum_{a=1}^\infty f_a \frac{\partial \hat{\iota}_a}{\partial F_e} &&
-  \label{eq:df31}
-\end{flalign}
-\begin{flalign}
-  \frac{\partial \phi_q}{\partial F_e} = \sum_{a=1}^\infty f_a \frac{w_a v_a S_a}{Z_a} \frac{\partial \hat{\iota}_a}{\partial F_e} + \frac{\hat{\iota}_a w_a v_a^2}{Z_a} \left(e^{-Z_a} - \frac{S_a}{Z_a} \right) &&
-  \label{eq:df32}
-\end{flalign}
-
-**Partial for recruitment**
-\begin{flalign}
-  \frac{\partial R_e}{\partial F_e} = \frac{R_0}{\kappa - 1} \frac{\phi_E}{\phi_e^2} \frac{\partial \phi_e}{\partial F_e} && \label{eq:df33}
-\end{flalign}
-
-**Application of partials for $F_\mathrm{MSY}$ calculation**
-\begin{flalign}
-  F_{e+1} = \frac{\frac{\partial C_e}{\partial F_e}}{\frac{\partial^2 C_e}{\partial F_e}} &&
-  \label{eq:df34}
-\end{flalign}
-where:
-\begin{flalign}
-  \frac{\partial C_e}{\partial F_e} = R_e \phi_q + F_e \phi_q \frac{\partial R_e}{\partial F_e} + F_e R_e \frac{\partial \phi_q}{\partial F_e} &&
-  \label{eq:df35}
-\end{flalign}
-\begin{flalign}
-  \frac{\partial^2 C_e}{\partial F_e} = \phi_q \frac{\partial R_e}{\partial F_e} + R_e \frac{\partial \phi_q}{\partial F_e} &&
-  \label{eq:df36}
-\end{flalign}")
+")
 ```
 
 ```{r app-model-eq-para-10-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
