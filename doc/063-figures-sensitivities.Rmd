@@ -150,7 +150,7 @@ plot_index_mcmc(models$sens_grps[[3]],
 
 <!-- Selectivity and Geostat surveys ----------------------------------------->
 
-(ref:fig-sens-selex-en) Spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters and to a change from design-based survey indices to geostatistical-based survey indices. For the first selectivity sensitivity, the selectivities for the two commercial trawl fisheries are set equal to the maturity for the two commercial trawl gears ($k$). For the second, the `r qcs` has three year blocks or time-varying selectivity, 2003--2010, 2011--2016, and 2017--2021.
+(ref:fig-sens-selex-en) Spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters. For the first selectivity sensitivity, the selectivities for the two commercial trawl fisheries are set equal to the maturity for the two commercial trawl gears ($k$). For the second, the `r qcs` has three year blocks or time-varying selectivity, 2003--2010, 2011--2016, and 2017--2021.
 
 (ref:fig-sens-selex-fr) French here
 
@@ -161,7 +161,7 @@ plot_biomass_mcmc(models$sens_grps[[4]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters, and to a change from design-based survey indices to geostatistical-based survey indices.
+(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters.
 
 (ref:fig-sens-selex-rel-fr) French here
 
@@ -173,15 +173,12 @@ plot_biomass_mcmc(models$sens_grps[[4]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-selex-qcs-en) Index fits for sensitivity models that include changes in selectivity, and use of the geostatistical-based survey indices.
+(ref:fig-sens-selex-index-fits-en) Index fits for the sensitivity where the `r qcs` has time-varying selectivity.
 
-(ref:fig-sens-selex-qcs-rel-fr) French here
+(ref:fig-sens-selex-index-fits-fr) French here
 
 ```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-qcs-rel-fr)", "(ref:fig-sens-selex-qcs-en)")}
-grp <- list(base_model, models$sens_grps[[4]][[4]])
-class(grp) <- mdl_lst_cls
-attributes(grp)$model$desc <- "Special group"
-plot_index_mcmc(grp,
+plot_index_mcmc(models$sens_grps[[4]],
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = "facet",
@@ -189,12 +186,48 @@ plot_index_mcmc(grp,
 
 ```
 
-(ref:fig-sens-selex-index-fits-en) Index fits for the sensitivity where the `r qcs` has time-varying selectivity.
-
-(ref:fig-sens-selex-index-fits-fr) French here
-
 ```{r fig-sens-selex-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
 plot_selex_gear_mcmc(models$sens_grps[[4]][[4]], gear = 3)
+```
+
+<!-- Geostatistical -->
+
+(ref:fig-sens-geostat-en) Spawning biomass for the sensitivity in which the design-based survey index data has been replaced with geostatistical-based survey indices. See Appendix \@ref(app:geostat).
+
+(ref:fig-sens-geostat-fr) French here
+
+```{r fig-sens-selex, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-fr)", "(ref:fig-sens-geostat-en)")}
+plot_biomass_mcmc(models$sens_grps[[5]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  ylim = c(0, 270))
+```
+
+(ref:fig-sens-geostat-rel-en) Relative spawning biomass for the sensitivity in which the design-based survey index data has been replaced with geostatistical-based survey indices. See Appendix \@ref(app:geostat).
+
+(ref:fig-sens-geostat-rel-fr) French here
+
+```{r fig-sens-selex-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-rel-fr)", "(ref:fig-sens-geostat-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[5]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  rel = TRUE,
+                  ylim = c(0, 0.8))
+```
+
+(ref:fig-sens-geostat-index-fits-en) Index fits for the sensitivity in which the design-based survey index data has been replaced with geostatistical-based survey indices. See Appendix \@ref(app:geostat).
+
+(ref:fig-sens-geostat-index-fits-fr) French here
+
+```{r fig-sens-geostat-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-index-fits-fr)", "(ref:fig-sens-geostat-index-fits-en)")}
+plot_index_mcmc(models$sens_grps[[5]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL)
+
 ```
 
 \clearpage

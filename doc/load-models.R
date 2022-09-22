@@ -67,8 +67,8 @@ sens_models_dirs <-
        c("09-qk-mean-1.0",
          "10-qk-loose-prior"),
        c("11-selex-equal-maturity",
-         "12-geostat-surveys",
-         "13-qcs-tv-selex"))
+         "13-qcs-tv-selex"),
+       c("12-geostat-surveys"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,135",
@@ -104,11 +104,11 @@ sens_models_text <-
                 "Sélectivité commerciale égale à l'ogive de maturité",
                 "Commercial selectivities equal maturity ogive"),
          ifelse(fr(),
-                "Indices d'enquête basés sur la géostatistique",
-                "Geostatistical based survey indices"),
-         ifelse(fr(),
                 "Sélectivité QCS TV blocs de 3 ans",
-                "QCS TV selectivity 3 year blocks")))
+                "QCS TV selectivity 3 year blocks")),
+       c(ifelse(fr(),
+                "Indices d'enquête basés sur la géostatistique",
+                "Geostatistical based survey indices")))
 
 # This will be used to generate the sensitivity parameter table later
 sens_models_text_no_base <- sens_models_text
@@ -144,11 +144,11 @@ sens_changes_text <-
                 "$\\hat{a_k} = \\dot{a}; \\hat{\\gamma_k} = \\dot{\\gamma}$ pour les deux flottes $k$",
                 "$\\hat{a_k} = \\dot{a}; \\hat{\\gamma_k} = \\dot{\\gamma}$ for both fleets $k$"),
          ifelse(fr(),
-                "Indices basés sur la conception remplacés par des indices basés sur la géostatistique pour toutes les enquêtes",
-                "Design-based indices replaced with Geostatistical-based indices for all surveys"),
-         ifelse(fr(),
                 "La sélectivité du DRC varie dans le temps avec les blocs d'années 2003--2010, 2011-2016 et 2017--2021.",
-                "QCS selectivity is time-varying with year blocks 2003--2010, 2011-2016, and 2017--2021")))
+                "QCS selectivity is time-varying with year blocks 2003--2010, 2011-2016, and 2017--2021")),
+       c(ifelse(fr(),
+                "Indices basés sur la conception remplacés par des indices basés sur la géostatistique pour toutes les enquêtes",
+                "Design-based indices replaced with Geostatistical-based indices for all surveys")))
 
 # This is a list of vectors of retrospective groups (retrospective models that
 # will be plotted against each other). It can be `NULL` if to be ignored.
