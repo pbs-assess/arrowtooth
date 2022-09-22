@@ -329,7 +329,7 @@ Length-at-age is defined as:
 \begin{flalign}
   v_a=\left(1+e^{\left(\frac{-(\hat{a}-a)}{\hat{\gamma}}\right)}\right)^{-1} &&
   \label{eq:df05}
-\end{flalign} and fecundity at age as
+\end{flalign} and fecundity at age as:
 \begin{flalign}
   f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1}. &&
   \label{eq:df06}
@@ -386,7 +386,7 @@ Biomass in unfished conditions is defined as:
 \begin{flalign}
   R_e=R_o \frac{\kappa-\frac{\phi_E}{\phi_e}}{\kappa-1}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df14}
-\end{flalign} Equilibrium yield for a given fishing mortality rate is given by:
+\end{flalign} Equilibrium yield is given by:
 \begin{flalign}
   C_e=F_e R_e\phi_q &&
   \label{eq:df15}
