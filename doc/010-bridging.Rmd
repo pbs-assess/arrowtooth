@@ -26,7 +26,7 @@ cat("Each model in this list is based on the previous one with only one change m
 1. Converted the model from female-only to a split-sex model. In this model, the two natural mortality parameters for male and female were fixed. In the previous models, the female natural mortality was estimated. This was done due to poor diagnostics when the parameters were estimated, and to follow what was done in recent Gulf of Alaska assessments [@goa2019].
 1. Changed fishing year to start on February 21 (vs. January 1), which is the date currently used by Fisheries Management for the fishing year.
 1. Removed the `r wchgs` index and age comps. The survey was not contributing meaningfully to the assessment and the estimated selectivities were not viable due to too few samples. Its removal was suggested by the TWG.
-1. Fixed both male and female natural morality parameters. The estimated values were quite low for this species based on assessments in neighbouring jurisdictions [@goa2017; @goa2019; @goa2020; @goa2021].
+1. Fixed both male and female natural mortality parameters. The estimated values were quite low for this species based on assessments in neighbouring jurisdictions [@goa2017; @goa2019; @goa2020; @goa2021].
 
 ")
 ```
