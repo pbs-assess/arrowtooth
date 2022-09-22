@@ -186,7 +186,11 @@ plot_index_mcmc(models$sens_grps[[4]],
 
 ```
 
-```{r fig-sens-selex-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
+(ref:fig-sens-selex-selectivity-en) Estimated `r qcs` selectivities for three time blocks when QCS selectitivy was allowed to vary. The parameters are poorly estimated in the middle block.
+
+(ref:fig-sens-selex-selectivity-fr) French here
+
+```{r fig-sens-selex-selectivity, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-selectivity-fr)", "(ref:fig-sens-selex-selectivity-en)")}
 plot_selex_gear_mcmc(models$sens_grps[[4]][[3]], gear = 3)
 ```
 
