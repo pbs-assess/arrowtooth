@@ -177,7 +177,7 @@ plot_biomass_mcmc(models$sens_grps[[4]],
 
 (ref:fig-sens-selex-index-fits-fr) French here
 
-```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-qcs-rel-fr)", "(ref:fig-sens-selex-qcs-en)")}
+```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-index-fits-en)")}
 plot_index_mcmc(models$sens_grps[[4]],
                 type = "fits",
                 surv_index = survey_index,
