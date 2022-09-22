@@ -85,14 +85,6 @@ plot_biomass_mcmc(models$sens_grps[[2]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-m-f-en) Fishing mortality $F$ for sensitivities to changes in the natural mortality ($M$) parameters.
-
-(ref:fig-sens-m-f-fr) French here
-
-```{r fig-sens-m-f, fig.cap = ifelse(fr(), "(ref:fig-sens-m-f-fr)", "(ref:fig-sens-m-f-en)")}
-plot_f_mcmc(models$sens_grps[[2]], leg_loc = c(0, 1))
-```
-
 (ref:fig-sens-m-index-en) Index fits for sensitivity models that include estimation of $M$ parameters.
 
 (ref:fig-sens-m-index-fr) French here
@@ -181,6 +173,22 @@ plot_biomass_mcmc(models$sens_grps[[4]],
                   show_bo_lines = TRUE)
 ```
 
+(ref:fig-sens-selex-qcs-en) Index fits for sensitivity models that include changes in selectivity, and use of the geostatistical-based survey indices.
+
+(ref:fig-sens-selex-rel-fr) French here
+
+```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-rel-fr)", "(ref:fig-sens-selex-rel-en)")}
+grp <- list(base_model, models$sens_grps[[4]][[4]])
+class(grp) <- mdl_lst_cls
+attributes(grp)$model$desc <- "Special group"
+plot_index_mcmc(grp,
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL)
+
+```
+
 (ref:fig-sens-selex-index-fits-en) Index fits for the sensitivity where the `r qcs` has time-varying selectivity.
 
 (ref:fig-sens-selex-index-fits-fr) French here
@@ -188,21 +196,5 @@ plot_biomass_mcmc(models$sens_grps[[4]],
 ```{r fig-sens-selex-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
 plot_selex_gear_mcmc(models$sens_grps[[4]][[4]], gear = 3)
 ```
-
-(ref:fig-sens-selex-qcs-en) Index fits for sensitivity models that include changes in selectivity, and use of the geostatistical-based survey indices.
-
-(ref:fig-sens-selex-rel-fr) French here
-
-```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-rel-fr)", "(ref:fig-sens-selex-rel-en)")}
-plot_index_mcmc(models$sens_grps[[4]][[4]],
-                type = "fits",
-                surv_index = survey_index,
-                leg_loc = NULL,
-                text_title_size = NULL,
-                base_color = "royalblue")
-
-```
-
-
 
 \clearpage

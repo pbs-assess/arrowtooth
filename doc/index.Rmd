@@ -664,4 +664,11 @@ sens_qkp_inp_params <- models$sens_grps[[3]][[3]]$ctl$surv.q
 sens_qkp_mean <- exp(sens_qkp_inp_params[rownames(sens_qkp_inp_params) == "priormeanlog"])[1]
 sens_qkp_sd <- sens_qkp_inp_params[rownames(sens_qkp_inp_params) == "priorsd"][1]
 
+sens_3_2_selex_f_qcs <- filter(models$sens_grps[[3]][[2]]$mcmccalcs$selest_quants, gear == "QCS Synoptic", sex == 2)$a_hat
+sens_3_2_selex_f_qcs_mean_ci <- paste0(f(sens_3_2_selex_f_qcs[2], 1),
+                                       " (",
+                                       f(sens_3_2_selex_f_qcs[1], 1),
+                                       "--",
+                                       f(sens_3_2_selex_f_qcs[3], 1),
+                                       ")")
 ```

@@ -298,12 +298,12 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 
 <!-- Selectivity ------------------------------------------------------------->
 
-(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. `r qcs` is not shown because it was estimated with time-varying selectivity. See Figure \@ref(fig:fig-base-mcmc-selex-qcs) for those plots.
+(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. Dotted lines represent maturity, with the colors representing the sexes and are the same as for selectivity curves.
 
 (ref:fig-base-selex-fr) French goes here
 
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
-plot_selex_mcmc(base_model)
+plot_selex_mcmc(base_model, show_maturity = TRUE)
 ```
 
 <!-- Reference points -------------------------------------------------------->
