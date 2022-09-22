@@ -207,7 +207,7 @@ table_ts_values_mcmc(base_model,
 ```
 
 ```{r maturity-at-age-table, results = "asis"}
-cap <- paste0("Values used in the ", iscasm, " models for Age-at-50\\% and ",
+cap <- paste0("Values used in the ", iscam, " models for Age-at-50\\% and ",
               "SD-at-50\\% maturity by sex. Number of specimens used in ",
               "the calculation is also given.")
 if(fr()){
