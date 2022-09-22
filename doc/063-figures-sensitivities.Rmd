@@ -187,7 +187,7 @@ plot_index_mcmc(models$sens_grps[[4]],
 ```
 
 ```{r fig-sens-selex-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
-plot_selex_gear_mcmc(models$sens_grps[[4]][[4]], gear = 3)
+plot_selex_gear_mcmc(models$sens_grps[[4]][[3]], gear = 3)
 ```
 
 <!-- Geostatistical -->
