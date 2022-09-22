@@ -1,12 +1,12 @@
 ```{r app-model-eq-para-1-en, eval = !fr(), results = 'asis'}
 cat("# Model Description {#app:model-desc}
 ## Introduction
-Stock Assessment modelling was done using the Integrated Statistical Catch Age Model (ISCAM), developed by S. Martell [@martell2011]. ISCAM was written using the AD Model Builder framework. ISCAM is a statistical catch-at-age model with many modelling options implemented in a Bayesian estimation framework. The authors have modified ISCAM substantially over the years, and further extensive modifications were made for this assessment. The package [gfiscam](https://github.com/pbs-assess/gfiscam), on the WSL2 branch contains all code and Makefiles necessary to compile ISCAM to run the models presented in this assessment.
+Stock Assessment modelling was done using the Integrated Statistical Catch Age Model (`r iscam`), developed by S. Martell [@martell2011]. `r iscam` was written using the AD Model Builder framework. ISCAM is a statistical catch-at-age model with many modelling options implemented in a Bayesian estimation framework. The authors have modified `r iscam` substantially over the years, and further extensive modifications were made for this assessment. The package [gfiscam](https://github.com/pbs-assess/gfiscam), on the WSL2 branch contains all code and Makefiles necessary to compile `r iscam` to run the models presented in this assessment.
 
-The execution of all ISCAM models was performed in Linux using Bourne again shell (Bash) scripts. Compilation of results, and generation of tables and figures was done in R using the [gfiscamutils](https://github.com/pbs-assess/gfiscamutils) package developed by the authors.
+The execution of all `r iscam` models was performed in Linux using Bourne again shell (Bash) scripts. Compilation of results, and generation of tables and figures was done in R using the [gfiscamutils](https://github.com/pbs-assess/gfiscamutils) package developed by the authors.
 
 ## Model Description
-This section contains the documentation and equations for the ISCAM age-structured model, its steady-state version that is used to calculate reference points, the observation models used in predicting observations, and the components of the objective function that formulate the statistical criterion used to estimate model parameters. A documented list of symbols used in model equations is given in Table \@ref(tab:iscam-variables). The documentation presented here is essentially a revised version of the ISCAM user guide [@iscam].
+This section contains the documentation and equations for the `r iscam` age-structured model, its steady-state version that is used to calculate reference points, the observation models used in predicting observations, and the components of the objective function that formulate the statistical criterion used to estimate model parameters. A documented list of symbols used in model equations is given in Table \@ref(tab:iscam-variables). The documentation presented here is essentially a revised version of the `r iscam` user guide [@iscam].
 
 Note that all the model equations are presented for a sex structured model with $S$ sexes. Models can therefore be constructed with data and estimates for two sexes, female only, or both male and female combined into a single sex bin.
 
@@ -208,12 +208,12 @@ The negative log-likelihoods pertain specifically elements that deal with the da
 \begin{equation}
   \vec{\ell}=\ell_C, \ell_I, \ell_A, \ell_\delta.
   \label{eq:df11}
-\end{equation} To reiterate, these are the likelihood of the catch data $\ell_C$, likelihood of the survey data $\ell_I$, the likelihood of the age-composition data $\ell_A$ and the likelihood of the stock-recruitment residuals $\ell_\delta$. Each of these elements are expressed in negative log-space, and ADMB attempts to estimate model parameters by minimizing the sum of these elements.
+\end{equation} To reiterate, these are the likelihood of the catch data $\ell_C$, likelihood of the survey data $\ell_I$, the likelihood of the age-composition data $\ell_A$ and the likelihood of the stock-recruitment residuals $\ell_\delta$. Each of these elements are expressed in negative log-space, and ADMB attempts to estimate model parameters by minimizing the sum of these elements.\
 
 **Constraints**
 There are two specific constraints that are described here: (1) parameter bounds and (2) constraints to ensure that a parameter vector sums to 0.
 
-In ISCAM the user must specify the lower and upper bounds for the leading parameters defined in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$). All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
+In `r iscam` the user must specify the lower and upper bounds for the leading parameters defined in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$). All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
 
 Estimated fishing mortality rates are also constrained (in log space) to have a minimum value of -30, and a maximum value of 3.0, also hard-wired. Log annual recruitment deviations are also constrained to have minimum and maximum values of -15.0 and 15.0 and there is an additional constraint to ensure the vector of deviations sums to 0. This is necessary in order to be able to estimate the average recruitment $\bar{R}$. 
 
@@ -239,7 +239,7 @@ cat("## Model parameters, symbols, and equations {#model-equations}")
 \begin{table}[!h]
 \centering
 \caption{\label{tab:iscam-variables} A list of symbols, constants and description
-  for variables used in ISCAM.}
+  for variables used in `r iscam`.}
 \begin{tabular}{lll}
 \hline
 \bf{Symbol} & \bf{Value} & \bf{Description} \\

@@ -26,7 +26,7 @@ This list of sensitivity scenarios with more details is provided in Table \@ref(
 
 ```{r scam-sens-sigma-en, eval = !fr(), results = 'asis'}
 cat("### Decreasing $\sigma$ and adjusting $\tau$ {#sens-sigma}
-ISCAM uses an error parameterization which includes two parameters, $\vartheta^2$ and $\rho$. They represent the total variance and the proportion of total variance associated with observation errors, respectively [@iscam]. Observation error SD ($\sigma$) and process error SD ($\tau$) cannot be estimated directly, instead there is a calculation done to translate those values to and from $\vartheta^2$ and $\rho$ (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)). The values of $\sigma$ and $\tau$ were fixed in the base model [@grandin2017] at `r base_sig` and `r base_tau` respectively. By calculation, $\vartheta^2$ and $\rho$ were fixed at `r f(base_vartheta$init, 2)` and `r f(base_rho$init, 4)`.
+`r iscam` uses an error parameterization which includes two parameters, $\vartheta^2$ and $\rho$. They represent the total variance and the proportion of total variance associated with observation errors, respectively [@iscam]. Observation error SD ($\sigma$) and process error SD ($\tau$) cannot be estimated directly, instead there is a calculation done to translate those values to and from $\vartheta^2$ and $\rho$ (Appendix \@ref(app:model-desc), Eq. \@ref(eq:df17)). The values of $\sigma$ and $\tau$ were fixed in the base model [@grandin2017] at `r base_sig` and `r base_tau` respectively. By calculation, $\vartheta^2$ and $\rho$ were fixed at `r f(base_vartheta$init, 2)` and `r f(base_rho$init, 4)`.
 
 Reducing the observation error by decreasing $\sigma$ from `r base_sig` to `r sens_1_2_sig` and estimating $\vartheta^2$ increased the initial value of $\vartheta^2$ from `r f(base_vartheta$init, 2)` to `r f(sens_1_2_vartheta$init, 2)` while approximately halving $\rho$ from `r f(base_rho$init, 3)` to `r f(sens_1_2_rho$init, 3)`. The median and 95% CI of the posterior for $\vartheta^2$ was `r sens_1_2_vartheta$est`. There was little effect on the absolute biomass trajectory (Figure \@ref(fig:fig-sens-variance)), but the estimate of $B_0$ was increased from `r base_sbo[1]` to `r svals[[1]][[2]]$sbo[1]` t (Figure \@ref(fig:fig-sens-variance)). The increase in the $B_0$ estimate caused a scaling downward of the relative biomass trajectory (Figure \@ref(fig:fig-sens-variance-rel)). There were no substantial changes to the index fits, age fits, or selectivities. The posterior for $h$ was estimated higher, but with a much tighter distribution (`r sens_1_2_h$est`, Figure \@ref(fig:fig-sens-variance-prior-post)) compared to the base model (`r base_h$est`, Figure \@ref(fig:fig-base-priors-posts)).
 
@@ -62,7 +62,7 @@ This model is clearly sensitive to the values chosen or estimated for natural mo
 
 ```{r scam-sens-q-en, eval = !fr(), results = 'asis'}
 cat("### Modifying catchability priors {#sens-q}
-The catchability parameters are $\operatorname{ln}(q_k)$ where $k$ is the gear, one for each trawl fleet and survey index (`r paste(base_model$dat$gear_names, collapse = ', ')`). These parameters have an associated normal prior with a log mean and SD set in the iSCAM control files. In the base model those are paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$') and `r f(base_qk_sd, 1)`, respectively.
+The catchability parameters are $\operatorname{ln}(q_k)$ where $k$ is the gear, one for each trawl fleet and survey index (`r paste(base_model$dat$gear_names, collapse = ', ')`). These parameters have an associated normal prior with a log mean and SD set in the `r iscam` control files. In the base model those are paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$') and `r f(base_qk_sd, 1)`, respectively.
 
 Two sensitivity models were run to test the influence by the priors for $\operatorname{ln}(q_k)$. In the first, the means for all gears were increased from `r paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$')` to `r paste0('$\operatorname{ln}(', f(sens_qk_mean, 1), ')$')`, and the SD remained at `r base_qk_sd`. In the second, the prior was broadened by setting the SD for all the gears to `r sens_qkp_sd`. The means for that model remained at `r paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$')`.
 
@@ -108,7 +108,7 @@ TODO: complete this once model is done Sept 23 11AM
 
 ```{r scam-sens-qcs-tv-en, eval = !fr(), results = 'asis'}
 cat("### Using TV selectivity for the `r qcs` {#sens-qcs-tv}
-In an attempt to improve the fit of the `r qcs` index (Figure @\ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in iSCAM and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. This did improve the latter part of the index fit (Figure \@ref(fig:fig-sens-selex-qcs)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for ...
+In an attempt to improve the fit of the `r qcs` index (Figure @\ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in `r iscam` and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. This did improve the latter part of the index fit (Figure \@ref(fig:fig-sens-selex-qcs)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for ...
 
 ")
 ```

@@ -2,7 +2,7 @@
 cat("## Statistical Catch-at-age Model {#scam-model}
 ### Model Description {#scam-model-desc}
 
-A two-sex, Bayesian statistical catch-at-age model was applied to assess the coastwide stock status of `r sp`. The model is based on the Integrated Statistical Catch Age Model (iSCAM) framework, @martell2011. Full model details are provided in Appendix \@ref(app:model-desc).
+A two-sex, Bayesian statistical catch-at-age model was applied to assess the coastwide stock status of `r sp`. The model is based on the Integrated Statistical Catch Age Model (`r iscam`) framework, @martell2011. Full model details are provided in Appendix \@ref(app:model-desc).
 
 We define a base model with fixed and estimated parameters described in Table \@ref(tab:param-settings-table). A total of `r num_params` model parameters were estimated by the base model (Table \@ref(tab:param-settings-table) shows some of these). The model estimated time series of log recruitment anomalies and log fishing mortality rates; and time-invariant values of unfished recruitment, steepness of the Beverton-Holt stock-recruit relationship, natural mortality, average recruitment, and logistic selectivity parameters for the two commercial fisheries and the four synoptic surveys. Prior probability distributions for the base model are shown in Table \@ref(tab:param-settings-table) and Figure \@ref(fig:fig-base-priors-posts) and described in Section \@ref(scam-model-priors). Model sensitivity to fixed parameters and to assumed prior probability distributions are presented in Section \@ref(sens-analyses).
 

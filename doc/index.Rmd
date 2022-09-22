@@ -178,6 +178,7 @@ source("load-models.R", local = knitr::knit_global())
 
 bc <- "British Columbia"
 sp <- "Arrowtooth Flounder"
+iscam <- "ISCAM"
 
 month_fishing_starts <- 2
 day_fishing_starts <- 21

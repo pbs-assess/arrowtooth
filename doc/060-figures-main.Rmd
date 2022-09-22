@@ -164,9 +164,9 @@ plot_index_mcmc(base_model,
                 base_color = "royalblue")
 ```
 
-(ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in iSCAM. The vertical lines represent the 95% CIs for those posteriors.
+(ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in `r iscam`. The vertical lines represent the 95% CIs for those posteriors.
 
-(ref:fig-base-index-resids-fr) Indice Log des résidus normalisés. Les points représentent la médiane des valeurs postérieures pour le paramètre $\epsilon$ dans iSCAM. Les lignes verticales représentent les intervalles crédibles à 95 % pour ces valeurs postérieures.
+(ref:fig-base-index-resids-fr) Indice Log des résidus normalisés. Les points représentent la médiane des valeurs postérieures pour le paramètre $\epsilon$ dans `r iscam`. Les lignes verticales représentent les intervalles crédibles à 95 % pour ces valeurs postérieures.
 
 ```{r fig-base-index-resids, fig.cap = ifelse(fr(), "(ref:fig-base-index-resids-fr)", "(ref:fig-base-index-resids-en)")}
 plot_index_mcmc(base_model,
