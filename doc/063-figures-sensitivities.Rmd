@@ -175,9 +175,9 @@ plot_biomass_mcmc(models$sens_grps[[4]],
 
 (ref:fig-sens-selex-qcs-en) Index fits for sensitivity models that include changes in selectivity, and use of the geostatistical-based survey indices.
 
-(ref:fig-sens-selex-rel-fr) French here
+(ref:fig-sens-selex-qcs-rel-fr) French here
 
-```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-rel-fr)", "(ref:fig-sens-selex-rel-en)")}
+```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-qcs-rel-fr)", "(ref:fig-sens-selex-qcs-en)")}
 grp <- list(base_model, models$sens_grps[[4]][[4]])
 class(grp) <- mdl_lst_cls
 attributes(grp)$model$desc <- "Special group"
