@@ -318,8 +318,16 @@ dd <- dd %>% filter(survey_abbrev %in%  c("SYN QCS", "SYN HS", "SYN WCVI", "SYN 
 .files <- list.files(file.path(dr, "survey-geostat"), full.names = TRUE, pattern = "^i-arrow")
 ind_geo <- purrr::map_dfr(.files, readRDS)
 
-g <- bind_rows(ind_geo %>% filter(model == "no-depth") %>%
-    mutate(model = "Geostatistical (no depth)"),
+for_model <- ind_geo %>% filter(model == "with-depth")
+for_model <- for_model |> mutate(cv = sqrt(exp(se^2) - 1)) %>%
+  select(year, survey, est, lwr, upr, se, log_est, cv) |>
+  mutate(weight = 1/cv) |>
+  mutate(bio = round(est / 1000000, 2), weight = round(weight, 2)) |>
+  select(survey, year, bio, weight)
+# for_model |> readr::write_("geostat.csv")
+
+g <- bind_rows(ind_geo %>% filter(model == "with-depth") %>%
+    mutate(model = "Geostatistical (with depth)"),
   select(dd, year, lwr = lowerci, upr = upperci, est = biomass, survey = survey_abbrev) %>%
     mutate(model = "Design-based")) %>%
   ggplot(aes(year, est / 1000, colour = model, fill = model))
