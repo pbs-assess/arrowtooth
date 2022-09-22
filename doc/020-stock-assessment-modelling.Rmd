@@ -31,7 +31,7 @@ Data were extracted using the R package [gfdata](https://github.com/pbs-assess/g
 ```
 
 ```{r sam-catch-data-en, eval = !fr(), results = 'asis'}
-cat("### Catch Data
+cat("### Catch Data {#sec:catch-data}
 Commercial fishing data are presented for the period February 21, `r base_model$dat$start.yr` to February 20, `r base_model$dat$end.yr`. Landings and discards are shown in Table \@ref(tab:overall-catch-table). The current assessment fits a two-sex Bayesian age-structured model to catch, survey, and age-composition data from the years `r base_model$dat$start.yr` to `r base_model$dat$end.yr`, for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E(West Coast Haida Gwaii).
 
 Prior to the introduction of freezer trawlers into the British Columbia groundfish trawl fleet in 2005, most of the historical catch of `r sp` is understood to have been discarded at sea in large quantities due to flesh proteolysis, as discussed above. In many cases entire tows were discarded, precluding the use of ratio estimators or other statistical methods of estimating unobserved discards. All catch data prior to the introduction of 100% at-sea observer coverage in 1996 were therefore omitted from this assessment, on the recommendation of our industry advisors and technical working group, and follows what was done in the `r la` [@grandin2017].
