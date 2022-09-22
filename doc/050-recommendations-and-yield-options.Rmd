@@ -1,5 +1,5 @@
 ```{r decisions-en, eval = !fr(), results = 'asis'}
-cat("# Recommendations and Yield Options {#decisions}
+cat("# RECOMMENDATIONS AND YIELD OPTIONS {#decisions}
 ## Decision Tables
 ### Base Model {#decisions-base}
 

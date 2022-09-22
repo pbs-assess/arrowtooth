@@ -1,4 +1,4 @@
-## Sensitivity model figures
+## SENSITIVITY MODEL FIGURES
 
 <!-- Vartheta and sigma, and steepness  -------------------------------------->
 

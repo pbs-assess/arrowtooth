@@ -1,4 +1,4 @@
-## Retrospective figures for the base model
+## RETROSPECTIVE FIGURES FOR THE BASE MODEL
 
 (ref:fig-retro-biomass-en) Spawning biomass for retrospective models comparing the base model with models with successively removed years of data. All models have the same parameterization, and were run as MCMCs in exactly the same way as the base model.
 

@@ -1,4 +1,4 @@
-## MCMC diagnostic figures for the base model
+## MCMC DIAGNOSTIC FIGURES FOR THE BASE MODEL
 
 (ref:fig-base-priors-posts-en) Prior probability distributions used in the base model (blue shaded areas) overlaid with posterior distribution histograms. The solid red line is the mode of the prior distribution, the vertical solid black line is the mean of the prior, and the vertical dashed black lines represent one standard deviation from the mean. Plots that are entirely shaded blue show uniform priors which are shaded underneath the prior value.
 

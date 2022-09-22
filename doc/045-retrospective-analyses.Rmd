@@ -1,5 +1,5 @@
 ```{r retro-para-1-en, eval = !fr(), results = 'asis'}
-cat("## Retrospective Analyses {#retro-analyses}
+cat("## RETROSPECTIVE ANALYSES {#retro-analyses}
 The base model was tested for retrospective patterns. This was done by successively removing all catch, age, and index data for 1 year from the end of the time series in the data files and refitting the model. We attempted to run the retrospective model back 10 years, but only the first 8 years would converge. It is likely that attempting to remove too much data led to too few data sources for this split-sex, two-fleet model. This is the reason the the `r la` was parameterized as a single-sex model.
 
 All retrospective models were run using MCMC with a chain length of `r f(mcmc_chain_length)`, a sample frequency of `r f(mcmc_sample_freq)`, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples retained for inference. This was the same as all other models in this assessment.

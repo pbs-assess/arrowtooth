@@ -1,9 +1,9 @@
 ```{r tables-01-en, eval = !fr(), results = 'asis'}
-cat("# Tables")
+cat("# TABLES")
 ```
 
 ```{r tables-01-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("# Tableaux")
+cat("# TABLEAUX")
 ```
 
 ```{r overall-catch-table, results = "asis"}

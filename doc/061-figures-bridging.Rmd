@@ -1,4 +1,4 @@
-## Bridge model figures
+## BRIDGE MODEL FIGURES
 
 (ref:fig-bridge-group1-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the first four bridging models. Points and bars on the left in the left panel represent $B_0$ values and 95% credible interval. The first model in the legend has a shaded ribbon representing the credible interval (CI), the others have dotted lines the same color as the medians which represent the CI.
 

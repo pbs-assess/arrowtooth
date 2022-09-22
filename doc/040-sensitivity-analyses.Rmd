@@ -1,5 +1,5 @@
 ```{r scam-sensitivity-analyses-en, eval = !fr(), results = 'asis'}
-cat("## Sensitivity Analyses {#sens-analyses}
+cat("## SENSITIVITY ANALYSES {#sens-analyses}
 We tested sensitivity of the model outputs as follows:
 
 1. Decrease $\sigma$  from `r base_sig` to `r sens_1_2_sig` (changes $\vartheta^2$ and $\rho$) and estimate $\vartheta^2$
