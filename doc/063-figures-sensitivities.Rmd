@@ -196,7 +196,7 @@ plot_selex_gear_mcmc(models$sens_grps[[4]][[4]], gear = 3)
 
 (ref:fig-sens-geostat-fr) French here
 
-```{r fig-sens-selex, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-fr)", "(ref:fig-sens-geostat-en)")}
+```{r fig-sens-geostat, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-fr)", "(ref:fig-sens-geostat-en)")}
 plot_biomass_mcmc(models$sens_grps[[5]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
@@ -208,7 +208,7 @@ plot_biomass_mcmc(models$sens_grps[[5]],
 
 (ref:fig-sens-geostat-rel-fr) French here
 
-```{r fig-sens-selex-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-rel-fr)", "(ref:fig-sens-geostat-rel-en)")}
+```{r fig-sens-geostat-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-rel-fr)", "(ref:fig-sens-geostat-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[5]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
