@@ -2,6 +2,7 @@
 cat("# PROPORTION FEMALE ANALYSIS {#app:prop-female}
 ## Introduction
 The split-sex model requires a proportion of females as an input. In the Gulf of Alaska, observer length frequencies were used to determine that the stock is approximately 70% female (@goa2021). In `r bc`, both commercial fishery and synoptic survey data were used to determine the proportion female. This appendix descibes the weighting algorithm used, which is the same as what was used in @grandin2017 and based on the methods applied in @holt2016. The analysis here is based on aggregated area data for a coastwide stock.
+
 ## Data Selection
 Both commercial and synoptic sample age data were filtered for input into the proportion female routine.
 
@@ -65,6 +66,7 @@ Coastwide, defined as areas 3CD and 5ABCDE aggregated.
 Males and females only. Some records have the sex recorded as unknown or unsexed. Those records along with records with NULL sex were removed.
 ## Commercial Trawl Fishery
 Observations within a sample are likely to be correlated due to the small area which is trawled in a single fishing event. In addition, trip samples may be correlated due to single vessel fishing practices. This algorithm calculates a sex-specifc mean weight by trip, calculated from individual sex-specific length observations converted to weight using Eq. XX, then uses Eqs.XX–XX to estimate proportion of females.
+
 ## Synoptic Surveys
 For surveys,the same algorithm is followed except that the quarter of the year is not included in the calculation. This is because the surveys are single events which occur during the summer months only.
 ")
@@ -102,7 +104,7 @@ To calculate the total catch weight for sampled hauls in each trip, we use the f
 C_t = \sum_{j=1}^{K_t}{C_{j,k}}
 (\#eq:catch-wt)
 \end{equation}
-where $C_t$ isthe total catch weight for sampled hauls for trip $t$, $K_t$ is the number of samples in trip $t$, and $C_{j,t}$ is the catch weight associated with sample $j$ and trip $t$.
+where $C_t$ is the total catch weight for sampled hauls for trip $t$, $K_t$ is the number of samples in trip $t$, and $C_{j,t}$ is the catch weight associated with sample $j$ and trip $t$.
 
 The total weight in each quarter of the year by sex is given by:
 \begin{equation}
@@ -116,7 +118,7 @@ The total catch weight for sampled hauls per quarter of the year is:
 C_q = \sum_{t=1}^{K_q}{C_t}
 (\#eq:total-catch-quarter)
 \end{equation}
-where $C_q$ is the total catch weight for sampled hauls for quarter $q$, $K_q$ is the number of trips in quarter $q$, and $C_t$ is the catch weight associted with trip $t$.
+where $C_q$ is the total catch weight for sampled hauls for quarter $q$, $K_q$ is the number of trips in quarter $q$, and $C_t$ is the catch weight associated with trip $t$.
 
 Now, the total weight by year and sex is calculated from:
 \begin{equation}

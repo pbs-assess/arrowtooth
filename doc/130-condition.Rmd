@@ -32,7 +32,7 @@ Finally, we also explored a model configuration where depth was included as a no
 
 ```{r app-cond-para-2-en, eval = !fr(), results = 'asis'}
 cat("## CONDITION RESULTS
-Our modeling reveals an overall decline in coastwide body condition from around 2004 until 2012, an increase until 2015, and a subsequent decline in recent years leveling off since 2019 (Fig. \@ref(fig:condition-index)). However, when split up by survey, we see that this overall trend masks differences that we see along the coast (Fig. \@ref(fig:condition-index-surv)). The variation over time is relatively small compared to the between-region variation (Fig. \@ref(fig:condition-index-surv)).
+Our modeling reveals an overall decline in coastwide body condition from around 2004 until 2012, an increase until 2015, and a subsequent decline in recent years levelling off since 2019 (Fig. \@ref(fig:condition-index)). However, when split up by survey, we see that this overall trend masks differences that we see along the coast (Fig. \@ref(fig:condition-index-surv)). The variation over time is relatively small compared to the between-region variation (Fig. \@ref(fig:condition-index-surv)).
 
 Condition within the `r wcvis` has been declining since around 2015, but condition in other survey regions has remained relatively stable in those years (Fig. \@ref(fig:condition-index-surv)). Furthermore, the coastwide index trend of an increase from 2012 to 2015 was driven largely by the `r qcs` (Fig. \@ref(fig:condition-index-surv)). We can also see these trends when looking at the spatial predictions through time (Fig. \@ref(fig:condition-map)).
 

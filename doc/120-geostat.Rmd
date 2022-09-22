@@ -4,7 +4,7 @@
 
 ```{r app-geostat-para-1-en, eval = !fr(), results = 'asis'}
 cat("# GEOSTATISTICAL STANDARDIZATION OF SURVEY INDICES {#app:geostat}
-We used geostatistical spatiotemporal GLMMs (generalized linear mixed effect models) to standardize the survey indices as an alternative to the design-based estimators [e.g., @shelton2014; @thorson2015ices; @anderson2019synopsis; @anderson2022sdmTMB].
+We used geostatistical spatiotemporal GLMMs (generalized linear mixed effect models) to standardize the survey indices as an alternative to design-based estimators [e.g., @shelton2014; @thorson2015ices; @anderson2019synopsis; @anderson2022sdmTMB].
 We applied these models in two ways:
 1. to standardize individual survey indices for use in the stock assessment model and
 1. to 'stitch' the four synoptic trawl surveys into a single synthetic index for comparison with trends in estimated biomass from the stock assessment model and with the commercial discard CPUE index.
@@ -24,9 +24,9 @@ where $c$ is the observed catch given $C > 0$, $\gamma$ is the shape parameter, 
 The linear component of the binomial encounter model is defined as
 \begin{align}
   p_{\s,t} &=
-  \mathrm{logit}^{-1} \left(\alpha_k^\mathrm{Bin} + \omega_{\s}^\mathrm{Bin} + \epsilon_{\s,t}^\mathrm{Bin} \right),
+  \mathrm{logit}^{-1} \left(\alpha_k^\mathrm{Bin} + f(\ln(D_{\s,t})) + \omega_{\s}^\mathrm{Bin} + \epsilon_{\s,t}^\mathrm{Bin} \right),
 \end{align}
-where the superscript $\mathrm{Bin}$ denotes binomial component parameters. The parameter $\alpha_k^\mathrm{Bin}$ is an intercept for each survey $k$, $\omega_{\s}^\mathrm{Bin}$ is a spatial random field value
+where the superscript $\mathrm{Bin}$ denotes binomial component parameters. The parameter $\alpha_k^\mathrm{Bin}$ is an intercept for each survey $k$, $f(\ln(D_{\s,t}))$ is a penalized smoother on log bottom depth, $\omega_{\s}^\mathrm{Bin}$ is a spatial random field value
 \begin{align}
   \boldsymbol{\omega} &\sim \operatorname{MVNormal} \left( \boldsymbol{0}, \boldsymbol{\Sigma}_\omega \right),
 \end{align}
@@ -38,7 +38,7 @@ and $\epsilon_{\s,t}^\mathrm{Bin}$ is a spatiotemporal random field value
 The linear component of the Gamma positive catch model is defined as
 \begin{align}
   \lambda_{\s,t} &=
-  \exp \left(\alpha_k^\mathrm{Pos} + \omega_{\s}^\mathrm{Pos} + \epsilon{\s,t}^\mathrm{Pos} +
+  \exp \left(\alpha_k^\mathrm{Pos} + f(\ln(D_{\s,t})) + \omega_{\s}^\mathrm{Pos} + \epsilon{\s,t}^\mathrm{Pos} +
 O_{\s,t} \right),
 \end{align}
 where the superscript $\mathrm{Pos}$ denotes positive component parameters, $O_{\s, t}$ represents an offset variable (here log area swept) and the other parameters have a similar definition to the binomial model above.")
@@ -53,7 +53,7 @@ cat("## SURVEY STITCHING
 For the survey stitching, the models took on a similar form except that:
 1. the models did not include independent intercepts for the individual years
 1. the spatiotemporal random effects were instead allowed to follow a random walk (this helped constrain the model when stitching the biennial surveys)
-1. we considered a model that included a smoother for depth
+1. we considered models that included and excluded a smoother for depth
 1. we considered a Tweedie observation error model as an alternative.
 
 The linear component of the binomial encounter model is defined as

@@ -4,7 +4,7 @@ A set of bridging models was run to determine the effects of incremental model m
 
 The base model from the `r la` [@grandin2017] was run with the newest version of the `r iscam` [@iscam] code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age composition fits were determined to be identical. The 2015 model was a female-only catch-at-age model with 4 indices of abundance, which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
 
-The Technical Working Group (TWG) agreed that the model should be split-sex, based on the sexual dimorphism obseved in the age and length data for this species, and there being 8 more years of data since the `r la`, which allowed for an larger number of age proportion specimens for each sex.
+The Technical Working Group (TWG) agreed that the model should be split-sex, based on the sexual dimorphism observed in the age and length data for this species, and there being 8 more years of data since the `r la`, which allowed for an larger number of age proportion specimens for each sex.
 
 All bridge models were run using MCMC (Markov chain Monte Carlo) sampling with a chain length of `r f(mcmc_chain_length)`, a sample frequency of `r f(mcmc_sample_freq)`, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples actually used.
 ")
@@ -26,7 +26,7 @@ cat("Each model in this list is based on the previous one with only one change m
 1. Converted the model from female-only to a split-sex model. In this model, the two natural mortality parameters for male and female were fixed. In the previous models, the female natural mortality was estimated. This was done due to poor diagnostics when the parameters were estimated, and to follow what was done in recent Gulf of Alaska assessments [@goa2019].
 1. Changed fishing year to start on February 21 (vs. January 1), which is the date currently used by Fisheries Management for the fishing year.
 1. Removed the `r wchgs` index and age comps. The survey was not contributing meaningfully to the assessment and the estimated selectivities were not viable due to too few samples. Its removal was suggested by the TWG.
-1. Fixed both male and female natural morality parameters. The estimated values were quite low for this species based on assessments in neighbouring juristictions [@goa2017; @goa2019; @goa2020; @goa2021].
+1. Fixed both male and female natural morality parameters. The estimated values were quite low for this species based on assessments in neighbouring jurisdictions [@goa2017; @goa2019; @goa2020; @goa2021].
 
 ")
 ```
@@ -59,7 +59,7 @@ The commercial trawl fleets were split into two: the `r base_model$dat$fleet_gea
 
 Adding the `r dcpue` (DCPUE) to the model had almost no effect to either the output biomass nor the $B_0$ estimates. It did, however, reduce the credible interval (Figure \@ref(fig:bridge-biomass-group2), left panel). This reduction in credible interval would likely be due to the good fit to the index (Figure \@ref(fig:bridge-index-group2)). The details of the DCPUE are given in Appendix \@ref(app:dcpue).
 
-The next step in the bridging was to convert the model into a split-sex model. All previous bridge models were female-only and this step involved significant modifications to the `r iscam` model code. This change caused a drop in final-year biomass and relative biomass, and some overall scaling up of the historical relative biomass trajectory (Figure \@ref(fig:bridge-biomass-group2)). The switch to a split-sex model did have an impact on the index fit to the `r qcs`---the first few years' fit was closer to the inital index point, which was significantly lower than the rest in the series (Figure \@ref(fig:bridge-index-group2)). This is likely a selectivity issue caused by a higher proporionate amount of females per age group in the first few survey years (2003 and 2005) followed by no age data for that survey from 2006--2010 (Figure \@ref(fig:fig-ages)).
+The next step in the bridging was to convert the model into a split-sex model. All previous bridge models were female-only and this step involved significant modifications to the `r iscam` model code. This change caused a drop in final-year biomass and relative biomass, and some overall scaling up of the historical relative biomass trajectory (Figure \@ref(fig:bridge-biomass-group2)). The switch to a split-sex model did have an impact on the index fit to the `r qcs`---the first few years' fit was closer to the inital index point, which was significantly lower than the rest in the series (Figure \@ref(fig:bridge-index-group2)). This is likely a selectivity issue caused by a higher proportionate amount of females per age group in the first few survey years (2003 and 2005) followed by no age data for that survey from 2006--2010 (Figure \@ref(fig:fig-ages)).
 
 ")
 ```
@@ -74,7 +74,7 @@ The biomass plots for the final group of bridging models (list items 9-13) can b
     
 The `r wchgs` was removed (it was also removed in the `r la`) as it had very little effect on the biomass and some non-sensical selectivity estimates (Figure \@ref(fig:bridge-biomass-group3)).
 
-The natural mortalities coming from the model at this point were `r bvals[[3]][[2]]$m_male[1]` for males and `r bvals[[3]][[2]]$m_female[1]` for females with credible intervals of `r bvals[[3]][[2]]$m_male[2]` and `r bvals[[3]][[2]]$m_female[2]` respectively. While the value for males made sense when compared to assessments done in neighbouring juristictions, the female value was much lower than what was expected (Figure \@ref(fig:bridge-biomass-group3)). The `r la` estimated a value of 0.314 for female natural mortality and the Gulf of Alaska (GOA) assessment use a fixed value of 0.35 [@goa2019]. We decided to fix the natural mortalities at the same values as the GOA assessment, which are 0.2 for males and 0.35 for females.
+The natural mortalities coming from the model at this point were `r bvals[[3]][[2]]$m_male[1]` for males and `r bvals[[3]][[2]]$m_female[1]` for females with credible intervals of `r bvals[[3]][[2]]$m_male[2]` and `r bvals[[3]][[2]]$m_female[2]` respectively. While the value for males made sense when compared to assessments done in neighbouring jurisdictions, the female value was much lower than what was expected (Figure \@ref(fig:bridge-biomass-group3)). The `r la` estimated a value of 0.314 for female natural mortality and the Gulf of Alaska (GOA) assessment use a fixed value of 0.35 [@goa2019]. We decided to fix the natural mortalities at the same values as the GOA assessment, which are 0.2 for males and 0.35 for females.
 
 ")
 ```

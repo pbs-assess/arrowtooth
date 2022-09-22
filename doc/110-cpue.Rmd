@@ -5,7 +5,7 @@ cat("# DISCARD CPUE INDEX STANDARDIZATION {#app:dcpue}
 We draw on methods as written in @anderson2019synopsis and @forrest2020pcod, reproducing them in parts here for completeness. We sought to generate an index of `r sp` abundance from discard commercial trawl catch per unit effort (CPUE) data that was standardized for depth, fishing locality (defined spatial regions), month, vessel, and latitude.
 
 ## DEFINING THE COMMERCIAL DISCARD FLEET
-Before fitting a standardization model, we had to filter and manipulate the available catch and effort data to generate a dataset appropriate for model fitting. The unique aspect in this analysis, compared to similar CPUE analysis in other BC recent stock assessments, is that we started by filtering all bottom trawl commercial fishing event data to only include those events for which `r sp` were caught and all `r sp` were discarded. This approach was suggested by industry representatives at a Technical Working Group meeting as an approach to avoid tows targeting `r sp` and minimize issues related to changes in `r sp` targeting behavior over time.
+Before fitting a standardization model, we had to filter and manipulate the available catch and effort data to generate a dataset appropriate for model fitting. The unique aspect in this analysis, compared to similar CPUE analysis in other BC recent stock assessments, is that we started by filtering all bottom trawl commercial fishing event data to only include those events for which `r sp` were caught and all `r sp` were discarded. This approach was suggested by industry representatives at a Technical Working Group meeting as an approach to avoid tows targeting `r sp` and minimize issues related to changes in `r sp` targeting behaviour over time.
 
 Commercial groundfish bottom trawl data from 1996 to present have been recorded to the fishing-event level in the presence of on-board observers or video monitoring. Since we have data on individual vessels for this modern fleet, and in keeping with previous analyses for Pacific groundfish stocks, we defined a 'fleet' for the modern dataset that includes only vessels that qualify by passing some criteria of regularly catching (and subsequently discarding) `r sp`.
 
@@ -30,7 +30,7 @@ Predictors that are treated as factors in a statistical model need a reference o
 ```{r app-cpue-para-3-en, eval = !fr(), results = 'asis'}
 cat("## GLMM INDEX STANDARDIZATION MODEL
 Fisheries CPUE data contains both zeros and positive continuous values. A variety of approaches have been used in the fishery literature to model such
-data. Here, we use a Tweedie GLMM (generalise linear mixed effect model):
+data. Here, we use a Tweedie GLMM (generalised linear mixed effect model):
 \begin{align}
    (\#eq:cpue-tweedie)
   y_i &\sim \mathrm{Tweedie}(\mu_i, p, \phi), \quad 1 < p < 2,\\
