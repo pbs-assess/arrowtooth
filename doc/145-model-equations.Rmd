@@ -134,7 +134,7 @@ The $\omega_{k,t}$ terms allow each observation to be weighted relative to the t
 ```{r app-model-eq-para-7-en, eval = !fr(), results = 'asis'}
 cat("### Age Composition Data
 **Multivariate Distribution**
-Sampling theory suggests that age composition data are derived from a multinomial distribution [@fournier1982]. However, `r iscam` has always assumed that age-proportions are obtained from a multivariate logistic distribution [@schnute1995; @richards1997]. `r iscam` departs from the traditional multinomial model due to choices regarding weighting of the age-composition data in the objective function. First, the multinomial distribution requires the specification of an effective sample size. This weighting may be done arbitrarily or through iterative re-weighting [@mcallister1997, @gavaris2002], and in the case of multiple and potentially conflicting age-proportions, this procedure may fail to converge. The assumed effective sample size can have a large impact on the overall model results.
+Sampling theory suggests that age composition data are derived from a multinomial distribution [@fournier1982]. However, applications of `r iscam` have typically assumed that age-proportions are obtained from a multivariate logistic (also called logistic normal) distribution [@schnute1995; @richards1997]. `r iscam` departs from the traditional multinomial model due to choices regarding weighting of the age-composition data in the objective function. First, the multinomial distribution requires the specification of an effective sample size. This weighting may be done arbitrarily or through iterative re-weighting [@mcallister1997, @gavaris2002; @francis2016], and in the case of multiple and potentially conflicting age-proportions, this procedure may fail to converge. The assumed effective sample size can have a large impact on the overall model results.
 
 A feature of the multivariate logistic distribution is that the age-proportion data can be weighted based on the conditional maximum likelihood estimate of the variance in the age-proportions. Therefore, the contribution of the age-composition data to the overall objective function is 'self-weighting' and is conditional on other components in the model. Ignoring the subscript for gear type for clarity, the observed and predicted proportions-at-age must satisfy the constraint:
 \[\sum_{a=1}^A p_{t,a} = 1\]
@@ -152,23 +152,18 @@ and the negative log-likelihood evaluated at the conditional maximum likelihood 
 The multivariate logistic was used in the `r la` and bridge models in this assessment prior to the `r bridge_models_text[[2]][1]` bridge model (Section \@ref(bridging)).
 
 **Dirichlet Multinomial Distribution**
-The Dirichlet Multinomial (DM) was implemented in `r iscam` for this assessment as a replacement for iterative reweighting of age data. Iterative reweighting approaches have several issues:
-1. Reweighting must be performed for each sensitivity, retrospective, and bridge model. The weighted data must be entered into each model manually.
-1. The uncertaintly in the reweighting is not passed into the stock assessment model.
-1. Reweighting methods are generally ad-hoc.
+The Dirichlet Multinomial (DM) was implemented in `r iscam` for this assessment as a replacement for iterative reweighting of age data and instead of the multivariate logistic likelihood, which had converge issues with several of the more complex model configurations. The DM avoids estimates effective sample sizes from within the model. The distribution incorporates one additional parameter per fleet compared to the multinomial. This method has been tested against the iterative reweighting approach introduced in @mcallister1997, with similar results [@thorson2016].
 
-The DM avoids these issues altogether by estimating effective sample sizes from within the model. The distribution incorporates one additional parameter per fleet. This method has been tested against the iterative reweighting approach introduced in @mcallister1997, with similar results (@thorson2016).
-
-The likelihood for the DM is similar to the Multinomial likelihood, with two extra terms (Eq. \@ref(eq:dm-like)). The first term of the DM likelihood $\frac{\Gamma(n+1)}{\Pi_{a=1}^{a_{max}}\Gamma(n\tilde{\pi_a}+1)}$ is the Multinomial likelihood. This term does not depend on parameters and guarantees a Multinomial likelihood when $\beta >> n$.  
+The likelihood for the DM is similar to the multinomial likelihood, with two extra terms (Eq. \@ref(eq:dm-like)). The first term of the DM likelihood $\frac{\Gamma(n+1)}{\Pi_{a=1}^{a_{max}}\Gamma(n\tilde{\pi_a}+1)}$ is the multinomial likelihood. This term does not depend on parameters and guarantees a multinomial likelihood when $\beta >> n$.  
 \begin{equation}
   L(\pi,\beta|\tilde{\pi},n) = \frac{\Gamma(n+1)}{\Pi_{a=1}^{a_{max}}\Gamma(n\tilde{\pi_a}+1)} \frac{\Gamma(\beta)}{\Gamma(n+\beta)} \Gamma_{a=1}^{a_{max}} \frac{\Gamma(n\tilde{\pi}_a+\beta\pi_a)}{\Gamma(\beta\pi_a)}
   \label{eq:dm-like}
 \end{equation}
-The effective sample size $n_{eff}$ is:
+The effective sample size $n_\mathrm{eff}$ is:
 \begin{equation}
   n_{eff} = \frac{n+n\beta}{n+\beta}
   \label{eq:dm-eff}
-\end{equation} The 'saturating' parameterization of the DM was implemeted in `r iscam`. This parameterization will revert to the Multinomial distribution with sufficiently large $\beta$ (Eq. \@ref(eq:dm-eff)) i.e. $n_{eff} \simeq n$ when $\beta >> n$. It provides an upper bound on low values of $\hat{\beta}$, i.e. $n_{eff} \simeq 1 + \beta$ when $n >> \beta$.
+\end{equation} The 'saturating' parameterization of the DM was implemeted in ISCAM for this assessment. This parameterization will revert to the multinomial distribution with sufficiently large $\beta$ (Eq. \@ref(eq:dm-eff)) i.e. $n_\mathrm{eff} \simeq n$ when $\beta >> n$. It provides an upper bound on low values of $\hat{\beta}$, i.e. $n_\mathrm{eff} \simeq 1 + \beta$ when $n >> \beta$.
 
 ### Stock recruitment
 This stock assessment assumes Beverton-Holt recruitment. Annual recruitment and the initial age-composition are treated as latent variables in `r iscam`, and residuals between estimated recruits and the deterministic stock-recruitment models are used to estimate unfished spawning stock biomass and recruitment compensation. The residuals between the estimated and predicted recruits is given by:
