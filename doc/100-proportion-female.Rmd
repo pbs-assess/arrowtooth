@@ -1,5 +1,5 @@
 ```{r appendix-prop-para-1-en, eval = !fr(), results = 'asis'}
-cat("# Proportion Female Analysis {#app:prop-female}
+cat("# PROPORTION FEMALE ANALYSIS {#app:prop-female}
 ## Introduction
 The split-sex model requires a proportion of females as an input. In the Gulf of Alaska, observer length frequencies were used to determine that the stock is approximately 70% female (@goa2021). In `r bc`, both commercial fishery and synoptic survey data were used to determine the proportion female. This appendix descibes the weighting algorithm used, which is the same as what was used in @grandin2017 and based on the methods applied in @holt2016. The analysis here is based on aggregated area data for a coastwide stock.
 ## Data Selection
@@ -75,7 +75,7 @@ For surveys,the same algorithm is followed except that the quarter of the year i
 ```
 
 ```{r appendix-prop-equations-en, eval = !fr(), results = 'asis'}
-cat("## Equations
+cat("## EQUATIONS
 Specimens without weight data but with length data have their weights calculated as follows:
 \begin{equation}
 \hat{w}_{i,j,s} = \alpha_s l_{i,j,s}^{\beta_s}

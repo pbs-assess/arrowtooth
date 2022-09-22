@@ -1,6 +1,6 @@
 ```{r decisions-en, eval = !fr(), results = 'asis'}
 cat("# RECOMMENDATIONS AND YIELD OPTIONS {#decisions}
-## Decision Tables
+## DECISION TABLES
 ### Base Model {#decisions-base}
 
 Performance measureswere calculated over a sequence of alternative `r end_yr` projected catch levels and are based on one-year projections to `r assess_yr`. Projected, bias-corrected log recruitment anomalies in `r end_yr` and `r assess_yr` were drawn randomly from a normal distribution, $~N(0,\tau)$.

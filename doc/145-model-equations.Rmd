@@ -1,5 +1,5 @@
 ```{r app-model-eq-para-1-en, eval = !fr(), results = 'asis'}
-cat("# Model Description {#app:model-desc}
+cat("# MODEL DESCRIPTION {#app:model-desc}
 ## Introduction
 Stock Assessment modelling was done using the Integrated Statistical Catch Age Model (`r iscam`), developed by S. Martell [@martell2011]. `r iscam` was written using the AD Model Builder framework. ISCAM is a statistical catch-at-age model with many modelling options implemented in a Bayesian estimation framework. The authors have modified `r iscam` substantially over the years, and further extensive modifications were made for this assessment. The package [gfiscam](https://github.com/pbs-assess/gfiscam), on the WSL2 branch contains all code and Makefiles necessary to compile `r iscam` to run the models presented in this assessment.
 
@@ -27,7 +27,7 @@ The following list describes modifications specific to the `r sp` assessment:
 ```
 
 ```{r app-model-eq-para-2-en, eval = !fr(), results = 'asis'}
-cat("## Analytic Methods: Equilibrium Considerations
+cat("## ANALYTIC METHODS: EQUILIBRIUM CONSIDERATIONS
 ### A Steady-State Age-Structured Model
 For the steady-state conditions represented in Section \@ref(model-steady-state), we assume the parameter vector $\Theta$ in Eq. \@ref(eq:df01) is unknown and would be estimated by fitting ISCAM to data.
 

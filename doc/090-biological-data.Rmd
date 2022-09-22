@@ -1,6 +1,6 @@
 
 ```{r appendix-data-para-1-en, eval = !fr(), results = 'asis'}
-cat("# Biological Data Appendix {#app:bio-data-appendix}
+cat("# BIOLOGICAL DATA APPENDIX {#app:bio-data-appendix}
 This appendix summarizes the biological data for `r sp` in `r bc`. The length and age compositions collected from both surveys and commercial sources are illustrated (Figures \@ref(fig:fig-lengths) and \@ref(fig:fig-ages)); however, all biological parameters were estimated from synoptic survey data only. The values used in the assessment were aggregated from the four synoptic surveys that are each run biennially off the West coast of `r bc`; the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
 ```
 
@@ -9,7 +9,7 @@ This appendix summarizes the biological data for `r sp` in `r bc`. The length an
 ```
 
 ```{r appendix-data-para-2-en, eval = !fr(), results = 'asis'}
-cat("## Length and Weight model {#length-weight-model}
+cat("## LENGTH AND WEIGHT MODEL {#length-weight-model}
 All valid length/weight pairs of data were extracted based on the criteria shown in table A.1. The length-weight equation used was:
 \begin{equation}
   W_s = \alpha L_s^{\beta_s}
@@ -26,7 +26,7 @@ We applied Eq. \@ref(eq:length-weight) to survey observations for the three syno
 ```
 
 ```{r appendix-data-para-3-en, eval = !fr(), results = 'asis'}
-cat("## Von-Bertalanffy Model {#vonb-model}
+cat("## VON-BERTALANFFY MODEL {#vonb-model}
 We used the von-Bertalanffy function to estimate growth rates for `r sp`:
 \begin{equation}
   L_s = L_{\infty_s}(1 - e^{-k_s (a_s - t_{0_s})})
@@ -43,7 +43,7 @@ We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surv
 ```
 
 ```{r appendix-data-para-4-en, eval = !fr(), results = 'asis'}
-cat("## Maturity-at-age model
+cat("## MATURITY-AT-AGE MODEL
 The maturity-at-age model used for `r sp` estimates age-at-50% maturity ($a_{s_{50\%}}$) and standard deviation of age-at-50% maturity ($\sigma_{s_{50\%}}$) by applying the L-BFGS-B quasi-Newton algorithm to minimize the sum-of-squares between the observed and expected proportion mature:
 \begin{equation}
   P_{a_s} = \frac{1}{1 + e^{-\sigma_{s_{50\%}}(a_s-a_{s_{50\%}})}}
