@@ -314,9 +314,7 @@ The model includes the main leading parameters:
 \begin{flalign}
   \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s,\hat{a}_k,\hat{\gamma}_k) &&
   \label{eq:df02}     
-\end{flalign}
-
-**Age-schedule information**
+\end{flalign} **Age-schedule information**
 Length-at-age is defined as:
 \begin{flalign}
   l_{a,s}=l_{}\left(1-e^{\left(-k_s\left(a-t_{o,s}\right)\right)}\right) &&
@@ -333,9 +331,7 @@ Length-at-age is defined as:
 \begin{flalign}
   f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1}. &&
   \label{eq:df06}
-\end{flalign}
-   
-**Survivorship**
+\end{flalign} **Survivorship**
 Survivorship for unfished populations is defined as:
 \begin{flalign}
   \iota_{a,s} = \begin{cases}
@@ -352,9 +348,7 @@ Survivorship for unfished populations is defined as:
     \frac{\hat{\iota}_{a-1,s}e^{-M_s-F_ev_{a-1,s}}}{(1-e^{-M_s-F_e v_{a,s}})}, & a = A \\
   \end{cases} &&
 \label{eq:df08}
-\end{flalign}
-   
-**Incidence functions**
+\end{flalign}  **Incidence functions**
 The incidence functions refer to the lifetime or per-recruit quantities. Spawning biomass per recruit for unfished or fished populations is defined as:
 \begin{flalign}
   \phi_E=\sum_{s=1}^S\sum_{a=1}^\infty \iota_a f_{a,s} & &
@@ -371,9 +365,7 @@ The incidence functions refer to the lifetime or per-recruit quantities. Spawnin
   \frac{\hat{\iota}_{a,s} w_{a,s} v_{a,s}}{M_s+F_ev_{a,s}}
   \left(1-e^{(-M_s-F_ev_{a,s})}\right) &&
   \label{eq:df11}
-\end{flalign}
-   
-**Steady-state conditions**
+\end{flalign} **Steady-state conditions**
 Biomass in unfished conditions is defined as:
 \begin{flalign}
   B_o=R_o\phi_B &&
@@ -403,16 +395,12 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 \begin{flalign}
   \sigma=\frac{\sqrt{\rho}}{\vartheta}; \qquad \tau=\frac{\sqrt{(1-\rho)}}{\vartheta} &&
   \label{eq:df17}
-\end{flalign}
-
-**Unobserved states**
+\end{flalign} **Unobserved states**
 The numbers-at-age, spawning stock biomass, and total mortality rates:
 \begin{flalign}
   N_{t,a,s}; \qquad B_{t,s}; \qquad Z_{t,a,s} &&
   \label{eq:df18}
-\end{flalign}
-
-**Initial states**
+\end{flalign} **Initial states**
 The initial numbers-at-age in the first year and the annual recruits are treated as estimated parameters and used to initialize the numbers-at-age matrix:
 \begin{flalign}
   N_{t,a,s}=\frac{1}{S}\overline{R}_{\mathrm{init}}e^{\omega_\mathrm{init,t}}e^{-M_s(a-1)}; \qquad (\acute{t}-A)<t<1; \qquad 2\leq a \leq A &&
@@ -429,9 +417,7 @@ The initial numbers-at-age in the first year and the annual recruits are treated
 \begin{flalign}
   F_{k,t}=e^{\Gamma_{k,t}} &&
   \label{eq:df22}
-\end{flalign}
-
-**State dynamics ($t>1$)**
+\end{flalign} **State dynamics ($t>1$)**
 State variables in each year are updated using the following equations, where the spawning biomass is the product of the numbers-at-age and the mature biomass-at-age.
 \begin{flalign}
   B_{t,s}=\sum_a N_{t,a,s}f_{a,s} &&
