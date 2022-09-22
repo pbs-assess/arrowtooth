@@ -1,0 +1,51 @@
+# COMPUTATIONAL ENVIRONMENT {-}
+
+The source code for this assessment is available at <https://github.com/pbs-assess/arrowtooth>.
+
+This version of the document was generated on `r Sys.time()` with
+`r devtools::session_info()$platform$version` [@r2022] and R package versions:
+
+```{r env, echo = FALSE, results='asis', message=FALSE, warning=FALSE, eval=TRUE, cache=FALSE}
+library(TMB)
+library(bookdown)
+library(rmarkdown)
+library(gfdata)
+pkgs <- sort(c("broom", "gfplot", "gfdata", "ggplot2", "dplyr", "knitr", "glmmTMB",
+  "TMB", "purrr", "csasdown", "bookdown", "rmarkdown", "gfiscamutils", "sdmTMB"))
+info <- devtools::session_info()$packages
+info <- info %>% dplyr::filter(package %in% pkgs) %>%
+  dplyr::select(package, loadedversion) %>%
+  dplyr::rename(Package = package, Version = loadedversion)
+row.names(info) <- NULL
+info |> 
+  knitr::kable(booktabs = TRUE, linesep = "", longtable = TRUE, format = "pandoc") %>%
+  kable_styling(latex_options = c("hold_position"))
+```
+
+```{r sha}
+get_sha <- function(path) {
+  suppressWarnings({
+    sha <- tryCatch(system(paste0("git ls-remote git@github.com:", path, ".git"),
+      intern = TRUE, ignore.stderr = TRUE), error = function(e) " ")
+  })
+  if (is.null(attr(sha, "status")))
+    substr(sha[grepl("HEAD", sha)], 1, 7)
+  else
+    "xxxxxxx"
+}
+sha_gfplot <- get_sha("pbs-assess/gfplot")
+sha_gfdata <- get_sha("pbs-assess/gfdata")
+sha_sdmTMB <- get_sha("pbs-assess/sdmTMB")
+sha_csasdown <- get_sha("pbs-assess/csasdown")
+sha_gfiscamutils <- get_sha("pbs-assess/gfiscamutils")
+sha_arrowtooth <- get_sha("pbs-assess/arrowtooth")
+```
+
+The specific versions used to generate this report can be viewed at:
+
+<`r paste0("https://github.com/pbs-assess/gfdata/tree/", sha_gfdata)`>\
+<`r paste0("https://github.com/pbs-assess/gfplot/tree/", sha_gfplot)`>\
+<`r paste0("https://github.com/pbs-assess/sdmTMB/tree/", sha_sdmTMB)`>\
+<`r paste0("https://github.com/pbs-assess/csasdown/tree/", sha_csasdown)`>\
+<`r paste0("https://github.com/pbs-assess/gfiscamutils/tree/", sha_gfiscamutils)`>\
+<`r paste0("https://github.com/pbs-assess/arrowtooth/tree/", sha_arrowtooth)`>\
