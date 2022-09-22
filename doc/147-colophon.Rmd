@@ -43,6 +43,7 @@ sha_arrowtooth <- get_sha("pbs-assess/arrowtooth")
 
 The specific versions used to generate this report can be viewed at:
 
+<`https://github.com/pbs-assess/gfiscam/tree/2a0bfb`>\
 <`r paste0("https://github.com/pbs-assess/gfdata/tree/", sha_gfdata)`>\
 <`r paste0("https://github.com/pbs-assess/gfplot/tree/", sha_gfplot)`>\
 <`r paste0("https://github.com/pbs-assess/sdmTMB/tree/", sha_sdmTMB)`>\
