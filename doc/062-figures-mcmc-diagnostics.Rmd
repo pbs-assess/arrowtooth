@@ -22,7 +22,7 @@ plot_priors_posts_mcmc(base_model,
 ```{r fig-base-trace, fig.cap = ifelse(fr(), "(ref:fig-base-trace-fr)", "(ref:fig-base-trace-en)")}
 plot_traces_mcmc(base_model,
                  plot_sel = FALSE, 
-                 param_rm = c("m1", "m2", "rho", "ssb"),
+                 param_rm = c("m1", "m2", "rho", "ssb", "vartheta"),
                  text_title_size = NULL)
 ```
 
@@ -33,7 +33,7 @@ plot_traces_mcmc(base_model,
 ```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)")}
 plot_autocorr_mcmc(base_model,
                    plot_sel = FALSE, 
-                   param_rm = c("m1", "m2", "rho", "ssb"),
+                   param_rm = c("m1", "m2", "rho", "ssb", "vartheta"),
                    text_title_size = NULL,
                    lag_max = 1000,
                    col = "blue",
@@ -74,7 +74,7 @@ plot_pairs_mcmc(base_model,
                              "msy1", "msy2",
                              "fmsy1", "fmsy2",
                              "umsy1", "umsy2",
-                             "bmsy", "bo", "sbo"),
+                             "bmsy", "bo", "sbo", "vartheta"),
                 text_title_size = NULL,
                 tick_label_size = 4,
                 point_size = 0.5)
