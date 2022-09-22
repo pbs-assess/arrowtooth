@@ -1,7 +1,7 @@
 ```{r app-model-eq-para-1-en, eval = !fr(), results = 'asis'}
 cat("# MODEL DESCRIPTION {#app:model-desc}
 ## Introduction
-Stock Assessment modelling was done using the Integrated Statistical Catch Age Model (`r iscam`), developed by S. Martell [@martell2011]. `r iscam` was written using the AD Model Builder framework. ISCAM is a statistical catch-at-age model with many modelling options implemented in a Bayesian estimation framework. The authors have modified `r iscam` substantially over the years, and further extensive modifications were made for this assessment. The package [gfiscam](https://github.com/pbs-assess/gfiscam), on the WSL2 branch contains all code and Makefiles necessary to compile `r iscam` to run the models presented in this assessment.
+Stock Assessment modelling was done using the Integrated Statistical Catch Age Model (`r iscam`), developed by S. Martell [@martell2011]. `r iscam` was written using the AD Model Builder framework. `r iscam` is a statistical catch-at-age model with many modelling options implemented in a Bayesian estimation framework. The authors have modified `r iscam` substantially over the years, and further extensive modifications were made for this assessment. The package [gfiscam](https://github.com/pbs-assess/gfiscam), on the WSL2 branch contains all code and Makefiles necessary to compile `r iscam` to run the models presented in this assessment.
 
 The execution of all `r iscam` models was performed in Linux using Bourne again shell (Bash) scripts. Compilation of results, and generation of tables and figures was done in R using the [gfiscamutils](https://github.com/pbs-assess/gfiscamutils) package developed by the authors.
 
@@ -29,7 +29,7 @@ The following list describes modifications specific to the `r sp` assessment:
 ```{r app-model-eq-para-2-en, eval = !fr(), results = 'asis'}
 cat("## ANALYTIC METHODS: EQUILIBRIUM CONSIDERATIONS
 ### A Steady-State Age-Structured Model
-For the steady-state conditions represented in Section \@ref(model-steady-state), we assume the parameter vector $\Theta$ in Eq. \@ref(eq:df01) is unknown and would be estimated by fitting ISCAM to data.
+For the steady-state conditions represented in Section \@ref(model-steady-state), we assume the parameter vector $\Theta$ in Eq. \@ref(eq:df01) is unknown and would be estimated by fitting `r iscam` to data.
 
 For a given set of growth parameters and maturity-at-age parameters defined by Eq. \@ref(eq:df02), growth is assumed to follow von Bertalanffy (Eq. \@ref(eq:df03)). Mean weight-at-age is given by the allometric relationship in Eq. \@ref(eq:df04), and the age-specific vulnerability and fecundity are given by age-based logistic functions (Eqns. \@ref(eq:df05) and \@ref(eq:df06)). The terms vulnerability and selectivity are used interchangeably throughout this document, although, technically, selectivity refers to the fishing gear, while vulnerability refers to all processes affecting the availability of fish to the fishery. Selectivity parameters can be fixed or estimated.
 
@@ -46,7 +46,7 @@ which simplifies to Eq. \@ref(eq:df14). The equilibrium yield $C_e$ for a given 
 
 ```{r app-model-eq-para-3-en, eval = !fr(), results = 'asis'}
 cat("### MSY-based Reference Points
-When defining reference points for this assessment, the two commercial trawl fleets were used to calculate MSY quantities. ISCAM calculates \emph{F}\subscr{MSY} by finding the value of \emph{F}\subscr{e} that results in the zero derivative of Eq. \@ref(eq:df15). This is accomplished numerically using a Newton-Raphson method where an initial guess for \emph{F}\subscr{MSY} is set equal to 1.5$M$ [@iscam; @grandin2017].")
+When defining reference points for this assessment, the two commercial trawl fleets were used to calculate MSY quantities. `r iscam` calculates \emph{F}\subscr{MSY} by finding the value of \emph{F}\subscr{e} that results in the zero derivative of Eq. \@ref(eq:df15). This is accomplished numerically using a Newton-Raphson method where an initial guess for \emph{F}\subscr{MSY} is set equal to 1.5$M$ [@iscam; @grandin2017].")
 ```
 
 ```{r app-model-eq-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -55,7 +55,7 @@ When defining reference points for this assessment, the two commercial trawl fle
 
 ```{r app-model-eq-para-4-en, eval = !fr(), results = 'asis'}
 cat("## Analytic Methods: State Dynamics
-The estimated parameter vector in ISCAM is defined in Eq. \@ref(eq:df16) in Section \@ref(model-catch-age). The estimated parameters $R_0$, $h$, and $M$, are the leading population parameters that define the overall scale and productivity of the population.
+The estimated parameter vector in `r iscam` is defined in Eq. \@ref(eq:df16) in Section \@ref(model-catch-age). The estimated parameters $R_0$, $h$, and $M$, are the leading population parameters that define the overall scale and productivity of the population.
 
 Variance components of the model were partitioned using an errors in variables approach. The key variance parameter is the inverse of the total variance $\vartheta^2$ (i.e., total variance). This parameter can be fixed or estimated, and was estimated for this model. The total variance is partitioned into observation and process error components by the model parameter $\rho$, which represents the proportion of the total variance that is due to observation error (Eq. \@ref(eq:df17)) [@punt1999; @deriso2007].
 
@@ -124,7 +124,7 @@ The relative abundance data are assumed to be proportional to spawning biomass t
 \[\sigma_{k,t} = \frac{\rho \varphi^2}{\omega_{k,t}} \label{eq:df7}\]
 where $\rho \varphi^2$ is the proportion of the total error that is associated with observation errors, and $\omega_{k,t}$ is a user specified relative weight for observation $t$ from gear $k$.
 
-The $\omega_{k,t}$ terms allow each observation to be weighted relative to the total error $\rho \varphi^2$. Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df32) is undefined; therefore, ISCAM adds a small constant to $\omega_{k,t}$ ($e^{-10}$, which is equivalent to assuming an extremely large variance) to ensure the likelihood can be evaluated. In this assessment, values for $\omega_{k,t}$ were set to the inverse of the annual CVs from the survey or Discard CPUE index (Table \@ref(tab:XX))")
+The $\omega_{k,t}$ terms allow each observation to be weighted relative to the total error $\rho \varphi^2$. Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df5) is undefined; therefore, `r iscam` adds a small constant to $\omega_{k,t}$ ($e^{-10}$, which is equivalent to assuming an extremely large variance) to ensure the likelihood can be evaluated. In this assessment, values for $\omega_{k,t}$ were set to the inverse of the annual CVs from the survey or Discard CPUE index (Table \@ref(tab:XX)).")
 ```
 
 ```{r app-model-eq-para-6-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -134,7 +134,7 @@ The $\omega_{k,t}$ terms allow each observation to be weighted relative to the t
 ```{r app-model-eq-para-7-en, eval = !fr(), results = 'asis'}
 cat("### Age Composition Data
 **Multivariate Distribution**
-Sampling theory suggests that age composition data are derived from a multinomial distribution [@fournier1982]. However, ISCAM has always assumed that age-proportions are obtained from a multivariate logistic distribution [@schnute1995; @richards1997]. `r iscam` departs from the traditional multinomial model due to choices regarding weighting of the age-composition data in the objective function. First, the multinomial distribution requires the specification of an effective sample size. This weighting may be done arbitrarily or through iterative re-weighting [@mcallister1997, @gavaris2002], and in the case of multiple and potentially conflicting age-proportions, this procedure may fail to converge. The assumed effective sample size can have a large impact on the overall model results.
+Sampling theory suggests that age composition data are derived from a multinomial distribution [@fournier1982]. However, `r iscam` has always assumed that age-proportions are obtained from a multivariate logistic distribution [@schnute1995; @richards1997]. `r iscam` departs from the traditional multinomial model due to choices regarding weighting of the age-composition data in the objective function. First, the multinomial distribution requires the specification of an effective sample size. This weighting may be done arbitrarily or through iterative re-weighting [@mcallister1997, @gavaris2002], and in the case of multiple and potentially conflicting age-proportions, this procedure may fail to converge. The assumed effective sample size can have a large impact on the overall model results.
 
 A feature of the multivariate logistic distribution is that the age-proportion data can be weighted based on the conditional maximum likelihood estimate of the variance in the age-proportions. Therefore, the contribution of the age-composition data to the overall objective function is 'self-weighting' and is conditional on other components in the model. Ignoring the subscript for gear type for clarity, the observed and predicted proportions-at-age must satisfy the constraint:
 \[\sum_{a=1}^A p_{t,a} = 1\]
@@ -152,7 +152,7 @@ and the negative log-likelihood evaluated at the conditional maximum likelihood 
 The multivariate logistic was used in the `r la` and bridge models in this assessment prior to the `r bridge_models_text[[2]][1]` bridge model (Section \@ref(bridging)).
 
 **Dirichlet Multinomial Distribution**
-The Dirichlet Multinomial (DM) was implemented in ISCAM for this assessment as a replacement for iterative reweighting of age data. Iterative reweighting approaches have several issues:
+The Dirichlet Multinomial (DM) was implemented in `r iscam` for this assessment as a replacement for iterative reweighting of age data. Iterative reweighting approaches have several issues:
 1. Reweighting must be performed for each sensitivity, retrospective, and bridge model. The weighted data must be entered into each model manually.
 1. The uncertaintly in the reweighting is not passed into the stock assessment model.
 1. Reweighting methods are generally ad-hoc.
@@ -168,10 +168,10 @@ The effective sample size $n_{eff}$ is:
 \begin{equation}
   n_{eff} = \frac{n+n\beta}{n+\beta}
   \label{eq:dm-eff}
-\end{equation} The 'saturating' parameterization of the DM was implemeted in ISCAM. This parameterization will revert to the Multinomial distribution with sufficiently large $\beta$ (Eq. \@ref(eq:dm-eff)) i.e. $n_{eff} \simeq n$ when $\beta >> n$. It provides an upper bound on low values of $\hat{\beta}$, i.e. $n_{eff} \simeq 1 + \beta$ when $n >> \beta$.
+\end{equation} The 'saturating' parameterization of the DM was implemeted in `r iscam`. This parameterization will revert to the Multinomial distribution with sufficiently large $\beta$ (Eq. \@ref(eq:dm-eff)) i.e. $n_{eff} \simeq n$ when $\beta >> n$. It provides an upper bound on low values of $\hat{\beta}$, i.e. $n_{eff} \simeq 1 + \beta$ when $n >> \beta$.
 
 ### Stock recruitment
-This stock assessment assumes Beverton-Holt recruitment. Annual recruitment and the initial age-composition are treated as latent variables in ISCAM, and residuals between estimated recruits and the deterministic stock-recruitment models are used to estimate unfished spawning stock biomass and recruitment compensation. The residuals between the estimated and predicted recruits is given by:
+This stock assessment assumes Beverton-Holt recruitment. Annual recruitment and the initial age-composition are treated as latent variables in `r iscam`, and residuals between estimated recruits and the deterministic stock-recruitment models are used to estimate unfished spawning stock biomass and recruitment compensation. The residuals between the estimated and predicted recruits is given by:
 \begin{equation}
   \delta_t = \ln(\bar{R}e^{w_t}) - R_t
   \label{eq:df7}
@@ -197,7 +197,7 @@ The negative log likelihood for the recruitment deviations is given by the norma
 
 ```{r app-model-eq-para-8-en, eval = !fr(), results = 'asis'}
 cat("### Parameter Estimation and Uncertainty
-Parameter estimation and quantifying uncertainty was carried out using the tools available in AD Model Builder. AD Model Builder (ADMB) is software for creating executable code to estimate the parameters and associated probability distributions for nonlinear statistical models. The software is freely available from \href{http://admb-project.org/}{the ADMB project}. The ADMB software was used to develop [gfiscam](https://github.com/pbs-assess/gfiscam), which was developed from the [original ISCAM project](https://sites.google.com/site/iscamproject/home).
+Parameter estimation and quantifying uncertainty was carried out using the tools available in AD Model Builder. AD Model Builder (ADMB) is software for creating executable code to estimate the parameters and associated probability distributions for nonlinear statistical models. The software is freely available from \href{http://admb-project.org/}{the ADMB project}. The ADMB software was used to develop [gfiscam](https://github.com/pbs-assess/gfiscam), which was developed from the [original `r iscam` project](https://sites.google.com/site/iscamproject/home).
 
 There are five distinct components that make up the objective function that ADMB is minimizing:
 \[f = \mbox{negative loglikelihoods}+\mbox{constraints}+\mbox{priors for parameters}+\mbox{survey priors}+\mbox{convergence penalties}.\]
