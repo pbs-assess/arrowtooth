@@ -311,9 +311,9 @@ plot_biomass_mcmc(models$sens_grps[[5]],
 (ref:fig-sens-geostat-index-fits-fr) French here
 
 ```{r fig-sens-geostat-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-index-fits-fr)", "(ref:fig-sens-geostat-index-fits-en)")}
-plot_index_mcmc(models$sens_grps[[5]],
+plot_index_mcmc(models$sens_grps[[5]][[2]],
                 type = "fits",
-                surv_index = survey_index,
+                surv_index = survey_index_geo,
                 leg_loc = "facet",
                 text_title_size = NULL)
 

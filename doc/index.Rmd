@@ -253,13 +253,27 @@ geo_files <- dir(file.path(drs$nongit_dir, "survey-geostat"),
                  pattern = "^i-arrowtooth.*\\.rds$")
 ind_geo <- purrr::map_dfr(geo_files, readRDS)
 survey_index_geo <- ind_geo |>  filter(model == "no-depth") |> as_tibble()
-# survey_index_geo <- survey_index_geo |> 
-#   rename(biomass = est,
-#          lowerci = lwr,
-#          upperci = upr,
-#          re = se,
-#          survey_abbrev = surveys) |> 
-#   add_extra_indices(discard_cpue = discard_cpue)
+survey_index_geo <- survey_index_geo |>
+  rename(biomass = est,
+         lowerci = lwr,
+         upperci = upr,
+         re = se,
+         survey_abbrev = surveys) |>
+  mutate(num_sets = NA,
+         num_pos_sets = NA,
+         survey_series_id = NA,
+         survey_series_desc = "") |>
+  select(-c(log_est, species, survey, ssids, ssid_string,
+            family, anisotropy, spatiotemporal, share_range,
+            model, max_grad)) |>
+  select(year, biomass, lowerci, upperci,
+         re, num_sets, num_pos_sets,
+         survey_series_id, survey_abbrev, survey_series_desc) |>
+  add_extra_indices(discard_cpue = discard_cpue)
+# Add HS MSA survey so plot will work
+hs_multi <- survey_index |> filter(survey_abbrev == "OTHER HS MSA")
+survey_index_geo <- survey_index_geo |>
+  bind_rows(hs_multi)
 
 # Areas 3CD and 5ABCDE only 
 major_areas <- c("03","04", "05", "06", "07", "08", "09")

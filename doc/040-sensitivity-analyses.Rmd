@@ -106,7 +106,9 @@ There is also a lot of autocorrelation in the parameters for this model (Figures
 
 ```{r scam-sens-geostat-en, eval = !fr(), results = 'asis'}
 cat("### Using survey indices calculated using Geostatistical method {#sens-geostat}
-This sensitivity involved replacing the index data for the three synoptic surveys: (`rqcs`, `r hss`, and `r wcvis`). These data are design-based in the base model, and were replaced with geostatistical-based indices (Appendix \@ref(app:geostat)).
+This sensitivity involved replacing the index data for the three synoptic surveys: (`rqcs`, `r hss`, and `r wcvis`). These data are design-based in the base model, and were replaced with geostatistical-based indices (Appendix \@ref(app:geostat)). Both absolute and relative biomass are similar to the base model, with a slightly higher estimate of $B_0$ and a slightly higher absolute biomass trajectory (Figures \@ref(fig:fig-sens-geostat) and \@ref(fig:fig-sens-geostat-rel)).
+
+The index fit is shown in Figure \@ref(fig:fig-sens-geostat-index-fits). The index points here are a different index than the base model, so the base model is not plotted against it. The fit to the index is about equivalent to the fit to the index in the base model.
 ")
 ```
 
