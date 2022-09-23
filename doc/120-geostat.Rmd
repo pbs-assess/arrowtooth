@@ -14,8 +14,7 @@ For the individual survey indices, we used delta/hurdle models (herein referred 
 \begin{equation}
   \mathrm{Pr} [C > 0] = p,
 \end{equation}
-where $C$ is the observed catch $p$ is the probability of encounter.
-The positive component given encounter is defined as
+where $C$ is the observed catch $p$ is the probability of encounter. The positive component given encounter is defined as
 \begin{equation}
   \mathrm{Pr} [C = c \vert C > 0] = \mathrm{Gamma}\left(c, \gamma, \lambda / \gamma \right),
 \end{equation}

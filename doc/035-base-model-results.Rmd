@@ -24,7 +24,7 @@ Prior and posterior probability distributions of estimated parameters are shown 
 
 Normal prior probability distributions were used for the log catchability parameters $\ln(q_k)$ for the indices of abundance (Figure \@ref(fig:fig-base-priors-posts)). Posterior estimates tended to overlap with the left-hand tail of the prior distributions for each index. Sensitivity analyses (discussed in Section XX) indicated that posterior estimates of catchability were sensitive to the mean and standard deviation of the prior distribution.
 
-Pairs plots of posterior samples (Figure \@ref(fig:fig-base-pairs)) indicated that posterior estimates of $R_0$ and $\bar(R)$ were negatively correlated with the catchability parameters. This, and the influence of the prior distributions on posterior estimates of catchability, indicated that there was limited information in the available data to estimate these important scaling parameters.")
+Pairs plots of posterior samples (Figure \@ref(fig:fig-base-pairs)) indicated that posterior estimates of $R_0$ and $\bar{R}$ were negatively correlated with the catchability parameters. This, and the influence of the prior distributions on posterior estimates of catchability, indicated that there was limited information in the available data to estimate these important scaling parameters.")
 ```
 
 ```{r scam-results-parameter-estimates-fr, eval = fr(), results = 'asis', needs_trans = TRUE}

@@ -108,7 +108,7 @@ There is also substantial autocorrelation in the MCMC samples for this model (Fi
 cat("### Using survey indices calculated using geostatistical modelling {#sens-geostat}
 This sensitivity involved replacing the index data for the three synoptic surveys: (`r qcs`, `r hss`, and `r wcvis`). These data are calculated using a standard design-based estimator in the base model. Here, they were replaced with geostatistical-based indices (Appendix \@ref(app:geostat)). Both absolute and relative biomass are similar to the base model, with a slightly higher estimate of $B_0$ and a slightly higher absolute biomass trajectory (Figures \@ref(fig:fig-sens-geostat) and \@ref(fig:fig-sens-geostat-rel)).
 
-The index fit is shown in Figure \@ref(fig:fig-sens-geostat-index-fits). The index points here are a different index than the base model, so the base model is not plotted against it. The fit to the index is about equivalent to the fit to the index in the base model.
+The index fit is shown in Figure \@ref(fig:fig-sens-geostat-index-fits). The fit to the index is about equivalent to the fit to the index in the base model.
 ")
 ```
 
