@@ -23,7 +23,13 @@ info |>
 ```
 
 ```{r sha}
-get_sha <- function(path) {
+get_sha <- function(path, branch = "HEAD") {
+  if(exists("user") && user == "grandin"){
+    url <- file.path("https://github.com", path)
+    sha <- shell(paste0("git ls-remote ", url), intern = TRUE)
+    sha <- substr(sha[grepl(branch, sha)], 1, 7)
+    return(sha)
+  }
   suppressWarnings({
     sha <- tryCatch(system(paste0("git ls-remote git@github.com:", path, ".git"),
       intern = TRUE, ignore.stderr = TRUE), error = function(e) " ")
@@ -33,6 +39,7 @@ get_sha <- function(path) {
   else
     "xxxxxxx"
 }
+sha_gfiscam <- get_sha("pbs-assess/gfiscam", "wsl2")
 sha_gfplot <- get_sha("pbs-assess/gfplot")
 sha_gfdata <- get_sha("pbs-assess/gfdata")
 sha_sdmTMB <- get_sha("pbs-assess/sdmTMB")
@@ -43,7 +50,7 @@ sha_arrowtooth <- get_sha("pbs-assess/arrowtooth")
 
 The specific versions used to generate this report can be viewed at:
 
-<`https://github.com/pbs-assess/gfiscam/tree/2a0bfb`>\
+<`r paste0("https://github.com/pbs-assess/gfiscam/tree/", sha_gfiscam)`>\
 <`r paste0("https://github.com/pbs-assess/gfdata/tree/", sha_gfdata)`>\
 <`r paste0("https://github.com/pbs-assess/gfplot/tree/", sha_gfplot)`>\
 <`r paste0("https://github.com/pbs-assess/sdmTMB/tree/", sha_sdmTMB)`>\
