@@ -50,8 +50,7 @@ Provisional values of USR = $0.8B_\mathrm{MSY}$ and LRP = $0.4B_\mathrm{MSY}$ ar
  
 A harvest control rule based on these reference points that is coincident with the choice of LRP, USR, and LRR would apply a linear reduction in fishing mortality as the stock falls below the USR, and would cease fishing when the stock reaches the LRP [e.g., Figure 6 in @grandin2017].
 
-The $F_\mathrm{MSY}$ (and annual harvest rate $U_\mathrm{MSY}$) are estimated as very large in this model due to selectivity being greater than maturity, as described in Section \textbf{TODO}. We therefore present alternative candidate reference points for `r sp` that are less reliant on estimated selectivity. We suggest an USR = $0.4B_0$ and a LRP = $0.2B_0$. These thresholds are consistent with biomass targets and limits in place in other jusrisdictions including Australia [@smith2007] and the U.S.A. [@restropo1998]. They were also used in the last assessment for `r sp` in `r bc` [@grandin2017].
-
+The $F_\mathrm{MSY}$ (and annual harvest rate $U_\mathrm{MSY}$) are estimated to be very large in this model due to selectivity being greater than maturity, as described in Section \textbf{TODO}. We therefore present $B_0$-based reference points for `r sp` that are less reliant on estimated selectivity. We suggest an USR = $0.4B_0$ and a LRP = $0.2B_0$. These thresholds are consistent with biomass targets and limits in place in other jusrisdictions including Australia [@smith2007] and the U.S.A. [@restropo1998]. They were also used in the last assessment for `r sp` in `r bc` [@grandin2017].
 ")
 ```
 
