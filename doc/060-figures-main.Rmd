@@ -278,7 +278,7 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 
 <!-- Selectivity ------------------------------------------------------------->
 
-(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. Dotted lines represent maturity, with the colours representing the sexes and are the same as for selectivity curves.
+(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. Dashed lines represent maturity, with the colours representing the sexes and are the same as for selectivity curves.
 
 (ref:fig-base-selex-fr) French goes here
 

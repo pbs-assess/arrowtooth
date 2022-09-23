@@ -2,7 +2,7 @@
 
 <!-- Vartheta and sigma, and steepness  -------------------------------------->
 
-(ref:fig-sens-variance-en) Spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters. The $B_0$ estimates for the '`r names(models$sens_grps[[1]])[2]`' and '`r names(models$sens_grps[[1]])[3]`' models are past the axis limits here. For the sake of clarity for the trajectories, they were left off the plot. They are estimated as `r sens_1_2_sbo$est` and `r sens_1_3_sbo$est` respectively.
+(ref:fig-sens-variance-en) Spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ parameters (due to changes to $\sigma$ and $\tau$), and steepness ($h$) parameter. The $B_0$ estimates for the '`r names(models$sens_grps[[1]])[2]`' and '`r names(models$sens_grps[[1]])[3]`' models are outside the axis limits. For the sake of clarity of the trajectories, they were left off the plot. They are estimated as `r sens_1_2_sbo$est` t and `r sens_1_3_sbo$est` t respectively.
 
 (ref:fig-sens-variance-fr) French here
 
@@ -16,7 +16,7 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   ylim = c(0, 350))
 ```
 
-(ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities to changes in the $\vartheta^2$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters.
+(ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ parameters (due to changes to $\sigma$ and $\tau$), and steepness ($h$) parameter.
 
 (ref:fig-sens-variance-rel-fr) French here
 
@@ -31,7 +31,7 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   ylim = c(0, 0.8))
 ```
 
-(ref:fig-sens-variance-prior-post-en) Relative spawning biomass for sensitivities to changes in the $\vartheta^2$ (by way of a change in $\sigma$), $\tau$, and steepness ($h$) parameters.
+(ref:fig-sens-variance-prior-post-en) Priors and posteriors for the sensitivity in which $\sigma$ is reduced. This can be compared to the base model in Figure \@ref(fig:fig-base-priors-posts).
 
 (ref:fig-sens-variance-prior-post-fr) French here
 
@@ -45,7 +45,7 @@ plot_priors_posts_mcmc(models$sens_grps[[1]][[2]],
                                     "log_m_sex2"))
 ```
 
-(ref:fig-sens-steepness-prior-en) Priors and posteriors for the sensitivity to steepness prior change. This should be compared with the base model in Figure \@ref(fig:fig-base-priors-posts).
+(ref:fig-sens-steepness-prior-en) Priors and posteriors for the sensitivity in which the steepness prior was changed. This can be compared to the base model in Figure \@ref(fig:fig-base-priors-posts).
 
 (ref:fig-sens-steepness-prior-fr) French caption here
 
@@ -56,20 +56,18 @@ plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
                                     "tau",
                                     "sigma",
                                     "log_m_sex1",
-                                    "log_m_sex2"),
-                       text_title_size = NULL)
+                                    "log_m_sex2"))
 ```
 
 <!-- Natural mortality ------------------------------------------------------->
 
-(ref:fig-sens-m-en) Spawning biomass for sensitivities to changes in the natural mortality ($M$) parameters. In the base model, this parameter is fixed for both male and females. In these sensitivities, it is estimated in addition to the changes in prior.
+(ref:fig-sens-m-en) Spawning biomass for sensitivities to changes in the natural mortality ($M$) parameters. In the base model, this parameter is fixed for both male and females. In these sensitivities, it is estimated for the sex in question in addition to the changes in prior, while the parameter for the opposite sex remains fixed.
 
 (ref:fig-sens-m-fr) French here
 
 ```{r fig-sens-m, fig.cap = ifelse(fr(), "(ref:fig-sens-m-fr)", "(ref:fig-sens-m-en)")}
 plot_biomass_mcmc(models$sens_grps[[2]],
                   angle_x_labels = TRUE,
-                  text_title_size = NULL,
                   show_bo_lines = TRUE)
 ```
 
@@ -81,7 +79,6 @@ plot_biomass_mcmc(models$sens_grps[[2]],
 plot_biomass_mcmc(models$sens_grps[[2]],
                   rel = TRUE,
                   angle_x_labels = TRUE,
-                  text_title_size = NULL,
                   show_bo_lines = TRUE)
 ```
 
@@ -94,14 +91,13 @@ plot_index_mcmc(models$sens_grps[[2]],
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = "facet",
-                text_title_size = NULL,
                 base_color = "royalblue")
 
 ```
 
 <!-- Catchability ------------------------------------------------------------>
 
-(ref:fig-sens-q-en) Spawning biomass for the sensitivities to changes in the catchability ($q_k$) parameters. For these sensitivities all gears ($k$) are modified in the same way.
+(ref:fig-sens-q-en) Spawning biomass for the sensitivities to changes in the catchability ($q_k$) parameters. For these sensitivities the priors for all gears ($k$) are modified in the same way.
 
 (ref:fig-sens-q-fr) French here
 
@@ -112,7 +108,7 @@ plot_biomass_mcmc(models$sens_grps[[3]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-q-rel-en) Relative spawning biomass for the sensitivities to changes in the catchability ($q_k$) parameters.
+(ref:fig-sens-q-rel-en) Relative spawning biomass for the sensitivities to changes in the priors for the catchability ($q_k$) parameters. For these sensitivities the priors for all gears ($k$) are modified in the same way.
 
 (ref:fig-sens-q-rel-fr) French here
 
@@ -124,7 +120,7 @@ plot_biomass_mcmc(models$sens_grps[[3]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-q-q-en) Catchability estimates for the sensitivities to changes in the catchability ($q_k$) parameters.
+(ref:fig-sens-q-q-en) Catchability estimates for the sensitivities to changes in the priors for the catchability ($q_k$) parameters. The points are the median of the posterior and the vertical lines are the 95% CI.
 
 (ref:fig-sens-q-q-fr) French here
 
@@ -134,7 +130,7 @@ plot_q_mcmc(models$sens_grps[[3]],
             gear = NULL)
 ```
 
-(ref:fig-sens-q-index-en) Index fits for sensitivity models that include changes in priors in catchability parameters.
+(ref:fig-sens-q-index-en) Index fits for the sensitivities to changes in the priors for the catchability ($q_k$) parameters.
 
 (ref:fig-sens-q-index-fr) French here
 
@@ -150,7 +146,7 @@ plot_index_mcmc(models$sens_grps[[3]],
 
 <!-- Selectivity and Geostat surveys ----------------------------------------->
 
-(ref:fig-sens-selex-en) Spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters. For the first selectivity sensitivity, the selectivities for the two commercial trawl fisheries are set equal to the maturity for the two commercial trawl gears ($k$). For the second, the `r qcs` has three year blocks or time-varying selectivity, 2003--2010, 2011--2016, and 2017--2021.
+(ref:fig-sens-selex-en) Spawning biomass for the sensitivities to changes in the selectivity parameters ($\hat{a}_k$ and $\gamma_k$). For the first sensitivity, the selectivities for the two commercial trawl fisheries are fixed to the maturity for the two commercial trawl gears ($k$). For the second, the `r qcs` has three year blocks or time-varying selectivity, 2003--2010, 2011--2016, and 2017--2021.
 
 (ref:fig-sens-selex-fr) French here
 
@@ -161,7 +157,7 @@ plot_biomass_mcmc(models$sens_grps[[4]],
                   show_bo_lines = TRUE)
 ```
 
-(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the Selectivity ($\hat{a}_k$ and $\gamma_k$) parameters.
+(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the selectivity ($\hat{a}_k$ and $\gamma_k$) parameters.
 
 (ref:fig-sens-selex-rel-fr) French here
 
@@ -186,7 +182,7 @@ plot_index_mcmc(models$sens_grps[[4]],
 
 ```
 
-(ref:fig-sens-sel-eq-mat-autocor-en) Autocorrelation for non-selectivity parameters for the sensitivity model which has both commercial fleets' selectivity fixed to maturity.
+(ref:fig-sens-sel-eq-mat-autocor-en) Autocorrelation for non-selectivity parameters for the sensitivity model which has both commercial fleets' selectivity fixed to maturity. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
 (ref:fig-sens-sel-eq-mat-autocor-fr) French here
 
@@ -197,31 +193,90 @@ plot_autocorr_mcmc(models$sens_grps[[4]][[2]],
                                 "ssb", "vartheta", "bmsy",
                                 "fmsy1", "fmsy2", "umsy1",
                                 "umsy2", "msy1", "msy2"),
+                   rows_cols = c(3, 4),
                    text_title_size = NULL,
                    lag_max = 1000,
                    col = "blue",
                    lwd = 2)
 ```
 
-(ref:fig-sens-sel-eq-mat-autocor-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has both commercial fleets' selectivity fixed to maturity.
+(ref:fig-sens-sel-eq-mat-autocor-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has both commercial fleets' selectivity fixed to maturity. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
 
 (ref:fig-sens-sel-eq-mat-autocor-sel-fr) French here
 
 ```{r fig-sens-sel-eq-mat-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-autocor-sel-fr)", "(ref:fig-sens-sel-eq-mat-autocor-sel-en)")}
 plot_autocorr_mcmc(base_model,
                    plot_sel = TRUE, 
-                   text_title_size = NULL)
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
 ```
 
 <!-- QCS TV selectivity -->
 
-(ref:fig-sens-qcs-tv-en) Time-varying selectivity for the `r qcs`, in year blocks. The plot shows an unreasonable situation for females in the second block, where both the medians and all the lower limits of the CI were estimated as 0.5. Also, males in the first block are 
+(ref:fig-sens-qcs-tv-en) Time-varying selectivity for the `r qcs`, where the panels are blocks of years: 2003--2010 (left), 2011--2016 (middle), and 2017--2021 (right). See Figure \@ref(fig:fig-base-mcmc-selex) for more information.
 
-(ref:fig-sens-sel-eq-mat-autocor-sel-fr) French here
+(ref:fig-sens-qcs-tv-fr) French here
 
-
-```{r fig-sens-selex-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
+```{r fig-sens-qcs-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-fr)", "(ref:fig-sens-qcs-tv-en)")}
 plot_selex_gear_mcmc(models$sens_grps[[4]][[3]], gear = 3, show_maturity = TRUE)
+```
+
+(ref:fig-sens-qcs-tv-autocor-en) Autocorrelation for non-selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
+
+(ref:fig-sens-qcs-tv-autocor-fr) French here
+
+```{r fig-sens-qcs-autocor-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-autocor-fr)", "(ref:fig-sens-qcs-tv-autocor-en)")}
+plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
+                   plot_sel = FALSE, 
+                   param_rm = c("m1", "m2", "rho", "bo",
+                                "ssb", "vartheta", "bmsy",
+                                "fmsy1", "fmsy2", "umsy1",
+                                "umsy2", "msy1", "msy2"),
+                   rows_cols = c(3, 4),
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
+```
+
+(ref:fig-sens-qcs-tv-autocor-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
+
+(ref:fig-sens-qcs-tv-autocor-sel-fr) French here
+
+```{r fig-sens-qcs-autocor-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-autocor-sel-fr)", "(ref:fig-sens-qcs-tv-autocor-sel-en)")}
+plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
+                   plot_sel = TRUE, 
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
+```
+
+(ref:fig-sens-qcs-tv-trace-en) Trace plots for non-selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace) for parameter and subscript descriptions.
+
+(ref:fig-sens-qcs-tv-trace-fr) French here
+
+```{r fig-sens-qcs-trace-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-trace-fr)", "(ref:fig-sens-qcs-tv-trace-en)")}
+plot_traces_mcmc(models$sens_grps[[4]][[3]],
+                 plot_sel = FALSE, 
+                 param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
+                              "bo", "msy1", "msy2", "fmsy1", "fmsy2",
+                              "umsy1", "umsy2","bmsy"),
+                 text_title_size = NULL)
+```
+
+(ref:fig-sens-qcs-tv-trace-sel-en) Trace plots for selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-autocor-selex) for parameter and subscript descriptions.
+
+(ref:fig-sens-qcs-tv-trace-sel-fr) French here
+
+```{r fig-sens-qcs-trace-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-trace-sel-fr)", "(ref:fig-sens-qcs-tv-trace-sel-en)")}
+plot_traces_mcmc(models$sens_grps[[4]][[3]],
+                 plot_sel = TRUE, 
+                 text_title_size = NULL,
+                 col = "blue",
+                 lwd = 2)
 ```
 
 <!-- Geostatistical -->

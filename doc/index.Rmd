@@ -190,7 +190,9 @@ if(!is.null(meta)){
 ```
 
 ```{r include = FALSE}
-source("load-models.R", local = knitr::knit_global())
+# Don't load the models if they already exist
+if(!exists("models") || !exists("drs"))
+  source("load-models.R", local = knitr::knit_global())
 ```
 
 ```{r data-setup, cache.lazy = FALSE}
@@ -245,6 +247,19 @@ survey_index <- add_extra_indices(survey_index,
                                   iphc = iphc,
                                   discard_cpue = discard_cpue,
                                   stitched_syn = stitched_syn)
+# Survey index for geostat
+geo_files <- dir(file.path(drs$nongit_dir, "survey-geostat"),
+                 full.names = TRUE,
+                 pattern = "^i-arrowtooth.*\\.rds$")
+ind_geo <- purrr::map_dfr(geo_files, readRDS)
+survey_index_geo <- ind_geo |>  filter(model == "no-depth") |> as_tibble()
+# survey_index_geo <- survey_index_geo |> 
+#   rename(biomass = est,
+#          lowerci = lwr,
+#          upperci = upr,
+#          re = se,
+#          survey_abbrev = surveys) |> 
+#   add_extra_indices(discard_cpue = discard_cpue)
 
 # Areas 3CD and 5ABCDE only 
 major_areas <- c("03","04", "05", "06", "07", "08", "09")

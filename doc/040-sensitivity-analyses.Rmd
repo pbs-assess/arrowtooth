@@ -92,8 +92,11 @@ For this model structure, the absolute biomass and $B_0$ estimates are much larg
 
 ```{r scam-sens-qcs-tv-en, eval = !fr(), results = 'asis'}
 cat("### Using TV selectivity for the `r qcs` {#sens-qcs-tv}
-In an attempt to improve the fit of the `r qcs` index (Figure @\ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in `r iscam` and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. The absolute and relative biomasss trajectories were not affected much, except that the sensitivity model's biomass in the final year is a little lower than the base model's (Figures \@ref(fig:fig-sens-selex) and \@ref(fig:fig-sens-selex-rel)). The index fit did improve in the latter part of the series (Figure \@ref(fig:fig-sens-selex-index-fits)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for ...
+In an attempt to improve the fit of the `r qcs` index (Figure \@ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in `r iscam` and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. We treied many combinations of both number of selectivity blocks and range of each block and this particular combination fit the most parameters.
 
+The absolute and relative biomasss trajectories only had small differences when compared to the base model (Figures \@ref(fig:fig-sens-selex) and \@ref(fig:fig-sens-selex-rel)). The biomass in the final year was a little lower than that of the base model. The index fit was better overall than for the base model, especially in the latter part of the series (Figure \@ref(fig:fig-sens-selex-index-fits)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for the three year blocks can be seen in Figure \@ref(fig:fig-sens-qcs-tv). The selectivity curves for the early years (left panel) are far to the right for both sexes, much further than the overall selectivities in the base model (Figure \@ref(fig:fig-base-mcmc-selex)). The last few years (2017--2021, right panel) are comparable to the overall selectivity for the `r qcs` in the base model. The intermediate years (2010--2016, middle panel) have very unreasonable selectivity estimates, with the medians and the to low CI (2.5%) being equal and estimated at 0.5. It seems a bound was hit for the selectivity in these years, which makes this model questionable.
+
+There is also a lot of autocorrelation in the parameters for this model (Figures \@ref(fig:fig-sens-qcs-tv-autocor-en) and \@ref(fig:fig-sens-qcs-tv-autocor-sel-n)) and the trace plots are far from acceptable (Figures \@ref(fig:fig-sens-qcs-tv-trace-en) and \@ref(fig:fig-sens-qcs-tv-trace-sel-n)).
 ")
 ```
 
@@ -103,9 +106,7 @@ In an attempt to improve the fit of the `r qcs` index (Figure @\ref(fig:fig-base
 
 ```{r scam-sens-geostat-en, eval = !fr(), results = 'asis'}
 cat("### Using survey indices calculated using Geostatistical method {#sens-geostat}
-
-TODO: complete this once model is done Sept 23 11AM
-
+This sensitivity involved replacing the index data for the three synoptic surveys: (`rqcs`, `r hss`, and `r wcvis`). These data are design-based in the base model, and were replaced with geostatistical-based indices (Appendix \@ref(app:geostat)).
 ")
 ```
 
