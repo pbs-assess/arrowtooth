@@ -431,7 +431,7 @@ depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
   pull()
 
 # Decision table values - B_2023 < B_2022
-table_dec <- table_decisions(base_model, ret_df = TRUE)
+table_dec <- table_decisions(base_model, ret_df = TRUE, digits = 3)
 probs_catch_0 <- table_dec |> filter(tac == 0) |> unlist()
 probs_catch_10 <- table_dec |> filter(tac == 10) |> unlist()
 probs_catch_50 <- table_dec |> filter(tac == 50) |> unlist()
@@ -467,17 +467,17 @@ prob_greater_50_50_02bo <- below_02bo[which_prob_greater_50_50_02bo]
 row_greater_50_50_02bo <- table_dec[which_prob_greater_50_50_02bo, ]
 
 # Decision table values - B_2023 < 0.8BMSY
-below_08bmsy <- table_dec |> 
-  select(paste0(proj_yr, "_08bmsy")) |> 
-  pull() |> 
-  as.numeric()
-range_below_08bmsy <- c(min(below_08bmsy), max(below_08bmsy))
+# below_08bmsy <- table_dec |> 
+#   select(paste0(proj_yr, "_08bmsy")) |> 
+#   pull() |> 
+#   as.numeric()
+# range_below_08bmsy <- c(min(below_08bmsy), max(below_08bmsy))
 
 # Decision table values - B_2023 < 0.4BMSY
-below_04bmsy <- table_dec |> 
-  select(paste0(proj_yr, "_04bmsy")) |> 
-  pull() |> 
-  as.numeric()
+# below_04bmsy <- table_dec |> 
+#   select(paste0(proj_yr, "_04bmsy")) |> 
+#   pull() |> 
+#   as.numeric()
 range_below_04bmsy <- c(min(below_04bmsy), max(below_04bmsy))
 ```
 
