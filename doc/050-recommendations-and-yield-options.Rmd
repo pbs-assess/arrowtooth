@@ -13,7 +13,7 @@ The model-predicted probability of the `r proj_yr` spawning biomass being below 
 
 The probability of being below the candidate USR of $0.4B_0$ was from `r range_below_04bo[1]` to `r range_below_04bo[2]` over the range of catch levels considered. The probability of being below the candidate USR of $0.8B_{MSY}$ was from `r range_below_08bmsy[1]` to `r range_below_08bmsy[2]` over the range of catch levels considered. The probability of being below the candidate LRP of $0.2B_0$ was from `r range_below_02bo[1]` to `r range_below_02bo[2]` over the range of catch levels considered. The probability of being below the candidate LRP of $0.4B_{MSY}$ was zero for all catch levels considered.
 
-All catch levels had a probability of greater than 0.5 of the `r proj_yr` biomass being under the $0.4B_0$ reference point. The lowest catch level having a probability of greater than 0.5 of the `r proj_yr` biomass being under the $0.2B_0$ limit reference point was `r row_greater_50_50_02bo$tac` t, with a probability of `r prob_greater_50_50_02bo`.
+All catch levels had a probability of greater than 0.5 of the `r proj_yr` biomass being under the $0.4B_0$ reference point. The lowest catch level having a probability of greater than 0.5 of the `r proj_yr` biomass being under the $0.2B_0$ limit reference point was `r row_greater_50_50_02bo$tac`,000 t, with a probability of `r prob_greater_50_50_02bo`.
 
 ## SOURCES OF UNCERTAINTY AND FUTURE RESEARCH
 
