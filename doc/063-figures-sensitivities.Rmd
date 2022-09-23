@@ -177,7 +177,7 @@ plot_biomass_mcmc(models$sens_grps[[4]],
 
 (ref:fig-sens-selex-index-fits-fr) French here
 
-```{r fig-sens-selex-qcs, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-index-fits-en)")}
+```{r fig-sens-selex-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
 plot_index_mcmc(models$sens_grps[[4]],
                 type = "fits",
                 surv_index = survey_index,
@@ -186,12 +186,42 @@ plot_index_mcmc(models$sens_grps[[4]],
 
 ```
 
-(ref:fig-sens-selex-selectivity-en) Estimated `r qcs` selectivities for three time blocks when QCS selectitivy was allowed to vary. The parameters are poorly estimated in the middle block.
+(ref:fig-sens-sel-eq-mat-autocor-en) Autocorrelation for non-selectivity parameters for the sensitivity model which has both commercial fleets' selectivity fixed to maturity.
 
-(ref:fig-sens-selex-selectivity-fr) French here
+(ref:fig-sens-sel-eq-mat-autocor-fr) French here
 
-```{r fig-sens-selex-selectivity, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-selectivity-fr)", "(ref:fig-sens-selex-selectivity-en)")}
-plot_selex_gear_mcmc(models$sens_grps[[4]][[3]], gear = 3)
+```{r fig-sens-sel-eq-mat-autocor, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-autocor-fr)", "(ref:fig-sens-sel-eq-mat-autocor-en)")}
+plot_autocorr_mcmc(models$sens_grps[[4]][[2]],
+                   plot_sel = FALSE, 
+                   param_rm = c("m1", "m2", "rho", "bo",
+                                "ssb", "vartheta", "bmsy",
+                                "fmsy1", "fmsy2", "umsy1",
+                                "umsy2", "msy1", "msy2"),
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
+```
+
+(ref:fig-sens-sel-eq-mat-autocor-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has both commercial fleets' selectivity fixed to maturity.
+
+(ref:fig-sens-sel-eq-mat-autocor-sel-fr) French here
+
+```{r fig-sens-sel-eq-mat-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-autocor-sel-fr)", "(ref:fig-sens-sel-eq-mat-autocor-sel-en)")}
+plot_autocorr_mcmc(base_model,
+                   plot_sel = TRUE, 
+                   text_title_size = NULL)
+```
+
+<!-- QCS TV selectivity -->
+
+(ref:fig-sens-qcs-tv-en) Time-varying selectivity for the `r qcs`, in year blocks. The plot shows an unreasonable situation for females in the second block, where both the medians and all the lower limits of the CI were estimated as 0.5. Also, males in the first block are 
+
+(ref:fig-sens-sel-eq-mat-autocor-sel-fr) French here
+
+
+```{r fig-sens-selex-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
+plot_selex_gear_mcmc(models$sens_grps[[4]][[3]], gear = 3, show_maturity = TRUE)
 ```
 
 <!-- Geostatistical -->

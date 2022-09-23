@@ -80,18 +80,25 @@ The large estimate of $q$ for the increased mean model is reflected in the index
 
 ```{r scam-sens-sel-mat-en, eval = !fr(), results = 'asis'}
 cat("### Setting selectivities equal to maturity {#sens-sel-mat}
-This sensitivity came about in the `r la` cycle, where it was found that the estimated selectivity curves were all to the right of the maturity ogive (Figure 17, @grandin2017). This caused the value of $F_\mathrm{MSY}$ to be very large and essentially give the advice that an unlimited amount of catch could be taken without affecting the stock. We repeat it here, as the same situation has arisen and to compare this model with the single sex one from the `r la`.
+This sensitivity came about in the `r la` cycle, where it was found that the estimated selectivity curves were all to the right of the maturity ogive (Figure 17, @grandin2017). This caused the value of $F_\mathrm{MSY}$ to be very large and essentially give the advice that an unlimited amount of catch could be taken without affecting the stock. We repeat it here, as the same situation has arisen with the current base model and to compare this model with the single sex model from the `r la`.
 
-TODO: complete this once model is done Sept 23 4PM
-
-For this model structure, there is virtually no difference in the absolute biomass and $B_0$ estimates between the base model and the model where selectivities equal maturity (Figures \@ref(fig:fig-sens-selex) and \@ref(fig:fig-sens-selex-rel)).
-
-
+For this model structure, the absolute biomass and $B_0$ estimates are much larger than for the base model (Figure \@ref(fig:fig-sens-selex)). The median of the posterior for $B_0$ was estimated to be `r svals[[4]][[2]]$sbo[1]` t with a very broad CI of `r svals[[4]][[2]]$sbo[2]`. For comparison, the base model had a $B_0$ estimate of `r base_sbo[1]` t with a CI of `r base_sbo[2]`. The absolute biomass trajectory is also very high, so the relative biomass is also much higher than the base model (Figure \@ref(fig:fig-sens-selex-rel)). The index fits all reflect this, as they all show a one-way trip downwards (Figure \@ref(fig:fig-sens-selex-index-fits)). This model shows a high degree of autocorrelation in almost all parameters, Figure \@ref(fig:fig-sens-sel-eq-mat-autocor) shows the estimated non-selectivity parameters, Figure \@ref(fig:fig-sens-sel-eq-mat-autocor-sel) shows the estimated selectivity parameters. Due to this high autocorrelation, we did not go any further with this analysis.
 ")
 ```
 
 ```{r scam-sens-sel-mat-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<scam-sens-sel-mat-en>>
+```
+
+```{r scam-sens-qcs-tv-en, eval = !fr(), results = 'asis'}
+cat("### Using TV selectivity for the `r qcs` {#sens-qcs-tv}
+In an attempt to improve the fit of the `r qcs` index (Figure @\ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in `r iscam` and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. The absolute and relative biomasss trajectories were not affected much, except that the sensitivity model's biomass in the final year is a little lower than the base model's (Figures \@ref(fig:fig-sens-selex) and \@ref(fig:fig-sens-selex-rel)). The index fit did improve in the latter part of the series (Figure \@ref(fig:fig-sens-selex-index-fits)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for ...
+
+")
+```
+
+```{r scam-sens-qcs-tv-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-qcs-tv-en>>
 ```
 
 ```{r scam-sens-geostat-en, eval = !fr(), results = 'asis'}
@@ -106,13 +113,3 @@ TODO: complete this once model is done Sept 23 11AM
 <<scam-sens-geostat-en>>
 ```
 
-```{r scam-sens-qcs-tv-en, eval = !fr(), results = 'asis'}
-cat("### Using TV selectivity for the `r qcs` {#sens-qcs-tv}
-In an attempt to improve the fit of the `r qcs` index (Figure \@ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in `r iscam` and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. This did improve the latter part of the index fit (Figure \@ref(fig:fig-sens-selex-qcs)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for ...
-
-")
-```
-
-```{r scam-sens-qcs-tv-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-qcs-tv-en>>
-```
