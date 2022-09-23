@@ -1,5 +1,6 @@
 ```{r bridging-para-01-en, eval = !fr(), results = 'asis'}
-cat("# MODEL BRIDGING {#bridging}
+cat("## Results
+### Bridge Models {#bridging}
 A set of bridging models was run to determine the effects of incremental model modifications while moving from the single-sex, single-fleet `r la` model to the split-sex, two-fleet model used in this assessment.
 
 The base model from the `r la` [@grandin2017] was run with the newest version of the `r iscam` [@iscam] code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age composition fits were determined to be identical. The 2015 model was a female-only catch-at-age model with 4 indices of abundance, which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
@@ -77,4 +78,8 @@ The `r wchgs` was removed (it was also removed in the `r la`) as it had very lit
 The natural mortalities coming from the model at this point were `r bvals[[3]][[2]]$m_male[1]` for males and `r bvals[[3]][[2]]$m_female[1]` for females with credible intervals of `r bvals[[3]][[2]]$m_male[2]` and `r bvals[[3]][[2]]$m_female[2]` respectively. While the value for males made sense when compared to assessments done in neighbouring jurisdictions, the female value was much lower than what was expected (Figure \@ref(fig:bridge-biomass-group3)). The `r la` estimated a value of 0.314 for female natural mortality and the Gulf of Alaska (GOA) assessment use a fixed value of 0.35 [@goa2019]. We decided to fix the natural mortalities at the same values as the GOA assessment, which are 0.2 for males and 0.35 for females.
 
 ")
+```
+
+```{r bridging-para-05-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<bridging-para-05-en>>
 ```
