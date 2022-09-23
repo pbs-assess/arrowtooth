@@ -1,7 +1,7 @@
 
 ```{r appendix-data-para-1-en, eval = !fr(), results = 'asis'}
 cat("# BIOLOGICAL DATA APPENDIX {#app:bio-data-appendix}
-This appendix summarizes the biological data for `r sp` in `r bc`. The length and age compositions collected from both surveys and commercial sources are illustrated (Figures \@ref(fig:fig-lengths) and \@ref(fig:fig-ages)); however, all biological parameters were estimated from synoptic survey data only. The values used in the assessment were aggregated from the four synoptic surveys that are each run biennially off the West coast of `r bc`; the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
+This appendix summarizes the biological data for `r sp` in `r bc`. The length and age compositions collected from both surveys and commercial sources are illustrated (Figures \@ref(fig:fig-lengths) and \@ref(fig:fig-ages)); however, all biological parameters were estimated from synoptic survey data only. The values used in the assessment were aggregated from the four synoptic surveys that are each run biennially off the West coast of `r bc`: the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
 ```
 
 ```{r appendix-data-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
