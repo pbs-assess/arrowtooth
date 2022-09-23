@@ -1,5 +1,5 @@
 ```{r bridging-para-01-en, eval = !fr(), results = 'asis'}
-cat("## Results
+cat("## RESULTS
 ### Bridge Models {#bridging}
 A set of bridging models was run to determine the effects of incremental model modifications while moving from the single-sex, single-fleet `r la` model to the split-sex, two-fleet model used in this assessment.
 
