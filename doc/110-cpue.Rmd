@@ -114,7 +114,7 @@ bub(5)
  knitr::include_graphics(file.path(cpuefold, "catch-effort-1.png"), dpi = NA)
 ```
 
-```{r cpue-coef-fixed, fig.cap = ifelse(fr(), "Estimations des coefficients à effet fixe. Dans tous les cas, les valeurs sont par rapport au niveau du facteur de référence (le plus courant). Les points, les lignes épaisses et les lignes fines représentent la moyenne, les intervalles de confiance à 50 \\% et à 95 \\%.", "Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level. Dots, thick, and thin lines represent mean, 50\\%, and 95\\% confidence intervals."), out.width = "6in", results = 'asis'}
+```{r cpue-coef-fixed, fig.cap = ifelse(fr(), "Estimations des coefficients à effet fixe. Dans tous les cas, les valeurs sont par rapport au niveau du facteur de référence (le plus courant). Les points, les lignes épaisses et les lignes fines représentent la moyenne, les intervalles de confiance à 50 \\% et à 95 \\%.", "Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level (the missing factor level in each plot). Dots, thick, and thin lines represent mean, 50\\%, and 95\\% confidence intervals."), out.width = "6in", results = 'asis'}
  knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot1-1.png"), dpi = NA)
 ```
 
