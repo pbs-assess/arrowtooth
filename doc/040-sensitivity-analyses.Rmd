@@ -108,7 +108,7 @@ TODO: complete this once model is done Sept 23 11AM
 
 ```{r scam-sens-qcs-tv-en, eval = !fr(), results = 'asis'}
 cat("### Using TV selectivity for the `r qcs` {#sens-qcs-tv}
-In an attempt to improve the fit of the `r qcs` index (Figure @\ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in `r iscam` and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. This did improve the latter part of the index fit (Figure \@ref(fig:fig-sens-selex-qcs)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for ...
+In an attempt to improve the fit of the `r qcs` index (Figure \@ref(fig:fig-base-index-fits)), we implemented time-varying selectivity in `r iscam` and ran the model with the `r qcs` having three blocks of selectivity, 2003--2010, 2011--2016, and 2017--2021. This did improve the latter part of the index fit (Figure \@ref(fig:fig-sens-selex-qcs)). This came at the expense of a very poor estimate of selectivity. The selectivity estimates for ...
 
 ")
 ```
