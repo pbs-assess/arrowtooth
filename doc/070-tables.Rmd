@@ -207,7 +207,7 @@ table_ts_values_mcmc(base_model,
 ```
 
 ```{r growth-params-table, results = "asis"}
-cap <- paste0("Growth parameters estimated outside the ", iscam, " model.")
+cap <- paste0("Growth parameters estimated outside the ", iscam, " model. All parameters were estimated using samples from the four synoptic surveys, and were filtered to include areas 3CD and 5ABCDE only. For the age-at-50\\% maturity estimates, the following values were used to further filter the data: maturity\\_convention\\_code = 4 (flatfish), maturity\\_code = 5 (Male - Spawning, testes large, white and sperm evident), (Female - Ripe, ovaries containing entirely translucent, mature ova. eggs loose and will run from oviducts under slight pressure), and usability codes = 0 (Unknown), 1 (Fully usable), 2 (Fail, but all data usable), 6 (Gear torn, all data ok).")
 if(fr()){
   cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ".")
 }
