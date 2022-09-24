@@ -211,8 +211,10 @@ cap <- paste0("Growth parameters estimated outside the ", iscam, " model.")
 if(fr()){
   cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ".")
 }
-table_growth_params(survey_samples_syn,
-                    digits = 3,
+# Create growth.rds by running this manually and moving the file into the 'data' folder
+# growth <- export_mat_lw_age(survey_samples_syn, write_file = FALSE)
+# saveRDS(growth, file.path(dirname(here()), "arrowtooth-nongit/data/growth.rds"))
+table_growth_params(digits = 3,
                     caption = cap)
 
 ```
