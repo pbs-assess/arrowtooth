@@ -214,7 +214,7 @@ if(fr()){
 
 table_growth_params(base_model,
                     digits = 3,
-                    alpha_digits = 8,
+                    alpha_digits = 7,
                     caption = cap)
 
 ```
