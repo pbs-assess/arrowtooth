@@ -206,19 +206,15 @@ table_ts_values_mcmc(base_model,
                      font_size = 8)
 ```
 
-```{r maturity-at-age-table, results = "asis"}
-cap <- paste0("Values used in the ", iscam, " models for Age-at-50\\% and ",
-              "SD-at-50\\% maturity by sex. Number of specimens used in ",
-              "the calculation is also given.")
+```{r growth-params-table, results = "asis"}
+cap <- paste0("Growth parameters estimated outside the ", iscam, " model.")
 if(fr()){
-cap <- paste0("Valeurs utilisées dans les modèles ", iscam , " pour la maturité ",
-              "Age-at-50\\% et SD-at-50\\% par sexe. Le nombre de spécimens ",
-              "utilisés dans le calcul est également indiqué.")
+  cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ".")
 }
+table_growth_params(survey_samples_syn,
+                    digits = 3,
+                    caption = cap)
 
-table_maturity(survey_samples,
-               digits = 2,
-               caption = cap)
 ```
 
 ```{r sens-param-settings-table, results = "asis"}
