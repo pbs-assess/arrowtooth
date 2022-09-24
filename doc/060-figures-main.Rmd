@@ -52,6 +52,21 @@ plot_catch(catch, french = fr(), xlim = c(min(yrs), max(yrs))) +
   theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5))
 ```
 
+(ref:fig-catch-fleet-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20.
+
+(ref:fig-catch-fleet-fr) French here
+
+```{r fig-catch-fleet, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
+yrs <- sort(unique(catch$year))
+plot_catch_fleet(list(catch_ft, catch_ss),
+                 base_model$dat$fleet_gear_names,
+                 french = fr(),
+                 xlim = c(min(yrs), max(yrs))) +
+  scale_x_continuous(yrs, breaks = seq(min(yrs), yrs[length(yrs)], by = 2)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5))
+
+```
+
 <!-- Biomass and recruitment -------------------------------------------------->
 
 (ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with
@@ -278,7 +293,7 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 
 <!-- Selectivity ------------------------------------------------------------->
 
-(ref:fig-base-selex-en) Estimated and fixed selectivities (Discard CPUE) for each sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. Dashed lines represent maturity, with the colours representing the sexes and are the same as for selectivity curves.
+(ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. Single lines with no CI are fixed selectivities. Dashed lines represent maturity, with the colours representing the sexes and are the same as for selectivity curves.
 
 (ref:fig-base-selex-fr) French goes here
 
@@ -288,9 +303,9 @@ plot_selex_mcmc(base_model, show_maturity = TRUE)
 
 <!-- Reference points -------------------------------------------------------->
 
-(ref:fig-base-ref-points-en) Reference point posterior distributions for the base model. Subscripts are 1 = Freezer trawlers and 2 = Shoreside.
+(ref:fig-base-ref-points-en) Posterior distributions for reference points and other values of interest for the base model. Subscripts are 1 = Freezer trawlers and 2 = Shoreside.
 
-(ref:fig-base-ref-points-fr) Distributions postérieures des points de référence pour le modèle de base. Les indices sont 1 = chalutiers congélateurs et 2 = chalutiers côtiers.
+(ref:fig-base-ref-points-fr) French here
 
 ```{r fig-base-ref-points, fig.cap = ifelse(fr(), "(ref:fig-base-ref-points-fr)", "(ref:fig-base-ref-points-en)")}
 plot_ref_points(base_model)
