@@ -214,7 +214,9 @@ if(fr()){
 # Create growth.rds by running this manually and moving the file into the 'data' folder
 # growth <- export_mat_lw_age(survey_samples_syn, write_file = FALSE)
 # saveRDS(growth, file.path(dirname(here()), "arrowtooth-nongit/data/growth.rds"))
-table_growth_params(digits = 3,
+table_growth_params(base_model,
+                    digits = 3,
+                    alpha_digits = 8,
                     caption = cap)
 
 ```
