@@ -220,6 +220,8 @@ table_sens_param_changes(sens_models_text_no_base,
                          caption = cap)
 ```
 
+\clearpage
+
 ```{r decision-table, results = "asis"}
 cap <- paste0("Decision table for the base model showing posterior probabilities that ", base_model$dat$end.yr + 2, " projected biomass is below selected reference points and benchmarks (Table \\ref{tab:reference-points-table}). An example of how to read this table is: For a catch of 4,000 t (row 3) there is a ", f(as.numeric(table_dec[3, ])[2] * 100, 1), "\\% chance that the ", base_model$dat$end.yr + 2, " biomass will fall below the LRP of $0.2B_0$, a ", f(as.numeric(table_dec[3, ])[3] * 100, 1), "\\% chance that it will fall below the USR of $0.4B_0$, and a ", f(as.numeric(table_dec[3, ])[4] * 100, 1), "\\% chance that the biomass in ", base_model$dat$end.yr + 2, " will be less than the biomass in ", base_model$dat$end.yr + 1, ".")
 if(fr()){
