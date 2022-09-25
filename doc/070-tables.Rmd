@@ -72,11 +72,9 @@ table_index_values(base_model,
 ```
 
 ```{r param-settings-table, results = "asis"}
-cap <- paste0("Parameters and prior probability distributions used ",
-              "in the base model.")
+cap <- paste0("Parameters and prior probability distributions used in the base model.")
 if(fr()){
-cap <- paste0("Paramètres et distributions de probabilité antérieures ",
-              "utilisés dans le modèle de base.")
+cap <- paste0("Paramètres et distributions de probabilité antérieures utilisés dans le modèle de base.")
 }
 
 table_param_settings(base_model,

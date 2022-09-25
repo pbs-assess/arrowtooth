@@ -20,6 +20,23 @@ cowplot::plot_grid(
 
 ```
 
+(ref:fig-bridge3-pairs-en) Pairs plots for MCMC estimated parameters in the bridging model in which data from 2015--2021 are added. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
+
+(ref:fig-bridge3-pairs-fr) French here
+
+```{r fig-bridge3-pairs, fig.cap = ifelse(fr(), "(ref:fig-bridge3-pairs-fr)", "(ref:fig-bridge3-pairs-en)")}
+plot_pairs_mcmc(models$bridge_grps[[1]][[3]],
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
+
 (ref:fig-bridge-group2-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the second group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
 
 (ref:fig-bridge-group2-biomass-fr) French caption here
