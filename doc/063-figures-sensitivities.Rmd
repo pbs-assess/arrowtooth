@@ -90,8 +90,7 @@ plot_biomass_mcmc(models$sens_grps[[2]],
 plot_index_mcmc(models$sens_grps[[2]],
                 type = "fits",
                 surv_index = survey_index,
-                leg_loc = "facet",
-                base_color = "royalblue")
+                leg_loc = "facet")
 
 ```
 
@@ -139,8 +138,7 @@ plot_index_mcmc(models$sens_grps[[3]],
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = "facet",
-                text_title_size = NULL,
-                base_color = "royalblue")
+                text_title_size = NULL)
 
 ```
 

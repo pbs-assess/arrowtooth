@@ -155,8 +155,7 @@ plot_index_mcmc(base_model,
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = NULL,
-                text_title_size = NULL,
-                base_color = "royalblue")
+                text_title_size = NULL)
 ```
 
 (ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in `r iscam`. The vertical lines represent the 95% CIs for those posteriors.
@@ -168,7 +167,7 @@ plot_index_mcmc(base_model,
                 type = "resids",
                 surv_index = survey_index,
                 leg_loc = NULL,
-                text_title_size = NULL, base_color = "royalblue")
+                text_title_size = NULL)
 ```
 
 \clearpage

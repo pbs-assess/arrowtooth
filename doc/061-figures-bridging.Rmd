@@ -66,8 +66,7 @@ plot_index_mcmc(models$bridge_grps[[1]],
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = "facet",
-                text_title_size = NULL,
-                base_color = "royalblue")
+                text_title_size = NULL)
 ```
 
 (ref:fig-bridge-group2-index-en) MCMC fits to the indices of abundance for the second group of bridging models.
@@ -81,8 +80,7 @@ plot_index_mcmc(models$bridge_grps[[2]],
                 leg_loc = c(0.55, 1),
                 leg_size = 0.3,
                 leg_text_size = 3,
-                text_title_size = NULL,
-                base_color = "royalblue")
+                text_title_size = NULL)
 ```
 
 (ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the third group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
