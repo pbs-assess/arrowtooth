@@ -51,7 +51,7 @@ The following three attributes were used to filter the age data for the commerci
 All available age data from the synoptic surveys were used.
 
 **Years**
-Age data from 1996 to 2019 were used. There is no age data available after 2019.
+Age data from 1996 to 2019 were used. There was no age data available after 2019.
 
 **Quarters of the year**
 1 = January 1 - March 31
@@ -65,7 +65,7 @@ Coastwide, defined as areas 3CD and 5ABCDE aggregated.
 **Sex**
 Males and females only. Some records have the sex recorded as unknown or unsexed. Those records along with records with NULL sex were removed.
 ## Commercial Trawl Fishery
-Observations within a sample are likely to be correlated due to the small area which is trawled in a single fishing event. In addition, trip samples may be correlated due to single vessel fishing practices. This algorithm calculates a sex-specifc mean weight by trip, calculated from individual sex-specific length observations converted to weight using Eq. XX, then uses Eqs.XX–XX to estimate proportion of females.
+Observations within a sample are likely to be correlated due to the small area which is trawled in a single fishing event. In addition, trip samples may be correlated due to single vessel fishing practices. This algorithm calculates a sex-specifc mean weight by trip, calculated from individual sex-specific length observations converted to weight using Eq. \@ref(eq:specimen-wt), then uses Eqs. \@ref(eq:sample-wt)-–\@ref(eq:prop-female) to estimate proportion of females.
 
 ## Synoptic Surveys
 For surveys,the same algorithm is followed except that the quarter of the year is not included in the calculation. This is because the surveys are single events which occur during the summer months only.
@@ -154,8 +154,8 @@ Tables \@ref(tab:prop-female-comm-weights-table) and \@ref(tab:prop-female-surv-
 
 ```{r prop-female-table, results = "asis"}
 
-cap <- paste0("Proportion of female ", sp, " in the commercial trawl fishery and ",
-              "three synoptic surveys coastwide")
+cap <- paste0("Proportion of female ", sp, " in the commercial trawl fishery and four synoptic surveys coastwide. The survey acronyms stand for QCS = ", qcs, ", HS = ", hss, ", WCVI = ", wcvis, " and WCHG = ", wchgs, ".")
+              
 if(fr()){
   cap <- paste0("French here")
 }
@@ -165,19 +165,24 @@ table_prop_female(prop_female_lst, digits = 2, caption = cap)
 ```
 
 ```{r prop-female-comm-weights-table, results = "asis"}
-cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp,
-              " in the commercial trawl fishery")
+cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp, "in the commercial trawl fishery. See Table \\ref{tab:prop-female-table} for survey acronym meanings.")
 if(fr()){
   cap <- paste0("French here")
 }
-table_prop_female_weights(dat$commercial_samples, end_yr = 2019, caption = cap)
+table_prop_female_weights(dat$commercial_samples,
+                          end_yr = 2019,
+                          caption = cap,
+                          col_widths = "5em")
 ```
 
 ```{r prop-female-surv-weights-table, results = "asis"}
-cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp,
-              " in the synoptic surveys")
+cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp, " in the synoptic surveys. See Table \\ref{tab:prop-female-table} for survey acronym meanings.")
 if(fr()){
   cap <- paste0("French here")
 }
-table_prop_female_weights(dat$survey_samples, type = "survey", end_yr = 2019, caption = cap)
+table_prop_female_weights(dat$survey_samples,
+                          type = "survey",
+                          end_yr = 2019, 
+                          caption = cap,
+                          col_widths = "5em")
 ```

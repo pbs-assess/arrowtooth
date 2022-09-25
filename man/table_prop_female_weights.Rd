@@ -10,6 +10,7 @@ table_prop_female_weights(
   end_yr = 2019,
   ord = c("QCS", "HS", "WCVI", "WCHG"),
   return_df = FALSE,
+  col_widths = NULL,
   ...
 )
 }
@@ -26,6 +27,9 @@ table_prop_female_weights(
 in the order you want them in the output. If \code{NULL}, order will be ignored}
 
 \item{return_df}{If \code{TRUE}, return a data .frame instead of a}
+
+\item{col_widths}{Widths for columns, except the Parameter column
+the \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 
 \item{...}{Arguments passed to \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 }

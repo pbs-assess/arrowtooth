@@ -54,6 +54,8 @@ table_prop_female <- function(prop_lst,
 #' @param ord A vector of survey names as they appear in the output data frame,
 #' in the order you want them in the output. If `NULL`, order will be ignored
 #' @param return_df If `TRUE`, return a data .frame instead of a
+#' @param col_widths Widths for columns, except the Parameter column
+#' the [csasdown::csas_table()]
 #' @param end_yr The last year to include in the table
 #' [csasdown::csas_table()]
 #' @param ... Arguments passed to [csasdown::csas_table()]
@@ -65,6 +67,7 @@ table_prop_female_weights <- function(samples = NULL,
                                       end_yr = 2019,
                                       ord = c("QCS", "HS", "WCVI", "WCHG"),
                                       return_df = FALSE,
+                                      col_widths = NULL,
                                       ...){
 
   type <- match.arg(type)
@@ -115,6 +118,11 @@ table_prop_female_weights <- function(samples = NULL,
     end_rows <- end_rows[-length(end_rows)]
     tab <- tab |>
       row_spec(end_rows, hline_after = TRUE)
+  }
+
+  if(!is.null(col_widths)){
+    tab <- tab |>
+      column_spec(2:ncol(d), width = col_widths)
   }
 
   tab
