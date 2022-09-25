@@ -1,7 +1,7 @@
 
 ```{r appendix-data-para-1-en, eval = !fr(), results = 'asis'}
 cat("# BIOLOGICAL DATA APPENDIX {#app:bio-data-appendix}
-This appendix summarizes the biological data for `r sp` in `r bc`. The length and age compositions collected from both surveys and commercial sources are illustrated (Figures \@ref(fig:fig-lengths) and \@ref(fig:fig-ages)); however, all biological parameters were estimated from synoptic survey data only. The values used in the assessment were aggregated from the four synoptic surveys that are each run biennially off the West coast of `r bc`: the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
+This appendix summarizes the biological data for `r sp` in `r bc`. The length and age compositions collected from both surveys and commercial sources are illustrated (Figures \@ref(fig:fig-lengths) and \@ref(fig:fig-ages)); however, all biological parameters were estimated from synoptic survey data only. The values used in the assessment (Table \@ref(tab:growth-params-table)) were aggregated from the four synoptic surveys that are each run biennially off the West coast of `r bc`: the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
 ```
 
 ```{r appendix-data-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
@@ -431,3 +431,28 @@ grid.arrange(grobs = ma_plot_lst,
              ncol = 2,
              left = paste0(tr("Probability mature")))
 ```
+
+\clearpage
+
+```{r appendix-data-para-5-en, eval = !fr(), results = 'asis'}
+cat("## TABLES
+")
+```
+
+```{r appendix-data-para-5-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<appendix-data-para-5-en>>
+```
+
+```{r growth-params-table, results = "asis"}
+cap <- paste0("Growth parameters estimated outside the ", iscam, " model. All parameters were estimated using samples from the four synoptic surveys, and were filtered to include areas 3CD and 5ABCDE only. For the age-at-50\\% maturity estimates, the following values were used to further filter the data: maturity\\_convention\\_code = 4 (flatfish), maturity\\_code = 5 (Male - Spawning, testes large, white and sperm evident), (Female - Ripe, ovaries containing entirely translucent, mature ova. eggs loose and will run from oviducts under slight pressure), and usability codes = 0 (Unknown), 1 (Fully usable), 2 (Fail, but all data usable), 6 (Gear torn, all data ok).")
+if(fr()){
+  cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ".")
+}
+
+table_growth_params(base_model,
+                    digits = 3,
+                    alpha_digits = 7,
+                    caption = cap)
+
+```
+

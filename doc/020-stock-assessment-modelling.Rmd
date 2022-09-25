@@ -170,7 +170,7 @@ Females have been sampled more often than males in both fleets. This difference 
 
 ```{r sam-growth-parameters-en, eval = !fr(), results = 'asis'}
 cat("### Growth parameters
-Growth parameters were estimated outside the `r iscam` framework. They were input into data files for the stock assessment model. The growth parameters estimated for the base model are found in Table \@ref(tab:growth-params-table).
+Growth parameters were estimated outside the `r iscam` framework. They were input into data files for the stock assessment model. Appendix \@ref(app:bio-data-appendix) contains details including equations and the estimated growth parameter values for the base model in Table \@ref(tab:growth-params-table).
 ")
 ```
 
