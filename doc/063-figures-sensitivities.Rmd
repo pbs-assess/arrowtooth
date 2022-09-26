@@ -239,24 +239,25 @@ plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
                    lwd = 2)
 ```
 
-(ref:fig-sens-qcs-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
+(ref:fig-sens-qcs-autocor-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
 
-(ref:fig-sens-qcs-sel-fr) French here
+(ref:fig-sens-qcs-autocor-sel-fr) French here
 
-```{r fig-sens-qcs-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-sel-fr)", "(ref:fig-sens-qcs-sel-en)")}
+```{r fig-sens-qcs-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-autocor-sel-fr)", "(ref:fig-sens-qcs-autocor-sel-en)")}
 plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
                    plot_sel = TRUE, 
                    text_title_size = NULL,
                    lag_max = 1000,
+                   rows_cols = c(7, 4),
                    col = "blue",
                    lwd = 2)
 ```
 
-(ref:fig-sens-qcs-tv-trace-en) Trace plots for non-selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace) for parameter and subscript descriptions.
+(ref:fig-sens-qcs-trace-tv-en) Trace plots for non-selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace) for parameter and subscript descriptions.
 
-(ref:fig-sens-qcs-tv-trace-fr) French here
+(ref:fig-sens-qcs-trace-tv-fr) French here
 
-```{r fig-sens-qcs-trace-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-trace-fr)", "(ref:fig-sens-qcs-tv-trace-en)")}
+```{r fig-sens-qcs-trace-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-trace-tv-fr)", "(ref:fig-sens-qcs-trace-tv-en)")}
 plot_traces_mcmc(models$sens_grps[[4]][[3]],
                  plot_sel = FALSE, 
                  param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
@@ -265,11 +266,11 @@ plot_traces_mcmc(models$sens_grps[[4]][[3]],
                  text_title_size = NULL)
 ```
 
-(ref:fig-sens-qcs-tv-trace-sel-en) Trace plots for selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-autocor-selex) for parameter and subscript descriptions.
+(ref:fig-sens-qcs-trace-sel-tv-en) Trace plots for selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-autocor-selex) for parameter and subscript descriptions.
 
-(ref:fig-sens-qcs-tv-trace-sel-fr) French here
+(ref:fig-sens-qcs-trace-sel-tv-fr) French here
 
-```{r fig-sens-qcs-trace-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-trace-sel-fr)", "(ref:fig-sens-qcs-tv-trace-sel-en)")}
+```{r fig-sens-qcs-trace-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-trace-sel-tv-fr)", "(ref:fig-sens-qcs-trace-sel-tv-en)")}
 plot_traces_mcmc(models$sens_grps[[4]][[3]],
                  plot_sel = TRUE, 
                  text_title_size = NULL,
