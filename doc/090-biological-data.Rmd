@@ -54,7 +54,7 @@ where $P_{a_s}$ is the observed proportion mature at age $a_s$ for sex $s$.
 The same equation can also be applied to lengths instead of ages. We applied Eq. \@ref(eq:mat-at-age) to survey observations of both age and length from the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-mat)).
 
 \clearpage
-## Figures
+## FIGURES
 ")
 ```
 

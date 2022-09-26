@@ -124,7 +124,7 @@ The relative abundance data are assumed to be proportional to spawning biomass t
 \[\sigma_{k,t} = \frac{\rho \varphi^2}{\omega_{k,t}} \label{eq:df7}\]
 where $\rho \varphi^2$ is the proportion of the total error that is associated with observation errors, and $\omega_{k,t}$ is a user specified relative weight for observation $t$ from gear $k$.
 
-The $\omega_{k,t}$ terms allow each observation to be weighted relative to the total error $\rho \varphi^2$. Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df5) is undefined; therefore, `r iscam` adds a small constant to $\omega_{k,t}$ ($e^{-10}$, which is equivalent to assuming an extremely large variance) to ensure the likelihood can be evaluated. In this assessment, values for $\omega_{k,t}$ were set to the inverse of the annual CVs from the survey or Discard CPUE index (Table \@ref(tab:XX)).")
+The $\omega_{k,t}$ terms allow each observation to be weighted relative to the total error $\rho \varphi^2$. Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df5) is undefined; therefore, `r iscam` adds a small constant to $\omega_{k,t}$ ($e^{-10}$, which is equivalent to assuming an extremely large variance) to ensure the likelihood can be evaluated. In this assessment, values for $\omega_{k,t}$ were set to the inverse of the annual CVs from the survey or Discard CPUE index (Table \@ref(tab:survey-index-data-table)).")
 ```
 
 ```{r app-model-eq-para-6-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
