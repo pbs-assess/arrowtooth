@@ -57,17 +57,17 @@ cowplot::plot_grid(
 
 ```
 
-(ref:fig-bridge-group1-index-en) MCMC fits to the indices of abundance for the first group of bridging models.
+<!-- (ref:fig-bridge-group1-index-en) MCMC fits to the indices of abundance for the first group of bridging models. -->
 
-(ref:fig-bridge-group1-index-fr) French caption here
+<!-- (ref:fig-bridge-group1-index-fr) French caption here -->
 
-```{r bridge-index-group1, fig.cap = ifelse(fr(), "(ref:fig-bridge-group1-index-fr)", "(ref:fig-bridge-group1-index-en)"), out.width = "100%"}
-plot_index_mcmc(models$bridge_grps[[1]],
-                type = "fits",
-                surv_index = survey_index,
-                leg_loc = "facet",
-                text_title_size = NULL)
-```
+<!-- ```{r bridge-index-group1, fig.cap = ifelse(fr(), "(ref:fig-bridge-group1-index-fr)", "(ref:fig-bridge-group1-index-en)"), out.width = "100%"} -->
+<!-- plot_index_mcmc(models$bridge_grps[[1]], -->
+<!--                 type = "fits", -->
+<!--                 surv_index = survey_index, -->
+<!--                 leg_loc = "facet", -->
+<!--                 text_title_size = NULL) -->
+<!-- ``` -->
 
 (ref:fig-bridge-group2-index-en) MCMC fits to the indices of abundance for the second group of bridging models.
 
@@ -82,6 +82,15 @@ plot_index_mcmc(models$bridge_grps[[2]],
                 leg_text_size = 3,
                 text_title_size = NULL)
 ```
+
+(ref:fig-bridge-group2-sel-en) Selectivity estimates for the split-sex bridging model.
+
+(ref:fig-bridge-group2-sel-fr) French caption here
+
+```{r bridge-group2-sel, fig.cap = ifelse(fr(), "(ref:fig-bridge-group2-sel-fr)", "(ref:fig-bridge-group2-sel-en)"), out.width = "100%"}
+plot_selex_mcmc(models$bridge_grps[[2]][[4]], show_maturity = TRUE)
+```
+
 
 (ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the third group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
 
@@ -101,6 +110,23 @@ cowplot::plot_grid(
                     ylim = c(0, 1.5)),
   ncol = 2)
 
+```
+
+(ref:fig-bridge10-pairs-en) Pairs plots for MCMC estimated parameters in the bridging model for which the WCHG index was removed. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
+
+(ref:fig-bridge10-pairs-fr) French here
+
+```{r fig-bridge10-pairs, fig.cap = ifelse(fr(), "(ref:fig-bridge10-pairs-fr)", "(ref:fig-bridge10-pairs-en)")}
+plot_pairs_mcmc(models$bridge_grps[[3]][[2]],
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
 ```
 
 <!-- (ref:fig-bridge-index-resids) Log standardized residuals for the indices used in the first four bridge models. -->

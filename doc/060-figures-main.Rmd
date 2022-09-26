@@ -174,7 +174,7 @@ plot_index_mcmc(base_model,
 
 <!-- Age fits and residuals -------------------------------------------------->
 
-(ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% CIs. The solid red line that connects the median posterior points is shown for aesthetics.
+(ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% CIs. The panel labels are the total number of specimens (sex aggregated) fit for the year. The solid red line that connects the median posterior points is shown for aesthetics.
 
 (ref:fig-base-age-fits-ft-fr) French here
 
@@ -192,7 +192,7 @@ plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL)
 
 \clearpage
 
-(ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% CIs. The solid red line that connects the median posterior points is shown for aesthetics.
+(ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. The black dots with vertical bars are the age composition data points. The red points are the medians of the posteriors for each age. The red shaded area with dotted edge represents the 95% CIs. The panel labels are the total number of specimens (sex aggregated) fit for the year. The solid red line that connects the median posterior points is shown for aesthetics.
 
 (ref:fig-base-age-fits-ss-firsthalf-fr) French here
 
@@ -200,7 +200,7 @@ plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL)
 plot_age_fits_mcmc(base_model, gear = 2, yrs = 1996:2007, text_title_size = NULL)
 ```
 
-(ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-firsthalf-ss) for plot details.
+(ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-firsthalf-ss) for plot details. The panel labels are the total number of specimens (sex aggregated) fit for the year.
 
 (ref:fig-base-age-fits-ss-secondhalf-fr) French here
 
