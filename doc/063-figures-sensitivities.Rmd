@@ -2,7 +2,7 @@
 
 <!-- Vartheta and sigma, and steepness  -------------------------------------->
 
-(ref:fig-sens-variance-en) Spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ parameters (due to changes to $\sigma$ and $\tau$), and steepness ($h$) parameter. The $B_0$ estimates for the '`r names(models$sens_grps[[1]])[2]`' and '`r names(models$sens_grps[[1]])[3]`' models are outside the axis limits. For the sake of clarity of the trajectories, they were left off the plot. They are estimated as `r sens_1_2_sbo$est` t and `r sens_1_3_sbo$est` t respectively.
+(ref:fig-sens-variance-en) Spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ parameters (due to changes to $\sigma$ and $\tau$), and steepness ($h$) parameter. The $B_0$ estimates for the '`r names(models$sens_grps[[1]])[2]`' and '`r names(models$sens_grps[[1]])[3]`' models are outside the axis limits. For the sake of clarity of the trajectories, they were left off the plot. They are estimated as `r sens_1_2_sbo$est` thousand t and `r sens_1_3_sbo$est` thousand t respectively.
 
 (ref:fig-sens-variance-fr) French here
 
@@ -239,11 +239,11 @@ plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
                    lwd = 2)
 ```
 
-(ref:fig-sens-qcs-tv-autocor-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
+(ref:fig-sens-qcs-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
 
-(ref:fig-sens-qcs-tv-autocor-sel-fr) French here
+(ref:fig-sens-qcs-sel-fr) French here
 
-```{r fig-sens-qcs-autocor-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-autocor-sel-fr)", "(ref:fig-sens-qcs-tv-autocor-sel-en)")}
+```{r fig-sens-qcs-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-sel-fr)", "(ref:fig-sens-qcs-sel-en)")}
 plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
                    plot_sel = TRUE, 
                    text_title_size = NULL,
