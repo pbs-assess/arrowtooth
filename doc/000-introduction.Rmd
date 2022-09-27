@@ -56,7 +56,7 @@ cat("`r sp` have a diet comprised of zooplankton, fish, and benthic invertebrate
 
 ```{r intro-para-08-en, eval = !fr(), results = 'asis'}
 cat("## FISHERY AND MANAGEMENT HISTORY {#intro-management}
-Prior to 2006 there were no limits on the amount of `r sp` that could be caught. In 2006 a TAC of 15,000 t was established and it remained at this level until 2017. In 2017 the TAC was increased to 17,500 t and remained there for two years until it was reduced to 14,000 t in 2019 as a precautionary measure to address concerns raised by the commercial trawl fleet about their oberved reduction in abundance of `r sp`. On January 30, 2020 GTAC recommended urgent, late changes to the 2020/21 Integrated Fisheries Management Plan (IFMP) to address declining `r sp` abundance on traditional fishing grounds [@dfomemo2020]. These changes included:
+Prior to 2006 there were no limits on the amount of `r sp` that could be caught. In 2006 a TAC of 15,000 t was established and it remained at this level until 2017. In 2017, the TAC was increased to 17,500 t and remained there for two years until it was reduced to 14,000~t in 2019 as a precautionary measure to address concerns raised by the commercial trawl fleet about their oberved reduction in abundance of `r sp`. On January 30, 2020 GTAC recommended urgent, late changes to the 2020/21 Integrated Fisheries Management Plan (IFMP) to address declining `r sp` abundance on traditional fishing grounds [@dfomemo2020]. These changes included:
 
 - Reducing the 2020/21 TAC from 14,000 t to 5,000 t
 - Reducing the 2019/20 quota carryover allowance from 30% to 10%

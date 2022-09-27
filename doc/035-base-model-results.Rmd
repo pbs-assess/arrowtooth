@@ -14,7 +14,7 @@ The model generally fit the indices of abundance well (Figure \@ref(fig:fig-base
 
 The `r dcpue` fit particularly well and is the only index to have a value for every year in the assessment. Standardized residuals show mostly even distribution of positive and negative residuals, with evidence of some autocorrelation in the `r dcpue` residuals (Figure \@ref(fig:fig-base-index-resids)). For all indices, the log index residuals (Figure \@ref(fig:fig-base-index-resids)) were good, with all being in the [-2, 2] range.
 
-Fits to age compositions for each gear, and log standardized residuals are shown in Figures \@ref(fig:fig-base-age-fits-ft)--\@ref(fig:fig-base-age-resids-wcvis). Fits were reasonable and there were no strong patterns in the residuals. The log residuals were all bounded by [-2, 2] except for very few outliers. Overall there was a slight tendency toward overfitting the age compositions with this model.")
+Fits to age compositions for each gear, and log standardized residuals are shown in Figures \@ref(fig:fig-base-age-fits-ft)--\@ref(fig:fig-base-age-resids-wcvis). Fits were reasonable and there were no strong patterns in the residuals. The log residuals were all bounded by [-2, 2] except for a limited number of outliers. Overall there was a slight tendency toward overfitting the age compositions with this model.")
 ```
 
 ```{r scam-results-fits-to-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
