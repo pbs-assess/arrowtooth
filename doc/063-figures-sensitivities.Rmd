@@ -202,7 +202,7 @@ plot_autocorr_mcmc(models$sens_grps[[4]][[2]],
 
 (ref:fig-sens-sel-eq-mat-autocor-sel-fr) French here
 
-```{r fig-sens-sel-eq-mat-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-autocor-sel-fr)", "(ref:fig-sens-sel-eq-mat-autocor-sel-en)")}
+```{r fig-sens-sel-eq-mat-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-autocor-sel-fr)", "(ref:fig-sens-sel-eq-mat-autocor-sel-en)"), fig.asp = 1}
 plot_autocorr_mcmc(base_model,
                    plot_sel = TRUE, 
                    text_title_size = NULL,
@@ -243,7 +243,7 @@ plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
 
 (ref:fig-sens-qcs-autocor-sel-fr) French here
 
-```{r fig-sens-qcs-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-autocor-sel-fr)", "(ref:fig-sens-qcs-autocor-sel-en)")}
+```{r fig-sens-qcs-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-autocor-sel-fr)", "(ref:fig-sens-qcs-autocor-sel-en)"), fig.asp = 1}
 plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
                    plot_sel = TRUE, 
                    text_title_size = NULL,
@@ -270,7 +270,7 @@ plot_traces_mcmc(models$sens_grps[[4]][[3]],
 
 (ref:fig-sens-qcs-trace-sel-tv-fr) French here
 
-```{r fig-sens-qcs-trace-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-trace-sel-tv-fr)", "(ref:fig-sens-qcs-trace-sel-tv-en)")}
+```{r fig-sens-qcs-trace-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-trace-sel-tv-fr)", "(ref:fig-sens-qcs-trace-sel-tv-en)"),  fig.asp = 1}
 plot_traces_mcmc(models$sens_grps[[4]][[3]],
                  plot_sel = TRUE, 
                  text_title_size = NULL,

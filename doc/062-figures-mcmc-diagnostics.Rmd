@@ -19,7 +19,7 @@ plot_priors_posts_mcmc(base_model,
 
 (ref:fig-base-trace-fr) French here
 
-```{r fig-base-trace, fig.cap = ifelse(fr(), "(ref:fig-base-trace-fr)", "(ref:fig-base-trace-en)")}
+```{r fig-base-trace, fig.cap = ifelse(fr(), "(ref:fig-base-trace-fr)", "(ref:fig-base-trace-en)"), fig.asp = 1}
 plot_traces_mcmc(base_model,
                  plot_sel = FALSE, 
                  param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
@@ -32,7 +32,7 @@ plot_traces_mcmc(base_model,
 
 (ref:fig-base-autocor-fr) French here
 
-```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)")}
+```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)"), fig.asp = 1}
 plot_autocorr_mcmc(base_model,
                    plot_sel = FALSE, 
                    param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
@@ -49,7 +49,7 @@ plot_autocorr_mcmc(base_model,
 
 (ref:fig-base-trace-selex-fr) French here
 
-```{r fig-base-trace-selex, fig.cap = ifelse(fr(), "(ref:fig-base-trace-selex-fr)", "(ref:fig-base-trace-selex-en)")}
+```{r fig-base-trace-selex, fig.cap = ifelse(fr(), "(ref:fig-base-trace-selex-fr)", "(ref:fig-base-trace-selex-en)"), fig.asp = 1}
 plot_traces_mcmc(base_model,
                  plot_sel = TRUE, 
                  text_title_size = NULL)
@@ -59,7 +59,7 @@ plot_traces_mcmc(base_model,
 
 (ref:fig-base-autocor-selex-fr) French here
 
-```{r fig-base-autocor-selex, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-selex-fr)", "(ref:fig-base-autocor-selex-en)")}
+```{r fig-base-autocor-selex, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-selex-fr)", "(ref:fig-base-autocor-selex-en)"), fig.asp = 1}
 plot_autocorr_mcmc(base_model, 
                    plot_sel = TRUE, 
                    text_title_size = NULL,
@@ -72,7 +72,7 @@ plot_autocorr_mcmc(base_model,
 
 (ref:fig-base-pairs-fr) Diagrammes de paires pour les paramètres estimés par MCMC dans le modèle de base. Les lignes dans les tracés de points dans les panneaux triangulaires inférieurs sont des modèles linéaires avec des intervalles de confiance à 95% ombrés. Les tracés de lignes dans les panneaux diagonaux représentent la densité des valeurs des paramètres, et les valeurs dans les panneaux triangulaires supérieurs sont les corrélations entre les paramètres, la taille du texte étant directement proportionnelle à la valeur absolue de ces valeurs. Voir la figure \@ref(fig:fig-base-trace) pour la description des paramètres.
 
-```{r fig-base-pairs, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-fr)", "(ref:fig-base-pairs-en)")}
+```{r fig-base-pairs, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-fr)", "(ref:fig-base-pairs-en)"), fig.asp = 1}
 plot_pairs_mcmc(base_model,
                 plot_sel = FALSE,
                 param_rm = c("m1", "m2", "rho", "ssb",
@@ -89,7 +89,7 @@ plot_pairs_mcmc(base_model,
 
 (ref:fig-base-pairs-sel-fr) French here
 
-```{r fig-base-pairs-sel, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-sel-fr)", "(ref:fig-base-pairs-sel-en)")}
+```{r fig-base-pairs-sel, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-sel-fr)", "(ref:fig-base-pairs-sel-en)"), out.width = "6.5in", fig.asp = 1}
 # Remove 4 and 7 because they are fixed in the model (HSMAS and DCPUE indices) and will produce NAs
 plot_pairs_mcmc(base_model,
                 plot_sel = TRUE,

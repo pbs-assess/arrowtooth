@@ -1,3 +1,5 @@
+\clearpage
+
 ```{r tables-01-en, eval = !fr(), results = 'asis'}
 cat("# TABLES")
 ```
