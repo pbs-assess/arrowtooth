@@ -111,7 +111,7 @@ plot_biomass_mcmc(base_model,
 
 <!-- Vulnerable spawning biomass --------------------------------------------->
 
-(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two blue vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours. A closer view of the vulnerable biomass by fleet is in Figure \@ref(fig:fig-base-sb-vuln).
+(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two blue vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours.
 
 (ref:fig-base-sb-vuln-compare-fr) French here
 
@@ -121,17 +121,6 @@ plot_vuln_mcmc(base_model,
                quant_df = "sbt_quants",
                angle_x_labels = TRUE,
                ylim = c(0, 250))
-```
-
-(ref:fig-base-sb-vuln-en) Vulnerable biomass of `r sp` for the two commercial fleets in the base model. The black line is the median of the posterior and the shaded ribbon is the 95% CI.
-
-(ref:fig-base-sb-vuln-fr) French here
-
-```{r fig-base-sb-vuln, fig.cap = ifelse(fr(), "(ref:fig-base-sb-vuln-fr)", "(ref:fig-base-sb-vuln-en)")}
-plot_vuln_mcmc(base_model,
-               angle_x_labels = TRUE,
-               ylim = c(0, 7),
-               text_title_size = NULL)
 ```
 
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The black points are the medians of the posteriors, the vertical black lines are the 95% CIs for the posteriors, the point at $R_0$ is the median estimate for the initial recruitment parameter $R_0$, and the vertical line over that point and shaded ribbon across the time series is the 95% CI for $R_0$.

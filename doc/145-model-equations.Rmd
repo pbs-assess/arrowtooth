@@ -1,7 +1,7 @@
 ```{r app-model-eq-para-1-en, eval = !fr(), results = 'asis'}
 cat("# MODEL DESCRIPTION {#app:model-desc}
 ## Introduction
-Stock Assessment modelling was done using the Integrated Statistical Catch Age Model (`r iscam`), developed by S. Martell [@martell2011]. `r iscam` was written using the AD Model Builder framework. `r iscam` is a statistical catch-at-age model with many modelling options implemented in a Bayesian estimation framework. The authors have modified `r iscam` substantially over the years, and further extensive modifications were made for this assessment. The package [gfiscam](https://github.com/pbs-assess/gfiscam), on the WSL2 branch contains all code and Makefiles necessary to compile `r iscam` to run the models presented in this assessment.
+Stock Assessment modelling was done using the Integrated Statistical Catch Age Model (`r iscam`), developed by S. Martell [@martell2011]. `r iscam` was written using the AD Model Builder framework. `r iscam` is a statistical catch-at-age model with many modelling options implemented in a Bayesian estimation framework. The authors have modified `r iscam` substantially over the years, and further extensive modifications were made for this assessment. The package [gfiscam](https://github.com/pbs-assess/gfiscam), on the [WSL2](https://github.com/pbs-assess/gfiscam/tree/wsl2) branch contains all code and Makefiles necessary to compile `r iscam` to run the models presented in this assessment.
 
 The execution of all `r iscam` models was performed in Linux using Bourne again shell (Bash) scripts. Compilation of results, and generation of tables and figures was done in R using the [gfiscamutils](https://github.com/pbs-assess/gfiscamutils) package developed by the authors.
 
