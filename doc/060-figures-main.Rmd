@@ -10,7 +10,7 @@
 L'échelle de couleurs est transformée en log10. 
 Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y a au moins trois bateaux uniques dans une cellule donnée pour qu’on puisse satisfaire aux exigences en matière de confdentialité.
 
-```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)"), out.width = "6in"}
+```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)"), out.width = "6in", eval=user!="seananderson"}
 ## if the location of labels needs moving...
 # labels <- gfplot:::boundary_labels(9, xmin = 120)
 # labels[labels$label %in% c("4B"),]$X <- 885
@@ -33,7 +33,7 @@ L'échelle de couleurs est transformée en log10.
 Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y a au moins trois bateaux uniques dans une cellule donnée pour qu’on puisse satisfaire aux exigences en matière de confdentialité.
 
 
-```{r fig-cpue-spatial, fig.cap = ifelse(fr(), "(ref:fig-cpue-spatial-fr)", "(ref:fig-cpue-spatial-en)"), out.width = "6in"}
+```{r fig-cpue-spatial, fig.cap = ifelse(fr(), "(ref:fig-cpue-spatial-fr)", "(ref:fig-cpue-spatial-en)"), out.width = "6in",eval=user!="seananderson"}
 plot_cpue_spatial(dat$cpue_spatial, 
                   show_majorbound = TRUE, 
                   start_year = base_model$dat$start.yr,
