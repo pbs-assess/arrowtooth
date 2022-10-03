@@ -164,7 +164,7 @@ if(user == "grandin"){
   library(gfiscamutils)
   library(csasdown)
 }
-# library(gfplot)
+library(gfplot)
 library(gfutilities)
 library(ggplot2)
 library(gridExtra)
