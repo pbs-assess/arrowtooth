@@ -8,6 +8,7 @@ _book
 _bookdown_*
 _main*
 all.bib
+assessment-main.md
 csas-style
 header-attrs
 knitr-cache
@@ -16,6 +17,7 @@ knitr-cache-pdf
 knitr-cache-tex
 knitr-figs-docx
 knitr-figs-pdf
+libs/
 lightable.css
 models*
 reference-materials
