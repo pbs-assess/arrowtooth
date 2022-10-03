@@ -1,0 +1,718 @@
+---
+title: "Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2021"
+subtitle: "Assessment model"
+author: "C. Grandin, S. Anderson, P. English"
+institute: "DFO"
+date: "Slides compiled on `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "xaringan-themer.css", "code-custom.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+background-image: url(figures/arrowtooth_flounder.jpeg)
+
+```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
+library(knitr)
+if (is_latex_output()) {
+  knitr_figs_dir <- "knitr-figs-pdf/"
+  knitr_cache_dir <- "knitr-cache-pdf/"
+  fig_out_type <- "png"
+} else {
+  knitr_figs_dir <- "knitr-figs-docx/"
+  knitr_cache_dir <- "knitr-cache-docx/"
+  fig_out_type <- "png"
+}
+fig_asp <- 0.618
+fig_width <- 8
+fig_out_width <- "5.5in"
+fig_dpi <- 180
+fig_align <- "center"
+fig_pos <- "H"
+user <- Sys.info()[["user"]]
+opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  results = 'hide',
+  comment = "#>",
+  fig.path = knitr_figs_dir,
+  cache.path = knitr_cache_dir,
+  fig.asp = fig_asp,
+  fig.width = fig_width,
+  out.width = fig_out_width,
+  echo = FALSE,
+  # autodep = isTRUE(user %in% "seananderson"),
+  # cache = isTRUE(user %in% "seananderson"),
+  cache.comments = FALSE,
+  dev = fig_out_type,
+  dpi = fig_dpi,
+  fig.align = fig_align,
+  fig.pos = fig_pos
+)
+options(
+  # Prevent xtable from adding a timestamp comment to the table code
+  # it produces
+  xtable.comment = FALSE,
+  # Don't allow kableExtra to load packages, we add them manually in
+  # csasdown
+  kableExtra.latex.load_packages = FALSE,
+  # Stop chunk output (echo) running into the margins
+  width = 80,
+  # Don't use scientific notation (stops tables from showing 1.2e3, etc.)
+  scipen = 999)
+# Fixes weird bug where knitr::include_graphics() thinks the non-git folder
+# is relative
+options(knitr.graphics.rel_path = FALSE)
+```
+
+```{r library-setup, cache = FALSE, fig.keep='none'}
+# Libraries in alphabetical order
+
+library(devtools)
+library(dplyr)
+if(user == "grandin"){
+  load_all("d:/github/pbs-assess/gfiscamutils")
+  load_all("d:/github/pbs-assess/csasdown")
+}else if(user == "seananderson"){
+  library(gfiscamutils)
+  load_all("~/src/gfiscamutils/")
+  load_all("~/src/csasdown/")
+  load_all("~/src/gfplot/")
+} else {
+  library(gfiscamutils)
+  library(csasdown)
+}
+library(gfplot)
+library(gfutilities)
+library(ggplot2)
+library(gridExtra)
+library(here)
+library(kableExtra)
+library(purrr)
+library(rosettafish)
+library(tidylog, warn.conflicts = FALSE)
+devtools::load_all(".")
+```
+
+```{r include = FALSE}
+build_rds <- FALSE
+# Don't load the models if they already exist
+if(!exists("models") || !exists("drs"))
+  source(here("doc/load-models.R"), local = knitr::knit_global())
+```
+
+```{r data-setup, cache.lazy = FALSE}
+# This chunk requires that the chunk above that loads load-models.R is run
+
+bc <- "British Columbia"
+sp <- "Arrowtooth Flounder"
+iscam <- "ISCAM"
+
+month_fishing_starts <- 2
+day_fishing_starts <- 21
+
+data_dir <- file.path(drs$nongit_dir, "data")
+data_output_dir <- file.path(drs$nongit_dir, "data-output")
+
+if(!dir.exists(data_dir)){
+  stop("Data directory does not exist: ", data_dir, call. = FALSE)
+}
+iphc_file <- file.path(data_dir, "iphc-survey-index.rds")
+if(!file.exists(iphc_file)){
+  stop("IPHC file does not exist: ", iphc_file, call. = FALSE)
+}
+discard_cpue_file <- file.path(data_dir,
+"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year.csv")
+#"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-jan-1-year.csv")
+if(!file.exists(discard_cpue_file)){
+  stop("Discard CPUE file does not exist: ", discard_cpue_file, call. = FALSE)
+}
+stitched_syn_file <- file.path(data_dir, "stitched-syn-index.rds")
+if(!file.exists(stitched_syn_file)){
+  stop("Stitched Synoptics file does not exist: ", stitched_syn_file, call. = FALSE)
+}
+
+iphc <- readRDS(iphc_file)$series_ABCD_full$ser_longest
+discard_cpue <- read_csv(discard_cpue_file)
+stitched_syn <- readRDS(stitched_syn_file)
+
+dat <- readRDS(file.path(drs$nongit_dir, "data",
+                         "arrowtooth-flounder-aug11-2022.rds"))
+
+# Remove 2014 WCHG index point
+wchg_2014_row <- 
+  dat$survey_index$survey_abbrev == "SYN WCHG" & dat$survey_index$year == 2014
+if(any(wchg_2014_row)){
+  dat$survey_index <- dat$survey_index[-which(wchg_2014_row), ]
+}
+
+# These must be removed for call to add_extra_indices()
+survey_index <- dat$survey_index %>% 
+  select(-species_common_name, -species_science_name)
+survey_index <- add_extra_indices(survey_index, 
+                                  iphc = iphc,
+                                  discard_cpue = discard_cpue,
+                                  stitched_syn = stitched_syn)
+# Survey index for geostat
+geo_files <- dir(file.path(drs$nongit_dir, "survey-geostat"),
+                 full.names = TRUE,
+                 pattern = "^i-arrowtooth.*\\.rds$")
+ind_geo <- purrr::map_dfr(geo_files, readRDS)
+survey_index_geo <- ind_geo |>  filter(model == "no-depth") |> as_tibble()
+survey_index_geo <- survey_index_geo |>
+  rename(biomass = est,
+         lowerci = lwr,
+         upperci = upr,
+         re = se,
+         survey_abbrev = surveys) |>
+  mutate(num_sets = NA,
+         num_pos_sets = NA,
+         survey_series_id = NA,
+         survey_series_desc = "") |>
+  select(-c(log_est, species, survey, ssids, ssid_string,
+            family, anisotropy, spatiotemporal, share_range,
+            model, max_grad)) |>
+  select(year, biomass, lowerci, upperci,
+         re, num_sets, num_pos_sets,
+         survey_series_id, survey_abbrev, survey_series_desc) |>
+  add_extra_indices(discard_cpue = discard_cpue)
+# Add HS MSA survey so plot will work
+hs_multi <- survey_index |> filter(survey_abbrev == "OTHER HS MSA")
+survey_index_geo <- survey_index_geo |>
+  bind_rows(hs_multi)
+
+# Areas 3CD and 5ABCDE only 
+major_areas <- c("03","04", "05", "06", "07", "08", "09")
+tidy_areas <- c("3[CD]+", "5[ABCDE]+")
+survey_sets <- dat$survey_sets |> 
+  filter(major_stat_area_code %in% major_areas)
+survey_samples <- dat$survey_samples |> 
+  filter(major_stat_area_code %in% major_areas)
+survey_samples_syn <- survey_samples |> 
+  filter(survey_abbrev %in% c("SYN QCS",
+                              "SYN HS",
+                              "SYN WCVI",
+                              "SYN WCHG"))
+commercial_samples <- dat$commercial_samples |> 
+  filter(major_stat_area_code %in% major_areas)
+comm_ft <- extract_fleet_samples(commercial_samples)
+comm_ss <- extract_fleet_samples(commercial_samples, include = FALSE)
+
+# Aggregated commercial catch
+month_start <- 2
+day_start <- 21
+dat$catch <- dat$catch |> filter(year < 2022)
+catch <- tidy_catch(dat$catch,
+                    areas = tidy_areas,
+                    month_fishing_starts = month_start,
+                    day_fishing_starts = day_start)
+# Catch by fleet
+catch_ft <- extract_fleet_catch(dat$catch) |> 
+  tidy_catch(areas = tidy_areas,
+             month_fishing_starts = month_start,
+             day_fishing_starts = day_start)
+
+catch_ss <- extract_fleet_catch(dat$catch, include = FALSE) |> 
+  tidy_catch(areas = tidy_areas,
+             month_fishing_starts = month_start,
+             day_fishing_starts = day_start)
+
+cpue_spatial <- dat$cpue_spatial
+cpue_spatial_ll <- dat$cpue_spatial_ll
+age_precision <- dat$age_precision
+
+theme_set(gfiscam_theme())
+
+# Gear names are set in the data file for each model
+gear_names <- models$base_model[[1]]$dat$gear_names
+if(fr()){
+  # Translate all gear names to French
+  # Note 'Shoreside' is the same in both languages 
+  gear_names_fr <- map_chr(gear_names, ~{
+    if(.x == "HS Multispecies Assemblage"){
+      return("HS Assemblage multi-espèces")
+    }
+    if(grepl("Synoptic", .x)){
+      j <- str_split(.x, " ")[[1]]
+      paste(j[1], tr(j[2]))
+    }else{
+      tr(.x)
+    }
+  })
+  
+  models$base_model <- 
+    replace_gear_names(models$base_model,
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+  models$bridge_grps[[1]] <- 
+    replace_gear_names(models$bridge_grps[[1]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+  models$bridge_grps[[2]] <- 
+    replace_gear_names(models$bridge_grps[[2]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+}
+
+base_model <- models$base_model[[1]]
+
+base_all_gears <- gear_lu_table(base_model, "all")
+base_age_gears <- gear_lu_table(base_model, "age")
+base_index_gears <- gear_lu_table(base_model, "index")
+base_fleet_gears <- gear_lu_table(base_model, "fleet")
+
+mcmc_chain_length <- 10000000
+mcmc_num_samples <- 2000
+mcmc_sample_freq <- mcmc_chain_length / mcmc_num_samples
+mcmc_burn_in <- 1000
+mcmc_actual_samples <- mcmc_num_samples - mcmc_burn_in
+
+qcs <- "Queen Charlotte Sound Synoptic Survey"
+hsmas <- "Hecate Strait Multispecies Assemblage Survey"
+hss <- "Hecate Strait Synoptic Survey"
+wcvis <- "West Coast Vancouver Island Synoptic Survey"
+wchgs <- "West Coast Haida Gwaii Synoptic Survey"
+dcpue <- "Discard CPUE Index"
+
+la <- "2015 assessment"
+# tv_block1 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 1)$start_year),
+#                     "--", 
+#                     unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 1)$end_year))
+# tv_block2 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 2)$start_year),
+#                     "--", 
+#                     unique(filter(base_model$mcmccalcs$selest_quants,
+#                                   gear == "QCS Synoptic", block == 2)$end_year))
+
+# Text for selectivity block year ranges
+# qcs_tv_yr_start <- base_model$ctl$start.yr.time.block[3, ]
+# qcs_tv_yr_start[1] <- base_model$dat$start.yr
+# qcs_tv_yr_end <- c(qcs_tv_yr_start[2:length(qcs_tv_yr_start)] - 1,
+#                    base_model$dat$end.yr)
+# if(length(qcs_tv_yr_start) == 2){
+#   qcs_sel_ranges <- paste(paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end),
+#                           collapse = " and ")
+# }else{
+#   qcs_sel_ranges <- paste0(qcs_tv_yr_start, "-", qcs_tv_yr_end)
+#   tmp <- qcs_sel_ranges[length(qcs_sel_ranges)]
+#   qcs_sel_ranges <- paste(qcs_sel_ranges[-length(qcs_sel_ranges)],
+#                           collapse = ", ")
+#   qcs_sel_ranges <- paste0(qcs_sel_ranges, ", and ", tmp)
+# }
+
+# Number of parameters estimated (from PAR file)
+num_params <- get_num_params_est(base_model)
+
+# Catch table
+ct <- as_tibble(base_model$dat$catch)
+ct_start_yr <- min(ct$year)
+ct_end_yr <- max(ct$year)
+
+# Reference points (table values)
+ref_pts <- as_tibble(base_model$mcmccalcs$params_quants)
+
+# Projected biomass
+end_yr <- base_model$dat$end.yr
+assess_yr <- end_yr + 1
+proj_yr <- assess_yr + 1
+sbt_quants <- as_tibble(base_model$mcmccalcs$sbt_quants)
+proj_bio <- sbt_quants[, as.character(assess_yr)] |> pull()
+
+# Fishing mortality
+f_max_by_gear <- map_dbl(base_model$mcmccalcs$ft_quants, ~{
+  max(.x[2,])
+})
+f_max <- max(f_max_by_gear)
+which_f_max <- which(f_max == f_max_by_gear)
+which_f_max_gear <- base_model$dat$fleet_gear_names[which_f_max]
+which_f_max_yr <- names(which(base_model$mcmccalcs$ft_quants[[which_f_max]][2, ] == f_max))
+
+f_ci <- base_model$mcmccalcs$ft_quants[[which_f_max]][, base_model$mcmccalcs$ft_quants[[which_f_max]][2, ] == f_max]
+
+# Relative spawning biomass
+depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
+  select(!!sym(as.character(assess_yr))) |> 
+  pull()
+
+# Decision table values - B_2023 < B_2022
+table_dec <- table_decisions(base_model, ret_df = TRUE, digits = 3)
+probs_catch_0 <- table_dec |> filter(tac == 0) |> unlist()
+probs_catch_10 <- table_dec |> filter(tac == 10) |> unlist()
+probs_catch_50 <- table_dec |> filter(tac == 50) |> unlist()
+prob_proj_less_assess_0 <- probs_catch_0[length(probs_catch_0)]
+prob_proj_less_assess_10 <- probs_catch_10[length(probs_catch_10)]
+prob_proj_less_assess_50 <- probs_catch_50[length(probs_catch_50)]
+
+probs_proj_less_assess <- table_dec[, ncol(table_dec)] |>
+  pull() |> 
+  as.numeric()
+which_prob_less_50_50 <- which(probs_proj_less_assess < 0.5)
+which_prob_less_50_50 <- which_prob_less_50_50[length(which_prob_less_50_50)]
+prob_less_50_50 <- table_dec[which_prob_less_50_50, ]
+prob_greater_50_50 <- table_dec[which_prob_less_50_50 + 1, ]
+
+val_less_50_50 <- pull(prob_less_50_50[, ncol(prob_less_50_50)])
+
+# Decision table values - B_2023 < 0.4B0
+below_04bo <- table_dec |> 
+  select(paste0(proj_yr, "_04bo")) |> 
+  pull() |> 
+  as.numeric()
+range_below_04bo <- c(min(below_04bo), max(below_04bo))
+
+# Decision table values - B_2023 < 0.2B0
+below_02bo <- table_dec |> 
+  select(paste0(proj_yr, "_02bo")) |> 
+  pull() |> 
+  as.numeric()
+range_below_02bo <- c(min(below_02bo), max(below_02bo))
+which_prob_greater_50_50_02bo <- which(below_02bo > 0.5)[1]
+prob_greater_50_50_02bo <- below_02bo[which_prob_greater_50_50_02bo]
+row_greater_50_50_02bo <- table_dec[which_prob_greater_50_50_02bo, ]
+
+# Decision table values - B_2023 < 0.8BMSY
+# below_08bmsy <- table_dec |> 
+#   select(paste0(proj_yr, "_08bmsy")) |> 
+#   pull() |> 
+#   as.numeric()
+# range_below_08bmsy <- c(min(below_08bmsy), max(below_08bmsy))
+
+# Decision table values - B_2023 < 0.4BMSY
+# below_04bmsy <- table_dec |> 
+#   select(paste0(proj_yr, "_04bmsy")) |> 
+#   pull() |> 
+#   as.numeric()
+#range_below_04bmsy <- c(min(below_04bmsy), max(below_04bmsy))
+```
+
+```{r biological-params}
+
+find_length_outliers <- function(xx) {
+  yy <- stats::pnorm(xx,
+    mean = mean(xx, na.rm = TRUE),
+    sd = stats::sd(xx, na.rm = TRUE), log.p = TRUE
+  )
+  zz <- stats::qnorm(yy, log.p = TRUE)
+  out <- zz[zz > 4 & !is.na(zz)]
+  if (length(out) > 1L) {
+    return(xx[which(zz > 4)])
+  } else {
+    return(numeric(0))
+  }
+}
+
+length_samples_survey <- filter(
+  dat$survey_samples,
+  !length %in% find_length_outliers(dat$survey_samples$length)
+)
+
+length_samples_ft <- filter(
+  comm_ft,
+  !length %in% find_length_outliers(comm_ft$length)
+)
+
+length_samples_ss <- filter(
+  comm_ss,
+  !length %in% find_length_outliers(comm_ss$length)
+)
+
+all_length_samples <- bind_rows(length_samples_survey, length_samples_ft, length_samples_ss)
+
+all_age_samples <- bind_rows(dat$survey_samples, comm_ft, comm_ss) %>%
+  filter(!is.na(age) & age < 40)
+# it seems there's one extreme outlier... 50 y, also size and sex wouldn't make sense so definite error
+
+# TODO: should the reported values (and coastwide plot) be for just from the 4 trawl surveys combined? Doesn't seem to fit as well if commercial samples added. 
+#vb_m <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#               sex = "male", method = "tmb", too_high_quantile = 1)
+
+#vb_f <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#               sex = "female", method = "tmb", too_high_quantile = 1)
+
+#mat_fit <- fit_mat_ogive(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#                         type = "age", sample_id_re = TRUE, year_re = FALSE)
+#                     
+# Use function from this package as it is (very) slightly different than what 
+# fit_mat_ogive() returns, and is what is input into the model
+mat_fit <- export_mat_lw_age(dat$survey_samples, write_file = FALSE)
+# TODO: what random effects wanted? If year, than params are saved as mat_fit$mat_perc$mean$f.mean.p0.5 and mat_fit$mat_perc$mean$m.mean.p0.5 instead of mat_fit$mat_perc$f.p0.5 and mat_fit$mat_perc$m.p0.5. I assume fig:fig-mat should also be made to match 
+
+# Natural mortality values in the control file
+
+param_ctl_table <- models$bridge_grps[[3]][[2]]$ctl$params |> as_tibble(rownames = "param")
+male_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_male") |> pull(ival))
+female_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_female") |> pull(ival))
+```
+
+```{r proportion-female}
+
+if(!exists("data_dir")){
+  stop("`data_dir` does not exist. If running from command line, ",
+       "source('index.Rmd') to set up all project variables", call. = FALSE)
+}
+
+prop_female_fn <- file.path(data_dir, "prop_female_output.rds")
+if(file.exists(prop_female_fn)){
+  prop_female_lst <- readRDS(prop_female_fn)
+}else{
+  comm_prop <- props_comm(dat$commercial_samples)
+  surv_prop <- props_surv(surv_series = c(1, 3, 4, 16),
+                          surv_series_names = c("qcsss", "hsss", "wcviss", "wchgss"),
+                          surv_samples = dat$survey_samples,
+                          surv_sets = dat$survey_sets)
+  prop_female_lst <- list(comm_prop, surv_prop)
+  saveRDS(prop_female_lst, prop_female_fn)
+}
+
+prop_female_table <- table_prop_female(prop_female_lst, return_df = TRUE)
+total_prop_female <- f(tail(prop_female_table, 1)[-1] |>
+                         unlist() |>
+                         as.numeric() |>
+                         mean(),
+                       2)
+```
+
+```{r model-param-value-calcs}
+
+base_sbo <- get_parvals(base_model, "sbo")
+base_bo <- get_parvals(base_model, "bo")
+base_sbt <- get_parvals(base_model, "sbt")
+base_depl <- get_parvals(base_model, "depl", digits = 2)
+base_m_male <- get_parvals(base_model, "m_male", digits = 2)
+base_m_female <- get_parvals(base_model, "m_female", digits = 2)
+base_h <- get_parvals(base_model, "h", digits = 2)
+
+bvals <- get_group_parvals(models$bridge_grps)
+svals <- get_group_parvals(models$sens_grps)
+# Now, to get the b0 median for the first sensitivity model in the third model group:
+# Note you ave to skip the first one in each group because it is the base model
+# svals[[3]][[2]]$bo[1]
+# b0 CI range:
+# svals[[3]][[2]]$bo[2]
+# sbt median:
+# svals[[3]][[2]]$sbt[1]
+# sbt CI range:
+# svals[[3]][[2]]$sbt[2]
+# sbt end year:
+# svals[[3]][[2]]$sbt[3
+
+# Extract parameter values from the table found in the control file
+#
+# @param model The iSCAM model
+# @param param The parameter name (row)
+# @param value The value (column)
+# @param digits The number of decimal points to return
+#
+# @return The value or row
+# @export
+get_ctl_params <- function(model, param = NULL, value = NULL, ...){
+  inp_params <- as_tibble(rownames_to_column(as.data.frame(model$ctl$params),
+                                             var = "param"))
+
+  if(!is.null(param)){
+    inp_params <- filter(inp_params, param == !!param)
+  }
+  if(!is.null(value)){
+    return(pull(inp_params, value))
+  }
+  inp_params
+}
+
+get_param_est <- function(model, param = NULL, est_digits = 2, ...){
+  if(is.null(param)){
+    stop("Must provode `param` name", call. = FALSE)
+  }
+  
+  if(param == "log_m_female"){
+    param ="m_sex1"
+  }
+  if(param == "log_m_male"){
+    param ="m_sex2"
+  }
+  raw <- as_tibble(model$mcmccalcs$params_quants)[[param]]
+  paste0(f(raw[2], est_digits), " (", f(raw[1], est_digits), "--", f(raw[3], est_digits), ")")
+}
+
+get_param_vals <- function(model, param, est = TRUE, ...){
+  out <- NULL
+  out$init <- get_ctl_params(model, param, "ival", ...)
+  out$p1 <- get_ctl_params(model, param, "p1", ...)
+  out$p2 <- get_ctl_params(model, param, "p2", ...)
+  if(est){
+    out$est <- get_param_est(model, param, ...)
+  }
+  out
+}
+
+base_vartheta <- get_param_vals(base_model, "vartheta", est = FALSE, digits = 5)
+base_rho <- get_param_vals(base_model, "rho", est = FALSE, digits = 5)
+base_sig_tau <- calc_sig_tau(get_param_vals(base_model, "rho", est = FALSE)$init,
+                             get_param_vals(base_model, "vartheta", est = FALSE)$init)
+base_sig <- f(base_sig_tau[1], 1)
+base_tau <- f(base_sig_tau[2], 1)
+
+base_h <- get_param_vals(base_model, "h")
+base_h_prior1 <- calc_beta_mean_cv(base_h$p1, base_h$p2)[1]
+base_h_prior2 <- calc_beta_mean_cv(base_h$p1, base_h$p2)[2]
+base_h_prior_params <- paste(f(base_h_prior1, 2),
+                             ",",
+                             f(base_h_prior2, 2))
+base_m_female <- get_param_vals(base_model, "log_m_female")
+base_m_male <- get_param_vals(base_model, "log_m_male")
+
+sens_1_2_vartheta <- get_param_vals(models$sens_grps[[1]][[2]], "vartheta")
+sens_1_2_rho <- get_param_vals(models$sens_grps[[1]][[2]], "rho", est = FALSE)
+sens_1_2_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[2]],
+                                                           "rho", est = FALSE)$init,
+                                 get_param_vals(models$sens_grps[[1]][[2]],
+                                                           "vartheta")$init)
+sens_1_2_sig <- f(sens_1_2_sig_tau[1], 3)
+sens_1_2_tau <- f(sens_1_2_sig_tau[2], 1)
+sens_1_2_h <- get_param_vals(models$sens_grps[[1]][[2]], "h")
+sens_1_2_sbo <- get_param_vals(models$sens_grps[[1]][[2]], "sbo")
+
+sens_1_3_vartheta <- get_param_vals(models$sens_grps[[1]][[3]], "vartheta")
+sens_1_3_rho <- get_param_vals(models$sens_grps[[1]][[3]], "rho", est = FALSE)
+sens_1_3_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[3]],
+                                                           "rho", est = FALSE)$init,
+                                 get_param_vals(models$sens_grps[[1]][[3]],
+                                                           "vartheta")$init)
+sens_1_3_sig <- f(sens_1_3_sig_tau[1], 1)
+sens_1_3_tau <- f(sens_1_3_sig_tau[2], 1)
+sens_1_3_sbo <- get_param_vals(models$sens_grps[[1]][[3]], "sbo")
+
+
+sens_1_4_vartheta <- get_param_vals(models$sens_grps[[1]][[4]], "vartheta")
+sens_1_4_rho <- get_param_vals(models$sens_grps[[1]][[4]], "rho", est = FALSE)
+sens_1_4_sig_tau <- calc_sig_tau(get_param_vals(models$sens_grps[[1]][[4]],
+                                                           "rho", est = FALSE)$init,
+                                 get_param_vals(models$sens_grps[[1]][[4]],
+                                                           "vartheta")$init)
+sens_1_4_sbo <- get_param_vals(models$sens_grps[[1]][[4]], "sbo")
+
+sens_1_4_sig <- f(sens_1_4_sig_tau[1], 1)
+sens_1_4_tau <- f(sens_1_4_sig_tau[2], 1)
+
+sens_1_5_h <- get_param_vals(models$sens_grps[[1]][[5]], "h")
+sens_1_5_h_prior1 <- calc_beta_mean_cv(sens_1_5_h$p1, sens_1_5_h$p2)[1]
+sens_1_5_h_prior2 <- calc_beta_mean_cv(sens_1_5_h$p1, sens_1_5_h$p2)[2]
+sens_1_5_h_prior_params <- paste(f(sens_1_5_h_prior1, 2),
+                             ",",
+                             f(sens_1_5_h_prior2, 2))
+
+sens_2_2_m_female <- get_param_vals(models$sens_grps[[2]][[2]], "log_m_female")
+sens_2_3_m_female <- get_param_vals(models$sens_grps[[2]][[3]], "log_m_female")
+sens_2_4_m_male <- get_param_vals(models$sens_grps[[2]][[4]], "log_m_male")
+sens_2_5_m_male <- get_param_vals(models$sens_grps[[2]][[5]], "log_m_male")
+
+# qk priors and estimates
+base_qk_inp_params <- base_model$ctl$surv.q
+base_qk_mean <- exp(base_qk_inp_params[rownames(base_qk_inp_params) == "priormeanlog"])[1]
+base_qk_sd <- base_qk_inp_params[rownames(base_qk_inp_params) == "priorsd"][1]
+
+sens_qk_inp_params <- models$sens_grps[[3]][[2]]$ctl$surv.q
+sens_qk_mean <- exp(sens_qk_inp_params[rownames(sens_qk_inp_params) == "priormeanlog"])[1]
+sens_qk_sd <- sens_qk_inp_params[rownames(sens_qk_inp_params) == "priorsd"][1]
+
+sens_qkp_inp_params <- models$sens_grps[[3]][[3]]$ctl$surv.q
+sens_qkp_mean <- exp(sens_qkp_inp_params[rownames(sens_qkp_inp_params) == "priormeanlog"])[1]
+sens_qkp_sd <- sens_qkp_inp_params[rownames(sens_qkp_inp_params) == "priorsd"][1]
+
+sens_3_2_selex_f_qcs <- filter(models$sens_grps[[3]][[2]]$mcmccalcs$selest_quants, gear == "QCS Synoptic", sex == 2)$a_hat
+sens_3_2_selex_f_qcs_mean_ci <- paste0(f(sens_3_2_selex_f_qcs[2], 1),
+                                       " (",
+                                       f(sens_3_2_selex_f_qcs[1], 1),
+                                       "--",
+                                       f(sens_3_2_selex_f_qcs[3], 1),
+                                       ")")
+
+# This is a hard coded value in the abstract (percentage of posteriors below the 0.2B0 LRP)
+prob_below_02_sbo_2022 <- sum(unlist(base_model$mcmccalcs$depl[, ncol(base_model$mcmccalcs$depl)]) < 0.2) / 
+  nrow(base_model$mcmccalcs) * 100
+
+split_sex_model_sel <- models$bridge_grps[[2]][[4]]$mcmccalcs$selest_quants |> filter(gear == "QCS Synoptic", sex == 2)
+split_sex_model_sel_ahat <- paste0(f(split_sex_model_sel$a_hat[2]), " (", 
+                                   f(split_sex_model_sel$a_hat[1]), "--",
+                                   f(split_sex_model_sel$a_hat[3]), ")")
+split_sex_model_sel_ghat <- paste0(f(split_sex_model_sel$g_hat[2]), " (", 
+                                   f(split_sex_model_sel$g_hat[1]), "--",
+                                   f(split_sex_model_sel$g_hat[3]), ")")
+
+theme_set(theme_pbs())
+```
+
+<!-- ---------------------------------------------------------------------- -->
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
+---
+class: center
+### Introduction
+
+.left[
+**`r sp`**
+- are a flatfish that occurs in the offshore waters of `r bc`;
+- primarily caught by bottom trawl fishery, and sometimes by hook and line in the Halibut fishery and
+- must be frozen shortly after catching due to proteolysis of the flesh.
+
+**Catch for `r sp`**
+- had no discard reporting prior to 1996, when observers were introduced. Entire tows were often discarded without report and
+- continued to be discarded at sea in great numbers until the arrival of freezer trawlers in the mid 2000's, which could freeze their catch at sea and avoid proteolysis.
+
+**The `r la` model**
+- included data from 1996-2014 and
+- was done with a model which was female only and had a single commercial trawl fleet.
+- Link to the .link-style1[[Research document](https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ResDocs-DocRech/2017/2017_025-eng.html)]
+
+**The 2021 assessment model**
+- includes data from 1996-2019;
+- includes 3 synoptic surveys (QCS, HS, and WCVI) and
+- is split by sex, and has two commercial trawl fleets (Freezer trawlers and Shoreside).
+]
+
+---
+class: center
+### Management
+
+.left[
+**`r sp`**
+- are managed as a coastwide stock;
+- had no limits on catch prior to 2006;
+- had a TAC of 15,000 t in place from 2006-2017;
+- had the TAC increased to 17,500 t in 2017 and
+- had the TAC decreased to 14,000 t in 2019.
+
+On Jan. 30, 2020, late changes to the Integrated Fisheries Management Plan (IFMP) to address declining abundance in the synoptic surveys were recommended. These changes included:
+- reducing 2020/2021 TAC from 14,000 t to 5,000 t;
+- reducing 2019/2020 carryover allowance from 30% to 10%;
+- reducing the amount of temporary quota a license can hold from 16% to 8% of TAC and
+- implementing new spatial closures from Nov. 1 to Mar. 31 to limit harvesting of spawning aggregations.
+]
+
+---
+class: center
+### Management Areas
+```{r management-areas, out.width = 550}
+plot_catch_spatial(dat$catch_spatial, 
+                   show_majorbound = TRUE, 
+                   # major_labels = labels,
+                   start_year = base_model$dat$start.yr,
+                   fill_scale = ggplot2::scale_fill_viridis_c(trans = "log10", option = "D"),
+                   colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"))
+
+```

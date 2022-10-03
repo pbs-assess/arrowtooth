@@ -1,0 +1,19 @@
+.left-fig {
+  width: 48%;
+  float: left;
+  padding-right: 1%;
+}
+.right-fig {
+  width: 48%;
+  float: right;
+  padding-left: 1%;
+}
+
+.link-style1 a {
+  color: blue;
+  text-decoration: underline;
+}
+
+.link-style2 a {
+ color: blue;
+}
