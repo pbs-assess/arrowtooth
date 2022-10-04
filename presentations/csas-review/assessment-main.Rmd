@@ -680,7 +680,7 @@ class: center
 - Link to the .link-style1[[Research document](https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ResDocs-DocRech/2017/2017_025-eng.html)]
 
 **The 2021 assessment model**
-- includes data from 1996-2019;
+- includes data from 1996-2021;
 - includes 3 synoptic surveys (QCS, HS, and WCVI) and
 - is split by sex, and has two commercial trawl fleets (Freezer trawlers and Shoreside).
 ]
@@ -721,7 +721,7 @@ plot_catch_spatial(dat$catch_spatial,
 
 ---
 class: center
-### Catch
+### Catch data
 
 .left[
 - The commercial fishing year for `r sp` starts on Feb 21 and ends on Feb 20. All yearly catch data in this assessment were aggregated in this way.
@@ -748,6 +748,7 @@ plot_catch(catch, french = fr(), xlim = c(min(yrs), max(yrs))) +
 ---
 class: center
 ### Catch by fleet
+
 ```{r catch-by-fleet, out.width = 900}
 yrs <- sort(unique(catch$year))
 plot_catch_fleet(list(catch_ft, catch_ss),
@@ -758,4 +759,158 @@ plot_catch_fleet(list(catch_ft, catch_ss),
   theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5))
 
 ```
+
+---
+class: center
+### Abundance Indices
+
+.left[
+Five fishery independent indices of abundance were fit in the base model:
+
+- *`r qcs` (Age comps/estimated selectivity)*
+- `r hsmas` (No age comps/fixed selectivity)
+- *`r hss` (Age comps/estimated selectivity)*
+- *`r wcvis` (Age comps/estimated selectivity)*
+- `r dcpue` (No age comps/fixed selectivity)
+
+All are in thousands of tonnes except the `r dcpue` which is in kg/hr.
+]
+
+---
+class: center
+### Abundance Indices - `r dcpue`
+.left[
+We generated an index of abundance from discard commercial trawl CPUE standardized for:
+- depth;
+- fishing locality (defined spatial regions);
+- month;
+- vessel and
+- latitude.
+
+**Data filtering:**
+- include tows where 100% of caught `r sp` were discarded, to avoid tows targeting `r sp`;
+- include vessels that have caught and discarded `r sp` in at least 100 tows from 1996-2021;
+- those vessels have had at least five trips that recorded `r sp` for at least five years from 1996-2021.
+
+**Standardization model predictors:**
+- for depth, binned into 25m-wide bands;
+- for latitude, binned into 0.1-degree-wide bands;
+- limited both to include only bands that fell in 0.1% and 99.9% probability of positive observations;
+- removed any that contained fewer than 0.1% of observations
+
+TODO: Add the rest or make another presentation, See Appendix C for details.
+]
+
+---
+class: center
+### Abundance Indices - Fits
+
+```{r index-fits-base, out.width = 900}
+plot_index_mcmc(base_model,
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = NULL,
+                text_title_size = NULL)
+```
+
+---
+class: center
+### Abundance Indices - Residuals
+
+```{r index-residuals-base, out.width = 900}
+plot_index_mcmc(base_model,
+                type = "resids",
+                surv_index = survey_index,
+                leg_loc = NULL,
+                text_title_size = NULL)
+```
+
+---
+class: center
+### Age data
+.left[
+Age data were
+- recorded using break-and-bake method where a whole tray of otoliths are baked and then individually broken and rings counted;
+- chosen randomly across many vessels for the commercial trawl fishery;
+- included for both commercial fleets and three synoptic surveys;
+- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and Grandin and Forrest (2017). This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
+]
+
+---
+class: center
+### Age fits/residuals - Freezer trawlers
+.left-fig[
+```{r age-fits-base-ft, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_fits_mcmc(base_model, gear = 1, text_title_size = NULL, angle_x_labels = TRUE)
+```
+]
+.right-fig[
+```{r age-resids-base-ft, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL)
+```
+]
+
+---
+class: center
+### Age fits - Shoreside
+.left-fig[
+```{r age-fits-base-ss-1, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_fits_mcmc(base_model, gear = 2, yrs = 1996:2007, text_title_size = NULL, angle_x_labels = TRUE)
+```
+]
+.right-fig[
+```{r age-fits-base-ss-2, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_fits_mcmc(base_model, gear = 2, yrs = 2008:2021, text_title_size = NULL, angle_x_labels = TRUE)
+```
+]
+
+---
+class: center
+### Age residuals - Shoreside
+
+```{r age-resids-base-ss, out.width = 900}
+plot_age_resids_mcmc(base_model, gear = 2, text_title_size = NULL)
+```
+
+---
+class: center
+### Age fits/residuals - QCS Synoptic survey
+.left-fig[
+```{r age-fits-base-qcs, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_fits_mcmc(base_model, gear = 3, text_title_size = NULL, sample_size_y = 0.15, angle_x_labels = TRUE)
+```
+]
+.right-fig[
+```{r age-resids-base-qcs, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_resids_mcmc(base_model, gear = 3, text_title_size = NULL)
+```
+]
+
+---
+class: center
+### Age fits/residuals - HS Synoptic survey
+.left-fig[
+```{r age-fits-base-hss, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_fits_mcmc(base_model, gear = 4, text_title_size = NULL, sample_size_y = 0.15, angle_x_labels = TRUE)
+```
+]
+.right-fig[
+```{r age-resids-base-hss, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_resids_mcmc(base_model, gear = 4, text_title_size = NULL)
+```
+]
+
+---
+class: center
+### Age fits/residuals - WCVI Synoptic survey
+.left-fig[
+```{r age-fits-base-wcvi, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_fits_mcmc(base_model, gear = 5, text_title_size = NULL, sample_size_y = 0.15, angle_x_labels = TRUE)
+```
+]
+.right-fig[
+```{r age-resids-base-wcvi, out.width = "100%", fig.dim = c(4.8, 4.5)}
+plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
+```
+]
 
