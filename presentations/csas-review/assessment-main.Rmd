@@ -1125,7 +1125,83 @@ tex_table <- table_growth_params(base_model,
 tex2markdown(tex_table)
 ```
 
+---
+class: center
+### Proportion female
 
+.left[
+The proportion of females in the population was calculated for the four synoptic surveys and the commercial trawl (as a single fleet).
+- The Gulf of Alaska and Bering Sea/Aleutian Islands assessments use <SPAN STYLE="font-size:18.0pt">0.7</SPAN> 
+
+Data used for these calculations were filtered for:
+- Sampled category
+    - Unsorted
+    - Discards
+- Sample type
+    - total catch
+    - random
+    - random from randomly assigned set
+    - random from set after randomly assigned set
+    - random from set requested by vessel master
+- Gear codes
+    - Bottom trawl
+    - Unknown trawl
+- Age data: 1996 through 2019
+- Areas: 3CD and 5ABCDE
+- Sex: males and females only, any null, unknown, or unsexed specimens were dropped
+]
+
+---
+class: center
+### Proportion female - Equations
+
+.left[
+- Observations from a single sample are likely to be correlated due to limited trawl area from a single tow.
+- Trip samples are likely to be correlated due to vessel targeting practices.
+- Time of year (for commercial trawl) may be have an effect due to vertical migration to deeper water in the fall/winter.
+
+The total weight (from sum of catch for sampled catch) in each quarter of the year by sex:
+
+<img class="fortypercsize" src="figures/equation_b_5_prop_female.jpg">
+
+<img class="fortypercsize" src="figures/equation_b_7_prop_female.jpg">
+
+The proportions female each year were calculated as:
+
+<img class="fortypercsize" src="figures/equation_b_8_prop_female.jpg">
+]
+
+---
+class: center
+### Proportion female - summary
+
+```{r prop-female-table-left, results = "asis"}
+t1 <- table_prop_female(prop_female_lst,
+                        digits = 2,
+                        longtable = FALSE,
+                        format = "html",
+                        font_size = 14,
+                        caption = "",
+                        yrs = 1996:2007)
+t2 <- table_prop_female(prop_female_lst,
+                        digits = 2,
+                        longtable = FALSE,
+                        format = "html",
+                        font_size = 14,
+                        caption = "",
+                        yrs = 2008:2019)
+cat(c('<table><tr valign="top"><td>',
+      t1,
+      '</td><td>',
+      t2,
+      '</td><tr></table>'),
+    sep = '')
+```
+.left[
+The overall mean of the means of the surveys and the commercial fishery is <SPAN STYLE="font-size:18.0pt">**0.79**</SPAN>.
+
+This was input into the ISCAM base model.
+]
 ---
 class: center
 ### Abundance Indices
@@ -1166,6 +1242,8 @@ We generated an index of abundance from discard commercial trawl CPUE standardiz
 
 TODO: Add the rest or make another presentation, See Appendix C for details.
 ]
+
+
 
 ---
 class: center

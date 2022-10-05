@@ -1,11 +1,19 @@
 #' Create a table of proportions female
 #'
+#' @details
+#' If `yrs` includes the last year, the mean row will also be included.
+#' `yrs` is meant to split up the table for display purposes. The mean
+#' is always calculated from ALL years, even if only some are returned.
+#'
 #' @param prop_lst A list of two outputs, the first from [props_comm()], and
 #' the second from [props_surv()]
 #' @param end_yr The last year to include in the table
 #' @param return_df If `TRUE`, return a data .frame instead of a
 #' [csasdown::csas_table()]
 #' @param ... Arguments passed to [csasdown::csas_table()]
+#' @param format The format of table as in [knitr::kable()]
+#' @param yrs A vector of years to include in the output table. If `NULL`,
+#' all years will be included
 #'
 #' @return A [csasdown::csas_table()]
 #' @importFrom csasdown csas_table
@@ -14,6 +22,8 @@
 table_prop_female <- function(prop_lst,
                               end_yr = 2019,
                               return_df = FALSE,
+                              format = "latex",
+                              yrs = NULL,
                               ...){
 
   d <- map_df(prop_lst, ~{.x}) |>
@@ -35,15 +45,30 @@ table_prop_female <- function(prop_lst,
 
   x <- bind_rows(k, means)
 
+  if(!is.null(yrs)){
+    final_year <- as.numeric(slice(x, nrow(x) - 1)$Year)
+    if(final_year %in% yrs){
+      yrs <- c(yrs, "Mean")
+    }
+    x <- x |>
+        filter(Year %in% yrs)
+  }
+  if(format == "html"){
+    x[x == "--"] <- "&mdash;"
+  }
+
   if(return_df){
     return(x)
   }
-  csas_table(x,
-             format = "latex",
-             ...) |>
-    row_spec(nrow(x) - 1, hline_after = TRUE) |>
-    row_spec(nrow(x), bold = TRUE)
-
+  out <- csas_table(x,
+             format = format,
+             ...)
+  if(!is.null(attr(out, "format"))){
+    out <- out |>
+      row_spec(nrow(x) - 1, hline_after = TRUE) |>
+      row_spec(nrow(x), bold = TRUE)
+  }
+  out
 }
 
 #' Create a table of weights used in the proportion female analysis

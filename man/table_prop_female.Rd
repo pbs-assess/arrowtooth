@@ -4,7 +4,14 @@
 \alias{table_prop_female}
 \title{Create a table of proportions female}
 \usage{
-table_prop_female(prop_lst, end_yr = 2019, return_df = FALSE, ...)
+table_prop_female(
+  prop_lst,
+  end_yr = 2019,
+  return_df = FALSE,
+  format = "latex",
+  yrs = NULL,
+  ...
+)
 }
 \arguments{
 \item{prop_lst}{A list of two outputs, the first from \code{\link[=props_comm]{props_comm()}}, and
@@ -15,6 +22,11 @@ the second from \code{\link[=props_surv]{props_surv()}}}
 \item{return_df}{If \code{TRUE}, return a data .frame instead of a
 \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 
+\item{format}{The format of table as in \code{\link[knitr:kable]{knitr::kable()}}}
+
+\item{yrs}{A vector of years to include in the output table. If \code{NULL},
+all years will be included}
+
 \item{...}{Arguments passed to \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 }
 \value{
@@ -22,4 +34,9 @@ A \code{\link[csasdown:csas_table]{csasdown::csas_table()}}
 }
 \description{
 Create a table of proportions female
+}
+\details{
+If \code{yrs} includes the last year, the mean row will also be included.
+\code{yrs} is meant to split up the table for display purposes. The mean
+is always calculated from ALL years, even if only some are returned.
 }
