@@ -667,12 +667,12 @@ class: center
 .left[
 **`r sp`**
 - are a flatfish that occurs in the offshore waters of `r bc`;
-- primarily caught by bottom trawl fishery, and sometimes by hook and line in the Halibut fishery and
-- must be frozen shortly after catching due to proteolysis of the flesh.
-
-**Catch for `r sp`**
-- had no discard reporting prior to 1996, when observers were introduced. Entire tows were often discarded without report and
-- continued to be discarded at sea in great numbers until the arrival of freezer trawlers in the mid 2000's, which could freeze their catch at sea and avoid proteolysis.
+- mostly feed on Capelin, Euphausiids, Walleye Pollock, Pandalid shrimp, Herring, and other forage fish;
+- are prey for mostly Pacific Cod, Pacific Halibut, and Steller sea lions; for juveniles, adult `r sp` and Walleye Pollock;
+- are primarily caught by bottom trawl fishery, and sometimes by hook and line in the Halibut fishery;
+- must be frozen shortly after catching due to proteolysis of the flesh;
+- seasonal vertical migration to deeper water in winter, shallower in summer; and
+- spawn and hatch in deeper water (>350m), in winter.
 
 **The `r la` model**
 - included data from 1996-2014 and
@@ -724,14 +724,18 @@ class: center
 ### Catch data
 
 .left[
+**Catch for `r sp`**
+- had no discard reporting prior to 1996, when observers were introduced. Entire tows were often discarded without report;
+- continued to be discarded at sea in great numbers until the arrival of freezer trawlers in the mid 2000's, which could freeze their catch at sea and avoid proteolysis;
+- had large declines recently (2020-2021) which was due to TAC reductions
+- was dominated by Freezer trawlers in the last decade.
+
+**Notes on catch**
 - The commercial fishing year for `r sp` starts on Feb 21 and ends on Feb 20. All yearly catch data in this assessment were aggregated in this way.
 
 - Historical catch reconstruction was not attempted due to the unreported discards at sea prior to 1996.
 
-- Spike in 2005 catch from a test fishery which took place up north in area 5D. Immediate drop due to lack of profitability of the fishery.
-
-- Recent declines due to TAC reductions.
-
+- The large spike in 2005 catch was from a test fishery that took place in area 5D. There was an immediate drop the next year due to lack of profitability of the fishery, likely due to proteolysis and lack of freezers at sea.
 ]
 
 ---
@@ -759,6 +763,364 @@ plot_catch_fleet(list(catch_ft, catch_ss),
   theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5))
 
 ```
+
+---
+class: center
+### Length data
+
+```{r length-data, out.width = 900}
+
+bin_width1 <- diff(quantile(length_samples_survey$length,
+                            na.rm = TRUE,
+                            probs = c(0, 1))) / 20
+
+bin_width2 <- diff(quantile(length_samples_ft$length,
+                            na.rm = TRUE, probs = c(0, 1))) / 20
+
+bin_width3 <- diff(quantile(length_samples_ss$length,
+                            na.rm = TRUE, probs = c(0, 1))) / 20
+
+bin_width <- mean(c(bin_width1, bin_width2, bin_width3),
+                  na.rm = TRUE)
+
+ss <- tidy_lengths_weighted(length_samples_survey,
+                            dat_survey_sets = dat$survey_sets,
+                            bin_size = bin_width,
+                            sample_type = "survey")
+
+sf <- length_samples_ft |> 
+  mutate(sex = 2) |>  # fake all sex as female for commercial samples; often not sexed
+  tidy_lengths_weighted(dat_catch = dat$catch,
+                        bin_size = bin_width,
+                        sample_type = "commercial",
+                        spp_cat_code = 1) |> 
+  mutate(survey_abbrev = "Freezer Trawlers")
+
+sc <- length_samples_ss |> 
+  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  tidy_lengths_weighted(dat_catch = dat$catch,
+                        bin_size = bin_width,
+                        sample_type = "commercial",
+                        spp_cat_code = 1) |> 
+  mutate(survey_abbrev = "Shoreside")
+
+min_total <- 20
+
+sc_old <- filter(sc, year < 1995) # are we interested in length frequencies pre-1980?
+sc <- filter(sc, year > 1995)
+sb <- suppressWarnings(bind_rows(ss, sc, sf))
+sb$survey_abbrev <- factor(sb$survey_abbrev,
+                           levels = c("SYN WCHG",
+                                      "SYN HS",
+                                      "SYN QCS",
+                                      "SYN WCVI",
+                                      tr("Freezer Trawlers"),
+                                      tr("Shoreside")))
+
+sb$year <- factor(sb$year, levels = seq(1996, 2021))
+
+g_lengths <- plot_lengths(sb,
+                          survey_cols = setNames(c("#FC8D62",
+                                                   "#FC8D62",
+                                                   "#FC8D62",
+                                                   "#FC8D62",
+                                                   "#000000",
+                                                   "#000000"),
+                                                 c("SYN WCHG",
+                                                   "SYN HS",
+                                                   "SYN QCS",
+                                                   "SYN WCVI",
+                                                   tr("Freezer Trawlers"),
+                                                   tr("Shoreside"))),
+                          bin_size = bin_width,
+                          min_total = min_total) +
+  # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
+  guides(colour = "none", fill = "none") +
+  ggtitle("") +
+  xlab(paste(tr("Length"), "(cm)")) +
+  ylab(tr("Relative length frequency")) +
+  theme(strip.text.y.right = element_text(angle = 0))
+
+g_lengths
+```
+
+---
+class: center
+### Age data
+
+```{r age-data, out.width = 900}
+
+ss <- tidy_ages_weighted(dat$survey_samples,
+                         dat_survey_sets = dat$survey_sets,
+                         sample_type = "survey")
+
+ss$survey_abbrev <- factor(ss$survey_abbrev)
+s_ages <- plot_ages(ss,
+                    survey_cols = stats::setNames(
+                      c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62"),
+                      c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI"))) +
+  facet_wrap(~survey_abbrev, nrow = 1, scales = "free_x") +
+  guides(fill = "none", colour = "none") +
+  theme(plot.title = element_blank(),
+        axis.title = element_blank())
+
+sc <- tidy_ages_weighted(comm_ss,
+                         dat_catch = dat$catch,
+                         sample_type = "commercial") |> 
+  mutate(survey_abbrev = "Shoreside")
+
+sf <- tidy_ages_weighted(comm_ft,
+                         dat_catch = dat$catch,
+                         sample_type = "commercial") |>
+  mutate(survey_abbrev = "Freezer Trawlers")
+
+sb <- suppressWarnings(bind_rows(sc, sf))
+
+sb$survey_abbrev <- factor(sb$survey_abbrev)
+
+c_ages <- plot_ages(sb,
+                    survey_cols = setNames(c("black", "black"),
+                                           c("Freezer Trawlers", "Shoreside"))) +
+  guides(fill = "none", colour = "none") +
+  theme(plot.title = element_blank(),
+        axis.title = element_blank())
+
+grid.arrange(s_ages,
+             c_ages,
+             nrow = 2,
+             # heights = c(1.1,1),
+             left = tr("Ages (years)"),
+             bottom = tr("Year sampled"))
+```
+
+---
+class: center
+### Length/Weight fits by sex
+
+```{r length-weight, out.width = 900}
+
+if(!exists("data_dir")){
+  stop("`data_dir` does not exist. If running from command line, ",
+       "source('index.Rmd') to set up all project variables", call. = FALSE)
+}
+lw_fn <- file.path(data_dir, "fit_lw_output.rds")
+if(file.exists(lw_fn)){
+  lw_lst <- readRDS(lw_fn)  
+}else{
+  lw_lst <- list(
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "male"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "female"),
+    fit_length_weight(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "male"),
+    fit_length_weight(survey_samples_syn, sex = "female"),
+    fit_length_weight(survey_samples_syn, sex = "male"))
+  saveRDS(lw_lst, lw_fn)
+}
+lw_title_lst <- list(
+  tr("SYN QCS (5AB)"),
+  tr("SYN HS (5CD)"),
+  tr("SYN WCVI (3CD)"),
+  tr("Coastwide"))
+
+plot_lw_panels <- function(lw_f, lw_m){
+  plot_length_weight(object_female = lw_f,
+                     object_male = lw_m,
+                     french = fr()) +
+    guides(colour = "none", fill = "none", lty = "none") +
+    
+    # coord_cartesian(xlim = c(0, 85), ylim = c(0, 6.7)) +
+    xlim(0, 85) +
+    theme(axis.title = element_blank())
+}
+
+lw_plot_lst <- list(
+  plot_lw_panels(lw_lst[[1]], lw_lst[[2]]) +
+  ggtitle(lw_title_lst[[1]]),
+  
+  plot_lw_panels(lw_lst[[3]], lw_lst[[4]]) +
+  ggtitle(lw_title_lst[[2]]),
+  
+  plot_lw_panels(lw_lst[[5]], lw_lst[[6]]) +
+  ggtitle(lw_title_lst[[3]]),
+
+  plot_lw_panels(lw_lst[[7]], lw_lst[[8]]) +
+  ggtitle(lw_title_lst[[4]]))
+
+grid.arrange(grobs = lw_plot_lst,
+             ncol = 2,
+             bottom = paste0(tr("Length"), " (cm)"),
+             left = tr("Weight (kg)"))
+
+```
+
+---
+class: center
+### Length/Age fits
+
+```{r vb-fits, out.width = 900}
+
+if(!exists("data_dir")){
+  stop("`data_dir` does not exist. If running from command line, ",
+       "source('index.Rmd') to set up all project variables", call. = FALSE)
+}
+vb_fn <- file.path(data_dir, "fit_vb_output.rds")
+if(file.exists(vb_fn)){
+  vb_lst <- readRDS(vb_fn)  
+}else{
+  vb_lst <- list(
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS")),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN HS")),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN HS"), sex = "male"),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN WCVI")),
+    fit_vb(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "male"),
+    fit_vb(survey_samples_syn),
+    fit_vb(survey_samples_syn, sex = "male"))
+  saveRDS(vb_lst, vb_fn)
+}
+vb_title_lst <- list(
+  tr("SYN QCS (5AB)"),
+  tr("SYN HS (5CD)"),
+  tr("SYN WCVI (3CD)"),
+  tr("Coastwide"))
+
+plot_vb_panels <- function(vb_f, vb_m){
+  plot_vb(object_female = vb_f,
+          object_male = vb_m,
+          french = fr()) +
+    guides(colour = "none", fill = "none", lty = "none") +
+    theme(axis.title = element_blank()) +
+    coord_cartesian(xlim = c(0, 25), ylim = c(0, 75))
+}
+
+vb_plot_lst <- list(
+  plot_vb_panels(vb_lst[[1]], vb_lst[[2]]) +
+  ggtitle(vb_title_lst[[1]]),
+  
+  plot_vb_panels(vb_lst[[3]], vb_lst[[4]]) +
+  ggtitle(vb_title_lst[[2]]),
+  
+  plot_vb_panels(vb_lst[[5]], vb_lst[[6]]) +
+  ggtitle(vb_title_lst[[3]]),
+
+  plot_vb_panels(vb_lst[[7]], vb_lst[[8]]) +
+  ggtitle(vb_title_lst[[4]]))
+
+grid.arrange(grobs = vb_plot_lst,
+             ncol = 2,
+             left = paste0(tr("Length"), " (cm)"),
+             bottom = tr("Age (years)"))
+```
+
+---
+class: center
+### Age and length-at maturity ogives
+
+```{r mat-fits, out.width = 900}
+
+mat_fn <- file.path(data_dir, "fit_mat_ogive_output.rds")
+if(file.exists(mat_fn)){
+  mat_lst <- readRDS(mat_fn)
+}else{
+  mat_lst <- list(
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN QCS")),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN QCS"), type = "length"),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN HS")),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN HS"), type = "length"),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN WCVI")),
+    fit_mat_ogive(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), type = "length"),
+    fit_mat_ogive(survey_samples_syn),
+    fit_mat_ogive(survey_samples_syn, type = "length"))
+  saveRDS(mat_lst, mat_fn)
+}
+mat_title_lst <- list(
+  tr("SYN QCS (5AB)"),
+  "",
+  tr("SYN HS (5CD)"),
+  "",
+  tr("SYN WCVI (3CD)"),
+  "",
+  tr("Coastwide synoptic trawl surveys"),
+  "")
+
+plot_mat_panels <- function(fit_obj){
+  p <- plot_mat_ogive(fit_obj, text_label_size = 2) +
+    guides(colour = "none", fill = "none", lty = "none") +
+    ggplot2::guides(lty = "none", colour = "none") + 
+    theme(axis.title.y = element_blank())
+  p
+}
+
+ma_plot_lst <- list(
+  plot_mat_panels(mat_lst[[1]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[1]]),
+
+  plot_mat_panels(mat_lst[[2]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[2]]),
+
+  plot_mat_panels(mat_lst[[3]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[3]]),
+
+  plot_mat_panels(mat_lst[[4]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[4]]),
+
+  plot_mat_panels(mat_lst[[5]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[5]]),
+
+  plot_mat_panels(mat_lst[[6]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[6]]),
+
+  plot_mat_panels(mat_lst[[7]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  ggtitle(mat_title_lst[[7]]) +
+  xlab(tr("Age (years)")),
+
+  plot_mat_panels(mat_lst[[8]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  ggtitle(mat_title_lst[[8]]) +
+  xlab(paste0(tr("Length"), " (cm)")))
+
+grid.arrange(grobs = ma_plot_lst,
+             ncol = 2,
+             left = paste0(tr("Probability mature")))
+```
+
+---
+class: center
+### Growth Parameters fit externally
+
+```{r growth-params-table, results = "asis"}
+
+tex2markdown <- function(texstring) {
+  writeLines(text = texstring,
+             con = myfile <- tempfile(fileext = ".tex"))
+  texfile <- pandoc(input = myfile, format = "html")
+  cat(readLines(texfile), sep = "\n")
+  unlink(c(myfile, texfile))
+}
+
+textable <- table_growth_params(base_model,
+                                digits = 3,
+                                alpha_digits = 7,
+                                longtable = FALSE,
+                                cap = "")
+tex2markdown(textable)
+```
+
 
 ---
 class: center
