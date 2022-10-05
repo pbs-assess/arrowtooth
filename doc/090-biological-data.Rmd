@@ -281,7 +281,7 @@ grid.arrange(grobs = lw_plot_lst,
 
 <!-- Growth ------------------------------------------------------------------>
 
-(ref:fig-vb-en) The length-age growth curve is a von-Bertalanffy model. of the form $L_i \sim \operatorname{Log-normal} \left( \log(l_\mathrm{inf} (1 - \exp(-k (A_i - t_0)))), \sigma \right)$ where $L_i$ and $A_i$ represent the length and age of fish $i$, $l_\mathrm{inf}$, $k$, and $t_0$ represent the von Bertalanffy growth parameters, and $\sigma$ represents the scale parameter. Female model fits are indicated as solid black lines and male model fits are indicated as dashed grey lines. Text on the panels shows the parameter estimates and open grey circles represent individual fish that the models are fit to. 
+(ref:fig-vb-en) The length-age growth curve is a von-Bertalanffy model of the form $L_i \sim \operatorname{Log-normal} \left( \log(l_\mathrm{inf} (1 - \exp(-k (A_i - t_0)))), \sigma \right)$ where $L_i$ and $A_i$ represent the length and age of fish $i$, $l_\mathrm{inf}$, $k$, and $t_0$ represent the von-Bertalanffy growth parameters, and $\sigma$ represents the scale parameter. Female model fits are indicated as solid black lines and male model fits are indicated as dashed grey lines. Text on the panels shows the parameter estimates and open grey circles represent individual fish that the models are fit to. 
 
 <!-- These figures include all survey samples.  -->
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
