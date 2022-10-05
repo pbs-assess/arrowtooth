@@ -1046,7 +1046,8 @@ mat_title_lst <- list(
   "")
 
 plot_mat_panels <- function(fit_obj){
-  p <- plot_mat_ogive(fit_obj, text_label_size = 2) +
+  p <- plot_mat_ogive(fit_obj,
+                      show_quant_text = FALSE) +
     guides(colour = "none", fill = "none", lty = "none") +
     ggplot2::guides(lty = "none", colour = "none") + 
     theme(axis.title.y = element_blank())
@@ -1105,6 +1106,7 @@ class: center
 
 ```{r growth-params-table, results = "asis"}
 
+# This is a necessary step when compiling a latex table in HTML!
 tex2markdown <- function(texstring) {
   writeLines(text = texstring,
              con = myfile <- tempfile(fileext = ".tex"))
@@ -1113,12 +1115,14 @@ tex2markdown <- function(texstring) {
   unlink(c(myfile, texfile))
 }
 
-textable <- table_growth_params(base_model,
-                                digits = 3,
-                                alpha_digits = 7,
-                                longtable = FALSE,
-                                cap = "")
-tex2markdown(textable)
+tex_table <- table_growth_params(base_model,
+                                 digits = 3,
+                                 alpha_digits = 7,
+                                 booktabs = FALSE,
+                                 longtable = FALSE,
+                                 repeat_header = FALSE,
+                                 cap = "")
+tex2markdown(tex_table)
 ```
 
 
