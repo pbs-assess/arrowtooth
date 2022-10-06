@@ -10,7 +10,3 @@ remote_theme: jekyll/minima
 exclude:
   - csas-review/assessment-main.Rmd
   - pre-review-responses/responses-to-twg.rmd
-
-include:
-  - pre-review/_bookdown_files
-  - pre-review/_bookdown_files/knitr-cache
