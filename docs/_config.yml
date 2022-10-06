@@ -13,3 +13,4 @@ exclude:
 
 include:
   - pre-review/_bookdown_files
+  - pre-review/_bookdown_files/knitr-cache
