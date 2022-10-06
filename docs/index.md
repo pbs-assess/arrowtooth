@@ -2,7 +2,7 @@
 
 ## Slides:
 
-[2021 Arrowtooth Flounder Stock Assessment](https://pbs-assess.github.io/arrowtooth/assessment-main.html)
+[2021 Arrowtooth Flounder Stock Assessment](https://pbs-assess.github.io/arrowtooth/csas-review/assessment-main.html)
 
 
 ## Draft manuscript:
