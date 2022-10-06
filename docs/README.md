@@ -11,4 +11,4 @@
 
 ## GitHub folder for these slides:
 
-<https://github.com/pbs-assess/arrowtooth/docs/csas-review>
+<https://github.com/pbs-assess/arrowtooth/tree/master/docs/csas-review>
