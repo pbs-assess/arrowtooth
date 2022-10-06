@@ -3,10 +3,11 @@ layout: home
 title: Home
 ---
 
-### Slides:
+### Presentations:
 
-[2021 Arrowtooth Flounder Stock Assessment](https://pbs-assess.github.io/arrowtooth/csas-review/assessment-main.html)
+1. [Technical Working Group (presented at TWG meeting on June 16, 2021)](https://pbs-assess.github.io/arrowtooth/pre-review/pre-review.html)
 
+1. [Arrowtooth Flounder stock assessment for 2021 (submitted to CSAS September 26, 2022)](https://pbs-assess.github.io/arrowtooth/csas-review/assessment-main.html)
 
 ### Draft manuscript:
 
