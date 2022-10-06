@@ -16,6 +16,6 @@ permalink: /
 
 [PDF - Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2021](https://www.dropbox.com/s/h8jtykjyt4lyvxe/RPR_ArrowtoothSA_%2819-20Oct2022%29_Working_Paper_FOR_DISTRIBUTION_27Sep2022.pdf?dl=0)
 
-### GitHub folder for these slides:
+### GitHub folder for this website:
 
 <https://github.com/pbs-assess/arrowtooth/tree/master/docs>
