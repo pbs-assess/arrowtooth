@@ -7,3 +7,4 @@ decription: "Arrowtooth assessment content including links to documents and slid
 
 # Build seettings
 remote_theme: jekyll/minima
+exclude: csas-review/assessment-main.Rmd
