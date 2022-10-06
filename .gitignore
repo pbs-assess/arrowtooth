@@ -48,3 +48,9 @@ xaringan-themer.css
 
 *.pdf
 *.html
+
+!docs/csas-review/assessment-main.html
+!docs/csas-review/assessment-main.md
+!docs/csas-review/xaringan-themer.css
+!docs/csas-review/knitr-figs-docx
+!docs/csas-review/libs

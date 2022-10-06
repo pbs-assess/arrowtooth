@@ -4,7 +4,7 @@ title: Arrowtooth Flounder assessment resources
 
 ### Slides:
 
-1. [2021 Arrowtooth Flounder Stock Assessment](https://pbs-assess.github.io/arrowtooth)
+1. [2021 Arrowtooth Flounder Stock Assessment](https://pbs-assess.github.io/arrowtooth/assessment-main.html)
 
 
 ### Draft manuscript:
