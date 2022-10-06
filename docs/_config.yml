@@ -1,0 +1,9 @@
+# Website settings
+title: Arrowtooth assessment resources
+author:
+  Chris Grandin
+  email: chris.grandin@gmail.com
+decription: "Arrowtooth assessment content including links to documents and slides for presentations."
+
+# Build seettings
+remote_theme: jekyll/minima
