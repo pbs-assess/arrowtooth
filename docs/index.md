@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Resources
-permalink: /index/
+permalink: /
 ---
 
 ### Presentations:
