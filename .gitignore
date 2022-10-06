@@ -9,7 +9,6 @@ _bookdown_*
 _main*
 all.bib
 csas-style
-header-attrs
 knitr-cache
 knitr-cache-docx
 knitr-cache-pdf
@@ -40,10 +39,6 @@ tmp_*
 *.so
 *.stan
 *.pdf
-#*.html
 
-#!docs/csas-review/assessment-main.html
-#!docs/csas-review/assessment-main.md
-#!docs/csas-review/xaringan-themer.css
-#!docs/csas-review/knitr-figs-docx
+!docs/pre-review/_bookdown_files/knitr_cache
 
