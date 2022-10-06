@@ -5,11 +5,11 @@
 .Rproj.user
 
 _book
-_bookdown_*
+#_bookdown_*
 _main*
 all.bib
 csas-style
-knitr-cache
+#knitr-cache
 knitr-cache-docx
 knitr-cache-pdf
 knitr-cache-tex
@@ -40,5 +40,4 @@ tmp_*
 *.stan
 *.pdf
 
-!docs/pre-review/_bookdown_files/knitr_cache
-
+!docs/pre-review-responses/Arrowtooth-TWG-response-doc.pdf
