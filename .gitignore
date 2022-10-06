@@ -8,7 +8,6 @@ _book
 _bookdown_*
 _main*
 all.bib
-assessment-main.md
 csas-style
 header-attrs
 knitr-cache
@@ -17,11 +16,8 @@ knitr-cache-pdf
 knitr-cache-tex
 knitr-figs-docx
 knitr-figs-pdf
-libs/
-lightable.css
 models*
 reference-materials
-remark-css
 resdoc.aux
 resdoc.log
 resdoc.Rmd
@@ -35,22 +31,19 @@ test
 test.Rmd
 tmp-*
 tmp_*
-xaringan-themer.css
 
 *.cpp
 *.dll
-*.js
 *.log
 *.o
 *.rds
 *.so
 *.stan
-
 *.pdf
-*.html
+#*.html
 
-!docs/csas-review/assessment-main.html
-!docs/csas-review/assessment-main.md
-!docs/csas-review/xaringan-themer.css
-!docs/csas-review/knitr-figs-docx
-!docs/csas-review/libs
+#!docs/csas-review/assessment-main.html
+#!docs/csas-review/assessment-main.md
+#!docs/csas-review/xaringan-themer.css
+#!docs/csas-review/knitr-figs-docx
+
