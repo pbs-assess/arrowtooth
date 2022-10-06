@@ -69,7 +69,7 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 
 <!-- Biomass and recruitment -------------------------------------------------->
 
-(ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with $B_{MSY}$ reference points. The solid black line is the median of the posteriors, the shaded ribbon encapsulated by dotted lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% CI for that parameter. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])`. The $B_{MSY}$ reference point lines are shown here for reference only, they are not advised for use indecision making for this stock. See section \@ref(scam-ref-points) for more details.
+(ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with $B_{MSY}$ reference points. The solid black line is the median of the posteriors, the shaded ribbon encapsulated by dotted lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% CI for that parameter. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t. The $B_{MSY}$ reference point lines are shown here for reference only, they are not advised for use in decision making for this stock. See section \@ref(scam-ref-points) for more details.
 
 (ref:fig-base-sb-fr) French here
 
@@ -81,7 +81,7 @@ plot_biomass_mcmc(base_model,
                   ylim = c(0, 250))
 ```
 
-(ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. See Figure \@ref(fig:fig-base-sb) for more information. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])`.
+(ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. See Figure \@ref(fig:fig-base-sb) for more information. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t.
 
 (ref:fig-base-sb-bo-fr) French here
 

@@ -165,7 +165,7 @@ table_prop_female(prop_female_lst, digits = 2, caption = cap)
 ```
 
 ```{r prop-female-comm-weights-table, results = "asis"}
-cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp, "in the commercial trawl fishery. See Table \\ref{tab:prop-female-table} for survey acronym meanings.")
+cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp, " in the commercial trawl fishery.")
 if(fr()){
   cap <- paste0("French here")
 }
