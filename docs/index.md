@@ -10,7 +10,7 @@ permalink: /
 
 ### Science Advisory Report (SAR) for 2022
 
-- [SAR 2022](https://pbs-assess.github.io/arrowtooth/sar/SAR-arrowtooth-2022.pdf)
+- [SAR for the 2021 asessment](https://pbs-assess.github.io/arrowtooth/sar/SAR-arrowtooth-2022.pdf)
 
 ### Presentations:
 
