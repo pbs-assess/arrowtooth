@@ -717,7 +717,13 @@ sens_3_2_selex_f_qcs_mean_ci <- paste0(f(sens_3_2_selex_f_qcs[2], 1),
 
 # This is a hard coded value in the abstract (percentage of posteriors below the 0.2B0 LRP)
 prob_below_02_sbo_2022 <- sum(unlist(base_model$mcmccalcs$depl[, ncol(base_model$mcmccalcs$depl)]) < 0.2) / 
-  nrow(base_model$mcmccalcs) * 100
+  nrow(base_model$mcmccalcs$depl) * 100
+
+prob_above_02_sbo_2022 <- sum(unlist(base_model$mcmccalcs$depl[, ncol(base_model$mcmccalcs$depl)]) > 0.2) / 
+  nrow(base_model$mcmccalcs$depl) * 100
+
+prob_above_04_sbo_2022 <- sum(unlist(base_model$mcmccalcs$depl[, ncol(base_model$mcmccalcs$depl)]) > 0.4) / 
+  nrow(base_model$mcmccalcs$depl) * 100
 
 split_sex_model_sel <- models$bridge_grps[[2]][[4]]$mcmccalcs$selest_quants |> filter(gear == "QCS Synoptic", sex == 2)
 split_sex_model_sel_ahat <- paste0(f(split_sex_model_sel$a_hat[2]), " (", 
