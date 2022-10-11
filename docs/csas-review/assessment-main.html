@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### DFO
 ]
 .date[
-### Slides compiled on 2022-10-05
+### Slides compiled on 2022-10-11
 ]
 
 ---
@@ -52,7 +52,34 @@ background-image: url(figures/arrowtooth_flounder.jpeg)
 
 
 ---
-class: center
+class: center, bg_arf
+### Outline
+
+.left[
+
+- Introduction (biology and differences from last assessment)
+- Management history, areas and spatial catch
+- Data
+  - Catch, Length, Age
+  - Indices of Abundance
+      - Discard CPUE index
+  - Growth parameters (fit outside assessment model)
+  - Proportion female analysis
+- Bridge models
+- Assessment model fits/estimates
+  - Age
+  - Selectivity (compared to maturity)
+  - Posterior distributions of MSY-based reference points
+- Retrospective models
+- Sensitivity models
+- Summary
+]
+&lt;div class="footer" id="a"&gt;
+  &lt;a href="https://www.seafoodwatch.org/recommendation/flounder/arrowtooth-flounder-525"&gt;Photo Source&lt;/a&gt;
+&lt;/div&gt;
+
+---
+class: center, bg_arf_face_close
 ### Introduction
 
 .left[
@@ -75,9 +102,12 @@ class: center
 - includes 3 synoptic surveys (QCS, HS, and WCVI) and
 - is split by sex, and has two commercial trawl fleets (Freezer trawlers and Shoreside).
 ]
+&lt;div class="footer" id="a"&gt;
+  &lt;a href="https://www.flickr.com/photos/77659781@N00/6150221707"&gt;Photo Source&lt;/a&gt;
+&lt;/div&gt;
 
 ---
-class: center
+class: center, bg_arf_many
 ### Management
 
 .left[
@@ -96,6 +126,9 @@ On Jan. 30, 2020, late changes to the Integrated Fisheries Management Plan (IFMP
 
 .link-style1[[IFMP for Groundfish](https://www.pac.dfo-mpo.gc.ca/fm-gp/mplans/ground-fond-ifmp-pgip-sm-eng.html)]
 ]
+&lt;div class="footer" id="a"&gt;
+  &lt;a href="https://media.fisheries.noaa.gov/styles/full_width/s3/dam-migration/arrowtoothflounderimage-hero.jpg?itok=kBvLAic7"&gt;Photo Source&lt;/a&gt;
+&lt;/div&gt;
 
 ---
 class: center
@@ -139,10 +172,76 @@ class: center
 &lt;img src="knitr-figs-docx/length-data-1.png" width="900" style="display: block; margin: auto;" /&gt;
 
 ---
+class: center, bg_arf_pencil
+### Age data
+.left[
+Age data were
+- recorded using break-and-bake method where a whole tray of otoliths are baked and then individually broken and rings counted;
+
+- chosen randomly across many vessels for the commercial trawl fishery;
+
+- included for both commercial fleets and three synoptic surveys;
+
+- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and Grandin and Forrest (2017). This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
+]
+&lt;div class="footer" id="a"&gt;
+  &lt;a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&amp;as_channel=dpcft&amp;as_campclass=brand&amp;as_source=ft_web&amp;as_camptype=acquisition&amp;as_audience=users&amp;as_content=closure_asset-detail-page"&gt;Photo Source&lt;/a&gt;
+&lt;/div&gt;
+
+---
 class: center
 ### Age data
 
 &lt;img src="knitr-figs-docx/age-data-1.png" width="900" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, bg_surveys
+### Abundance Indices
+
+.left[
+Five fishery independent indices of abundance were fit in the base model:
+
+- Queen Charlotte Sound Synoptic Survey: odd years, 2003&amp;ndash;2021 and 2004
+
+- Hecate Strait Multispecies Assemblage Survey: 1996, 1998, 2000,2002, 2003
+
+- Hecate Strait Synoptic Survey: odd years, 2005&amp;ndash;2021
+
+- West Coast Vancouver Island Synoptic Survey: even years, 2004&amp;ndash;2018, and 2021
+
+- Discard CPUE Index: all years, 1996&amp;ndash;2021
+
+
+All are in thousands of tonnes except the Discard CPUE Index which is in kg/hr.
+]
+&lt;div class="footer" id="a"&gt;
+  &lt;a href="https://www.researchgate.net/figure/Locations-of-the-current-groundfish-trawl-surveys-on-the-coast-of-British-Columbia_fig1_237497699"&gt;Photo Source&lt;/a&gt;
+&lt;/div&gt;
+
+---
+class: center
+### Abundance Indices - Discard CPUE Index
+.left[
+We generated an index of abundance from discard commercial trawl CPUE standardized for:
+- depth;
+- fishing locality (defined spatial regions);
+- month;
+- vessel and
+- latitude.
+
+**Data filtering:**
+- include tows where 100% of caught Arrowtooth Flounder were discarded, to avoid tows targeting Arrowtooth Flounder;
+- include vessels that have caught and discarded Arrowtooth Flounder in at least 100 tows from 1996-2021;
+- those vessels have had at least five trips that recorded Arrowtooth Flounder for at least five years from 1996-2021.
+
+**Standardization model predictors:**
+- for depth, binned into 25m-wide bands;
+- for latitude, binned into 0.1-degree-wide bands;
+- limited both to include only bands that fell in 0.1% and 99.9% probability of positive observations;
+- removed any that contained fewer than 0.1% of observations
+
+TODO: Add the rest or make another presentation, See Appendix C for details.
+]
 
 ---
 class: center
@@ -174,7 +273,7 @@ class: center
 
 .left[
 The proportion of females in the population was calculated for the four synoptic surveys and the commercial trawl (as a single fleet).
-- The Gulf of Alaska and Bering Sea/Aleutian Islands assessments use &lt;SPAN STYLE="font-size:18.0pt"&gt;0.7&lt;/SPAN&gt;
+- The Gulf of Alaska and Bering Sea/Aleutian Islands assessments use &lt;SPAN STYLE="font-size:18.0pt"&gt;0.7&lt;/SPAN&gt; 
 
 Data used for these calculations were filtered for:
 - Sampled category
@@ -452,53 +551,103 @@ The overall mean of the survey and the commercial fishery means is &lt;SPAN STYL
 
 This was input into the ISCAM base model.
 ]
+
+---
+class: center, middle, inverse
+# Bridge Models
+
 ---
 class: center
-### Abundance Indices
+### Bridge models - group 1
 
 .left[
-Five fishery independent indices of abundance were fit in the base model:
+- Bridge models were run to move from the model used in the 2015 assessment to this year's assessment.
+- Each of the 10 models has one has only one change to the model from the previous one.
+]
+&lt;img src="knitr-figs-docx/bridge-biomass-group1-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-- *Queen Charlotte Sound Synoptic Survey (Age comps/estimated selectivity)*
+---
+class: center
+### Bridge models - Pairs plot resulting from adding data to 2021
 
-- Hecate Strait Multispecies Assemblage Survey (No age comps/fixed selectivity)
+&lt;img src="knitr-figs-docx/bridge-biomass-pairs-add2021data-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
-- *Hecate Strait Synoptic Survey (Age comps/estimated selectivity)*
+---
+class: center
+### Bridge models - group 2
 
-- *West Coast Vancouver Island Synoptic Survey (Age comps/estimated selectivity)*
+&lt;img src="knitr-figs-docx/bridge-biomass-group2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
-- Discard CPUE Index (No age comps/fixed selectivity)
+---
+class: center
+### Bridge models - Index fits for group 2 models
 
+&lt;img src="knitr-figs-docx/bridge-index-group2-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
-All are in thousands of tonnes except the Discard CPUE Index which is in kg/hr.
+---
+class: center
+### Bridge models - Selectivity estimates for split-sex model
+&lt;img src="knitr-figs-docx/bridge-group2-sel-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+.left[
+- **Problem 1**; The selectivity age-at-50% estimates `\((\hat{a})\)` for females in the Queen Charlotte Sound Synoptic Survey for this model were (median, CI [credible interval]) 105 (39&amp;ndash;221).
+- **Problem 2**; The selectivity age-at-50% estimates `\((\hat{a})\)` for females and males in the West Coast Haida Gwaii Synoptic Survey for this model were (median, CI [credible interval]) 58,609,050 (72,456&amp;ndash;41,647,490,000) and 96 (36&amp;ndash;639) respectively.
 ]
 
 ---
 class: center
-### Abundance Indices - Discard CPUE Index
+### Bridge models - group 3
+
+&lt;img src="knitr-figs-docx/bridge-biomass-group3-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Bridge models - Pairs plot resulting from removing WCHG
+
+&lt;img src="knitr-figs-docx/fig-bridge-pairs-remove-wchg-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Bridge models - Pairs plot resulting from fixing M
+
+&lt;img src="knitr-figs-docx/fig-bridge-pairs-fix-m-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, bg_arf_pencil_flip
+### Bridge models - Summary
+
 .left[
-We generated an index of abundance from discard commercial trawl CPUE standardized for:
-- depth;
-- fishing locality (defined spatial regions);
-- month;
-- vessel and
-- latitude.
+The base model is the last bridge model and includes all changes made across the set of bridge models which include:
 
-**Data filtering:**
-- include tows where 100% of caught Arrowtooth Flounder were discarded, to avoid tows targeting Arrowtooth Flounder;
-- include vessels that have caught and discarded Arrowtooth Flounder in at least 100 tows from 1996-2021;
-- those vessels have had at least five trips that recorded Arrowtooth Flounder for at least five years from 1996-2021.
-
-**Standardization model predictors:**
-- for depth, binned into 25m-wide bands;
-- for latitude, binned into 0.1-degree-wide bands;
-- limited both to include only bands that fell in 0.1% and 99.9% probability of positive observations;
-- removed any that contained fewer than 0.1% of observations
-
-TODO: Add the rest or make another presentation, See Appendix C for details.
+- switch to .link-style1[[gfdata](https://github.com/pbs-assess/gfdata)]/.link-style1[[gfplot](https://github.com/pbs-assess/gfplot)] methods for data extraction;
+- updated age, catch, and index data to include 2015&amp;ndash;2021;
+- the Dirichlet-Multinomial age weighting parameterization;
+- two-fleets for commercial trawl fishery (Freezer trawlers and Shoreside);
+- addition of the Discard CPUE index;
+- split-sex model;
+- fishing year runs from Feb. 21 - Feb. 20 (instead of Jan. 1 - Dec. 31);
+- removal of all data from West Coast Haida Gwaii Synoptic Survey and
+- fixed natural mortality for both sexes (0.2 for females and 0.35 for males)
 ]
+&lt;div class="footer" id="a"&gt;
+  &lt;a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&amp;as_channel=dpcft&amp;as_campclass=brand&amp;as_source=ft_web&amp;as_camptype=acquisition&amp;as_audience=users&amp;as_content=closure_asset-detail-page"&gt;Photo Source&lt;/a&gt;
+&lt;/div&gt;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;!---------------------------------Model fits---------------------------------&gt;
 
 ---
 class: center
@@ -511,21 +660,6 @@ class: center
 ### Abundance Indices - Residuals
 
 &lt;img src="knitr-figs-docx/index-residuals-base-1.png" width="900" style="display: block; margin: auto;" /&gt;
-
----
-class: center
-### Age data
-.left[
-Age data were
-- recorded using break-and-bake method where a whole tray of otoliths are baked and then individually broken and rings counted;
-
-- chosen randomly across many vessels for the commercial trawl fishery;
-
-- included for both commercial fleets and three synoptic surveys;
-
-- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and Grandin and Forrest (2017). This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
-
-]
 
 ---
 class: center
@@ -598,11 +732,12 @@ Selectivities were estimated for the gears with age compositions; the two trawl 
 class: center
 ### Reference point estimates
 .left[
-- The `\(U_{MSY_2}\)` posterior for the Shoreside fleet is all at or near 1, meaning the Fishing mortality is very large, and no amount of fishing would impact the stock.
-- Because of this, the MSY-based reference points are extremely liberal and should not be used.
+- The `\(U_{MSY_2}\)` posteriors (exploitation rate) for the Shoreside fleet are all at or near 1, meaning the fishing mortality is unrealistically large.
+- This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are extremely liberal.
 
 &lt;img src="knitr-figs-docx/ref-points-base-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

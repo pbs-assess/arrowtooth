@@ -42,3 +42,139 @@ img.sixtypercsize {
   max-width:60%;
   max-height:60%;
 }
+
+.bg_arf {
+  position: relative;
+  z-index: 1;
+}
+
+.bg_arf::before {
+      content: "";
+      background-image: url(figures/arrowtooth_flounder.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.3;
+      z-index: -1;
+}
+
+.bg_arf_face_close {
+  position: relative;
+  z-index: 1;
+}
+
+.bg_arf_face_close::before {
+      content: "";
+      background-image: url(figures/arrowtooth_flounder_face_close.jpg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: right 100px;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.3;
+      z-index: -1;
+/*      -webkit-filter: blur(12px);
+      filter: blur(12px);
+*/
+}
+
+.bg_arf_pencil {
+  position: relative;
+  z-index: 1;
+}
+
+.bg_arf_pencil::before {
+      content: "";
+      background-image: url(figures/arrowtooth_flounder_pencil.jpg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 400px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.5;
+      z-index: -1;
+}
+
+.bg_arf_pencil_flip {
+  position: relative;
+  z-index: 1;
+}
+
+.bg_arf_pencil_flip::before {
+      content: "";
+      background-image: url(figures/arrowtooth_flounder_pencil.jpg);
+      background-size: contain;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 400px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.5;
+      transform:scaleX(-1);
+      z-index: -1;
+}
+
+.bg_arf_many {
+  position: relative;
+  z-index: 1;
+}
+
+.bg_arf_many::before {
+      content: "";
+      background-image: url(figures/arrowtooth_flounder_many.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.2;
+      z-index: -1;
+}
+
+.bg_surveys {
+  position: relative;
+  z-index: 1;
+}
+
+.bg_surveys::before {
+      content: "";
+      background-image: url(figures/survey_world_map.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.1;
+      z-index: -1;
+}
+
+.footer {
+    position: absolute;
+    bottom: 10px;
+    right: 60px;
+    height: 25px;
+    width: 20%;
+}
+.footer > a {
+    font-size: 14pt;
+    color: blue;
+    position: absolute;
+    right: 15px;
+    bottom: 1px;
+    text-decoration: underline;
+}
+

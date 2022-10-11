@@ -31,7 +31,7 @@ bridge_models_text <-
                 "Switch to Dirichlet-Multinomial (one fleet, single sex)"),
          ifelse(fr(),
                 "Passage au modèle à deux flottes (deux flottes, un seul sexe)",
-                "Change to two-fleet model (two fleet, single sex)"),
+                "Change to two-fleet model (two fleets, single sex)"),
          ifelse(fr(),
                 "Ajouter l'indice CPUE des rejets (deux flottes, un seul sexe)",
                 "Add Discard CPUE index (two fleets, single sex)"),

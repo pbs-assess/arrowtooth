@@ -88,7 +88,9 @@ plot_index_mcmc(models$bridge_grps[[2]],
 (ref:fig-bridge-group2-sel-fr) French caption here
 
 ```{r bridge-group2-sel, fig.cap = ifelse(fr(), "(ref:fig-bridge-group2-sel-fr)", "(ref:fig-bridge-group2-sel-en)"), out.width = "100%"}
-plot_selex_mcmc(models$bridge_grps[[2]][[4]], show_maturity = TRUE)
+plot_selex_mcmc(models$bridge_grps[[2]][[4]],
+                show_maturity = TRUE,
+                leg_loc = "facet")
 ```
 
 

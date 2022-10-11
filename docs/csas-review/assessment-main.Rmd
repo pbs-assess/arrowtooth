@@ -645,6 +645,23 @@ split_sex_model_sel_ahat <- paste0(f(split_sex_model_sel$a_hat[2]), " (",
 split_sex_model_sel_ghat <- paste0(f(split_sex_model_sel$g_hat[2]), " (", 
                                    f(split_sex_model_sel$g_hat[1]), "--",
                                    f(split_sex_model_sel$g_hat[3]), ")")
+split_sex_model_sel_ahat_html <- paste0(f(split_sex_model_sel$a_hat[2]), " (", 
+                                        f(split_sex_model_sel$a_hat[1]), "&ndash;",
+                                        f(split_sex_model_sel$a_hat[3]), ")")
+split_sex_model_sel_ghat_html <- paste0(f(split_sex_model_sel$g_hat[2]), " (", 
+                                        f(split_sex_model_sel$g_hat[1]), "&ndash;",
+                                        f(split_sex_model_sel$g_hat[3]), ")")
+
+split_sex_model_sel_wchg_male <- models$bridge_grps[[2]][[4]]$mcmccalcs$selest_quants |>
+  filter(gear == "WCHG Synoptic", sex == 1)
+split_sex_model_sel_wchg_female <- models$bridge_grps[[2]][[4]]$mcmccalcs$selest_quants |>
+  filter(gear == "WCHG Synoptic", sex == 2)
+split_sex_model_sel_ahat_wchg_female_html <- paste0(f(split_sex_model_sel_wchg_female$a_hat[2]), " (", 
+                                                    f(split_sex_model_sel_wchg_female$a_hat[1]), "&ndash;",
+                                                    f(split_sex_model_sel_wchg_female$a_hat[3]), ")")
+split_sex_model_sel_ahat_wchg_male_html <- paste0(f(split_sex_model_sel_wchg_male$a_hat[2]), " (", 
+                                                  f(split_sex_model_sel_wchg_male$a_hat[1]), "&ndash;",
+                                                  f(split_sex_model_sel_wchg_male$a_hat[3]), ")")
 
 theme_set(theme_pbs())
 ```
@@ -661,7 +678,34 @@ style_mono_accent(
 ```
 
 ---
-class: center
+class: center, bg_arf
+### Outline
+
+.left[
+
+- Introduction (biology and differences from last assessment)
+- Management history, areas and spatial catch
+- Data
+  - Catch, Length, Age
+  - Indices of Abundance
+      - Discard CPUE index
+  - Growth parameters (fit outside assessment model)
+  - Proportion female analysis
+- Bridge models
+- Assessment model fits/estimates
+  - Age
+  - Selectivity (compared to maturity)
+  - Posterior distributions of MSY-based reference points
+- Retrospective models
+- Sensitivity models
+- Summary
+]
+<div class="footer" id="a">
+  <a href="https://www.seafoodwatch.org/recommendation/flounder/arrowtooth-flounder-525">Photo Source</a>
+</div>
+
+---
+class: center, bg_arf_face_close
 ### Introduction
 
 .left[
@@ -684,9 +728,12 @@ class: center
 - includes 3 synoptic surveys (QCS, HS, and WCVI) and
 - is split by sex, and has two commercial trawl fleets (Freezer trawlers and Shoreside).
 ]
+<div class="footer" id="a">
+  <a href="https://www.flickr.com/photos/77659781@N00/6150221707">Photo Source</a>
+</div>
 
 ---
-class: center
+class: center, bg_arf_many
 ### Management
 
 .left[
@@ -705,6 +752,9 @@ On Jan. 30, 2020, late changes to the Integrated Fisheries Management Plan (IFMP
 
 .link-style1[[IFMP for Groundfish](https://www.pac.dfo-mpo.gc.ca/fm-gp/mplans/ground-fond-ifmp-pgip-sm-eng.html)]
 ]
+<div class="footer" id="a">
+  <a href="https://media.fisheries.noaa.gov/styles/full_width/s3/dam-migration/arrowtoothflounderimage-hero.jpg?itok=kBvLAic7">Photo Source</a>
+</div>
 
 ---
 class: center
@@ -845,6 +895,23 @@ g_lengths
 ```
 
 ---
+class: center, bg_arf_pencil
+### Age data
+.left[
+Age data were
+- recorded using break-and-bake method where a whole tray of otoliths are baked and then individually broken and rings counted;
+
+- chosen randomly across many vessels for the commercial trawl fishery;
+
+- included for both commercial fleets and three synoptic surveys;
+
+- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and Grandin and Forrest (2017). This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
+]
+<div class="footer" id="a">
+  <a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page">Photo Source</a>
+</div>
+
+---
 class: center
 ### Age data
 
@@ -892,6 +959,55 @@ grid.arrange(s_ages,
              left = tr("Ages (years)"),
              bottom = tr("Year sampled"))
 ```
+
+---
+class: center, bg_surveys
+### Abundance Indices
+
+.left[
+Five fishery independent indices of abundance were fit in the base model:
+
+- `r qcs`: odd years, 2003&ndash;2021 and 2004
+
+- `r hsmas`: 1996, 1998, 2000,2002, 2003
+
+- `r hss`: odd years, 2005&ndash;2021
+
+- `r wcvis`: even years, 2004&ndash;2018, and 2021
+
+- `r dcpue`: all years, 1996&ndash;2021
+
+
+All are in thousands of tonnes except the `r dcpue` which is in kg/hr.
+]
+<div class="footer" id="a">
+  <a href="https://www.researchgate.net/figure/Locations-of-the-current-groundfish-trawl-surveys-on-the-coast-of-British-Columbia_fig1_237497699">Photo Source</a>
+</div>
+
+---
+class: center
+### Abundance Indices - `r dcpue`
+.left[
+We generated an index of abundance from discard commercial trawl CPUE standardized for:
+- depth;
+- fishing locality (defined spatial regions);
+- month;
+- vessel and
+- latitude.
+
+**Data filtering:**
+- include tows where 100% of caught `r sp` were discarded, to avoid tows targeting `r sp`;
+- include vessels that have caught and discarded `r sp` in at least 100 tows from 1996-2021;
+- those vessels have had at least five trips that recorded `r sp` for at least five years from 1996-2021.
+
+**Standardization model predictors:**
+- for depth, binned into 25m-wide bands;
+- for latitude, binned into 0.1-degree-wide bands;
+- limited both to include only bands that fell in 0.1% and 99.9% probability of positive observations;
+- removed any that contained fewer than 0.1% of observations
+
+TODO: Add the rest or make another presentation, See Appendix C for details.
+]
 
 ---
 class: center
@@ -1203,53 +1319,190 @@ The overall mean of the survey and the commercial fishery means is <SPAN STYLE="
 
 This was input into the ISCAM base model.
 ]
+
+---
+class: center, middle, inverse
+# Bridge Models
+
 ---
 class: center
-### Abundance Indices
+### Bridge models - group 1
 
 .left[
-Five fishery independent indices of abundance were fit in the base model:
+- Bridge models were run to move from the model used in the `r la` to this year's assessment.
+- Each of the 10 models has one has only one change to the model from the previous one.
+]
+```{r bridge-biomass-group1, out.width = "70%"}
+cowplot::plot_grid(
+  plot_biomass_mcmc(models$bridge_grps[[1]],
+                    legend_title = "Models",
+                    angle_x_labels = TRUE,
+                    leg_loc = c(0.95, 0.95),
+                    ylim = c(0, 1000)) +
+    theme(legend.key.size = unit(0.1, 'cm')),
+  plot_biomass_mcmc(models$bridge_grps[[1]],
+                    rel = TRUE,
+                    leg_loc = NULL,
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1.5)),
+  ncol = 2)
 
-- *`r qcs` (Age comps/estimated selectivity)*
+```
 
-- `r hsmas` (No age comps/fixed selectivity)
+---
+class: center
+### Bridge models - Pairs plot resulting from adding data to 2021
 
-- *`r hss` (Age comps/estimated selectivity)*
+```{r bridge-biomass-pairs-add2021data, out.width = "80%"}
+plot_pairs_mcmc(models$bridge_grps[[1]][[3]],
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
 
-- *`r wcvis` (Age comps/estimated selectivity)*
+---
+class: center
+### Bridge models - group 2
 
-- `r dcpue` (No age comps/fixed selectivity)
+```{r bridge-biomass-group2, out.width = "80%"}
+cowplot::plot_grid(
+  plot_biomass_mcmc(models$bridge_grps[[2]],
+                    legend_title = "Models",
+                    angle_x_labels = TRUE,
+                    leg_loc = c(0.95, 0.95),
+                    ylim = c(0, 1000)) +
+    theme(legend.key.size = unit(0.1, 'cm')),
+  plot_biomass_mcmc(models$bridge_grps[[2]],
+                    rel = TRUE,
+                    leg_loc = NULL,
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1.5)),
+  ncol = 2)
+```
 
+---
+class: center
+### Bridge models - Index fits for group 2 models
 
-All are in thousands of tonnes except the `r dcpue` which is in kg/hr.
+```{r bridge-index-group2, out.width = "85%"}
+plot_index_mcmc(models$bridge_grps[[2]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "outside",
+                angle_x_labels = TRUE,
+                text_title_size = NULL)
+```
+
+---
+class: center
+### Bridge models - Selectivity estimates for split-sex model
+```{r bridge-group2-sel, out.width = "60%"}
+plot_selex_mcmc(models$bridge_grps[[2]][[4]],
+                show_maturity = TRUE,
+                leg_loc = "facet")
+```
+
+.left[
+- **Problem 1**; The selectivity age-at-50% estimates $(\hat{a})$ for females in the `r qcs` for this model were (median, CI [credible interval]) `r split_sex_model_sel_ahat_html`.
+- **Problem 2**; The selectivity age-at-50% estimates $(\hat{a})$ for females and males in the `r wchgs` for this model were (median, CI [credible interval]) `r split_sex_model_sel_ahat_wchg_female_html` and `r split_sex_model_sel_ahat_wchg_male_html` respectively.
 ]
 
 ---
 class: center
-### Abundance Indices - `r dcpue`
+### Bridge models - group 3
+
+```{r bridge-biomass-group3, out.width = "80%"}
+cowplot::plot_grid(
+  plot_biomass_mcmc(models$bridge_grps[[3]],
+                    legend_title = "Models",
+                    angle_x_labels = TRUE,
+                    leg_loc = c(0.95, 0.95),
+                    ylim = c(0, 1000)) +
+    theme(legend.key.size = unit(0.1, 'cm')),
+  plot_biomass_mcmc(models$bridge_grps[[3]],
+                    rel = TRUE,
+                    leg_loc = NULL,
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1.5)),
+  ncol = 2)
+```
+
+---
+class: center
+### Bridge models - Pairs plot resulting from removing WCHG
+
+```{r fig-bridge-pairs-remove-wchg, out.width = "85%"}
+plot_pairs_mcmc(models$bridge_grps[[3]][[2]],
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
+
+---
+class: center
+### Bridge models - Pairs plot resulting from fixing M
+
+```{r fig-bridge-pairs-fix-m, out.width = "85%"}
+plot_pairs_mcmc(models$bridge_grps[[3]][[3]],
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
+
+---
+class: center, bg_arf_pencil_flip
+### Bridge models - Summary
+
 .left[
-We generated an index of abundance from discard commercial trawl CPUE standardized for:
-- depth;
-- fishing locality (defined spatial regions);
-- month;
-- vessel and
-- latitude.
+The base model is the last bridge model and includes all changes made across the set of bridge models which include:
 
-**Data filtering:**
-- include tows where 100% of caught `r sp` were discarded, to avoid tows targeting `r sp`;
-- include vessels that have caught and discarded `r sp` in at least 100 tows from 1996-2021;
-- those vessels have had at least five trips that recorded `r sp` for at least five years from 1996-2021.
-
-**Standardization model predictors:**
-- for depth, binned into 25m-wide bands;
-- for latitude, binned into 0.1-degree-wide bands;
-- limited both to include only bands that fell in 0.1% and 99.9% probability of positive observations;
-- removed any that contained fewer than 0.1% of observations
-
-TODO: Add the rest or make another presentation, See Appendix C for details.
+- switch to .link-style1[[gfdata](https://github.com/pbs-assess/gfdata)]/.link-style1[[gfplot](https://github.com/pbs-assess/gfplot)] methods for data extraction;
+- updated age, catch, and index data to include 2015&ndash;2021;
+- the Dirichlet-Multinomial age weighting parameterization;
+- two-fleets for commercial trawl fishery (Freezer trawlers and Shoreside);
+- addition of the Discard CPUE index;
+- split-sex model;
+- fishing year runs from Feb. 21 - Feb. 20 (instead of Jan. 1 - Dec. 31);
+- removal of all data from `r wchgs` and
+- fixed natural mortality for both sexes (0.2 for females and 0.35 for males)
 ]
+<div class="footer" id="a">
+  <a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page">Photo Source</a>
+</div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------------Model fits--------------------------------->
 
 ---
 class: center
@@ -1274,21 +1527,6 @@ plot_index_mcmc(base_model,
                 leg_loc = NULL,
                 text_title_size = NULL)
 ```
-
----
-class: center
-### Age data
-.left[
-Age data were
-- recorded using break-and-bake method where a whole tray of otoliths are baked and then individually broken and rings counted;
-
-- chosen randomly across many vessels for the commercial trawl fishery;
-
-- included for both commercial fleets and three synoptic surveys;
-
-- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and Grandin and Forrest (2017). This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
-
-]
 
 ---
 class: center
@@ -1385,10 +1623,11 @@ plot_selex_mcmc(base_model, show_maturity = TRUE, leg_loc = "facet")
 class: center
 ### Reference point estimates
 .left[
-- The $U_{MSY_2}$ posterior (Shoreside fleet) is all at or near 1, meaning the fishing mortality is unrealistically large.
+- The $U_{MSY_2}$ posteriors (exploitation rate) for the Shoreside fleet are all at or near 1, meaning the fishing mortality is unrealistically large.
 - This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are extremely liberal.
 
 ```{r ref-points-base, out.width = "60%" }
 plot_ref_points(base_model)
 ```
 ]
+
