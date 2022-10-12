@@ -526,7 +526,7 @@ get_ctl_params <- function(model, param = NULL, value = NULL, ...){
   inp_params
 }
 
-get_param_est <- function(model, param = NULL, est_digits = 2, ...){
+get_param_est <- function(model, param = NULL, est_digits = 2, html = FALSE, ...){
   if(is.null(param)){
     stop("Must provode `param` name", call. = FALSE)
   }
@@ -538,7 +538,14 @@ get_param_est <- function(model, param = NULL, est_digits = 2, ...){
     param ="m_sex2"
   }
   raw <- as_tibble(model$mcmccalcs$params_quants)[[param]]
-  paste0(f(raw[2], est_digits), " (", f(raw[1], est_digits), "--", f(raw[3], est_digits), ")")
+  paste0(f(raw[2], est_digits),
+         " (",
+         f(raw[1],
+           est_digits),
+         ifelse(html, "&ndash;", "--"),
+         f(raw[3],
+           est_digits),
+         ")")
 }
 
 get_param_vals <- function(model, param, est = TRUE, ...){
@@ -662,6 +669,9 @@ split_sex_model_sel_ahat_wchg_female_html <- paste0(f(split_sex_model_sel_wchg_f
 split_sex_model_sel_ahat_wchg_male_html <- paste0(f(split_sex_model_sel_wchg_male$a_hat[2]), " (", 
                                                   f(split_sex_model_sel_wchg_male$a_hat[1]), "&ndash;",
                                                   f(split_sex_model_sel_wchg_male$a_hat[3]), ")")
+
+estimated_female_m_remove_wchg <- get_param_vals(models$bridge_grps[[3]][[2]], "log_m_female", html = TRUE)
+estimated_male_m_remove_wchg <- get_param_vals(models$bridge_grps[[3]][[2]], "log_m_male", html = TRUE)
 
 theme_set(theme_pbs())
 ```
@@ -1437,10 +1447,10 @@ cowplot::plot_grid(
 class: center
 ### Bridge models - Pairs plot resulting from removing WCHG
 
-```{r fig-bridge-pairs-remove-wchg, out.width = "85%"}
+```{r fig-bridge-pairs-remove-wchg, out.width = "70%"}
 plot_pairs_mcmc(models$bridge_grps[[3]][[2]],
                 plot_sel = FALSE,
-                param_rm = c("m1", "m2", "rho", "ssb",
+                param_rm = c("rho", "ssb",
                              "msy1", "msy2",
                              "fmsy1", "fmsy2",
                              "umsy1", "umsy2",
@@ -1449,12 +1459,16 @@ plot_pairs_mcmc(models$bridge_grps[[3]][[2]],
                 tick_label_size = 4,
                 point_size = 0.5)
 ```
+.left[
+- This model has excessive correlation between parameters.
+- M estimate of `r estimated_male_m_remove_wchg$est` for males is too low for this stock compared to surrounding areas, and should be higher than the female estimate, `r estimated_female_m_remove_wchg$est`.
+]
 
 ---
 class: center
 ### Bridge models - Pairs plot resulting from fixing M
 
-```{r fig-bridge-pairs-fix-m, out.width = "85%"}
+```{r fig-bridge-pairs-fix-m, out.width = "70%"}
 plot_pairs_mcmc(models$bridge_grps[[3]][[3]],
                 plot_sel = FALSE,
                 param_rm = c("m1", "m2", "rho", "ssb",
@@ -1465,6 +1479,35 @@ plot_pairs_mcmc(models$bridge_grps[[3]][[3]],
                 text_title_size = NULL,
                 tick_label_size = 4,
                 point_size = 0.5)
+```
+.left[
+- Fixed M to 0.20 for females and 0.35 for males as in the GOA and Bering Sea/Aleutian Islands assessment.
+]
+
+---
+class: center
+### Bridge models - All models
+
+```{r bridge-biomass-all, out.width = "80%"}
+all_bridge_mdls <- do.call(c, models$bridge_grps)
+class(all_bridge_mdls) <- mdl_lst_cls
+cowplot::plot_grid(
+  plot_biomass_mcmc(all_bridge_mdls,
+                    legend_title = "Models",
+                    angle_x_labels = TRUE,
+                    leg_loc = c(0.95, 0.95),
+                    palette = "Paired",
+                    show_ci = FALSE,
+                    ylim = c(0, 1000)) +
+    theme(legend.key.size = unit(0.1, 'cm')),
+  plot_biomass_mcmc(all_bridge_mdls,
+                    rel = TRUE,
+                    leg_loc = NULL,
+                    palette = "Paired",
+                    show_ci = FALSE,
+                    angle_x_labels = TRUE,
+                    ylim = c(0, 1.5)),
+  ncol = 2)
 ```
 
 ---
@@ -1488,25 +1531,13 @@ The base model is the last bridge model and includes all changes made across the
   <a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page">Photo Source</a>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!---------------------------------Model fits--------------------------------->
+---
+class: center, middle, inverse
+# Base model
 
 ---
 class: center
-### Abundance Indices - Fits
+### Base model - Abundance index fits
 
 ```{r index-fits-base, out.width = 900}
 plot_index_mcmc(base_model,
@@ -1518,7 +1549,7 @@ plot_index_mcmc(base_model,
 
 ---
 class: center
-### Abundance Indices - Residuals
+### Base model - Abundance index residuals
 
 ```{r index-residuals-base, out.width = 900}
 plot_index_mcmc(base_model,
@@ -1530,7 +1561,7 @@ plot_index_mcmc(base_model,
 
 ---
 class: center
-### Age fits/residuals - Freezer trawlers
+### Base model - Age fits/residuals for Freezer trawlers
 .left-fig[
 ```{r age-fits-base-ft, out.width = "100%", fig.dim = c(4.8, 4.5)}
 plot_age_fits_mcmc(base_model, gear = 1, text_title_size = NULL, angle_x_labels = TRUE)
@@ -1544,7 +1575,7 @@ plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL, leg_loc = c(0
 
 ---
 class: center
-### Age fits - Shoreside
+### Base model - Age fits for Shoreside
 .left-fig[
 ```{r age-fits-base-ss-1, out.width = "100%", fig.dim = c(4.8, 4.5)}
 plot_age_fits_mcmc(base_model, gear = 2, yrs = 1996:2007, text_title_size = NULL, angle_x_labels = TRUE)
@@ -1558,7 +1589,7 @@ plot_age_fits_mcmc(base_model, gear = 2, yrs = 2008:2021, text_title_size = NULL
 
 ---
 class: center
-### Age residuals - Shoreside
+### Base model - Age residuals for Shoreside
 
 ```{r age-resids-base-ss, out.width = 900}
 plot_age_resids_mcmc(base_model, gear = 2, text_title_size = NULL, leg_loc = c(0.95, 0.95))
@@ -1566,7 +1597,7 @@ plot_age_resids_mcmc(base_model, gear = 2, text_title_size = NULL, leg_loc = c(0
 
 ---
 class: center
-### Age fits/residuals - QCS Synoptic survey
+### Base model - Age fits/residuals for QCS Synoptic survey
 .left-fig[
 ```{r age-fits-base-qcs, out.width = "100%", fig.dim = c(4.8, 4.5)}
 plot_age_fits_mcmc(base_model, gear = 3, text_title_size = NULL, sample_size_y = 0.15, angle_x_labels = TRUE)
@@ -1580,7 +1611,7 @@ plot_age_resids_mcmc(base_model, gear = 3, text_title_size = NULL, leg_loc = c(0
 
 ---
 class: center
-### Age fits/residuals - HS Synoptic survey
+### Base model - Age fits/residuals for HS Synoptic survey
 .left-fig[
 ```{r age-fits-base-hss, out.width = "100%", fig.dim = c(4.8, 4.5)}
 plot_age_fits_mcmc(base_model, gear = 4, text_title_size = NULL, sample_size_y = 0.15, angle_x_labels = TRUE)
@@ -1594,7 +1625,7 @@ plot_age_resids_mcmc(base_model, gear = 4, text_title_size = NULL, leg_loc = c(0
 
 ---
 class: center
-### Age fits/residuals - WCVI Synoptic survey
+### Base model - Age fits/residuals for WCVI Synoptic survey
 .left-fig[
 ```{r age-fits-base-wcvi, out.width = "100%", fig.dim = c(4.8, 4.5)}
 plot_age_fits_mcmc(base_model, gear = 5, text_title_size = NULL, sample_size_y = 0.15, angle_x_labels = TRUE)
@@ -1608,7 +1639,7 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL, leg_loc = c(0
 
 ---
 class: center
-### Selectivity estimates
+### Base model - Selectivity estimates
 .left[
 Selectivities were estimated for the gears with age compositions; the two trawl fleets and the three synoptic surveys (not including WCHG).
 - Maturities are shown on the plots (dashes lines) to show why the vulnerable biomass was estimated so small, the selectivities are almost all estimated to the right of the maturities, especially the males.
@@ -1621,7 +1652,7 @@ plot_selex_mcmc(base_model, show_maturity = TRUE, leg_loc = "facet")
 
 ---
 class: center
-### Reference point estimates
+### Base model - Reference point estimates
 .left[
 - The $U_{MSY_2}$ posteriors (exploitation rate) for the Shoreside fleet are all at or near 1, meaning the fishing mortality is unrealistically large.
 - This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are extremely liberal.

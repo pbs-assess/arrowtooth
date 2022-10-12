@@ -26,7 +26,7 @@ class: center, middle, inverse, title-slide
 ### DFO
 ]
 .date[
-### Slides compiled on 2022-10-11
+### Slides compiled on 2022-10-12
 ]
 
 ---
@@ -604,13 +604,26 @@ class: center
 class: center
 ### Bridge models - Pairs plot resulting from removing WCHG
 
-&lt;img src="knitr-figs-docx/fig-bridge-pairs-remove-wchg-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="knitr-figs-docx/fig-bridge-pairs-remove-wchg-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- This model has excessive correlation between parameters.
+- M estimate of 0.19 (0.15&amp;ndash;0.23) for males is too low for this stock compared to surrounding areas, and should be higher than the female estimate, 0.24 (0.20&amp;ndash;0.28).
+]
 
 ---
 class: center
 ### Bridge models - Pairs plot resulting from fixing M
 
-&lt;img src="knitr-figs-docx/fig-bridge-pairs-fix-m-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="knitr-figs-docx/fig-bridge-pairs-fix-m-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- Fixed M to 0.20 for females and 0.35 for males as in the GOA and Bering Sea/Aleutian Islands assessment.
+]
+
+---
+class: center
+### Bridge models - All models
+
+&lt;img src="knitr-figs-docx/bridge-biomass-all-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: center, bg_arf_pencil_flip
@@ -633,37 +646,25 @@ The base model is the last bridge model and includes all changes made across the
   &lt;a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&amp;as_channel=dpcft&amp;as_campclass=brand&amp;as_source=ft_web&amp;as_camptype=acquisition&amp;as_audience=users&amp;as_content=closure_asset-detail-page"&gt;Photo Source&lt;/a&gt;
 &lt;/div&gt;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-&lt;!---------------------------------Model fits---------------------------------&gt;
+---
+class: center, middle, inverse
+# Base model
 
 ---
 class: center
-### Abundance Indices - Fits
+### Base model - Abundance index fits
 
 &lt;img src="knitr-figs-docx/index-fits-base-1.png" width="900" style="display: block; margin: auto;" /&gt;
 
 ---
 class: center
-### Abundance Indices - Residuals
+### Base model - Abundance index residuals
 
 &lt;img src="knitr-figs-docx/index-residuals-base-1.png" width="900" style="display: block; margin: auto;" /&gt;
 
 ---
 class: center
-### Age fits/residuals - Freezer trawlers
+### Base model - Age fits/residuals for Freezer trawlers
 .left-fig[
 &lt;img src="knitr-figs-docx/age-fits-base-ft-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
@@ -673,7 +674,7 @@ class: center
 
 ---
 class: center
-### Age fits - Shoreside
+### Base model - Age fits for Shoreside
 .left-fig[
 &lt;img src="knitr-figs-docx/age-fits-base-ss-1-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
@@ -683,13 +684,13 @@ class: center
 
 ---
 class: center
-### Age residuals - Shoreside
+### Base model - Age residuals for Shoreside
 
 &lt;img src="knitr-figs-docx/age-resids-base-ss-1.png" width="900" style="display: block; margin: auto;" /&gt;
 
 ---
 class: center
-### Age fits/residuals - QCS Synoptic survey
+### Base model - Age fits/residuals for QCS Synoptic survey
 .left-fig[
 &lt;img src="knitr-figs-docx/age-fits-base-qcs-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
@@ -699,7 +700,7 @@ class: center
 
 ---
 class: center
-### Age fits/residuals - HS Synoptic survey
+### Base model - Age fits/residuals for HS Synoptic survey
 .left-fig[
 &lt;img src="knitr-figs-docx/age-fits-base-hss-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
@@ -709,7 +710,7 @@ class: center
 
 ---
 class: center
-### Age fits/residuals - WCVI Synoptic survey
+### Base model - Age fits/residuals for WCVI Synoptic survey
 .left-fig[
 &lt;img src="knitr-figs-docx/age-fits-base-wcvi-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
@@ -719,7 +720,7 @@ class: center
 
 ---
 class: center
-### Selectivity estimates
+### Base model - Selectivity estimates
 .left[
 Selectivities were estimated for the gears with age compositions; the two trawl fleets and the three synoptic surveys (not including WCHG).
 - Maturities are shown on the plots (dashes lines) to show why the vulnerable biomass was estimated so small, the selectivities are almost all estimated to the right of the maturities, especially the males.
@@ -730,7 +731,7 @@ Selectivities were estimated for the gears with age compositions; the two trawl 
 
 ---
 class: center
-### Reference point estimates
+### Base model - Reference point estimates
 .left[
 - The `\(U_{MSY_2}\)` posteriors (exploitation rate) for the Shoreside fleet are all at or near 1, meaning the fishing mortality is unrealistically large.
 - This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are extremely liberal.
