@@ -1,0 +1,5 @@
+arrowtooth_flounder.jpeg: https://www.seafoodwatch.org/recommendation/flounder/arrowtooth-flounder-525
+arrowtooth_flounder_pencil: https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page
+arrowtooth_flounder_face.jpg: http://www.tradexfoods.com/school-of-fish/seafood-encyclopedia/species/flounder-arrowtooth.php
+arrowtooth_flounder_face_close.jpg: https://www.flickr.com/photos/77659781@N00/6150221707
+arrowtooth_flounder_many.jpg: https://media.fisheries.noaa.gov/styles/full_width/s3/dam-migration/arrowtoothflounderimage-hero.jpg?itok=kBvLAic7
