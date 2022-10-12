@@ -739,6 +739,63 @@ class: center
 &lt;img src="knitr-figs-docx/ref-points-base-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 
+---
+class: center, middle, inverse
+# Base Model &amp;mdash; MCMC diagnostics
+
+---
+class: center
+### Base model - Priors and Posteriors
+
+&lt;img src="knitr-figs-docx/mcmc-base-priors-posts-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscript on catchability  parameters, `\(q_k\)`:
+- `\(k\)` = Gear: `\(1\)` = QCS Synoptic, `\(2\)` = HS Multi. Assemb., `\(3\)` = HS Synoptic, `\(4\)` = WCVI Synoptic, `\(5\)` = Discard CPUE
+]
+
+---
+class: center
+### Base model - Traceplots, leading parameters
+
+&lt;img src="knitr-figs-docx/mcmc-base-trace-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscript on catchability  parameters, `\(q_k\)`:
+- `\(k\)` = Gear: `\(1\)` = QCS Synoptic, `\(2\)` = HS Multi. Assemb., `\(3\)` = HS Synoptic, `\(4\)` = WCVI Synoptic, `\(5\)` = Discard CPUE
+]
+
+---
+class: center
+### Base model - Traceplots, selectivity parameters
+&lt;img src="knitr-figs-docx/mcmc-base-trace-selex-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscripts on selectivity parameters, `\(\hat{a}_{g,s,t}\)` and `\(\hat{\gamma}_{g,s,t}\)`:
+  - `\(g\)` = Gear: `\(1\)` = Freezer trawlers, `\(2\)` = Shoreside, `\(3\)` = QCS Synoptic, `\(5\)` = HS Synoptic, `\(6\)` = WCVI Synoptic
+  - `\(s\)` = Sex: `\(f\)` = Female, `\(m\)` = Male
+  - `\(t\)` = Time block (for TV selectivity, all are `\(1\)` here because base model has time-invariant selectivity)
+]
+
+---
+class: center
+### Base model - Autocorrelation, leading parameters
+
+&lt;img src="knitr-figs-docx/mcmc-base-autocor-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscript on catchability  parameters, `\(q_k\)`:
+- `\(k\)` = Gear: `\(1\)` = QCS Synoptic, `\(2\)` = HS Multi. Assemb., `\(3\)` = HS Synoptic, `\(4\)` = WCVI Synoptic, `\(5\)` = Discard CPUE
+]
+
+---
+class: center
+### Base model - Autocorrelation, selectivity parameters
+
+&lt;img src="knitr-figs-docx/mcmc-base-autocor-selex-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscripts on selectivity parameters, `\(\hat{a}_{g,s,t}\)` and `\(\hat{\gamma}_{g,s,t}\)`:
+  - `\(g\)` = Gear: `\(1\)` = Freezer trawlers, `\(2\)` = Shoreside, `\(3\)` = QCS Synoptic, `\(5\)` = HS Synoptic, `\(6\)` = WCVI Synoptic
+  - `\(s\)` = Sex: `\(f\)` = Female, `\(m\)` = Male
+  - `\(t\)` = Time block (for TV selectivity, all are `\(1\)` here because base model has time-invariant selectivity)
+]
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

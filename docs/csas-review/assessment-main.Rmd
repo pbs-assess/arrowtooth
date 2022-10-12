@@ -1662,3 +1662,98 @@ plot_ref_points(base_model)
 ```
 ]
 
+---
+class: center, middle, inverse
+# Base Model &mdash; MCMC diagnostics
+
+---
+class: center
+### Base model - Priors and Posteriors
+
+```{r mcmc-base-priors-posts, out.width = "70%"}
+plot_priors_posts_mcmc(base_model,
+                       param_rm = c("sel",
+                                    "bo",
+                                    "tau",
+                                    "sigma",
+                                    "log_m_sex1",
+                                    "log_m_sex2"),
+                       text_title_size = NULL)
+```
+.left[
+- Subscript on catchability  parameters, $q_k$:
+- $k$ = Gear: $1$ = QCS Synoptic, $2$ = HS Multi. Assemb., $3$ = HS Synoptic, $4$ = WCVI Synoptic, $5$ = Discard CPUE
+]
+
+---
+class: center
+### Base model - Traceplots, leading parameters
+
+```{r mcmc-base-trace, out.width = "70%"}
+plot_traces_mcmc(base_model,
+                 plot_sel = FALSE, 
+                 param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
+                              "bo", "msy1", "msy2", "fmsy1", "fmsy2",
+                              "umsy1", "umsy2","bmsy"),
+                 text_title_size = NULL)
+```
+.left[
+- Subscript on catchability  parameters, $q_k$:
+- $k$ = Gear: $1$ = QCS Synoptic, $2$ = HS Multi. Assemb., $3$ = HS Synoptic, $4$ = WCVI Synoptic, $5$ = Discard CPUE
+]
+
+---
+class: center
+### Base model - Traceplots, selectivity parameters
+```{r mcmc-base-trace-selex, out.width = "65%"}
+plot_traces_mcmc(base_model,
+                 plot_sel = TRUE, 
+                 text_title_size = NULL)
+```
+.left[
+- Subscripts on selectivity parameters, $\hat{a}_{g,s,t}$ and $\hat{\gamma}_{g,s,t}$:
+  - $g$ = Gear: $1$ = Freezer trawlers, $2$ = Shoreside, $3$ = QCS Synoptic, $5$ = HS Synoptic, $6$ = WCVI Synoptic
+  - $s$ = Sex: $f$ = Female, $m$ = Male
+  - $t$ = Time block (for TV selectivity, all are $1$ here because base model has time-invariant selectivity)
+]
+
+---
+class: center
+### Base model - Autocorrelation, leading parameters
+
+```{r mcmc-base-autocor, out.width = "70%"}
+plot_autocorr_mcmc(base_model,
+                   plot_sel = FALSE, 
+                   param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
+                                "bo", "msy1", "msy2", "fmsy1", "fmsy2",
+                                "umsy1", "umsy2","bmsy"),
+                   rows_cols = c(3, 4),
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
+```
+.left[
+- Subscript on catchability  parameters, $q_k$:
+- $k$ = Gear: $1$ = QCS Synoptic, $2$ = HS Multi. Assemb., $3$ = HS Synoptic, $4$ = WCVI Synoptic, $5$ = Discard CPUE
+]
+
+---
+class: center
+### Base model - Autocorrelation, selectivity parameters
+
+```{r mcmc-base-autocor-selex, out.width = "65%"}
+plot_autocorr_mcmc(base_model, 
+                   plot_sel = TRUE, 
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
+```
+.left[
+- Subscripts on selectivity parameters, $\hat{a}_{g,s,t}$ and $\hat{\gamma}_{g,s,t}$:
+  - $g$ = Gear: $1$ = Freezer trawlers, $2$ = Shoreside, $3$ = QCS Synoptic, $5$ = HS Synoptic, $6$ = WCVI Synoptic
+  - $s$ = Sex: $f$ = Female, $m$ = Male
+  - $t$ = Time block (for TV selectivity, all are $1$ here because base model has time-invariant selectivity)
+]
+
