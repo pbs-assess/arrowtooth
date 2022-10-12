@@ -13,8 +13,8 @@ csas-style
 knitr-cache-docx
 knitr-cache-pdf
 knitr-cache-tex
-knitr-figs-docx
-knitr-figs-pdf
+doc/knitr-figs-docx
+doc/knitr-figs-pdf
 models*
 reference-materials
 resdoc.aux
