@@ -88,6 +88,7 @@ if(user == "grandin"){
   library(gfiscamutils)
   library(csasdown)
 }
+# remotes::install_github("https://github.com/pbs-assess/gfplot",ref = "arrowtooth", quiet = TRUE)
 library(gfplot)
 library(gfutilities)
 library(ggplot2)
@@ -849,7 +850,7 @@ ss <- tidy_lengths_weighted(length_samples_survey,
                             sample_type = "survey")
 
 sf <- length_samples_ft |> 
-  mutate(sex = 2) |>  # fake all sex as female for commercial samples; often not sexed
+  # mutate(sex = 2) |>  # fake all sex as female for commercial samples; often not sexed
   tidy_lengths_weighted(dat_catch = dat$catch,
                         bin_size = bin_width,
                         sample_type = "commercial",
@@ -857,7 +858,7 @@ sf <- length_samples_ft |>
   mutate(survey_abbrev = "Freezer Trawlers")
 
 sc <- length_samples_ss |> 
-  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  # mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
   tidy_lengths_weighted(dat_catch = dat$catch,
                         bin_size = bin_width,
                         sample_type = "commercial",
@@ -880,20 +881,21 @@ sb$survey_abbrev <- factor(sb$survey_abbrev,
 sb$year <- factor(sb$year, levels = seq(1996, 2021))
 
 g_lengths <- plot_lengths(sb,
-                          survey_cols = setNames(c("#FC8D62",
-                                                   "#FC8D62",
-                                                   "#FC8D62",
-                                                   "#FC8D62",
-                                                   "#000000",
-                                                   "#000000"),
-                                                 c("SYN WCHG",
-                                                   "SYN HS",
-                                                   "SYN QCS",
-                                                   "SYN WCVI",
-                                                   tr("Freezer Trawlers"),
-                                                   tr("Shoreside"))),
-                          bin_size = bin_width,
-                          min_total = min_total) +
+  fill_col = c("M" = "#0096FF10", "F" = "#FF000010"),
+  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+  survey_cols = NULL,
+  # survey_cols = stats::setNames(
+  #   c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", 
+  #     "#0096FF", "#0096FF"),
+  #     # "#4682B4", "#4682B4"),
+  #   c(
+  #     "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
+  #     tr("Freezer Trawlers"),
+  #     tr("Shoreside")
+  # )
+  # ),
+  bin_size = bin_width, min_total = min_total
+) +
   # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
   guides(colour = "none", fill = "none") +
   ggtitle("") +
@@ -933,9 +935,13 @@ ss <- tidy_ages_weighted(dat$survey_samples,
 
 ss$survey_abbrev <- factor(ss$survey_abbrev)
 s_ages <- plot_ages(ss,
-                    survey_cols = stats::setNames(
-                      c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62"),
-                      c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI"))) +
+  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+  survey_cols = NULL
+  # survey_cols = stats::setNames(
+  #   c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62"),
+  #   c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI")
+  # )
+) +
   facet_wrap(~survey_abbrev, nrow = 1, scales = "free_x") +
   guides(fill = "none", colour = "none") +
   theme(plot.title = element_blank(),
@@ -955,9 +961,14 @@ sb <- suppressWarnings(bind_rows(sc, sf))
 
 sb$survey_abbrev <- factor(sb$survey_abbrev)
 
-c_ages <- plot_ages(sb,
-                    survey_cols = setNames(c("black", "black"),
-                                           c("Freezer Trawlers", "Shoreside"))) +
+c_ages <- plot_ages(sb, 
+  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+  survey_cols = NULL
+  # survey_cols = stats::setNames(
+  #   # c("black", "black"), 
+  #   c("#0096FF", "#0096FF"),
+  #   c("Freezer Trawlers", "Shoreside"))
+  ) +
   guides(fill = "none", colour = "none") +
   theme(plot.title = element_blank(),
         axis.title = element_blank())
@@ -1053,6 +1064,8 @@ lw_title_lst <- list(
 plot_lw_panels <- function(lw_f, lw_m){
   plot_length_weight(object_female = lw_f,
                      object_male = lw_m,
+                     col = c("Female" = "#FF0000", "Male" = "#0000FF"),
+                     pts_col = TRUE,
                      french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
     
@@ -1114,7 +1127,9 @@ vb_title_lst <- list(
 
 plot_vb_panels <- function(vb_f, vb_m){
   plot_vb(object_female = vb_f,
-          object_male = vb_m,
+          object_male = vb_m,          
+          col = c("Female" = "#FF0000", "Male" = "#0000FF"),
+          pts_col = TRUE,
           french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
     theme(axis.title = element_blank()) +
@@ -1172,7 +1187,8 @@ mat_title_lst <- list(
   "")
 
 plot_mat_panels <- function(fit_obj){
-  p <- plot_mat_ogive(fit_obj,
+  p <- plot_mat_ogive(fit_obj,  
+          col = c("F" = "#FF0000", "M" = "#0000FF"),
                       show_quant_text = FALSE) +
     guides(colour = "none", fill = "none", lty = "none") +
     ggplot2::guides(lty = "none", colour = "none") + 
@@ -1230,7 +1246,7 @@ grid.arrange(grobs = ma_plot_lst,
 class: center
 ### Growth Parameters fit externally
 
-```{r growth-params-table, results = "asis"}
+```{r growth-params-table, results = "asis", eval=isTRUE(user == "grandin")}
 
 # This is a necessary step when compiling a latex table in HTML!
 tex2markdown <- function(texstring) {
@@ -1400,7 +1416,7 @@ cowplot::plot_grid(
 class: center
 ### Bridge models - Index fits for group 2 models
 
-```{r bridge-index-group2, out.width = "85%"}
+```{r bridge-index-group2, out.width = "85%", eval=isTRUE(user == "grandin")}
 plot_index_mcmc(models$bridge_grps[[2]],
                 type = "fits",
                 surv_index = survey_index,
