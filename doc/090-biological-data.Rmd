@@ -64,9 +64,9 @@ The same equation can also be applied to lengths instead of ages. We applied Eq.
 
 <!-- Length compositions: --------------------------------------------------------->
 
-(ref:fig-lengths-en) Length-frequency plot where female fish are shown as coloured bars and male fish are shown behind as light grey bars. The total number of fish measured for a given survey and year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. The commercial male and female fish are combined (black bars) since many are unsexed. 
+(ref:fig-lengths-en) Length-frequency plot where female fish are shown as red bars and male fish are shown behind as blue bars. The total number of fish measured for a given survey and year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. 
 
-(ref:fig-lengths-fr) Graphique de la fréquence selon la longueur où les poissons femelles sont représentés par des barres colorées et les poissons mâles sont représentés derrière par des barres gris clair. Le nombre total de poissons mesurés pour un relevé et une année donnés est indiqué au coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s’il y a plus de 20 poissons mesurés pour une combinaison donnée de relevé et d’année. Les poissons commerciaux mâles et femelles sont combinés (barres noires), car plusieurs d’entre eux ne sont pas sexués. 
+(ref:fig-lengths-fr) Graphique de la fréquence selon la longueur où les poissons femelles sont représentés par des barres rouge et les poissons mâles sont représentés derrière par des barres bleu. Le nombre total de poissons mesurés pour un relevé et une année donnés est indiqué au coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s’il y a plus de 20 poissons mesurés pour une combinaison donnée de relevé et d’année. 
 TODO: translate weighting description?
 
 ```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1, out.width = "6in"}
@@ -93,7 +93,7 @@ ss <- tidy_lengths_weighted(length_samples_survey,
 )
 
 sf <- length_samples_ft %>%
-  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  # mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
   tidy_lengths_weighted(
     dat_catch = dat$catch,
     bin_size = bin_width,
@@ -104,7 +104,7 @@ sf <- length_samples_ft %>%
   )
 
 sc <- length_samples_ss %>%
-  mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  # mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
   tidy_lengths_weighted(
     dat_catch = dat$catch,
     bin_size = bin_width,
@@ -128,14 +128,19 @@ sb$survey_abbrev <- factor(sb$survey_abbrev,
 sb$year <- factor(sb$year, levels = seq(1996, 2021))
 
 g_lengths <- plot_lengths(sb,
-  survey_cols = stats::setNames(
-    c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", "#000000", "#000000"),
-    c(
-      "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
-      tr("Freezer Trawlers"),
-      tr("Shoreside")
-    )
-  ),
+  fill_col = c("M" = "#0096FF10", "F" = "#FF000010"),
+  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+  survey_cols = NULL,
+  # survey_cols = stats::setNames(
+  #   c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", 
+  #     "#0096FF", "#0096FF"),
+  #     # "#4682B4", "#4682B4"),
+  #   c(
+  #     "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
+  #     tr("Freezer Trawlers"),
+  #     tr("Shoreside")
+  # )
+  # ),
   bin_size = bin_width, min_total = min_total
 ) +
   # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
@@ -150,12 +155,12 @@ g_lengths
 <!-- Age composition --------------------------------------------------------->
 
 (ref:fig-ages-en) Example age-frequency plot. Female fish are shown as
-coloured (or black) circles and male fish are shown behind as light grey
+red circles and male fish are shown behind as blue
 circles. The total number of fish aged for a given survey or fishery and year are
 indicated along the top of the panels. Diagonal lines are shown at five-year
 intervals to facilitate tracing cohorts through time. 
 
-(ref:fig-ages-fr) Exemple de graphique de la fréquence selon l’âge. Les poissons femelles sont représentés par des cercles colorés (ou noirs), et les poissons mâles sont représentés derrière par des cercles gris clair. Le nombre total de poissons dont l’âge a été déterminé pour un relevé ou une pêcherie et une année donnés est indiqué en haut des panneaux. Les lignes diagonales sont représentées à des intervalles de cinq ans pour faciliter le suivi des cohortes au fl du temps.
+(ref:fig-ages-fr) Exemple de graphique de la fréquence selon l’âge. Les poissons femelles sont représentés par des cercles rouge, et les poissons mâles sont représentés derrière par des cercles bleu. Le nombre total de poissons dont l’âge a été déterminé pour un relevé ou une pêcherie et une année donnés est indiqué en haut des panneaux. Les lignes diagonales sont représentées à des intervalles de cinq ans pour faciliter le suivi des cohortes au fl du temps.
 TODO translate weighting
 
 ```{r fig-ages, fig.cap = ifelse(fr(), "(ref:fig-ages-fr)", "(ref:fig-ages-en)"), fig.asp = 1, out.width = "6in"}
@@ -166,10 +171,12 @@ ss <- tidy_ages_weighted(dat$survey_samples, dat_survey_sets = dat$survey_sets,
 
 ss$survey_abbrev <- factor(ss$survey_abbrev)
 s_ages <- plot_ages(ss,
-  survey_cols = stats::setNames(
-    c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62"),
-    c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI")
-  )
+  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+  survey_cols = NULL
+  # survey_cols = stats::setNames(
+  #   c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62"),
+  #   c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI")
+  # )
 ) +
   facet_wrap(~survey_abbrev, nrow = 1, scales = "free_x") +
   guides(fill = "none", colour = "none") +
@@ -196,7 +203,12 @@ sb <- suppressWarnings(bind_rows(sc, sf))
 sb$survey_abbrev <- factor(sb$survey_abbrev)
 
 c_ages <- plot_ages(sb,
-  survey_cols = stats::setNames(c("black", "black"), c("Freezer Trawlers", "Shoreside"))
+  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+  survey_cols = NULL
+  # survey_cols = stats::setNames(
+  #   # c("black", "black"), 
+  #   c("#0096FF", "#0096FF"),
+  #   c("Freezer Trawlers", "Shoreside"))
 ) +
   guides(fill = "none", colour = "none") +
   theme(
@@ -215,10 +227,10 @@ grid.arrange(s_ages, c_ages,
 <!-- Length/weight ----------------------------------------------------------->
 
 (ref:fig-length-weight-en) Length/weight fits by sex. 
-The length-weight curve is of the form $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers. The variables $a$ and $b$ represent the estimated length-weight parameters. Female model fits are indicated as solid black lines and male model fits are indicated as dashed grey lines. Text on the panels shows the parameter estimates and open grey circles represent individual fish that the models are fit to. These figures include all survey samples.
+The length-weight curve is of the form $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers. The variables $a$ and $b$ represent the estimated length-weight parameters. Female model fits are indicated as solid red lines and male model fits are indicated as blue lines. Text on the panels shows the parameter estimates and open circles represent individual fish that the models are fit to. These figures include all survey samples.
 
 (ref:fig-length-weight-fr) Ajustement du modèle pour le poids en fonction de la longueur et du sexe. 
-La courbe de croissance de la longueur selon le poids est de la forme $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$, où $W_i$ et $L_i$ représentent le poids et la longueur pour les poissons i et σ représente l’échelle des erreurs d’observation. Nous avons fxé les degrés de liberté de la distribution de Student t à 3 pour conférer une certaine robustesse par rapport aux valeurs aberrantes. Les variables a et b représentent les paramètres de la longueur selon le poids estimés. Les ajustements du modèle pour les femelles sont indiqués par des lignes pleines noires, et les ajustements du modèle pour les mâles sont indiqués par des lignes grises tiretées. Le texte sur les panneaux montre les estimations des paramètres, et les cercles gris ouverts représentent les poissons individuels auxquels les modèles sont ajustés.
+La courbe de croissance de la longueur selon le poids est de la forme $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$, où $W_i$ et $L_i$ représentent le poids et la longueur pour les poissons i et σ représente l’échelle des erreurs d’observation. Nous avons fxé les degrés de liberté de la distribution de Student t à 3 pour conférer une certaine robustesse par rapport aux valeurs aberrantes. Les variables a et b représentent les paramètres de la longueur selon le poids estimés. Les ajustements du modèle pour les femelles sont indiqués par des lignes pleines rouge, et les ajustements du modèle pour les mâles sont indiqués par des lignes bleu tiretées. Le texte sur les panneaux montre les estimations des paramètres, et les cercles ouverts représentent les poissons individuels auxquels les modèles sont ajustés.
 
 ```{r fig-length-weight, fig.cap = ifelse(fr(), "(ref:fig-length-weight-fr)", "(ref:fig-length-weight-en)"), out.width = "6in"}
 
@@ -250,6 +262,8 @@ lw_title_lst <- list(
 plot_lw_panels <- function(lw_f, lw_m){
   plot_length_weight(object_female = lw_f,
                      object_male = lw_m,
+                     col = c("Female" = "#FF0000", "Male" = "#0000FF"),
+                     pts_col = TRUE,
                      french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
     
@@ -281,7 +295,7 @@ grid.arrange(grobs = lw_plot_lst,
 
 <!-- Growth ------------------------------------------------------------------>
 
-(ref:fig-vb-en) The length-age growth curve is a von-Bertalanffy model of the form $L_i \sim \operatorname{Log-normal} \left( \log(l_\mathrm{inf} (1 - \exp(-k (A_i - t_0)))), \sigma \right)$ where $L_i$ and $A_i$ represent the length and age of fish $i$, $l_\mathrm{inf}$, $k$, and $t_0$ represent the von-Bertalanffy growth parameters, and $\sigma$ represents the scale parameter. Female model fits are indicated as solid black lines and male model fits are indicated as dashed grey lines. Text on the panels shows the parameter estimates and open grey circles represent individual fish that the models are fit to. 
+(ref:fig-vb-en) The length-age growth curve is a von-Bertalanffy model of the form $L_i \sim \operatorname{Log-normal} \left( \log(l_\mathrm{inf} (1 - \exp(-k (A_i - t_0)))), \sigma \right)$ where $L_i$ and $A_i$ represent the length and age of fish $i$, $l_\mathrm{inf}$, $k$, and $t_0$ represent the von-Bertalanffy growth parameters, and $\sigma$ represents the scale parameter. Female model fits are indicated as solid red lines and male model fits are indicated as dashed blue lines. Text on the panels shows the parameter estimates and open circles represent individual fish that the models are fit to. 
 
 <!-- These figures include all survey samples.  -->
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
@@ -318,6 +332,8 @@ vb_title_lst <- list(
 plot_vb_panels <- function(vb_f, vb_m){
   plot_vb(object_female = vb_f,
           object_male = vb_m,
+          col = c("Female" = "#FF0000", "Male" = "#0000FF"),
+          pts_col = TRUE,
           french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
     theme(axis.title = element_blank()) +
@@ -345,11 +361,11 @@ grid.arrange(grobs = vb_plot_lst,
 
 <!-- Maturity ---------------------------------------------------------------->
 
-(ref:fig-mat-en) Age- and length-at-maturity ogive plots. Maturity ogives are fit as logistic regressions to individual fish specimens, which are categorized as mature vs. not mature. The solid black lines represent fits to the female fish and the dashed grey lines represent fits to the male fish. The vertical lines indicate the estimated age or length at 50% maturity. Text on the panels indicates the estimated age and length at 5, 50 and 95% maturity for females (F) and males (M). Model fits are only shown for cases where there are at least 20 mature and 20 immature males and females. Short rug lines along the top and bottom of each panel represent up to 1500 randomly chosen individual fish with a small amount of random jittering in the case of ages to help differentiate individual fish. Models are fit to all available survey samples regardless of time of year.
+(ref:fig-mat-en) Age- and length-at-maturity ogive plots. Maturity ogives are fit as logistic regressions to individual fish specimens, which are categorized as mature vs. not mature. The solid red lines represent fits to the female fish and the dashed blue lines represent fits to the male fish. The vertical lines indicate the estimated age or length at 50% maturity. Text on the panels indicates the estimated age and length at 5, 50 and 95% maturity for females (F) and males (M). Short rug lines along the top and bottom of each panel represent up to 1500 randomly chosen individual fish with a small amount of random jittering in the case of ages to help differentiate individual fish. Models are fit to all available survey samples regardless of time of year.
 
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
 
-(ref:fig-mat-fr) L’âge-et-la-longueur-à-maturité pour les courbes de fréquences cumulées. Les courbes de fréquences cumulées de maturité sont ajustées en tant que régressions logistiques aux spécimens de poissons individuels, qui sont classés comme étant matures ou non matures. Les lignes noires pleines représentent les ajustements aux poissons femelles et les lignes grises tiretées représentent les ajustements aux poissons mâles. Les lignes verticales indiquent l’âge ou la longueur estimée à 50% de maturité. Le texte sur les panneaux indique l’âge et la longueur estimés à 5, 50 et 95% de maturité pour les femelles (F) et les mâles (M). Les ajustements du modèle ne sont montrés que dans les cas où il y a au moins 20 mâles et 20 femelles matures et 20 mâles et 20 femelles immatures. De courtes lignes le long du haut et du bas de chaque panneau représentent jusqu’à 1 500 poissons individuels choisis au hasard, avec une petite gigue aléatoire dans le cas des âges pour aider à différencier les poissons individuels. Les modèles sont ajustés à tous les échantillons de relevé disponibles, quelle que soit la période de l’année.
+(ref:fig-mat-fr) L’âge-et-la-longueur-à-maturité pour les courbes de fréquences cumulées. Les courbes de fréquences cumulées de maturité sont ajustées en tant que régressions logistiques aux spécimens de poissons individuels, qui sont classés comme étant matures ou non matures. Les lignes rouge pleines représentent les ajustements aux poissons femelles et les lignes bleu tiretées représentent les ajustements aux poissons mâles. Les lignes verticales indiquent l’âge ou la longueur estimée à 50% de maturité. Le texte sur les panneaux indique l’âge et la longueur estimés à 5, 50 et 95% de maturité pour les femelles (F) et les mâles (M). De courtes lignes le long du haut et du bas de chaque panneau représentent jusqu’à 1 500 poissons individuels choisis au hasard, avec une petite gigue aléatoire dans le cas des âges pour aider à différencier les poissons individuels. Les modèles sont ajustés à tous les échantillons de relevé disponibles, quelle que soit la période de l’année.
 
 ```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1, out.width = "6in"}
 
@@ -379,7 +395,9 @@ mat_title_lst <- list(
   "")
 
 plot_mat_panels <- function(fit_obj){
-  p <- plot_mat_ogive(fit_obj) +
+  p <- plot_mat_ogive(fit_obj,
+          col = c("F" = "#FF0000", "M" = "#0000FF")
+          ) +
     guides(colour = "none", fill = "none", lty = "none") +
     ggplot2::guides(lty = "none", colour = "none") + 
     theme(axis.title.y = element_blank())
