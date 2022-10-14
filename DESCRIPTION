@@ -24,6 +24,7 @@ Imports:
     gfiscamutils,
     gfplot,
     here,
+    icesAdvice,
     kableExtra,
     lubridate,
     purrr,
