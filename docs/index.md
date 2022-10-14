@@ -16,6 +16,8 @@ permalink: /
 
 - [Arrowtooth Flounder stock assessment for 2021 (submitted to CSAS September 26, 2022)](https://pbs-assess.github.io/arrowtooth/csas-review/assessment-main.html)
 
+- [Slides on discard CPUE index, geostatistical survey indices, and body condition](https://docs.google.com/presentation/d/17DQEtHXPA0WyLzxV5vqE9cdwc5ok6lOEPzAzx8N9RFY/edit?usp=sharing)
+
 - [Responses to TWG requests from June 16, 2021 TWG meeting](https://pbs-assess.github.io/arrowtooth/pre-review-responses/Arrowtooth-TWG-response-doc.pdf)
 
 - [Technical Working Group (presented at TWG meeting on June 16, 2021)](https://pbs-assess.github.io/arrowtooth/pre-review/pre-review.html)
