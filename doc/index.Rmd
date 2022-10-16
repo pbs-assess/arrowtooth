@@ -94,6 +94,15 @@ header-includes:
 ---
 
 ```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
+
+curr_dir <- basename(getwd())
+curr_dir_up1 <- basename(dirname(getwd()))
+if(curr_dir != "doc" && curr_dir_up1 != "arrowtooth"){
+  stop("You must be in the 'arrowtooth/doc' directory to source this file.\n",
+       "The current directory is: ", getwd(),
+       call. = FALSE)
+}
+
 library(knitr)
 if (is_latex_output()) {
   knitr_figs_dir <- "knitr-figs-pdf/"
@@ -154,6 +163,7 @@ library(devtools)
 library(dplyr)
 if(user == "grandin"){
   load_all("../../../gfiscamutils")
+  load_all("../../../gfplot")
   load_all("../../../csasdown")
 }else if(user == "seananderson"){
   library(gfiscamutils)
@@ -162,9 +172,9 @@ if(user == "grandin"){
   load_all("~/src/gfplot/")
 } else {
   library(gfiscamutils)
+  library(gfplot)
   library(csasdown)
 }
-library(gfplot)
 library(gfutilities)
 library(ggplot2)
 library(gridExtra)
