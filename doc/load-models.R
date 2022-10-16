@@ -68,7 +68,8 @@ sens_models_dirs <-
          "10-qk-loose-prior"),
        c("11-selex-equal-maturity",
          "13-qcs-tv-selex"),
-       c("12-geostat-surveys"))
+       c("12-geostat-surveys"),
+       c("14-fix-dm-phi"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,135",
@@ -108,7 +109,10 @@ sens_models_text <-
                 "QCS TV selectivity 3 year blocks")),
        c(ifelse(fr(),
                 "Indices d'enquête basés sur la géostatistique",
-                "Geostatistical based survey indices")))
+                "Geostatistical based survey indices")),
+       c(ifelse(fr(),
+                "Fixer les params DM pour maximiser la taille eff. des samp.",
+                "Fix DM params to maximize eff. samp. size")))
 
 # This will be used to generate the sensitivity parameter table later
 sens_models_text_no_base <- sens_models_text
@@ -148,7 +152,10 @@ sens_changes_text <-
                 "QCS selectivity is time-varying with year blocks 2003--2010, 2011-2016, and 2017--2021")),
        c(ifelse(fr(),
                 "Indices basés sur la conception remplacés par des indices basés sur la géostatistique pour toutes les enquêtes",
-                "Design-based indices replaced with Geostatistical-based indices for all surveys")))
+                "Design-based indices replaced with Geostatistical-based indices for all surveys")),
+       c(ifelse(fr(),
+                "Fixer les paramètres DM de façon à maximiser la taille effective de l'échantillon",
+                "Fix DM parameters so that seffective sample size is maximized")))
 
 # This is a list of vectors of retrospective groups (retrospective models that
 # will be plotted against each other). It can be `NULL` if to be ignored.
