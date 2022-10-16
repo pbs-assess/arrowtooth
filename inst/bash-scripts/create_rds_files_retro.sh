@@ -13,7 +13,10 @@ models=(01-retrospective-1-years \
         02-retrospective-2-years \
         03-retrospective-3-years \
         04-retrospective-4-years \
-        05-retrospective-5-years)
+        05-retrospective-5-years \
+        06-retrospective-6-years \
+        07-retrospective-7-years \
+        08-retrospective-8-years)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models

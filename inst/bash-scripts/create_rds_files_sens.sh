@@ -20,7 +20,9 @@
          09-qk-mean-1.0 \
          10-qk-loose-prior \
          11-selex-equal-maturity \
-         12-geostat-surveys)
+         12-geostat-surveys \
+         13-qcs-tv-selex \
+         14-fix-dm-phi)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models

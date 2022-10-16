@@ -4,19 +4,20 @@
 # Run this to fix 'bad interpreter' issue:
 # sed -i -e 's/\r$//' rename_fleet_sens.sh
 
- models=(01-sigma-0.1 \
-         02-estimate-total-variance \
-         03-tau-1.0 \
-         04-tau-0.6 \
-         05-low-steepness \
-         06-m-female-tight-prior \
-         07-m-female-loose-prior \
-         08-m-male-tight-prior \
-         09-m-male-loose-prior \
-         10-qk-mean-1.0 \
-         11-qk-loose-prior \
-         12-selex-equal-maturity \
-         13-geostat-surveys)
+ models=(01-sigma-0.135 \
+         02-tau-1.0 \
+         03-tau-0.6 \
+         04-low-steepness \
+         05-m-female-tight-prior \
+         06-m-female-loose-prior \
+         07-m-male-tight-prior \
+         08-m-male-loose-prior \
+         09-qk-mean-1.0 \
+         10-qk-loose-prior \
+         11-selex-equal-maturity \
+         12-geostat-surveys \
+         13-qcs-tv-selex \
+         14-fix-dm-phi)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models

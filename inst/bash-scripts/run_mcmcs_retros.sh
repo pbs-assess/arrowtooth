@@ -11,9 +11,7 @@
          05-retrospective-5-years \
          06-retrospective-6-years \
          07-retrospective-7-years \
-         08-retrospective-8-years \
-         09-retrospective-9-years \
-         10-retrospective-10-years)
+         08-retrospective-8-years)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models

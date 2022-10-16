@@ -13,8 +13,8 @@
          07-bridge-add-discard-cpue \
          08-bridge-switch-to-split-sex \
          09-bridge-switch-fishing-year-to-feb-21-feb-20 \
-         10-remove-wchg \
-         11-fix-natural-mortalities)
+         10-bridge-remove-wchg \
+         11-bridge-fix-natural-mortalities)
 
 project_path=`Rscript -e "cat(dirname(here::here()))"`
 models_path=$project_path/arrowtooth-nongit/models
