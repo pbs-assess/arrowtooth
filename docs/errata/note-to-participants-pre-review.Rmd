@@ -1,0 +1,31 @@
+---
+title: "A Note to participants of the 2021 Arrowtooth Flounder CSAS review meeting"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    latex_engine: xelatex
+mainfont: Arial
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The authors of the 2021 Arrowtooth flounder assessment working paper which has been distributed and is to be reviewed on October 19-20, 2022 would like to bring some things to your attention.
+
+While going through the written reviews made by our official reviewers, we realized that the model had some issues which would likely pose for a difficult review and possibly non-acceptance of the working paper. 
+
+The first issue was that one of the reviewers noted that the age composition fits so poor that they were unacceptable. We decided to take a very close look at the code used to plot these and found that this was simply a plotting issue, and that the fits were actually very good for all gears.
+
+A second issue arose from our investigation into the age composition fit plots. The ISCAM modeling platform uses the code '1' for females in single-sex models and uses '1' for males and '2' for females in split-sex models. We decided to switch the latter so that split-sex models use '1' for females and '2' for males, so that the code to extract and plot all the models would have the same code for females ('1'). During this process the age compositions for the split-sex models did not get switched, so all split-sex models in the working paper have the age compositions switched by sex.
+
+The last issue was that a reviewer wanted more explanation on how the proportion of females was used in the ISCAM model. We investigated and found that it was being used in several places that it shouldn't be (Equations G.24 and G.33). This should not occur because the natural mortality takes care of the differences in proportion of the population in the model; a manual multiplication using these proportions is incorrect. The only place the proportion of females/males should be used is in the splitting of the catch.
+
+We fixed all of these issues, re-ran all of the models, and updated the working paper. The updated figures and tables will be shown at the review meeting. The results do change somewhat, and there will be a new decision table presented.
+
+We have spoken to the reviewers about this, and they feel that we should go ahead and present the new (correct) results. If there are any questions, please feel free to ask.
+
+Regards,
+
+The authors
