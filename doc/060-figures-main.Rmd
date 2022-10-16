@@ -118,7 +118,7 @@ plot_biomass_mcmc(base_model,
 ```{r fig-base-sb-vuln-compare, fig.cap = ifelse(fr(), "(ref:fig-base-sb-vuln-compare-fr)", "(ref:fig-base-sb-vuln-compare-en)")}
 plot_vuln_mcmc(base_model,
                angle_x_labels = TRUE,
-               #xlim = c(1997, 2020),
+               xlim = c(1997, 2021),
                ylim = c(0, 180))
 ```
 
