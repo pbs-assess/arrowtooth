@@ -159,7 +159,10 @@ sens_changes_text <-
                 "Design-based indices replaced with Geostatistical-based indices for all surveys")),
        c(ifelse(fr(),
                 "Fixer les paramètres DM de façon à maximiser la taille effective de l'échantillon",
-                "Fix DM parameters so that seffective sample size is maximized")))
+                "Fix DM parameters so that seffective sample size is maximized")),
+       c(ifelse(fr(),
+                "French here",
+                "Single sex, one fleet (same model as bridge model Update data to 2021)")))
 
 # This is a list of vectors of retrospective groups (retrospective models that
 # will be plotted against each other). It can be `NULL` if to be ignored.
