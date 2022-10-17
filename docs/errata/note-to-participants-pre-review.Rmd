@@ -16,15 +16,19 @@ The authors of the 2021 Arrowtooth flounder assessment working paper which has b
 
 While going through the written reviews made by our official reviewers, we realized that the model had some issues which would likely pose for a difficult review and possibly non-acceptance of the working paper. 
 
-The first issue was that one of the reviewers noted that the age composition fits so poor that they were unacceptable. We decided to take a very close look at the code used to plot these and found that this was simply a plotting issue, and that the fits were actually very good for all gears.
+The first issue was that one of the reviewers noted that the age composition fits so poor that they were unacceptable. We decided to take a very close look at the code used to plot these and found that this was simply a plotting issue, and that the fits were actually good for all gears.
 
-A second issue arose from our investigation into the age composition fit plots. The ISCAM modeling platform uses the code '1' for females in single-sex models and uses '1' for males and '2' for females in split-sex models. We decided to switch the latter so that split-sex models use '1' for females and '2' for males, so that the code to extract and plot all the models would have the same code for females ('1'). During this process the age compositions for the split-sex models did not get switched, so all split-sex models in the working paper have the age compositions switched by sex.
+A second issue arose from our investigation into the age composition fit plots. There was a coding error in the ISCAM data files where male and female age composition inputs for the split-sex models were switched, so all split-sex models in the working paper have results based on switched age compositions.
 
-The last issue was that a reviewer wanted more explanation on how the proportion of females was used in the ISCAM model. We investigated and found that it was being used in several places that it shouldn't be (Equations G.24 and G.33). This should not occur because the natural mortality takes care of the differences in proportion of the population in the model; a manual multiplication using these proportions is incorrect. The only place the proportion of females/males should be used is in the splitting of the catch.
+The last issue was that a reviewer wanted more explanation on how the proportion of females was used in the ISCAM model. We investigated and found that it was being used in several places that it shouldn't be.
 
-We fixed all of these issues, re-ran all of the models, and updated the working paper. The updated figures and tables will be shown at the review meeting. The results do change somewhat, and there will be a new decision table presented.
+We fixed all of these issues, re-ran all of the models, and updated the working paper. Compare the age composition fit plots (Figures 13, 15, 16, 18, 20, and 22) in the revised document with the previous document and you can see how the correction in the plotting code affected the age fits. Those plots now have an improved look as well. The age residual plots (Figures 14, 17, 19, 21, and 23) have changed to show year and age residuals which can be checked for unwanted patterns.
 
-We have spoken to the reviewers about this, and they feel that we should go ahead and present the new (correct) results. If there are any questions, please feel free to ask.
+Correcting the age composition sexes has made the model more optimistic; the biomass trajectory has been scaled up. Compare the spawning biomass figures (Figures 6 and 7) with those in the previous document. The overall stock trajectory is very similar, other than the scaling. With the corrected model, the decision table is more optimistic (Table 14).
+
+We have spoken to the reviewers about this, and they feel that we should go ahead and present the new (correct) results.
+
+The assessment presentation at the review meeting will be based on the revised document. If there are any questions, please feel free to ask.
 
 Regards,
 
