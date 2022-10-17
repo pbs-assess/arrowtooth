@@ -18,7 +18,7 @@ The authors of the 2021 Arrowtooth flounder assessment working paper wish to not
 
 (2) A second issue arose from our investigation into the age composition fit plots. There was a coding error in the ISCAM data files where male and female age composition inputs for the split-sex models were switched. This has been corrected.
 
-(3) The last issue issue arose from a reviewer comment on how the proportion of females was used in the model. We investigated and realized we had incorrectly hardwired the proportion female into the population dynamics in two places. This was unnecessary because of the differential in female and male natural mortality. The only place the proportion of females/males is used is in the splitting of the catch. This has been corrected.
+(3) The third issue arose from a reviewer comment on how the proportion of females was used in the model. We investigated and realized we had incorrectly hardwired the proportion female into the population dynamics in two places. This was unnecessary because of the differential in female and male natural mortality. The only place the proportion of females/males is used is in the splitting of the catch. This has been corrected.
 
 (4) The male/female maturity curves were reversed in the selectivity plots, but were correct elsewhere in the document. This has been corrected.
 
