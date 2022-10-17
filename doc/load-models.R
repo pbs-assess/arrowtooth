@@ -69,7 +69,8 @@ sens_models_dirs <-
        c("11-selex-equal-maturity",
          "13-qcs-tv-selex"),
        c("12-geostat-surveys"),
-       c("14-fix-dm-phi"))
+       c("14-fix-dm-phi"),
+       c("15-bridge-update-data-to-2021"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,135",
@@ -112,7 +113,10 @@ sens_models_text <-
                 "Geostatistical based survey indices")),
        c(ifelse(fr(),
                 "Fixer les params DM pour maximiser la taille eff. des samp.",
-                "Fix DM params to maximize eff. samp. size")))
+                "Fix DM params to maximize eff. samp. size")),
+       c(ifelse(fr(),
+                "French here",
+                "Female only, single commercial fleet model")))
 
 # This will be used to generate the sensitivity parameter table later
 sens_models_text_no_base <- sens_models_text
