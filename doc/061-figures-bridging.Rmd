@@ -69,20 +69,6 @@ cowplot::plot_grid(
 <!--                 text_title_size = NULL) -->
 <!-- ``` -->
 
-(ref:fig-bridge-group2-index-en) MCMC fits to the indices of abundance for the second group of bridging models.
-
-(ref:fig-bridge-group2-index-fr) French caption here
-
-```{r bridge-index-group2, fig.cap = ifelse(fr(), "(ref:fig-bridge-group2-index-fr)", "(ref:fig-bridge-group2-index-en)"), out.width = "100%"}
-plot_index_mcmc(models$bridge_grps[[2]],
-                type = "fits",
-                surv_index = survey_index,
-                leg_loc = c(0.55, 1),
-                leg_size = 0.3,
-                leg_text_size = 3,
-                text_title_size = NULL)
-```
-
 (ref:fig-bridge-group2-sel-en) Selectivity estimates for the split-sex bridging model.
 
 (ref:fig-bridge-group2-sel-fr) French caption here
