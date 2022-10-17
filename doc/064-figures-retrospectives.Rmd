@@ -17,7 +17,7 @@ plot_biomass_mcmc(models$retro_grps[[1]],
 
 ```
 
-(ref:fig-retro-biomass-closer-en) A closer view of Figure \@ref(fig:fig-retro-biomass), not showing the $B_0$ values.
+(ref:fig-retro-biomass-closer-en) A closer view of Figure \@ref(fig:fig-retro-biomass).
 
 (ref:fig-retro-biomass-closer-fr) French here
 
@@ -50,7 +50,7 @@ plot_biomass_mcmc(models$retro_grps[[1]],
                   palette = "Paired",
                   leg_loc = NULL,
                   bo_refpt_colors = c("salmon", "darkgreen"),
-                  ylim = c(0, 0.8))
+                  ylim = c(0, 1.3))
 
 ```
 
