@@ -69,17 +69,6 @@ cowplot::plot_grid(
 <!--                 text_title_size = NULL) -->
 <!-- ``` -->
 
-(ref:fig-bridge-group2-sel-en) Selectivity estimates for the split-sex bridging model.
-
-(ref:fig-bridge-group2-sel-fr) French caption here
-
-```{r bridge-group2-sel, fig.cap = ifelse(fr(), "(ref:fig-bridge-group2-sel-fr)", "(ref:fig-bridge-group2-sel-en)"), out.width = "100%"}
-plot_selex_mcmc(models$bridge_grps[[2]][[4]],
-                show_maturity = TRUE,
-                leg_loc = "facet")
-```
-
-
 (ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the third group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
 
 (ref:fig-bridge-group3-biomass-fr) French caption here
@@ -98,6 +87,37 @@ cowplot::plot_grid(
                     ylim = c(0, 1.5)),
   ncol = 2)
 
+```
+
+(ref:fig-bridge-fishing-year-autocor-en) Autocorrelation plots for MCMC estimated lead parameters in the bridge model that has a modified fishing year. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
+
+(ref:fig-bridge-fishing-year-autocor-fr) French here
+
+```{r fig-bridge-fishing-year-autocor, fig.cap = ifelse(fr(), "(ref:fig-bridge-fishing-year-autocor-fr)", "(ref:fig-bridge-fishing-year-autocor-en)"), fig.asp = 1}
+plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
+                   plot_sel = FALSE,
+                   param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
+                                "bo", "msy1", "msy2", "fmsy1", "fmsy2",
+                                "umsy1", "umsy2","bmsy"),
+                   rows_cols = c(3, 4),
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
+```
+
+(ref:fig-bridge-fishing-year-selpars-autocor-en) Autocorrelation plots for MCMC estimated lead parameters in the bridge model that has a modified fishing year. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
+
+(ref:fig-bridge-fishing-year-selpars-autocor-fr) French here
+
+```{r fig-bridge-fishing-year-selpars-autocor, fig.cap = ifelse(fr(), "(ref:fig-bridge-fishing-year-autocor-selpars-fr)", "(ref:fig-bridge-fishing-year-selpars-autocor-en)"), fig.asp = 1}
+plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
+                   plot_sel = TRUE,
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   rows_cols = c(6, 4),
+                   lwd = 2)
 ```
 
 (ref:fig-bridge10-pairs-en) Pairs plots for MCMC estimated parameters in the bridging model for which the WCHG index was removed. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.

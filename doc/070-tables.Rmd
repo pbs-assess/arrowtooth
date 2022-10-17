@@ -212,8 +212,8 @@ cap <- paste0("Un résumé des changements de paramètres du modèle de base ",
               "pour chaque sensibilité.")
 }
 
-table_sens_param_changes(sens_models_text_no_base,
-                         sens_changes_text,
+table_sens_param_changes(head(sens_models_text_no_base, -2),
+                         head(sens_changes_text, -2),
                          col_widths = "20em",
                          caption = cap)
 ```

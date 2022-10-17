@@ -111,7 +111,7 @@ plot_biomass_mcmc(base_model,
 
 <!-- Vulnerable spawning biomass --------------------------------------------->
 
-(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two blue vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours.
+(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours.
 
 (ref:fig-base-sb-vuln-compare-fr) French here
 
