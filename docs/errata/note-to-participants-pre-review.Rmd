@@ -1,5 +1,5 @@
 ---
-title: "A Note to participants of the 2021 Arrowtooth Flounder CSAS review meeting"
+title: "Corrections to the 2021 Arrowtooth Flounder working paper prior to the CSAS review meeting"
 date: "`r Sys.Date()`"
 output:
   pdf_document:
@@ -12,21 +12,19 @@ mainfont: Arial
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The authors of the 2021 Arrowtooth flounder assessment working paper which has been distributed and is to be reviewed on October 19-20, 2022 would like to bring some things to your attention.
+The authors of the 2021 Arrowtooth flounder assessment working paper wish to note some corrections to the working paper prior to the review meeting on October 19--20 2022. While preparing to respond to the written reviews, the authors discovered three issues with the code and model.
 
-While going through the written reviews made by our official reviewers, we realized that the model had some issues which would likely pose for a difficult review and possibly non-acceptance of the working paper. 
+(1) One reviewer noted poor age composition fits. We discovered this was due to a plotting issue. The corrected age composition figures demonstrate a much better fit to the data.
 
-The first issue was that one of the reviewers noted that the age composition fits so poor that they were unacceptable. We decided to take a very close look at the code used to plot these and found that this was simply a plotting issue, and that the fits were actually good for all gears.
+(2) A second issue arose from our investigation into the age composition fit plots. There was a coding error in the ISCAM data files where male and female age composition inputs for the split-sex models were switched. This has been corrected.
 
-A second issue arose from our investigation into the age composition fit plots. There was a coding error in the ISCAM data files where male and female age composition inputs for the split-sex models were switched, so all split-sex models in the working paper have results based on switched age compositions.
+(3) The last issue issue arose from a reviewer comment on how the proportion of females was used in the model. We investigated and realized we had incorrectly hardwired the proportion female into the population dynamics in two places. This was unnecessary because of the differential in female and male natural mortality. The only place the proportion of females/males is used is in the splitting of the catch. This has been corrected.
 
-The last issue was that a reviewer wanted more explanation on how the proportion of females was used in the ISCAM model. We investigated and found that it was being used in several places that it shouldn't be.
+We fixed all these issues, re-ran the models, and updated the working paper. Compare the age composition fit plots (Figures 13, 15, 16, 18, 20, and 22) in the revised document with the previous document and you can see how the correction in the plotting code affected the age fits. The new age residual bubble plots (Figures 14, 17, 19, 21, and 23) show year and age residuals, which can be checked for unwanted patterns.
 
-We fixed all of these issues, re-ran all of the models, and updated the working paper. Compare the age composition fit plots (Figures 13, 15, 16, 18, 20, and 22) in the revised document with the previous document and you can see how the correction in the plotting code affected the age fits. Those plots now have an improved look as well. The age residual plots (Figures 14, 17, 19, 21, and 23) have changed to show year and age residuals which can be checked for unwanted patterns.
+Correcting the age composition sexes has made the model more optimistic about stock status. Compare the spawning biomass figures (Figures 6 and 7) with those in the previous document. The overall stock trajectory is very similar, but the scale has been shifted upwards. The decision table has also been adjusted (Table 14).
 
-Correcting the age composition sexes has made the model more optimistic; the biomass trajectory has been scaled up. Compare the spawning biomass figures (Figures 6 and 7) with those in the previous document. The overall stock trajectory is very similar, other than the scaling. With the corrected model, the decision table is more optimistic (Table 14).
-
-We have spoken to the reviewers about this, and they feel that we should go ahead and present the new (correct) results.
+We have spoken to the reviewers about this and they feel that we should go ahead and present the new (corrected) results.
 
 The assessment presentation at the review meeting will be based on the revised document. If there are any questions, please feel free to ask.
 
