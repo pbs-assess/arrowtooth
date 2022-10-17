@@ -12,13 +12,15 @@ mainfont: Arial
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The authors of the 2021 Arrowtooth flounder assessment working paper wish to note some corrections to the working paper prior to the review meeting on October 19--20 2022. While preparing to respond to the written reviews, the authors discovered three issues with the code and model.
+The authors of the 2021 Arrowtooth flounder assessment working paper wish to note some corrections to the working paper prior to the review meeting on October 19--20 2022. While preparing to respond to the written reviews, the authors discovered four issues with the code and model.
 
 (1) One reviewer noted poor age composition fits. We discovered this was due to a plotting issue. The corrected age composition figures demonstrate a much better fit to the data.
 
 (2) A second issue arose from our investigation into the age composition fit plots. There was a coding error in the ISCAM data files where male and female age composition inputs for the split-sex models were switched. This has been corrected.
 
 (3) The last issue issue arose from a reviewer comment on how the proportion of females was used in the model. We investigated and realized we had incorrectly hardwired the proportion female into the population dynamics in two places. This was unnecessary because of the differential in female and male natural mortality. The only place the proportion of females/males is used is in the splitting of the catch. This has been corrected.
+
+(4) The male/female maturity curves were reversed in the selectivity plots, but were correct elsewhere in the document. This has been corrected.
 
 We fixed all these issues, re-ran the models, and updated the working paper. Compare the age composition fit plots (Figures 13, 15, 16, 18, 20, and 22) in the revised document with the previous document and you can see how the correction in the plotting code affected the age fits. The new age residual bubble plots (Figures 14, 17, 19, 21, and 23) show year and age residuals, which can be checked for unwanted patterns.
 
