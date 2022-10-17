@@ -26,9 +26,11 @@ We fixed all these issues, re-ran the models, and updated the working paper. Com
 
 Correcting the age composition sexes has made the model more optimistic about stock status. Compare the spawning biomass figures (Figures 6 and 7) with those in the previous document. The overall stock trajectory is very similar, but the scale has been shifted upwards. The decision table has also been adjusted (Table 14).
 
-We have spoken to the reviewers about this and they feel that we should go ahead and present the new (corrected) results.
+We have spoken to the reviewers about this and they feel that we should go ahead and present the new (corrected) results. The assessment presentation at the review meeting will be based on the revised document. 
 
-The assessment presentation at the review meeting will be based on the revised document. If there are any questions, please feel free to ask.
+We thank the reviewers for their careful reviews, which uncovered these issues, highlighting the importance of independent peer review in the advisory process.
+
+If there are any questions, please feel free to ask.
 
 Regards,
 
