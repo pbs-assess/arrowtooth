@@ -10,3 +10,4 @@ remote_theme: jekyll/minima
 exclude:
   - csas-review/assessment-main.Rmd
   - pre-review-responses/responses-to-twg.rmd
+  - errata/note-to-participants-pre-review.Rmd
