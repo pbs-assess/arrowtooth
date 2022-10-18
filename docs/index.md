@@ -6,7 +6,7 @@ permalink: /
 
 ### Draft manuscript:
 
-- [PDF - Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2021](https://www.dropbox.com/s/h8jtykjyt4lyvxe/RPR_ArrowtoothSA_%2819-20Oct2022%29_Working_Paper_FOR_DISTRIBUTION_27Sep2022.pdf?dl=0)
+- [PDF - Arrowtooth Flounder (*Atheresthes stomias*) Stock Assessment for the West Coast of British Columbia in 2021 (revised version, Oct 18, 2022)](https://pbs-assess.github.io/arrowtooth/working-paper/Revised_Arrowtooth-2022-Working-paper.pdf)
 
 ### Science Advisory Report (SAR) for 2022
 
