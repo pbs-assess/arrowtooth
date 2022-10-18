@@ -14,6 +14,8 @@ All bridge models were run using MCMC (Markov chain Monte Carlo) sampling with a
 <<bridging-para-01-en>>
 ```
 
+\clearpage
+
 ```{r bridging-para-02-en, eval = !fr(), results = 'asis'}
 cat("Each model in this list is based on the previous one with only one change made so incremental changes can be tracked.
 
@@ -54,13 +56,13 @@ Adding the `r wchgs` age compositions and index into the model had a scaling eff
 
 ```{r bridging-para-04-en, eval = !fr(), results = 'asis'}
 cat("**Bridge models group 2 (models 5-8)**
-Figure \@ref(fig:bridge-biomass-group2) shows the absolute and relative spawning biomass for the second group of four bridging models (list items 5--8). Changing the age data weighting to the saturated Dirichlet multinomial (DM) [@thorson2016], caused a drop in absolute biomass and $B_0$. The $B_0$ median for the first model in Figure \@ref(fig:bridge-biomass-group2), when compared to the $B_0$ median for the last model in Figure \@ref(fig:bridge-biomass-group1) shows a difference of  `r f(as.numeric(bvals[[1]][[4]]$bo[1]) - as.numeric(bvals[[2]][[1]]$bo[1]))` thousand t (from `r bvals[[1]][[4]]$bo[1]` to `r bvals[[2]][[1]]$bo[1]` thousand t). However, the biomass estimates were also scaled down, so the `r bvals[[1]][[4]]$depl[3]` relative biomass only dropped a small amount (`r bvals[[1]][[4]]$depl[1]` to `r bvals[[2]][[1]]$depl[1]`).
+Figure \@ref(fig:bridge-biomass-group2) shows the absolute and relative spawning biomass for the second group of four bridging models (list items 5--8). Changing the age data weighting to the saturated Dirichlet multinomial (DM) [@thorson2016], caused a drop in absolute biomass and $B_0$. The $B_0$ median for the first model in Figure \@ref(fig:bridge-biomass-group2), when compared to the $B_0$ median for the last model in Figure \@ref(fig:bridge-biomass-group1) shows a difference of  `r f(as.numeric(bvals[[1]][[4]]$bo[1]) - as.numeric(bvals[[2]][[1]]$bo[1]))` thousand t (from `r bvals[[1]][[4]]$bo[1]` to `r bvals[[2]][[1]]$bo[1]` thousand t). However, the biomass estimates were also scaled down, so the `r bvals[[1]][[4]]$depl[3]` relative biomass only dropped a small amount (from `r bvals[[1]][[4]]$depl[1]` to `r bvals[[2]][[1]]$depl[1]`).
     
 For the next bridging model, the commercial trawl fishery was split into two fleets: the `r base_model$dat$fleet_gear_names[1]` and `r base_model$dat$fleet_gear_names[2]` fleets. This changed the model internals but had negligible effect on the biomass and relative biomass trajectories (Figure \@ref(fig:bridge-biomass-group2)).
 
-Adding the `r dcpue` (DCPUE) to the model had almost no effect on the absolute biomass and $B_0$ estimates. It did, however, reduce the credible interval (Figure \@ref(fig:bridge-biomass-group2)) on the absolute spawning biomass series.
+Adding the `r dcpue` (DCPUE) to the model had almost no effect on the absolute biomass and $B_0$ estimates. It did, however, reduce the credible interval (Figure \@ref(fig:bridge-biomass-group2)) on the absolute spawning biomass time series.
 
-The next step in the bridging was to convert the model into a split-sex model. All previous bridge models were female-only. This step involved significant modifications to the `r iscam` model code. This change caused a drop in final-year biomass and relative biomass, and some overall scaling up of the historical relative biomass trajectory (Figure \@ref(fig:bridge-biomass-group2)). The selectivity age-at-50% estimates ($\hat{a}$) for females in the `r wchgs` for this model were unreasonable at `r split_sex_model_sel_ahat`.
+The next step in the bridging was to convert the model into a split-sex model. All previous bridge models were female-only. This step involved significant modifications to the `r iscam` model code. This change caused a drop in final-year biomass and relative biomass, and some overall scaling up of the historical relative biomass trajectory (Figure \@ref(fig:bridge-biomass-group2)). The selectivity age-at-50% estimates ($\hat{a}$) for females in the `r wchgs` for this model were unreasonable at `r split_sex_model_sel_ahat` years.
 ")
 ```
 
@@ -74,7 +76,7 @@ The biomass plots for the final group of bridging models (list items 9-13) can b
     
 The `r wchgs` was removed (it was also removed in the `r la`) as it had little effect on the biomass and poor selectivity estimates (Figure \@ref(fig:bridge-biomass-group3)). The result was a scaled-down biomass trajectory, with a similar relative biomass to the previous model.
 
-The natural mortality estimates from the model at this point were `r bvals[[3]][[2]]$m_male[1]` for males and `r bvals[[3]][[2]]$m_female[1]` for females with credible intervals of `r bvals[[3]][[2]]$m_male[2]` and `r bvals[[3]][[2]]$m_female[2]` respectively. The female estimate of natural mortality was very close to the fixed value for females in assessments done in neighbouring jurisdictions (0.20), but the male estimate was much lower than what was used in neighboring stocks (0.35). Based on the estimated natural mortality values and the high correlation between estimated parameters for this model (Figure \@ref(fig:fig-bridge10-pairs)), we decided to fix the natural mortalities at the same values as the Gulf of Alaska and Bering Sea and Aleutian Islands assessments [@goa2021; @goa2020; @goa2019; @bering2019], 0.20 for females and 0.35 for males.
+The natural mortality estimates from the model at this point were `r bvals[[3]][[2]]$m_male[1]` for males and `r bvals[[3]][[2]]$m_female[1]` for females with credible intervals of `r bvals[[3]][[2]]$m_male[2]` and `r bvals[[3]][[2]]$m_female[2]` respectively. The female estimate of natural mortality was close to the fixed value for females in assessments done in neighbouring jurisdictions (0.20), but the male estimate was much lower than what was used in neighboring stocks (0.35). Based on the estimated natural mortality values and the high correlation between estimated parameters for this model (Figure \@ref(fig:fig-bridge10-pairs)), we decided to fix the natural mortalities at the same values as the Gulf of Alaska and Bering Sea and Aleutian Islands assessments [@goa2021; @goa2020; @goa2019; @bering2019]; 0.20 for females and 0.35 for males.
 ")
 ```
 
