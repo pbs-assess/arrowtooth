@@ -749,16 +749,17 @@ mean_male_age_50_sel <- age_50_sel |>
   unlist() |> 
   mean()
 
+vuln_ratio_yr <- "2021"
 base_vuln_bio <-
-  base_model$mcmccalcs$vbt_quants[[1]][, ncol(base_model$mcmccalcs$vbt_quants[[1]])][2] + base_model$mcmccalcs$vbt_quants[[2]][, ncol(base_model$mcmccalcs$vbt_quants[[2]])][2]
+  base_model$mcmccalcs$vbt_quants[[1]][, vuln_ratio_yr][2] + base_model$mcmccalcs$vbt_quants[[2]][, vuln_ratio_yr][2]
 
-base_model_bio <- base_model$mcmccalcs$sbt_quants[, ncol(base_model$mcmccalcs$sbt_quants)][2]
+base_model_bio <- base_model$mcmccalcs$sbt_quants[, vuln_ratio_yr][2]
 base_model_vuln_ratio <- base_vuln_bio / base_model_bio
 
 sel_eq_mat_vuln_bio <-
-  models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[1]][, ncol(models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[1]])][2] + models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[2]][, ncol(models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[2]])][2]
+  models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[1]][, vuln_ratio_yr][2] + models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[2]][, vuln_ratio_yr][2]
 
-sel_eq_mat_bio <- models$sens_grps[[4]][[2]]$mcmccalcs$sbt_quants[, ncol(models$sens_grps[[4]][[2]]$mcmccalcs$sbt_quants)][2]
+sel_eq_mat_bio <- models$sens_grps[[4]][[2]]$mcmccalcs$sbt_quants[, vuln_ratio_yr][2]
 
 sel_eq_mat_vuln_ratio <- sel_eq_mat_vuln_bio / sel_eq_mat_bio
 

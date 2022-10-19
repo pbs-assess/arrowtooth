@@ -13,10 +13,11 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: '16:9'
----
 
 background-image: url(figures/arrowtooth_flounder.jpeg)
 
+---
+exclude: true
 ```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
 library(knitr)
 if (is_latex_output()) {
@@ -674,6 +675,20 @@ split_sex_model_sel_ahat_wchg_male_html <- paste0(f(split_sex_model_sel_wchg_mal
 estimated_female_m_remove_wchg <- get_param_vals(models$bridge_grps[[3]][[2]], "log_m_female", html = TRUE)
 estimated_male_m_remove_wchg <- get_param_vals(models$bridge_grps[[3]][[2]], "log_m_male", html = TRUE)
 
+vuln_ratio_yr <- as.character(end_yr)
+base_vuln_bio <-
+  base_model$mcmccalcs$vbt_quants[[1]][, vuln_ratio_yr][2] + base_model$mcmccalcs$vbt_quants[[2]][, vuln_ratio_yr][2]
+
+base_model_bio <- base_model$mcmccalcs$sbt_quants[, vuln_ratio_yr][2]
+base_model_vuln_ratio <- base_vuln_bio / base_model_bio
+
+sel_eq_mat_vuln_bio <-
+  models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[1]][, vuln_ratio_yr][2] + models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[2]][, vuln_ratio_yr][2]
+
+sel_eq_mat_bio <- models$sens_grps[[4]][[2]]$mcmccalcs$sbt_quants[, vuln_ratio_yr][2]
+
+sel_eq_mat_vuln_ratio <- sel_eq_mat_vuln_bio / sel_eq_mat_bio
+
 theme_set(theme_pbs())
 ```
 
@@ -699,16 +714,16 @@ class: center, bg_arf
 - Data
   - Catch, Length, Age
   - Indices of Abundance
-      - Discard CPUE index
   - Growth parameters (fit outside assessment model)
-  - Proportion female analysis
+  - Proportion female
 - Bridge models
 - Assessment model fits/estimates
-  - Age
-  - Selectivity (compared to maturity)
+  - Index fits, Age fits/residuals, Selectivity
   - Posterior distributions of MSY-based reference points
+  - MCMC diagnostics
 - Retrospective models
 - Sensitivity models
+- Projections and decision tables
 - Summary
 ]
 <div class="footer" id="a">
@@ -744,7 +759,7 @@ class: center, bg_arf_face_close
 </div>
 
 ---
-class: center, bg_arf_many
+class: center
 ### Management
 
 .left[
@@ -763,9 +778,6 @@ On Jan. 30, 2020, late changes to the Integrated Fisheries Management Plan (IFMP
 
 .link-style1[[IFMP for Groundfish](https://www.pac.dfo-mpo.gc.ca/fm-gp/mplans/ground-fond-ifmp-pgip-sm-eng.html)]
 ]
-<div class="footer" id="a">
-  <a href="https://media.fisheries.noaa.gov/styles/full_width/s3/dam-migration/arrowtoothflounderimage-hero.jpg?itok=kBvLAic7">Photo Source</a>
-</div>
 
 ---
 class: center
@@ -917,7 +929,7 @@ Age data were
 
 - included for both commercial fleets and three synoptic surveys;
 
-- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and Grandin and Forrest (2017). This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
+- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and the 2015 Arrowtooth assessment. This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
 ]
 <div class="footer" id="a">
   <a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page">Photo Source</a>
@@ -1004,31 +1016,6 @@ All are in thousands of tonnes except the `r dcpue` which is in kg/hr.
 <div class="footer" id="a">
   <a href="https://www.researchgate.net/figure/Locations-of-the-current-groundfish-trawl-surveys-on-the-coast-of-British-Columbia_fig1_237497699">Photo Source</a>
 </div>
-
----
-class: center
-### Abundance Indices - `r dcpue`
-.left[
-We generated an index of abundance from discard commercial trawl CPUE standardized for:
-- depth;
-- fishing locality (defined spatial regions);
-- month;
-- vessel and
-- latitude.
-
-**Data filtering:**
-- include tows where 100% of caught `r sp` were discarded, to avoid tows targeting `r sp`;
-- include vessels that have caught and discarded `r sp` in at least 100 tows from 1996-2021;
-- those vessels have had at least five trips that recorded `r sp` for at least five years from 1996-2021.
-
-**Standardization model predictors:**
-- for depth, binned into 25m-wide bands;
-- for latitude, binned into 0.1-degree-wide bands;
-- limited both to include only bands that fell in 0.1% and 99.9% probability of positive observations;
-- removed any that contained fewer than 0.1% of observations
-
-TODO: Add the rest or make another presentation, See Appendix C for details.
-]
 
 ---
 class: center
@@ -1272,52 +1259,6 @@ tex2markdown(tex_table)
 class: center
 ### Proportion female
 
-.left[
-The proportion of females in the population was calculated for the four synoptic surveys and the commercial trawl (as a single fleet).
-- The Gulf of Alaska and Bering Sea/Aleutian Islands assessments use <SPAN STYLE="font-size:18.0pt">0.7</SPAN> 
-
-Data used for these calculations were filtered for:
-- Sampled category
-    - Unsorted
-    - Discards
-- Sample type
-    - total catch
-    - random
-    - random from randomly assigned set
-    - random from set after randomly assigned set
-    - random from set requested by vessel master
-- Gear codes
-    - Bottom trawl
-    - Unknown trawl
-- Age data: 1996 through 2019
-- Areas: 3CD and 5ABCDE
-- Sex: males and females only, any null, unknown, or unsexed specimens were dropped
-]
-
----
-class: center
-### Proportion female - Equations
-
-.left[
-- Observations from a single sample are likely to be correlated due to limited trawl area from a single tow.
-- Trip samples are likely to be correlated due to vessel targeting practices.
-- Time of year (for commercial trawl) may be have an effect due to vertical migration to deeper water in the fall/winter.
-
-The total weight (from sum of catch for sampled catch) in each quarter of the year by sex:
-
-<img class="fortypercsize" src="figures/equation_b_5_prop_female.jpg">
-
-<img class="fortypercsize" src="figures/equation_b_7_prop_female.jpg">
-
-The proportions female each year were calculated as:
-
-<img class="fortypercsize" src="figures/equation_b_8_prop_female.jpg">
-]
-
----
-class: center
-### Proportion female - summary
-
 ```{r prop-female-table-left, results = "asis"}
 t1 <- table_prop_female(prop_female_lst,
                         digits = 2,
@@ -1402,7 +1343,7 @@ cowplot::plot_grid(
                     legend_title = "Models",
                     angle_x_labels = TRUE,
                     leg_loc = c(0.95, 0.95),
-                    ylim = c(0, 1000)) +
+                    ylim = c(0, 280)) +
     theme(legend.key.size = unit(0.1, 'cm')),
   plot_biomass_mcmc(models$bridge_grps[[2]],
                     rel = TRUE,
@@ -1435,8 +1376,7 @@ plot_selex_mcmc(models$bridge_grps[[2]][[4]],
 ```
 
 .left[
-- **Problem 1**; The selectivity age-at-50% estimates $(\hat{a})$ for females in the `r qcs` for this model were (median, CI [credible interval]) `r split_sex_model_sel_ahat_html`.
-- **Problem 2**; The selectivity age-at-50% estimates $(\hat{a})$ for females and males in the `r wchgs` for this model were (median, CI [credible interval]) `r split_sex_model_sel_ahat_wchg_female_html` and `r split_sex_model_sel_ahat_wchg_male_html` respectively.
+- The selectivity age-at-50% estimates $(\hat{a})$ for females and males in the `r wchgs` for this model were (median, CI [credible interval]) `r split_sex_model_sel_ahat_wchg_female_html` and `r split_sex_model_sel_ahat_wchg_male_html` respectively.
 ]
 
 ---
@@ -1449,7 +1389,7 @@ cowplot::plot_grid(
                     legend_title = "Models",
                     angle_x_labels = TRUE,
                     leg_loc = c(0.95, 0.95),
-                    ylim = c(0, 1000)) +
+                    ylim = c(0, 280)) +
     theme(legend.key.size = unit(0.1, 'cm')),
   plot_biomass_mcmc(models$bridge_grps[[3]],
                     rel = TRUE,
@@ -1498,6 +1438,7 @@ plot_pairs_mcmc(models$bridge_grps[[3]][[3]],
 ```
 .left[
 - Fixed M to 0.20 for females and 0.35 for males as in the GOA and Bering Sea/Aleutian Islands assessment.
+- A higher male M is supported by a lack of older males in the survey and trawl data
 ]
 
 ---
@@ -1505,7 +1446,7 @@ class: center
 ### Bridge models - All models
 
 ```{r bridge-biomass-all, out.width = "80%"}
-all_bridge_mdls <- do.call(c, models$bridge_grps)
+all_bridge_mdls <- do.call(c, models$bridge_grps[-4])
 class(all_bridge_mdls) <- mdl_lst_cls
 cowplot::plot_grid(
   plot_biomass_mcmc(all_bridge_mdls,
@@ -1582,7 +1523,8 @@ class: center
 ```{r age-fits-base-ft, out.width = "100%", fig.dim = c(4.8, 4.5)}
 plot_age_fits_mcmc(base_model, gear = 1,
                    text_title_size = NULL,
-                   angle_x_labels = TRUE)
+                   angle_x_labels = TRUE) +
+  ylim(c(0, 0.3))
 ```
 ]
 .right-fig[
@@ -1602,7 +1544,8 @@ plot_age_fits_mcmc(base_model,
                    gear = 2,
                    yrs = 1996:2007,
                    text_title_size = NULL,
-                   angle_x_labels = TRUE)
+                   angle_x_labels = TRUE) +
+  ylim(c(0, 0.3))
 ```
 ]
 .right-fig[
@@ -1611,7 +1554,8 @@ plot_age_fits_mcmc(base_model,
                    gear = 2,
                    yrs = 2008:2021,
                    text_title_size = NULL,
-                   angle_x_labels = TRUE)
+                   angle_x_labels = TRUE) +
+  ylim(c(0, 0.3))
 ```
 ]
 
@@ -1633,8 +1577,8 @@ class: center
 plot_age_fits_mcmc(base_model,
                    gear = 3,
                    text_title_size = NULL,
-                   sample_size_y = 0.15,
-                   angle_x_labels = TRUE)
+                   angle_x_labels = TRUE) +
+  ylim(c(0, 0.3))
 ```
 ]
 .right-fig[
@@ -1653,8 +1597,8 @@ class: center
 plot_age_fits_mcmc(base_model,
                    gear = 4,
                    text_title_size = NULL,
-                   sample_size_y = 0.15,
-                   angle_x_labels = TRUE)
+                   angle_x_labels = TRUE) +
+  ylim(c(0, 0.3))
 ```
 ]
 .right-fig[
@@ -1673,8 +1617,8 @@ class: center
 plot_age_fits_mcmc(base_model,
                    gear = 5,
                    text_title_size = NULL,
-                   sample_size_y = 0.15,
-                   angle_x_labels = TRUE)
+                   angle_x_labels = TRUE) +
+  ylim(c(0, 0.3))
 ```
 ]
 .right-fig[
@@ -1684,6 +1628,31 @@ plot_age_resids_mcmc(base_model,
                      text_title_size = NULL)
 ```
 ]
+
+---
+class: center
+### Base model - Dirichlet Multinomial parameters and effective sample sizes, 1996&ndash;2007
+
+```{r mcmc-base-dm-1, results = "asis"}
+table_param_phi_mpd(base_model,
+                    format = "html",
+                    cap = "",
+                    yrs = 1996:2007,
+                    escape = FALSE) |>
+  kable_styling(font_size = 18)
+```
+
+---
+class: center
+### Base model - Dirichlet Multinomial parameters and effective sample sizes, 2008&ndash;2021
+
+```{r mcmc-base-dm-2, results = "asis"}
+table_param_phi_mpd(base_model,
+                    format = "html",
+                    cap = "",
+                    yrs = 2008:2021) |>
+      kable_styling(font_size = 18)
+```
 
 ---
 class: center
@@ -1703,7 +1672,7 @@ class: center
 ### Base model - Reference point estimates
 .left[
 - The $U_{MSY_2}$ posteriors (exploitation rate) for the Shoreside fleet are all at or near 1, meaning the fishing mortality is unrealistically large.
-- This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are extremely liberal.
+- This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are so liberal.
 
 ```{r ref-points-base, out.width = "60%" }
 plot_ref_points(base_model)
@@ -1807,6 +1776,52 @@ plot_autocorr_mcmc(base_model,
 
 ---
 class: center
+### Pairs plot - base model, leading parameters
+```{r fig-base-pairs, out.width = "70%"}
+plot_pairs_mcmc(base_model,
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
+.left[
+- Subscript on catchability  parameters, $q_k$:
+- $k$ = Gear: $1$ = QCS Synoptic, $2$ = HS Multi. Assemb., $3$ = HS Synoptic, $4$ = WCVI Synoptic, $5$ = Discard CPUE
+]
+
+---
+class: center
+### Pairs plot - base model, selectivity parameters
+```{r fig-base-pairs-sel, out.width = "65%"}
+# Remove 4 and 7 because they are fixed in the model (HSMAS and DCPUE indices) and will produce NAs
+plot_pairs_mcmc(base_model,
+                plot_sel = TRUE,
+                param_rm = c("selage4_male_block1",
+                             "selage4_female_block1",
+                             "selsd4_male_block1",
+                             "selsd4_female_block1",
+                             "selage7_male_block1",
+                             "selage7_female_block1",
+                             "selsd7_male_block1",
+                             "selsd7_female_block1"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.25)
+```
+.left[
+- Subscripts on selectivity parameters, $\hat{a}_{g,s,t}$ and $\hat{\gamma}_{g,s,t}$:
+  - $g$ = Gear: $1$ = Freezer trawlers, $2$ = Shoreside, $3$ = QCS Synoptic, $5$ = HS Synoptic, $6$ = WCVI Synoptic
+  - $s$ = Sex: $f$ = Female, $m$ = Male
+  - $t$ = Time block (for TV selectivity, all are $1$ here because base model has time-invariant selectivity)
+]
+
+---
+class: center
 ### Comparison of Base model and single sex model (bridge model 2)
 
 ```{r mcmc-base-vs-single-sex-biomass, out.width = "80%"}
@@ -1826,3 +1841,424 @@ cowplot::plot_grid(
                     rel = TRUE),
   ncol = 2)
 ```
+
+---
+class: center, middle, inverse
+# Retrospective models
+
+---
+class: center
+### Retrospectives - Spawning biomass
+```{r fig-retro-biomass, out.width = "85%"}
+plot_biomass_mcmc(models$retro_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1,
+                  palette = "Paired",
+                  leg_loc = c(0.95, 0.95),
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 500))
+
+```
+
+---
+class: center
+### Retrospectives - Spawning biomass, closer view
+```{r fig-retro-biomass-closer, out.width = "85%"}
+plot_biomass_mcmc(models$retro_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 1,
+                  point_size = 2,
+                  palette = "Paired",
+                  leg_loc = NULL,
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 250))
+
+```
+
+---
+class: center
+### Retrospectives - Relative spawning biomass
+```{r fig-retro-biomass-rel, out.width = "85%"}
+plot_biomass_mcmc(models$retro_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  rel = TRUE,
+                  line_width = 0.5,
+                  point_size = 1,
+                  palette = "Paired",
+                  leg_loc = NULL,
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 1.3))
+
+```
+
+---
+class: center
+### Retrospectives - Recruitment
+```{r fig-retro-recr, out.width = "85%"}
+plot_recr_mcmc(models$retro_grps[[1]],
+               angle_x_labels = TRUE,
+               text_title_size = NULL,
+               line_width = 0.5,
+               point_size = 1.5,
+               palette = "Paired",
+               leg_loc = c(0.05, 0.95))
+```
+
+---
+class: center
+### Retrospectives - Recruitment, closer view
+```{r fig-retro-recr-closer, out.width = "85%"}
+plot_recr_mcmc(models$retro_grps[[1]],
+               angle_x_labels = TRUE,
+               text_title_size = NULL,
+               line_width = 0.25,
+               point_size = 1,
+               palette = "Paired",
+               leg_loc = NULL,
+               ylim = c(0, 340))
+```
+
+---
+class: center
+### Retrospectives - Fishing mortality by fleet
+```{r fig-retro-f, out.width = "85%"}
+plot_f_mcmc(models$retro_grps[[1]],
+            angle_x_labels = TRUE,
+            text_title_size = NULL,
+            line_width = 0.5,
+            point_size = 1.5,
+            palette = "Paired",
+            leg_loc = c(0.05, 0.95))
+```
+
+---
+class: center
+### Retrospectives - Index fits
+```{r fig-retro-index-fits, out.width = "85%"}
+plot_index_mcmc(models$retro_grps[[1]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL,
+                fit_line_width = 0.25,
+                fit_point_size = 1.5,
+                palette = "Paired",
+                errbar_width = 0.1,
+                dodge = 0.1)
+```
+
+---
+class: center
+### Retrospectives - Trace plots for 2019 model
+```{r fig-base-trace-selex, out.width = "85%"}
+plot_traces_mcmc(models$retro_grps[[1]][[5]],
+                 plot_sel = TRUE, 
+                 text_title_size = NULL)
+```
+
+---
+class: center
+### Retrospectives - Pairs plot for 2019 model
+```{r fig-base-pairs-retro, out.width = "85%"}
+plot_pairs_mcmc(models$retro_grps[[1]][[5]],
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
+
+---
+class: center
+### Comparison of 2015 model and retrospective for 2015
+
+```{r base-2015-vs-retro, out.width = "80%"}
+cowplot::plot_grid(
+  plot_biomass_mcmc(models$bridge_grps[[4]],
+                    ylim = c(0, 600),
+                    leg_loc = c(0.95, 0.95),
+                    angle_x_labels = TRUE),
+  plot_biomass_mcmc(models$bridge_grps[[4]],
+                    ylim = c(0, 1.3),
+                    show_bo_lines = TRUE,
+                    leg_loc = c(0.95, 0.95),
+                    angle_x_labels = TRUE,
+                    rel = TRUE),
+  ncol = 2)
+```
+
+---
+class: center, middle, inverse
+# Sensitivity models
+
+---
+class: center
+### Sensitivity group 1 - Spawning biomass
+```{r fig-sens1, out.width = "70%"}
+plot_biomass_mcmc(models$sens_grps[[1]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 300))
+```
+.left[
+- Two $B_0$ values were left off the plot for clarity.
+- They are estimated as 445 (236–602) thousand t and 370 (200–581) thousand t for the "Decrease $\sigma$ to 0.135" and "Increase $\tau$ to 1.0" respectively.
+
+]
+
+---
+class: center
+### Sensitivity group 1 - Relative spawning biomass
+```{r fig-sens1-rel, out.width = "85%"}
+plot_biomass_mcmc(models$sens_grps[[1]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 1.3))
+```
+
+
+---
+class: center
+### Reducing steepness prior mean from 0.8 to 0.72 - Priors vs. Posteriors
+```{r sens-steepness-prior, out.width = "65%"}
+cowplot::plot_grid(
+plot_priors_posts_mcmc(base_model,
+                       param_rm = c("sel",
+                                    "bo",
+                                    "tau",
+                                    "sigma",
+                                    "log_m_sex1",
+                                    "log_m_sex2")),
+plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
+                       param_rm = c("sel",
+                                    "bo",
+                                    "tau",
+                                    "sigma",
+                                    "log_m_sex1",
+                                    "log_m_sex2")),
+ncol = 2)
+```
+.left[
+- Subscript on catchability  parameters, $q_k$:
+- $k$ = Gear: $1$ = QCS Synoptic, $2$ = HS Multi. Assemb., $3$ = HS Synoptic, $4$ = WCVI Synoptic, $5$ = Discard CPUE
+]
+
+
+---
+class: center
+### Sensitivity group 3 - Spawning biomass
+```{r fig-sens3, out.width = "85%"}
+plot_biomass_mcmc(models$sens_grps[[3]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 350))
+```
+
+---
+class: center
+### Sensitivity group 3 - Relative spawning biomass
+```{r fig-sens3-rel, out.width = "85%"}
+plot_biomass_mcmc(models$sens_grps[[3]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 1.3))
+```
+
+---
+class: center
+### Sensitivity group 3 - Catchability estimates
+```{r fig-sens3-q, out.width = "85%"}
+plot_q_mcmc(models$sens_grps[[3]],
+            leg_loc = "facet",
+            gear = NULL)
+```
+
+---
+class: center
+### Sensitivity group 4 - Spawning biomass
+```{r fig-sens4, out.width = "85%"}
+plot_biomass_mcmc(models$sens_grps[[4]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 700))
+```
+
+---
+class: center
+### Sensitivity group 4 - Relative spawning biomass
+```{r fig-sens4-rel, out.width = "85%"}
+plot_biomass_mcmc(models$sens_grps[[4]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 3))
+```
+
+---
+class: center
+### Sensitivity group 4 - Vulnerable biomass
+```{r fig-sens4-vuln, out.width = "70%"}
+plot_vuln_mcmc(models$sens_grps[[4]][[2]],
+               angle_x_labels = TRUE,
+               leg_loc = c(0.95, 0.95),
+               xlim = c(1997, 2021),
+               ylim = c(0, 800))
+```
+.left[
+- The two trawl fleets have their selectivity set equal so their vulnerable biomasses overlap
+- The ratio of the sum of the two fleets’ vulnerable biomasses to the spawning biomass in 2021 is `r f(sel_eq_mat_vuln_ratio, 2)`
+- For the base model, this ratio is `r f(base_model_vuln_ratio, 2)`
+]
+
+---
+class: center
+### Sensitivity group 4 - Index fits
+```{r fig-sens4-index-fits, out.width = "85%"}
+plot_index_mcmc(models$sens_grps[[4]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL)
+
+```
+
+---
+class: center
+### Sensitivity To QCS time-varying selectivity - Selectivity estimates
+```{r fig-sens4-qcs-tv-selex, out.width = "85%"}
+plot_selex_gear_mcmc(models$sens_grps[[4]][[3]], gear = 3, show_maturity = TRUE)
+```
+
+---
+class: center
+### Sensitivity To QCS time-varying selectivity - Trace plots
+```{r fig-sens4-qcs-trace, out.width = "85%"}
+plot_traces_mcmc(models$sens_grps[[4]][[3]],
+                 plot_sel = TRUE, 
+                 text_title_size = NULL,
+                 col = "blue",
+                 lwd = 2)
+```
+
+---
+class: center
+### Sensitivity for Geostatistical-based index - Spawning biomass
+```{r fig-sens5, out.width = "85%"}
+plot_biomass_mcmc(models$sens_grps[[5]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 280))
+```
+
+---
+class: center
+### Sensitivity for Geostatistical-based index - Relative spawning biomass
+```{r fig-sens5-rel, out.width = "85%"}
+plot_biomass_mcmc(models$sens_grps[[5]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.95, 0.95),
+                  ylim = c(0, 1.3))
+```
+
+---
+class: center
+### Sensitivity  for Geostatistical-based index - Index fits
+```{r fig-sens5-index-fits, out.width = "85%"}
+plot_index_mcmc(models$sens_grps[[5]][[2]],
+                type = "fits",
+                surv_index = survey_index_geo,
+                leg_loc = NULL,
+                text_title_size = NULL)
+
+```
+
+---
+class: center, middle, inverse
+### Projections, decision table, and summary
+
+---
+class: center
+### Decision table and figure of outcomes
+.left-fig[
+```{r decision-table, results = "asis"}
+table_decisions(base_model,
+                format = "html",
+                digits = 3,
+                font_size = 10,
+                caption = "")
+```
+]
+.right-fig[
+```{r fig-proj-tac, out.width = "100%"}
+plot_dfo_ref_point_figure(base_model)
+```
+.left[
+- Thick lines are the 50% CI
+- Thin lines are the 95% CI
+- Points are medians
+]
+]
+
+---
+class: center, bg_arf
+### Summary
+.left[
+- The inclusion of the 2015&ndash;2021 data are what changes the model the most
+- The abundance has been declining sharply in the survey indices since 2018
+- The discard CPUE shows a decline since 2013
+- TAC was reduced to 5,000 t in 2020
+- The spawning biomass has flattened out since 2020
+- Recruitment is highly uncertain for 2020 and 2021
+- The QCS survey index is difficult to fit, as it is not declining in the same way as other indices
+- The QCS selectivity is estimated poorly in the retrospectives prior to 2019, and some sensitivities
+- There is a lack of older males in the data which the model explains with a high M on males
+]
+<div class="footer" id="a">
+  <a href="https://www.seafoodwatch.org/recommendation/flounder/arrowtooth-flounder-525">Photo Source</a>
+</div>

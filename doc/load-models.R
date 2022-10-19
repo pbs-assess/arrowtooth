@@ -11,7 +11,9 @@ bridge_models_dirs <-
          "08-bridge-switch-to-split-sex"),
        c("09-bridge-switch-fishing-year-to-feb-21-feb-20",
          "10-bridge-remove-wchg",
-         "11-bridge-fix-natural-mortalities"))
+         "11-bridge-fix-natural-mortalities"),
+       c("01-base-2015",
+         "12-retrospective-7-years"))
 
 bridge_models_text <-
   list(c(ifelse(fr(),
@@ -46,7 +48,13 @@ bridge_models_text <-
                 "Remove WCHG survey (two fleets, split sex)"),
          ifelse(fr(),
                 "Corriger les mortalités naturelles (deux flottes, sexe divisé)",
-                "Fix natural mortalities (two fleets, split sex)")))
+                "Fix natural mortalities (two fleets, split sex)")),
+       c(ifelse(fr(),
+                "French here",
+                "2015 base model"),
+         ifelse(fr(),
+                "French here",
+                "Retrospective -7 years")))
 
 # Make these factors so that they can be reordered in the legends later
 bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
