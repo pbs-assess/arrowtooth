@@ -2261,7 +2261,7 @@ class: center, bg_arf
 
 **Thanks**
 
-We thank members of the Arrowtooth Flounder Technical Working Group (Robyn Forrest, Rowan Haigh, Paul Starr, Diedre Finn, Rob Tadey, Bruce Turris, and Brian Mose) for their valuable advice and insights throughout this project. We thank members of the Sclerochronology Laboratory at the Pacifc Biological Station for their processing of Arrowtooth Flounder otoliths.
+We thank members of the Arrowtooth Flounder Technical Working Group (Robyn Forrest, Rowan Haigh, Paul Starr, Diedre Finn, Rob Tadey, Bruce Turris, and Brian Mose) for their valuable advice and insights throughout this project. We thank members of the Sclerochronology Laboratory at the Pacific Biological Station for their processing of Arrowtooth Flounder otoliths.
 
 We thank the reviewers for their careful reviews, which uncovered structural issues that would have otherwise been missed. This highlights the importance of independent peer review in the advisory process.
 ]
