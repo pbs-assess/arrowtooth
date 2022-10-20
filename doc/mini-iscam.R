@@ -1,5 +1,5 @@
 N_t <- length(seq(1997, 2021))
-N_a <- 30
+N_a <- 40
 
 M <- 0.2
 lw_a <- 0.0000076
@@ -43,6 +43,7 @@ shoreside <- c(
 )
 
 F_both <- freezer + shoreside
+# F_both <- F_both
 F_ta <- matrix(nrow = N_t, ncol = N_a)
 for (a in 1:N_a) {
   F_ta[, a] <- F_both
@@ -51,6 +52,10 @@ for (a in 1:N_a) {
 # Table 6 freezer trawlers female selectivity
 a_hat <- 7.97
 gamma_hat <- 1.02
+
+# shoreside
+a_hat <- 8.7
+gamma_hat <- 1.06
 v_a <- 1 / (1 + exp(-(age - a_hat) / gamma_hat))
 plot(v_a)
 
@@ -128,14 +133,17 @@ for (t in 1:N_t) {
 B_t <- apply(B_ta, 1, sum)
 
 SSB_t <- apply(SSB_ta, 1, sum)
+
+cols <- RColorBrewer::brewer.pal(4, "Dark2")
+
 plot(1:N_t, SSB_t,
   type = "l", ylab = "T", xlab = "Year",
-  ylim = c(0, max(B_t))
+  ylim = c(0, max(B_t)), col = cols[1]
 )
-lines(1:N_t, V_t, col = "blue", lty = 3)
-lines(1:N_t, C_t, col = "red", lty = 2)
-lines(1:N_t, B_t, col = "green", lty = 4)
+lines(1:N_t, V_t, col = cols[2], lty = 1)
+lines(1:N_t, C_t, col = cols[3], lty = 2)
+lines(1:N_t, B_t, col = cols[4], lty = 1)
 legend("topright",
   legend = c("SSB", "VB", "Catch", "B"),
-  lty = c(1, 3, 2, 4), col = c("black", "blue", "red", "green")
+  lty = c(1, 1, 1, 1), col = cols
 )
