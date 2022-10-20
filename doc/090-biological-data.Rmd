@@ -369,15 +369,14 @@ grid.arrange(grobs = vb_plot_lst,
 
 ```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1, out.width = "6in"}
 
-# remove the resting maturity code 
-survey_samples_syn2 <- survey_samples_syn %>% filter(maturity_code < 7)
-survey_samples2 <- survey_samples %>% filter(maturity_code < 7)
-commercial_samples2 <- commercial_samples %>% filter(maturity_code < 7)
+survey_samples_syn2 <- survey_samples_syn 
+survey_samples2 <- survey_samples 
+commercial_samples2 <- commercial_samples 
 
 mat_fn <- file.path(data_dir, "fit_mat_ogive_output.rds")
-# if(file.exists(mat_fn)){
-#   mat_lst <- readRDS(mat_fn)
-# }else{
+if(file.exists(mat_fn)){
+  mat_lst <- readRDS(mat_fn)
+}else{
   mat_lst <- list(
     fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS")),
     fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS"), type = "length"),
@@ -390,7 +389,7 @@ mat_fn <- file.path(data_dir, "fit_mat_ogive_output.rds")
     fit_mat_ogive(survey_samples_syn2),
     fit_mat_ogive(survey_samples_syn2, type = "length"))
   saveRDS(mat_lst, mat_fn)
-# }
+}
 mat_title_lst <- list(
   tr("SYN QCS (5AB)"),
   "",
@@ -470,6 +469,95 @@ grid.arrange(grobs = ma_plot_lst,
 ```
 
 \clearpage
+
+(ref:fig-mat-en2) Same as previous, but with fish scored as resting removed. 
+
+<!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
+
+(ref:fig-mat-fr2) TODO
+
+```{r fig-mat2, fig.cap = ifelse(fr(), "(ref:fig-mat-fr2)", "(ref:fig-mat-en2)"), fig.asp = 1, out.width = "6in"}
+
+# remove the resting maturity code 
+survey_samples_syn2 <- survey_samples_syn %>% filter(maturity_code < 7)
+survey_samples2 <- survey_samples %>% filter(maturity_code < 7)
+commercial_samples2 <- commercial_samples %>% filter(maturity_code < 7)
+
+mat_fn2 <- file.path(data_dir, "fit_mat_ogive_output_no_resting.rds")
+
+if(file.exists(mat_fn2)){
+  mat_lst <- readRDS(mat_fn2)
+}else{
+  mat_lst2 <- list(
+    fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS")),
+    fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS"), type = "length"),
+    fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN HS")),
+    fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN HS"), type = "length"),
+    fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN WCVI")),
+    fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN WCVI"), type = "length"),
+    fit_mat_ogive(commercial_samples2),
+    fit_mat_ogive(commercial_samples2, type = "length"),    
+    fit_mat_ogive(survey_samples_syn2),
+    fit_mat_ogive(survey_samples_syn2, type = "length"))
+  saveRDS(mat_lst2, mat_fn2)
+}
+
+
+ma_plot_lst <- list(
+  plot_mat_panels(mat_lst2[[1]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[1]]),
+
+  plot_mat_panels(mat_lst2[[2]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[2]]),
+
+  plot_mat_panels(mat_lst2[[3]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[3]]),
+
+  plot_mat_panels(mat_lst2[[4]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[4]]),
+
+  plot_mat_panels(mat_lst2[[5]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[5]]),
+
+  plot_mat_panels(mat_lst2[[6]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[6]]),
+
+  plot_mat_panels(mat_lst2[[7]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[7]]),
+
+  plot_mat_panels(mat_lst2[[8]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  theme(axis.title = element_blank()) +
+  ggtitle(mat_title_lst[[8]]),
+
+  plot_mat_panels(mat_lst2[[9]]) +
+  coord_cartesian(xlim = c(0, 18), ylim = c(0, 1)) +
+  ggtitle(mat_title_lst[[9]]) +
+  xlab(tr("Age (years)")),
+
+  plot_mat_panels(mat_lst2[[10]]) +
+  coord_cartesian(xlim = c(0, 82), ylim = c(0, 1)) +
+  ggtitle(mat_title_lst[[10]]) +
+  xlab(paste0(tr("Length"), " (cm)")))
+
+grid.arrange(grobs = ma_plot_lst,
+             ncol = 2,
+             left = paste0(tr("Probability mature")))
+```
 
 ```{r appendix-data-para-5-en, eval = !fr(), results = 'asis'}
 cat("## TABLES
