@@ -27,11 +27,11 @@ plot_biomass_mcmc(models$retro_grps[[1]],
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
                   line_width = 1,
-                  point_size = 1,
+                  point_size = 2,
                   palette = "Paired",
                   leg_loc = NULL,
                   bo_refpt_colors = c("salmon", "darkgreen"),
-                  ylim = c(0, 200))
+                  ylim = c(0, 250))
 
 ```
 

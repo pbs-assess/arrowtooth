@@ -70,7 +70,7 @@ The `r wcvis` has been conducted from May–-June in even years starting in 2004
 
 **`r wchgs`**
 
-The `r wchgs` has been conducted from August-September in even years starting in 2006. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block.
+The `r wchgs` has been conducted from August-September in even years starting in 2006. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 180--330 m, 330--500 m, 500--800 m, and 800--1,300 m.
 
 **`r dcpue`**
 

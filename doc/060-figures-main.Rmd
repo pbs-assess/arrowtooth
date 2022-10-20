@@ -177,7 +177,10 @@ plot_index_mcmc(base_model,
 (ref:fig-base-age-fits-ft-fr) French here
 
 ```{r fig-base-age-fits-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ft-fr)", "(ref:fig-base-age-fits-ft-en)")}
-plot_age_fits_mcmc(base_model, gear = 1, text_title_size = NULL)
+plot_age_fits_mcmc(base_model,
+                   gear = 1,
+                   text_title_size = NULL) +
+  ylim(0, 0.3)
 ```
 
 (ref:fig-base-age-resids-ft-en) Pearson residuals for the age composition fits for each sex for the Freezer trawler fleet. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
@@ -185,7 +188,9 @@ plot_age_fits_mcmc(base_model, gear = 1, text_title_size = NULL)
 (ref:fig-base-age-resids-ft-fr) French here
 
 ```{r fig-base-age-resids-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ft-fr)", "(ref:fig-base-age-resids-ft-en)")}
-plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL)
+plot_age_resids_mcmc(base_model,
+                     gear = 1,
+                     text_title_size = NULL)
 ```
 
 \clearpage
@@ -195,7 +200,12 @@ plot_age_resids_mcmc(base_model, gear = 1, text_title_size = NULL)
 (ref:fig-base-age-fits-ss-firsthalf-fr) French here
 
 ```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-firsthalf-fr)", "(ref:fig-base-age-fits-ss-firsthalf-en)")}
-plot_age_fits_mcmc(base_model, gear = 2, yrs = 1996:2007, text_title_size = NULL)
+plot_age_fits_mcmc(base_model,
+                   gear = 2,
+                   yrs = 1996:2007,
+                   text_title_size = NULL,
+                   sample_size_y = 0.3) +
+  ylim(0, 0.3)
 ```
 
 (ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
@@ -203,7 +213,11 @@ plot_age_fits_mcmc(base_model, gear = 2, yrs = 1996:2007, text_title_size = NULL
 (ref:fig-base-age-fits-ss-secondhalf-fr) French here
 
 ```{r fig-base-age-fits-secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-secondhalf-fr)", "(ref:fig-base-age-fits-ss-secondhalf-en)")}
-plot_age_fits_mcmc(base_model, gear = 2, yrs = 2008:2022, text_title_size = NULL)
+plot_age_fits_mcmc(base_model,
+                   gear = 2,
+                   yrs = 2008:2022,
+                   text_title_size = NULL) +
+  ylim(0, 0.3)
 ```
 
 (ref:fig-base-age-resids-ss-en) Pearson residuals for the age composition fits for each sex for the Shoreside fleet. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
@@ -211,7 +225,9 @@ plot_age_fits_mcmc(base_model, gear = 2, yrs = 2008:2022, text_title_size = NULL
 (ref:fig-base-age-resids-ss-fr) French here
 
 ```{r fig-base-age-resids-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ss-fr)", "(ref:fig-base-age-resids-ss-en)")}
-plot_age_resids_mcmc(base_model, gear = 2, text_title_size = NULL)
+plot_age_resids_mcmc(base_model,
+                     gear = 2,
+                     text_title_size = NULL)
 ```
 
 \clearpage
@@ -221,7 +237,10 @@ plot_age_resids_mcmc(base_model, gear = 2, text_title_size = NULL)
 (ref:fig-base-age-fits-qcs-fr) French here
 
 ```{r fig-base-age-fits-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-qcs-fr)", "(ref:fig-base-age-fits-qcs-en)")}
-plot_age_fits_mcmc(base_model, gear = 3, text_title_size = NULL, sample_size_y = 0.15)
+plot_age_fits_mcmc(base_model,
+                   gear = 3,
+                   text_title_size = NULL) +
+  ylim(0, 0.3)
 ```
 
 (ref:fig-base-age-resids-qcs-en) Pearson residuals for the age composition fits for each sex for the `r qcs`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
@@ -239,7 +258,10 @@ plot_age_resids_mcmc(base_model, gear = 3, text_title_size = NULL)
 (ref:fig-base-age-fits-hss-fr) French here
 
 ```{r fig-base-age-fits-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-hss-fr)", "(ref:fig-base-age-fits-hss-en)")}
-plot_age_fits_mcmc(base_model, gear = 4, text_title_size = NULL, sample_size_y = 0.15)
+plot_age_fits_mcmc(base_model,
+                   gear = 4,
+                   text_title_size = NULL) +
+  ylim(0, 0.3)
 ```
 
 (ref:fig-base-age-resids-hss-en)  Pearson residuals for the age composition fits for each sex for the `r hss`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
@@ -257,7 +279,10 @@ plot_age_resids_mcmc(base_model, gear = 4, text_title_size = NULL)
 (ref:fig-base-age-fits-wcvis-fr) French here
 
 ```{r fig-base-age-fits-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wcvis-fr)", "(ref:fig-base-age-fits-wcvis-en)")}
-plot_age_fits_mcmc(base_model, gear = 5, text_title_size = NULL, sample_size_y = 0.15)
+plot_age_fits_mcmc(base_model,
+                   gear = 5,
+                   text_title_size = NULL) +
+  ylim(0, 0.3)
 ```
 
 (ref:fig-base-age-resids-wcvis-en)  Pearson residuals for the age composition fits for each sex for the `r wcvis`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.

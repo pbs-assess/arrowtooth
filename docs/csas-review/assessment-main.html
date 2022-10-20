@@ -6,6 +6,8 @@
     <meta name="author" content="C. Grandin, S. Anderson, P. English" />
     <script src="libs/header-attrs-2.16.2/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="code-custom.css" type="text/css" />
   </head>
@@ -26,14 +28,12 @@ class: center, middle, inverse, title-slide
 ### DFO
 ]
 .date[
-### Slides compiled on 2022-10-17
+### Slides compiled on 2022-10-19
 ]
 
 ---
 
-
-background-image: url(figures/arrowtooth_flounder.jpeg)
-
+exclude: true
 
 
 
@@ -62,16 +62,16 @@ class: center, bg_arf
 - Data
   - Catch, Length, Age
   - Indices of Abundance
-      - Discard CPUE index
   - Growth parameters (fit outside assessment model)
-  - Proportion female analysis
+  - Proportion female
 - Bridge models
 - Assessment model fits/estimates
-  - Age
-  - Selectivity (compared to maturity)
+  - Index fits, Age fits/residuals, Selectivity
   - Posterior distributions of MSY-based reference points
+  - MCMC diagnostics
 - Retrospective models
 - Sensitivity models
+- Projections and decision tables
 - Summary
 ]
 &lt;div class="footer" id="a"&gt;
@@ -107,7 +107,7 @@ class: center, bg_arf_face_close
 &lt;/div&gt;
 
 ---
-class: center, bg_arf_many
+class: center
 ### Management
 
 .left[
@@ -126,9 +126,6 @@ On Jan. 30, 2020, late changes to the Integrated Fisheries Management Plan (IFMP
 
 .link-style1[[IFMP for Groundfish](https://www.pac.dfo-mpo.gc.ca/fm-gp/mplans/ground-fond-ifmp-pgip-sm-eng.html)]
 ]
-&lt;div class="footer" id="a"&gt;
-  &lt;a href="https://media.fisheries.noaa.gov/styles/full_width/s3/dam-migration/arrowtoothflounderimage-hero.jpg?itok=kBvLAic7"&gt;Photo Source&lt;/a&gt;
-&lt;/div&gt;
 
 ---
 class: center
@@ -182,7 +179,7 @@ Age data were
 
 - included for both commercial fleets and three synoptic surveys;
 
-- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and Grandin and Forrest (2017). This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
+- input into the model as weighted proportions-at-age using the methods of Holt et. al (2016) and the 2015 Arrowtooth assessment. This method is coded into the `weight_comps()` function located in the .link-style1[[gfplot R package](https://github.com/pbs-assess/gfplot)].
 ]
 &lt;div class="footer" id="a"&gt;
   &lt;a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&amp;as_channel=dpcft&amp;as_campclass=brand&amp;as_source=ft_web&amp;as_camptype=acquisition&amp;as_audience=users&amp;as_content=closure_asset-detail-page"&gt;Photo Source&lt;/a&gt;
@@ -220,31 +217,6 @@ All are in thousands of tonnes except the Discard CPUE Index which is in kg/hr.
 
 ---
 class: center
-### Abundance Indices - Discard CPUE Index
-.left[
-We generated an index of abundance from discard commercial trawl CPUE standardized for:
-- depth;
-- fishing locality (defined spatial regions);
-- month;
-- vessel and
-- latitude.
-
-**Data filtering:**
-- include tows where 100% of caught Arrowtooth Flounder were discarded, to avoid tows targeting Arrowtooth Flounder;
-- include vessels that have caught and discarded Arrowtooth Flounder in at least 100 tows from 1996-2021;
-- those vessels have had at least five trips that recorded Arrowtooth Flounder for at least five years from 1996-2021.
-
-**Standardization model predictors:**
-- for depth, binned into 25m-wide bands;
-- for latitude, binned into 0.1-degree-wide bands;
-- limited both to include only bands that fell in 0.1% and 99.9% probability of positive observations;
-- removed any that contained fewer than 0.1% of observations
-
-TODO: Add the rest or make another presentation, See Appendix C for details.
-]
-
----
-class: center
 ### Length/Weight fits by sex
 
 &lt;img src="knitr-figs-docx/length-weight-1.png" width="900" style="display: block; margin: auto;" /&gt;
@@ -270,52 +242,6 @@ class: center
 ---
 class: center
 ### Proportion female
-
-.left[
-The proportion of females in the population was calculated for the four synoptic surveys and the commercial trawl (as a single fleet).
-- The Gulf of Alaska and Bering Sea/Aleutian Islands assessments use &lt;SPAN STYLE="font-size:18.0pt"&gt;0.7&lt;/SPAN&gt; 
-
-Data used for these calculations were filtered for:
-- Sampled category
-    - Unsorted
-    - Discards
-- Sample type
-    - total catch
-    - random
-    - random from randomly assigned set
-    - random from set after randomly assigned set
-    - random from set requested by vessel master
-- Gear codes
-    - Bottom trawl
-    - Unknown trawl
-- Age data: 1996 through 2019
-- Areas: 3CD and 5ABCDE
-- Sex: males and females only, any null, unknown, or unsexed specimens were dropped
-]
-
----
-class: center
-### Proportion female - Equations
-
-.left[
-- Observations from a single sample are likely to be correlated due to limited trawl area from a single tow.
-- Trip samples are likely to be correlated due to vessel targeting practices.
-- Time of year (for commercial trawl) may be have an effect due to vertical migration to deeper water in the fall/winter.
-
-The total weight (from sum of catch for sampled catch) in each quarter of the year by sex:
-
-&lt;img class="fortypercsize" src="figures/equation_b_5_prop_female.jpg"&gt;
-
-&lt;img class="fortypercsize" src="figures/equation_b_7_prop_female.jpg"&gt;
-
-The proportions female each year were calculated as:
-
-&lt;img class="fortypercsize" src="figures/equation_b_8_prop_female.jpg"&gt;
-]
-
----
-class: center
-### Proportion female - summary
 
 &lt;table&gt;&lt;tr valign="top"&gt;&lt;td&gt;&lt;table class="table table table table" style="font-size: 14px; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto; font-size: 14px; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"&gt;
 &lt;caption style="font-size: initial !important;"&gt;&lt;/caption&gt;
@@ -590,8 +516,7 @@ class: center
 &lt;img src="knitr-figs-docx/bridge-group2-sel-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 .left[
-- **Problem 1**; The selectivity age-at-50% estimates `\((\hat{a})\)` for females in the Queen Charlotte Sound Synoptic Survey for this model were (median, CI [credible interval]) 5 (3&amp;ndash;7).
-- **Problem 2**; The selectivity age-at-50% estimates `\((\hat{a})\)` for females and males in the West Coast Haida Gwaii Synoptic Survey for this model were (median, CI [credible interval]) 908,360 (46&amp;ndash;21,893,582,500) and 94 (39&amp;ndash;1,247) respectively.
+- The selectivity age-at-50% estimates `\((\hat{a})\)` for females and males in the West Coast Haida Gwaii Synoptic Survey for this model were (median, CI [credible interval]) 908,360 (46&amp;ndash;21,893,582,500) and 94 (39&amp;ndash;1,247) respectively.
 ]
 
 ---
@@ -617,6 +542,7 @@ class: center
 &lt;img src="knitr-figs-docx/fig-bridge-pairs-fix-m-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 .left[
 - Fixed M to 0.20 for females and 0.35 for males as in the GOA and Bering Sea/Aleutian Islands assessment.
+- A higher male M is supported by a lack of older males in the survey and trawl data
 ]
 
 ---
@@ -720,6 +646,478 @@ class: center
 
 ---
 class: center
+### Base model - Dirichlet Multinomial parameters and effective sample sizes, 1996&amp;ndash;2007
+
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+&lt;caption style="font-size: initial !important;"&gt;&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;FT COMM&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SS COMM&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SYN QCS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SYN HS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SYN WCVI&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1996 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 48 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16.77 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1999 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 11.41 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2000 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 60 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17.98 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2001 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 160 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 21.92 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2002 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 118 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 20.94 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 82 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19.48 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 110 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17.66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2004 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 278 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23.22 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 138 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25.15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2005 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 265 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23.13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 79 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16.66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 521 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 31.69 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2006 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 246 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22.98 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 128 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 24.81 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2007 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 151 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 21.75 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 463 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 31.46 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: center
+### Base model - Dirichlet Multinomial parameters and effective sample sizes, 2008&amp;ndash;2021
+
+&lt;table class="table" style="font-size: 18px; margin-left: auto; margin-right: auto;"&gt;
+&lt;caption style="font-size: initial !important;"&gt;&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;FT COMM&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SS COMM&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SYN QCS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SYN HS&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;SYN WCVI&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(N_{eff}\) &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; \(log(\phi)\) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2008 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 59 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17.89 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 200 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26.61 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2009 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16.89 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 651 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 32.07 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2010 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 178 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22.22 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 586 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 29.07 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 239 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22.92 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17.08 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 190 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 28.74 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 263 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23.11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 249 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 27.30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 210 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 57.58 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 84 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 19.59 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 90 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17.08 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 588 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 31.90 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2014 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 307 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 62.97 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23.57 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2015 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 269 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 61.22 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 12.82 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 121 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17.91 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 103 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25.57 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2016 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 333 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 63.98 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 10.04 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 88 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 22.86 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2017 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 159 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 52.98 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 111 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 17.68 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 116 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26.28 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 220 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 58.30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 101 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 23.63 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2019 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 135 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 50.05 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4.36 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5.66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 127 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 18.03 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2.99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 124 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 26.65 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3.49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; -- &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+class: center
 ### Base model - Selectivity estimates
 .left[
 Selectivities were estimated for the gears with age compositions; the two trawl fleets and the three synoptic surveys (not including WCHG).
@@ -734,7 +1132,7 @@ class: center
 ### Base model - Reference point estimates
 .left[
 - The `\(U_{MSY_2}\)` posteriors (exploitation rate) for the Shoreside fleet are all at or near 1, meaning the fishing mortality is unrealistically large.
-- This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are extremely liberal.
+- This implies that no amount of fishing would impact the stock, and is why the MSY-based reference points are so liberal.
 
 &lt;img src="knitr-figs-docx/ref-points-base-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
@@ -798,9 +1196,366 @@ class: center
 
 ---
 class: center
+### Pairs plot - base model, leading parameters
+&lt;img src="knitr-figs-docx/fig-base-pairs-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscript on catchability  parameters, `\(q_k\)`:
+- `\(k\)` = Gear: `\(1\)` = QCS Synoptic, `\(2\)` = HS Multi. Assemb., `\(3\)` = HS Synoptic, `\(4\)` = WCVI Synoptic, `\(5\)` = Discard CPUE
+]
+
+---
+class: center
+### Pairs plot - base model, selectivity parameters
+&lt;img src="knitr-figs-docx/fig-base-pairs-sel-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscripts on selectivity parameters, `\(\hat{a}_{g,s,t}\)` and `\(\hat{\gamma}_{g,s,t}\)`:
+  - `\(g\)` = Gear: `\(1\)` = Freezer trawlers, `\(2\)` = Shoreside, `\(3\)` = QCS Synoptic, `\(5\)` = HS Synoptic, `\(6\)` = WCVI Synoptic
+  - `\(s\)` = Sex: `\(f\)` = Female, `\(m\)` = Male
+  - `\(t\)` = Time block (for TV selectivity, all are `\(1\)` here because base model has time-invariant selectivity)
+]
+
+---
+class: center
 ### Comparison of Base model and single sex model (bridge model 2)
 
 &lt;img src="knitr-figs-docx/mcmc-base-vs-single-sex-biomass-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle, inverse
+# Retrospective models
+
+---
+class: center
+### Retrospectives - Spawning biomass
+&lt;img src="knitr-figs-docx/fig-retro-biomass-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Spawning biomass, closer view
+&lt;img src="knitr-figs-docx/fig-retro-biomass-closer-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Relative spawning biomass
+&lt;img src="knitr-figs-docx/fig-retro-biomass-rel-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Recruitment
+&lt;img src="knitr-figs-docx/fig-retro-recr-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Recruitment, closer view
+&lt;img src="knitr-figs-docx/fig-retro-recr-closer-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Fishing mortality by fleet
+&lt;img src="knitr-figs-docx/fig-retro-f-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Index fits
+&lt;img src="knitr-figs-docx/fig-retro-index-fits-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Trace plots for 2019 model
+&lt;img src="knitr-figs-docx/fig-base-trace-selex-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Retrospectives - Pairs plot for 2019 model
+&lt;img src="knitr-figs-docx/fig-base-pairs-retro-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Comparison of 2015 model and retrospective for 2015
+
+&lt;img src="knitr-figs-docx/base-2015-vs-retro-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle, inverse
+# Sensitivity models
+
+---
+class: center
+### Sensitivity group 1 - Spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens1-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- Two `\(B_0\)` values were left off the plot for clarity.
+- They are estimated as 445 (236–602) thousand t and 370 (200–581) thousand t for the "Decrease `\(\sigma\)` to 0.135" and "Increase `\(\tau\)` to 1.0" respectively.
+
+]
+
+---
+class: center
+### Sensitivity group 1 - Relative spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens1-rel-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+### Reducing steepness prior mean from 0.8 to 0.72 - Priors vs. Posteriors
+&lt;img src="knitr-figs-docx/sens-steepness-prior-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+.left[
+- Subscript on catchability  parameters, `\(q_k\)`:
+- `\(k\)` = Gear: `\(1\)` = QCS Synoptic, `\(2\)` = HS Multi. Assemb., `\(3\)` = HS Synoptic, `\(4\)` = WCVI Synoptic, `\(5\)` = Discard CPUE
+]
+
+
+---
+class: center
+### Sensitivity group 3 - Spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens3-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity group 3 - Relative spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens3-rel-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity group 3 - Catchability estimates
+&lt;img src="knitr-figs-docx/fig-sens3-q-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity group 4 - Spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens4-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity group 4 - Relative spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens4-rel-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity group 4 - Vulnerable biomass
+&lt;img src="knitr-figs-docx/fig-sens4-vuln-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+.left[
+- The two trawl fleets have their selectivity set equal so their vulnerable biomasses overlap
+- The ratio of the sum of the two fleets’ vulnerable biomasses to the spawning biomass in 2021 is 0.23
+- For the base model, this ratio is 0.15
+]
+
+---
+class: center
+### Sensitivity group 4 - Index fits
+&lt;img src="knitr-figs-docx/fig-sens4-index-fits-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity To QCS time-varying selectivity - Selectivity estimates
+&lt;img src="knitr-figs-docx/fig-sens4-qcs-tv-selex-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity To QCS time-varying selectivity - Trace plots
+&lt;img src="knitr-figs-docx/fig-sens4-qcs-trace-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity for Geostatistical-based index - Spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens5-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity for Geostatistical-based index - Relative spawning biomass
+&lt;img src="knitr-figs-docx/fig-sens5-rel-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center
+### Sensitivity  for Geostatistical-based index - Index fits
+&lt;img src="knitr-figs-docx/fig-sens5-index-fits-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: center, middle, inverse
+### Projections, decision table, and summary
+
+---
+class: center
+### Decision table and figure of outcomes
+.left-fig[
+&lt;table class="table table table table" style="font-size: 10px; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto; font-size: 10px; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"&gt;
+&lt;caption style="font-size: initial !important;"&gt;&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; Catch (thousand t) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; \(P(B_{2023} &amp;lt; 0.2B_{0})\) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; \(P(B_{2023} &amp;lt; 0.4B_{0})\) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; \(P(B_{2023} &amp;lt; B_{2022})\) &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.491 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.007 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.583 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.189 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.676 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.627 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.749 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.863 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.810 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.952 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.003 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.870 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.978 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.008 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.892 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.985 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.009 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.914 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.991 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.014 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.932 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.992 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.021 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.938 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.993 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.030 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.951 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.995 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.039 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.959 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.996 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.056 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.966 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.998 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.067 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.971 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.998 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.084 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.977 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.998 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.108 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.978 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.998 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.156 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.987 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.998 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.211 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.988 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.999 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.273 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.990 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.999 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.334 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.990 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.999 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.418 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.994 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.953 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.000 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.right-fig[
+&lt;img src="knitr-figs-docx/fig-proj-tac-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+.left[
+- Thick lines are the 50% CI
+- Thin lines are the 95% CI
+- Points are medians
+]
+]
+
+---
+class: center, bg_arf
+### Summary
+.left[
+- The inclusion of the 2015&amp;ndash;2021 data are what changes the model the most
+- The abundance has been declining sharply in the survey indices since 2018
+- The discard CPUE shows a decline since 2013
+- TAC was reduced to 5,000 t in 2020
+- The spawning biomass has flattened out since 2020
+- Recruitment is highly uncertain for 2020 and 2021
+- The QCS survey index is difficult to fit, as it is not declining in the same way as other indices
+- The QCS selectivity is estimated poorly in the retrospectives prior to 2019, and some sensitivities
+- There is a lack of older males in the data which the model explains with a high M on males
+
+**Thanks**
+
+We thank members of the Arrowtooth Flounder Technical Working Group (Robyn Forrest, Rowan Haigh, Paul Starr, Diedre Finn, Rob Tadey, Bruce Turris, and Brian Mose) for their valuable advice and insights throughout this project. We thank members of the Sclerochronology Laboratory at the Pacific Biological Station for their processing of Arrowtooth Flounder otoliths.
+
+We thank the reviewers for their careful reviews, which uncovered structural issues that would have otherwise been missed. This highlights the importance of independent peer review in the advisory process.
+]
+&lt;div class="footer" id="a"&gt;
+  &lt;a href="https://www.seafoodwatch.org/recommendation/flounder/arrowtooth-flounder-525"&gt;Photo Source&lt;/a&gt;
+&lt;/div&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

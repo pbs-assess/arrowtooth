@@ -42,4 +42,5 @@ tmp_*
 *.pdf
 
 !docs/pre-review-responses/Arrowtooth-TWG-response-doc.pdf
+!docs/working-paper/Revised_Arrowtooth-2022-Working-paper.pdf
 !docs/sar/SAR-arrowtooth-2022.pdf
