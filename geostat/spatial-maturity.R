@@ -1,5 +1,7 @@
 # spatial maturity
 library(sdmTMB)
+
+# run index.Rmd to get all data loaded.
 glimpse(dat$survey_samples)
 glimpse(dat$survey_sets)
 
