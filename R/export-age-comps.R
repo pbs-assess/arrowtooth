@@ -49,12 +49,12 @@ export_age_comps <- function(catch_sets,
                              ...){
 
   if(type == "commercial"){
-    ac <- tidy_ages_weighted(samples,
+    ac <- gfplot::tidy_ages_weighted(samples,
                              sample_type = "commercial",
                              dat_catch = catch_sets,
                              ...)
   }else if(type == "survey"){
-    ac <- tidy_ages_weighted(samples,
+    ac <- gfplot::tidy_ages_weighted(samples,
                              sample_type = "survey",
                              dat_survey_sets = catch_sets,
                              ...) |>
