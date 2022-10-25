@@ -176,7 +176,7 @@
 10 # minimum size in the population (lower edge of first bin and size at age 0.00)
 80 # maximum size in the population (lower edge of last bin)
 0 #_use_lencomp
-24 #_N_agebins
+25 #_N_agebins
 #
 #_agebin_vector
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 #_agebin_vector
