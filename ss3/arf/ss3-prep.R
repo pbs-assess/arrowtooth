@@ -118,14 +118,23 @@ get_age_comps_ss3 <- function(dat_list, type = c("commercial", "survey"), .surve
 
 f1 <- get_age_comps_ss3(dat, type = "commercial", freezer_trawlers = TRUE)
 f2 <- get_age_comps_ss3(dat, type = "commercial", freezer_trawlers = FALSE)
+f2$fleet <- 2
 f3 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "SYN QCS")
+f3$fleet <- 3
 # f4 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "OTHER HS MSA")
 f5 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "SYN HS")
+f5$fleet <- 5
 f6 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "SYN WCVI")
+f6$fleet <- 6
 # f7 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "DCPUE")
 
 all_comps <- bind_rows(list(f1, f2, f3, f5, f6))
 all_comps <- filter(all_comps, Nsamp > 0)
+
+end <- c(-9999, rep(0, ncol(all_comps)-1))
+names(end) <- names(all_comps)
+
+all_comps <- bind_rows(all_comps, end)
 
 readr::write_delim(all_comps, file = "~/Desktop/arf-comps.txt", delim = " ")
 
