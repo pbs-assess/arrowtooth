@@ -234,31 +234,30 @@
 #Pattern:_42; parm=2+special+3; // cubic spline; with 2 additional param for scaling (average over bin range)
 #Age patterns entered with value >100 create Min_selage from first digit and pattern from remainder
 #_Pattern Discard Male Special
- 12 0 0 0 # 1 FREEZER
- 12 0 0 0 # 2 SHORESIDE
- 12 0 0 0 # 3 SYNQCS
- 15 0 0 0 # 4 HSMULT
- 12 0 0 0 # 5 SYNHS
- 12 0 0 0 # 6 SYNWCVI
- 15 0 0 0 # 7 DCPUE
+ 12 0 1 0 # 1 FREEZER
+ 12 0 1 0 # 2 SHORESIDE
+ 12 0 1 0 # 3 SYNQCS
+ 15 0 1 3 # 4 HSMULT
+ 12 0 1 0 # 5 SYNHS
+ 12 0 1 0 # 6 SYNWCVI
+ 15 0 1 2 # 7 DCPUE
 #
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-# 1   FISHERY LenSelex
-            19            80       53.6411            50          0.01             1          2          0          0          0          0          0          0          0  #  Size_inflection_FISHERY(1)
-          0.01            60       18.9232            15          0.01             1          3          0          0          0          0          0          0          0  #  Size_95%width_FISHERY(1)
-# 2   SURVEY1 LenSelex
-            19            70        36.653            30          0.01             1          2          0          0          0          0          0          0          0  #  Size_inflection_SURVEY1(2)
-          0.01            60       6.59179            10          0.01             1          3          0          0          0          0          0          0          0  #  Size_95%width_SURVEY1(2)
-# 3   SURVEY2 LenSelex
-# 1   FISHERY AgeSelex
-             0            40             0             5            99             0        -99          0          0          0          0          0          0          0  #  minage@sel=1_FISHERY(1)
-             0            40            40             6            99             0        -99          0          0          0          0          0          0          0  #  maxage@sel=1_FISHERY(1)
-# 2   SURVEY1 AgeSelex
-             0            40             0             5            99             0        -99          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
-             0            40            40             6            99             0        -99          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
-# 3   SURVEY2 AgeSelex
-             0            40             0             5            99             0        -99          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY2(3)
-             0            40             0             6            99             0        -99          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY2(3)
+# 1   FREEZER AgeSelex
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+# 2   SHORESIDE AgeSelex
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+# 3   SYNQCS AgeSelex
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+# 5   SYNHS AgeSelex
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+# 6   SYNWCVI AgeSelex
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
 #_No_Dirichlet parameters
 #_no timevary selex parameters
 #
@@ -289,9 +288,6 @@
 # Like_comp codes:  1=surv; 2=disc; 3=mnwt; 4=length; 5=age; 6=SizeFreq; 7=sizeage; 8=catch; 9=init_equ_catch; 
 # 10=recrdev; 11=parm_prior; 12=parm_dev; 13=CrashPen; 14=Morphcomp; 15=Tag-comp; 16=Tag-negbin; 17=F_ballpark; 18=initEQregime
 #like_comp fleet  phase  value  sizefreq_method
- 1 2 2 1 1
- 4 2 2 1 1
- 4 2 3 1 1
 -9999  1  1  1  1  #  terminator
 #
 # lambdas (for info only; columns are phases)
@@ -315,7 +311,7 @@
 #  1 1 1 1 #_parameter-dev-vectors
 #  1 1 1 1 #_crashPenLambda
 #  0 0 0 0 # F_ballpark_lambda
-1 # (0/1/2) read specs for more stddev reporting: 0 = skip, 1 = read specs for reporting stdev for selectivity, size, and numbers, 2 = add options for M,Dyn. Bzero, SmryBio
+0 # (0/1/2) read specs for more stddev reporting: 0 = skip, 1 = read specs for reporting stdev for selectivity, size, and numbers, 2 = add options for M,Dyn. Bzero, SmryBio
  1 1 -1 5 # Selectivity: (1) 0 to skip or fleet, (2) 1=len/2=age/3=combined, (3) year, (4) N selex bins; NOTE: combined reports in age bins
  1 5 # Growth: (1) 0 to skip or growth pattern, (2) growth ages; NOTE: does each sex
  1 -1 5 # Numbers-at-age: (1) 0 or area(-1 for all), (2) year, (3) N ages;  NOTE: sums across morphs
