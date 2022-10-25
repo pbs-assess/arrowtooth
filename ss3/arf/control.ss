@@ -98,9 +98,6 @@
  -3 4 2.974183 2.974183 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Mal_GP_1
 # Hermaphroditism
 #  Recruitment Distribution 
- 0 0 0 0 0 0 -4 0 0 0 0 0 0 0 # RecrDist_GP_1
- 0 0 0 0 0 0 -4 0 0 0 0 0 0 0 # RecrDist_Area_1
- 0 0 0 0 0 0 -4 0 0 0 0 0 0 0 # RecrDist_month_1
 #  Cohort growth dev base
  0.1 10 1 1 1 0 -1 0 0 0 0 0 0 0 # CohortGrowDev
 #  Movement
@@ -192,6 +189,11 @@
 #
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
+            -7             5          0             0             1             0          1          0          0          0          0          0          0          0  #  surv Q
+            -7             5          0             0             1             0          1          0          0          0          0          0          0          0  #  surv Q
+            -7             5          0             0             1             0          1          0          0          0          0          0          0          0  #  surv Q
+            -7             5          0             0             1             0          1          0          0          0          0          0          0          0  #  surv Q
+            -7             5          0             0             1             0          1          0          0          0          0          0          0          0  #  surv Q
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -269,7 +271,6 @@
              0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
              0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
 #_No_Dirichlet parameters
-0
 #_no timevary selex parameters
 #
 0   #  use 2D_AR1 selectivity(0/1)
