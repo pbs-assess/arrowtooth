@@ -246,19 +246,30 @@
 # 1   FREEZER AgeSelex
              0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
              0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
 # 2   SHORESIDE AgeSelex
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
              0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
              0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
 # 3   SYNQCS AgeSelex
              0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
              0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
 # 5   SYNHS AgeSelex
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
              0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
              0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
 # 6   SYNWCVI AgeSelex
              0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
              0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
+             0            40             0             5            99             0        1          0          0          0          0          0          0          0  #  minage@sel=1_SURVEY1(2)
+             0            40            40             6            99             0        1          0          0          0          0          0          0          0  #  maxage@sel=1_SURVEY1(2)
 #_No_Dirichlet parameters
+0
 #_no timevary selex parameters
 #
 0   #  use 2D_AR1 selectivity(0/1)
