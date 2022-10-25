@@ -70,32 +70,32 @@
 #_growth_parms
 #_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn
 # Sex: 1  BioPattern: 1  NatMort
- 0.05 0.15 0.2 0.2 0.1 0 -3 0 0 0 0 0 0 0 # NatM_uniform_Fem_GP_1
+ 0.05 0.35 0.2 0.2 0.1 0 -3 0 0 0 0 0 0 0 # NatM_uniform_Fem_GP_1
 # Sex: 1  BioPattern: 1  Growth
- -10 45 21.6535 36 10 6 2 0 0 0 0 0 0 0 # L_at_Amin_Fem_GP_1
- 40 90 71.6493 70 10 6 4 0 0 0 0 0 0 0 # L_at_Amax_Fem_GP_1
- 0.05 0.25 0.147297 0.15 0.8 6 4 0 0 0 0 0 0 0 # VonBert_K_Fem_GP_1
+ 0 20 14.2 14.2 5 6 -3 0 0 0 0 0 0 0 # L_at_Amin_Fem_GP_1
+ 40 90 61.77 61.77 10 6 -3 0 0 0 0 0 0 0 # L_at_Amax_Fem_GP_1
+ 0.1 0.25 0.185718 0.15 0.8 6 -3 0 0 0 0 0 0 0 # VonBert_K_Fem_GP_1
  0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_young_Fem_GP_1
  0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_old_Fem_GP_1
 # Sex: 1  BioPattern: 1  WtLen
- -3 3 2.44e-06 2.44e-06 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
- -3 4 3.34694 3.34694 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
+ -3 3 0.000007765884 0.000007765884 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
+ -3 4 3.0515 3.0515 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
 # Sex: 1  BioPattern: 1  Maturity&Fecundity
- 50 60 55 55 0.8 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
- -3 3 -0.25 -0.25 0.8 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
+ 1 10 5.57 5.57 0.8 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
+ -3 3 -0.911 -0.911 0.8 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
  -3 3 1 1 0.8 0 -3 0 0 0 0 0 0 0 # Eggs/kg_inter_Fem_GP_1
  -3 3 0 0 0.8 0 -3 0 0 0 0 0 0 0 # Eggs/kg_slope_wt_Fem_GP_1
 # Sex: 2  BioPattern: 1  NatMort
- 0.05 0.15 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # NatM_uniform_Mal_GP_1
+ 0.05 0.45 0.35 0.35 0.8 0 -3 0 0 0 0 0 0 0 # NatM_uniform_Mal_GP_1
 # Sex: 2  BioPattern: 1  Growth
- 0 45 0 36 10 0 -3 0 0 0 0 0 0 0 # L_at_Amin_Mal_GP_1
- 40 90 69.5362 70 10 6 4 0 0 0 0 0 0 0 # L_at_Amax_Mal_GP_1
- 0.05 0.25 0.163533 0.15 0.8 6 4 0 0 0 0 0 0 0 # VonBert_K_Mal_GP_1
+ 0 45 13.79 13.79 10 0 -3 0 0 0 0 0 0 0 # L_at_Amin_Mal_GP_1
+ 30 90 47.2 47.2 10 6 -3 0 0 0 0 0 0 0 # L_at_Amax_Mal_GP_1
+ 0.05 0.25 0.274 0.15 0.8 6 -3 0 0 0 0 0 0 0 # VonBert_K_Mal_GP_1
  0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_young_Mal_GP_1
  0.05 0.25 0.1 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_old_Mal_GP_1
 # Sex: 2  BioPattern: 1  WtLen
- -3 3 2.44e-06 2.44e-06 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Mal_GP_1
- -3 4 3.34694 3.34694 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Mal_GP_1
+ -3 3 0.0000095 0.0000095 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Mal_GP_1
+ -3 4 2.974183 2.974183 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Mal_GP_1
 # Hermaphroditism
 #  Recruitment Distribution 
  0 0 0 0 0 0 -4 0 0 0 0 0 0 0 # RecrDist_GP_1
@@ -107,6 +107,7 @@
 #  Age Error from parameters
 #  catch multiplier
 #  fraction female, by GP
+# TODO: CHECK WHAT THIS DOES! -SA
  1e-06 0.999999 0.5 0.5 0.5 0 -99 0 0 0 0 0 0 0 # FracFemale_GP_1
 #  M2 parameter for each predator fleet
 #
@@ -118,20 +119,23 @@
 #_Cond -2 2 0 0 -1 99 -2 #_placeholder when no seasonal MG parameters
 #
 3 #_Spawner-Recruitment; Options: 1=NA; 2=Ricker; 3=std_B-H; 4=SCAA; 5=Hockey; 6=B-H_flattop; 7=survival_3Parm; 8=Shepherd_3Parm; 9=RickerPower_3parm
-0  # 0/1 to use steepness in initial equ recruitment calculation
+# TODO: CHECK WHAT THIS DOES! -SA
+# TODO: fix steepness prior SD - SA
+# TODO: fix sigmaR to match - SA
+1  # 0/1 to use steepness in initial equ recruitment calculation
 0  #  future feature:  0/1 to make realized sigmaR a function of SR curvature
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name
-             3            31       8.81505          10.3            10             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
-           0.2             1      0.614248           0.7          0.05             1          4          0          0          0          0          0          0          0 # SR_BH_steep
+             0.1           31       8.81505          10.3            10            0          1          0          0          0          0          0          0          0 # SR_LN(R0)
+           0.2             1           0.85          0.85         0.10             1          4          0          0          0          0          0          0          0 # SR_BH_steep
              0             2           0.6           0.8           0.8             0         -4          0          0          0          0          0          0          0 # SR_sigmaR
             -5             5             0             0             1             0         -4          0          0          0          0          0          0          0 # SR_regime
              0             0             0             0             0             0        -99          0          0          0          0          0          0          0 # SR_autocorr
 #_no timevary SR parameters
 1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
-1971 # first year of main recr_devs; early devs can preceed this era
-2001 # last year of main recr_devs; forecast devs start in following year
+1986 # first year of main recr_devs; early devs can preceed this era # TODO check this - SA affects initial age comps
+2020 # last year of main recr_devs; forecast devs start in following year # TODO check this - SA
 2 #_recdev phase 
-1 # (0/1) to read 13 advanced options
+0 # (0/1) to read 13 advanced options
  0 #_recdev_early_start (0=none; neg value makes relative to recdev_start)
  -4 #_recdev_early_phase
  0 #_forecast_recruitment phase (incl. late recr) (0 value resets to maxphase+1)
@@ -156,10 +160,10 @@
 #  0.1268 -0.0629442 0.0998014 -0.174095 0.0306484 0.714818 -0.0228752 0.00379775 0.261267 0.173626 0.0900049 -0.226622 -0.439888 -0.312088 0.393112 0.551725 0.21891 0.154932 -0.384786 0.596744 -0.682432 -0.273424 -0.829665 0.365024 -0.605267 0.455103 1.11072 -0.546499 -0.656469 0.171606 -0.301581 0 0 0 0 0 0 0 0 0 0
 #
 #Fishing Mortality info 
-0.3 # F ballpark value in units of annual_F
+0.2 # F ballpark value in units of annual_F
 -2001 # F ballpark year (neg value to disable)
 3 # F_Method:  1=Pope midseason rate; 2=F as parameter; 3=F as hybrid; 4=fleet-specific parm/hybrid (#4 is superset of #2 and #3 and is recommended)
-2.95 # max F (methods 2-4) or harvest fraction (method 1)
+4 # max F (methods 2-4) or harvest fraction (method 1)
 4  # N iterations for tuning in hybrid mode; recommend 3 (faster) to 5 (more precise if many fleets)
 #
 #_initial_F_parms; for each fleet x season that has init_catch; nest season in fleet; count = 0
@@ -179,15 +183,15 @@
 #_5:  0/1 for biasadj or not
 #_6:  0/1 to float
 #_   fleet      link link_info  extra_se   biasadj     float  #  fleetname
-         2         1         0         1         0         0  #  SURVEY1
-         3         1         0         0         0         0  #  SURVEY2
+         3         1         0         0         0         1  #  SYNQCS
+         4         1         0         0         0         1  #  HSMULT
+         5         1         0         0         0         1  #  SYNHS
+         6         1         0         0         0         1  #  SYNWCVI
+         7         1         0         0         0         1  #  DCPUE
 -9999 0 0 0 0 0
 #
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-            -7             5      0.516018             0             1             0          1          0          0          0          0          0          0          0  #  LnQ_base_SURVEY1(2)
-             0           0.5             0          0.05             1             0         -4          0          0          0          0          0          0          0  #  Q_extraSD_SURVEY1(2)
-            -7             5       -6.6281             0             1             0          1          0          0          0          0          0          0          0  #  LnQ_base_SURVEY2(3)
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -210,9 +214,6 @@
 #Pattern:_42; parm=special+3+2; cubic spline; like 27, with 2 additional param for scaling (average over bin range)
 #_discard_options:_0=none;_1=define_retention;_2=retention&mortality;_3=all_discarded_dead;_4=define_dome-shaped_retention
 #_Pattern Discard Male Special
- 1 0 0 0 # 1 FISHERY
- 1 0 0 0 # 2 SURVEY1
- 0 0 0 0 # 3 SURVEY2
 #
 #_age_selex_patterns
 #Pattern:_0; parm=0; selex=1.0 for ages 0 to maxage
@@ -233,9 +234,13 @@
 #Pattern:_42; parm=2+special+3; // cubic spline; with 2 additional param for scaling (average over bin range)
 #Age patterns entered with value >100 create Min_selage from first digit and pattern from remainder
 #_Pattern Discard Male Special
- 11 0 0 0 # 1 FISHERY
- 11 0 0 0 # 2 SURVEY1
- 11 0 0 0 # 3 SURVEY2
+ 12 0 0 0 # 1 FREEZER
+ 12 0 0 0 # 2 SHORESIDE
+ 12 0 0 0 # 3 SYNQCS
+ 15 0 0 0 # 4 HSMULT
+ 12 0 0 0 # 5 SYNHS
+ 12 0 0 0 # 6 SYNWCVI
+ 15 0 0 0 # 7 DCPUE
 #
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
 # 1   FISHERY LenSelex

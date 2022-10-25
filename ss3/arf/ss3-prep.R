@@ -60,7 +60,7 @@ x <- arrowtooth::export_age_comps(catch_ft, comm_ft, write_to_file = FALSE)
 x <- gfplot::tidy_ages_raw(comm_samples_area_filtered, sample_type = "commercial")
 
 
-get_age_comps_ss3 <- function(dat_list, type = c("commercial", "survey"), survey_abbrev = NULL, freezer_trawlers = TRUE) {
+get_age_comps_ss3 <- function(dat_list, type = c("commercial", "survey"), .survey_abbrev = NULL, freezer_trawlers = TRUE) {
 
   type <- match.arg(type)
 
@@ -71,7 +71,7 @@ get_age_comps_ss3 <- function(dat_list, type = c("commercial", "survey"), survey
     samps <- arrowtooth::extract_fleet_samples(comm_samples_area_filtered,
       include = freezer_trawlers)
   } else {
-    samps <- dat_list$survey_samples |> filter(survey_abbrev == survey_abbrev)
+    samps <- dat_list$survey_samples |> filter(survey_abbrev == .survey_abbrev)
   }
 
   all_lu <- expand.grid(sex = c(1, 2), year = 1996:2021, age = 1:25, n = NA,
@@ -116,4 +116,29 @@ get_age_comps_ss3 <- function(dat_list, type = c("commercial", "survey"), survey
   yt
 }
 
-get_age_comps_ss3(dat, )
+f1 <- get_age_comps_ss3(dat, type = "commercial", freezer_trawlers = TRUE)
+f2 <- get_age_comps_ss3(dat, type = "commercial", freezer_trawlers = FALSE)
+f3 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "SYN QCS")
+# f4 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "OTHER HS MSA")
+f5 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "SYN HS")
+f6 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "SYN WCVI")
+# f7 <- get_age_comps_ss3(dat, type = "survey", .survey_abbrev = "DCPUE")
+
+all_comps <- bind_rows(list(f1, f2, f3, f5, f6))
+all_comps <- filter(all_comps, Nsamp > 0)
+
+readr::write_delim(all_comps, file = "~/Desktop/arf-comps.txt", delim = " ")
+
+
+# growth and M
+
+mf <- dat$survey_samples |> gfplot::fit_vb(sex = "female")
+mf$predictions
+mf$pars
+
+mf <- dat$survey_samples |> gfplot::fit_length_weight(sex = "female")
+mf$pars
+exp(mf$pars$log_a)
+mf$pars$b
+
+gfiscamutils::export_mat_lw_age(dat$survey_samples, write_file = FALSE)
