@@ -5,9 +5,9 @@
 0 # 0 means do not read wtatage.ss; 1 means read and usewtatage.ss and also read and use growth parameters
 1 #_N_Growth_Patterns
 1 #_N_platoons_Within_GrowthPattern
-2 # recr_dist_method for parameters
+4 # recr_dist_method for parameters
 1 # not yet implemented; Future usage:Spawner-Recruitment; 1=global; 2=by area
-1 # number of recruitment settlement assignments 
+1 # number of recruitment settlement assignments
 0 # unused option
 # for each settlement assignment:
 #_GPattern	month	area	age
@@ -22,7 +22,7 @@
 #_begin and end years of blocks
 1996 1996
 #
-# controls for all timevary parameters 
+# controls for all timevary parameters
 1 #_env/block/dev_adjust_method for all time-vary parms (1=warn relative to base parm bounds; 3=no bound check)
 #
 # AUTOGEN
@@ -49,31 +49,28 @@
 #
 #_growth_parms
 #_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env_var&link	dev_link	dev_minyr	dev_maxyr	dev_PH	Block	Block_Fxn
-    0.05	    0.35	          0.2	          0.2	0.1	0	 -3	0	0	0	0	0	0	0	#_NatM_p_1_Fem_GP_1  
-       0	      20	         14.2	         14.2	  5	6	 -3	0	0	0	0	0	0	0	#_L_at_Amin_Fem_GP_1 
-      40	      90	        61.77	        61.77	 10	6	 -3	0	0	0	0	0	0	0	#_L_at_Amax_Fem_GP_1 
-     0.1	    0.25	     0.185718	         0.15	0.8	6	 -3	0	0	0	0	0	0	0	#_VonBert_K_Fem_GP_1 
-    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_young_Fem_GP_1  
-    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_old_Fem_GP_1    
-      -3	       3	0.00000776588	0.00000776588	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_1_Fem_GP_1   
-      -3	       4	       3.0515	       3.0515	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_2_Fem_GP_1   
-       1	      10	         5.57	         5.57	0.8	0	 -3	0	0	0	0	0	0	0	#_Mat50%_Fem_GP_1    
-      -3	       3	       -0.911	       -0.911	0.8	0	 -3	0	0	0	0	0	0	0	#_Mat_slope_Fem_GP_1 
+    0.05	    0.35	          0.2	          0.2	0.1	0	 -3	0	0	0	0	0	0	0	#_NatM_p_1_Fem_GP_1
+       0	      20	         14.2	         14.2	  5	6	 -3	0	0	0	0	0	0	0	#_L_at_Amin_Fem_GP_1
+      40	      90	        61.77	        61.77	 10	6	 -3	0	0	0	0	0	0	0	#_L_at_Amax_Fem_GP_1
+     0.1	    0.25	     0.185718	         0.15	0.8	6	 -3	0	0	0	0	0	0	0	#_VonBert_K_Fem_GP_1
+    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_young_Fem_GP_1
+    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_old_Fem_GP_1
+      -3	       3	0.00000776588	0.00000776588	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_1_Fem_GP_1
+      -3	       4	       3.0515	       3.0515	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_2_Fem_GP_1
+       1	      10	         5.57	         5.57	0.8	0	 -3	0	0	0	0	0	0	0	#_Mat50%_Fem_GP_1
+      -3	       3	       -0.911	       -0.911	0.8	0	 -3	0	0	0	0	0	0	0	#_Mat_slope_Fem_GP_1
       -3	       3	            1	            1	0.8	0	 -3	0	0	0	0	0	0	0	#_Eggs_alpha_Fem_GP_1
-      -3	       3	            0	            0	0.8	0	 -3	0	0	0	0	0	0	0	#_Eggs_beta_Fem_GP_1 
-    0.05	    0.45	         0.35	         0.35	0.8	0	 -3	0	0	0	0	0	0	0	#_NatM_p_1_Mal_GP_1  
-       0	      45	        13.79	        13.79	 10	0	 -3	0	0	0	0	0	0	0	#_L_at_Amin_Mal_GP_1 
-      30	      90	         47.2	         47.2	 10	6	 -3	0	0	0	0	0	0	0	#_L_at_Amax_Mal_GP_1 
-    0.05	    0.45	        0.274	         0.15	0.8	6	 -3	0	0	0	0	0	0	0	#_VonBert_K_Mal_GP_1 
-    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_young_Mal_GP_1  
-    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_old_Mal_GP_1    
-      -3	       3	    0.0000095	    0.0000095	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_1_Mal_GP_1   
-      -3	       4	      2.97418	      2.97418	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_2_Mal_GP_1   
-       0	       0	            0	            0	  0	0	 -4	0	0	0	0	0	0	0	#_RecrDist_GP_1      
-       0	       0	            0	            0	  0	0	 -4	0	0	0	0	0	0	0	#_RecrDist_Area_1    
-       0	       0	            0	            0	  0	0	 -4	0	0	0	0	0	0	0	#_RecrDist_month_1   
-     0.1	      10	            1	            1	  1	0	 -1	0	0	0	0	0	0	0	#_CohortGrowDev      
-0.000001	0.999999	          0.5	          0.5	0.5	0	-99	0	0	0	0	0	0	0	#_FracFemale_GP_1    
+      -3	       3	            0	            0	0.8	0	 -3	0	0	0	0	0	0	0	#_Eggs_beta_Fem_GP_1
+    0.05	    0.45	         0.35	         0.35	0.8	0	 -3	0	0	0	0	0	0	0	#_NatM_p_1_Mal_GP_1
+       0	      45	        13.79	        13.79	 10	0	 -3	0	0	0	0	0	0	0	#_L_at_Amin_Mal_GP_1
+      30	      90	         47.2	         47.2	 10	6	 -3	0	0	0	0	0	0	0	#_L_at_Amax_Mal_GP_1
+    0.05	    0.45	        0.274	         0.15	0.8	6	 -3	0	0	0	0	0	0	0	#_VonBert_K_Mal_GP_1
+    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_young_Mal_GP_1
+    0.05	    0.25	          0.1	          0.1	0.8	0	 -3	0	0	0	0	0	0	0	#_CV_old_Mal_GP_1
+      -3	       3	    0.0000095	    0.0000095	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_1_Mal_GP_1
+      -3	       4	      2.97418	      2.97418	0.8	0	 -3	0	0	0	0	0	0	0	#_Wtlen_2_Mal_GP_1
+     0.1	      10	            1	            1	  1	0	 -1	0	0	0	0	0	0	0	#_CohortGrowDev
+0.000001	0.999999	          0.5	          0.5	0.5	0	-99	0	0	0	0	0	0	0	#_FracFemale_GP_1
 #_no timevary MG parameters
 #
 #_seasonal_effects_on_biology_parms
@@ -85,10 +82,10 @@
 1 # 0/1 to use steepness in initial equ recruitment calculation
 0 # future feature: 0/1 to make realized sigmaR a function of SR curvature
 #_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env-var	use_dev	dev_mnyr	dev_mxyr	dev_PH	Block	Blk_Fxn # parm_name
-0.1	31	8.81505	10.3	 10	0	  1	0	0	0	0	0	0	0	#_SR_LN(R0)  
+0.1	31	8.81505	10.3	 10	0	  1	0	0	0	0	0	0	0	#_SR_LN(R0)
 0.2	 1	   0.85	0.85	0.1	1	  4	0	0	0	0	0	0	0	#_SR_BH_steep
-  0	 2	    0.6	 0.8	0.8	0	 -4	0	0	0	0	0	0	0	#_SR_sigmaR  
- -5	 5	      0	   0	  1	0	 -4	0	0	0	0	0	0	0	#_SR_regime  
+  0	 2	    0.6	 0.8	0.8	0	 -4	0	0	0	0	0	0	0	#_SR_sigmaR
+ -5	 5	      0	   0	  1	0	 -4	0	0	0	0	0	0	0	#_SR_regime
   0	 0	      0	   0	  0	0	-99	0	0	0	0	0	0	0	#_SR_autocorr
 #_no timevary SR parameters
 1 #do_recdev:  0=none; 1=devvector (R=F(SSB)+dev); 2=deviations (R=F(SSB)+dev); 3=deviations (R=R0*dev; dev2=R-f(SSB)); 4=like 3 with sum(dev2) adding penalty
@@ -126,54 +123,59 @@
 #
 #_Q_setup for fleets with cpue or survey data
 #_fleet	link	link_info	extra_se	biasadj	float  #  fleetname
-    3	1	0	0	0	1	#_SYNQCS    
-    4	1	0	0	0	1	#_HSMULT    
-    5	1	0	0	0	1	#_SYNHS     
-    6	1	0	0	0	1	#_SYNWCVI   
-    7	1	0	0	0	1	#_DCPUE     
+    3	1	0	0	0	0	#_SYNQCS
+    4	1	0	0	0	0	#_HSMULT
+    5	1	0	0	0	0	#_SYNHS
+    6	1	0	0	0	0	#_SYNWCVI
+    7	1	0	0	0	0	#_DCPUE
 -9999	0	0	0	0	0	#_terminator
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_LO	HI	INIT	PRIOR	PR_SD	PR_type	PHASE	env-var	use_dev	dev_mnyr	dev_mxyr	dev_PH	Block	Blk_Fxn  #  parm_name
--7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_SYNQCS(3) 
--7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_HSMULT(4) 
--7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_SYNHS(5)  
+-7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_SYNQCS(3)
+-7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_HSMULT(4)
+-7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_SYNHS(5)
 -7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_SYNWCVI(6)
--7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_DCPUE(7)  
+-7	5	0	0	1	0	1	0	0	0	0	0	0	0	#_LnQ_base_DCPUE(7)
 #_no timevary Q parameters
 #
 #_size_selex_patterns
 #_Pattern	Discard	Male	Special
-0	0	0	0	#_1 FREEZER  
+0	0	0	0	#_1 FREEZER
 0	0	0	0	#_2 SHORESIDE
-0	0	0	0	#_3 SYNQCS   
-0	0	0	0	#_4 HSMULT   
-0	0	0	0	#_5 SYNHS    
-0	0	0	0	#_6 SYNWCVI  
-0	0	0	0	#_7 DCPUE    
+0	0	0	0	#_3 SYNQCS
+0	0	0	0	#_4 HSMULT
+0	0	0	0	#_5 SYNHS
+0	0	0	0	#_6 SYNWCVI
+0	0	0	0	#_7 DCPUE
 #
 #_age_selex_patterns
 #_Pattern	Discard	Male	Special
-12	0	0	0	#_1 FREEZER  
+12	0	0	0	#_1 FREEZER
 12	0	0	0	#_2 SHORESIDE
-12	0	0	0	#_3 SYNQCS   
-15	0	0	3	#_4 HSMULT   
-12	0	0	0	#_5 SYNHS    
-12	0	0	0	#_6 SYNWCVI  
-15	0	0	2	#_7 DCPUE    
+12	0	0	0	#_3 SYNQCS
+15	0	0	3	#_4 HSMULT
+12	0	0	0	#_5 SYNHS
+12	0	0	0	#_6 SYNWCVI
+15	0	0	2	#_7 DCPUE
 #
 #_SizeSelex
 #_No size_selex_parm
 #_AgeSelex
-0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_FREEZER(1)  
-0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_FREEZER(1)  
+0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_FREEZER(1)
+0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_FREEZER(1)
 0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_SHORESIDE(2)
 0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_SHORESIDE(2)
-0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_SYNQCS(3)   
-0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_SYNQCS(3)   
-0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_SYNHS(5)    
-0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_SYNHS(5)    
-0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_SYNWCVI(6)  
-0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_SYNWCVI(6)  
+0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_SYNQCS(3)
+0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_SYNQCS(3)
+0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_SYNHS(5)
+0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_SYNHS(5)
+0	40	 0	5	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_1_SYNWCVI(6)
+0	40	40	6	99	0	1	0	0	0	0	0	0	0	#_AgeSel_P_2_SYNWCVI(6)
+-5 20  0  0 1.813 0 2 0 0 0 0 0 0 0 # ln(DM_theta)_1
+-5 20  0  0 1.813 0 2 0 0 0 0 0 0 0 # ln(DM_theta)_2
+-5 20  0  0 1.813 0 2 0 0 0 0 0 0 0 # ln(DM_theta)_3
+-5 20  0  0 1.813 0 2 0 0 0 0 0 0 0 # ln(DM_theta)_4
+-5 20  0  0 1.813 0 2 0 0 0 0 0 0 0 # ln(DM_theta)_5
 #_no timevary selex parameters
 #
 0 #  use 2D_AR1 selectivity(0/1):  experimental feature
@@ -182,7 +184,7 @@
 0 # TG_custom:  0=no read; 1=read if tags exist
 #_Cond -6 6 1 1 2 0.01 -4 0 0 0 0 0 0 0  #_placeholder if no parameters
 #
-# Input variance adjustments factors: 
+# Input variance adjustments factors:
 #_Data_type Fleet Value
 -9999 1 0 # terminator
 #
@@ -191,12 +193,6 @@
 # read 0 changes to default Lambdas (default value is 1.0)
 -9999 0 0 0 0 # terminator
 #
-1 # 0/1 read specs for more stddev reporting
-1 1 -1 5 # selex_fleet, 1=len/2=age/3=both, year, N selex bins
-1 5       # 0 or Growth pattern, N growth ages
-1 -1 5    # 0 or NatAge_area(-1 for sum), NatAge_yr, N Natages
-5 15 25 35 43 # vector with selex std bins (-1 in first bin to self-generate)
-1 2 14 26 40 # vector with growth std ages picks (-1 in first bin to self-generate)
-1 2 14 26 40 # vector with NatAge std ages (-1 in first bin to self-generate)
+0 # 0/1 read specs for more stddev reporting
 #
 999

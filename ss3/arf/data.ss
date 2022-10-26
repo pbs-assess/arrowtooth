@@ -189,13 +189,13 @@
 #
 #_age_info
 #_mintailcomp	addtocomp	combine_M_F	CompressBins	CompError	ParmSelect	minsamplesize
-0	0.0000001	0	0	0	0	1	#_FREEZER  
-0	0.0000001	0	0	0	0	1	#_SHORESIDE
-0	0.0000001	0	0	0	0	1	#_SYNQCS   
-0	0.0000001	0	0	0	0	1	#_HSMULT   
-0	0.0000001	0	0	0	0	1	#_SYNHS    
-0	0.0000001	0	0	0	0	1	#_SYNWCVI  
-0	0.0000001	0	0	0	0	1	#_DCPUE    
+0	0.0000001	0	0	2	1	1	#_FREEZER  
+0	0.0000001	0	0	2	2	1	#_SHORESIDE
+0	0.0000001	0	0	2	3	1	#_SYNQCS   
+0	0.0000001	0	0	2	3	1	#_HSMULT   
+0	0.0000001	0	0	2	4	1	#_SYNHS    
+0	0.0000001	0	0	2	5	1	#_SYNWCVI  
+0	0.0000001	0	0	2	2	1	#_DCPUE    
 1 #_Lbin_method: 1=poplenbins; 2=datalenbins; 3=lengths
  #_combine males into females at or below this bin number
 #_Yr	Seas	FltSvy	Gender	Part	Ageerr	Lbin_lo	Lbin_hi	Nsamp	f1	f2	f3	f4	f5	f6	f7	f8	f9	f10	f11	f12	f13	f14	f15	f16	f17	f18	f19	f20	f21	f22	f23	f24	f25	m1	m2	m3	m4	m5	m6	m7	m8	m9	m10	m11	m12	m13	m14	m15	m16	m17	m18	m19	m20	m21	m22	m23	m24	m25
