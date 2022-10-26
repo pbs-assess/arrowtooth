@@ -24,21 +24,21 @@ control.ss
 0 # MCeval burn interval
 1 # MCeval thin interval
 0 # jitter initial parm value by this fraction
-1996 # min yr for sdreport outputs (-1 for styr);
--2 # max yr for sdreport outputs (-1 for endyr+1;
+1996 # min yr for sdreport outputs (-1 for styr); #_1996
+-2 # max yr for sdreport outputs (-1 for endyr+1; -2 for endyr+Nforecastyrs); #_2026
 0 # N individual STD years 
 #vector of year values 
 
 0.0001 # final convergence criteria (e.g. 1.0e-04) 
 0 # retrospective year relative to end year (e.g. -4)
 1 # min age for calc of summary biomass
-2 # Depletion basis:  denom is: 0=skip; 1=rel X*SPBvirgin; 2=rel SPBmsy; 3=rel X*SPB_styr; 4=rel X*SPB_endyr; values; >=11 invoke N multiyr (up to 9!) with 10's digit; >100 invokes log(ratio)
+1 # Depletion basis:  denom is: 0=skip; 1=rel X*SPBvirgin; 2=rel SPBmsy; 3=rel X*SPB_styr; 4=rel X*SPB_endyr; values; >=11 invoke N multiyr (up to 9!) with 10's digit; >100 invokes log(ratio)
 1 # Fraction (X) for Depletion denominator (e.g. 0.4)
 4 # SPR_report_basis:  0=skip; 1=(1-SPR)/(1-SPR_tgt); 2=(1-SPR)/(1-SPR_MSY); 3=(1-SPR)/(1-SPR_Btarget); 4=rawSPR
 3 # F_reporting_units: 0=skip; 1=exploitation(Bio); 2=exploitation(Num); 3=sum(Apical_F's); 4=true F for range of ages; 5=unweighted avg. F for range of ages
 #COND 10 15 #_min and max age over which average F will be calculated with F_reporting=4 or 5
-0 # F_std_basis: 0=raw_annual_F; 1=F/Fspr; 2=F/Fmsy; 3=F/Fbtgt; where F means annual_F; values >=11 invoke N multiyr (up to 9!) with 10's digit; >100 invokes log(ratio)
+2 # F_std_basis: 0=raw_annual_F; 1=F/Fspr; 2=F/Fmsy; 3=F/Fbtgt; where F means annual_F; values >=11 invoke N multiyr (up to 9!) with 10's digit; >100 invokes log(ratio)
 0 # MCMC output detail: integer part (0=default; 1=adds obj func components; 2= +write_report_for_each_mceval); and decimal part (added to SR_LN(R0) on first call to mcmc)
 0 # ALK tolerance ***disabled in code (example 0.0001)
--1 # random number seed for bootstrap data (-1 to use long(time) as seed): # 1664576434
+-1 # random number seed for bootstrap data (-1 to use long(time) as seed): # 1666807230
 3.30 # check value for end of file and for version control
