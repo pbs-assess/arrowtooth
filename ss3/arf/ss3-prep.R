@@ -154,3 +154,9 @@ gfiscamutils::export_mat_lw_age(dat$survey_samples, write_file = FALSE)
 
 mm <- dat$survey_samples |> gfplot::fit_vb(sex = "male")
 mm$predictions
+
+# output ------------------------------------------------------------------
+
+d <- SS_output("~/src/arrowtooth/ss3/arf/")
+SS_plots(d, forecastplot = TRUE, effNline = TRUE)
+
