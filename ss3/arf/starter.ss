@@ -8,7 +8,7 @@
 #C starter comment here
 data.ss
 control.ss
-1 # 0=use init values in control file; 1=use ss.par
+0 # 0=use init values in control file; 1=use ss.par
 0 # run display detail (0,1,2)
 1 # detailed output (0=minimal for data-limited, 1=high (w/ wtatage.ss_new), 2=brief, 3=custom) 
 # custom report options: -100 to start with minimal; -101 to start with all; -number to remove, +number to add, -999 to end
@@ -24,8 +24,8 @@ control.ss
 0 # MCeval burn interval
 1 # MCeval thin interval
 0 # jitter initial parm value by this fraction
-1996 # min yr for sdreport outputs (-1 for styr); #_1969
-2021 # max yr for sdreport outputs (-1 for endyr+1; -2 for endyr+Nforecastyrs); #_2011
+1996 # min yr for sdreport outputs (-1 for styr);
+-2 # max yr for sdreport outputs (-1 for endyr+1;
 0 # N individual STD years 
 #vector of year values 
 
