@@ -78,7 +78,11 @@ sens_models_dirs <-
          "13-qcs-tv-selex"),
        c("12-geostat-surveys"),
        c("14-fix-dm-phi"),
-       c("15-bridge-update-data-to-2021"))
+       c("15-bridge-update-data-to-2021"),
+       c("16-remove-discard-cpue",
+         "17-change-maturity-without-resting",
+         "18-set-dcpue-sel-comm-sel"),
+       c("19-fix-all-survey-selex"))
 sens_models_text <-
   list(c(ifelse(fr(),
                 "Diminuer $\\sigma$ à 0,135",
@@ -119,12 +123,12 @@ sens_models_text <-
        c(ifelse(fr(),
                 "Indices d'enquête basés sur la géostatistique",
                 "Geostatistical based survey indices")),
-       c(ifelse(fr(),
-                "Fixer les params DM pour maximiser la taille eff. des samp.",
-                "Fix DM params to maximize eff. samp. size")),
-       c(ifelse(fr(),
-                "French here",
-                "Female only, single commercial fleet model")))
+       c("Fix DM params to maximize eff. samp. size"),
+       c("Female only, single commercial fleet model"),
+       c("Remove Discard CPUE",
+         "Maturity doesn't include 'resting'",
+         "Fix DCPUE selectivity to Shoreside estimate"),
+       c("Fix survey selectivities to Shorside estimate"))
 
 # This will be used to generate the sensitivity parameter table later
 sens_models_text_no_base <- sens_models_text
