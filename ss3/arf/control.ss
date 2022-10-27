@@ -70,7 +70,7 @@
 #_growth_parms
 #_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn
 # Sex: 1  BioPattern: 1  NatMort
- 0.05 0.35 0.2 0.2 0.1 0 -3 0 0 0 0 0 0 0 # NatM_uniform_Fem_GP_1
+ 0.05 0.45 0.2 0.2 0.1 6 3 0 0 0 0 0 0 0 # NatM_uniform_Fem_GP_1
 # Sex: 1  BioPattern: 1  Growth
  0 20 14.2 14.2 5 6 -3 0 0 0 0 0 0 0 # L_at_Amin_Fem_GP_1
  40 90 61.77 61.77 10 6 -3 0 0 0 0 0 0 0 # L_at_Amax_Fem_GP_1
@@ -81,12 +81,12 @@
  -3 3 7.76588e-06 7.76588e-06 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
  -3 4 3.0515 3.0515 0.8 0 -3 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
 # Sex: 1  BioPattern: 1  Maturity&Fecundity
- 1 10 5.57 5.57 0.8 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
- -3 3 -0.911 -0.911 0.8 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
+ 1 10 7.806608 7.806608 0.8 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
+ -3 3 -0.6033911 -0.6033911 0.8 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
  -3 3 1 1 0.8 0 -3 0 0 0 0 0 0 0 # Eggs/kg_inter_Fem_GP_1
  -3 3 0 0 0.8 0 -3 0 0 0 0 0 0 0 # Eggs/kg_slope_wt_Fem_GP_1
 # Sex: 2  BioPattern: 1  NatMort
- 0.05 0.45 0.35 0.35 0.8 0 -3 0 0 0 0 0 0 0 # NatM_uniform_Mal_GP_1
+ 0.05 0.45 0.35 0.35 0.1 6 3 0 0 0 0 0 0 0 # NatM_uniform_Mal_GP_1
 # Sex: 2  BioPattern: 1  Growth
  0 45 13.79 13.79 10 0 -3 0 0 0 0 0 0 0 # L_at_Amin_Mal_GP_1
  30 90 47.2 47.2 10 6 -3 0 0 0 0 0 0 0 # L_at_Amax_Mal_GP_1
@@ -119,7 +119,7 @@
 0  #  future feature:  0/1 to make realized sigmaR a function of SR curvature
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name
            0.1            31       4.64354          10.3            10             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
-           0.2             1      0.861199          0.85           0.1             6          5          0          0          0          5          0          0          0 # SR_BH_steep
+           0.2             1      0.8          0.8           0.1             6          5          0          0          0          5          0          0          0 # SR_BH_steep
              0             2           0.6           0.6           0.2             0         -4          0          0          0          0          0          0          0 # SR_sigmaR
             -5             5             0             0             1             0         -4          0          0          0          0          0          0          0 # SR_regime
              0             0             0             0             0             0        -99          0          0          0          0          0          0          0 # SR_autocorr
@@ -213,13 +213,13 @@
 #Pattern:_42; parm=special+3+2; cubic spline; like 27, with 2 additional param for scaling (average over bin range)
 #_discard_options:_0=none;_1=define_retention;_2=retention&mortality;_3=all_discarded_dead;_4=define_dome-shaped_retention
 #_Pattern Discard Male Special
- 0 0 0 0 # 1 FREEZER
- 0 0 0 0 # 2 SHORESIDE
- 0 0 0 0 # 3 SYNQCS
- 0 0 0 0 # 4 HSMULT
- 0 0 0 0 # 5 SYNHS
- 0 0 0 0 # 6 SYNWCVI
- 0 0 0 0 # 7 DCPUE
+ 1 0 0 0 # 1 FREEZER
+ 1 0 0 0 # 2 SHORESIDE
+ 1 0 0 0 # 3 SYNQCS
+ 5 0 0 3 # 4 HSMULT
+ 1 0 0 0 # 5 SYNHS
+ 1 0 0 0 # 6 SYNWCVI
+ 5 0 0 2 # 7 DCPUE
 #
 #_age_selex_patterns
 #Pattern:_0; parm=0; selex=1.0 for ages 0 to maxage
@@ -240,39 +240,60 @@
 #Pattern:_42; parm=2+special+3; // cubic spline; with 2 additional param for scaling (average over bin range)
 #Age patterns entered with value >100 create Min_selage from first digit and pattern from remainder
 #_Pattern Discard Male Special
- 12 0 0 0 # 1 FREEZER
- 12 0 0 0 # 2 SHORESIDE
- 12 0 0 0 # 3 SYNQCS
- 15 0 0 3 # 4 HSMULT
- 12 0 0 0 # 5 SYNHS
- 12 0 0 0 # 6 SYNWCVI
- 15 0 0 2 # 7 DCPUE
+# 12 0 0 0 # 1 FREEZER
+# 12 0 0 0 # 2 SHORESIDE
+# 12 0 0 0 # 3 SYNQCS
+# 15 0 0 3 # 4 HSMULT
+# 12 0 0 0 # 5 SYNHS
+# 12 0 0 0 # 6 SYNWCVI
+# 15 0 0 2 # 7 DCPUE
+ 0 0 0 0 # 1 FREEZER
+ 0 0 0 0 # 2 SHORESIDE
+ 0 0 0 0 # 3 SYNQCS
+ 0 0 0 0 # 4 HSMULT
+ 0 0 0 0 # 5 SYNHS
+ 0 0 0 0 # 6 SYNWCVI
+ 0 0 0 0 # 7 DCPUE
 #
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
 # 1   FREEZER LenSelex
+             0            80       40            5            99             0           1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+             0            40       10             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
 # 2   SHORESIDE LenSelex
+             0            80       40            5            99             0           1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+             0            40       10             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
 # 3   SYNQCS LenSelex
+             0            80       40            5            99             0           1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+             0            40       10             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
 # 4   HSMULT LenSelex
+             0            80       0            5            99             0           -1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+             0            40       0             6            99             0          -1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
 # 5   SYNHS LenSelex
+             0            80       40            5            99             0           1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+             0            40       10             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
 # 6   SYNWCVI LenSelex
+             0            80       40            5            99             0           1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+             0            40       10             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
 # 7   DCPUE LenSelex
+             0            80       0            5            99             0           -1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+             0            40       0             6            99             0          -1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
 # 1   FREEZER AgeSelex
-             0            40       8.13947             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
-             0            40       3.35285             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
-# 2   SHORESIDE AgeSelex
-             0            40       8.50814             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SHORESIDE(2)
-             0            40       3.23572             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SHORESIDE(2)
-# 3   SYNQCS AgeSelex
-             0            40       5.20986             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SYNQCS(3)
-             0            40       4.88909             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SYNQCS(3)
-# 4   HSMULT AgeSelex
-# 5   SYNHS AgeSelex
-             0            40       8.60214             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SYNHS(5)
-             0            40       5.80736             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SYNHS(5)
-# 6   SYNWCVI AgeSelex
-             0            40       8.34639             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SYNWCVI(6)
-             0            40       4.51825             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SYNWCVI(6)
-# 7   DCPUE AgeSelex
+#              0            40       8.13947             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_FREEZER(1)
+#              0            40       3.35285             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_FREEZER(1)
+# # 2   SHORESIDE AgeSelex
+#              0            40       8.50814             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SHORESIDE(2)
+#              0            40       3.23572             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SHORESIDE(2)
+# # 3   SYNQCS AgeSelex
+#              0            40       5.20986             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SYNQCS(3)
+#              0            40       4.88909             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SYNQCS(3)
+# # 4   HSMULT AgeSelex
+# # 5   SYNHS AgeSelex
+#              0            40       8.60214             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SYNHS(5)
+#              0            40       5.80736             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SYNHS(5)
+# # 6   SYNWCVI AgeSelex
+#              0            40       8.34639             5            99             0          1          0          0          0          0          0          0          0  #  Age_inflection_SYNWCVI(6)
+#              0            40       4.51825             6            99             0          1          0          0          0          0          0          0          0  #  Age_95%width_SYNWCVI(6)
+# # 7   DCPUE AgeSelex
 #_Dirichlet and/or MV Tweedie parameters for composition error
 #_multiple_fleets_can_refer_to_same_parm;_but_list_cannot_have_gaps
             -5            20       5.24651             0         1.813             0          2          0          0          0          0          0          0          0  #  ln(DM_beta)_Age_P1
