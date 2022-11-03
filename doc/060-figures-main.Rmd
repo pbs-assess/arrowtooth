@@ -119,7 +119,8 @@ plot_biomass_mcmc(base_model,
 plot_vuln_mcmc(base_model,
                angle_x_labels = TRUE,
                xlim = c(1997, 2021),
-               ylim = c(0, 180))
+               ylim = c(0, 180),
+               leg_loc = c(0.05, 0.05))
 ```
 
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The black points are the medians of the posteriors, the vertical black lines are the 95% CIs for the posteriors, the point at $R_0$ is the median estimate for the initial recruitment parameter $R_0$, and the vertical line over that point and shaded ribbon across the time series is the 95% CI for $R_0$.
@@ -132,7 +133,7 @@ plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL, leg_lo
 
 <!-- Fishing mortality ------------------------------------------------------->
 
-(ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries. The shaded area represents the 95% CI.
+(ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries for a single sex. The plots for the second sex are not shown, because they are the same. The shaded area represents the 95% CI.
 
 (ref:fig-base-f-fr) French here
 
@@ -190,7 +191,8 @@ plot_age_fits_mcmc(base_model,
 ```{r fig-base-age-resids-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ft-fr)", "(ref:fig-base-age-resids-ft-en)")}
 plot_age_resids_mcmc(base_model,
                      gear = 1,
-                     text_title_size = NULL)
+                     text_title_size = NULL,
+                     angle_x_labels = TRUE)
 ```
 
 \clearpage
@@ -227,7 +229,8 @@ plot_age_fits_mcmc(base_model,
 ```{r fig-base-age-resids-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ss-fr)", "(ref:fig-base-age-resids-ss-en)")}
 plot_age_resids_mcmc(base_model,
                      gear = 2,
-                     text_title_size = NULL)
+                     text_title_size = NULL,
+                     angle_x_labels = TRUE)
 ```
 
 \clearpage
@@ -248,7 +251,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-qcs-fr) French here
 
 ```{r fig-base-age-resids-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-qcs-fr)", "(ref:fig-base-age-resids-qcs-en)")}
-plot_age_resids_mcmc(base_model, gear = 3, text_title_size = NULL)
+plot_age_resids_mcmc(base_model,
+                     gear = 3,
+                     text_title_size = NULL,
+                     angle_x_labels = TRUE)
 ```
 
 \clearpage
@@ -269,7 +275,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-hss-fr) French here
 
 ```{r fig-base-age-resids-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-hss-fr)", "(ref:fig-base-age-resids-hss-en)")}
-plot_age_resids_mcmc(base_model, gear = 4, text_title_size = NULL)
+plot_age_resids_mcmc(base_model,
+                     gear = 4,
+                     text_title_size = NULL,
+                     angle_x_labels = TRUE)
 ```
 
 \clearpage
@@ -290,7 +299,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-wcvis-fr) French here
 
 ```{r fig-base-age-resids-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wcvis-fr)", "(ref:fig-base-age-resids-wcvis-en)")}
-plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
+plot_age_resids_mcmc(base_model,
+                     gear = 5,
+                     text_title_size = NULL,
+                     angle_x_labels = TRUE)
 ```
 
 \clearpage
@@ -320,7 +332,9 @@ plot_age_resids_mcmc(base_model, gear = 5, text_title_size = NULL)
 (ref:fig-base-selex-fr) French goes here
 
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
-plot_selex_mcmc(base_model, show_maturity = TRUE)
+plot_selex_mcmc(base_model,
+                show_maturity = TRUE,
+                leg_loc = "facet")
 ```
 
 <!-- Reference points -------------------------------------------------------->
