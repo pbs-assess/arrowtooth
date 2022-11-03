@@ -73,6 +73,8 @@ get_age_comps_ss3 <- function(dat_list, type = c("commercial", "survey"), .surve
     samps <- dat_list$survey_samples |> filter(survey_abbrev == .survey_abbrev)
   }
 
+  samps <- filter(samps, !is.na(age))
+  N_df <- group_by(samps, year) |> summarize(Nsamp = length(unique(sample_id)))
   all_lu <- expand.grid(sex = c(1, 2), year = 1996:2021, age = 1:25, n = NA,
     stringsAsFactors = FALSE)
   missing <- anti_join(all_lu, select(samps, sex, year, age))
@@ -112,6 +114,11 @@ get_age_comps_ss3 <- function(dat_list, type = c("commercial", "survey"), .surve
 
   yt$Nsamp <- apply(yt[,-c(1:9),], 1, sum)
   yt <- arrange(yt, year)
+
+  yt$Nsamp <- NULL
+  yt <- left_join(yt, N_df) |>
+    select(year, month, fleet, sex, part, ageerr, `Lbin_lo`, `Lbin_hi`, Nsamp, everything())
+
   yt
 }
 
@@ -130,6 +137,7 @@ get_length_comps_ss3 <- function(dat_list, type = c("commercial", "survey"),
     samps <- dat_list$survey_samples |> filter(survey_abbrev == .survey_abbrev)
   }
 
+  N_df <- group_by(samps, year) |> summarize(Nsamp = length(unique(sample_id)))
   bin_range <- c(5, 80)
   bin_size <- 2
   bins <- seq(min(bin_range), max(bin_range), by = bin_size)
@@ -181,6 +189,10 @@ get_length_comps_ss3 <- function(dat_list, type = c("commercial", "survey"),
   yt$Nsamp <- apply(yt[,-c(1:7),], 1, sum)
   # yt$Nsamp <- 100
   yt <- arrange(yt, year)
+  yt$Nsamp <- NULL
+  yt <- left_join(yt, N_df) |>
+    select(year, month, fleet, sex, part, Nsamp, everything())
+
   yt
 }
 
@@ -195,8 +207,9 @@ f6 <- get_length_comps_ss3(dat, type = "survey", .survey_abbrev = "SYN WCVI")
 f6$fleet <- 6
 
 all_comps <- bind_rows(list(f1, f2, f3, f5, f6))
-all_comps <- filter(all_comps, Nsamp > 0)
-all_comps$Nsamp <- 100
+all_comps <- filter(all_comps, Nsamp > 5)
+
+# all_comps$Nsamp <- 100
 
 end <- c(-9999, rep(0, ncol(all_comps)-1))
 names(end) <- names(all_comps)
@@ -225,6 +238,7 @@ end <- c(-9999, rep(0, ncol(all_comps)-1))
 names(end) <- names(all_comps)
 
 all_comps <- bind_rows(all_comps, end)
+all_comps$ageerr <- 1
 
 readr::write_delim(all_comps, file = "~/Desktop/arf-comps.txt", delim = " ")
 
@@ -284,7 +298,9 @@ r4ss::run(".",
 )
 
 d <- SS_output(".")
-SS_plots(d, forecastplot = TRUE)
+SS_plots(d, forecastplot = F)
+
+# SSplotSelex(d, )
 SSplotTimeseries(d, subplot = 7)
 SSplotTimeseries(d, subplot = 7)
 
