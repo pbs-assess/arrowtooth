@@ -44,3 +44,16 @@ tmp_*
 !docs/pre-review-responses/Arrowtooth-TWG-response-doc.pdf
 !docs/working-paper/Revised_Arrowtooth-2022-Working-paper.pdf
 !docs/sar/SAR-arrowtooth-2022.pdf
+
+*.sso
+*.ss_new
+*.cov
+*.html
+*.png
+*.bar
+*.p0*
+*.r0*
+*.ss-backup
+*.dep
+*.hes
+arf/plots*
