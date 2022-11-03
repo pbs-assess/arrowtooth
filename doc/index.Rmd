@@ -25,7 +25,7 @@ cat_no: "Fs70-6/2021-012E-PDF"
 citation_other_language: "Grandin, C.J., Anderson, S.C. et English, P.A. Évaluation du stock de la plie à dents de flèche (Atheresthes stomias) sur la côte ouest de la Colombie-Britannique en 2021 Colombie-Britannique en 2021. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2022/nnn."
 
 abstract: |
-  Arrowtooth Flounder (*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a current TAC of 5,000 t and catch of 3,051 t in 2021. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable. In the past decade, markets have been established for fillets that have been frozen at sea, and the freezer trawl fleet has taken an increasing proportion of the coastwide catch.
+  Arrowtooth Flounder (*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a current TAC of 5,000 t and catch of 3,051 t in 2021. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable. In the past decade, markets have been established for fillets that have been frozen at sea.
 
   This assessment fits a two-sex two-fleet Bayesian age-structured model to catch, survey, and age-composition data from the years 1996--2021 for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E (West Coast Haida Gwaii) combined. Catch data prior to the introduction of at-sea observers in 1996 were considered too unreliable for inclusion in the assessment due to unknown quantities of discarding at sea.
 
@@ -425,55 +425,69 @@ depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
   select(!!sym(as.character(assess_yr))) |> 
   pull()
 
-# Decision table values - B_2023 < B_2022
+# Columns of table_dec are:
+# Catch, P(B2023<0.2B0), P(B2024<0.2B0), P(B2025<0.2B0), P(B2023<0.2B0),
+# P(B2023<0.4B0), P(B2024<0.4B0), P(B2025<0.4B0), P(B2023<0.4B0),
+# P(B2023<B2022), P(B2024<B2023), P(B2025<B2024)
 table_dec <- table_decisions(base_model, ret_df = TRUE, digits = 3)
-probs_catch_0 <- table_dec |> filter(tac == 0) |> unlist()
-probs_catch_10 <- table_dec |> filter(tac == 10) |> unlist()
-probs_catch_50 <- table_dec |> filter(tac == 50) |> unlist()
-prob_proj_less_assess_0 <- probs_catch_0[length(probs_catch_0)]
-prob_proj_less_assess_10 <- probs_catch_10[length(probs_catch_10)]
-prob_proj_less_assess_50 <- probs_catch_50[length(probs_catch_50)]
+catch_col <- sym(grep("^Catch", names(table_dec), value = TRUE))
 
-probs_proj_less_assess <- table_dec[, ncol(table_dec)] |>
-  pull() |> 
-  as.numeric()
+# Decision table column indices for P(B_2023<B_2022)
+i_2023 <- grep("\\{2023\\} < B", names(table_dec))
+i_2024 <- grep("\\{2024\\} < B", names(table_dec))
+i_2025 <- grep("\\{2025\\} < B", names(table_dec))
+
+prob_2023_2022_catch_0 <- table_dec |>
+  filter(!!catch_col == 0) |> pull(i_2023)
+prob_2023_2022_catch_5 <- table_dec |>
+  filter(!!catch_col == 5) |> pull(i_2023)
+prob_2023_2022_catch_10 <- table_dec |>
+  filter(!!catch_col == 10) |> pull(i_2023)
+prob_2023_2022_catch_15 <- table_dec |>
+  filter(!!catch_col == 15) |> pull(i_2023)
+
+prob_2024_2023_catch_10 <- table_dec |>
+  filter(!!catch_col == 10) |> pull(i_2024)
+prob_2025_2024_catch_10 <- table_dec |>
+  filter(!!catch_col == 10) |> pull(i_2025)
+
+probs_proj_less_assess <- table_dec |> select(i_2023) |> pull()
 which_prob_less_50_50 <- which(probs_proj_less_assess < 0.5)
 which_prob_less_50_50 <- which_prob_less_50_50[length(which_prob_less_50_50)]
 prob_less_50_50 <- table_dec[which_prob_less_50_50, ]
 prob_greater_50_50 <- table_dec[which_prob_less_50_50 + 1, ]
 
-val_less_50_50 <- pull(prob_less_50_50[, ncol(prob_less_50_50)])
+catch_less_50_50 <- prob_less_50_50 %>% pull(catch_col)
+val_less_50_50 <- prob_less_50_50 |> pull(i_2023)
 
-# Decision table values - B_2023 < 0.4B0
+# Decision table column indices for P(B_2023<0.4B0) and P(B_2023<0.4B0)
+i_2023_4bo <- grep("\\{2023\\} < 0.4B", names(table_dec))
+i_2023_2bo <- grep("\\{2023\\} < 0.2B", names(table_dec))
+
 below_04bo <- table_dec |> 
-  select(paste0(proj_yr, "_04bo")) |> 
-  pull() |> 
-  as.numeric()
+  pull(i_2023_4bo)
 range_below_04bo <- c(min(below_04bo), max(below_04bo))
 
-# Decision table values - B_2023 < 0.2B0
 below_02bo <- table_dec |> 
-  select(paste0(proj_yr, "_02bo")) |> 
-  pull() |> 
-  as.numeric()
+  pull(i_2023_2bo)
 range_below_02bo <- c(min(below_02bo), max(below_02bo))
-which_prob_greater_50_50_02bo <- which(below_02bo > 0.5)[1]
-prob_greater_50_50_02bo <- below_02bo[which_prob_greater_50_50_02bo]
-row_greater_50_50_02bo <- table_dec[which_prob_greater_50_50_02bo, ]
 
-# Decision table values - B_2023 < 0.8BMSY
-# below_08bmsy <- table_dec |> 
-#   select(paste0(proj_yr, "_08bmsy")) |> 
-#   pull() |> 
-#   as.numeric()
-# range_below_08bmsy <- c(min(below_08bmsy), max(below_08bmsy))
+# For decision table caption text
+prob_10t_below_2bo <- table_dec |> 
+    filter(!!catch_col == 10) |> pull(i_2023_2bo)
+prob_10t_below_4bo <- table_dec |> 
+    filter(!!catch_col == 10) |> pull(i_2023_4bo)
 
-# Decision table values - B_2023 < 0.4BMSY
-# below_04bmsy <- table_dec |> 
-#   select(paste0(proj_yr, "_04bmsy")) |> 
-#   pull() |> 
-#   as.numeric()
-#range_below_04bmsy <- c(min(below_04bmsy), max(below_04bmsy))
+# For the Projections and Decision table section
+uncert_2025_catch_10 <- base_model$mcmc$proj |>
+  filter(TAC == 10) |>
+  pull(B2025) |>
+  quantile(c(0.025, 0.5, 0.975))
+lo_uncert_2025_catch_10 <- uncert_2025_catch_10[1]
+hi_uncert_2025_catch_10 <- uncert_2025_catch_10[3]
+diff_uncert_2025_catch_10 <- hi_uncert_2025_catch_10 - lo_uncert_2025_catch_10
+names(diff_uncert_2025_catch_10) <- "difference"
+
 ```
 
 ```{r biological-params}
