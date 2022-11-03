@@ -486,7 +486,7 @@ commercial_samples2 <- commercial_samples %>% filter(maturity_code < 7)
 mat_fn2 <- file.path(data_dir, "fit_mat_ogive_output_no_resting.rds")
 
 if(file.exists(mat_fn2)){
-  mat_lst <- readRDS(mat_fn2)
+  mat_lst2 <- readRDS(mat_fn2)
 }else{
   mat_lst2 <- list(
     fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS")),
@@ -501,7 +501,6 @@ if(file.exists(mat_fn2)){
     fit_mat_ogive(survey_samples_syn2, type = "length"))
   saveRDS(mat_lst2, mat_fn2)
 }
-
 
 ma_plot_lst <- list(
   plot_mat_panels(mat_lst2[[1]]) +
