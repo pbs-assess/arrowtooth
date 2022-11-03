@@ -22,7 +22,7 @@ plot(age, l_a)
 w_a <- lw_a * l_a^lw_b # G18
 plot(l_a, w_a)
 
-mat_a <- plogis(age, 5.5, 0.91)
+mat_a <- plogis(age, 5.5, 1/0.91) # FIXME 'scale'
 f_a <- w_a * mat_a
 plot(age, f_a)
 
