@@ -173,8 +173,20 @@ sens_changes_text <-
                 "Fixer les paramètres DM de façon à maximiser la taille effective de l'échantillon",
                 "Fix DM parameters so that seffective sample size is maximized")),
        c(ifelse(fr(),
-                "French here",
-                "Single sex, one fleet (same model as bridge model Update data to 2021)")))
+                "Un seul sexe, une seule flotte (même modèle que le modèle de pont Actualisation des données jusqu'en 2021)",
+                "Single sex, one fleet (same model as bridge model Update data to 2021)")),
+       c(ifelse(fr(),
+                "Retirer Rejeter CPUE",
+                "Remove Discard CPUE"),
+         ifelse(fr(),
+                "La maturité n'inclut pas le 'repos'",
+                "Maturity doesn't include 'resting'"),
+         ifelse(fr(),
+                "Fixer la sélectivité DCPUE à l'estimation Shoreside",
+                "Fix DCPUE selectivity to Shoreside estimate")),
+       c(ifelse(fr(),
+                "Correction des sélectivités de l'enquête pour l'estimation de Shorside",
+                "Fix survey selectivities to Shorside estimate")))
 
 # This is a list of vectors of retrospective groups (retrospective models that
 # will be plotted against each other). It can be `NULL` if to be ignored.
