@@ -14,7 +14,7 @@ linf <- 61.77
 age50 <- 5.56
 sd50 <- 0.91
 
-projected_N <- 10L
+projected_N <- 5L
 N_t_no_proj <- N_t
 N_t <- N_t + projected_N
 M_proj <- M
@@ -87,8 +87,8 @@ for (t in 1:N_t) {
   }
 }
 
-R_bar <- 63.1 # table 6 rbar init
-N_ta <- matrix(nrow = N_t, ncol = N_a)
+R_bar <- 85 # table 6 rbar
+R_bar_init <- 63.1
 
 # recdev_proj <- rep(-0.6275755, projected_N)
 recdev_proj <- rep(0, projected_N)
@@ -102,24 +102,96 @@ recdevs <- c(
   -0.669309, -1.02718, -0.44503, -0.32971, -0.6275755, -0.0339801,
   -0.0487646
 )
+tau <- sd(recdevs)
 recdevs <- c(recdevs, recdev_proj)
 
 plot(recdevs, type = "o")
 
-N_ta[, 1] <- R_bar * exp(recdevs)
+N_ta <- matrix(nrow = N_t, ncol = N_a)
+SSB_ta <- matrix(nrow = N_t, ncol = N_a)
+
+# initialize numbers at age and SSB in first time step
 for (t in 1) {
-  for (a in 2:N_a) {
-    N_ta[t, a] <- R_bar * exp(0) * exp(-M)^(a - 1)
+  for (a in 1:N_a) {
+    if (a == 1) {
+      # N_ta[t, a] <- R_bar_init * exp(recdevs)[1]
+      N_ta[t, a] <- R_bar_init * exp(0) # start at mean
+    } else {
+      N_ta[t, a] <- R_bar_init * exp(0) * exp(-M)^(a - 1) # just use mean
+    }
+    SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
+    # FIXME:
     # should be exp(recdevs[t - a]) but just using mean recdevs
+    # didn't want to both creating historical recdevs
   }
 }
 
+# Spawning stock biomass
+
+for (t in 1:N_t) {
+  for (a in 1:N_a) {
+    SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
+  }
+}
+SSB_t <- apply(SSB_ta, 1, sum)
+R_t <- numeric(length = N_t)
+R_t[1] <- N_ta[1, 1]
+
+SSB0 <- 180.4
+h <- 0.89 # steepness
+R0 <- 119 # unfished recruitment
+
+# goodyear compensation ratio; K = 4h/(1-h) or h = K/(4+K)
+kappa <- 4 * h / (1 - h)
+
+survivorship <- numeric(length = N_a)
+for (a in 1:N_a) { # G.22 in arrowtooth
+  if (a == 1) {
+    survivorship[a] <- 1 # would be 1/n_s
+  } else if (a > 1 && a < N_a) {
+    survivorship[a] <- survivorship[a-1] * exp(-M)
+  } else {
+    survivorship[a] <- survivorship[a-1] / (1 - exp(-M))
+  }
+}
+plot(survivorship)
+
+# average spawning biomass per recruit:
+# note that phi_E in docs is `phib` in iscam code
+# phi_E <- sum(1 / (narea * nsex) * lw * fa) # FIXME nsex!?
+# sum of products between age-specific survivorship and relative fecundity
+n_area <- 1
+n_sex <- 1
+phi_E <- sum((n_area * n_sex) * survivorship * f_a)
+
+# iscam docs p. 10:
+# maximum juvenile survival rate:
+# (initial slope of the stock-recruit relationship)
+s0 <- kappa / phi_E
+
+# Beta <- (kappa - 1) / (R0 * phi_E)
+Beta <- (kappa - 1) / (SSB0) # eq. 12 section 3.3.4
+
+# tau <- 0
 for (t in 2:N_t) {
-  for (a in 2:N_a) {
-    N_ta[t, a] <- N_ta[t - 1, a - 1] * exp(-Z_ta[t - 1, a - 1])
+  for (a in 1:N_a) {
+    if (a == 1) {
+      # BH recruitment with bias correction: G.40
+      R_t[t] <- ((s0 * SSB_t[t-1]) / (1 + Beta * SSB_t[t-1])) * exp(recdevs[t] - tau^2)
+      N_ta[t, a] <- R_t[t]
+    } else {
+      N_ta[t, a] <- N_ta[t - 1, a - 1] * exp(-Z_ta[t - 1, a - 1])
+    }
+    if (a == N_a) { # plus group # FIXME - apply above and this or just this?
+      N_ta[t, a] <- N_ta[t, a] + N_ta[t - 1, a] * exp(-Z_ta[t - 1, a])
+    }
+    SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
+    SSB_t[t] <- sum(SSB_ta[t,])
   }
 }
+mean(R_t)
 
+# Catch
 C_ta <- matrix(nrow = N_t, ncol = N_a)
 for (t in 1:N_t) {
   for (a in 1:N_a) {
@@ -133,6 +205,7 @@ plot(C_t, type = "o")
 
 V_ta <- matrix(nrow = N_t, ncol = N_a)
 
+# Vulnerable biomass
 lambda <- 0
 for (t in 1:N_t) {
   for (a in 1:N_a) {
@@ -143,14 +216,6 @@ for (t in 1:N_t) {
 
 V_t <- apply(V_ta, 1, sum)
 plot(V_t, type = "o")
-
-SSB_ta <- matrix(nrow = N_t, ncol = N_a)
-for (t in 1:N_t) {
-  for (a in 1:N_a) {
-    SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
-  }
-}
-SSB_t <- apply(SSB_ta, 1, sum)
 
 B_ta <- matrix(nrow = N_t, ncol = N_a)
 for (t in 1:N_t) {
@@ -175,3 +240,4 @@ legend("topright",
   legend = c("SSB", "VB", "Catch", "B"),
   lty = c(1, 1, 1, 1), col = cols
 )
+abline(v = N_t - projected_N, lty = 2)
