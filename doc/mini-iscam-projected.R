@@ -14,10 +14,10 @@ linf <- 61.77
 age50 <- 5.56
 sd50 <- 0.91
 
-projected_N <- 3L
+projected_N <- 10L
 N_t_no_proj <- N_t
 N_t <- N_t + projected_N
-M_proj <- 0.1
+M_proj <- M
 
 age <- 1:N_a
 
@@ -33,7 +33,6 @@ plot(age, f_a)
 
 projected_F_fr <- rep(0.06330635, projected_N)
 projected_F_sh <- rep(0.0414128, projected_N)
-
 
 #
 # projected_F_fr <- rep(0, projected_N)
@@ -91,8 +90,9 @@ for (t in 1:N_t) {
 R_bar <- 63.1 # table 6 rbar init
 N_ta <- matrix(nrow = N_t, ncol = N_a)
 
-recdev_proj <- rep(-0.6275755, projected_N)
-recdev_proj <- rep(2, projected_N)
+# recdev_proj <- rep(-0.6275755, projected_N)
+recdev_proj <- rep(0, projected_N)
+# recdev_proj <- rep(2, projected_N)
 # recdev_proj <- rep(0, projected_N)
 
 recdevs <- c(
