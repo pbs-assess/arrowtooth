@@ -14,7 +14,7 @@ linf <- 61.77
 age50 <- 5.56
 sd50 <- 0.91
 
-projected_N <- 5L
+projected_N <- 0L
 N_t_no_proj <- N_t
 N_t <- N_t + projected_N
 M_proj <- M
@@ -89,6 +89,7 @@ for (t in 1:N_t) {
 
 R_bar <- 85 # table 6 rbar
 R_bar_init <- 63.1
+# R_bar_init <- R_bar
 
 # recdev_proj <- rep(-0.6275755, projected_N)
 recdev_proj <- rep(0, projected_N)
@@ -98,12 +99,22 @@ recdev_proj <- rep(0, projected_N)
 recdevs <- c(
   0.2163865, 0.1364665, 0.4195205, 0.697793, 0.585176, 0.5183845,
   0.474046, 0.268234, 0.1226545, 0.170575, 0.2780495, 0.3062655,
-  -0.0846347, -0.1129565, -0.369483, 0.02906495, -0.310351, -0.0828904,
+-0.0846347, -0.1129565, -0.369483, 0.02906495, -0.310351, -0.0828904,
   -0.669309, -1.02718, -0.44503, -0.32971, -0.6275755, -0.0339801,
   -0.0487646
 )
+# THESE ARE OMEGA NOT DELTAs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+# recdevs <- c(0.173462,0.100632,0.387693,0.665639,0.552574,0.490459,0.453084,0.245095,0.0913537,0.141149,0.249486,0.276506,-0.110101,-0.139677,-0.393124,0.0135451,-0.306012,-0.0799843,-0.659438,-1.00503,-0.404651,-0.257468,-0.555396,0.0303773,0.00905158)
+
 tau <- sd(recdevs)
 recdevs <- c(recdevs, recdev_proj)
+
+init_rec_devs <- c(0.524497,0.34968,0.128145,0.474558,0.577389,0.797567,0.727452,0.884873,0.744107,0.241596,-0.145522,0.148283,-0.471437,-0.675812,-1.43043,-0.0210956,0.153862,-1.07244,-1.93528)
+# init_rec_devs <- rep(0, 20)
+
+
+init_tau <- sd(init_rec_devs)
 
 plot(recdevs, type = "o")
 
@@ -114,32 +125,27 @@ SSB_ta <- matrix(nrow = N_t, ncol = N_a)
 for (t in 1) {
   for (a in 1:N_a) {
     if (a == 1) {
-      # N_ta[t, a] <- R_bar_init * exp(recdevs)[1]
+      # N_ta[t, a] <- R_bar_init * exp(recdevs[1] - 0.5*init_tau^2)
+      # N_ta[t, a] <- R_bar_init * exp(recdevs[1])
       N_ta[t, a] <- R_bar_init * exp(0) # start at mean
     } else {
-      N_ta[t, a] <- R_bar_init * exp(0) * exp(-M)^(a - 1) # just use mean
+      .dev <- if (t - a + 20 < 1) 0 else init_rec_devs[t - a + 20]
+      N_ta[t, a] <- R_bar_init * exp(.dev) * exp(-M)^(a - 1)
+      N_ta[t, a] <- R_bar_init * exp(0) * exp(-M)^(a - 1)
     }
     SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
-    # FIXME:
-    # should be exp(recdevs[t - a]) but just using mean recdevs
-    # didn't want to both creating historical recdevs
   }
 }
 
 # Spawning stock biomass
 
-for (t in 1:N_t) {
-  for (a in 1:N_a) {
-    SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
-  }
-}
 SSB_t <- apply(SSB_ta, 1, sum)
 R_t <- numeric(length = N_t)
 R_t[1] <- N_ta[1, 1]
 
-SSB0 <- 180.4
+# SSB0 <- 180.4
 h <- 0.89 # steepness
-R0 <- 119 # unfished recruitment
+R0 <- 119 # unfished recruitment BUT DOESN'T MATCH! SSB0 / phi_E
 
 # goodyear compensation ratio; K = 4h/(1-h) or h = K/(4+K)
 kappa <- 4 * h / (1 - h)
@@ -161,35 +167,62 @@ plot(survivorship)
 # phi_E <- sum(1 / (narea * nsex) * lw * fa) # FIXME nsex!?
 # sum of products between age-specific survivorship and relative fecundity
 n_area <- 1
-n_sex <- 1
-phi_E <- sum((n_area * n_sex) * survivorship * f_a)
+n_sex <- 2 # FIXME!?
+(phi_E <- sum(1/(n_area * n_sex) * survivorship * f_a))
+
+# SA: omega_t is not delta_t!!
+# SA: omega_t is `log_rec_dev` in iSCAM
+# SA: delta_t is `delta`
 
 # iscam docs p. 10:
 # maximum juvenile survival rate:
 # (initial slope of the stock-recruit relationship)
+
 s0 <- kappa / phi_E
 
-# Beta <- (kappa - 1) / (R0 * phi_E)
-Beta <- (kappa - 1) / (SSB0) # eq. 12 section 3.3.4
+Beta <- (kappa - 1) / (R0 * phi_E)
+# Beta <- (kappa - 1) / (SSB0) # eq. 12 section 3.3.4
 
-# tau <- 0
+R0 * phi_E
+SSB0
+
+# tau <- 0.8
+
 for (t in 2:N_t) {
   for (a in 1:N_a) {
     if (a == 1) {
       # BH recruitment with bias correction: G.40
-      R_t[t] <- ((s0 * SSB_t[t-1]) / (1 + Beta * SSB_t[t-1])) * exp(recdevs[t] - tau^2)
+      R_t[t] <- ((s0 * SSB_t[t-1]) / (1 + Beta * SSB_t[t-1])) * exp(recdevs[t] - 0.5 * tau^2)
       N_ta[t, a] <- R_t[t]
     } else {
       N_ta[t, a] <- N_ta[t - 1, a - 1] * exp(-Z_ta[t - 1, a - 1])
     }
-    if (a == N_a) { # plus group # FIXME - apply above and this or just this?
+    if (a == N_a) { # plus group
       N_ta[t, a] <- N_ta[t, a] + N_ta[t - 1, a] * exp(-Z_ta[t - 1, a])
     }
     SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
     SSB_t[t] <- sum(SSB_ta[t,])
   }
 }
-mean(R_t)
+print(mean(R_t))
+plot(SSB_t, ylim = c(0, max(SSB_t)))
+
+# # as in iscam docs! with Rbar
+# for (t in 2:N_t) {
+#   for (a in 1:N_a) {
+#     if (a == 1) {
+#       N_ta[t, a] <- R_bar * exp(recdevs[t] - 0.5*tau^2)
+#     } else {
+#       N_ta[t, a] <- N_ta[t - 1, a - 1] * exp(-Z_ta[t - 1, a - 1])
+#     }
+#     if (a == N_a) { # plus group # FIXME - apply above and this or just this?
+#       N_ta[t, a] <- N_ta[t, a] + N_ta[t - 1, a] * exp(-Z_ta[t - 1, a])
+#     }
+#     SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
+#     SSB_t[t] <- sum(SSB_ta[t,])
+#   }
+# }
+# mean(R_t)
 
 # Catch
 C_ta <- matrix(nrow = N_t, ncol = N_a)
