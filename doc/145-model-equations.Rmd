@@ -168,7 +168,7 @@ The effective sample size $n_\mathrm{eff}$ is:
 ### Stock recruitment
 This stock assessment assumes Beverton-Holt recruitment. Annual recruitment and the initial age-composition are treated as latent variables in `r iscam`, and residuals between estimated recruits and the deterministic stock-recruitment models are used to estimate unfished spawning stock biomass and recruitment compensation. The residuals between the estimated and predicted recruits is given by:
 \begin{equation}
-  \delta_t = \ln(\bar{R}e^{w_t}) - R_t
+  \delta_t = \ln(\bar{R}e^{w_t}) - \ln(R_t)
   \label{eq:df7}
 \end{equation} where $R_t$ is given by Eq. \@ref(eq:df27). In that equation, $k$ is the age at recruitment. A bias correction term for the lognormal process errors is included in Eq. \@ref(eq:df27).
 
@@ -262,7 +262,7 @@ $I_{k,t}$ & & relative abundance index for gear $k$ in year $t$\\
 $R_o$ & & Age-$\acute{a}$ recruits in unfished conditions\\
 $h$ & & Steepness of the stock-recruitment relationship\\
 $\bar{R}$ & & Average age-$\acute{a}$ recruitment from year $\acute{t}$ to $T$\\
-$\bar{R}_\mathrm{init}$ & & Average age-$\acute{a}-1$--$A$ recruitment for initialization \\
+$\bar{R}_\mathrm{init}$ & & Average age-$\acute{a}-1$ to $A$ recruitment for initialization \\
 $M_s$ & & Instantaneous natural mortality rate for sex $s$\\
 $\hat{a}_{k,s,b}, \hat{\gamma}_{k,s,b}$ & & Selectivity parameters for gear $k$, sex $s$, year block $b$ \\
 $\Gamma_{k,s,t}$ & & Logarithm of the instantaneous fishing mortality for gear $k$, sex $s$, year $t$\\
@@ -387,7 +387,7 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 
 **Estimated or fixed parameters**
 \begin{flalign}
-  \Theta= (R_0,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\digamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}-A}^{t=\acute{t}-1}) &&
+  \Theta= (R_0,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\digamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}+1}^{t=\acute{t}-1}) &&
   \label{eq:df16}
 \end{flalign}
 \begin{flalign}
@@ -439,15 +439,11 @@ State variables in each year are updated using the following equations, where th
 \end{flalign} where members of the plus group (age A) are all assumed to have the same total mortality rate.
 
 **Recruitment model**
-Recruitment for this model is a Beverton-Holt formulation:
+Recruitment for this model is a Beverton-Holt formulation with the lognormal bias correction term $-0.5\tau^2$:
 \begin{flalign}
   R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df27}
-\end{flalign} which has the lognormal bias correction term
-\begin{flalign}
-  e^{\delta_{t}-0.5\tau^2} = n_{\omega}(\frac{1}{2}log(2\pi) + log(\sigma)) +\frac{1}{2}\frac{\sum\limits_{i=1}^{n_{\omega}} \omega[i]^2}{\sigma^2} &&
-  \label{eq:df28}
-\end{flalign} where $\omega$ is either $\omega_t$ or $\omega_{init,t}$
+\end{flalign}
 ")
 ```
 
