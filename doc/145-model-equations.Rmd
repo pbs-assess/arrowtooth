@@ -110,7 +110,7 @@ It is assumed that the measurement errors in the catch observations are log-norm
 ### Relative Abundance Data
 The relative abundance data are assumed to be proportional to spawning biomass that is vulnerable to the sampling gear:
 \begin{equation}
-  V_{k,t} = \sum_a SB_{t,a} e^{-\lambda_{k,t} Z_{t,a}} v_{k,a} w_a
+  V_{k,t} = \sum_a SN_{t,a} e^{-\lambda_{k,t} Z_{t,a}} v_{k,a} w_a
   \label{eq:df3}
 \end{equation} where $v_{k,a}$ is the age-specific selectivity of gear $k$, and $w_a$ is the mean-weight-at-age. A user specified fraction of the total mortality $\lambda_{k,t}$ adjusts the numbers-at-age to correct for survey timing. The residuals between the observed and predicted relative abundance index is given by:
 \begin{equation}
@@ -170,7 +170,7 @@ This stock assessment assumes Beverton-Holt recruitment. Annual recruitment and 
 \begin{equation}
   \delta_t = \ln(\bar{R}e^{w_t}) - R_t
   \label{eq:df7}
-\end{equation} where $R_t$ is given by Eq. \@ref(eq:df27), in which $k$ is the age at recruitment. A bias correction term for the lognormal process errors is included in Eq. \@ref(eq:df27).
+\end{equation} where $R_t$ is given by Eq. \@ref(eq:df27). In that equation, $k$ is the age at recruitment. A bias correction term for the lognormal process errors is included in Eq. \@ref(eq:df27).
 
 The negative log likelihood for the recruitment deviations is given by the normal density (ignoring the scaling constant):
 \begin{equation}
@@ -195,7 +195,7 @@ cat("### Parameter Estimation and Uncertainty
 Parameter estimation and quantifying uncertainty was carried out using the tools available in AD Model Builder. AD Model Builder (ADMB) is software for creating executable code to estimate the parameters and associated probability distributions for nonlinear statistical models. The software is freely available from \href{http://admb-project.org/}{the ADMB project}. The ADMB software was used to develop [gfiscam](https://github.com/pbs-assess/gfiscam), which was developed from the [original `r iscam` project](https://sites.google.com/site/iscamproject/home).
 
 There are five distinct components that make up the objective function that ADMB is minimizing:
-\[f = \mbox{negative loglikelihoods}+\mbox{constraints}+\mbox{priors for parameters}+\mbox{survey priors}+\mbox{convergence penalties}.\]
+\[f = \mbox{negative loglikelihoods} + \mbox{constraints}+\mbox{priors for parameters} + \mbox{survey priors} + \mbox{convergence penalties}.\]
 The purpose of this section is to document all of the components that make up the objective function.
 
 **Negative log-likelihoods**
@@ -262,7 +262,7 @@ $I_{k,t}$ & & relative abundance index for gear $k$ in year $t$\\
 $R_o$ & & Age-$\acute{a}$ recruits in unfished conditions\\
 $h$ & & Steepness of the stock-recruitment relationship\\
 $\bar{R}$ & & Average age-$\acute{a}$ recruitment from year $\acute{t}$ to $T$\\
-$\bar{R}_\mathrm{init}$ & & Average age-$\acute{a}$ recruitment in year $\acute{t}-1$ \\
+$\bar{R}_\mathrm{init}$ & & Average age-$\acute{a}-1$--$A$ recruitment for initialization \\
 $M_s$ & & Instantaneous natural mortality rate for sex $s$\\
 $\hat{a}_{k,s,b}, \hat{\gamma}_{k,s,b}$ & & Selectivity parameters for gear $k$, sex $s$, year block $b$ \\
 $\Gamma_{k,s,t}$ & & Logarithm of the instantaneous fishing mortality for gear $k$, sex $s$, year $t$\\
@@ -301,30 +301,30 @@ Assumptions in this steady-state model include:
 - Beverton-Holt type recruitment
 
 **Parameters** 
-The model includes the main leading parameters:
+The model includes steady-state parameters:
 \begin{flalign}
-  \Theta = (R_o,h,M); \qquad R_o>0; \qquad 0.2 \leq h < 1.0; \qquad M_s > 0 &&
+  \Theta = (B_0,h,\kappa,M_s,\hat{a}_{k,s,b},\hat{\gamma}_{k,s,b}); \qquad B_0>0; \qquad 0.2 \leq h < 1; \qquad \kappa>1; \qquad M_s>0 &&
   \label{eq:df01} &&
 \end{flalign} and fixed growth and maturity parameters:
 \begin{flalign}
-  \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s,\hat{a}_k,\hat{\gamma}_k) &&
+  \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s) &&
   \label{eq:df02}     
 \end{flalign} **Age-schedule information**
 Length-at-age is defined as:
 \begin{flalign}
   l_{a,s}=l_{}\left(1-e^{\left(-k_s\left(a-t_{o,s}\right)\right)}\right) &&
   \label{eq:df03}
-\end{flalign} and weight-at-age as:
+\end{flalign} and weight-at-age by sex as:
 \begin{flalign}
   w_{a,s}=\acute{a}_s(l_{a,s})^{\acute{b}_s}. &&
   \label{eq:df04}
 \end{flalign} Vulnerability at age is defined as:
 \begin{flalign}
-  v_a=\left(1+e^{\left(\frac{-(\hat{a}-a)}{\hat{\gamma}}\right)}\right)^{-1} &&
+  v_{a,s}=\left(1+e^{\left(\frac{-(\hat{a_{s}}-a)}{\hat{\gamma_{s}}}\right)}\right)^{-1} &&
   \label{eq:df05}
 \end{flalign} and fecundity at age as:
 \begin{flalign}
-  f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1}. &&
+  f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1} &&
   \label{eq:df06}
 \end{flalign} **Survivorship**
 Survivorship for unfished populations is defined as:
@@ -335,7 +335,7 @@ Survivorship for unfished populations is defined as:
     \frac{\iota_{a-1,s}}{(1-e^{-M_s})}, & a = A \\
   \end{cases} &&
   \label{eq:df07}
-\end{flalign} and for fished populations as:
+\end{flalign} and for fished populations:
 \begin{flalign}
   \hat{\iota}_{a,s} = \begin{cases}
     \frac{1}{S}, & a = 1 \\
@@ -346,13 +346,13 @@ Survivorship for unfished populations is defined as:
 \end{flalign}  **Incidence functions**
 The incidence functions refer to the lifetime or per-recruit quantities. Spawning biomass per recruit for unfished or fished populations is defined as:
 \begin{flalign}
-  \phi_E=\sum_{s=1}^S\sum_{a=1}^\infty \iota_a f_{a,s} & &
+  \phi_E=\sum_{s=1}^S\sum_{a=1}^\infty \iota_{a,s} f_{a,s} & &
   \phi_e=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{a,s} f_{a,s} &&
   \label{eq:df09}
 \end{flalign} Vulnerable biomass per recruit for unfished or fished populations is defined as:
 \begin{flalign}
-  \phi_B=\sum_{s=1}^S\sum_{a=1}^\infty \iota_a w_{a,s} v_{a,s} & & &
-  \phi_b=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{as} w_{a,s} v_{a,s} &&
+  \phi_B=\sum_{s=1}^S\sum_{a=1}^\infty \iota_{a,s} w_{a,s} v_{a,s} & & &
+  \phi_b=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{a,s} w_{a,s} v_{a,s} &&
   \label{eq:df10}
 \end{flalign} Per recruit yield to the fishery is given by:
 \begin{flalign}
@@ -363,28 +363,31 @@ The incidence functions refer to the lifetime or per-recruit quantities. Spawnin
 \end{flalign} **Steady-state conditions**
 Biomass in unfished conditions is defined as:
 \begin{flalign}
-  B_o=R_o\phi_B &&
+  B_o=R_o\phi_E &&
   \label{eq:df12}
-\end{flalign} Equilibrium recruitment is defined according to the next two equations:
+\end{flalign} Equilibrium recruitment is given by:
 \begin{flalign}
   \kappa=\frac{4h}{1-h} &&
   \label{eq:df13}
 \end{flalign}
 \begin{flalign}
-  R_e=R_o \frac{\kappa-\frac{\phi_E}{\phi_e}}{\kappa-1}; \qquad (\mathrm{Beverton-Holt}) &&
+  R_0=\frac{B_0}{\phi_E} &&
+  \label{eq:df13-1}
+\end{flalign}
+\begin{flalign}
+  R_e=R_0 \frac{\kappa-\frac{\phi_E}{\phi_e}}{\kappa-1}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df14}
 \end{flalign} Equilibrium yield is given by:
 \begin{flalign}
   C_e=F_e R_e\phi_q &&
   \label{eq:df15}
 \end{flalign}
-
 ### Statistical catch-age model {#model-catch-age}
 This model uses the Baranov catch equation and C* and F* as leading parameters.
 
 **Estimated or fixed parameters**
 \begin{flalign}
-  \Theta= (R_0,h,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\Gamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}-A}^{t=\acute{t}-1}) &&
+  \Theta= (R_0,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\digamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}-A}^{t=\acute{t}-1}) &&
   \label{eq:df16}
 \end{flalign}
 \begin{flalign}
@@ -408,16 +411,16 @@ The initial numbers-at-age in the first year and the annual recruits are treated
 \begin{flalign}
   v_{k,a}= \frac{1}{1+e^{-\frac{\left(a - \hat{a}_k\right)}{\hat{\gamma}_k}}} &&
   \label{eq:df21}
-\end{flalign} The annual fishing mortality for each gear $k$ in year $t$ is the exponent of the estimated vector $\Gamma_{k,t}$:
+\end{flalign} The fishing mortality for each gear $k$ in year $t$ is the exponent of the estimated log fishing mortality $\digamma_{k,t}$:
 \begin{flalign}
-  F_{k,t}=e^{\Gamma_{k,t}} &&
+  F_{k,t}=e^{\digamma_{k,t}} &&
   \label{eq:df22}
 \end{flalign} **State dynamics ($t>1$)**
 State variables in each year are updated using the following equations, where the spawning biomass is the product of the numbers-at-age and the mature biomass-at-age.
 \begin{flalign}
   B_{t,s}=\sum_a N_{t,a,s}f_{a,s} &&
   \label{eq:df23}
-\end{flalign}  The total mortality rate is given by:
+\end{flalign} The total mortality rate is given by:
 \begin{flalign}
   Z_{t,a,s}=M_s+\sum_k F_{k,t} v_{k,t,a,s} &&
   \label{eq:df24}
@@ -436,11 +439,15 @@ State variables in each year are updated using the following equations, where th
 \end{flalign} where members of the plus group (age A) are all assumed to have the same total mortality rate.
 
 **Recruitment model**
-Recruitment is defined as Beverton-Holt with a lognormal bias correction:
+Recruitment for this model is a Beverton-Holt formulation:
 \begin{flalign}
   R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df27}
-\end{flalign}
+\end{flalign} which has the lognormal bias correction term
+\begin{flalign}
+  e^{\delta_{t}-0.5\tau^2} = n_{\omega}(\frac{1}{2}log(2\pi) + log(\sigma)) +\frac{1}{2}\frac{\sum\limits_{i=1}^{n_{\omega}} \omega[i]^2}{\sigma^2} &&
+  \label{eq:df28}
+\end{flalign} where $\omega$ is either $\omega_t$ or $\omega_{init,t}$
 ")
 ```
 
