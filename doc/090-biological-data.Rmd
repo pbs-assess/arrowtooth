@@ -367,16 +367,17 @@ grid.arrange(grobs = vb_plot_lst,
 
 (ref:fig-mat-fr) L’âge-et-la-longueur-à-maturité pour les courbes de fréquences cumulées. Les courbes de fréquences cumulées de maturité sont ajustées en tant que régressions logistiques aux spécimens de poissons individuels, qui sont classés comme étant matures ou non matures. Les lignes rouge pleines représentent les ajustements aux poissons femelles et les lignes bleu tiretées représentent les ajustements aux poissons mâles. Les lignes verticales indiquent l’âge ou la longueur estimée à 50% de maturité. Le texte sur les panneaux indique l’âge et la longueur estimés à 5, 50 et 95% de maturité pour les femelles (F) et les mâles (M). De courtes lignes le long du haut et du bas de chaque panneau représentent jusqu’à 1 500 poissons individuels choisis au hasard, avec une petite gigue aléatoire dans le cas des âges pour aider à différencier les poissons individuels. Les modèles sont ajustés à tous les échantillons de relevé disponibles, quelle que soit la période de l’année.
 
-```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1, out.width = "6in"}
+```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 1.25, out.width = "6in"}
 
-survey_samples_syn2 <- survey_samples_syn 
 survey_samples2 <- survey_samples 
 commercial_samples2 <- commercial_samples 
+# survey_samples_syn2 <- survey_samples_syn 
+survey_samples_syn2 <- bind_rows(survey_samples2, commercial_samples2)
 
 mat_fn <- file.path(data_dir, "fit_mat_ogive_output.rds")
-if(file.exists(mat_fn)){
-  mat_lst <- readRDS(mat_fn)
-}else{
+# if(file.exists(mat_fn)){
+#   mat_lst <- readRDS(mat_fn)
+# }else{
   mat_lst <- list(
     fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS")),
     fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS"), type = "length"),
@@ -389,7 +390,7 @@ if(file.exists(mat_fn)){
     fit_mat_ogive(survey_samples_syn2),
     fit_mat_ogive(survey_samples_syn2, type = "length"))
   saveRDS(mat_lst, mat_fn)
-}
+# }
 mat_title_lst <- list(
   tr("SYN QCS (5AB)"),
   "",
@@ -399,7 +400,8 @@ mat_title_lst <- list(
   "",  
   tr("Commercial"),
   "",
-  tr("Coastwide synoptic trawl surveys"),
+  # tr("Coastwide synoptic trawl surveys"),
+  tr("Coastwide survey and commercial data"),
   "")
 
 plot_mat_panels <- function(fit_obj){
@@ -470,24 +472,27 @@ grid.arrange(grobs = ma_plot_lst,
 
 \clearpage
 
-(ref:fig-mat-en2) Same as previous, but with fish scored as resting removed. 
+(ref:fig-mat-en2) Same as previous, but having removed those fish scored as either resting, or as the intermediate developmental stages of 'maturing' and 'developing'. The result being to include only those that are either definitively immature or capable of having produced eggs in that year.  
 
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
 
 (ref:fig-mat-fr2) TODO
 
-```{r fig-mat2, fig.cap = ifelse(fr(), "(ref:fig-mat-fr2)", "(ref:fig-mat-en2)"), fig.asp = 1, out.width = "6in"}
-
+```{r fig-mat2, fig.cap = ifelse(fr(), "(ref:fig-mat-fr2)", "(ref:fig-mat-en2)"), fig.asp = 1.3, out.width = "6in"}
+# which maturities to trust
+# maturities_kept <- c(1,2,3,4,5,6)
+maturities_kept <- c(1,4,5,6)
 # remove the resting maturity code 
-survey_samples_syn2 <- survey_samples_syn %>% filter(maturity_code < 7)
-survey_samples2 <- survey_samples %>% filter(maturity_code < 7)
-commercial_samples2 <- commercial_samples %>% filter(maturity_code < 7)
+survey_samples_syn2 <- survey_samples_syn %>% filter(maturity_code %in% maturities_kept)
+survey_samples2 <- survey_samples %>% filter(maturity_code %in% maturities_kept)
+commercial_samples2 <- commercial_samples %>% filter(maturity_code %in% maturities_kept)
+
 
 mat_fn2 <- file.path(data_dir, "fit_mat_ogive_output_no_resting.rds")
 
-if(file.exists(mat_fn2)){
-  mat_lst2 <- readRDS(mat_fn2)
-}else{
+# if(file.exists(mat_fn2)){
+#   mat_lst <- readRDS(mat_fn2)
+# }else{
   mat_lst2 <- list(
     fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS")),
     fit_mat_ogive(filter(survey_samples2, survey_abbrev %in% "SYN QCS"), type = "length"),
@@ -500,7 +505,8 @@ if(file.exists(mat_fn2)){
     fit_mat_ogive(survey_samples_syn2),
     fit_mat_ogive(survey_samples_syn2, type = "length"))
   saveRDS(mat_lst2, mat_fn2)
-}
+# }
+
 
 ma_plot_lst <- list(
   plot_mat_panels(mat_lst2[[1]]) +
@@ -557,6 +563,8 @@ grid.arrange(grobs = ma_plot_lst,
              ncol = 2,
              left = paste0(tr("Probability mature")))
 ```
+
+\pagebreak
 
 ```{r appendix-data-para-5-en, eval = !fr(), results = 'asis'}
 cat("## TABLES
