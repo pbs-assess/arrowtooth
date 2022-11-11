@@ -475,8 +475,8 @@ female_cols <- female_cols[4:7]
 female_cols <- rev(female_cols)
 
 # male_cols <- RColorBrewer::brewer.pal(n = 6, name = "Blues")
-male_cols <- RColorBrewer::brewer.pal(n = 7, name = "YlGnBu")
-male_cols <- male_cols[3:6]
+male_cols <- RColorBrewer::brewer.pal(n = 9, name = "YlGnBu")
+male_cols <- male_cols[4:8]
 male_cols <- rev(male_cols)
 
 
