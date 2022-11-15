@@ -4,7 +4,15 @@
 \alias{calc_naa}
 \title{Calculate the Numbers-at-age with sample sizes in a table format}
 \usage{
-calc_naa(d = NULL, survey_abbrev = NULL, start_age = 1, plus_age = NULL)
+calc_naa(
+  d = NULL,
+  survey_abbrev = NULL,
+  start_age = 1,
+  plus_age = 20,
+  bysex = TRUE,
+  sample_type = "specimen_id",
+  old_age = 30
+)
 }
 \arguments{
 \item{d}{A \link{data.frame}. Either \code{survey_samples} or \code{commercial_samples} data
@@ -17,6 +25,14 @@ minimum age to truncate to}
 
 \item{plus_age}{The maximum age to include. This is a plus group and contains
 the number of all ages this age and older}
+
+\item{bysex}{Logical. If \code{TRUE} output the table by sex. Also, all records with sex
+not equal to 1 or 2 are removed from the data}
+
+\item{sample_type}{If \code{specimen_id}, count of \code{specimen_id} is the number of samples.
+If \code{sample_id}, count of \code{sample_id} is the number of samples}
+
+\item{old_age}{Age above which to remove data. Default 30}
 }
 \value{
 A \link{data.frame} in tabular format with rows being years and columns, ages.

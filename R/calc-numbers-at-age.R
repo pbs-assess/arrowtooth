@@ -7,6 +7,11 @@
 #' minimum age to truncate to
 #' @param plus_age The maximum age to include. This is a plus group and contains
 #' the number of all ages this age and older
+#' @param bysex Logical. If `TRUE` output the table by sex. Also, all records with sex
+#' not equal to 1 or 2 are removed from the data
+#' @param sample_type If `specimen_id`, count of `specimen_id` is the number of samples.
+#' If `sample_id`, count of `sample_id` is the number of samples
+#' @param old_age Age above which to remove data. Default 30
 #'
 #' @return A [data.frame] in tabular format with rows being years and columns, ages.
 #' A new column called `nsamp` is added. It holds the number of samples all the ages
@@ -22,7 +27,11 @@
 calc_naa <- function(d = NULL,
                      survey_abbrev = NULL,
                      start_age = 1,
-                     plus_age = NULL){
+                     plus_age = 20,
+                     bysex = TRUE,
+                     sample_type = "specimen_id",
+                     old_age = 30){
+
   stopifnot(!is.null(d))
 
   if(!is.null(survey_abbrev)){
@@ -44,54 +53,82 @@ calc_naa <- function(d = NULL,
     stopifnot(plus_age >= 1)
   }
 
+  # Remove records without ages and over `old_age`
+  d <- d |>
+    filter(!is.na(age)) |>
+    filter(age <= old_age)
+
+  if(bysex){
+    # Remove non-sexed fish
+    d <- d |>
+      filter(sex %in% 1:2)
+  }else{
+    # Use ALL data, by setting all sexes to the same value
+    d$sex <- 1
+  }
+
   # Sample sizes for ages
-  samp_sz <- d %>%
-    filter(!is.na(age)) %>%
-    group_by(year) %>%
-    summarize(nsamp = n_distinct(sample_id)) %>%
-    ungroup()
+  samp_sz <- d |>
+    split(~sex) |>
+    map(~{
+      .x |>
+        group_by(year, sex) |>
+        summarize(nsamp = n_distinct(!!sym(sample_type))) |>
+        ungroup() |>
+        select(year, nsamp, sex)
+    })
 
   # Numbers-at-age by year with sample sizes
-  d <- d %>%
-    filter(!is.na(age)) %>%
-    group_by(year, age) %>%
-    summarize(cnt = n()) %>%
-    ungroup() %>%
-    dcast(year ~ age, value.var = "cnt") %>%
-    as_tibble() %>%
-    left_join(samp_sz, by = "year") %>%
-    select(year, nsamp, everything()) %>%
-    replace(is.na(.), 0)
-
-  if(is.null(plus_age)){
-    return(d)
-  }
-  k <- d %>%
-    select(-c(year, nsamp))
-  cols_in_plus_grp <- as.numeric(names(k)) >= plus_age
-  k_not_in_plus_grp_df <- subset(k, select = !cols_in_plus_grp)
-  k_in_plus_grp_df <- subset(k, select = cols_in_plus_grp) %>%
-    mutate(rsum = rowSums(.)) %>%
-    transmute(rsum)
-  k <- cbind(k_not_in_plus_grp_df, k_in_plus_grp_df)
-  names(k)[ncol(k)] <- plus_age
-  ages <- start_age:plus_age
-  missing_ages <- ages[!ages %in% names(k)]
-  if(length(missing_ages)){
-    # Create a new column for each missing age, bind to data frame and sort columns by age
-    map(missing_ages, ~{
-      new_colname <- as.character(.x)
-      k <<- k %>% mutate(!!new_colname := 0)
+  d <- d |>
+    split(~sex) |>
+    map(~{
+      .x |>
+        group_by(year, age) |>
+        summarize(cnt = n()) |>
+        ungroup() |>
+        dcast(year ~ age, value.var = "cnt") |>
+        as_tibble()
     })
-    k <- k %>% select(as.character(ages))
-  }
-  # Remove ages less than start_age
-  age_cols_to_keep <- start_age <= as.numeric(names(k))
-  k <- subset(k, select = age_cols_to_keep)
-  as_tibble(k) %>%
-    cbind(year = d$year, nsamp = d$nsamp) %>%
-    select(year, nsamp, everything()) %>%
-    mutate(year = as.integer(year))
+
+  naa <- map2(d, samp_sz, ~{
+    j <- .x |>
+      left_join(.y, by = "year") |>
+      select(year, nsamp, sex, everything()) %>%
+      replace(is.na(.), 0)
+
+    if(!is.null(plus_age)){
+      k <- j %>%
+        select(-c(year, nsamp, sex))
+      cols_in_plus_grp <- as.numeric(names(k)) >= plus_age
+      k_not_in_plus_grp_df <- subset(k, select = !cols_in_plus_grp)
+      k_in_plus_grp_df <- subset(k, select = cols_in_plus_grp) %>%
+        mutate(rsum = rowSums(.)) |>
+        transmute(rsum)
+      k <- cbind(k_not_in_plus_grp_df, k_in_plus_grp_df)
+      names(k)[ncol(k)] <- plus_age
+      ages <- start_age:plus_age
+      missing_ages <- ages[!ages %in% names(k)]
+      if(length(missing_ages)){
+        # Create a new column for each missing age, bind to data frame and sort columns by age
+        map(missing_ages, ~{
+          new_colname <- as.character(.x)
+          k <<- k %>% mutate(!!new_colname := 0)
+        })
+        k <- k %>% select(as.character(ages))
+      }
+      # Remove ages less than start_age
+      age_cols_to_keep <- start_age <= as.numeric(names(k))
+      k <- subset(k, select = age_cols_to_keep)
+      as_tibble(k) |>
+        cbind(year = j$year, nsamp = j$nsamp, sex = j$sex) |>
+        select(year, nsamp, sex, everything()) |>
+        mutate(year = as.integer(year)) |>
+        as_tibble()
+    }
+  }) |>
+    map_df(~{.x})
+
+  naa
 }
 
 #' Calculate the proportions-at-age for a [data.frame] output by
@@ -105,20 +142,62 @@ calc_naa <- function(d = NULL,
 calc_paa <- function(naa = NULL){
 
   stopifnot(!is.null(naa))
-  stopifnot(class(naa) == "data.frame")
+  stopifnot("data.frame" %in% class(naa))
   nm <- names(naa)
   stopifnot("year" %in% nm)
   stopifnot("nsamp" %in% nm)
+  stopifnot("sex" %in% nm)
 
-  naa %>%
-    select(-c(year, nsamp)) %>%
-    mutate(rsum = rowSums(.)) %>%
-    rowwise() %>%
-    mutate_all(~./rsum) %>%
-    cbind(., year = naa$year, nsamp = naa$nsamp) %>%
-    as_tibble() %>%
-    select(year, nsamp, everything()) %>%
-    select(-rsum)
+  j <- naa |>
+    split(~ year) |>
+    map_dbl(~{
+      .x |> summarize(nsamp = sum(nsamp)) |> pull()
+    }) |>
+    enframe() |>
+    rename(year = name) |>
+    mutate(year = as.integer(year))
+
+  # Add total sample size for both sexes to the table to divide by
+  # so that male + female proportions = 1
+  naa |>
+    left_join(j, by = "year") |>
+    select(year, nsamp, sex, value, everything()) |>
+    mutate_at(vars(-c(year, nsamp, sex, value)), ~{.x / value}) |>
+    select(-value)
+}
+
+#' Fill in a proportions-at-age table with columns required by ISCAM
+#' so that it can be cut/paste directly into the ISCAM data file
+#'
+#' @param paa Output from [calc_paa()]
+#' @param gear_num The gear number as required in the ISCAM data file
+#'
+#' @return a [data.frame]
+#' @export
+#' @examples
+#' \dontrun{
+#' calc_iscam_paa(calc_paa(calc_naa(comm_ft)), gear_num = 1)
+#' calc_iscam_paa(calc_paa(calc_naa(comm_ss)), gear_num = 2)
+#' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN QCS")), gear_num = 3)
+#' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN HS")), gear_num = 5)
+#' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCVI")), gear_num = 6)
+#' }
+calc_iscam_paa <- function(paa, gear_num = 1){
+
+  first_cols <- paa |>
+    select(year, nsamp)
+
+  last_cols <- paa |>
+    select(-year, -nsamp)
+
+  nr <- nrow(paa)
+  iscam_cols <- tibble(gear = rep(gear_num, nr),
+                       area = rep(1, nr),
+                       group = rep(1, nr))
+  first_cols |>
+    bind_cols(iscam_cols) |>
+    bind_cols(last_cols)
+
 }
 
 #' Expand the `d` [data.frame] to include the values found in `vals`
