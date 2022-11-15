@@ -1,4 +1,6 @@
 # zeros in commercial data
+library(tidyverse)
+load_all("../gfplot") # needs arrowtooth branch in order to plot by major area
 
 cpue <- readRDS("../cpue-reports/data/cpue-modern.rds")
 # fleet <- readRDS("data/saved_fleet.rds")
@@ -14,7 +16,7 @@ cpue <- readRDS("../cpue-reports/data/cpue-modern.rds")
 
 # make same as discard fleet
 
-d <- gfplot::tidy_cpue_index(cpue,
+d <- tidy_cpue_index(cpue,
   species_common = "arrowtooth flounder",
   gear = "bottom trawl",
   alt_year_start_date = "02-21",
@@ -40,7 +42,8 @@ d <- d %>% filter(vessel_registration_number %in% c(
   "21838", "311591"
 ))
 d2 <- d %>%
-  group_by(year, major_stat_area_code, major_stat_area_description, pos_catch) %>%
+  group_by(year, major_stat_area_code, major_stat_area_description,
+           pos_catch) %>%
   summarise(n = n()) %>%
   ungroup() %>%
   pivot_wider(names_from = "pos_catch", values_from = "n") %>%
@@ -53,6 +56,7 @@ d3 <- d %>%
   pivot_wider(names_from = "pos_catch", values_from = "n") %>%
   mutate(`Propotion without arrowtooth` = `0` / (`0` + `1`), total_tows = (`0` + `1`))
 
+max(d3$total_tows)
 
 d2 %>% # filter(year != 2020) %>%
   ggplot() +
