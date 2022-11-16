@@ -346,9 +346,9 @@ depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
 
 # Decision table values - B_2023 < B_2022
 table_dec <- table_decisions(base_model, ret_df = TRUE, digits = 3)
-probs_catch_0 <- table_dec |> filter(tac == 0) |> unlist()
-probs_catch_10 <- table_dec |> filter(tac == 10) |> unlist()
-probs_catch_50 <- table_dec |> filter(tac == 50) |> unlist()
+probs_catch_0 <- table_dec |> filter(`Catch (thousand t)` == 0) |> unlist()
+probs_catch_10 <- table_dec |> filter(`Catch (thousand t)` == 10) |> unlist()
+probs_catch_50 <- table_dec |> filter(`Catch (thousand t)` == 50) |> unlist()
 prob_proj_less_assess_0 <- probs_catch_0[length(probs_catch_0)]
 prob_proj_less_assess_10 <- probs_catch_10[length(probs_catch_10)]
 prob_proj_less_assess_50 <- probs_catch_50[length(probs_catch_50)]
