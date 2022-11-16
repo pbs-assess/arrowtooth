@@ -59,9 +59,12 @@ calc_naa <- function(d = NULL,
     filter(age <= old_age)
 
   if(bysex){
-    # Remove non-sexed fish
+    # Remove non-sexed fish and swap sexes for ISCAM model
+    # so Females are 1 and males are 2
     d <- d |>
-      filter(sex %in% 1:2)
+      filter(sex %in% 1:2) |>
+      mutate(sex = ifelse(sex == 1, 99, 1)) |>
+      mutate(sex = ifelse(sex == 99, 2, sex))
   }else{
     # Use ALL data, by setting all sexes to the same value
     d$sex <- 1
@@ -182,22 +185,38 @@ calc_paa <- function(naa = NULL){
 #' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN HS")), gear_num = 5)
 #' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCVI")), gear_num = 6)
 #' }
-calc_iscam_paa <- function(paa, gear_num = 1){
+calc_iscam_paa <- function(paa, gear_num = 1, digits = 6){
 
   first_cols <- paa |>
     select(year, nsamp)
 
   last_cols <- paa |>
-    select(-year, -nsamp)
+    select(-year, -nsamp) |>
+    mutate_at(vars(-sex), ~{f(.x, digits)})
 
   nr <- nrow(paa)
   iscam_cols <- tibble(gear = rep(gear_num, nr),
                        area = rep(1, nr),
                        group = rep(1, nr))
+
   first_cols |>
     bind_cols(iscam_cols) |>
     bind_cols(last_cols)
 
+}
+
+make_all_age_props <- function(fn = "age_comps.txt"){
+  # Must have sourced index.Rmd already to get the comm and survey objects required
+  first_out <- calc_iscam_paa(calc_paa(calc_naa(comm_ft)), gear_num = 1)
+  lst <- list(calc_iscam_paa(calc_paa(calc_naa(comm_ss)), gear_num = 2),
+              calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN QCS")), gear_num = 3),
+              calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN HS")), gear_num = 5),
+              calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCVI")), gear_num = 6))
+
+  write.table(first_out, fn, quote = FALSE, row.names = FALSE)
+  walk(lst, ~{
+    write.table(.x, fn, quote = FALSE, row.names = FALSE, append = TRUE)
+  })
 }
 
 #' Expand the `d` [data.frame] to include the values found in `vals`

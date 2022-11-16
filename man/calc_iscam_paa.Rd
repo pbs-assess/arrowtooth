@@ -5,7 +5,7 @@
 \title{Fill in a proportions-at-age table with columns required by ISCAM
 so that it can be cut/paste directly into the ISCAM data file}
 \usage{
-calc_iscam_paa(paa, gear_num = 1)
+calc_iscam_paa(paa, gear_num = 1, digits = 6)
 }
 \arguments{
 \item{paa}{Output from \code{\link[=calc_paa]{calc_paa()}}}
