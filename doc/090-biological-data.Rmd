@@ -309,16 +309,12 @@ if(!exists("data_dir")){
        "source('index.Rmd') to set up all project variables", call. = FALSE)
 }
 
-commercial_samples2 <- commercial_samples|> 
-  filter(age < 40) # there is one outlier at 50
+commercial_samples2 <- filter(commercial_samples, age < 40)
 
-all_samples <- bind_rows(survey_samples, commercial_samples2)
-
-
-vb_fn <- file.path(data_dir, "fit_vb_output.rds")
-# if(file.exists(vb_fn)){
-#   vb_lst <- readRDS(vb_fn)  
-# }else{
+vb_fn <- file.path(data_dir, "fit_vb_output_w_comm.rds")
+if(file.exists(vb_fn)){
+  vb_lst <- readRDS(vb_fn)
+}else{
   vb_lst <- list(
     fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS")),
     fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
@@ -330,10 +326,10 @@ vb_fn <- file.path(data_dir, "fit_vb_output.rds")
     fit_vb(survey_samples_syn, sex = "male"),
     fit_vb(commercial_samples2),
     fit_vb(commercial_samples2, sex = "male"),
-    fit_vb(all_samples),
-    fit_vb(all_samples, sex = "male"))
-#   saveRDS(vb_lst, vb_fn)
-# }
+    fit_vb(all_age_samples),
+    fit_vb(all_age_samples, sex = "male"))
+  saveRDS(vb_lst, vb_fn)
+}
 vb_title_lst <- list(
   tr("SYN QCS (5AB)"),
   tr("SYN HS (5CD)"),
@@ -381,21 +377,26 @@ grid.arrange(grobs = vb_plot_lst,
 <!-- Maturity ---------------------------------------------------------------->
 
 ```{r calc-maturities}
-all_samples <- bind_rows(survey_samples, commercial_samples)
+# mat_model <- function(par, age, prop_mature) {
+#   prop_m <- 1 / (1 + exp(-(age - par[1]) / par[2]))
+#   sum((prop_m - prop_mature)^2) # sum of squares
+# }
 
-mat_model <- function(par, age, prop_mature) {
-  prop_m <- 1 / (1 + exp(-(age - par[1]) / par[2]))
-  sum((prop_m - prop_mature)^2) # sum of squares
+mat_model <- function(par, age, prop_mature){
+  prop_m <- plogis(age, par[1], par[2])
+  sum((prop_m - prop_mature) ^ 2)
 }
 
+
 save_ogive_dataframe <- function(data, maturities_kept) {
-  # sex <-2
+ 
   matlst <- list()
   obj <- list()
   for (sex in 1:2) {
-    # browser()
-    matlst[[sex]] <- data %>%
-      filter(maturity_code %in% maturities_kept) %>%
+
+    matlst[[sex]] <- data[!duplicated(data$specimen_id), , drop = FALSE] %>%
+      filter(maturity_code %in% maturities_kept,
+             maturity_convention_code != 9) %>%
       filter(sex == !!sex) %>%
       filter(!is.na(age)) %>%
       group_by(age) %>%
@@ -403,17 +404,16 @@ save_ogive_dataframe <- function(data, maturities_kept) {
       summarize(prop_mature = sum(is_mature) / n()) %>%
       ungroup()
 
-    # browser()
     obj[[sex]] <- optim(
-      par = c(7, 1),
+      par = c(6, 1),
       fn = mat_model,
       method = "L-BFGS-B",
-      lower = 0.001,
+      lower = 0.00,
       upper = Inf,
       age = matlst[[sex]]$age,
       prop_mature = matlst[[sex]]$prop_mature
     )
-    # browser()
+
     matlst[[sex]]$sex <- sex
     matlst[[sex]]$age50mat <- round(obj[[sex]]$par[1], 2)
     matlst[[sex]]$sd50mat <- round(obj[[sex]]$par[2], 2)
@@ -427,7 +427,7 @@ save_ogive_dataframe <- function(data, maturities_kept) {
 }
 
 `Synoptic only` <- survey_samples_syn %>% filter(age < 41)
-`All samples` <- all_samples %>% filter(age < 41)
+`All samples` <- all_age_samples
 
 d1 <- save_ogive_dataframe(`Synoptic only`,
   maturities_kept = c(1, 2, 3, 4, 5, 6, 7)
