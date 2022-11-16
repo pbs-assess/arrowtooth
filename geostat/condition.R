@@ -21,6 +21,11 @@ dat <- filter(dat, !is.na(depth_m))
 mf <- gfplot::fit_length_weight(dat, sex = "female")
 mm <- gfplot::fit_length_weight(dat, sex = "male")
 
+
+# mf$data$predicted_weight <- exp(mf$pars$log_a + mf$pars$b * log(mf$data$length))
+# mf$data$residuals <- (mf$data$weight - mf$data$predicted_weight)/mf$data$weight
+# plot(residuals~length, data = mf$data)
+
 df <- dplyr::filter(dat, sex == 2, !is.na(weight), !is.na(length))
 dm <- dplyr::filter(dat, sex == 1, !is.na(weight), !is.na(length))
 
@@ -29,6 +34,8 @@ dm$wbar <- exp(mm$pars$log_a) * dm$length^mm$pars$b * 1000
 
 dd <- bind_rows(df, dm)
 dd$cond_fac <- dd$weight / dd$wbar
+
+# plot(cond_fac~length, data = dd)
 
 dd <- filter(dd, cond_fac < quantile(dd$cond_fac, probs = 0.995))
 dd <- filter(dd, cond_fac > quantile(dd$cond_fac, probs = 0.005))
@@ -198,12 +205,25 @@ ggsave(file.path(dr, "geostat-figs", "condition-by-survey.png"), width = 6, heig
 
 pmap <- predict(fit, newdata = nd)
 
+coast <- gfplot:::load_coastline(
+  range(dat$longitude) + c(-0.5, 0.5),
+  range(dat$latitude) + c(-0.5, 0.5),
+  utm_zone = 9
+)
+
 g <- ggplot(pmap, aes(X, Y, fill = est)) +
   geom_tile(width = 2, height = 2) +
   facet_wrap(~year) +
   scale_fill_gradient2() +
+  geom_polygon(
+    data = coast, aes_string(x = "X", y = "Y", group = "PID"),
+    fill = NA, col = "grey70", lwd = 0.2, inherit.aes = FALSE
+  ) +
   gfplot::theme_pbs() +
-  coord_fixed() +
+  coord_fixed(
+    expand = FALSE, xlim = range(pmap$X) + c(-10, 10),
+    ylim = range(pmap$Y) + c(-10, 10)
+  ) +
   labs(fill = "Condition anomaly\n(log space)")
 
-ggsave(file.path(dr, "geostat-figs", "condition-map.png"), width = 10, height = 10)
+ggsave(file.path(dr, "geostat-figs", "condition-map3.png"), width = 10, height = 10)
