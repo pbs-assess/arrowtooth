@@ -302,16 +302,23 @@ grid.arrange(grobs = lw_plot_lst,
 
 (ref:fig-vb-fr) TODO
 
-```{r fig-vb, fig.cap = ifelse(fr(), "(ref:fig-vb-fr)", "(ref:fig-vb-en)"), out.width = "6in"}
+```{r fig-vb, fig.cap = ifelse(fr(), "(ref:fig-vb-fr)", "(ref:fig-vb-en)"), fig.asp = 1.2, out.width = "6in"}
 
 if(!exists("data_dir")){
   stop("`data_dir` does not exist. If running from command line, ",
        "source('index.Rmd') to set up all project variables", call. = FALSE)
 }
+
+commercial_samples2 <- commercial_samples|> 
+  filter(age < 40) # there is one outlier at 50
+
+all_samples <- bind_rows(survey_samples, commercial_samples2)
+
+
 vb_fn <- file.path(data_dir, "fit_vb_output.rds")
-if(file.exists(vb_fn)){
-  vb_lst <- readRDS(vb_fn)  
-}else{
+# if(file.exists(vb_fn)){
+#   vb_lst <- readRDS(vb_fn)  
+# }else{
   vb_lst <- list(
     fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS")),
     fit_vb(filter(survey_samples, survey_abbrev %in% "SYN QCS"), sex = "male"),
@@ -320,14 +327,20 @@ if(file.exists(vb_fn)){
     fit_vb(filter(survey_samples, survey_abbrev %in% "SYN WCVI")),
     fit_vb(filter(survey_samples, survey_abbrev %in% "SYN WCVI"), sex = "male"),
     fit_vb(survey_samples_syn),
-    fit_vb(survey_samples_syn, sex = "male"))
-  saveRDS(vb_lst, vb_fn)
-}
+    fit_vb(survey_samples_syn, sex = "male"),
+    fit_vb(commercial_samples2),
+    fit_vb(commercial_samples2, sex = "male"),
+    fit_vb(all_samples),
+    fit_vb(all_samples, sex = "male"))
+#   saveRDS(vb_lst, vb_fn)
+# }
 vb_title_lst <- list(
   tr("SYN QCS (5AB)"),
   tr("SYN HS (5CD)"),
   tr("SYN WCVI (3CD)"),
-  tr("Coastwide"))
+  tr("Coastwide synoptic"),
+  tr("All commercial samples"),
+  tr("All samples"))
 
 plot_vb_panels <- function(vb_f, vb_m){
   plot_vb(object_female = vb_f,
@@ -337,7 +350,7 @@ plot_vb_panels <- function(vb_f, vb_m){
           french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
     theme(axis.title = element_blank()) +
-    coord_cartesian(xlim = c(0, 25), ylim = c(0, 75))
+    coord_cartesian(xlim = c(0, 28), ylim = c(0, 75))
 }
 
 vb_plot_lst <- list(
@@ -349,9 +362,15 @@ vb_plot_lst <- list(
   
   plot_vb_panels(vb_lst[[5]], vb_lst[[6]]) +
   ggtitle(vb_title_lst[[3]]),
-
+  
   plot_vb_panels(vb_lst[[7]], vb_lst[[8]]) +
-  ggtitle(vb_title_lst[[4]]))
+  ggtitle(vb_title_lst[[4]]),
+  
+  plot_vb_panels(vb_lst[[9]], vb_lst[[10]]) +
+  ggtitle(vb_title_lst[[5]]),
+  
+  plot_vb_panels(vb_lst[[11]], vb_lst[[12]]) +
+  ggtitle(vb_title_lst[[6]]))
 
 grid.arrange(grobs = vb_plot_lst,
              ncol = 2,
