@@ -2,8 +2,7 @@ N_t <- length(seq(1997, 2021))
 N_a <- 20
 N_t_real <- N_t
 
-projected_N <- 10L
-# N_t_no_proj <- N_t
+projected_N <- 0
 N_t <- N_t + projected_N
 
 M <- 0.2
@@ -31,37 +30,11 @@ mat_a <- plogis(age, 5.5, 1/0.91) # FIXME 'scale'
 f_a <- w_a * mat_a
 plot(age, f_a)
 
-# projected_F_fr <- rep(0.06330635, projected_N)
-# projected_F_sh <- rep(0.0414128, projected_N)
-
 projected_F_fr <- rep(.34, projected_N)
 projected_F_sh <- rep(.05, projected_N)
 
 projected_F_fr <- rep(0, projected_N)
 projected_F_sh <- rep(0, projected_N)
-
-# baranov <- function(.F, .M, N0) {
-#   p1 <- (.F / (.F + .M))
-#   p2 <- 1 - exp(-(.F + .M))
-#   p1 * p2 * N0
-# }
-#
-# baranov(20, 0.2, 100)
-#
-# fs <- seq(0, 10, length.out = 100)
-# plot(fs, baranov(.F = fs, .M = 0.02, N0 = 100))
-
-# baranov_opt <- function(.F, desired_catch, .M, N0) {
-#   p1 <- (.F / (.F + .M))
-#   p2 <- 1 - exp(-(.F + .M))
-#   .C <- p1 * p2 * N0
-#   (desired_catch - .C)^2
-# }
-#
-# get_baranov_F <- function(desired_catch, N0) {
-#   optimize(baranov_opt, interval = c(0.01, 1.5), .M = 0.2, N0 = N0,
-#     desired_catch = desired_catch)$minimum
-# }
 
 freezer <- c(
   0.000000000000774678, 0.000000000000723788, 0.0000000000008278765,
@@ -81,11 +54,7 @@ shoreside <- c(
 )
 shoreside <- c(shoreside, projected_F_sh)
 
-# projected_F_fr <- rep(0, projected_N)
-# projected_F_sh <- rep(0, projected_N)
-
 F_both <- freezer + shoreside
-# F_both <- F_both
 F_ta <- matrix(nrow = N_t, ncol = N_a)
 for (a in 1:N_a) {
   F_ta[, a] <- F_both
@@ -108,9 +77,8 @@ for (t in 1:N_t) {
   }
 }
 
-R_init <- 63.1 # table 6 rbar init
-R_bar <- 85.6 # table 6 rbar init
-# R_bar <- 63.6 # table 6 rbar init FIXME!!!!
+R_init <- 63.1 # table 6
+R_bar <- 85.6 # table 6
 N_ta <- matrix(nrow = N_t, ncol = N_a)
 
 omegas <- c(
@@ -122,14 +90,16 @@ omegas <- c(
 )
 omegas_proj <- rep(0, projected_N)
 omegas <- c(omegas, omegas_proj)
-
 plot(omegas, type = "o")
 
 N_ta <- matrix(nrow = N_t, ncol = N_a)
 SSB_ta <- matrix(nrow = N_t, ncol = N_a)
 
-init_omegas <- c(0.524497,0.34968,0.128145,0.474558,0.577389,0.797567,0.727452,0.884873,0.744107,0.241596,-0.145522,0.148283,-0.471437,-0.675812,-1.43043,-0.0210956,0.153862,-1.07244,-1.93528) # |> rev()
-
+init_omegas <- c(
+  0.524497,0.34968,0.128145,0.474558,0.577389,0.797567,0.727452,
+  0.884873,0.744107,0.241596,-0.145522,0.148283,-0.471437,-0.675812,-1.43043,
+  -0.0210956,0.153862,-1.07244,-1.93528
+)
 plot(init_omegas, type = "o")
 
 # initialize numbers at age and SSB in first time step
@@ -137,28 +107,25 @@ ii <- 0
 for (t in 1) {
   for (a in 1:N_a) {
     if (a == 1) {
-      # N_ta[t, a] <- R_init * exp(recdevs[1] - 0.5*init_tau^2)
       N_ta[t, a] <- R_init * exp(omegas[1])
-      # N_ta[t, a] <- R_init * exp(0) # start at mean
     } else {
       ii <- ii + 1
       .dev <- if (t - a + 20 < 1) 0 else init_omegas[ii]
       N_ta[t, a] <- R_init * exp(.dev) * exp(-M)^(a - 1)
-      # N_ta[t, a] <- R_init * exp(0) * exp(-M)^(a - 1)
     }
     SSB_ta[t, a] <- N_ta[t, a] * f_a[a]
   }
 }
 
+# initialize recruits for all years
 N_ta[, 1] <- R_bar * exp(omegas)
 for (t in 2:N_t) {
   for (a in 1) {
-    # N_ta[t, a] <- R_bar * exp(0) * exp(-M)^(a - 1)
     N_ta[t, a] <- R_bar * exp(omegas[t]) * exp(-M)^(a - 1)
-    # should be exp(recdevs[t - a]) but just using mean recdevs
   }
 }
 
+# fill in rest of numbers at age
 for (t in 2:N_t) {
   for (a in 2:N_a) {
     if (t <= N_t_real) {
@@ -170,30 +137,7 @@ for (t in 2:N_t) {
   }
 }
 
-C_ta <- matrix(nrow = N_t, ncol = N_a)
-for (t in 1:N_t) {
-  for (a in 1:N_a) {
-    C_ta[t, a] <- (N_ta[t, a] * w_a[a] * F_ta[t, a] *
-      v_a[a] * (1 - exp(-Z_ta[t, a]))) / Z_ta[t, a]
-  }
-}
-
-C_t <- apply(C_ta, 1, sum)
-plot(C_t, type = "o")
-
-V_ta <- matrix(nrow = N_t, ncol = N_a)
-
-lambda <- 0
-for (t in 1:N_t) {
-  for (a in 1:N_a) {
-    V_ta[t, a] <- N_ta[t, a] *
-      exp(-lambda * Z_ta[t, a]) * v_a[a] * w_a[a]
-  }
-}
-
-V_t <- apply(V_ta, 1, sum)
-plot(V_t, type = "o")
-
+# calculate SSB
 SSB_ta <- matrix(nrow = N_t, ncol = N_a)
 for (t in 1:N_t) {
   for (a in 1:N_a) {
@@ -202,6 +146,30 @@ for (t in 1:N_t) {
 }
 SSB_t <- apply(SSB_ta, 1, sum)
 
+# calculate catch
+C_ta <- matrix(nrow = N_t, ncol = N_a)
+for (t in 1:N_t) {
+  for (a in 1:N_a) {
+    C_ta[t, a] <- (N_ta[t, a] * w_a[a] * F_ta[t, a] *
+        v_a[a] * (1 - exp(-Z_ta[t, a]))) / Z_ta[t, a]
+  }
+}
+C_t <- apply(C_ta, 1, sum)
+plot(C_t, type = "o")
+
+# calculate vulnerable biomass
+V_ta <- matrix(nrow = N_t, ncol = N_a)
+lambda <- 0
+for (t in 1:N_t) {
+  for (a in 1:N_a) {
+    V_ta[t, a] <- N_ta[t, a] *
+      exp(-lambda * Z_ta[t, a]) * v_a[a] * w_a[a]
+  }
+}
+V_t <- apply(V_ta, 1, sum)
+plot(V_t, type = "o")
+
+# calculate total biomass
 B_ta <- matrix(nrow = N_t, ncol = N_a)
 for (t in 1:N_t) {
   for (a in 1:N_a) {
@@ -210,8 +178,7 @@ for (t in 1:N_t) {
 }
 B_t <- apply(B_ta, 1, sum)
 
-SSB_t <- apply(SSB_ta, 1, sum)
-
+# plot
 cols <- RColorBrewer::brewer.pal(4, "Dark2")
 
 plot(1:N_t, SSB_t,
