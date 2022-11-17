@@ -188,7 +188,8 @@ plot_index_mcmc(base_model,
 ```{r fig-base-age-fits-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ft-fr)", "(ref:fig-base-age-fits-ft-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 1,
-                   text_title_size = NULL) +
+                   text_title_size = NULL,
+                   show_sample_size_f_only = FALSE) +
   ylim(0, 0.3)
 ```
 
@@ -214,7 +215,7 @@ plot_age_fits_mcmc(base_model,
                    gear = 2,
                    yrs = 1996:2007,
                    text_title_size = NULL,
-                   sample_size_y = 0.3) +
+                   show_sample_size_f_only = FALSE) +
   ylim(0, 0.3)
 ```
 
@@ -226,7 +227,8 @@ plot_age_fits_mcmc(base_model,
 plot_age_fits_mcmc(base_model,
                    gear = 2,
                    yrs = 2008:2022,
-                   text_title_size = NULL) +
+                   text_title_size = NULL,
+                   show_sample_size_f_only = FALSE) +
   ylim(0, 0.3)
 ```
 
@@ -250,7 +252,8 @@ plot_age_resids_mcmc(base_model,
 ```{r fig-base-age-fits-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-qcs-fr)", "(ref:fig-base-age-fits-qcs-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 3,
-                   text_title_size = NULL) +
+                   text_title_size = NULL,
+                   show_sample_size_f_only = FALSE) +
   ylim(0, 0.3)
 ```
 
@@ -274,7 +277,8 @@ plot_age_resids_mcmc(base_model,
 ```{r fig-base-age-fits-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-hss-fr)", "(ref:fig-base-age-fits-hss-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 4,
-                   text_title_size = NULL) +
+                   text_title_size = NULL,
+                   show_sample_size_f_only = FALSE) +
   ylim(0, 0.3)
 ```
 
@@ -298,7 +302,8 @@ plot_age_resids_mcmc(base_model,
 ```{r fig-base-age-fits-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wcvis-fr)", "(ref:fig-base-age-fits-wcvis-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 5,
-                   text_title_size = NULL) +
+                   text_title_size = NULL,
+                   show_sample_size_f_only = FALSE) +
   ylim(0, 0.3)
 ```
 
