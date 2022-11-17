@@ -56,4 +56,8 @@ tmp_*
 *.ss-backup
 *.dep
 *.hes
-arf/plots*
+ss3/arf/plots*
+ss3/arf/ss.*
+ss3/arf-*
+ss3/arf/run*
+

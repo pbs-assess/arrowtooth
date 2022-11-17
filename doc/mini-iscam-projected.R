@@ -96,25 +96,30 @@ recdev_proj <- rep(0, projected_N)
 # recdev_proj <- rep(2, projected_N)
 # recdev_proj <- rep(0, projected_N)
 
-recdevs <- c(
-  0.2163865, 0.1364665, 0.4195205, 0.697793, 0.585176, 0.5183845,
-  0.474046, 0.268234, 0.1226545, 0.170575, 0.2780495, 0.3062655,
--0.0846347, -0.1129565, -0.369483, 0.02906495, -0.310351, -0.0828904,
-  -0.669309, -1.02718, -0.44503, -0.32971, -0.6275755, -0.0339801,
-  -0.0487646
-)
+# recdevs <- c(
+#   0.2163865, 0.1364665, 0.4195205, 0.697793, 0.585176, 0.5183845,
+#   0.474046, 0.268234, 0.1226545, 0.170575, 0.2780495, 0.3062655,
+# -0.0846347, -0.1129565, -0.369483, 0.02906495, -0.310351, -0.0828904,
+#   -0.669309, -1.02718, -0.44503, -0.32971, -0.6275755, -0.0339801,
+#   -0.0487646
+# )
 # THESE ARE OMEGA NOT DELTAs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # recdevs <- c(0.173462,0.100632,0.387693,0.665639,0.552574,0.490459,0.453084,0.245095,0.0913537,0.141149,0.249486,0.276506,-0.110101,-0.139677,-0.393124,0.0135451,-0.306012,-0.0799843,-0.659438,-1.00503,-0.404651,-0.257468,-0.555396,0.0303773,0.00905158)
 
-tau <- sd(recdevs)
+delta <- c(0.17346200 , 0.10063200,  0.38769300,  0.66563900,  0.55257400,  0.49045900,
+0.45308400,  0.24509500,  0.09135370,  0.14114900,  0.24948600,  0.27650600,
+-0.11010100, -0.13967700, -0.39312400,  0.01354510, -0.30601200, -0.07998430,
+-0.65943800, -1.00503000, -0.40465100, -0.25746800, -0.55539600,  0.03037730,
+ 0.00905158)
+
+tau <- 0.6
 recdevs <- c(recdevs, recdev_proj)
 
 init_rec_devs <- c(0.524497,0.34968,0.128145,0.474558,0.577389,0.797567,0.727452,0.884873,0.744107,0.241596,-0.145522,0.148283,-0.471437,-0.675812,-1.43043,-0.0210956,0.153862,-1.07244,-1.93528)
 # init_rec_devs <- rep(0, 20)
 
-
-init_tau <- sd(init_rec_devs)
+# init_tau <- sd(init_rec_devs)
 
 plot(recdevs, type = "o")
 
@@ -148,7 +153,22 @@ h <- 0.89 # steepness
 R0 <- 119 # unfished recruitment BUT DOESN'T MATCH! SSB0 / phi_E
 
 # goodyear compensation ratio; K = 4h/(1-h) or h = K/(4+K)
-kappa <- 4 * h / (1 - h)
+
+# h <- 0.89 # steepness
+# kappa <- 4 * h / (1 - h)
+# R0 <- 119
+# phi_E <- 1.2
+#
+# kappa <- 4 * h / (1 - h)
+# s0 <- 26
+# B0 <- R0 * phi_E
+# Beta <- (kappa - 1) / (B0)
+#
+# B <- seq(1, 600)
+# R <- (s0 * B) / (1 + Beta * B)
+# plot(B, R, type = "l")
+# abline(h = h * max(R[B < B0]))
+# abline(v = 0.2 * B0)
 
 survivorship <- numeric(length = N_a)
 for (a in 1:N_a) { # G.22 in arrowtooth
@@ -169,13 +189,14 @@ plot(survivorship)
 n_area <- 1
 n_sex <- 2 # FIXME!?
 (phi_E <- sum(1/(n_area * n_sex) * survivorship * f_a))
+phi_E <- phi_E
 
 # SA: omega_t is not delta_t!!
 # SA: omega_t is `log_rec_dev` in iSCAM
 # SA: delta_t is `delta`
 
 # iscam docs p. 10:
-# maximum juvenile survival rate:
+# s0: maximum juvenile survival rate:
 # (initial slope of the stock-recruit relationship)
 
 s0 <- kappa / phi_E
@@ -192,7 +213,7 @@ for (t in 2:N_t) {
   for (a in 1:N_a) {
     if (a == 1) {
       # BH recruitment with bias correction: G.40
-      R_t[t] <- ((s0 * SSB_t[t-1]) / (1 + Beta * SSB_t[t-1])) * exp(recdevs[t] - 0.5 * tau^2)
+      R_t[t] <- ((s0 * SSB_t[t-1]) / (1 + Beta * SSB_t[t-1])) * exp(delta[t] - 0.5 * tau^2)
       N_ta[t, a] <- R_t[t]
     } else {
       N_ta[t, a] <- N_ta[t - 1, a - 1] * exp(-Z_ta[t - 1, a - 1])

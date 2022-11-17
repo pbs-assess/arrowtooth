@@ -282,14 +282,14 @@ setwd("arf-iscam-sigma")
 # dat <- r4ss::SS_readdat("data.ss")
 # # dat$CPUE$se_log <- dat$CPUE$se_log * 0.5
 #
-# dat$CPUE <- dat$CPUE |>
-#   group_by(index) |>
-#   mutate(w = 1/se_log) |>
-#   mutate(w_inv = 1/(w / mean(w))) |>
-#   mutate(se_log_iscam = w_inv * 0.2) |>
-#   select(year, seas, index, obs, se_log = se_log_iscam) |>
-#   ungroup() |>
-#   as.data.frame()
+dat$CPUE <- dat$CPUE |>
+  group_by(index) |>
+  mutate(w = 1/se_log) |>
+  mutate(w_inv = 1/(w / mean(w))) |>
+  mutate(se_log_iscam = w_inv * 0.2) |>
+  select(year, seas, index, obs, se_log = se_log_iscam) |>
+  ungroup() |>
+  as.data.frame()
 
 # r4ss::SS_writedat(dat, "data.ss", overwrite = TRUE)
 
@@ -297,8 +297,8 @@ r4ss::run(".",
   skipfinished = FALSE, show_in_console = TRUE
 )
 
-d <- SS_output(".")
-SS_plots(d, forecastplot = F)
+d <- r4ss::SS_output(".")
+r4ss::SS_plots(d, forecastplot = TRUE)
 
 # SSplotSelex(d, )
 SSplotTimeseries(d, subplot = 7)
@@ -317,3 +317,6 @@ library(ggplot2)
 d$cpue |> filter(Fleet_name %in% c("DCPUE")) |>
   ggplot(aes(Yr, Vuln_bio, colour = Fleet_name)) +
   geom_line()
+
+
+plot(d$timeseries$Yr, d$timeseries$SpawnBio)

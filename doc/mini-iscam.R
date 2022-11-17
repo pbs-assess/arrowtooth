@@ -66,7 +66,9 @@ for (t in 1:N_t) {
   }
 }
 
-R_bar <- 63.1 # table 6 rbar init
+R_init <- 63.1 # table 6 rbar init
+R_bar <- 85.6 # table 6 rbar init
+R_bar <- 63.6 # table 6 rbar init FIXME!!!!
 N_ta <- matrix(nrow = N_t, ncol = N_a)
 
 recdevs <- c(
@@ -78,7 +80,7 @@ recdevs <- c(
 )
 plot(recdevs, type = "o")
 
-N_ta[, 1] <- R_bar * exp(recdevs)
+N_ta[, 1] <- R_init * exp(recdevs)
 for (t in 1) {
   for (a in 2:N_a) {
     N_ta[t, a] <- R_bar * exp(0) * exp(-M)^(a - 1)
