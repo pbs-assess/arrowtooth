@@ -10,6 +10,9 @@ The joint posterior distribution was numerically approximated using the Metropol
 
 ```{r scam-results-fits-to-data-en, eval = !fr(), results = 'asis'}
 cat("### Fits to Data {#scam-data-fits}
+
+Catch was constrained by standard deviation value of `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchfirstphase') |> pull()` for the first phase of minimization and by `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchlastphase') |> pull()` for the last phase, so the predicted catch fit the data very well (Figure \#ref(fig:fig-catch-fit)).
+
 The model generally fit the indices of abundance well (Figure \@ref(fig:fig-base-index-fits)). The `r wcvis` has a large fluctuation high and low for successive years of the survey from 2008--2016, which is difficult for the model to fit. The `r qcs` was difficult to fit, due to fluctuations from high to low abundance from year to year early in the time series, and the lack of the recent drop in biomass seen in all other data sources. A sensitivity was done to attempt a better fit on this index, while retaining the good fits on the others (Section \@ref(sens-qcs-tv)). 
 
 The `r dcpue` fit particularly well and is the only index to have a value for every year in the assessment. Standardized residuals show mostly even distribution of positive and negative residuals, with evidence of some autocorrelation in the `r dcpue` residuals (Figure \@ref(fig:fig-base-index-resids)). For all indices, the log index residuals (Figure \@ref(fig:fig-base-index-resids)) were good, with all being in the [-2, 2] range.

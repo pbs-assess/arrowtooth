@@ -67,6 +67,14 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 
 ```
 
+(ref:fig-catch-fit-en) Predicted catch compared to the observed catch data for the two commercial fleets used in the model. The solid lines are either the observed catches or the median catch by fleet; the dotted lines are the 95% CI for the posterior of the catch fits.
+
+(ref:fig-catch-fit-fr) French here
+
+```{r fig-catch-fit, fig.cap = ifelse(fr(), "(ref:fig-catch-fit-fr)", "(ref:fig-catch-fit-en)")}
+plot_catch_fit_mcmc(base_model_test, angle_x_labels = TRUE)
+```
+
 <!-- Biomass and recruitment -------------------------------------------------->
 
 (ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with $B_{MSY}$ reference points. The solid black line with points show the medians of the posteriors, the shaded ribbon encapsulated by dashed lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% CI for that parameter. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t. The $B_{MSY}$ reference point lines are shown here for reference only, they are not advised for use in decision making for this stock. See section \@ref(scam-ref-points) for more details.
