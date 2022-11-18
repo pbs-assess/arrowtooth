@@ -220,11 +220,11 @@ abline(h = 0.2, lty = 2)
 if (TURN_OFF_F) SSB_t_noF <- SSB_t
 
 if (FALSE) {
-  plot(yrs, SSB_t/SSB0, type = "l", ylim = c(0, 1))
-  # abline(h = 1, lty = 2)
-  abline(h = 0.4, lty = 2)
-  abline(h = 0.2, lty = 2)
-  lines(yrs, SSB_t_noF/SSB0, col = "grey60")
+  # plot(yrs, SSB_t/SSB0, type = "l", ylim = c(0, 1))
+  # # abline(h = 1, lty = 2)
+  # abline(h = 0.4, lty = 2)
+  # abline(h = 0.2, lty = 2)
+  # lines(yrs, SSB_t_noF/SSB0, col = "grey60")
 
   library(ggplot2)
   dat <- data.frame(year = yrs, SSB = SSB_t / SSB0,
