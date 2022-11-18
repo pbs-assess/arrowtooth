@@ -184,6 +184,7 @@ calc_paa <- function(naa = NULL){
 #' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN QCS")), gear_num = 3)
 #' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN HS")), gear_num = 5)
 #' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCVI")), gear_num = 6)
+#' calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCHG")), gear_num = 7)
 #' }
 calc_iscam_paa <- function(paa, gear_num = 1, digits = 6){
 
@@ -211,7 +212,8 @@ make_all_age_props <- function(fn = "age_comps.txt"){
   lst <- list(calc_iscam_paa(calc_paa(calc_naa(comm_ss)), gear_num = 2),
               calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN QCS")), gear_num = 3),
               calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN HS")), gear_num = 5),
-              calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCVI")), gear_num = 6))
+              calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCVI")), gear_num = 6),
+              calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCHG")), gear_num = 7))
 
   write.table(first_out, fn, quote = FALSE, row.names = FALSE)
   walk(lst, ~{
