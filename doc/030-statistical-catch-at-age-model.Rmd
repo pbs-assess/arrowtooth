@@ -52,7 +52,7 @@ The $F_\mathrm{MSY}$ (and annual harvest rate $U_\mathrm{MSY}$) are estimated to
 
 **LRP**
 
-We suggest an LRP of $0.2B_0$ as proxy for recruitment overfishing. A value of $0.2B_0$ is a threshold below which there is typically at least some reduction in per-capita recruitment [@myers1994; ] (Myers et al. 1994; @sainsbury2008]. This threshold has been recommended in recent national guidance [@barrett2022]. Furthermore, this threshold is consistent with recommendations in other jurisdictions: a limit value of $0.2B_0$ is the default recommendation (and minimum acceptable value) under Australia's Commonwealth Fisheries Harvest Strategy Policy [@dawr2018] and is the default trigger for rebuilding plans under New Zealand's Harvest Strategy [@mf2008].
+We suggest an LRP of $0.2B_0$ as proxy for recruitment overfishing. A value of $0.2B_0$ is a threshold below which there is typically at least some reduction in per-capita recruitment [@myers1994; @sainsbury2008]. This threshold has been recommended in recent national guidance [@barrett2022]. Furthermore, this threshold is consistent with recommendations in other jurisdictions: a limit value of $0.2B_0$ is the default recommendation (and minimum acceptable value) under Australia's Commonwealth Fisheries Harvest Strategy Policy [@dawr2018] and is the default trigger for rebuilding plans under New Zealand's Harvest Strategy [@mf2008].
 
 **USR**
 
