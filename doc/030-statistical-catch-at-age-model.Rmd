@@ -38,7 +38,7 @@ Normal prior probability distributions were assumed for the log survey catchabil
 ```
 
 ```{r scam-fishery-reference-points-en, eval = !fr(), results = 'asis'}
-cat("### Fishery Reference Points {#scam-ref-points}
+cat("## Fishery Reference Points {#scam-ref-points}
 
 The DFO Fishery Decision-Making Framework Incorporating the Precautionary Approach (PA) policy [@dfo2009] requires stock status to be characterized using three reference points:
 
@@ -46,15 +46,15 @@ The DFO Fishery Decision-Making Framework Incorporating the Precautionary Approa
 1. An Upper Stock Reference point (USR)
 1. A Limit Reference Point (LRP)
 
-Provisional values of USR = $0.8B_\mathrm{MSY}$ and LRP = $0.4B_\mathrm{MSY}$ are suggested in the absence of stock-specific reference points. The framework suggests a limit reference removal rate of $F_\mathrm{MSY}$. Therefore, we refer to the reference removal rate as the limit removal rate (LRR) throughout this document. A harvest control rule based on these reference points that is coincident with the choice of LRP, USR, and LRR would apply a linear reduction in fishing mortality as the stock falls below the USR and would cease fishing when the stock reaches the LRP [e.g., Figure 6 in @grandin2017].
+Provisional values of USR = $0.8B_\mathrm{MSY}$ and LRP = $0.4B_\mathrm{MSY}$ are suggested in the absence of stock-specific reference points. The framework suggests a reference removal rate of $F_\mathrm{MSY}$. A harvest control rule based on these reference points that is coincident with the choice of LRP, USR, and removal reference would apply a linear reduction in fishing mortality as the stock falls below the USR and would cease fishing when the stock reaches the LRP [e.g., Figure 6 in @grandin2017].
 
 The $F_\mathrm{MSY}$ (and annual harvest rate $U_\mathrm{MSY}$) are estimated to be very large in this model due to selectivity being greater than maturity, as described in Section \@ref(selex). We therefore present $B_0$-based reference points for `r sp` that are less reliant on estimated selectivity. We suggest an LRP = $0.2B_0$ and USR = $0.4B_0$. These are the reference points agreed to in the last assessment for `r sp` in `r bc` [@grandin2017]; we further elaborate on our reasoning below.
 
-**LRP**
+### LRP
 
 We suggest an LRP of $0.2B_0$ as a proxy for recruitment overfishing. A value of $0.2B_0$ is a threshold below which there is typically at least some reduction in per-capita recruitment [@myers1994; @sainsbury2008]. This threshold has been recommended in recent national guidance [@barrett2022]. Furthermore, this threshold is consistent with recommendations in other jurisdictions: a limit value of $0.2B_0$ is the default recommendation (and minimum acceptable value) under Australia's Commonwealth Fisheries Harvest Strategy Policy [@dawr2018] and is the default trigger for rebuilding plans under New Zealand's Harvest Strategy [@mf2008].
 
-**USR**
+### USR
 
 Under the PA Policy, the USR can perform two functions: (1) a 'threshold below which removals must be progressively reduced in order to avoid reaching the LRP' (an operational control point or 'OCP') and (2) a 'target reference point determined by productivity objectives for the stock, broader biological considerations, and social and economic objectives for the fishery' [@dfo2009]. @marentette2020 emphasize that the primary role of the USR is its first role, as an OCP, to avoid the LRP. The PA Policy describes how the USR is meant to be developed by fishery managers with consultation with interested parties and advice from Science. We therefore provide the following science advice regarding the USR. 
 
@@ -74,9 +74,9 @@ With regards to other jurisdictions worldwide, several use 0.4 $B_0$ as a defaul
 
 Finally, from a science perspective, we note that 0.4 $B_0$ was previously accepted as the USR for Arrowtooth Flounder [@grandin2017]. We caution that reducing reference points when there is evidence of failing recruitment and declining stock trends would be inconsistent with the precautionary approach as outlined in the DFO PA Policy. Such 'moving the reference point goalposts' can have considerable implications for fisheries sustainability [@silvar-viladomiu2021].
   
-**LRR**
+### Reference removal rate
 
-Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional LRR, for reasons outlined above, we suggest $B_0$-based reference points for this stock. We suggest that an equivalent LRR would be fishing mortality F that would take the stock to $0.4 B_0$ at equilibrium given recently observed recruitment. We determined this by projecting the stock 40 years into the future with recruitment deviations randomly drawn with replacement from 2010--2019 (omitting the poorly estimated 2020 and 2021 deviations), using an optimization routine to find the constant catch that would generate SSB matching $0.4 B_0$, and reporting the associated F at the end of 40 years. Given sufficient projection years, performing the projections with a constant F or a constant catch should render the same conclusion.
+Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional reference removal rage, for reasons outlined above, we suggest $B_0$-based reference points for this stock. We suggest that an equivalent reference removal rate would be the fishing mortality $F$ that would take the stock to $0.4 B_0$ at equilibrium given recently observed recruitment. We determined this by projecting the stock 50 years into the future with recruitment deviations randomly drawn with replacement from 2010--2019 (omitting the poorly estimated 2020 and 2021 deviations), using an optimization routine to find the constant catch that would generate SSB matching $0.4 B_0$ within a tolerance of 50 t. We report the associated $F$ at the end of 50 years. Given sufficient projection years, performing the projections with a constant $F$ or a constant catch should render the same conclusion.
 ")
 ```
 
