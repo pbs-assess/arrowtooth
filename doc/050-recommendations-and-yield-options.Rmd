@@ -1,5 +1,10 @@
 ```{r decisions-en, eval = !fr(), results = 'asis'}
 cat("# RECOMMENDATIONS AND YIELD OPTIONS {#decisions}
+## REFERENCE REMOVAL RATE
+A reference removal rate was calculated as the amount of constant catch taken each year for the long term to bring the relative spawning biomass to $0.4B_0$. This was done by iteratively projecting catch to 50 years, comparing the difference between the resulting biomass and $0.4B_0$, and adjusting the catch before the next iteration.
+
+The routine was set to a tolerance of 50 t and was able to bring the biomass to within `r diff_bio_b40` t of $0.4B_0$. The long-term annual annual catch calculated was `r f(f_bo_40$catch * 1000)` t. Table \@ref(tab:rate-table) gives the values including the associated instantaneous fishing mortality and annual exploitation rate values.
+
 ## PROJECTIONS AND DECISION TABLE
 
 Projections were run 3 years into the future with alternative constant catch levels ranging from `r f(min(base_model$proj$tac.vec * 1000))` to `r f(max(base_model$proj$tac.vec * 1000))` t in 1,000 t increments for the years `r assess_yr`--`r assess_yr + base_model$proj$num.projyrs - 1`. Projected, bias-corrected log recruitment anomalies in the years `r assess_yr`--`r assess_yr + base_model$proj$num.projyrs - 1` were drawn randomly from a normal distribution, $~N(0,\tau^2)$.

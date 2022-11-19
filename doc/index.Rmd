@@ -787,11 +787,13 @@ sel_eq_mat_vuln_ratio <- sel_eq_mat_vuln_bio / sel_eq_mat_bio
 # This was returned from a call to find_f_b40(base_model)
 # and represent the F and U values that it would take to drive the spawning biomass
 # to 0.4B0 from 2022 to 2023. The catch at those rates is also included.
-f_bo_40 <- list(f = c(f_fleet1 = 0.06330635,
-                      f_fleet2 = 0.04141280),
-                u = c(u_fleet1 = 0.06134413,
-                      u_fleet2 = 0.04056701),
-                catch = 0.1521)
+f_bo_40 <- list(f = c(f_fleet1 = 0.06636655,
+                      f_fleet2 = 0.04168355),
+                u = c(u_fleet1 = 0.06421221,
+                      u_fleet2 = 0.04082674),
+                catch = 4.40625)
+# Difference between 0.4B0 and biomass after 50 years (kt)
+diff_bio_b40 <- f(0.0064 * 1000, 1)
 
 # extract_fleet_f <- function(d, fleet = 1){
 # 
