@@ -161,7 +161,8 @@ if(user == "grandin"){
   library(gfiscamutils)
   load_all("~/src/gfiscamutils/")
   load_all("~/src/csasdown/")
-  load_all("~/src/gfplot/")
+  # load_all("~/src/gfplot/")
+  library(gfplot)
 } else {
   library(gfiscamutils)
   library(gfplot)

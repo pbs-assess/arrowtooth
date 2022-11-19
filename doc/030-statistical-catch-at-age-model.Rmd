@@ -76,7 +76,7 @@ Finally, from a science perspective, we note that 0.4 $B_0$ was previously accep
   
 **LRR**
 
-Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional LRR, for reasons outlined above, we suggest $B_0$-based reference points for this stock. We suggest that an equivalent LRR would be fishing mortality F that would take the stock to $0.4 B_0$ at equilibrium given recently observed recruitment. We determined this by projecting the stock 40 years into the future with recruitment deviations randomly drawn with replacement from 2010--2019 (omitting the poorly estimated 2020 and 2021 deviations), using an optimization routine to find the constant catch that would generate SSB matching $0.4 B_0$, and reporting the associated F at the end of 40 years. Given sufficient projection years, performing the projections with a constant F or a constant catch should render the same final conclusion.
+Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional LRR, for reasons outlined above, we suggest $B_0$-based reference points for this stock. We suggest that an equivalent LRR would be fishing mortality F that would take the stock to $0.4 B_0$ at equilibrium given recently observed recruitment. We determined this by projecting the stock 40 years into the future with recruitment deviations randomly drawn with replacement from 2010--2019 (omitting the poorly estimated 2020 and 2021 deviations), using an optimization routine to find the constant catch that would generate SSB matching $0.4 B_0$, and reporting the associated F at the end of 40 years. Given sufficient projection years, performing the projections with a constant F or a constant catch should render the same conclusion.
 ")
 ```
 
