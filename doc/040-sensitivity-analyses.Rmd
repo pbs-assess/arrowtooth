@@ -120,9 +120,9 @@ The index fit is shown in Figure \@ref(fig:fig-sens-geostat-index-fits). The fit
 
 ```{r scam-sens-remove-discard-cpue-en, eval = !fr(), results = 'asis'}
 cat("### Removal of the Discard CPUE index from the model {#sens-remove-dcpue}
-It appears from the index fit to the discard CPUe index that the model is heavily influenced by it (Figure \@ref(fig:fig-base-index-fits)). To test this, the discard CPUE index wass completely removed from the model.
+It appears from the index fit to the discard CPUE index in the base model that the model is heavily influenced by it (Figure \@ref(fig:fig-base-index-fits)). To test this, the discard CPUE index was completely removed from the model.
 
-The relative biomass trajectory is not affected much at all, wih only a very slight increase in end year biomass (Figure \@ref(fig:fig-sens-meeting-rel)). The fits for the survey indices showed only minute departure from the base model fits.
+The relative biomass trajectory was not affected much at all, wih only a very slight increase in end year biomass (Figure \@ref(fig:fig-sens-meeting-rel)). The fits for the survey indices showed only minute departures from the base model fits (Figure \@ref(fig:fig-sens-remove-dcpue-index-fits)).
 ")
 ```
 
@@ -133,9 +133,28 @@ The relative biomass trajectory is not affected much at all, wih only a very sli
 ```{r scam-sens-change-maturity-en, eval = !fr(), results = 'asis'}
 cat("### Modification of the maturity ogive {#sens-change-maturity}
 `r sp` spawn during the winter, and the surveys take place during the summer. Many of the maturities recorded in the summer are therfore in the 'resting' phase which can be difficult to distinguish from immature. There is also some ambiguity in the classification of 'developing' fish (codes 2 and 3 in the DFO maturity codes for flatfish).
+
+Removing 'developing' and restin' from the maturity ogive produced a better-fitting ogive (Figure \@ref(fig:fig-mat)) and resulted in a slightly lower final year absolute biomass compared to the base model, but the same relative biomass (Figures \@ref(fig:fig-sens-meeting) and \@ref(fig:fig-sens-meeting-rel)). This maturity should be considered for the base model in the next assessment. Since it made no difference on the results, and because it was worked up following the review meeting, we did not attempt to include it in the base model for this assessment .
 ")
 ```
 
 ```{r scam-sens-change-maturity-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<scam-sens-change-maturity-en>>
+```
+
+```{r scam-sens-fix-selectivities-en, eval = !fr(), results = 'asis'}
+cat("### Fixing selectivities {#sens-fix-selectivities}
+There were two sensitivities for which selectivities were fixed to the estimated value of the shoreside fishery in the base model:
+
+1. Fix selectivity of the DCPUE index to the shoreside fishery selectivity
+1. Fix selectivity of all surveys to the shoreside fishery selectivity
+
+Fixing the DCPUE selectivity resulted in a slightly lower absolute and relative biomass compared to the base model. There were no substantial index fit differences.
+
+Fixing the survey selectivities produced a large change in the model, with a much higher $B_0$ estimate (Figure \@ref(fig:fig-sens-meeting)) resulting in a large scaling down in relative biomass (Figure \@ref(fig:fig-sens-meeting-rel)). There was also a pronounced upward swing in biomass at the end of the time series which implied exponential growth of the stock, which is an unrealistic outcome. The index fits were slightly different with this model, with a pronounced difference in fit for the `r qcsss`.
+")
+```
+
+```{r scam-sens-fix-selectivities-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-fix-selectivities-en>>
 ```

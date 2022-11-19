@@ -255,7 +255,7 @@ plot_biomass_mcmc(models$sens_grps[[6]],
                   ylim = c(0, 1.2))
 ```
 
-(ref:fig-sens-remove-dcpue-index-fits-en) Index fits for the sensitivity in which the Discard CPUE has been removed.
+(ref:fig-sens-remove-dcpue-index-fits-en) Index fits for the sensitivities involving removing the DCPUE index, fixing selectivities and maturities, and modifying the maturity ogive.
 
 (ref:fig-sens-remove-dcpue-index-fits-fr) French here
 
@@ -275,9 +275,8 @@ plot_index_mcmc(models$sens_grps[[6]],
 ```{r fig-sens-meeting-vuln, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-vuln-fr)", "(ref:fig-sens-meeting-vuln-en)")}
 plot_vuln_mcmc(models$sens_grps[[6]][[3]], 
                angle_x_labels = TRUE,
-               leg_loc = c(0.95, 0.95),
-               #text_title_size = NULL,
-               ylim = c(0, 140))
+               leg_loc = c(0.05, 0.05),
+               ylim = c(0, 150))
 ```
 
 
