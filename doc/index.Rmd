@@ -436,6 +436,7 @@ catch_col <- sym(grep("^Catch", names(table_dec), value = TRUE))
 i_2023 <- grep("\\{2023\\} < B", names(table_dec))
 i_2024 <- grep("\\{2024\\} < B", names(table_dec))
 i_2025 <- grep("\\{2025\\} < B", names(table_dec))
+i_2026 <- grep("\\{2026\\} < B", names(table_dec))
 
 prob_2023_2022_catch_0 <- table_dec |>
   filter(!!catch_col == 0) |> pull(i_2023)
@@ -445,11 +446,12 @@ prob_2023_2022_catch_10 <- table_dec |>
   filter(!!catch_col == 10) |> pull(i_2023)
 prob_2023_2022_catch_15 <- table_dec |>
   filter(!!catch_col == 15) |> pull(i_2023)
-
 prob_2024_2023_catch_10 <- table_dec |>
   filter(!!catch_col == 10) |> pull(i_2024)
 prob_2025_2024_catch_10 <- table_dec |>
   filter(!!catch_col == 10) |> pull(i_2025)
+prob_2026_2025_catch_10 <- table_dec |>
+  filter(!!catch_col == 10) |> pull(i_2026)
 
 probs_proj_less_assess <- table_dec |> select(i_2023) |> pull()
 which_prob_less_50_50 <- which(probs_proj_less_assess < 0.5)
@@ -778,3 +780,100 @@ sel_eq_mat_bio <- models$sens_grps[[4]][[2]]$mcmccalcs$sbt_quants[, vuln_ratio_y
 sel_eq_mat_vuln_ratio <- sel_eq_mat_vuln_bio / sel_eq_mat_bio
 
 ```
+
+```{r removal-rate-calcs}
+
+# This was returned from a call to find_f_b40(base_model)
+# and represent the F and U values that it would take to drive the spawning biomass
+# to 0.4B0 from 2022 to 2023. The catch at those rates is also included.
+f_bo_40 <- list(f = c(f_fleet1 = 0.06330635,
+                      f_fleet2 = 0.04141280),
+                u = c(u_fleet1 = 0.06134413,
+                      u_fleet2 = 0.04056701),
+                catch = 0.1521)
+
+# extract_fleet_f <- function(d, fleet = 1){
+# 
+#   fleet_str <- ifelse(fleet == 1, "flt1$", "flt2$")
+#   
+#   d <- d |> 
+#     select(catch, which(grepl(fleet_str, names(d))))
+#   
+#   names(d) <- gsub("_flt[1|2]$", "", names(d))
+# 
+#   d |> 
+#     mutate(fleet = !!fleet) |> 
+#     select(catch, fleet, everything())
+# }
+# 
+# extract_sex_f <- function(d, sex = "f"){
+# 
+#   sex_str <- ifelse(sex == "f", "sex1$", "sex2$")
+#   d <- d |> 
+#     select(catch, which(grepl(sex_str, names(d))))
+# 
+#   names(d) <- gsub("_sex[1|2]$", "", names(d))
+# 
+#   out_lst <- list()
+#   out_lst$fleet1 <- extract_fleet_f(d, 1) |> 
+#     mutate(sex = !!sex) |> 
+#     select(catch, fleet, sex, everything())
+# 
+#   out_lst$fleet2 <- extract_fleet_f(d, 2) |> 
+#     mutate(sex = !!sex) |> 
+#     select(catch, fleet, sex, everything())
+#   
+#   out_lst |> 
+#     bind_rows()
+# }
+
+# j <- imap(basep$mcmccalcs$proj_quants, ~{
+#   tib <- as_tibble(.x, rownames = "quants") |> mutate(catch = .y)
+#   nms <- names(tib)
+#   wch <- grep("^(F|U)20[0-9]{2}_flt[1|2]_sex[1|2]$", nms, value = T)
+#   tib |>
+#     select(c(catch, quants, all_of(wch))) |>
+#     filter(quants == "50%") |> 
+#     mutate(catch = as.numeric(catch)) |> 
+#     select(-quants)
+# }) |> 
+#   map_df(~{.x})
+
+# Calc probability that F < F_B40, first extract projection posteriors
+# tib <- basep$mcmccalcs$proj |> 
+#   bind_rows() |> 
+#   rename(catch = TAC)
+# nms <- names(tib)
+# wch <- grep("^(F|U)20[0-9]{2}_flt[1|2]_sex[1|2]$", nms, value = T)
+# j <- tib |>
+#     select(c(catch, all_of(wch)))
+# 
+# f_lst <- list()
+# f_lst$female <- extract_sex_f(j, "f")
+# f_lst$male <- extract_sex_f(j, "m")
+# f_df <- bind_rows(f_lst)
+# 
+# # Only keep 2022 F's and U's
+# wch <- grep("F2022", names(f_df), value = T)
+# f_ <- f_df |> 
+#   select(catch, fleet, wch) |> 
+#   group_by(catch, fleet) |> 
+#   summarize(sum(F2022 < f_bo_40$f[1]))
+# 
+# wch <- grep("U2022", names(f_df), value = T)
+# u_ <- f_df |> 
+#   select(catch, fleet, sex, wch)
+
+# k <- f_df |>
+#   mutate(f_bo_40 = ifelse(fleet == 1, !!f_bo_40$f[["f_fleet1"]], !!f_bo_40$f[["f_fleet2"]]),
+#          u_bo_40 = ifelse(fleet == 1, !!f_bo_40$u[["u_fleet1"]], !!f_bo_40$u[["u_fleet2"]])) |> 
+#   mutate(F2022_F40 = F2022 / f_bo_40,
+#          U2022_U40 = U2022 / u_bo_40) |> 
+#   select(-c(F2022, U2022, f_bo_40, u_bo_40))
+  
+
+
+```
+
+<!-- For highlighting table cells for readability. See the decision table code for example.  -->
+\definecolor{faint-gray}{gray}{0.9}

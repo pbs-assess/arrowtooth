@@ -13,8 +13,12 @@ We tested sensitivity of the model outputs as follows:
 1. Increase mean of priors for catchabilities from `r base_qk_mean` to `r sens_qk_mean` ($q_k$ for all gears $k$)
 1. Broader catchability priors, from SD = `r base_qk_sd` to `r sens_qkp_sd` ($q_k$ for all gears $k$)
 1. Selectivity curves equal maturity ogive for all gears
-1. Geostatistical model-based survey indices (Section \@ref(app:geostat))
 1. Estimate time-varying selectivity for the `r qcs`, to try to improve the survey index fit
+1. Geostatistical model-based survey indices (Section \@ref(app:geostat))
+1. Remove Discard CPUE
+1. Modify maturity ogive to not include 'developing' or 'resting' specimens
+1. Fix selectivity for the DCPUE index to be equal to the Shoreside fishery selectivity
+1. Fix all survey's selectivity to be equal to the Shoreside fishery selectivity
 
 This list of sensitivity scenarios with more details is provided in Table \@ref(tab:sens-param-settings-table). Base model parameter settings are provided in Table \@ref(tab:param-settings-table). All sensitivity models were run using MCMC with a chain length of `r f(mcmc_chain_length)`, a sample frequency of `r f(mcmc_sample_freq)`, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples retained for inference.
 ")
@@ -114,3 +118,24 @@ The index fit is shown in Figure \@ref(fig:fig-sens-geostat-index-fits). The fit
 <<scam-sens-geostat-en>>
 ```
 
+```{r scam-sens-remove-discard-cpue-en, eval = !fr(), results = 'asis'}
+cat("### Removal of the Discard CPUE index from the model {#sens-remove-dcpue}
+It appears from the index fit to the discard CPUe index that the model is heavily influenced by it (Figure \@ref(fig:fig-base-index-fits)). To test this, the discard CPUE index wass completely removed from the model.
+
+The relative biomass trajectory is not affected much at all, wih only a very slight increase in end year biomass (Figure \@ref(fig:fig-sens-meeting-rel)). The fits for the survey indices showed only minute departure from the base model fits.
+")
+```
+
+```{r scam-sens-remove-discard-cpue-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-remove-discard-cpue-en>>
+```
+
+```{r scam-sens-change-maturity-en, eval = !fr(), results = 'asis'}
+cat("### Modification of the maturity ogive {#sens-change-maturity}
+`r sp` spawn during the winter, and the surveys take place during the summer. Many of the maturities recorded in the summer are therfore in the 'resting' phase which can be difficult to distinguish from immature. There is also some ambiguity in the classification of 'developing' fish (codes 2 and 3 in the DFO maturity codes for flatfish).
+")
+```
+
+```{r scam-sens-change-maturity-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<scam-sens-change-maturity-en>>
+```

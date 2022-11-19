@@ -42,7 +42,8 @@ plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
                                     "tau",
                                     "sigma",
                                     "log_m_sex1",
-                                    "log_m_sex2"))
+                                    "log_m_sex2",
+                                    "so", "beta", "phie"))
 ```
 
 <!-- Natural mortality ------------------------------------------------------->
@@ -228,5 +229,57 @@ plot_index_mcmc(models$sens_grps[[5]][[2]],
                 text_title_size = NULL)
 
 ```
+
+(ref:fig-sens-meeting-en) Spawning biomass for the sensitivities involving removing the DCPUE index, fixing selectivities and maturities, and modifying the maturity ogive. These sensitivities were added during the formal review meeting in October 2022.
+
+(ref:fig-sens-meeting-fr) French here
+
+```{r fig-sens-meeting, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-fr)", "(ref:fig-sens-meeting-en)")}
+plot_biomass_mcmc(models$sens_grps[[6]],
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  ylim = c(0, 270))
+```
+
+(ref:fig-sens-meeting-rel-en) Relative spawning biomass for the sensitivities involving removing the DCPUE index, fixing selectivities and maturities, and modifying the maturity ogive. These sensitivities were added during the formal review meeting in October 2022.
+
+(ref:fig-sens-meeting-rel-fr) French here
+
+```{r fig-sens-meeting-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-rel-fr)", "(ref:fig-sens-meeting-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[6]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  ylim = c(0, 1.2))
+```
+
+(ref:fig-sens-remove-dcpue-index-fits-en) Index fits for the sensitivity in which the Discard CPUE has been removed.
+
+(ref:fig-sens-remove-dcpue-index-fits-fr) French here
+
+```{r fig-sens-remove-dcpue-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-remove-dcpue-index-fits-fr)", "(ref:fig-sens-remove-dcpue-index-fits-en)")}
+plot_index_mcmc(models$sens_grps[[6]],
+                type = "fits",
+                surv_index = survey_index,
+                leg_loc = "facet",
+                text_title_size = NULL)
+
+```
+
+(ref:fig-sens-meeting-vuln-en) Spawning biomass and vulnerable biomass for the sensitivities involving removing the DCPUE index, fixing selectivities and maturities, and modifying the maturity ogive.
+
+(ref:fig-sens-meeting-vuln-fr) French here
+
+```{r fig-sens-meeting-vuln, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-vuln-fr)", "(ref:fig-sens-meeting-vuln-en)")}
+plot_vuln_mcmc(models$sens_grps[[6]][[3]], 
+               angle_x_labels = TRUE,
+               leg_loc = c(0.95, 0.95),
+               #text_title_size = NULL,
+               ylim = c(0, 140))
+```
+
+
 
 \clearpage

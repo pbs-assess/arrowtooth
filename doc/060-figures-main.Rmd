@@ -72,7 +72,7 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 (ref:fig-catch-fit-fr) French here
 
 ```{r fig-catch-fit, fig.cap = ifelse(fr(), "(ref:fig-catch-fit-fr)", "(ref:fig-catch-fit-en)")}
-plot_catch_fit_mcmc(base_model_test, angle_x_labels = TRUE)
+plot_catch_fit_mcmc(base_model, angle_x_labels = TRUE)
 ```
 
 <!-- Biomass and recruitment -------------------------------------------------->

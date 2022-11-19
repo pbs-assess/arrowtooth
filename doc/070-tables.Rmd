@@ -212,24 +212,28 @@ cap <- paste0("Un résumé des changements de paramètres du modèle de base ",
               "pour chaque sensibilité.")
 }
 
-table_sens_param_changes(head(sens_models_text_no_base, -2),
-                         head(sens_changes_text, -2),
+table_sens_param_changes(sens_models_text_no_base,
+                         sens_changes_text,
                          col_widths = "20em",
                          caption = cap)
+
+# table_sens_param_changes(head(sens_models_text_no_base, -2),
+#                          head(sens_changes_text, -2),
+#                          col_widths = "20em",
+#                          caption = cap)
 ```
 
 \clearpage
-\definecolor{faint-gray}{gray}{0.9
 
 \begin{landscapepage}
-```{r decision-table, results = "asis"}
-cap <- paste0("Decision table for the base model showing posterior probabilities that ", base_model$dat$end.yr + 2, " projected biomass is below selected reference points and benchmarks (Table \\ref{tab:reference-points-table}). An example of how to read this table is: For a catch of 10,000 t there is a ", f(prob_10t_below_2bo * 100, 1), "\\% chance that the ", base_model$dat$end.yr + 2, " biomass will fall below the LRP of $0.2B_0$, a ", f(prob_10t_below_4bo * 100, 1), "\\% chance that it will fall below the USR of $0.4B_0$, and a ", f(prob_2023_2022_catch_10 * 100, 1), "\\% chance that the biomass in ", base_model$dat$end.yr + 2, " will be less than the biomass in ", base_model$dat$end.yr + 1, ". For projections beyond ", base_model$dat$end.yr + 2, " the catch is the same value for each projected year in each row of the table. So for the example of a constant catch each year of 10,000 t, the probability that the biomass will decline from one year to the next is ", f(prob_2023_2022_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 2, " to ", base_model$dat$end.yr + 1, ", ", f(prob_2024_2023_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 3, " to ", base_model$dat$end.yr + 2, ", ", f(prob_2025_2024_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 4, " to ", base_model$dat$end.yr + 3, ", and ", f(prob_2026_2025_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 5, " to ", base_model$dat$end.yr + 4, ".")
+```{r `decision`-table, results = "asis"}
+cap <- paste0("Decision table for the base model showing posterior probabilities that ", base_model$dat$end.yr + 2, " projected biomass is below selected reference points and benchmarks (Table \\ref{tab:reference-points-table}). An example of how to read this table is: For a catch of 10,000 t there is a ", f(prob_10t_below_2bo * 100, 1), "\\% chance that the ", base_model$dat$end.yr + 2, " biomass will fall below the LRP of $0.2B_0$, a ", f(prob_10t_below_4bo * 100, 1), "\\% chance that it will fall below the USR of $0.4B_0$, and a ", f(prob_2023_2022_catch_10 * 100, 1), "\\% chance that the biomass in ", base_model$dat$end.yr + 2, " will be less than the biomass in ", base_model$dat$end.yr + 1, ". For projections beyond ", base_model$dat$end.yr + 2, " the catch is the same value for each projected year in each row of the table. So for the example of a constant catch each year of 10,000 t, the probability that the biomass will decline from one year to the next is ", f(prob_2023_2022_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 1, " to ", base_model$dat$end.yr + 2, ", ", f(prob_2024_2023_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 2, " to ", base_model$dat$end.yr + 3, ", ", f(prob_2025_2024_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 3, " to ", base_model$dat$end.yr + 4, ", and ", f(prob_2026_2025_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 4, " to ", base_model$dat$end.yr + 5, ".")
 if(fr()){
 cap <- paste0("French here")
 }
 
 decision_table_col_width <- "5em"
-table_decisions(base_model_test,
+table_decisions(base_model,
                 format = "latex",
                 font_size = 6,
                 digits = 3,

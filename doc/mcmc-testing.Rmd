@@ -134,7 +134,8 @@ plot_pairs_mcmc(models$base_model,
                 #list_param_names = T,
                 param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
                              "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
-                             "bmsy", "bo", "sbo"),
+                             "bmsy", "bo", "sbo",
+                             "so", "beta", "phie"),
                 plot_sel = FALSE)
 ```
 
@@ -154,7 +155,8 @@ plot_priors_posts_mcmc(models$base_model)
 plot_traces_mcmc(models$base_model,
                  param_rm = c("m1", "m2", "rho", "vartheta", "ssb",
                               "msy1", "msy2", "fmsy1", "fmsy2", "umsy1", "umsy2",
-                              "bmsy", "bo", "sbo"))
+                              "bmsy", "bo", "sbo",
+                              "so", "beta", "phie"))
 ```
 
 (ref:fig-base-mcmc-effn-en) Summary histograms of MCMC diagnostics for all model parameters. The level of autocorrelation in the chain (distribution across lag times, i.e., distance between samples in the chain, shown in the top left panel) influences the effective sample size (top right panel) used to estimate posterior distributions. The Geweke statistic (lower left panel) tests for equality between means located in the first part of the chain against means in the last part of the chain. The Heidelberger and Welch statistic (lower right panel) tests if the sampled values come from a stationary distribution by comparing different sections of the chain.
