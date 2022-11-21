@@ -484,8 +484,10 @@ prob_10t_below_4bo <- table_dec |>
 # For the Projections and Decision table section
 uncert_2025_catch_10 <- base_model$mcmc$proj |>
   filter(TAC == 10) |>
-  pull(B2025) |>
-  quantile(c(0.025, 0.5, 0.975))
+  pull(B2025)
+uncert_2025_catch_10 <- quantile(uncert_2025_catch_10 / base_model$mcmc$params$sbo,
+                                 probs = c(0.025, 0.5, 0.975))
+
 lo_uncert_2025_catch_10 <- uncert_2025_catch_10[1]
 hi_uncert_2025_catch_10 <- uncert_2025_catch_10[3]
 diff_uncert_2025_catch_10 <- hi_uncert_2025_catch_10 - lo_uncert_2025_catch_10

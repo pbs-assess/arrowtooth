@@ -224,7 +224,7 @@ table_sens_param_changes(sens_models_text_no_base,
 ```
 
 ```{r rate-table, results = "asis"}
-cap <- paste0("Reference rates, calculated as the constant rate at which fishing needs to occur on an annual basis by each fleet for a long term (50 years) to bring the relative spawning biomass to within 50 t of $0.4B_0$. In this case the routine was able to come within ", diff_bio_b40, " t of $0.4B_0$. The $F$ values are the instantaneous fishing mortalities and the $U$ values are the annual exploitation rate. The last column shows the long term annual catch by fleet and the total. This is the value if caught every year for the long term would result in the biomass being close to $0.4B_0$.")
+cap <- paste0("Reference rates, calculated as the constant rate at which fishing needs to occur on an annual basis by each fleet for a long term (50 years) to bring the relative spawning biomass to within 50 t of $0.4B_0$. In this case the routine was able to come within ", diff_bio_b40, " t of $0.4B_0$. The $F$ values are the instantaneous fishing mortalities and the $U$ values are the annual exploitation rate. The last column shows the long term annual catch by fleet and the total. This is the value which, if caught every year for the long term would result in the biomass being close to $0.4B_0$.")
 if(fr()){
   cap <- paste0("French here")
 }

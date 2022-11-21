@@ -44,7 +44,7 @@ plot_biomass_proj_mcmc(base_model,
 plot_dfo_ref_point_figure(base_model, biomass_col = "B2023")
 ```
 
-(ref:fig-catch-streams-proj-nextnextyr-en) Projected relative spawning biomass for `r base_model$dat$end.yr + 3` from catch streams for `r base_model$dat$end.yr + 2` catch., Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextnextyr-en) Projected `r base_model$dat$end.yr + 3` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 2`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
 
 (ref:fig-catch-streams-proj-nextnextyr-fr) French here
 
@@ -52,7 +52,7 @@ plot_dfo_ref_point_figure(base_model, biomass_col = "B2023")
 plot_dfo_ref_point_figure(base_model, biomass_col = "B2024")
 ```
 
-(ref:fig-catch-streams-proj-nextnextnextyr-en) Projected relative spawning biomass for `r base_model$dat$end.yr + 4` from catch streams for `r base_model$dat$end.yr + 3` catch., Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextnextnextyr-en) Projected `r base_model$dat$end.yr + 4` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 3`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
 
 (ref:fig-catch-streams-proj-nextnextnextyr-fr) French here
 
@@ -60,10 +60,10 @@ plot_dfo_ref_point_figure(base_model, biomass_col = "B2024")
 plot_dfo_ref_point_figure(base_model, biomass_col = "B2025")
 ```
 
-(ref:fig-catch-streams-proj-nextnextnextnextyr-en) Projected relative spawning biomass for `r base_model$dat$end.yr + 5` from catch streams for `r base_model$dat$end.yr + 4` catch., Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextnextnextnextyr-en) Projected `r base_model$dat$end.yr + 5` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 4`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
 
 (ref:fig-catch-streams-proj-nextnextnextnextyr-fr) French here
 
 ```{r fig-catch-streams-nextnextnextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextnextnextnextyr-fr)", "(ref:fig-catch-streams-proj-nextnextnextnextyr-en)")}
-plot_dfo_ref_point_figure(base_model, biomass_col = "B2025")
+plot_dfo_ref_point_figure(base_model, biomass_col = "B2026")
 ```

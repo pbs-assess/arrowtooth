@@ -132,7 +132,7 @@ We tested the impact of removing the discard CPUE index. The relative biomass tr
 cat("### Modification of the maturity ogive {#sens-change-maturity}
 `r sp` spawn during the winter, and the surveys take place during the summer. Many of the maturities recorded in the summer are therfore in the 'resting' phase which can be difficult to distinguish from immature. There is also some ambiguity in the classification of 'developing' fish (codes 2 and 3 in the DFO maturity codes for flatfish).
 
-Removing 'developing' and restin' from the maturity ogive produced a better-fitting ogive (Figure \@ref(fig:fig-mat)) and resulted in a slightly lower final year absolute biomass compared to the base model, but the same relative biomass (Figures \@ref(fig:fig-sens-meeting) and \@ref(fig:fig-sens-meeting-rel)). This maturity should be considered for the base model in the next assessment. Since it made no qualitative difference on the results, and because it was worked up following the initial review meeting, we did not include it in the base model for this assessment.
+Removing 'developing' and resting' from the maturity ogive produced a better-fitting ogive (Figure \@ref(fig:fig-mat)) and resulted in a slightly lower final year absolute biomass compared to the base model, but the same relative biomass (Figures \@ref(fig:fig-sens-meeting) and \@ref(fig:fig-sens-meeting-rel)). This maturity should be considered for the base model in the next assessment. Since it made no qualitative difference on the results, and because it was worked up following the initial review meeting, we did not include it in the base model for this assessment.
 ")
 ```
 

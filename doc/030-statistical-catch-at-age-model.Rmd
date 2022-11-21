@@ -74,7 +74,7 @@ With regards to other jurisdictions worldwide, several use 0.4 $B_0$ as a defaul
 
 Finally, from a science perspective, we note that 0.4 $B_0$ was previously accepted as the USR for Arrowtooth Flounder [@grandin2017]. We caution that reducing reference points when there is evidence of failing recruitment and declining stock trends would be inconsistent with the precautionary approach as outlined in the DFO PA Policy. Such 'moving the reference point goalposts' can have considerable implications for fisheries sustainability [@silvar-viladomiu2021].
   
-### Reference removal rate
+### Reference removal rate {#ref-removal-rate}
 
 Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional reference removal rage, for reasons outlined above, we suggest $B_0$-based reference points for this stock. We suggest that an equivalent reference removal rate would be the fishing mortality $F$ that would take the stock to $0.4 B_0$ at equilibrium given recently observed recruitment. We determined this by projecting the stock 50 years into the future with recruitment deviations randomly drawn with replacement from 2010--2019 (omitting the poorly estimated 2020 and 2021 deviations), using an optimization routine to find the constant catch that would generate SSB matching $0.4 B_0$ within a tolerance of 50 t. We report the associated $F$ at the end of 50 years. Given sufficient projection years, performing the projections with a constant $F$ or a constant catch should render the same conclusion.
 ")
