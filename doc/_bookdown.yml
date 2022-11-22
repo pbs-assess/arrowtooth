@@ -17,6 +17,7 @@ rmd_files: ["index.Rmd",
             "064-figures-retrospectives.Rmd",
             "066-figures-projections.Rmd",
             "070-tables.Rmd",
+            "150-references.Rmd",
             "080-start-appendices.Rmd",
             "090-biological-data.Rmd",
             "100-proportion-female.Rmd",
@@ -25,6 +26,5 @@ rmd_files: ["index.Rmd",
             "130-condition.Rmd",
             "140-ecosystem.Rmd",
             "145-model-equations.Rmd",
-            "147-colophon.Rmd",
-            "150-references.Rmd"]
+            "147-colophon.Rmd"]
 delete_merged_file: true
