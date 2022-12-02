@@ -21,7 +21,7 @@ Here, $\beta_0$ is a global intercept, $f (d_{s,t})$ is a penalized smoother for
   \boldsymbol{\epsilon_{t-1}} \sim \operatorname{MVNormal} \left(\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon} \right).
 \end{align}
 
-We considered a model that included a spatial random field; however, the variance of this random field was estimated near zero and so we excluded it in our final model. We then calculated an annual condition-factor index as the average predicted $K^\mathrm{cond}_{s,t}$ across all survey 4 km $\times$ 4 km grid cells each year.
+We considered a model that included a spatial random field; however, the variance of this random field was estimated near zero and so we excluded it in our final model. We then calculated an annual condition-factor index as the average predicted $K^\mathrm{cond}_{s,t}$ across all survey 2 km $\times$ 2 km grid cells each year.
 
 Finally, we also explored a model configuration where depth was included as a non-orthogonal third-order polynomial that could evolve between years via a random walk. This model included independent spatial and spatiotemporal random fields and a smoother on year, because the previous random field configuration would not converge with the increased flexibility of a time-vary depth effect.")
 ```
