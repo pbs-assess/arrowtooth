@@ -231,13 +231,15 @@ if (FALSE) {
     SSB_dynB0 = SSB_t_noF / SSB0)
   ggplot(dat, aes(year, SSB)) +
     geom_line() +
-    geom_line(aes(y = SSB_dynB0), col = "grey70") +
+    geom_line(aes(y = SSB_dynB0), col = "blue") +
     gfplot::theme_pbs() +
     ylab("Relative spawning biomass") +
     xlab("Year") +
-    coord_cartesian(ylim = c(0, 1), expand = FALSE) +
+    coord_cartesian(ylim = c(0, 1.05), expand = FALSE) +
     geom_hline(yintercept = 0.4, lty = 2, colour = "darkgreen") +
     geom_hline(yintercept = 0.2, lty = 1, colour = "red")
+    # scale_y_continuous(breaks = seq(0.12, 1.2, 0.12))
+  ggsave("doc/figure/dynamic-B0.png", width = 7, height = 4)
  }
 
 # # calculate catch
