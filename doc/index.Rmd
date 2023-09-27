@@ -154,16 +154,16 @@ options(knitr.graphics.rel_path = FALSE)
 library(devtools)
 library(dplyr)
 if(user == "grandin"){
-  load_all("../../../gfiscamutils")
-  load_all("../../../gfplot")
-  load_all("../../../csasdown")
+  load_all("~/github/pbs-assess/gfiscamutils")
+  load_all("~/github/pbs-assess/gfplot")
+  load_all("~/github/pbs-assess/csasdown")
 }else if(user == "seananderson"){
   library(gfiscamutils)
   load_all("~/src/gfiscamutils/")
   load_all("~/src/csasdown/")
   # load_all("~/src/gfplot/")
   library(gfplot)
-} else {
+}else{
   library(gfiscamutils)
   library(gfplot)
   library(csasdown)
@@ -176,7 +176,7 @@ library(kableExtra)
 library(purrr)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
-devtools::load_all(".")
+load_all(".")
 
 meta <- rmarkdown::metadata$output
 build_rds <- FALSE
@@ -192,7 +192,7 @@ if(!exists("models") || !exists("drs"))
 ```
 
 ```{r data-setup, cache.lazy = FALSE}
-# This chunk requires that the chunk above that loads load-models.R is run
+# This chunk requires the chunk above that loads load-models.R has been run
 
 bc <- "British Columbia"
 sp <- "Arrowtooth Flounder"
@@ -344,7 +344,7 @@ if(fr()){
                        new_gear_names = gear_names_fr)
 }
 
-base_model <- models$base_model[[1]]
+base_model <- models$base_grps[[1]][[1]]
 
 base_all_gears <- gear_lu_table(base_model, "all")
 base_age_gears <- gear_lu_table(base_model, "age")
@@ -548,10 +548,12 @@ mat_fit <- export_mat_lw_age(dat$survey_samples, write_file = FALSE)
 # TODO: what random effects wanted? If year, than params are saved as mat_fit$mat_perc$mean$f.mean.p0.5 and mat_fit$mat_perc$mean$m.mean.p0.5 instead of mat_fit$mat_perc$f.p0.5 and mat_fit$mat_perc$m.p0.5. I assume fig:fig-mat should also be made to match 
 
 # Natural mortality values in the control file
-
-param_ctl_table <- models$bridge_grps[[3]][[2]]$ctl$params |> as_tibble(rownames = "param")
-male_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_male") |> pull(ival))
-female_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_female") |> pull(ival))
+param_ctl_table <- models$bridge_grps[[3]][[2]]$ctl$params |>
+  as_tibble(rownames = "param")
+male_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_male") |>
+                    pull(ival))
+female_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_female") |>
+                      pull(ival))
 ```
 
 ```{r proportion-female}

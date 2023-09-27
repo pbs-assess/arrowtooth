@@ -1,3 +1,6 @@
+models_dir <- "/srv/arrowtooth/2022"
+nongit_dir <- "/srv/arrowtooth/arrowtooth-nongit"
+
 # This is a list of vectors of bridge groups (bridge models that will be
 # plotted against each other). It can be `NULL` if to be ignored.
 bridge_models_dirs <-
@@ -230,24 +233,23 @@ retro_models_text <- map(retro_models_text, ~{c("Base model", .x)})
 # Make these factors so that they can be reordered in the legends later
 retro_models_text <- retro_models_text %>% map(~{factor(.x, levels = .x)})
 
-if(here() == "/home/rstudio"){
-  # For an Rstudio server spawned inside a Docker container
-  drs <- set_dirs(nongit_dir = file.path(dirname(here("arrowtooth")),
-                                         "arrowtooth-nongit"),
-                  base_model_dir = "base",
-                  bridge_models_dirs = bridge_models_dirs,
-                  sens_models_dirs = sens_models_dirs,
-                  retro_models_dirs = retro_models_dirs,
-                  check_dir_exists = FALSE)
-}else{
-  drs <- set_dirs(base_model_dir = "base",
-                  bridge_models_dirs = bridge_models_dirs,
-                  sens_models_dirs = sens_models_dirs,
-                  retro_models_dirs = retro_models_dirs,
-                  check_dir_exists = FALSE)
-}
+# if(here() == "/home/rstudio"){
+#   # For an Rstudio server spawned inside a Docker container
+#   drs <- set_dirs(models_dir = models_dir,
+#                   nongit_dir = nongit_dir,
+#                   base_model_dir = "base",
+#                   bridge_models_dirs = bridge_models_dirs,
+#                   sens_models_dirs = sens_models_dirs,
+#                   check_dir_exists = FALSE)
+# }else{
+drs <- set_dirs(models_dir = models_dir,
+                nongit_dir = nongit_dir,
+                bridge_models_dirs = bridge_models_dirs,
+                sens_models_dirs = sens_models_dirs,
+                retro_models_dirs = retro_models_dirs)
+# }
 
-models <- model_setup(main_dirs = drs,
+models <- model_setup(drs = drs,
                       bridge_models_text = bridge_models_text,
                       sens_models_text = sens_models_text,
                       retro_models_text = retro_models_text,

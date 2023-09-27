@@ -263,7 +263,7 @@ plot_lw_panels <- function(lw_f, lw_m){
   plot_length_weight(object_female = lw_f,
                      object_male = lw_m,
                      col = c("Female" = "#FF0000", "Male" = "#0000FF"),
-                     pts_col = TRUE,
+                     #pts_col = TRUE,
                      french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
     
@@ -342,7 +342,7 @@ plot_vb_panels <- function(vb_f, vb_m){
   plot_vb(object_female = vb_f,
           object_male = vb_m,
           col = c("Female" = "#FF0000", "Male" = "#0000FF"),
-          pts_col = TRUE,
+          #pts_col = TRUE,
           french = fr()) +
     guides(colour = "none", fill = "none", lty = "none") +
     theme(axis.title = element_blank()) +

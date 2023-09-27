@@ -1,6 +1,5 @@
 book_filename: "resdoc"
 rmd_files: ["index.Rmd",
-            #"test.Rmd"]
             "000-introduction.Rmd",
             "020-stock-assessment-modelling.Rmd",
             "030-statistical-catch-at-age-model.Rmd",
