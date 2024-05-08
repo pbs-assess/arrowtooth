@@ -96,7 +96,8 @@ cap <- paste0("Estimations de la médiane postérieure et de l'intervalle ",
 table_param_est_mcmc(base_model,
                      font_size = 8,
                      caption = cap,
-                     bold_header = FALSE)
+                     bold_header = FALSE,
+                     show_year_range = FALSE)
 ```
 
 ```{r reference-points-table, results = "asis"}

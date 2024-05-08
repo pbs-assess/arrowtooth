@@ -2,35 +2,46 @@
 
 The source code for this assessment is available at <https://github.com/pbs-assess/arrowtooth>.
 
-This version of the document was generated on `r Sys.time()` with
+This version of the document was generated on `r lubridate::as_date(Sys.time())` with
 `r devtools::session_info()$platform$version` [@r2022] and R package versions:
 
 ```{r env, echo = FALSE, results='asis', message=FALSE, warning=FALSE, eval=TRUE, cache=FALSE}
-library(TMB)
-library(bookdown)
-library(rmarkdown)
-library(gfdata)
-pkgs <- sort(c("broom", "gfplot", "gfdata", "ggplot2", "dplyr", "knitr",
-               "glmmTMB", "TMB", "purrr", "csasdown", "bookdown",
-               "rmarkdown", "gfiscamutils", "sdmTMB"))
+# library(TMB)
+# library(bookdown)
+# library(rmarkdown)
+# library(gfdata)
+pkgs <- sort(c("bookdown", "broom", "csasdown",  "dplyr",
+               "gfdata", "gfiscam", "gfiscamutils", "gfplot", "ggplot2",
+               "glmmTMB", "knitr", "purrr", "rmarkdown", "rosettafish",
+               "sdmTMB", "TMB"))
+
 info <- session_info()$packages |> 
   as.data.frame() |> 
   as_tibble() |> 
   select(package, loadedversion) |> 
   filter(package %in% pkgs) |> 
   setNames(c("Package", "Version")) |>
-  kbl(booktabs = TRUE,
-      linesep = "",
-      longtable = TRUE,
-      format = "pandoc")
+  csas_table()
+
+info
 ```
 
-The specific versions used to generate this report can be viewed at:
+Packages maintained by the authors used to generate this report can be viewed at:
+
+https://github.com/pbs-assess/arrowtooth
+
+https://github.com/pbs-assess/csasdown
+
+https://github.com/pbs-assess/gfdata
 
 https://github.com/pbs-assess/gfiscam/wsl2
-https://github.com/pbs-assess/gfdata"
-https://github.com/pbs-assess/gfplot
-https://github.com/pbs-assess/sdmTMB
-https://github.com/pbs-assess/csasdown
+
 https://github.com/pbs-assess/gfiscamutils
-https://github.com/pbs-assess/arrowtooth
+
+https://github.com/pbs-assess/gfplot
+
+https://github.com/pbs-assess/rosettafish
+
+https://github.com/pbs-assess/sdmTMB
+
+

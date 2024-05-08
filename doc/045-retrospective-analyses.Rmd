@@ -13,5 +13,9 @@ Comparing recruitment estimates (Figures \@ref(fig:fig-retro-recr) and \@ref(fig
 There is a decrease in fishing mortality for the models prior to 2019 (Figure \@ref(fig:fig-retro-f)), which corresponds to the increasing biomass trend in those models. 
 
 The fits to the indices of abundance (Figure \@ref(fig:fig-retro-index-fits)) show a clear divergence for the models prior to 2019. The log standardized residuals (Figure \@ref(fig:fig-retro-index-resids)) show that indices for those models fit neither better nor worse overall than the post-2019 models.
+
+In order to quantify the uncertainty in retrospective patterns, and therefore retrospective bias, Mohn's $\rho$ statistic was calculated for all `r length(retro_models_dirs[[1]])` retrospective models compared to the base model to be 0.99.
+
+@hurtado2015 suggests that Mohn's $\rho$ should fall between -0.15 and 0.2, which are the lower and upper bounds of the 90% simulation intervals for the longer-lived flatfish base case they examined. For shorter-lived species, those values are -0.22 and 0.30. Since the calculated value of 0.99 lies within the limits given, we can say that there is no indication of retrospective patterns or bias in this model.
 ")
 ```

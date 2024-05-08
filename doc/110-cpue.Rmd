@@ -2,7 +2,7 @@
 
 ```{r app-cpue-para-1-en, eval = !fr(), results = 'asis'}
 cat("# DISCARD CPUE INDEX STANDARDIZATION {#app:dcpue}
-We draw on methods as written in @anderson2019synopsis and @forrest2020pcod, reproducing them in parts here for completeness. We sought to generate an index of `r sp` abundance from discard commercial trawl catch per unit effort (CPUE) data that was standardized for depth, fishing locality (defined spatial regions), month, vessel, and latitude.
+We draw on methods as written in @anderson2019synopsis and @forrest2020pcod, reproducing them in parts here for completeness. We sought to generate an index of `r sp` abundance from discard commercial trawl catch per unit effort (CPUE) data that was standardized for depth, fishing locality, month, vessel, and latitude. Fishing localities are spatial regions of similar size to Pacific Fishery Management Areas (PFMAs), and are sub-areas of the Minor statistical areas of the West Coast of British Columbia which have been traditionally fished.
 
 ## DEFINING THE COMMERCIAL DISCARD FLEET
 Before fitting a standardization model, we had to filter and manipulate the available catch and effort data to generate a dataset appropriate for model fitting. The unique aspect in this analysis, compared to similar CPUE analysis in other recent stock assessments done in `r bc`, is that we started by filtering all bottom trawl commercial fishing event data to only include those events for which `r sp` were caught and all caught were discarded. This approach was suggested by industry representatives at a Technical Working Group meeting as an approach to avoid tows targeting `r sp` and minimize issues related to changes in targeting behaviour over time.

@@ -101,7 +101,7 @@ where $W_{s,t}$ is the mean weight for sex $s$ and trip $t$, weighted by sample 
 
 To calculate the total catch weight for sampled hauls in each trip, we use the following:
 \begin{equation}
-C_t = \sum_{j=1}^{K_t}{C_{j,k}}
+C_t = \sum_{j=1}^{K_t}{C_{j,t}}
 (\#eq:catch-wt)
 \end{equation}
 where $C_t$ is the total catch weight for sampled hauls for trip $t$, $K_t$ is the number of samples in trip $t$, and $C_{j,t}$ is the catch weight associated with sample $j$ and trip $t$.

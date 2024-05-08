@@ -13,12 +13,11 @@ Note that all the model equations are presented for a sex structured model with 
 The following list describes modifications specific to the `r sp` assessment:
 1. Split sex, $S = 2$.
 1. Two-fleet commercial fishery.
-1. Total mortality is constant across ages, $Z_{t,a}$ = $Z_{t}$.
+1. Total mortality is constant across ages, $Z_{t,a}$ = $Z_{t}$. Age- and Sex- specific mortality was tried but the model would not converge with the extra parameters required.
 1. Sex-specific selectivity.
 1. Optional time-varying selectivity for the `r qcs`.
 1. Age-composition observations were assumed to come from a Dirichlet-multinomial distribution.
 1. Fecundity and maturity are synonymous and used interchangeably.
-1. 100% of mortality, $Z_{t}$, occurs prior to spawning.
 1. Unfished spawning biomass is represented as $SB_0$ or $B_0$, and includes biomass from both sexes.")
 ```
 

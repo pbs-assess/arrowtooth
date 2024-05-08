@@ -12,7 +12,7 @@ This appendix summarizes the biological data for `r sp` in `r bc`. The length an
 cat("## LENGTH AND WEIGHT MODEL {#length-weight-model}
 All valid length/weight pairs of data were extracted based on the criteria shown in table A.1. The length-weight equation used was:
 \begin{equation}
-  W_s = \alpha L_s^{\beta_s}
+  W_s = \alpha_s L_s^{\beta_s}
   (\#eq:length-weight)
 \end{equation}
 where $\alpha_s$ and $\beta_s$ are parameters for sex $s$ and $L_s$ and $W_s$ are paired length-weight observations.
@@ -44,7 +44,7 @@ We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surv
 
 ```{r appendix-data-para-4-en, eval = !fr(), results = 'asis'}
 cat("## MATURITY-AT-AGE MODEL
-The maturity-at-age model used for `r sp` estimates age-at-50% maturity ($a_{s_{50\%}}$) and standard deviation of age-at-50% maturity ($\sigma_{s_{50\%}}$) by applying the L-BFGS-B quasi-Newton algorithm to minimize the sum-of-squares between the observed and expected proportion mature:
+The maturity-at-age model used for `r sp` estimates age-at-50% maturity ($a_{s_{50\%}}$) and standard deviation of age-at-50% maturity ($\sigma_{s_{50\%}}$) by applying the Limited-memory Broyden Fletcher Goldfarb Shanno algorithm with Bounds (L-BFGS-B) to minimize the sum-of-squares between the observed and expected proportion mature:
 \begin{equation}
   P_{a_s} = \frac{1}{1 + e^{-\sigma_{s_{50\%}}(a_s-a_{s_{50\%}})}}
   (\#eq:mat-at-age)

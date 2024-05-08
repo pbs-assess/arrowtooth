@@ -91,7 +91,7 @@ Furthermore, we considered versions of the above models without depth as a predi
 
 The total biomass $b$ for a given year $t$ is calculated as:
 \begin{equation}
-  b_t \sum^{n_j}_{j = 1} p_{j,t} \lambda_{j,t} a_j,
+  b_t = \sum^{n_j}_{j = 1} p_{j,t} \lambda_{j,t} a_j,
 \end{equation}
 where $j$ indexes $n_j$ grid cells, $p_j$ is the probability of encounter in grid cell $j$, $\lambda_j$ is the expected catch conditional on encounter in grid cell $j$, and $a_j$ is the area of grid cell $j$ (4 km^2^).")
 ```
