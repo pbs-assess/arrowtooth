@@ -6,9 +6,13 @@
 #' @docType package
 #' @name arrowtooth
 
+#' @import ggplot2
+#' @importFrom hake plot_map
 #' @importFrom rlang .data
+#' @importFrom sf st_as_sf st_cast st_combine st_crs st_set_crs st_transform
 #' @importFrom stats quantile
 #' @importFrom utils capture.output
+#'
 #'
 NULL
 

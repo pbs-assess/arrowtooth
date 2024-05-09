@@ -26,5 +26,6 @@ calc_iscam_paa(calc_paa(calc_naa(comm_ss)), gear_num = 2)
 calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN QCS")), gear_num = 3)
 calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN HS")), gear_num = 5)
 calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCVI")), gear_num = 6)
+calc_iscam_paa(calc_paa(calc_naa(survey_samples, "SYN WCHG")), gear_num = 7)
 }
 }

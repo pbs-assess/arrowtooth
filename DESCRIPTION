@@ -23,6 +23,8 @@ Imports:
     furrr,
     gfiscamutils,
     gfplot,
+    ggplot2,
+    hake,
     here,
     icesAdvice,
     kableExtra,
@@ -32,6 +34,7 @@ Imports:
     readr,
     reshape2,
     rlang,
+    sf,
     stats,
     tibble,
     tidyr,
@@ -47,9 +50,10 @@ Remotes:
     pbs-assess/gfiscamutils,
     pbs-assess/gfplot,
     pbs-assess/gfutilities,
-    pbs-assess/rosettafish
+    pbs-assess/rosettafish,
+    pacific-hake/hake-assessment
 URL: https://github.com/pbs-assess/arrowtooth
 BugReports: https://github.com/pbs-assess/arrowtooth/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 Config/testthat/edition: 3
