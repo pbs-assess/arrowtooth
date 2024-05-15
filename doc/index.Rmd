@@ -44,7 +44,7 @@ output:
    # build_rds is a toggle to re-build all the RDS files for the models
    build_rds: false
    keep_md: true
-   french: false
+   french: true
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
    # the document. If false, any changes you have made to the style file in your project
    # will remain between compilations. If true, your changes will be lost when you compile
@@ -157,6 +157,7 @@ if(user == "grandin"){
   load_all("~/github/pbs-assess/gfiscamutils")
   load_all("~/github/pbs-assess/gfplot")
   load_all("~/github/pbs-assess/csasdown")
+  load_all("~/github/pbs-assess/rosettafish")
 }else if(user == "seananderson"){
   library(gfiscamutils)
   load_all("~/src/gfiscamutils/")
@@ -314,35 +315,42 @@ age_precision <- dat$age_precision
 theme_set(gfiscam_theme())
 
 # Gear names are set in the data file for each model
-gear_names <- models$base_model[[1]]$dat$gear_names
-if(fr()){
-  # Translate all gear names to French
-  # Note 'Shoreside' is the same in both languages 
-  gear_names_fr <- map_chr(gear_names, ~{
-    if(.x == "HS Multispecies Assemblage"){
-      return("HS Assemblage multi-espèces")
-    }
-    if(grepl("Synoptic", .x)){
-      j <- str_split(.x, " ")[[1]]
-      paste(j[1], tr(j[2]))
-    }else{
-      tr(.x)
-    }
-  })
-  
-  models$base_model <- 
-    replace_gear_names(models$base_model,
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_fr)
-  models$bridge_grps[[1]] <- 
-    replace_gear_names(models$bridge_grps[[1]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_fr)
-  models$bridge_grps[[2]] <- 
-    replace_gear_names(models$bridge_grps[[2]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_fr)
-}
+#gear_names <- models$base_model[[1]]$dat$gear_names
+#gear_names <- models[[1]][[1]][[1]]$dat$gear_names
+
+# if(fr()){
+#   # Translate all gear names to French
+#   # Note 'Shoreside' is the same in both languages 
+#   gear_names_fr <- map_chr(gear_names, ~{
+#     if(.x == "HS Multispecies Assemblage"){
+#       return("HS Assemblage multi-espèces")
+#     }
+#     browser
+#     if(.x == "HS Multi-x"){
+#       return(.x)
+#     }
+#     if(grepl("Synoptic", .x)){
+#       j <- str_split(.x, " ")[[1]]
+#       paste(j[1], tr(j[2]))
+#     }else{
+#       tr(.x)
+#     }
+#   })
+#   
+#   # Base model
+#   models[[1]][[1]] <- 
+#     replace_gear_names(models[[1]][[1]],
+#                        old_gear_names = gear_names,
+#                        new_gear_names = gear_names_fr)
+#   models$bridge_grps[[1]] <- 
+#     replace_gear_names(models$bridge_grps[[1]],
+#                        old_gear_names = gear_names,
+#                        new_gear_names = gear_names_fr)
+#   models$bridge_grps[[2]] <- 
+#     replace_gear_names(models$bridge_grps[[2]],
+#                        old_gear_names = gear_names,
+#                        new_gear_names = gear_names_fr)
+# }
 
 base_model <- models$base_grps[[1]][[1]]
 

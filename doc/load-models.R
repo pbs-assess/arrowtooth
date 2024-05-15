@@ -53,14 +53,15 @@ bridge_models_text <-
                 "Corriger les mortalités naturelles (deux flottes, sexe divisé)",
                 "Fix natural mortalities (two fleets, split sex)")),
        c(ifelse(fr(),
-                "French here",
+                "Modèle de base 2015",
                 "2015 base model"),
          ifelse(fr(),
-                "French here",
+                "Rétrospective - 7 ans",
                 "Retrospective -7 years")))
 
 # Make these factors so that they can be reordered in the legends later
-bridge_models_text <- bridge_models_text %>% map(~{factor(.x, levels = .x)})
+bridge_models_text <- bridge_models_text |>
+  map(~{factor(.x, levels = .x)})
 
 # This is a list of vectors of sensitivity groups (sensitivity models that
 # will be plotted against each other). It can be `NULL` if to be ignored.
@@ -229,9 +230,14 @@ retro_models_text <-
                 "Base model - 8 years")))
 
 # Add base model text to each retrospective group
-retro_models_text <- map(retro_models_text, ~{c("Base model", .x)})
+retro_models_text <- map(retro_models_text, ~{
+  c(ifelse(fr(),
+           "Modèle de base",
+           "Base model"), .x)
+  })
 # Make these factors so that they can be reordered in the legends later
-retro_models_text <- retro_models_text %>% map(~{factor(.x, levels = .x)})
+retro_models_text <- retro_models_text |>
+  map(~{factor(.x, levels = .x)})
 
 # if(here() == "/home/rstudio"){
 #   # For an Rstudio server spawned inside a Docker container
