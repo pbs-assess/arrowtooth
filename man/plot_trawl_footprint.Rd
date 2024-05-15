@@ -10,10 +10,11 @@ plot_trawl_footprint(
   crs_num = 4326,
   x_lim = c(-135, -122),
   y_lim = c(48, 55),
-  leg_pos = c(0.87, 0.9),
+  leg_pos = c(0.86, 0.85),
   trawl_foot_fill = "black",
   trawl_foot_alpha = 1,
-  survey_alpha = 0.5
+  survey_alpha = 0.5,
+  french = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,9 @@ Values are between 0 and 1}
 \item{trawl_foot_alpha}{The opacity to use for the trawl footprint polygons}
 
 \item{survey_alpha}{The opacity to use for the survey grid lines}
+
+\item{french}{Logical. If \code{TRUE}, use french names and labels in the plot
+as necessary}
 }
 \value{
 A \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} object

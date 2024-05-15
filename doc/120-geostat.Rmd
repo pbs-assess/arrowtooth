@@ -85,7 +85,9 @@ We also considered a Tweedie model with the linear component defined as
 \end{align}
 where the parameters have a similar definition as above in the binomial and Gamma models but the data are accounted for with a single observation distribution---the Tweedie---with associated mean, power, and scale parameters.
 
-Furthermore, we considered versions of the above models without depth as a predictor. In total, we fit four models: $\Delta$-Gamma with depth, $\Delta$-Gamma without depth, Tweedie with depth, and Tweedie without depth. Predictions from the $\Delta$-Gamma without depth are shown in Figures \@ref(fig:geo-predmap1) and \@ref(fig:geo-predmap2) as examples.
+Furthermore, we considered versions of the above models without depth as a predictor. In total, we fit four models: $\Delta$-Gamma with depth, $\Delta$-Gamma without depth, Tweedie with depth, and Tweedie without depth.
+
+Of the models considered, the models without depth made fewer assumptions. In addition, the depth data source is different from the data source used for the grid and it is possible that they represent slightly different variables. Since the trends in the models that included depth were similar to those that did not include depth, the models which do not include depth are likely better for using in the stitching process. Predications from the $\Delta$-Gamma model without depth are therefore shown in Figures \@ref(fig:geo-predmap1) and \@ref(fig:geo-predmap2).
 
 ## Calculating annual standardized biomass
 

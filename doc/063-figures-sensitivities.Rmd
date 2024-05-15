@@ -156,7 +156,7 @@ plot_index_mcmc(models$sens_grps[[4]],
 
 <!-- QCS TV selectivity -->
 
-(ref:fig-sens-qcs-tv-en) Time-varying selectivity for the `r qcs`, where the panels are blocks of years: 2003--2010 (left), 2011--2016 (middle), and 2017--2021 (right). See Figure \@ref(fig:fig-base-mcmc-selex) for more information.
+(ref:fig-sens-qcs-tv-en) Time-varying selectivity for the `r qcs`, where the panels are blocks of years: 2003--2010 (left), 2011--2016 (middle), and 2017--2021 (right). The dots are median selectivity-at-age estimates; the shaded areas are the 95% CI for those estimates. Dashed lines are maturity curves, with the colours represent sex as in the legend.
 
 (ref:fig-sens-qcs-tv-fr) French here
 

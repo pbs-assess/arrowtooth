@@ -41,7 +41,17 @@ plot_cpue_spatial(dat$cpue_spatial,
                   colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"))
 ```
 
-(ref:fig-catch-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. As mentioned in the text, in the years prior to 1996, many tows of `r sp` were discarded without logs.
+(ref:fig-trawl-footprint-en) Spatial coverage of the commercial trawl sector for all species (black polygons) overlaid with the coverage by the four synoptic surveys (colors). Synoptic surveys are shown as a grid of 2km x 2km blocks, which represent 'active blocks' in the survey design. The presence of a block in this figure does not mean that it has been surveyed, only that it is in the set of blocks that can be surveyed as detailed in the survey design.
+
+(ref:fig-trawl-footprint-fr) Couverture spatiale du secteur du chalutage commercial pour toutes les espèces (polygones noirs) superposée à la couverture des quatre enquêtes synoptiques (couleurs). Les enquêtes synoptiques sont représentées sous la forme d'une grille de blocs de 2 km x 2 km, qui représentent des 'blocs actifs' dans la conception de l'enquête. La présence d'un bloc dans cette figure ne signifie pas qu'il a fait l'objet d'une enquête, mais seulement qu'il fait partie de l'ensemble des blocs pouvant faire l'objet d'une enquête, conformément au plan d'enquête.
+
+
+```{r fig-trawl-footprint, fig.cap = ifelse(fr(), "(ref:fig-trawl-footprint-fr)", "(ref:fig-trawl-footprint-en)")}
+
+plot_trawl_footprint(french = fr())
+```
+
+(ref:fig-catch-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. In the years prior to 1996, many tows of `r sp` were discarded without logs being kept.
 
 (ref:fig-catch-fr) Capture commerciale de `r tr(sp)` par flotte. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, la capture de l'année 2005 correspond à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006.
 
@@ -344,7 +354,7 @@ plot_age_resids_mcmc(base_model,
 
 <!-- Selectivity ------------------------------------------------------------->
 
-(ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots are estimated selectivity-at-age, the shaded areas around are the 95% CI for those estimates. Single lines with no CI are fixed selectivities. Dashed lines represent maturity, with the colours representing the sexes and are the same as for selectivity curves.
+(ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots are median selectivity-at-age estimates; the shaded areas are the 95% CI for those estimates. Dashed lines are maturity curves, with the colours represent sex as in the legend. Single lines with no CI are fixed selectivities.
 
 (ref:fig-base-selex-fr) French goes here
 

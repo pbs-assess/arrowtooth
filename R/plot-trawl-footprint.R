@@ -13,6 +13,8 @@
 #' @param trawl_foot_fill The color to use to fill the trawl footprint polygons
 #' @param trawl_foot_alpha The opacity to use for the trawl footprint polygons
 #' @param survey_alpha The opacity to use for the survey grid lines
+#' @param french Logical. If `TRUE`, use french names and labels in the plot
+#' as necessary
 #'
 #' @return A [ggplot2::ggplot()] object
 #' @export
@@ -21,10 +23,11 @@ plot_trawl_footprint <- function(
     crs_num = 4326,
     x_lim = c(-135, -122),
     y_lim = c(48, 55),
-    leg_pos = c(0.87, 0.9),
+    leg_pos = c(0.86, 0.85),
     trawl_foot_fill = "black",
     trawl_foot_alpha = 1,
-    survey_alpha = 0.5){
+    survey_alpha = 0.5,
+    french = FALSE){
 
   # Function `load_and_convert_polysets()` loads a premade RDA file which
   # contains an object with the name `obj_nm` which is a data frame
@@ -63,8 +66,15 @@ plot_trawl_footprint <- function(
   surv <- gfdata::survey_blocks |>
     as_tibble() |>
     # Remove HBLL surveys for this plot
-    filter(grepl("^SYN", survey_abbrev)) |>
-    rename(Survey = survey_abbrev) |>
+    filter(grepl("^SYN", survey_abbrev))
+
+  nm <- "Survey"
+  if(french){
+    nm <- rosettafish::en2fr(nm)
+  }
+  nm_sym <- sym(nm)
+  surv <- surv |>
+    rename(!!nm_sym := survey_abbrev) |>
     st_as_sf() |>
     st_transform(crs = crs_num)
 
@@ -76,9 +86,9 @@ plot_trawl_footprint <- function(
             fill = trawl_foot_fill,
             alpha = trawl_foot_alpha) +
     geom_sf(data = surv,
-            aes(color = Survey,
+            aes(fill = !!nm_sym,
                 geometry = geometry),
-            fill = "transparent",
+            color = "transparent",
             alpha = survey_alpha) +
     scale_colour_brewer(palette = "Dark2") +
     coord_sf(datum = st_crs(crs_num),
