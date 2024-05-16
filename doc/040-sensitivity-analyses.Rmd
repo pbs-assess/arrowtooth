@@ -24,8 +24,29 @@ This list of sensitivity scenarios with more details is provided in Table \@ref(
 ")
 ```
 
-```{r scam-sensitivity-analyses-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sensitivity-analyses-en>>
+```{r scam-sensitivity-analyses-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## ANALYSES DE SENSIBILITÉ {#sens-analyses}
+Nous avons testé la sensibilité des résultats du modèle comme suit :
+
+1. Diminuer $\sigma$ de `r base_sig` à `r sens_1_2_sig` (change $\vartheta^2$ et $\rho$) et estimer $\vartheta^2$.
+1. Augmenter la valeur initiale de $\tau$ de `r base_tau` à `r sens_1_3_tau` (modifie $\vartheta^2$ et $\rho$) et estimer $\vartheta^2$.
+1. Diminuer la valeur initiale de $\tau$ de `r base_tau` à `r sens_1_4_tau` (modifie $\vartheta^2$ et $\rho$) et estimer $\vartheta^2$.
+1. Diminuer la moyenne de l'a priori $h$ de `r f(base_h_prior1, 2)` à `r f(sens_1_5_h_prior1, 2)`
+1. Estimer $M_\mathrm{femme}$ avec un a priori étroit (SD = `r sens_2_2_m_female$p2`)
+1. Estimation de $M_\mathrm{femme}$ avec un a priori large (SD = `r sens_2_3_m_female$p2`)
+1. Estimation de $M_\mathrm{masculin}$ avec un a priori étroit (SD = `r sens_2_4_m_male$p2`)
+1. Estimation de $M_\mathrm{male}$ avec un a priori large (SD = `r sens_2_5_m_male$p2`)
+1. Augmenter la moyenne des a priori pour les capturabilités de `r base_qk_mean` à `r sens_qk_mean` ($q_k$ pour tous les engins $k$)
+1. A priori de capturabilité plus large, de SD = `r base_qk_sd` à `r sens_qkp_sd` ($q_k$ pour tous les engins $k$)
+1. Courbes de sélectivité égales à l'ogive de maturité pour tous les engins
+1. Estimer la sélectivité variable dans le temps pour les `r qcs`, afin d'essayer d'améliorer l'ajustement de l'indice d'enquête
+1. Indices d'enquête basés sur un modèle géostatistique (Section \@ref(app:geostat))
+1. Supprimer la CPUE des rejets
+1. Modifier l'ogive de maturité pour ne pas inclure les spécimens « en développement » ou « au repos ».
+1. Fixer la sélectivité de l'indice DCPUE à un niveau égal à la sélectivité de la pêcherie côtière.
+1. Fixer la sélectivité de toutes les enquêtes pour qu'elle soit égale à la sélectivité de la pêche côtière.
+
+Cette liste de scénarios de sensibilité, avec plus de détails, est fournie dans le tableau \ref(tab:sens-param-settings-table). Les paramètres du modèle de base sont indiqués dans le tableau \@ref(tab:param-settings-table). Tous les modèles de sensibilité ont été exécutés à l'aide de MCMC avec une longueur de chaîne de `r f(mcmc_chain_length)`, une fréquence d'échantillonnage de `r f(mcmc_sample_freq)`, donnant `r f(mcmc_num_samples)` échantillons, qui ont ensuite été brûlés par `r f(mcmc_burn_in)` donnant un total de `r f(mcmc_actual_samples)` échantillons retenus pour l'inférence.")
 ```
 
 ```{r scam-sens-sigma-en, eval = !fr(), results = 'asis'}
@@ -46,8 +67,21 @@ Decreasing the steepness prior mean from `r f(base_h_prior1, 2)` to `r f(sens_1_
 ")
 ```
 
-```{r scam-sens-sigma-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-sigma-en>>
+```{r scam-sens-sigma-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Diminution de $\sigma$ et ajustement de $\tau$ {#sens-sigma}
+`r iscam` utilise un paramétrage d'erreur qui comprend deux paramètres, $\vartheta^2$ et $\rho$. Ils représentent respectivement la variance totale et la proportion de la variance totale associée aux erreurs d'observation [@iscam]. L'erreur d'observation SD ($\sigma$) et l'erreur de processus SD ($\tau$) ne peuvent pas être estimées directement, mais un calcul est effectué pour convertir ces valeurs en $\vartheta^2$ et $\rho$ (Annexe \@ref(app:model-desc), Eq. \@ref(eq:df17)). Les valeurs de $\sigma$ et $\tau$ ont été fixées dans le modèle de base [@grandin2017] à `r base_sig` et `r base_tau` respectivement. Par calcul, $\vartheta^2$ et $\rho$ ont été fixés à `r f(base_vartheta$init, 2)` et `r f(base_rho$init, 4)`.
+
+La réduction de l'erreur d'observation en diminuant $\sigma$ de `r base_sig` à `r sens_1_2_sig` et l'estimation de $\vartheta^2$ ont augmenté la valeur de $\vartheta^2$ de `r f(base_vartheta$init, 2)` à `r f(sens_1_2_vartheta$init, 2)` tout en réduisant de moitié environ $\rho$ de `r f(base_rho$init, 3)` à `r f(sens_1_2_rho$init, 3)`. La médiane et l'IC à 95 % de la valeur postérieure pour $\vartheta^2$ étaient `r sens_1_2_vartheta$est`. Il y a eu peu d'effet sur la trajectoire de la biomasse absolue (figure \@ref(fig:fig-sens-variance)), mais l'estimation de $B_0$ a été augmentée de `r f(as.numeric(base_sbo[1]) * 1000)`, à `r svals[[1]][[2]]$sbo[1]`,000 t (figure \@ref(fig:fig-sens-variance)). L'augmentation de l'estimation $B_0$ a entraîné une réduction de l'échelle de la trajectoire de la biomasse relative (figure \@ref(fig:fig-sens-variance-rel)). Il n'y a pas eu de changements substantiels dans les ajustements de l'indice, les ajustements de l'âge ou les sélectivités.
+
+Le fait de fixer la valeur de $\tau$ à `r sens_1_3_tau` a eu un effet similaire à la réduction de l'erreur d'observation supposée de l'indice et a abaissé la trajectoire de la biomasse relative. Pour cette valeur de $\tau$, les valeurs de $\vartheta^2$ et $\rho$ étaient respectivement `r f(sens_1_3_vartheta$init, 2)` et `r f(sens_1_3_rho$init, 3)` (Annexe \ref(app:model-desc), Eq. \ref(eq:df17)).
+
+Le fait de fixer la valeur initiale de $\tau$ à `r sens_1_4_tau` a également eu peu d'effet sur la biomasse absolue. Pour cette valeur de $\tau$, les valeurs initiales de $\vartheta^2$ et $\rho$ étaient respectivement `r f(sens_1_4_vartheta$init, 2)` et `r f(sens_1_4_rho$init, 3)`. L'estimation de $\vartheta^2$ était `r sens_1_4_vartheta$est`.
+
+Les estimations de $B_0$ ont augmenté pour ces deux modèles par rapport au modèle de base, ce qui a entraîné une réduction de la trajectoire de la biomasse relative et une estimation de l'état en 2021/2022 proche du PRL (figure \@ref(fig:fig-sens-variance-rel)). L'augmentation de $B_0$ était beaucoup plus importante et avait un IC plus grand pour le modèle $\tau = 1.0$ que pour le modèle $\tau = 0.6$ (`r sens_1_3_sbo$est` vs. `r sens_1_4_sbo$est`) en milliers de tonnes.
+
+### Diminution de la moyenne de l'a priori de pente {#sens-h}
+
+La diminution de la moyenne de l'a priori de pente de `r f(base_h_prior1, 2)` à `r f(sens_1_5_h_prior1, 2)` et la modification de l'a priori SD de `r f(base_h_prior2, 2)` à `r f(sens_1_5_h_prior2, 2)` ont produit peu de changement à la fois dans la biomasse absolue et $B_0$ (Figure \@ref(fig : fig-sens-variance)), malgré un a priori différent (Figure \@ref(fig:sens-steepness-prior), par rapport au modèle de base Figure \@ref(fig:fig-base-priors-posts)). L'a priori pour $h$ est très influent sur le postérieur, mais la valeur de $h$ n'a pas un grand effet sur la biomasse absolue ou relative (Figure \@ref(fig:fig-sens-variance-rel)).")
 ```
 
 ```{r scam-sens-m-en, eval = !fr(), results = 'asis'}
@@ -60,8 +94,13 @@ This model is sensitive to natural mortality values whether fixed or estimated. 
 ")
 ```
 
-```{r scam-sens-m-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-m-en>>
+```{r scam-sens-m-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Modifier les priors sur $M_\mathrm{femelle}$ et $M_\mathrm{mâle}$ {#sens-m}
+Dans le modèle de base, les paramètres de mortalité naturelle $M_\mathrm{femme}$ et $M_\mathrm{mâle}$ sont fixés à `r f(exp(base_m_female$init), 2)` et `r f(exp(base_m_male$init), 2)` respectivement. Quatre modèles de sensibilité ont été exécutés pour estimer chaque paramètre de $M$ avec des écarts types larges et étroits. La figure \@ref(fig:fig-sens-m) montre les trajectoires de biomasse absolue pour ces modèles. Les trajectoires relatives de la biomasse de frai sont présentées dans la figure \@ref(fig:fig-sens-m-rel). L'estimation de $M_\mathrm{femelle}$ avec des a priori étroits et larges a produit des estimations pour $M_\mathrm{femelle}$ de `r sens_2_2_m_female$est` et `r sens_2_3_m_female$est` respectivement. $M_\mathrm{mâle}$ est resté fixe pour ces modèles, à `r f(exp(base_m_male$init), 2)`. La figure \@ref(fig:fig-sens-m) montre que le modèle est sensible au paramètre de mortalité naturelle des femelles, car les trajectoires de biomasse absolue et les estimations de $B_0$ sont gonflées. Les estimations sont très différentes de la valeur fixe de `r f(exp(base_m_female$init), 2)`, ce qui provoque cet effet d'échelle. Si la mortalité des femelles est plus élevée, le modèle doit ajuster le point de départ ($B_0$) à la hausse afin d'ajuster tous les paramètres, y compris les indices, à la baisse de la biomasse en 2019 (figure \@ref(fig:fig-base-index-fits)).
+
+Les modèles de sensibilité qui estiment $M_\mathrm{male}$ avec des a priori étroits et larges ont produit des estimations de `r sens_2_4_m_male$est` et `r sens_2_5_m_male$est` respectivement. Ces estimations sont également très différentes des valeurs fixes du paramètre (`r f(exp(base_m_male$init), 2)`). Cependant, les mâles ne représentent que `r f((1 - as.numeric(total_prop_female)) * 100)`% de la biomasse du stock reproducteur et la sélectivité estimée des mâles est généralement plus à droite de la maturité que celle des femelles (Figure \@ref(fig:fig-base-mcmc-selex)). Cela implique que les mâles retirés du stock auront un impact global plus faible sur la biomasse du stock, étant donné qu'il n'y a pas autant de poissons mâles plus âgés dans le stock à capturer, et que la sélectivité est plus élevée pour ces poissons moins nombreux. Le manque de mâles plus âgés est visible dans les données relatives à la longueur et à l'âge (figures \@ref(fig:fig-longues) et \@ref(fig:fig-ages)).
+
+Ce modèle est sensible aux valeurs de mortalité naturelle, qu'elles soient fixes ou estimées. Le modèle de base utilise les valeurs fixes utilisées par plusieurs juridictions voisines [@goa2017; @goa2019; @bering2019; @goa2020; @goa2021].")
 ```
 
 ```{r scam-sens-q-en, eval = !fr(), results = 'asis'}
@@ -74,8 +113,14 @@ The absolute and relative biomass was almost identical to the base model for the
 ")
 ```
 
-```{r scam-sens-q-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-q-en>>
+```{r scam-sens-q-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Modifier les paramètres de capturabilité {#sens-q}
+Les paramètres de capturabilité sont $\operatorname{ln}(q_k)$ où $k$ est l'engin, un pour chaque flottille de chalutage et indice d'enquête (`r paste(base_model$dat$gear_names, collapse = ', ')`). Ces paramètres ont un a priori normal associé avec une moyenne logarithmique et un écart-type définis dans les fichiers de contrôle `r iscam`. Dans le modèle de base, ces paramètres sont respectivement `r paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$')` et `r paste0('$', f(base_qk_sd, 1), '$')`.
+
+Deux modèles de sensibilité ont été exécutés afin de tester l'influence des prières pour $\operatorname{ln}(q_k)$. Dans le premier, les moyennes pour tous les engins ont été augmentées de `r paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$')` à `r paste0('$\operatorname{ln}(', f(sens_qk_mean, 1), ')$')`, et le SD est resté à `r paste0('$', f(base_qk_sd, 1), '$')`. Dans le second, l'a priori a été élargi en fixant l'écart-type pour tous les engrenages à `r paste0('$', f(base_qk_sd, 1), '$')`. Les moyennes pour ce modèle sont restées à `r paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$')`.
+
+La biomasse absolue et relative était presque identique au modèle de base pour ces modèles (figures \@ref(fig:fig-sens-q-m) et \@ref(fig:fig-sens-q-rel)). Les estimations de la capturabilité étaient également presque identiques entre ces modèles et le modèle de base (figure \@ref(fig:fig-sens-q-q)).
+")
 ```
 
 ```{r scam-sens-sel-mat-en, eval = !fr(), results = 'asis'}
@@ -88,8 +133,14 @@ The vulnerable biomass for this model is substantially higher than for the base 
 ")
 ```
 
-```{r scam-sens-sel-mat-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-sel-mat-en>>
+```{r scam-sens-sel-mat-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Fixer des sélectivités égales à la maturité {#sens-sel-mat}
+Cette sensibilité est apparue lors du cycle `r la`, où l'on a constaté que les courbes de sélectivité estimées étaient toutes à droite de l'ogive de maturité [Figure 17, @grandin2017]. De ce fait, la valeur de $F_\mathrm{MSY}$ était très élevée et donnait essentiellement à penser qu'un nombre illimité de captures pouvait être effectué sans affecter le stock. Nous le répétons ici, car la même situation s'est produite avec le modèle de base actuel et pour comparer ce modèle avec le modèle à sexe unique de la `r la`.
+
+Pour cette structure de modèle, les estimations absolues de biomasse et de $B_0$ sont beaucoup plus importantes que pour le modèle de base (Figure \@ref(fig:fig-sens-selex)). La médiane de la valeur postérieure de $B_0$ a été estimée à `r f(as.numeric(svals[[4]][[2]]$sbo[1]) * 1000)` t avec un IC large de `r svals[[4]][[2]]$sbo[2]` mille t. À titre de comparaison, le modèle de base avait une estimation de $B_0$ de `r f(as.numeric(base_sbo[1]) * 1000)` t avec un IC de `r base_sbo[2]` mille t. La trajectoire de la biomasse absolue est également élevée, de sorte que la biomasse relative est supérieure à celle du modèle de base (Figure \@ref(fig:fig-sens-selex-rel)). Les ajustements de l'indice reflètent tous cela, puisqu'ils montrent tous un aller simple vers le bas (Figure \@ref(fig:fig-sens-selex-index-fits)).
+
+La biomasse vulnérable de ce modèle est nettement plus élevée que celle du modèle de base (figure \@ref(fig:fig-sens-sel-eq-mat-vuln)), et exactement égale pour les deux flottes (l'une chevauche l'autre, ce qui n'est pas visible sur la figure). Cela est dû au fait que la sélectivité est exactement la même pour les deux flottes, et non pas au fait qu'elles sont égales à la maturité. Le rapport entre la somme des biomasses vulnérables des deux flottes et la biomasse de frai est `r f(sel_eq_mat_vuln_ratio, 2)`. Pour le modèle de base, ce rapport est `r f(base_model_vuln_ratio, 2)`. En déplaçant la sélectivité vers la gauche, on augmente la biomasse vulnérable par rapport à la biomasse reproductrice.
+")
 ```
 
 ```{r scam-sens-qcs-tv-en, eval = !fr(), results = 'asis'}
@@ -102,8 +153,14 @@ There was also some autocorrelation in the MCMC samples for the `r qcs` selectiv
 ")
 ```
 
-```{r scam-sens-qcs-tv-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-qcs-tv-en>>
+```{r scam-sens-qcs-tv-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Utilisation de la sélectivité TV pour le `r qcs` {#sens-qcs-tv}
+Afin d'améliorer l'ajustement de l'indice `r qcs` (Figure \@ref(fig:fig-base-index-fits)), nous avons implémenté une sélectivité variable dans le temps dans `r iscam` et avons exécuté le modèle avec le `r qcs` ayant trois blocs de sélectivité, 2003--2010, 2011--2016, et 2017--2021. Nous avons essayé de nombreuses combinaisons du nombre de blocs de sélectivité et de l'étendue de chaque bloc, et c'est cette combinaison particulière qui s'est le mieux adaptée aux données.
+
+Les trajectoires de la biomasse absolue et relative montrent toutes deux une valeur inférieure en 2022 à celle du modèle de base (figures \@ref(fig:fig-sens-selex) et \@ref(fig:fig-sens-selex-rel)). L'ajustement de l'indice était globalement meilleur que pour le modèle de base, en particulier dans la dernière partie de la série (figure \@ref(fig:fig-sens-selex-index-fits)). L'amélioration de l'ajustement de l'indice QCS était l'objectif de cette exécution du modèle, mais elle s'est faite aux dépens de mauvaises estimations de la sélectivité. Les estimations de la sélectivité pour les blocs de trois ans sont présentées dans la figure \@ref(fig:fig-sens-qcs-tv). La sélectivité masculine pour les premières années (panneau de gauche) est très à droite, bien plus loin que les sélectivités invariantes dans le temps du modèle de base (figure \@ref(fig:fig-base-mcmc-selex)). Les deux autres périodes présentent des estimations encore plus déraisonnables de la sélectivité, ce qui rend ce modèle inutilisable pour toute forme de conseil.
+
+Il y avait également une certaine autocorrélation dans les échantillons MCMC pour les paramètres de sélectivité `r qcs` dans ce modèle (Figure \@ref(fig:fig-sens-qcs-autocor-sel)) et les tracés pour ces paramètres ne sont pas adéquats pour une inférence valide (Figure \@ref(fig:fig-sens-qcs-trace-sel-tv)).
+")
 ```
 
 ```{r scam-sens-geostat-en, eval = !fr(), results = 'asis'}
@@ -114,8 +171,12 @@ The index fit is shown in Figure \@ref(fig:fig-sens-geostat-index-fits). The fit
 ")
 ```
 
-```{r scam-sens-geostat-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-geostat-en>>
+```{r scam-sens-geostat-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Utilisation d'indices d'enquête calculés à l'aide de la modélisation géostatistique {#sens-geostat}
+Ce cas de sensibilité implique le remplacement des données d'index pour les trois enquêtes synoptiques (`r qcs`, `r hss`, et `r wcvis`). Ces données sont calculées à l'aide d'un estimateur standard dans le modèle de base. Ici, elles ont été remplacées par des indices basés sur la géostatistique (annexe \@ref(app:geostat)). La biomasse absolue et relative est similaire au modèle de base, avec une estimation légèrement plus élevée de $B_0$ et une trajectoire de biomasse absolue légèrement plus élevée (Figures \@ref(fig:fig-sens-geostat) et \@ref(fig:fig-sens-geostat-rel)).
+
+L'ajustement de l'indice est présenté dans la figure \@ref(fig:fig-sens-geostat-index-fits). L'ajustement de l'indice basé sur la géostatistique est à peu près visuellement équivalent à l'ajustement de l'indice dans le modèle de base, mais ils ne sont pas représentés ensemble sur le même graphique parce que les indices de base sont différents.
+")
 ```
 
 ```{r scam-sens-remove-discard-cpue-en, eval = !fr(), results = 'asis'}
@@ -124,8 +185,10 @@ We tested the impact of removing the discard CPUE index. The relative biomass tr
 ")
 ```
 
-```{r scam-sens-remove-discard-cpue-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-remove-discard-cpue-en>>
+```{r scam-sens-remove-discard-cpue-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Suppression de l'indice de CPUE de rejets du modèle {#sens-remove-dcpue}
+Nous avons testé l'impact de la suppression de l'indice de CPUE des rejets. La trajectoire de la biomasse relative est restée similaire, avec seulement une légère augmentation de la biomasse de fin d'année (Figure \@ref(fig:fig-sens-meeting-rel)). Les ajustements des indices de l'enquête n'ont montré que des écarts mineurs par rapport aux ajustements du modèle de base (Figure \@ref(fig:fig-sens-remove-dcpue-index-fits)).
+")
 ```
 
 ```{r scam-sens-change-maturity-en, eval = !fr(), results = 'asis'}
@@ -136,8 +199,12 @@ Removing 'developing' and resting' from the maturity ogive produced a better-fit
 ")
 ```
 
-```{r scam-sens-change-maturity-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-change-maturity-en>>
+```{r scam-sens-change-maturity-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Modification de l'ogive de maturité {#sens-change-maturity}
+`r sp` frayent pendant l'hiver et les enquêtes ont lieu pendant l'été. De nombreuses maturités enregistrées en été sont donc en phase de 'repos', ce qui peut être difficile à distinguer de l'immaturité. Il existe également une certaine ambiguïté dans la classification des poissons 'en développement' (codes 2 et 3 dans les codes de maturité du MPO pour les poissons plats).
+
+La suppression des phases de 'développement' et de 'repos' de l'ogive de maturité a produit une ogive mieux ajustée (figure \@ref(fig:fig-mat)) et a entraîné une biomasse absolue de l'année finale légèrement inférieure à celle du modèle de base, mais la même biomasse relative (figures \@ref(fig:fig-sens-meeting) et \@ref(fig:fig-sens-meeting-rel)). Cette maturité devrait être prise en compte dans le modèle de base de la prochaine évaluation. Étant donné qu'elle n'a pas eu d'incidence qualitative sur les résultats et qu'elle a été élaborée à la suite de la réunion d'examen initiale, nous ne l'avons pas incluse dans le modèle de base pour la présente évaluation.
+")
 ```
 
 ```{r scam-sens-fix-selectivities-en, eval = !fr(), results = 'asis'}
@@ -153,6 +220,15 @@ Fixing the survey selectivities produced a large change in the model, with a muc
 ")
 ```
 
-```{r scam-sens-fix-selectivities-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-sens-fix-selectivities-en>>
+```{r scam-sens-fix-selectivities-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Fixation des sélectivités {#sens-fix-selectivities}
+Il y a eu deux sensibilités pour lesquelles les sélectivités ont été fixées à la valeur estimée de la pêche côtière dans le modèle de base:
+
+1. Fixer la sélectivité de l'indice DCPUE à la sélectivité de la pêche à terre
+1. Fixer la sélectivité de toutes les enquêtes à la sélectivité de la pêche côtière
+
+La fixation de la sélectivité de l'indice DCPUE a entraîné une biomasse absolue et relative légèrement inférieure à celle du modèle de base. Il n'y a pas eu de différences substantielles dans l'ajustement de l'indice.
+
+La fixation des sélectivités des campagnes a entraîné un changement important dans le modèle, avec une estimation $B_0$ beaucoup plus élevée (Figure \@ref(fig:fig-sens-meeting)) entraînant une forte réduction de la biomasse relative (Figure \@ref(fig:fig-sens-meeting-rel)). Il y a également eu une forte augmentation de la biomasse à la fin de la série chronologique, ce qui implique une croissance exponentielle du stock, ce qui n'est pas réaliste. Les ajustements de l'indice étaient légèrement différents avec ce modèle, avec une différence d'ajustement prononcée pour le `r qcsss`.
+")
 ```
