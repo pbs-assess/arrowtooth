@@ -1,15 +1,41 @@
-```{r decisions-en, eval = !fr(), results = 'asis'}
+```{r recommendations-and-yield-para-1-en, eval = !fr(), results = 'asis'}
 cat("# RECOMMENDATIONS AND YIELD OPTIONS {#decisions}
 ## REFERENCE REMOVAL RATE
 As outlined in Section \@ref(ref-removal-rate), the reference removal rate was calculated as the amount of constant catch taken each year for the long term to bring the relative spawning biomass to $0.4B_0$. The long-term annual catch calculated was `r f(f_bo_40$catch * 1000)` t. Table \@ref(tab:rate-table) gives the values including the associated instantaneous fishing mortality and annual exploitation rate values.
 
-## PROJECTIONS AND DECISION TABLE
+")
+```
+
+```{r recommendations-and-yield-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# RECOMMANDATIONS ET OPTIONS DE RENDEMENT {#decisions}
+## TAUX DE PRÉLÈVEMENT DE RÉFÉRENCE
+Comme indiqué à la section \@ref(ref-removal-rate), le taux de prélèvement de référence a été calculé comme la quantité de capture constante prélevée chaque année à long terme pour amener la biomasse reproductrice relative à 0,4B_0$. La capture annuelle à long terme calculée était `r f(f_bo_40$catch * 1000)` t. Le tableau \@ref(tab:rate-table) donne les valeurs, y compris les valeurs associées de mortalité par pêche instantanée et de taux d'exploitation annuel.
+
+")
+```
+
+```{r recommendations-and-yield-para-2-en, eval = !fr(), results = 'asis'}
+cat("## PROJECTIONS AND DECISION TABLE
 
 Projections were run 3 years into the future with alternative constant catch levels ranging from `r f(min(base_model$proj$tac.vec * 1000))` to `r f(max(base_model$proj$tac.vec * 1000))` t in 1,000 t increments for the years `r assess_yr`--`r assess_yr + base_model$proj$num.projyrs - 1`. Projected log recruitment deviations in the years `r assess_yr`--`r assess_yr + base_model$proj$num.projyrs - 1` were drawn randomly with replacement from the estimated 2010--2019 deviations (omitting the poorly estimated 2020 and 2021 deviations).
 
 The projected relative biomass trajectory (medians of the posteriors with 95% CI) and a closeup view of it are shown in Figures \@ref(fig:fig-rel-biomass-proj) and \@ref(fig:fig-rel-biomass-proj-closeup) respectively. The 95% CI in the trajectory becomes larger the further into the future the projections are run. Using 10,000 t catch in 2024 as an example, the 95% CI for the 2025 biomass spans from `r f(lo_uncert_2025_catch_10, 3)` to `r f(hi_uncert_2025_catch_10, 3)`, which represents a range of `r f(diff_uncert_2025_catch_10, 3)`. This is almost twice the size of the difference between the USR and the LRP (0.2). The large amount of uncertainty should be taken into account when evaluating these projections.
 
-Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextnextyr-proj) show the medians of the posterior, 50% CI and 95% CI for the relative spawning biomass in the projected years, for each catch stream applied. The $B_0$-base reference points are also shown along with a reference line for $0.35B_0$. These figures give another view of the medians and uncertainties shown in Figure \@ref(fig:fig-rel-biomass-proj), but with each figure representing one projected year only so that each posterior can be more clearly seen.
+")
+```
+
+```{r recommendations-and-yield-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## PROJECTIONS ET TABLE DE DÉCISION
+
+Les projections ont été réalisées 3 ans à l'avance avec des niveaux de capture constants alternatifs allant de `r f(min(base_model$proj$tac.vec * 1000))` à `r f(max(base_model$proj$tac.vec * 1000))` t par incréments de 1 000 t pour les années `r assess_yr`--`r assess_yr + base_model$proj$num.projyrs - 1`. Les écarts logarithmiques de recrutement projetés pour les années `r assess_yr`--`r assess_yr + base_model$proj$num.projyrs - 1` ont été tirés au hasard avec remplacement à partir des écarts estimés pour la période 2010-2019 (en omettant les écarts mal estimés pour les années 2020 et 2021).
+
+La trajectoire projetée de la biomasse relative (médianes des postérieures avec IC à 95 %) et une vue rapprochée de celle-ci sont présentées dans les figures \@ref(fig:fig-rel-biomass-proj) et \@ref(fig:fig-rel-biomass-proj-closeup) respectivement. L'IC à 95 % de la trajectoire est d'autant plus grand que les projections sont éloignées dans le temps. Si l'on prend l'exemple d'une capture de 10 000 tonnes en 2024, l'IC à 95 % pour la biomasse de 2025 s'étend de `r f(lo_uncert_2025_catch_10, 3)` à `r f(hi_uncert_2025_catch_10, 3)`, ce qui représente une fourchette de `r f(diff_uncert_2025_catch_10, 3)`. Cela représente presque le double de la différence entre l'USR et le LRP (0,2). La grande incertitude doit être prise en compte lors de l'évaluation de ces projections.
+
+")
+```
+
+```{r recommendations-and-yield-para-3-en, eval = !fr(), results = 'asis'}
+cat("Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextnextyr-proj) show the medians of the posterior, 50% CI and 95% CI for the relative spawning biomass in the projected years, for each catch stream applied. The $B_0$-base reference points are also shown along with a reference line for $0.35B_0$. These figures give another view of the medians and uncertainties shown in Figure \@ref(fig:fig-rel-biomass-proj), but with each figure representing one projected year only so that each posterior can be more clearly seen.
 
 Posterior estimates of reference points and benchmarks are provided in Table \@ref(tab:reference-points-table). A decision table is presented showing predicted probabilities of undesirable states under the projected catch levels (Table \@ref(tab:decision-table)). An undesirable biomass-based performance measure is defined to occur when the projected spawning biomass is below the reference point or benchmark, e.g. the ratio `r paste0('$B_{', proj_yr, '}/B_\mathrm{ReferencePoint} < 1$')`. Probabilities in the decision tables are measured as the proportion of posterior samples that meet the above criteria.
 
@@ -19,7 +45,25 @@ The probability of being below the USR of $0.4B_0$ was from `r f(range_below_04b
 
 All catch levels including zero had a probability of greater than 0.5 of the `r proj_yr` biomass being under the $0.4B_0$ reference point.
 
-## SOURCES OF UNCERTAINTY AND FUTURE RESEARCH
+")
+```
+
+```{r recommendations-and-yield-para-3-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("Les figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextnextyr-proj) montrent les médianes de la valeur postérieure, l'IC à 50 % et l'IC à 95 % pour la biomasse reproductrice relative dans les années projetées, pour chaque flux de capture appliqué. Les points de référence de la base $B_0$ sont également indiqués, ainsi qu'une ligne de référence pour 0,35B_0$. Ces figures donnent un autre aperçu des médianes et des incertitudes présentées dans la figure \@ref(fig:fig-rel-biomass-proj), mais chaque figure ne représente qu'une seule année projetée, de sorte que chaque postérieur peut être vu plus clairement.
+
+Les estimations postérieures des points de référence et des repères sont fournies dans le tableau \@ref(tab:reference-points-table). Une table de décision est présentée, montrant les probabilités prédites d'états indésirables dans le cadre des niveaux de capture projetés (Tableau \@ref(tab:decision-table)). Une mesure de performance indésirable basée sur la biomasse est définie comme se produisant lorsque la biomasse reproductrice projetée est inférieure au point de référence, par exemple le ratio `r paste0('$B_{', proj_yr, '}/B_\mathrm{ReferencePoint} < 1$')`. Les probabilités dans les tables de décision sont mesurées comme la proportion d'échantillons postérieurs qui répondent aux critères ci-dessus.
+
+Comme le montre le tableau \@ref(tab:decision-table), la probabilité prédite par le modèle que la biomasse de frai relative `r proj_yr` soit inférieure à la biomasse de frai relative `r assess_yr` était comprise entre `r prob_2023_2022_catch_0` et `r f(min(base_model$proj$tac.vec * 1000))` t de capture à `r prob_2023_2022_catch_15` sous `r f(max(base_model$proj$tac.vec * 1000))` t de capture. La prise qui est la plus proche de la probabilité de 0,5 que la biomasse diminue de `r assess_yr` à `r proj_yr` tout en restant en dessous de 0,5 est `r f(catch_less_50_50 * 1000)` t, à une probabilité de `r val_less_50_50`.
+
+La probabilité d'être en dessous de l'USR de 0,4B_0$ était de `r f(range_below_04bo[1], 3)` à `r f(range_below_04bo[2], 3)` sur la gamme des niveaux de capture considérés ; la probabilité d'être en dessous du LRP de 0,2B_0$ pour la même gamme de capture était de `r f(range_below_02bo[1], 3)` à `r f(range_below_02bo[2], 3)`.
+
+Tous les niveaux de capture, y compris zéro, avaient une probabilité supérieure à 0,5 que la biomasse `r proj_yr` soit inférieure au point de référence 0,4B_0$.
+
+")
+```
+
+```{r recommendations-and-yield-para-4-en, eval = !fr(), results = 'asis'}
+cat("## SOURCES OF UNCERTAINTY AND FUTURE RESEARCH
 
 As with all stock assessments, there are two major types of uncertainty in the advice presented in this document:
 1. Uncertainty in the estimates of model parameters within the assessment
@@ -35,14 +79,45 @@ The assessment model was able to fit all indices of abundance well with the poss
 
 We suggest future research consider the use of the 'stitched' stock-wide geostatistical index as a replacement for considering each of the synoptic surveys as independent samples from the same overall stock (sometimes with different selectivities). The distinct age composition data precluded us from doing that in this assessment, but future research could consider the impact of considering these composition data as independent samples from the same overall stock (perhaps with area and density expansion) or standardizing these data as well with a similar multivariate geostatistical model.
 
-There is a lack of age structures sampled from the commercial fleets from 2020 onwards. This would have had a minimal effect on this assessment given the last year of data was 2021. However, this may have an increasingly large impact on the assessment in terms of estimating selectivity, recruitment, and tracking age-cohorts within the composition data. Retrospective analyses could be conducted excluding existing commercial age data to partially evaluate this impact. Simulation analyses, possibly including closed-loop simulation, could also evaluate this impact. However, we think it is reasonable to assume that some level of continued age structure sampling from the commercial fleet will be important to this assessment going forward.
+")
+```
+
+```{r recommendations-and-yield-para-4-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## SOURCES D'INCERTITUDE ET RECHERCHES FUTURES
+
+Comme pour toutes les évaluations de stocks, les avis présentés dans le présent document comportent deux grands types d'incertitude :
+1. Incertitude dans les estimations des paramètres du modèle dans l'évaluation
+2. Incertitude structurelle découlant de processus et de données qui n'ont pas été inclus dans l'évaluation.
+
+Le premier type d'incertitude, l'incertitude des paramètres, est présenté en termes d'intervalles crédibles postérieurs pour les paramètres et les variables d'état telles que la biomasse, le recrutement et la mortalité par pêche. Cette incertitude a été prise en compte dans les tables de décision et a été explorée plus avant à l'aide d'analyses de sensibilité.
+
+L'ampleur des captures et des rejets avant 1996 est une source majeure d'incertitude structurelle dans cette évaluation. Comme indiqué à la section \@ref(sec:catch-data), toutes les données de capture antérieures à 1996 ont été omises de cette évaluation sur recommandation des conseillers du secteur et du groupe de travail technique, comme cela a été fait dans le cas de `r la`. On sait que le `r sp` a été rejeté en mer en grandes quantités en raison de la protéolyse de la chair si les captures n'étaient pas débarquées et congelées rapidement après la capture. Les applications d'estimateurs de ratios ou de modèles pour estimer les taux de rejets historiques ont été rejetées en tant qu'outils analytiques en raison des rejets de traits entiers et des changements de comportement en matière de rejets au fil du temps.
+
+La structure du stock de `r sp` est mal comprise en `r bc`. Plusieurs approches sont disponibles pour améliorer la compréhension de la structure du stock, y compris l'analyse génétique, l'analyse de la microchimie des otolithes et l'analyse des traits du cycle de vie tels que la croissance et la maturité. `r sp` est géré comme un stock couvrant l'ensemble de la côte. S'il existe des stocks distincts dans les eaux de la CB, le fait de prélever une grande partie du TAC dans une zone peut présenter des risques. En particulier, le déclin moins prononcé du `r qcs` par rapport aux déclins observés dans les autres indices d'enquête soulève des questions sur la structure du stock.
+
+Le modèle d'évaluation a été en mesure de s'adapter à tous les indices d'abondance, à l'exception peut-être du `r qcs`. Bien que l'indice ait diminué depuis 2015 (et en particulier en 2021 après les premières réunions du groupe de travail technique), le déclin a été un peu moins prononcé que pour les autres enquêtes ou le `r dcpue`. Nous avons tenté de mieux ajuster le `r qcs` avec une sélectivité variable dans le temps spécifique à l'enquête, mais nous n'avons pas été en mesure d'obtenir des estimations satisfaisantes de la sélectivité et des diagnostics MCMC sur ce modèle et nous avons donc utilisé une sélectivité invariante dans le temps dans le modèle de base. Il est possible que le détroit de la Reine-Charlotte représente une zone d'alevinage pour les `r sp` ou que des facteurs affectant la distribution locale ou les mouvements (tels que les conditions environnementales) aient entraîné un modèle d'indice modérément différent dans les `r qcs` par rapport aux autres relevés. Dans l'ensemble, la concordance entre l'étude synoptique 'cousue' sur l'ensemble de la côte et le `r dcpue` nous permet de croire que les deux sources de données capturent la dynamique sous-jacente de la biomasse.
+
+Nous suggérons que les recherches futures envisagent l'utilisation de l'indice géostatistique « recousu » pour l'ensemble du stock en remplacement de la prise en compte de chacune des campagnes synoptiques comme des échantillons indépendants du même stock global (parfois avec des sélectivités différentes). Les données distinctes sur la composition par âge nous ont empêchés de le faire dans cette évaluation, mais les recherches futures pourraient envisager l'impact de la prise en compte de ces données sur la composition comme des échantillons indépendants du même stock global (peut-être avec une expansion de la zone et de la densité) ou de la normalisation de ces données avec un modèle géostatistique multivarié similaire.
+
+")
+```
+
+```{r recommendations-and-yield-para-5-en, eval = !fr(), results = 'asis'}
+cat("There is a lack of age structures sampled from the commercial fleets from 2020 onwards. This would have had a minimal effect on this assessment given the last year of data was 2021. However, this may have an increasingly large impact on the assessment in terms of estimating selectivity, recruitment, and tracking age-cohorts within the composition data. Retrospective analyses could be conducted excluding existing commercial age data to partially evaluate this impact. Simulation analyses, possibly including closed-loop simulation, could also evaluate this impact. However, we think it is reasonable to assume that some level of continued age structure sampling from the commercial fleet will be important to this assessment going forward.
 
 Taking into account the ecosystem considerations in Appendix \@ref(app:eco) and known biology of `r sp`, there are no clear indications that current environmental conditions should modify the catch advice in this assessment. Future research could evaluate incorporating environmental variables into the `r sp` stock advice more explicitly. It is not clear what mechanism this should entail, although options may include linking environmental indices to natural mortality or recruitment processes [e.g., @wham]. Other options would include adjusting target fishing mortality based on ecosystem modelling [@howell2021] or through closed-loop simulation that aims to find management procedures that are robust to uncertainties about future environmental conditions [e.g., @anderson2020gfmp].
   
 Given the stock is estimated slightly below the USR in the base model and close to the LRP under one sensitivity model with higher recruitment variation, as well as declining estimated spawning stock biomass, declining survey indices, and declining estimated recruitment, it is suggested that this stock assessment be updated with new data on a relatively short interval. We suggest an appropriate interval would be two years once one additional survey will have been conducted for each subregion and new commercial biological samples will hopefully be available for aging.
+
 ")
 ```
 
-```{r decisions-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<decisions-en>>
+```{r recommendations-and-yield-para-5-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("Il n'y a pas de structures d'âge échantillonnées par les flottes commerciales à partir de 2020. Cela n'aurait eu qu'un effet minime sur cette évaluation étant donné que la dernière année de données était 2021. Toutefois, cela pourrait avoir un impact de plus en plus important sur l'évaluation en termes d'estimation de la sélectivité, du recrutement et du suivi des cohortes d'âge dans les données de composition. Des analyses rétrospectives pourraient être menées en excluant les données commerciales existantes sur l'âge afin d'évaluer partiellement cet impact. Des analyses de simulation, comprenant éventuellement une simulation en boucle fermée, pourraient également évaluer cet impact. Cependant, nous pensons qu'il est raisonnable de supposer qu'un certain niveau d'échantillonnage continu de la structure d'âge de la flotte commerciale sera important pour cette évaluation à l'avenir.
+
+Compte tenu des considérations écosystémiques de l'appendice \@ref(app:eco) et de la biologie connue de `r sp`, rien n'indique clairement que les conditions environnementales actuelles devraient modifier l'avis sur les captures dans cette évaluation. Les recherches futures pourraient évaluer l'incorporation de variables environnementales dans l'avis sur le stock de `r sp` de manière plus explicite. Le mécanisme à mettre en œuvre n'est pas clair, bien que les options puissent inclure l'établissement d'un lien entre les indices environnementaux et les processus de mortalité naturelle ou de recrutement [par exemple, @wham]. D'autres options pourraient inclure l'ajustement de la mortalité par pêche cible sur la base de la modélisation de l'écosystème [@howell2021] ou par le biais d'une simulation en boucle fermée qui vise à trouver des procédures de gestion qui sont robustes aux incertitudes sur les conditions environnementales futures [par exemple, @anderson2020gfmp].
+  
+Étant donné que le stock est estimé légèrement en dessous de l'USR dans le modèle de base et proche du PRL dans un modèle de sensibilité avec une plus grande variation du recrutement, ainsi qu'une biomasse estimée du stock reproducteur en baisse, des indices de relevés en baisse et un recrutement estimé en baisse, il est suggéré que cette évaluation du stock soit mise à jour avec de nouvelles données sur un intervalle relativement court. Nous suggérons un intervalle approprié de deux ans, une fois qu'une étude supplémentaire aura été réalisée pour chaque sous-région et que de nouveaux échantillons biologiques commerciaux seront, espérons-le, disponibles pour le vieillissement.
+
+")
 ```
