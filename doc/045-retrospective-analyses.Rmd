@@ -19,3 +19,25 @@ In order to quantify the uncertainty in retrospective patterns, and therefore re
 @hurtado2015 suggests that Mohn's $\rho$ should fall between -0.15 and 0.2, which are the lower and upper bounds of the 90% simulation intervals for the longer-lived flatfish base case they examined. For shorter-lived species, those values are -0.22 and 0.30. Since the calculated value of 0.99 lies within the limits given, we can say that there is no indication of retrospective patterns or bias in this model.
 ")
 ```
+
+```{r retro-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## RETROSPECTIVE ANALYSES {#retro-analyses}
+Le modèle de base a été testé pour les modèles rétrospectifs. Ceci a été réalisé en supprimant successivement toutes les données de capture, d'âge et d'indice pour une année à partir de la fin de la série temporelle dans les fichiers de données et en réajustant le modèle. Nous avons tenté d'exécuter le modèle rétrospectif sur 10 ans, mais seules les 8 premières années ont convergé. Il est probable qu'en essayant de supprimer trop de données, nous avons obtenu trop peu de sources de données pour ce modèle à deux flottes et à sexe partagé. C'est la raison pour laquelle le `r la` a été paramétré comme un modèle à sexe unique.
+
+Tous les modèles rétrospectifs ont été exécutés à l'aide de MCMC avec une longueur de chaîne de `r f(mcmc_chain_length)`, une fréquence d'échantillonnage de `r f(mcmc_sample_freq)`, ce qui donne `r f(mcmc_num_samples)` échantillons, qui ont ensuite été brûlés par `r f(mcmc_burn_in)`, ce qui donne un total de `r f(mcmc_actual_samples)` échantillons retenus pour l'inférence. Il en va de même pour tous les autres modèles de cette évaluation.
+
+La figure \@ref(fig:fig-retro-biomass) montre la biomasse absolue pour le modèle de base par rapport aux modèles rétrospectifs. Figure \@ref(fig:fig-retro-biomass-closer) Suite à la soustraction des années en regardant les trajectoires, nous voyons que le modèle de -4 ans (se terminant en 2018) suit une trajectoire différente de celle des années suivantes (2019-aujourd'hui). Ceci est dû à la forte chute de biomasse observée en 2019 dans les `r wcvis`, `r hss`, et `r dcpue` (Figure \@ref(fig:fig-base-index-fits)). Le modèle est très sensible à ces baisses d'indices, qui se produisent toutes la même année. Si cette évaluation avait eu lieu avant 2019 avec ce modèle, le résultat aurait été sensiblement différent de ce qu'il est aujourd'hui.
+
+Les estimations $B_0$ sont également séparées en deux groupes distincts par le modèle de -4 ans, les estimations de 2019 à aujourd'hui étant plus faibles que celles d'avant 2019. Lorsque les trajectoires absolues sont divisées par ces valeurs $B_0$, nous pouvons examiner les tendances relatives de la biomasse (figure \@ref(fig:fig-retro-biomass-rel)). Les estimations élevées de $B_0$ pour les modèles antérieurs à 2019 poussent la biomasse relative vers le bas, ce qui donne l'impression d'un stock plus épuisé au cours des premières années par rapport aux modèles plus récents.
+
+En comparant les estimations du recrutement (figures \@ref(fig:fig-retro-recr) et \@ref(fig:fig-retro-recr-closer) pour une vue plus rapprochée), la plupart semblent similaires entre les modèles; cependant, il y a une aberration évidente - le recrutement de 2014 pour le modèle de 2014. Ceci est également visible dans la figure 21 de la `r la`. La cohorte de 2014 était très incertaine à l'époque avec les données disponibles, même avec le modèle unisexe. Les estimations de $R_0$ suivent le même regroupement que celui observé dans la figure de la biomasse absolue.
+
+On observe une diminution de la mortalité par pêche pour les modèles antérieurs à 2019 (figure \@ref(fig:fig-retro-f)), ce qui correspond à la tendance à l'augmentation de la biomasse dans ces modèles. 
+
+Les ajustements aux indices d'abondance (figure \@ref(fig:fig-retro-index-fits)) montrent une nette divergence pour les modèles antérieurs à 2019. Les résidus logarithmiques normalisés (figure \@ref(fig:fig-retro-index-resids)) montrent que les indices de ces modèles ne s'ajustent ni mieux ni moins bien dans l'ensemble que les modèles postérieurs à 2019.
+
+Afin de quantifier l'incertitude des modèles rétrospectifs, et donc le biais rétrospectif, la statistique $\rho$ de Mohn a été calculée pour tous les modèles rétrospectifs `r length(retro_models_dirs[[1]])` par rapport au modèle de base et s'élève à 0,99.
+
+@hurtado2015 suggère que le $\rho$ de Mohn devrait se situer entre -0,15 et 0,2, qui sont les limites inférieures et supérieures des intervalles de simulation à 90 % pour le cas de base des poissons plats à longue durée de vie qu'ils ont examiné. Pour les espèces à plus courte durée de vie, ces valeurs sont -0,22 et 0,30. Étant donné que la valeur calculée de 0,99 se situe à l'intérieur des limites indiquées, nous pouvons affirmer que ce modèle ne présente aucune indication de tendances rétrospectives ou de biais.
+")
+```
