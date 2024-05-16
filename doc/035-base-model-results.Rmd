@@ -4,14 +4,16 @@ The joint posterior distribution was numerically approximated using the Metropol
 ")
 ```
 
-```{r scam-results-model-diagnostics-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-model-diagnostics-en>>
+```{r scam-results-model-diagnostics-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Diagnostic du modèle {#scam-model-diag}
+La distribution postérieure conjointe a été approximée numériquement à l'aide de l'algorithme d'échantillonnage de la chaîne de Markov Monte Carlo (MCMC) de Metropolis Hastings dans AD Model Builder [@fournier2012]. Pour le modèle de base et tous les cas de sensibilité, les échantillons postérieurs ont été tirés toutes les `r f(mcmc_sample_freq)` itérations d'une chaîne de longueur `r f(mcmc_chain_length)`, ce qui a donné `r f(mcmc_num_samples)` échantillons postérieurs (dont les premiers `r f(mcmc_burn_in)` ont été abandonnés pour cause de burn-in). La convergence a été diagnostiquée à l'aide d'une inspection visuelle des tracés (figures \@ref(fig:fig-base-trace) et \@ref(fig:fig-base-trace-selex)) et d'un examen de l'autocorrélation dans les chaînes postérieures (figures \@ref(fig:fig-base-autocor) et \@ref(fig:fig-base-autocor-selex)). L'autocorrélation était faible pour des valeurs de décalage allant jusqu'à 1 000 pour tous les paramètres après l'amincissement. La corrélation entre les paramètres semble faible dans l'ensemble, avec seulement quelques corrélations modérées entre les paramètres de capturabilité et $\bar{R}$ (figures \@ref(fig:fig-base-pairs) et \@ref(fig:fig-base-pairs-sel)). Il n'y a pas de preuve solide d'un manque de convergence dans le modèle de base.
+")
 ```
 
 ```{r scam-results-fits-to-data-en, eval = !fr(), results = 'asis'}
 cat("### Fits to Data {#scam-data-fits}
 
-Catch was constrained by standard deviation value of `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchfirstphase') |> pull()` for the first phase of minimization and by `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchlastphase') |> pull()` for the last phase, so the predicted catch fit the data very well (Figure \#ref(fig:fig-catch-fit)).
+Catch was constrained by standard deviation value of `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchfirstphase') |> pull()` for the first phase of minimization and by `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchlastphase') |> pull()` for the last phase, so the predicted catch fit the data very well (Figure \@ref(fig:fig-catch-fit)).
 
 The model generally fit the indices of abundance well (Figure \@ref(fig:fig-base-index-fits)). The `r wcvis` has a large fluctuation high and low for successive years of the survey from 2008--2016, which is difficult for the model to fit. The `r qcs` was difficult to fit, due to fluctuations from high to low abundance from year to year early in the time series, and the lack of the recent drop in biomass seen in all other data sources. A sensitivity was done to attempt a better fit on this index, while retaining the good fits on the others (Section \@ref(sens-qcs-tv)). 
 
@@ -21,8 +23,17 @@ Fits to age compositions for each gear, and log standardized residuals are shown
 ")
 ```
 
-```{r scam-results-fits-to-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-fits-to-data-en>>
+```{r scam-results-fits-to-data-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Ajustements aux données {#scam-data-fits}
+
+La capture a été contrainte par la valeur de l'écart-type de `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchfirstphase') |> pull()` pour la première phase de minimisation et par `r as_tibble(base_model$ctl$misc, rownames = 'var') |> filter(var == 'sdobscatchlastphase') |> pull()` pour la dernière phase, de sorte que les prises prédites correspondent très bien aux données (Figure \@ref(fig:fig-catch-fit)).
+
+Le modèle s'adapte généralement bien aux indices d'abondance (Figure \@ref(fig:fig-base-index-fits)). Le `r wcvis` a une grande fluctuation haute et basse pour les années successives de l'étude de 2008--2016, ce qui est difficile pour le modèle de s'adapter. Le `r qcs` a été difficile à ajuster, en raison des fluctuations d'une abondance élevée à faible d'une année à l'autre au début de la série chronologique, et de l'absence de la chute récente de la biomasse observée dans toutes les autres sources de données. Une sensibilité a été réalisée pour tenter d'obtenir un meilleur ajustement sur cet indice, tout en conservant les bons ajustements sur les autres (Section \@ref(sens-qcs-tv)). 
+
+L'indice `r dcpue` s'ajuste particulièrement bien et est le seul indice à avoir une valeur pour chaque année de l'évaluation. Les résidus standardisés montrent une distribution généralement égale des résidus positifs et négatifs, avec des preuves d'une certaine autocorrélation dans les résidus du `r dcpue` (Figure \@ref(fig:fig-base-index-resids)). Pour tous les indices, les résidus du logarithme de l'indice (figure \@ref(fig:fig-base-index-resids)) étaient bons, se situant tous dans la fourchette [-2, 2].
+
+Les ajustements à la composition par âge pour chaque engin et les résidus logarithmiques normalisés sont présentés dans les figures \@ref(fig:fig-base-age-fits-ft)--\@ref(fig:fig-base-age-resids-wcvis). Les ajustements étaient raisonnables et il n'y avait pas de modèles forts dans les résidus.
+")
 ```
 
 ```{r scam-results-parameter-estimates-en, eval = !fr(), results = 'asis'}
@@ -34,8 +45,13 @@ Normal prior probability distributions were used for the log catchability parame
 ")
 ```
 
-```{r scam-results-parameter-estimates-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-parameter-estimates-en>>
+```{r scam-results-parameter-estimates-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Estimations des paramètres {#scam-param-ests}
+Les distributions de probabilité a priori et a posteriori des paramètres estimés sont présentées dans la figure \@ref(fig:fig-base-priors-posts). La médiane et l'IC à 95 % (2,5 et 97,5 percentiles) des estimations a posteriori des paramètres figurent dans le tableau \@ref(tab:param-estimates-table). À l'exception de la pente, les estimations postérieures ne semblent pas être fortement influencées par les distributions de probabilité antérieures. La distribution de probabilité a posteriori pour la pente, $h$, était similaire à la distribution a priori, ce qui suggère qu'il y a peu d'informations sur ce paramètre dans les données. La sensibilité à l'a priori supposé pour la pente est testée à la section \@ref(sens-h). 
+
+Des distributions normales de probabilité a priori ont été utilisées pour les paramètres logarithmiques de capturabilité $\ln(q_k)$ pour les indices d'abondance (Figure \@ref(fig:fig-base-priors-posts)). Les estimations postérieures ont eu tendance à se superposer à la queue gauche des distributions antérieures pour chaque indice. Les analyses de sensibilité (examinées à la section \@ref(sens-analyses)) ont indiqué que les estimations postérieures de la capturabilité étaient sensibles à la moyenne et à l'écart type de la distribution préalable.
+
+")
 ```
 
 ```{r scam-results-selectivity-en, eval = !fr(), results = 'asis'}
@@ -48,15 +64,25 @@ These estimates were further to the right than expected, but were consistent wit
 
 `r sp` are thought to mature at around `r f(base_model$dat$age.at.50.mat[1], 1)` years of age for females and `r f(base_model$dat$age.at.50.mat[2], 1)` years of age for males (Figure \@ref(fig:fig-mat), Table \@ref(tab:growth-params-table)). Therefore, it appears that individuals have several opportunities to spawn before they become vulnerable to the fishery. This in turn resulted in estimates of maximum sustainable harvest rate $U_\mathrm{MSY}$ approaching 1 (discussed in Section \@ref(fishery-ref-points)), implying that under theoretical equilibrium conditions, all of the vulnerable (i.e., fully selected) biomass could be harvested because the population could be sustained by younger spawners that are invulnerable to the fishery. This is a theoretical condition subject to the assumptions in the stock assessment model and the data limitations therein. We strongly advise against this as a harvest strategy and suggest that the age-at-50% selectivity in the commercial trawl fleets are a primary axis of uncertainty in this stock assessment.")
 ```
-```{r scam-results-selectivity-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-selectivity-en>>
+
+```{r scam-results-selectivity-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Sélectivité {#selex}
+La sélectivité en fonction de l'âge a été estimée pour les deux pêcheries et les enquêtes synoptiques (Figure \@ref(fig:fig-base-mcmc-selex)). Les sélectivités fixes `r dcpue` et `r hsmas` sont également présentées dans la figure \@ref(fig:fig-base-mcmc-selex).
+
+Les estimations postérieures de l'âge à 50 % de la récolte ($\hat{a}_k$) et l'écart type de la courbe logistique de sélectivité ($\hat{\gamma}_k$) sont présentés dans le tableau \@ref(tab:param-estimates-table). Les estimations médianes a posteriori de l'âge à 50 % de récolte étaient plus élevées pour les femelles que pour les mâles pour tous les engins, à l'exception du `r hss`, qui présentait une estimation plus élevée pour les mâles. Les estimations de l'écart type étaient similaires entre les sexes par engin.
+
+Ces estimations étaient plus à droite que prévu, mais elles étaient cohérentes avec les données disponibles sur la composition par âge (figure \@ref(fig:fig-ages)), qui indiquent moins d'observations de poissons plus jeunes, en particulier dans la dernière partie de la série temporelle. De nombreux tests de configurations alternatives du modèle n'ont pas abouti à une estimation inférieure de l'âge à 50 % de capture pour toute combinaison engin/sexe.
+
+On pense que les `r sp` atteignent la maturité à environ `r f(base_model$dat$age.at.50.mat[1], 1)` ans pour les femelles et `r f(base_model$dat$age.at.50.mat[2], 1)` ans pour les mâles (Figure \@ref(fig:fig-mat), Tableau \@ref(tab:growth-params-table)). Il semble donc que les individus aient plusieurs occasions de frayer avant de devenir vulnérables à la pêche. Ceci a conduit à des estimations du taux de récolte maximale durable $U_\mathrm{MSY}$ proche de 1 (discuté dans la section \@ref(fishery-ref-points)), impliquant que dans des conditions d'équilibre théorique, toute la biomasse vulnérable (c'est-à-dire entièrement sélectionnée) pourrait être récoltée parce que la population pourrait être soutenue par des géniteurs plus jeunes qui sont invulnérables à la pêcherie. Il s'agit d'une condition théorique soumise aux hypothèses du modèle d'évaluation des stocks et aux limites des données qu'il contient. Nous déconseillons fortement cette stratégie de capture et suggérons que la sélectivité de l'âge à 50 % dans les flottes de chalutage commercial constitue un axe principal d'incertitude dans cette évaluation du stock.
+
+")
 ```
 
 ```{r scam-results-ref-points-en, eval = !fr(), results = 'asis'}
 cat("### Fishery Reference Points {#fishery-ref-points}
 Posterior estimates of fishery reference points from the base model are provided in Table \@ref(tab:reference-points-table) and Figure \@ref(fig:fig-base-ref-points). The posterior unfished spawning biomass ($SB_0$) (abbreviated to $B_0$ herein) had a median `r f(ref_pts$sbo[2] * 1000)` t and 95% CI ranging from `r f(ref_pts$sbo[1] * 1000)` t to `r f(ref_pts$sbo[3] * 1000)` t (Table \@ref(tab:reference-points-table)). Posterior 95% CIs for the LRP $0.2B_0$ and USR $0.4B_0$ are also provided in Table \@ref(tab:reference-points-table).
 
-Reference points based on maximum sustainable yield MSY were strongly impacted by estimates of selectivity in the trawl fisheries described in the previous section. Because the selectivity ogives were estimated to the right of the maturity ogive, the median estimates of $F_\mathrm{MSY}$ were `r f(ref_pts$fmsy_fleet1[2], 2)` for the Freezer trawler fleet and `r f(ref_pts$fmsy_fleet2[2], 2)` for the Shoreside fleet (Table \@ref(tab:reference-points-table)). The CI on these values is large, `r paste0(f(ref_pts$fmsy_fleet1[1], 2), "-", f(ref_pts$fmsy_fleet1[3], 2))` for the `r base_model$dat$fleet_gear_names[1]` fleet and `r paste0(f(ref_pts$fmsy_fleet2[1], 2), "-", f(ref_pts$fmsy_fleet2[3], 2))` for the `r base_model$dat$fleet_gear_names[2]` fleet. These instantaneous fishing mortalities convert to an annual harvest rate approaching 1 for the Shoreside fleet  (Figure \@ref(fig:fig-base-ref-points)), through the equation $U_\mathrm{MSY} = 1-e^{F_\mathrm{MSY}}$, implying that all of the vulnerable biomass (i.e., the biomass that is selected by the fishing gear) could be harvested because the population can be sustained by the spawning biomass that is invulnerable to the fishery (i.e., fish that are between `r f(base_model$dat$age.at.50.mat[1], 1)` and `r f(mean_female_age_50_sel, 1)` years for females and `r f(base_model$dat$age.at.50.mat[2], 1)` and `r f(mean_male_age_50_sel, 1)` for males). The relationship between age at maturity and age at first harvest and its effect on fishery reference points was discussed by @myers1998, who described a fishing strategy where overfishing could be avoided by allowing all fish to spawn before they were available to be caught. @froese2004 also discusses reduction in risks of overfishing by allowing fish to spawn before they are caught.
+Reference points based on maximum sustainable yield MSY were strongly impacted by estimates of selectivity in the trawl fisheries described in the previous section. Because the selectivity ogives were estimated to the right of the maturity ogive, the median estimates of $F_\mathrm{MSY}$ were `r f(ref_pts$fmsy_fleet1[2], 2)` for the Freezer trawler fleet and `r f(ref_pts$fmsy_fleet2[2], 2)` for the Shoreside fleet (Table \@ref(tab:reference-points-table)). The CI on these values is large, `r paste0(f(ref_pts$fmsy_fleet1[1], 2), "-", f(ref_pts$fmsy_fleet1[3], 2))` for the `r base_model$dat$fleet_gear_names[1]` fleet and `r paste0(f(ref_pts$fmsy_fleet2[1], 2), "-", f(ref_pts$fmsy_fleet2[3], 2))` for the `r base_model$dat$fleet_gear_names[2]` fleet. These instantaneous fishing mortalities convert to an annual harvest rate approaching 1 for the Shoreside fleet (Figure \@ref(fig:fig-base-ref-points)), through the equation $U_\mathrm{MSY} = 1-e^{F_\mathrm{MSY}}$, implying that all of the vulnerable biomass (i.e., the biomass that is selected by the fishing gear) could be harvested because the population can be sustained by the spawning biomass that is invulnerable to the fishery (i.e., fish that are between `r f(base_model$dat$age.at.50.mat[1], 1)` and `r f(mean_female_age_50_sel, 1)` years for females and `r f(base_model$dat$age.at.50.mat[2], 1)` and `r f(mean_male_age_50_sel, 1)` for males). The relationship between age at maturity and age at first harvest and its effect on fishery reference points was discussed by @myers1998, who described a fishing strategy where overfishing could be avoided by allowing all fish to spawn before they were available to be caught. @froese2004 also discusses reduction in risks of overfishing by allowing fish to spawn before they are caught.
 
 It is important to understand the distinction between vulnerable biomass and spawning biomass. The fishery reference points $F_\mathrm{MSY}$ and $U_\mathrm{MSY}$ refer to catch of the vulnerable biomass $VB_t$, which is determined by the selectivity function
 \begin{equation} 
@@ -70,8 +96,24 @@ When the selectivity ogive is located to the right of the maturity ogive, this m
 The median posterior estimate of $B_\mathrm{MSY}$ (and 95% CI), conditional on estimated trawl selectivities and resulting $F_\mathrm{MSY}$ values, was `r f(ref_pts$bmsy[2] * 1000)` t (`r f(ref_pts$bmsy[1] * 1000)`--`r f(ref_pts$bmsy[3] * 1000)`) (Table \@ref(tab:reference-points-table)). Posterior CIs for the default LRP $0.4B_\mathrm{MSY}$ and USR $0.8B_\mathrm{MSY}$ are also provided in Table \@ref(tab:reference-points-table). The $B_0$-based LRP and USR were approximately four times as large as the $B_\mathrm{MSY}$-based reference points. I.e., $B_0$-based reference points were more precautionary than the $B_\mathrm{MSY}$-based reference points (Table \@ref(tab:reference-points-table)).")
 ```
 
-```{r scam-results-ref-points-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-ref-points-en>>
+```{r scam-results-ref-points-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Points de référence de la pêche {#fishery-ref-points}
+Les estimations postérieures des points de référence de la pêche du modèle de base sont fournies dans le tableau \@ref(tab:reference-points-table) et la figure \@ref(fig:fig-base-ref-points). La biomasse reproductrice non pêchée postérieure ($SB_0$) (abrégée ici en $B_0$) avait une médiane `r f(ref_pts$sbo[2] * 1000)` t et un IC à 95% allant de `r f(ref_pts$sbo[1] * 1000)` t à `r f(ref_pts$sbo[3] * 1000)` t (Tableau \@ref(tab:reference-points-table)). Les IC 95 % postérieurs pour le LRP 0,2B_0$ et l'USR 0,4B_0$ sont également fournis dans le tableau \@ref(tab:reference-points-table).
+
+Les points de référence basés sur la production maximale équilibrée (PME) ont été fortement influencés par les estimations de la sélectivité dans les pêcheries au chalut décrites dans la section précédente. Étant donné que les ogives de sélectivité ont été estimées à droite de l'ogive de maturité, les estimations médianes de $F_\mathrm{MSY}$ étaient `r f(ref_pts$fmsy_fleet1[2], 2)` pour la flotte de chalutiers congélateurs et `r f(ref_pts$fmsy_fleet2[2], 2)` pour la flotte côtière (Tableau \@ref(tab:reference-points-table)). L'IC de ces valeurs est important, `r paste0(f(ref_pts$fmsy_fleet1[1], 2), "-", f(ref_pts$fmsy_fleet1[3], 2))` pour la flotte `r base_model$dat$fleet_gear_names[1]` et `r paste0(f(ref_pts$fmsy_fleet2[1], 2), "-", f(ref_pts$fmsy_fleet2[3], 2))` pour la flotte `r base_model$dat$fleet_gear_names[2]`. Ces mortalités par pêche instantanées se convertissent en un taux de capture annuel proche de 1 pour la flotte Shoreside (Figure \@ref(fig:fig-base-ref-points)), grâce à l'équation $U_\mathrm{MSY} = 1-e^{F_\mathrm{MSY}}$, ce qui implique que toute la biomasse vulnérable (c.-à-d.. la biomasse qui est sélectionnée par la flotte Shoreside) est capturée par la flotte Shoreside, la biomasse qui est sélectionnée par l'engin de pêche pourrait être récoltée parce que la population peut être soutenue par la biomasse reproductrice qui est invulnérable à la pêche (c.-à-d. les poissons qui sont entre `r f(base_model$dat$age.at.50.mat[1], 1)` et `r f(mean_female_age_50_sel, 1)` pour les femelles et `r f(base_model$dat$age.at.50.mat[2], 1)` et `r f(mean_male_age_50_sel, 1)` pour les mâles). La relation entre l'âge à la maturité et l'âge à la première récolte et son effet sur les points de référence de la pêche a été discutée par @myers1998, qui a décrit une stratégie de pêche où la surpêche pouvait être évitée en permettant à tous les poissons de frayer avant qu'ils ne soient disponibles pour être capturés. @froese2004 aborde également la réduction des risques de surpêche en permettant aux poissons de frayer avant d'être capturés.
+
+Il est important de comprendre la distinction entre la biomasse vulnérable et la biomasse reproductrice. Les points de référence de la pêche $F_\mathrm{MSY}$ et $U_\mathrm{MSY}$ se réfèrent à la capture de la biomasse vulnérable $VB_t$, qui est déterminée par la fonction de sélectivité
+\begin{equation} 
+  VB_{t,k} = \sum_{a} N_{a,t} w_{a,t} v_{a,t,k},
+(\#eq:vuln-biomass)
+\end{equation} 
+où $a$ est l'âge, $t$ est l'année, $k$ est la pêcherie au chalut (chalutiers congélateurs ou côtiers), $N$ est le nombre de la population, $w$ est le poids moyen à l'âge, et $v$ est la vulnérabilité à l'âge dans les pêcheries au chalut (c.-à-d. la sélectivité).
+
+Lorsque la courbe de sélectivité est située à droite de la courbe de maturité, cela signifie qu'une plus grande proportion de la population totale est mature que vulnérable à la pêche (figure \@ref(fig:fig-base-sb-vuln-compare)). Une comparaison entre la biomasse vulnérable et la biomasse reproductrice est fournie à la section \@ref(scam-biomass).
+
+L'estimation médiane a posteriori de $B_\mathrm{MSY}$ (et de l'IC à 95%), conditionnelle aux sélectivités estimées des chaluts et aux valeurs $F_\mathrm{MSY}$ qui en résultent, était `r f(ref_pts$bmsy[2] * 1000)` t (`r f(ref_pts$bmsy[1] * 1000)`--`r f(ref_pts$bmsy[3] * 1000)`) (tableau \@ref(tab:reference-points-table)). Les IC postérieurs pour le LRP $0.4B_\mathrm{MSY}$ et l'USR $0.8B_\mathrm{MSY}$ par défaut sont également fournis dans le tableau \@ref(tab:reference-points-table). Les LRP et USR basés sur $B_0$ étaient environ quatre fois plus importants que les points de référence basés sur $B_\mathrm{MSY}$. En d'autres termes, les points de référence basés sur $B_0$ étaient plus prudents que les points de référence basés sur $B_\mathrm{MSY}$ (tableau \@ref(tab:reference-points-table)).
+
+")
 ```
 
 ```{r scam-results-biomass-en, eval = !fr(), results = 'asis'}
@@ -81,8 +123,11 @@ The base model estimates the spawning biomass to have been on a decreasing traje
 For comparison, posterior estimates of vulnerable biomass and spawning biomass are shown together in Figure \@ref(fig:fig-base-sb-vuln-compare). The two estimated vulnerable biomasses are considerably smaller than the spawning biomass, due to the relatively early age at maturity compared to the estimated age-at-50%-harvest, discussed in Sections \@ref(scam-ref-points) and \@ref(fishery-ref-points).")
 ```
 
-```{r scam-results-biomass-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-biomass-en>>
+```{r scam-results-biomass-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Biomasse {#scam-biomass}
+Le modèle de base estime que la biomasse reproductrice suit une trajectoire décroissante depuis 2012 (Figure \@ref(fig:fig-base-sb), Tableau \@ref(tab:biomass-table)). La biomasse de frai médiane postérieure (et l'IC à 95 %) dans `r assess_yr` devrait être `r f(proj_bio[2] * 1000)` t (`r f(proj_bio[1] * 1000)`--`r f(proj_bio[3] * 1000)`) (Tableau \@ref(tab:reference-points-table)). La biomasse reproductrice médiane projetée au début de l'année `r assess_yr`, qui incorpore la mortalité par pêche résultant de la prise observée `r end_yr`, est considérablement plus élevée que les estimations médianes à la fois de l'USR par défaut de $0.8B_\mathrm{MSY}$ et du LRP par défaut de $0.4B_\mathrm{MSY}$ (Figure \@ref(fig:fig-base-sb), Tableau \@ref(tab:reference-points-table)). La biomasse reproductrice `r assess_yr` a été projetée légèrement en dessous de l'USR $0.4B_0$ et au-dessus du LRP $0.2B_0$ (Figure \@ref(fig:fig-base-depletion), Tableau \@ref(tab:reference-points-table)).
+
+Pour comparaison, les estimations a posteriori de la biomasse vulnérable et de la biomasse de frai sont présentées ensemble dans la figure \@ref(fig:fig-base-sb-vuln-compare). Les deux biomasses vulnérables estimées sont considérablement plus petites que la biomasse reproductrice, en raison de l'âge relativement précoce à la maturité par rapport à l'âge estimé à 50 % de récolte, discuté dans les sections \@ref(scam-ref-points) et \@ref(fishery-ref-points).")
 ```
 
 ```{r scam-results-recruitment-en, eval = !fr(), results = 'asis'}
@@ -93,8 +138,12 @@ Projected recruitment anomalies for 2021 and 2022 were drawn randomly from a nor
 ")
 ```
 
-```{r scam-results-recruitment-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-recruitment-en>>
+```{r scam-results-recruitment-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Recrutement {#scam-recruitment}
+Les estimations médianes a posteriori des recrues d'âge 1 sont présentées dans la figure \@ref(fig:fig-base-recr) et le tableau \@ref(tab:recruitment-table). Les IC à 95 % sont importants autour des estimations du recrutement pour 2020 et 2021. Cela est normal car les données ne contiennent aucune information sur la force de cette classe d'âge [également observée dans d'autres évaluations telles que la figure 28 de @edwards2022].
+
+Les anomalies de recrutement prévues pour 2021 et 2022 ont été tirées au hasard d'une distribution normale, $N(0, \tau^2)$. Pour la plupart des séries chronologiques antérieures à 2008, on a estimé que le recrutement fluctuait autour de la moyenne à long terme, avec une faible variation autour de $R_0$. Cependant, depuis 2009, le recrutement annuel est inférieur à la moyenne.
+")
 ```
 
 ```{r scam-results-fishing-mortality-en, eval = !fr(), results = 'asis'}
@@ -103,8 +152,10 @@ Median posterior estimates of fishing mortality are shown in Figure \@ref(fig:fi
 ")
 ```
 
-```{r scam-results-fishing-mortality-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-fishing-mortality-en>>
+```{r scam-results-fishing-mortality-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Mortalité par pêche {#scam-fishing-mortality}
+Les estimations médianes a posteriori de la mortalité par pêche sont présentées dans la figure \@ref(fig:fig-base-f) et le tableau \@ref(tab:instantaneous-fishing-mortality-table). L'estimation médiane a posteriori de la mortalité par pêche est estimée avoir atteint un pic en `r which_f_max_yr` dans la pêcherie `r which_f_max_gear` à `r f(f_max, 3)` (`r f(f_ci[1], 3)`--`r f(f_ci[3], 3)`) en raison d'un effort plus important dû à un nouveau marché tel que décrit dans la section \@ref(test-pêcherie). Les taux de mortalité par pêche convertis en taux de capture annuels figurent dans le tableau \@ref(tab:annual-harvest-rate-table).
+")
 ```
 
 ```{r scam-results-depletion-en, eval = !fr(), results = 'asis'}
@@ -113,6 +164,8 @@ Median posterior estimates of relative spawning biomass $B_t/B_0$ are shown in F
 ")
 ```
 
-```{r scam-results-depletion-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-results-depletion-en>>
+```{r scam-results-depletion-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Biomasse reproductrice relative {#scam-depletion}
+Les estimations médianes a posteriori de la biomasse reproductrice relative $B_t/B_0$ sont présentées dans la figure \@ref(fig:fig-base-depletion). La taille de l'IC à 95 % est amplifiée par rapport à la biomasse de frai absolue en raison de la grande incertitude dans l'estimation de $B_0$ (figure \@ref(fig:fig-base-sb-bo), tableau \@ref(tab:reference-points-table)). L'estimation médiane a posteriori de la biomasse relative `r assess_yr` est `r f(depl_end[2], 3)` (`r f(depl_end[1], 3)`--`r f(depl_end[3], 3)`) (Figure \@ref(fig:fig-base-depletion), Tableau \@ref(tab:depletion-table)).
+")
 ```
