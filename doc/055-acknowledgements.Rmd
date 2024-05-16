@@ -8,6 +8,12 @@ We thank participants of the CSAS review meeting which took place on Oct. 19--20
 ")
 ```
 
-```{r acknowledgements-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<acknowledgements-en>>
+```{r acknowledgements-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# REMERCIEMENTS
+Nous remercions les membres du groupe de travail technique `r sp` (Robyn Forrest, Rowan Haigh, Paul Starr, Diedre Finn, Rob Tadey, Bruce Turris et Brian Mose) pour leurs précieux conseils et leurs idées tout au long de ce projet. Nous remercions les membres du laboratoire de sclérochronologie de la Station biologique du Pacifique pour le traitement des otolithes de `r sp`.
+
+Nous remercions les évaluateurs pour leurs examens minutieux, qui ont permis de découvrir des problèmes structurels qui n'auraient pas été détectés autrement. Cela souligne l'importance d'un examen indépendant par les pairs dans le processus consultatif.
+
+Nous remercions les participants à la réunion de révision du SCCS qui s'est tenue les 19 et 20 octobre 2022 pour leurs commentaires et demandes studieux et réfléchis. Nous remercions Shannon Obradovich d'avoir présidé la réunion.
+")
 ```
