@@ -17,8 +17,23 @@ Selectivity-at-age for the trawl fisheries, four surveys, and Discard CPUE index
 Variance components of the model were partitioned into observation and process errors. The key parameter is the total variance (i.e., $\vartheta^2$, total precision). The total variance is partitioned into observation and process error components by the model parameter $\rho$, which represents the proportion of the total variance that is due to observation error [@punt1999; @deriso2007]. The total variance is partitioned into observation errors ($\sigma$) and process errors ($\tau$) using Eq. \@ref(eq:df17) from Appendix \@ref(app:model-desc). The parameters $\vartheta^2$ and $\rho$ were fixed in the current assessment (Table \@ref(tab:param-settings-table)) at values that gave $\sigma = 0.2$ and $\tau = 0.8$. See Section \@ref(sens-sigma) for sensitivity analyses to this assumption. See Appendix \@ref(app:model-desc) for further details on the treatment of variance in this assessment.")
 ```
 
-```{r scam-model-description-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-model-description-en>>
+```{r scam-model-description-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## Modèle statistique de capture à l'âge {#scam-model}
+### Description du modèle {#scam-model-desc}
+
+Un modèle statistique de capture en fonction de l'âge, bayésien et à deux sexes, a été appliqué pour évaluer l'état du stock de `r sp` sur l'ensemble de la côte. Le modèle est basé sur le cadre du modèle statistique intégré de capture par âge (`r iscam`), @martell2011. Les détails complets du modèle sont fournis dans l'annexe \@ref(app:model-desc).
+
+Nous définissons un modèle de base avec des paramètres fixes et estimés décrits dans le tableau \@ref(tab:param-settings-table). Un total de `r num_params` paramètres du modèle ont été estimés par le modèle de base (le tableau \@ref(tab:param-settings-table) montre la plupart d'entre eux). Le modèle a estimé des séries temporelles de logarithmes d'anomalies de recrutement et de logarithmes de taux de mortalité par pêche, ainsi que des valeurs invariantes dans le temps du recrutement non pêché, de la pente de la relation stock-recrutement de Beverton-Holt, de la mortalité naturelle, du recrutement moyen et des paramètres de sélectivité logistique pour les deux pêcheries commerciales et les quatre campagnes synoptiques. Les distributions de probabilités préalables pour le modèle de base sont présentées dans le tableau \@ref(tab:param-settings-table) et la figure \@ref(fig:fig-base-priors-posts) et décrites dans la section \@ref(scam-model-priors). La sensibilité du modèle aux paramètres fixes et aux distributions de probabilité préalables supposées est présentée à la section \@ref(sens-analyses).
+
+Le modèle a été conditionné par les données de capture observées (`r ct_start_yr`--`r ct_end_yr`), qui ont été supposées connues sans erreur. Le modèle a été ajusté à quatre indices d'abondance de l'enquête, à l'indice de CPUE des rejets et aux données de composition par âge provenant des deux pêcheries commerciales et de trois enquêtes synoptiques. Les paramètres biologiques déterminant les calendriers de poids à l'âge et de maturité à l'âge ont été estimés indépendamment (Annexe \@ref(app:bio-data-appendix)) et introduits dans le modèle d'évaluation en tant que paramètres fixes qui sont restés constants dans le temps (Tableau \@ref(tab:growth-params-table)).
+
+Les indices de biomasse de l'enquête ont été traités comme des indices d'abondance relative directement proportionnels à la biomasse vulnérable de l'enquête au début de chaque année. Les erreurs d'observation dans les indices d'abondance relative ont été supposées être distribuées selon une loi log-normale. Le paramètre de capturabilité $q_k$ a été estimé pour chaque indice $k$. Les distributions de probabilités préalables pour $\ln(q_k)$ sont décrites dans la section \@ref(scam-model-priors).
+
+Les observations relatives à la composition par âge ont été supposées tirées d'une distribution Dirichlet-multinomiale. On a supposé que les âges étaient lus sans erreur.
+
+La sélectivité en fonction de l'âge pour les pêcheries au chalut, les quatre campagnes et l'indice de CPUE des rejets a été modélisée à l'aide d'une fonction logistique à deux paramètres avec une asymptote à 1. La vulnérabilité en fonction de l'âge à 50 % ($\hat{a}_k$) et l'écart type de la courbe de sélectivité logistique ($\hat{\gamma}_k$) pour chaque engin $k$ ont été estimés pour les pêcheries au chalut et les trois campagnes synoptiques. Aucune donnée sur la composition par âge n'étant disponible pour les engins `r hsmas` et `r dcpue`, la sélectivité a été fixée avec $\hat{a}_k$ = `r f(base_model$ctl$sel[2, 4])` et $\hat{\gamma}_k$ = `r f(base_model$ctl$sel[3, 4], 1)`, de manière similaire aux valeurs estimées pour les autres engins. D'autres simulations de sensibilité non incluses dans le présent document d'évaluation ont indiqué que le modèle était peu sensible à cette hypothèse.
+
+Les composantes de la variance du modèle ont été divisées en erreurs d'observation et erreurs de processus. Le paramètre clé est la variance totale (c'est-à-dire $\vartheta^2$, précision totale). La variance totale est divisée en composantes d'erreur d'observation et de processus par le paramètre de modèle $\rho$, qui représente la proportion de la variance totale due à l'erreur d'observation [@punt1999 ; @deriso2007]. La variance totale est divisée en erreurs d'observation ($\sigma$) et en erreurs de processus ($\tau$) à l'aide de l'équation suivante \@ref(eq:df17) de l'annexe \@ref(app:model-desc). Les paramètres $\vartheta^2$ et $\rho$ ont été fixés dans l'évaluation actuelle (tableau \@ref(tab:param-settings-table)) à des valeurs qui donnent $\sigma = 0,2$ et $\tau = 0,8$. Voir la section \@ref(sens-sigma) pour les analyses de sensibilité à cette hypothèse. Voir l'annexe \@ref(app:model-desc) pour plus de détails sur le traitement de la variance dans cette évaluation.")
 ```
 
 ```{r scam-priors-en, eval = !fr(), results = 'asis'}
@@ -33,8 +48,17 @@ A normal distribution was assumed for $\ln(M)$ for both sexes with mean = $\ln$(
 Normal prior probability distributions were assumed for the log survey catchability parameters $\ln(q_k)$ for each survey $k$. Normal distributions with mean = $\ln$(`r base_qk_mean`) and SD = `r base_qk_sd` in log space were selected because the survey estimates of biomass were derived from swept area analysis (Eqs. \@ref(eq:swept-area), \@ref(eq:cpue-density), and \@ref(eq:survey-biomass-variance)) and could therefore reasonably be expected to be within 1–2 orders of magnitude of unity. A large standard deviation was used to reflect ignorance of the scale of the swept area analysis compared with the true biomass.")
 ```
 
-```{r scam-priors-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-priors-en>>
+```{r scam-priors-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Distributions de probabilités préalables {#scam-model-priors}
+
+Les distributions de probabilités préalables pour le modèle de base sont présentées dans la figure \@ref(fig:fig-base-priors-posts) et le tableau \@ref(tab:param-settings-table). Les sensibilités du modèle aux distributions préalables supposées sont présentées dans les sections \@ref(sens-sigma), \@ref(sens-m) et \@ref(sens-q).
+
+Des distributions de probabilités uniformes ont été supposées pour $\ln(R_0)$, $\ln(\bar{R})$, $\ln(R_\mathrm{init})$ et les paramètres de sélectivité (tableau \@ref(tab:param-settings-table)). Une distribution Bêta a été supposée pour la pente ($h$) de la relation stock-recrutement, avec des paramètres de forme qui ont abouti à une distribution avec une moyenne = `r f(base_h_prior1, 2)` et un CV = `r f(base_h_prior2, 2)` (Bêta($\alpha$ = `r f(base_h$p1, 1)`, $\beta$ = `r f(base_h_prior2, 1)`)). Cet a priori est basé sur une revue de la littérature sur les paramètres de pente pour les espèces de poissons plats du Pacifique réalisée par @holt2016 et a été utilisé dans le `r la` pour le `r sp`. Un examen des estimations de la pente pour les espèces de poissons plats par @maunder2012 a suggéré que la pente des poissons plats utilisant une relation stock-recrutement de Beverton-Holt pourrait être d'environ 0,94$ (où $h$ approchant 1,0$ implique que le recrutement est indépendant de la biomasse de frai).
+
+Une distribution normale a été supposée pour $\ln(M)$ pour les deux sexes avec une moyenne = $\ln$(`r f(exp(base_m_female$p1), 2)`) et un écart-type = `r f(exp(base_m_female$p2), 2)` pour les femmes et moyenne = $\ln$(`r f(exp(base_m_male$p1), 2)`) et écart-type = `r f(exp(base_m_male$p2), 2)` pour les hommes (en espace logarithmique). @holt2016 a examiné la littérature et les évaluations des stocks et a supposé une distribution de probabilité préalable pour M avec une moyenne = 0,2 dans leur évaluation de `r bc` Rock Sole (*Lepidopsetta spp.*). @goa2021 a supposé une valeur de M = 0,2 pour les femelles et M = 0,35 pour les mâles dans l'évaluation de `r sp` du Golfe de l'Alaska ; la même chose a été faite pour le stock des îles Aléoutiennes de la mer de Béring [@bering2019].
+
+Des distributions de probabilités normales préalables ont été supposées pour les paramètres logarithmiques de capturabilité des relevés $\ln(q_k)$ pour chaque relevé $k$. Des distributions normales avec une moyenne = $\ln$(`r base_qk_mean`) et un écart-type = `r base_qk_sd` dans l'espace logarithmique ont été sélectionnées parce que les estimations de la biomasse de l'enquête ont été dérivées de l'analyse de la zone balayée (Eqs. \@ref(eq:swept-area), \@ref(eq:cpue-density), et \@ref(eq:survey-biomass-variance)) et que l'on pouvait donc raisonnablement s'attendre à ce qu'elles se situent dans un intervalle de 1 à 2 ordres de grandeur par rapport à l'unité. Un écart-type important a été utilisé pour refléter l'ignorance de l'échelle de l'analyse de la zone balayée par rapport à la biomasse réelle.
+")
 ```
 
 ```{r scam-fishery-reference-points-en, eval = !fr(), results = 'asis'}
@@ -80,6 +104,35 @@ Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional reference re
 ")
 ```
 
-```{r scam-fishery-reference-points-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<scam-fishery-reference-points-en>>
+```{r scam-fishery-reference-points-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## POINTS DE RÉFÉRENCE DE LA PÊCHE {#scam-ref-points}
+
+Le cadre décisionnel pour la pêche du MPO intégrant la politique de l'approche de précaution (AP) [@dfo2009] exige que l'état des stocks soit caractérisé à l'aide de trois points de référence :
+
+1. Un taux de prélèvement de référence
+1. Un point de référence du stock supérieur (USR)
+1. Un point de référence limite (LRP)
+
+Les valeurs provisoires de USR = $0.8B_\mathrm{MSY}$ et LRP = $0.4B_\mathrm{MSY}$ sont suggérées en l'absence de points de référence spécifiques aux stocks. Le cadre suggère un taux de prélèvement de référence de $F_\mathrm{MSY}$. Une règle de contrôle de l'exploitation basée sur ces points de référence qui coïncide avec le choix du PRL, du TU et de la référence de prélèvement appliquerait une réduction linéaire de la mortalité par pêche lorsque le stock tombe en dessous du TU et cesserait de pêcher lorsque le stock atteint le PRL [par exemple, figure 6 dans @grandin2017].
+
+Le $F_\mathrm{MSY}$ (et le taux de récolte annuel $U_\mathrm{MSY}$) est estimé très important dans ce modèle en raison d'une sélectivité supérieure à la maturité, comme décrit dans la section \@ref(selex). Nous présentons donc des points de référence basés sur $B_0$ pour `r sp` qui sont moins dépendants de la sélectivité estimée et de la maturité à l'âge. Nous suggérons un LRP = 0,2B_0$ et un USR = 0,4B_0$. Il s'agit des points de référence convenus lors de la dernière évaluation pour `r sp` dans `r bc` [@grandin2017]; nous développons davantage notre raisonnement ci-dessous.
+
+### LRP
+
+Nous suggérons un PRL de 0,2B_0$ comme indicateur de la surpêche de recrutement. Une valeur de 0,2B_0$ est un seuil en dessous duquel il y a généralement au moins une certaine réduction du recrutement par habitant [@myers1994 ; @sainsbury2008]. Ce seuil a été recommandé dans les récentes orientations nationales [@barrett2022]. En outre, ce seuil est conforme aux recommandations d'autres juridictions : une valeur limite de 0,2B_0$ est la recommandation par défaut (et la valeur minimale acceptable) dans le cadre de la politique de stratégie de récolte des pêcheries du Commonwealth australien [@dawr2018] et constitue le déclencheur par défaut des plans de reconstitution dans le cadre de la stratégie de récolte de la Nouvelle-Zélande [@mf2008].
+
+### USR
+
+Dans le cadre de la politique de l'AP, l'USR peut remplir deux fonctions : (1) un « seuil en dessous duquel les prélèvements doivent être progressivement réduits afin d'éviter d'atteindre le PLR » (un point de contrôle opérationnel ou « OCP ») et (2) un « point de référence cible déterminé par des objectifs de productivité pour le stock, des considérations biologiques plus larges, et des objectifs sociaux et économiques pour la pêcherie » [@dfo2009]. @marentette2020 souligne que le rôle principal de l'USR est son premier rôle, en tant qu'OCP, pour éviter le LRP. La politique de l'AP décrit comment l'USR est censée être développée par les gestionnaires de la pêche en consultation avec les parties intéressées et avec l'avis des scientifiques. Nous fournissons donc l'avis scientifique suivant concernant l'USR. 
+
+Premièrement, l'une des raisons du choix de 0,4B_0$ est que, dans le cadre d'un modèle de production excédentaire de Schaefer, $B_\mathrm{MSY}$ est égal à 0,5 $B_0$ et, étant donné que 0,8 $B_\mathrm{MSY}$ est le RVU provisoire et que 0,8 $\mathrm{MSY}$ fois 0,5 = 0,4, 0,4B_0$ est le RVU équivalent basé sur le $B_0$. Un raisonnement similaire s'applique à 0,2B_0$ en tant que PLR : 0,4 $B_\mathrm{MSY}$ est le PLR provisoire et 0,4 $\times$ 0,5 = 0,2, ce qui donne 0,2 $B_0$ en tant que PLR.
+  
+En outre, il existe une justification concernant le rôle de l'USR dans le déclenchement des réductions de la pêche afin de réduire le risque de dépassement du PRL par le stock. La politique de l'AP note que « si des facteurs socio-économiques peuvent influencer l'emplacement de l'USR, ces facteurs ne doivent pas diminuer sa fonction minimale d'orientation de la gestion du risque de dépassement du PRL ». Nous suggérons que les facteurs scientifiques suivants soient pris en compte en ce qui concerne le moment de l'ajustement de l'intensité de la pêche lorsque le stock s'approche du PRL : (1) le niveau d'incertitude autour de la biomasse reproductrice relative ; (2) la fréquence de l'évaluation ; (3) la disponibilité de sources de données importantes ; et (4) les futurs taux de déclin plausibles. Nous présentons les conseils suivants en ce qui concerne ces facteurs pour la plie rouge (comme le montreront les résultats) :
+
+1. Le niveau d'incertitude concernant la biomasse relative est raisonnablement élevé, les IC à 95 % couvrant approximativement la largeur entre 0,2B_0$ et 0,4B_0$. Une plus grande incertitude signifie que l'USR devrait être plus éloignée du LRP pour garantir une tolérance au risque équivalente.
+  
+2. Bien que plusieurs années se soient écoulées depuis la dernière évaluation, nous recommandons que l'évaluation du stock soit mise à jour tous les deux ans environ, lorsqu'une année supplémentaire de données est disponible pour chaque étude. Des intervalles plus longs entre les évaluations nécessiteraient que l'USR soit plus éloignée du LRP afin de garantir un risque équivalent.
+
+3. Les échantillons d'âge commerciaux ne sont pas disponibles pour ce stock depuis 2019 et on ne sait pas quand cet échantillonnage reprendra. Ces données constituent une source essentielle d'informations sur le recrutement et la sélectivité. Les résultats de l'évaluation montrent que les baisses du recrutement estimé au cours de la dernière décennie sont responsables d'une grande partie des récentes baisses estimées de la SSB. L'absence d'échantillons d'âge peut introduire une incertitude pour l'avenir, ce qui aurait pour conséquence
+")
 ```

@@ -9,8 +9,15 @@ Reference points based on estimated equilibrium unfished spawning biomass, $B_0$
 ")
 ```
 
-```{r sam-stock-modelling-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-stock-modelling-en>>
+```{r sam-stock-modelling-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# MODÈLE D'ÉVALUATION DES STOCKS
+Nous avons appliqué un modèle statistique de prise par âge à deux sexes et deux flottilles dans un cadre d'estimation bayésien afin d'évaluer le stock de `r sp` à l'échelle de la côte. L'analyse de la composition par sexe des données de l'échantillon commercial et de l'échantillon d'enquête a indiqué que le stock est composé d'environ `r total_prop_female` femelles ; voir l'appendice \@ref(app:prop-female), le tableau \@ref(tab:prop-female-table). Tous les modèles de la présente évaluation, y compris le modèle de base, les modèles de transition, les modèles de sensibilité et les modèles rétrospectifs, ont été exécutés en utilisant `r total_prop_female` comme proportion de femelles dans le stock. Les modèles de transition 1 et 2, avant l'ajout des données jusqu'en 2021, utilisaient 0,70 pour la proportion de femelles, ce qui était le cas dans `r la`.
+
+Le modèle a été adapté aux données de captures commerciales de deux flottes, à six indices d'abondance avec les coefficients de variation associés, et aux données de composition par âge des flottes de chalutage commercial et de quatre des six enquêtes. Les paramètres biologiques utilisés dans le modèle, y compris les calendriers de croissance, de poids à l'âge et de maturité, ont été estimés indépendamment pour chaque sexe (Annexe \@ref(app:bio-data-appendix)) et introduits dans le modèle d'évaluation en tant que paramètres fixes supposés rester constants dans le temps.
+
+Des points de référence basés sur la biomasse reproductrice non pêchée à l'équilibre estimée, $B_0$, ont été estimés (Section \@ref(decisions)). Une table de décision sur les captures (tableau \@ref(tab:decision-table)) a été créée en projetant le modèle d'évaluation un an dans l'avenir pour une gamme de niveaux de capture constants. Pour chaque niveau de capture, les tables de décision indiquent la probabilité que la biomasse reproductrice projetée dans `r base_model$dat$end.yr + 2` soit inférieure aux points de référence basés sur la biomasse reproductrice, et la probabilité que le taux de récolte de `r base_model$dat$end.yr + 2` soit supérieur aux points de référence basés sur le taux de récolte (Section \@ref(decisions)). Les points de référence basés sur le rendement maximal durable (RMD), y compris la biomasse reproductrice ($B_\mathrm{MSY}$) et le taux d'exploitation annuel produisant le RMD ($U_\mathrm{MSY}$), ont été estimés mais ne sont pas inclus dans la table de décision car ils ne sont pas présentés pour avis. Elles ont été estimées pour montrer que les valeurs de $F_\mathrm{MSY}$ (et $U_\mathrm{MSY}$) sont déraisonnablement élevées, en raison d'une sélectivité estimée supérieure à la maturité, comme décrit dans la section \@ref(selex).
+
+")
 ```
 
 ```{r sam-data-inputs-en, eval = !fr(), results = 'asis'}
@@ -25,8 +32,16 @@ Data were extracted using the R package [gfdata](https://github.com/pbs-assess/g
 ")
 ```
 
-```{r sam-data-inputs-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-data-inputs-en>>
+```{r sam-data-inputs-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## ENTRÉES DE DONNÉES
+### SOURCES DE DONNÉES
+Les données ont été extraites à l'aide du paquet R [gfdata] (https://github.com/pbs-assess/gfdata), qui applique des routines SQL standard à plusieurs bases de données et reconstruit les différentes séries temporelles en conséquence. Les bases de données consultées pour cette évaluation sont les suivantes
+
+1. GFBioSQL : Contient toutes les données modernes d'échantillons biologiques pour les enquêtes et les pêcheries commerciales. Cette base de données comprend la plupart des données sur les spécimens de poissons de fond collectées depuis les années 1950.
+2. PacHarvTrawl : Contient les données de débarquement des chaluts canadiens de 1996 au 31 mars 2007.
+3. GFFOS : contient les données sur les débarquements canadiens au chalut du 1er avril 2007 à aujourd'hui. Cette base de données est essentiellement une copie de la base de données des opérations de pêche (FOS) de Pêches et Océans Canada (MPO), avec une structure légèrement différente qui la rend plus facile à utiliser pour nos besoins d'évaluation.
+
+")
 ```
 
 ```{r sam-catch-data-en, eval = !fr(), results = 'asis'}
@@ -37,9 +52,14 @@ Prior to the introduction of freezer trawlers into the British Columbia groundfi
 ")
 ```
 
-```{r sam-catch-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-catch-data-en>>
+```{r sam-catch-data-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Données de capture {#sec:catch-data}
+Les données de la pêche commerciale sont présentées pour la période allant du 21 février, `r base_model$dat$start.yr` au 20 février, `r base_model$dat$end.yr`. Les débarquements et les rejets à l'échelle de la côte sont présentés dans le Tableau \@ref(tab:overall-catch-table) et par flottille dans le Tableau \@ref(tab:ft-catch-table). L'évaluation actuelle ajuste un modèle bayésien structuré par âge à deux sexes aux données de capture, d'enquête et de composition par âge des années `r base_model$dat$start.yr` à `r base_model$dat$end.yr`, pour les zones de gestion 3CD (côte ouest de l'île de Vancouver), 5AB (détroit de la Reine-Charlotte), 5CD (détroit d'Hécate), et 5E (côte ouest de Haida Gwaii).
+
+Avant l'introduction des chalutiers congélateurs dans la flotte de pêche au chalut du poisson de fond de la Colombie-Britannique en 2005, la plupart des prises historiques de `r sp` ont été rejetées en mer en grandes quantités en raison de la protéolyse de la chair, comme indiqué ci-dessus. Dans de nombreux cas, des traits entiers ont été rejetés, ce qui exclut l'utilisation d'estimateurs de ratio ou d'autres méthodes statistiques d'estimation des rejets non observés. Toutes les données de capture antérieures à l'introduction d'une couverture à 100 % par des observateurs en mer en 1996 ont donc été omises de cette évaluation, sur la recommandation de nos conseillers sectoriels et de notre groupe de travail technique, et conformément à ce qui a été fait dans le `r la` [@grandin2017].
+")
 ```
+
 ```{r sam-abundance-indices-en, eval = !fr(), results = 'asis'}
 cat("### Abundance Indices
 
@@ -79,8 +99,43 @@ A standardized commercial CPUE index, as has been used in other recent DFO Pacif
 ")
 ```
 
-```{r sam-abundance-indices-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-abundance-indices-en>>
+```{r sam-abundance-indices-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Indices d'abondance
+
+Six indices d'abondance indépendants de la pêche ont été utilisés dans cette évaluation :
+
+1. `r qcs`
+2. `r hsmas`
+3. `r hss`
+4. `r wcvis`
+5. `r wchgs` (uniquement pour les ponts)
+6. `r dcpue`
+
+**`r qcs`**
+
+Le `r qcs` a été réalisé en juillet-août en 2003, 2004, et les années impaires à partir de 2005. La zone de relevé est divisée en blocs de 2 km $\times$ 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 50--125 m, 125--200 m, 200--330 m, et 330--500 m. Chaque année, des blocs sont sélectionnés au hasard dans chaque strate de profondeur. En outre, pour les besoins de l'attribution des blocs, l'étude est divisée en strates spatiales septentrionales et méridionales.
+
+**`r hsmas`**
+
+Une série de campagnes de chalutage de fond multi-espèces a été menée dans le détroit d'Hécate en mai-juin 1984, 1987, 1989, 1991, 1993, 1995, 1996, 1998, 2000, 2002 et 2003 (@westrheim1984 ; @fargo1984 ; @fargo1988 ; @wilson1991 ; @hand1994 ; @workman1996 ; @workman1997 ; @choromanski2002 ; @choromanski2005). La présente évaluation n'utilise que les observations de 1996 jusqu'à la fin de l'étude en 2003. La conception originale de cette étude attribuait les lieux de pêche par intervalles de 10 brasses de profondeur à l'intérieur d'une grille de 10 milles nautiques dans le détroit d'Hécate. L'étude a été stratifiée a posteriori en utilisant des intervalles de 10 brasses de profondeur pour l'ensemble de la zone d'étude, traitant ainsi chaque intervalle de profondeur comme une strate unique. Malgré les tentatives d'application de la stratification post-échantillonnage, cette approche a entraîné une variance élevée de la campagne [@sinclair2007]. En 2004, le `r hsmas` a été abandonné au profit du `r hss` (décrit ci-dessous).
+
+**`r hss`**
+
+Le `r hss` fait partie d'un ensemble coordonné de relevés à long terme qui, ensemble, couvrent le plateau continental et le haut du talus de la majeure partie de la côte de la Colombie-Britannique. Les campagnes `r qcs` et `r wcvis` décrites dans cette section font partie du même ensemble de campagnes. Toutes les campagnes synoptiques suivent un plan aléatoire stratifié en profondeur. La répartition relative des blocs entre les strates de profondeur a été déterminée en modélisant les captures attendues de poissons de fond et en déterminant le nombre cible de traits par strate qui fournirait les données les plus précises sur les taux de capture pour le plus grand nombre d'espèces possible. L'étude a été réalisée de mai à juin les années impaires à partir de 2005. La zone d'étude est divisée en blocs de 2 km $\times$ 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 10--70 m, 70--130 m, 130--220 m, et 220--500 m. Chaque année, des blocs sont sélectionnés au hasard dans chaque strate de profondeur.
+
+**`r wcvis`**
+
+Le `r wcvis` a été mené de mai à juin les années paires à partir de 2004. La zone de relevé est divisée en blocs de 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 50--125 m, 125--200 m, 200--330 m, et 330--500 m. Chaque année, des blocs sont sélectionnés au hasard dans chaque strate de profondeur. En outre, pour l'attribution des blocs, l'étude est divisée en strates spatiales septentrionales et méridionales.
+
+**`r wchgs`**
+
+La campagne `r wchgs` a été menée en août-septembre les années paires à partir de 2006. La zone de relevé est divisée en blocs de 2 km $\times$ 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 180-330 m, 330-500 m, 500-800 m et 800-1 300 m.
+
+**`r dcpue`**
+
+Un indice normalisé de CPUE commerciale, utilisé dans d'autres évaluations récentes du MPO dans le Pacifique, n'a pas été utilisé en raison du comportement de la pêcherie. Les `r sp` sont ciblés sur des zones connues et les informations relatives à la localisation sont partagées entre les pêcheurs, de sorte qu'il existe un biais en faveur d'une CPUE élevée. Au lieu de cela, les parties prenantes ont suggéré une `r dcpue` comme approche pour créer un indice d'abondance qui couvrirait chaque année de l'évaluation et serait moins influencé par les changements dans le comportement de ciblage qu'un indice de CPUE commercial standard. L'indice a été construit en utilisant la CPUE pour une « flotte » définie de navires et n'a inclus que les traits dans lesquels 100 % des `r sp` ont été rejetés. Voir l'annexe \@ref(app:dcpue) pour plus de détails.
+
+")
 ```
 
 ```{r sam-swept-area-en, eval = !fr(), results = 'asis'}
@@ -125,8 +180,46 @@ We also included a set of geostatistical-model-standardized indices in our sensi
 ")
 ```
 
-```{r sam-swept-area-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-swept-area-en>>
+```{r sam-swept-area-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("**Analyse de la zone balayée pour les indices d'abondance**
+  
+Pour toutes les campagnes, l'estimation de la biomasse de la zone balayée pour l'année $y$ a été obtenue en additionnant le produit de la CPUE et de la zone étudiée dans les strates étudiées $i$ :
+\begin{equation} 
+  B_y = \sum_{i=1}^{k} C_{y_i} A_i = \sum_{i=1}^{k} B_{y_i}
+(\#eq:swept-area)
+\end{equation} 
+
+où $C_{y_i}$ est la densité moyenne de CPUE (kg/km$^2$) pour les espèces de la strate $i$, $A_i$ est la surface de la strate $i$, $B_{y_i}$ est la biomasse de `r sp` dans la strate $i$ pour l'année $y$, et $k$ est le nombre de strates.
+
+La CPUE ($C_{y_i}$) pour `r sp` dans la strate $i$ pour l'année $y$ a été calculée comme une densité en $kg/km^2$ par :
+\begin{equation} 
+  C_{y_i} = \frac{1}{n_{y_i}} \sum_{j=1}^{n_{y_i}} \frac{W_{y_i,j}}{D_{y_i,j}w_{y_i,j}} 
+(\#eq:cpue-density)
+\end{equation} 
+
+où $W_{y_i,j}$ est le poids de la capture en kg pour `r sp` dans la strate $i$, l'année $y$, et le trait $j$, $D_{y_i,j}$ est la distance parcourue en km pour le trait $j$ dans la strate $i$ et l'année $y$, $w_{y_i,j}$ est l'ouverture nette en km par le trait $j$, la strate $i$ et l'année $y$, et $n_{y_i}$ est le nombre de traits dans la strate $i$.
+
+La variance de l'estimation de la biomasse de l'enquête $V_y$ pour `r sp` au cours de l'année $y$ est calculée en kg$^2$ comme suit :
+\begin{equation} 
+  V_y = \sum_{i=1}^{k} \frac{\sigma_{y_i}^2 A_i^2}{n_{y_i}} = \sum_{i=1}^{k} V_{y_i} 
+(\#eq:enquête-biomasse-variance)
+\end{equation} 
+
+où $\sigma_{y_i}^2$ est la variance de la CPUE en kg$^2$/km$^4$ pour l'année $y$ dans la strate $i$, $V_{y_i}$ est la variance de `r sp` dans la strate $i$ pour l'année $y$, où $\sigma_{y_i}^2$ a été obtenu à partir d'échantillons bootstrapped (voir ci-dessous).
+
+Le CV de `r sp` pour chaque année $y$ a été calculé comme suit :
+\begin{equation} 
+  \textrm{CV}_y = \frac{V_y^{1/2}}{B_y}
+(\#eq:survey-cv)
+\end{equation} 
+
+où $\textrm{CV}_y$ est le CV pour l'année $y$.
+
+Mille répliques bootstrap avec remplacement ont été construites à partir des données de l'enquête pour estimer les régions de confiance à 95% corrigées des biais pour chaque année de l'enquête [@efron1982]. Les estimations de la biomasse moyenne de l'étude obtenues à partir de l'Eq. \@ref(eq:swept-area) avec les CV (Eq. \@ref(eq:survey-cv)) sont présentées pour les indices indépendants de la pêche dans le tableau \@ref(tab:survey-index-data-table).
+  
+Nous avons également inclus un ensemble d'indices normalisés par un modèle géostatistique dans nos analyses de sensibilité (annexe \@ref(app:geostat)).
+
+")
 ```
 
 ```{r sam-age-data-en, eval = !fr(), results = 'asis'}
@@ -148,8 +241,23 @@ Age composition data were input to the assessment models as weighted proportions
 Commercial ageing requests included randomly chosen samples from many vessels across both commercial fleets.")
 ```
 
-```{r sam-age-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-age-data-en>>
+```{r sam-age-data-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Données sur l'âge
+
+Les âges pour les années 1996--2019 sont inclus dans cette évaluation et proviennent des deux flottes commerciales et des trois études synoptiques. Les échantillons ont été vieillis par la méthode « break-and-bake », qui consiste à placer un grand nombre d'otolithes dans un plateau, à les cuire dans un four spécialement conçu à cet effet, puis à les briser pour effectuer la lecture de l'âge. Au cours de ce processus, si la personne qui vieillit les otolithes en trouve un qui n'est pas assez cuit, elle le brûle manuellement pour lui donner le bon contraste pour la lecture de l'âge. Cette étape supplémentaire de cuisson rend cette méthode équivalente à la méthode traditionnelle 'break-and-burn' dans laquelle le lecteur d'âge brûle chaque otolithe individuellement (S. Wischniowski, Sclerochronology Laboratory, Pacifc Biological Station, Pers. Comm.).
+
+Les données sur la composition par âge représentaient l'ensemble de la côte pour les années suivantes :
+
+1. Chalutiers congélateurs (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[1]])$year), collapse = '--')`
+1. Rivage (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[2]])$year), collapse = '--')`
+1. `r qcs` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[3]])$year), collapse = '--')`
+1. `r hss` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[4]])$year), collapse = '--')`
+1. `r wcvis` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[5]])$year), collapse = '--')`
+1. `r wchgs` (Figure \ref(fig:fig-ages)), 2016--2018, (modèles de transition uniquement)
+
+Les données sur la composition par âge ont été introduites dans les modèles d'évaluation sous forme de proportions pondérées en fonction de l'âge. La pondération était basée sur un schéma stratifié qui ajustait l'effort d'échantillonnage inégal entre les strates de profondeur et la densité de la biomasse du trait (enquêtes) ou la période trimestrielle au sein d'une année et le poids de la capture du trait (commercial). Les détails sont donnés dans @holt2016 (page 160) et le `r la` [@grandin2017]. Les méthodes sont codées dans le paquet [gfplot] (https://github.com/pbs-assess/gfplot). Le `r la` a utilisé un code personnalisé car le package gfplot n'était pas encore disponible.
+
+Les demandes de vieillissement commercial comprenaient des échantillons choisis au hasard sur de nombreux navires des deux flottes commerciales.")
 ```
 
 ```{r sam-length-data-en, eval = !fr(), results = 'asis'}
@@ -162,10 +270,14 @@ Females did not vary in length significantly between the two fleets, with both h
 Females have been sampled more often than males in both fleets. This difference in sampling is due to the proportion of females in the population being higher than males. Appendix \@ref(app:prop-female) describes in detail how the proportion female was calculated.")
 ```
 
-<!-- TODO: what is this? both fleets, except for in 2006–2007, when freezer trawler samples showed slightly larger males. The low sample size (N = 97) in 2006 suggests that this may not be representative of the population. -->
+```{r sam-length-data-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Données de longueur
 
-```{r sam-length-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-length-data-en>>
+Les données de longueur provenant des flottes de chalutiers congélateurs et des flottes côtières ainsi que des campagnes synoptiques sont présentées dans la figure \@ref(fig:fig-lengths). Les longueurs de l'étude sont présentées par sexe et les longueurs commerciales sont agrégées. Certains histogrammes de longueur commerciale sont bimodaux, ce qui illustre le dimorphisme sexuel de cette espèce.
+
+La longueur des femelles ne varie pas de manière significative entre les deux flottes, qui présentent toutes deux une médiane globale de `r median(length_samples_ft$length, na.rm = TRUE)` cm. Les mâles avaient une médiane de `r median(filter(length_samples_ft, sex == 1)$length, na.rm = TRUE)` cm pour la flottille de chalutiers congélateurs et de `r median(filter(length_samples_ss, sex == 1)$length, na.rm = TRUE)` cm pour la flottille de chalutiers côtiers. Les femelles avaient une médiane de `r median(filter(length_samples_ft, sex == 2)$length, na.rm = TRUE)` cm pour la flotte de chalutiers congélateurs et `r median(filter(length_samples_ss, sex == 2)$length, na.rm = TRUE)` cm pour la flotte côtière.
+
+Les femelles ont été échantillonnées plus souvent que les mâles dans les deux flottes. Cette différence d'échantillonnage est due au fait que la proportion de femelles dans la population est plus élevée que celle des mâles. L'annexe \@ref(app:prop-female) décrit en détail comment la proportion de femelles a été calculée.")
 ```
 
 ```{r sam-growth-parameters-en, eval = !fr(), results = 'asis'}
@@ -174,6 +286,8 @@ Growth parameters were estimated outside the `r iscam` framework. They were inpu
 ")
 ```
 
-```{r sam-growth-parameters-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-growth-parameters-en>>
+```{r sam-growth-parameters-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Paramètres de croissance
+Les paramètres de croissance ont été estimés en dehors du cadre `r iscam`. Ils ont été introduits dans les fichiers de données pour le modèle d'évaluation du stock. L'appendice \@ref(app:bio-data-appendix) contient des détails, y compris les équations et les valeurs estimées des paramètres de croissance pour le modèle de base dans le tableau \@ref(tab:growth-params-table).
+")
 ```
