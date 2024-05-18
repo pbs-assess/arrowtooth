@@ -315,42 +315,30 @@ age_precision <- dat$age_precision
 theme_set(gfiscam_theme())
 
 # Gear names are set in the data file for each model
-#gear_names <- models$base_model[[1]]$dat$gear_names
-#gear_names <- models[[1]][[1]][[1]]$dat$gear_names
 
-# if(fr()){
-#   # Translate all gear names to French
-#   # Note 'Shoreside' is the same in both languages 
-#   gear_names_fr <- map_chr(gear_names, ~{
-#     if(.x == "HS Multispecies Assemblage"){
-#       return("HS Assemblage multi-espèces")
-#     }
-#     browser
-#     if(.x == "HS Multi-x"){
-#       return(.x)
-#     }
-#     if(grepl("Synoptic", .x)){
-#       j <- str_split(.x, " ")[[1]]
-#       paste(j[1], tr(j[2]))
-#     }else{
-#       tr(.x)
-#     }
-#   })
-#   
-#   # Base model
-#   models[[1]][[1]] <- 
-#     replace_gear_names(models[[1]][[1]],
-#                        old_gear_names = gear_names,
-#                        new_gear_names = gear_names_fr)
-#   models$bridge_grps[[1]] <- 
-#     replace_gear_names(models$bridge_grps[[1]],
-#                        old_gear_names = gear_names,
-#                        new_gear_names = gear_names_fr)
-#   models$bridge_grps[[2]] <- 
-#     replace_gear_names(models$bridge_grps[[2]],
-#                        old_gear_names = gear_names,
-#                        new_gear_names = gear_names_fr)
-# }
+gear_names <- models[[1]][[1]][[1]]$dat$gear_names
+
+if(fr()){
+  # Translate all gear names to French
+  # Note 'Shoreside' is the same in both languages
+  gear_names_fr <- map_chr(gear_names, ~{
+      tr(.x)
+  })
+
+  # Base model
+  models[[1]][[1]] <-
+    replace_gear_names(models[[1]][[1]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+  models$bridge_grps[[1]] <-
+    replace_gear_names(models$bridge_grps[[1]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+  models$bridge_grps[[2]] <-
+    replace_gear_names(models$bridge_grps[[2]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_fr)
+}
 
 base_model <- models$base_grps[[1]][[1]]
 
