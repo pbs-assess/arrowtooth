@@ -86,7 +86,8 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 (ref:fig-catch-fit-fr) French here
 
 ```{r fig-catch-fit, fig.cap = ifelse(fr(), "(ref:fig-catch-fit-fr)", "(ref:fig-catch-fit-en)")}
-plot_catch_fit_mcmc(base_model, angle_x_labels = TRUE)
+plot_catch_fit_mcmc(base_model,
+                    angle_x_labels = TRUE)
 ```
 
 <!-- Biomass and recruitment -------------------------------------------------->
@@ -150,7 +151,10 @@ plot_vuln_mcmc(base_model,
 (ref:fig-base-recr-fr) French here
 
 ```{r fig-base-recr, fig.cap = ifelse(fr(), "(ref:fig-base-recr-fr)", "(ref:fig-base-recr-en)")}
-plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL, leg_loc = NULL)
+plot_recr_mcmc(base_model,
+               angle_x_labels = TRUE,
+               text_title_size = NULL,
+               leg_loc = NULL)
 ```
 
 <!-- Fishing mortality ------------------------------------------------------->
@@ -160,7 +164,9 @@ plot_recr_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL, leg_lo
 (ref:fig-base-f-fr) French here
 
 ```{r fig-base-f, fig.cap = ifelse(fr(), "(ref:fig-base-f-fr)", "(ref:fig-base-f-en)")}
-plot_f_mcmc(base_model, angle_x_labels = TRUE, text_title_size = NULL)
+plot_f_mcmc(base_model,
+            angle_x_labels = TRUE,
+            text_title_size = NULL)
 ```
 
 <!-- Index fits and residuals ------------------------------------------------>
