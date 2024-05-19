@@ -6,10 +6,13 @@
 #' @docType package
 #' @name arrowtooth
 
+#' @import gfplot
 #' @import ggplot2
-#' @importFrom hake plot_map
+#' @importFrom PBSmapping clipPolys
 #' @importFrom rlang .data
-#' @importFrom sf st_as_sf st_cast st_combine st_crs st_set_crs st_transform
+#' @importFrom scales comma
+#' @importFrom sf st_as_sf st_cast st_combine st_crs st_point st_sfc st_set_crs
+#' @importFrom sf st_transform
 #' @importFrom stats quantile
 #' @importFrom utils capture.output
 #'

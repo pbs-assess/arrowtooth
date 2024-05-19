@@ -48,7 +48,7 @@ plot_cpue_spatial(dat$cpue_spatial,
 
 ```{r fig-trawl-footprint, fig.cap = ifelse(fr(), "(ref:fig-trawl-footprint-fr)", "(ref:fig-trawl-footprint-en)")}
 
-plot_trawl_footprint(french = fr())
+plot_trawl_footprint()
 ```
 
 (ref:fig-catch-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. In the years prior to 1996, many tows of `r sp` were discarded without logs being kept.

@@ -99,18 +99,14 @@ library(knitr)
 if (is_latex_output()) {
   knitr_figs_dir <- "knitr-figs-pdf/"
   knitr_cache_dir <- "knitr-cache-pdf/"
-  fig_out_type <- "png"
 } else {
   knitr_figs_dir <- "knitr-figs-docx/"
   knitr_cache_dir <- "knitr-cache-docx/"
-  fig_out_type <- "png"
 }
 fig_asp <- 0.618
 fig_width <- 8
 fig_out_width <- "5.5in"
-fig_dpi <- 180
-fig_align <- "center"
-fig_pos <- "H"
+
 user <- Sys.info()[["user"]]
 opts_chunk$set(
   collapse = TRUE,
@@ -127,11 +123,12 @@ opts_chunk$set(
   # autodep = isTRUE(user %in% "seananderson"),
   # cache = isTRUE(user %in% "seananderson"),
   cache.comments = FALSE,
-  dev = fig_out_type,
-  dpi = fig_dpi,
-  fig.align = fig_align,
-  fig.pos = fig_pos
-)
+  # These two lines needed for the maps with geom_sf() to be rendered correctly
+  dev = "ragg_png",
+  fig.ext = "png",
+  dpi = 180,
+  fig.align = "center",
+  fig.pos = "H")
 options(
   # Prevent xtable from adding a timestamp comment to the table code
   # it produces
@@ -320,9 +317,8 @@ gear_names <- models[[1]][[1]][[1]]$dat$gear_names
 
 if(fr()){
   # Translate all gear names to French
-  # Note 'Shoreside' is the same in both languages
   gear_names_fr <- map_chr(gear_names, ~{
-      tr(.x)
+      tr(.x, allow_missing = TRUE)
   })
 
   # Base model
@@ -338,6 +334,25 @@ if(fr()){
     replace_gear_names(models$bridge_grps[[2]],
                        old_gear_names = gear_names,
                        new_gear_names = gear_names_fr)
+}else{
+ # Translate all gear names to English
+  gear_names_en <- map_chr(gear_names, ~{
+      fr2en(.x, allow_missing = TRUE)
+  })
+
+  # Base model
+  models[[1]][[1]] <-
+    replace_gear_names(models[[1]][[1]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_en)
+  models$bridge_grps[[1]] <-
+    replace_gear_names(models$bridge_grps[[1]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_en)
+  models$bridge_grps[[2]] <-
+    replace_gear_names(models$bridge_grps[[2]],
+                       old_gear_names = gear_names,
+                       new_gear_names = gear_names_en)
 }
 
 base_model <- models$base_grps[[1]][[1]]

@@ -29,11 +29,14 @@ Imports:
     icesAdvice,
     kableExtra,
     lubridate,
+    PBSdata,
+    PBSmapping,
     purrr,
     RColorBrewer,
     readr,
     reshape2,
     rlang,
+    scales,
     sf,
     stats,
     tibble,
@@ -51,6 +54,8 @@ Remotes:
     pbs-assess/gfplot,
     pbs-assess/gfutilities,
     pbs-assess/rosettafish,
+    pbs-software/pbs-data/PBSdata,
+    pbs-software/pbs-mapping/PBSmapping,
     pacific-hake/hake-assessment
 URL: https://github.com/pbs-assess/arrowtooth
 BugReports: https://github.com/pbs-assess/arrowtooth/issues

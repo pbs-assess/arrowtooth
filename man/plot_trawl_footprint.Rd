@@ -7,14 +7,19 @@ grids}
 \usage{
 plot_trawl_footprint(
   tf_rda_fn = "/home/grandin/github/main/pbs-data/PBSdata/data/trawlfoot.rda",
-  crs_num = 4326,
-  x_lim = c(-135, -122),
-  y_lim = c(48, 55),
+  crs_num = 3156,
+  utm_zone = 9,
+  bath = c(100, 200, 500),
+  x_lim = c(122, 890),
+  y_lim = c(5373, 6027),
+  rotation_angle = 0,
+  rotation_center = c(500, 5700),
+  show_majorbound = TRUE,
+  major_labels = gfplot:::boundary_labels(utm_zone, xmin = x_lim[1]),
   leg_pos = c(0.86, 0.85),
   trawl_foot_fill = "black",
   trawl_foot_alpha = 1,
-  survey_alpha = 0.5,
-  french = FALSE
+  survey_alpha = 0.5
 )
 }
 \arguments{
