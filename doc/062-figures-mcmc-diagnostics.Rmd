@@ -1,8 +1,16 @@
-## MCMC DIAGNOSTIC FIGURES FOR THE BASE MODEL
+```{r mcmc-diag-figures-title-en, eval = !fr(), results = 'asis'}
+cat("## MCMC DIAGNOSTIC FIGURES FOR THE BASE MODEL
+")
+```
+
+```{r mcmc-diag-figures-title-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## CHIFFRES DU DIAGNOSTIC MCMC POUR LE MODÈLE DE BASE
+")
+```
 
 (ref:fig-base-priors-posts-en) Prior probability distributions used in the base model (blue shaded areas) overlaid with posterior distribution histograms. The solid red line is the mode of the prior distribution, the vertical solid black line is the mean of the prior, and the vertical dashed black lines represent one standard deviation from the mean. Plots that are entirely shaded blue represent uniform priors. Catchability ($q$) parameters for the survey indices have numerical subscripts which are: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
-(ref:fig-base-priors-posts-fr) French here
+(ref:fig-base-priors-posts-fr) Distributions de probabilités antérieures utilisées dans le modèle de base (zones ombrées en bleu) superposées aux histogrammes de distribution postérieure. La ligne rouge continue est le mode de la distribution antérieure, la ligne noire continue verticale est la moyenne de la distribution antérieure et les lignes noires verticales en pointillés représentent un écart-type par rapport à la moyenne. Les graphiques entièrement bleus représentent des a priori uniformes. Les paramètres de capturabilité ($q$) pour les indices de l'enquête ont des indices numériques qui sont : `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
 ```{r fig-base-priors-posts, fig.cap = ifelse(fr(), "(ref:fig-base-priors-posts-fr)", "(ref:fig-base-priors-posts-en)")}
 plot_priors_posts_mcmc(base_model,
@@ -18,7 +26,7 @@ plot_priors_posts_mcmc(base_model,
 
 (ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-base-trace-fr) French here
+(ref:fig-base-trace-fr) Tracés de la sortie MCMC des paramètres de plomb estimés dans le modèle de base. L'exécution MCMC a une longueur de chaîne `r f(mcmc_chain_length)` avec un échantillon prélevé toutes les `r f(mcmc_sample_freq)`^e^ itérations. Parmi les `r f(mcmc_num_samples)` échantillons prélevés, les premiers `r f(mcmc_burn_in)` ont été supprimés en tant que période de rodage. Voir la figure \@ref(fig:fig-base-priors-posts) pour la description des indices $q$.
 
 ```{r fig-base-trace, fig.cap = ifelse(fr(), "(ref:fig-base-trace-fr)", "(ref:fig-base-trace-en)"), fig.asp = 1}
 plot_traces_mcmc(base_model,
@@ -32,7 +40,7 @@ plot_traces_mcmc(base_model,
 
 (ref:fig-base-autocor-en) Autocorrelation plots for MCMC output of estimated lead parameters in the base model. The x-axis values are the lag between posteriors. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-base-autocor-fr) French here
+(ref:fig-base-autocor-fr) Graphiques d'autocorrélation pour la sortie MCMC des paramètres principaux estimés dans le modèle de base. Les valeurs de l'axe des x correspondent au décalage entre les valeurs postérieures. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
 
 ```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)"), fig.asp = 1}
 plot_autocorr_mcmc(base_model,
@@ -50,7 +58,7 @@ plot_autocorr_mcmc(base_model,
 
 (ref:fig-base-trace-selex-en) Trace plots for MCMC output of estimated selectivity parameters in the base model. $\hat{a}$ are the estimates of selectivity-at-age-50%, $\hat{\gamma}$ are the estimated standard deviations on selectivity-at-age-50%. The first numerical subscript is the gear number which are: `r paste(base_all_gears$gear, " = ", base_all_gears$gear_name, collapse = ", ")`. The letter subscripts 'f' and 'm' correspond to female and male, and the second numerical subscripts represent the year block for selectivity. For the base model, there is only the subscript '1' for all parameters shown, because time-varying selectivity was not implemented.
 
-(ref:fig-base-trace-selex-fr) French here
+(ref:fig-base-trace-selex-fr) Tracés de la sortie MCMC des paramètres de sélectivité estimés dans le modèle de base. Les $\hat{a}$ sont les estimations de la sélectivité à l'âge de 50%, les $\hat{\gamma}$ sont les écarts types estimés de la sélectivité à l'âge de 50%. Le premier indice numérique est le numéro de l'engin qui est : `r paste(base_all_gears$gear, " = ", base_all_gears$gear_name, collapse = ", ")`. Les lettres 'f' et 'm' correspondent aux femmes et aux hommes, et les deuxièmes chiffres représentent le bloc d'années pour la sélectivité. Pour le modèle de base, il n'y a que l'indice '1' pour tous les paramètres indiqués, car la sélectivité variable dans le temps n'a pas été mise en œuvre.
 
 ```{r fig-base-trace-selex, fig.cap = ifelse(fr(), "(ref:fig-base-trace-selex-fr)", "(ref:fig-base-trace-selex-en)"), fig.asp = 1}
 plot_traces_mcmc(base_model,
@@ -60,7 +68,7 @@ plot_traces_mcmc(base_model,
 
 (ref:fig-base-autocor-selex-en) Autocorrelation plots for MCMC output of estimated selectivity parameters in the base model.  The x-axis values are the lag between posteriors. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
 
-(ref:fig-base-autocor-selex-fr) French here
+(ref:fig-base-autocor-selex-fr) Graphiques d'autocorrélation pour la sortie MCMC des paramètres de sélectivité estimés dans le modèle de base.  Les valeurs de l'axe des x correspondent au décalage entre les valeurs postérieures. Voir la figure \@ref(fig:fig-base-trace-selex) pour la description des indices des paramètres.
 
 ```{r fig-base-autocor-selex, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-selex-fr)", "(ref:fig-base-autocor-selex-en)"), fig.asp = 1}
 plot_autocorr_mcmc(base_model, 
@@ -73,7 +81,7 @@ plot_autocorr_mcmc(base_model,
 
 (ref:fig-base-pairs-en) Pairs plots for MCMC estimated parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-base-pairs-fr) Diagrammes de paires pour les paramètres estimés par MCMC dans le modèle de base. Les lignes dans les tracés de points dans les panneaux triangulaires inférieurs sont des modèles linéaires avec des intervalles de confiance à 95% ombrés. Les tracés de lignes dans les panneaux diagonaux représentent la densité des valeurs des paramètres, et les valeurs dans les panneaux triangulaires supérieurs sont les corrélations entre les paramètres, la taille du texte étant directement proportionnelle à la valeur absolue de ces valeurs. Voir la figure \@ref(fig:fig-base-trace) pour la description des paramètres.
+(ref:fig-base-pairs-fr) Diagrammes de paires pour les paramètres estimés par le MCMC dans le modèle de base. Les lignes dans les tracés de points dans les panneaux triangulaires inférieurs sont des modèles linéaires avec des intervalles de confiance de 95 % ombrés. Les tracés des lignes dans les panneaux diagonaux représentent la densité des valeurs des paramètres, et les valeurs dans les panneaux triangulaires supérieurs sont les corrélations entre les paramètres, la taille du texte étant directement proportionnelle à la valeur absolue de ces valeurs. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
 
 ```{r fig-base-pairs, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-fr)", "(ref:fig-base-pairs-en)"), fig.asp = 1}
 plot_pairs_mcmc(base_model,
@@ -91,7 +99,7 @@ plot_pairs_mcmc(base_model,
 
 (ref:fig-base-pairs-sel-en) Pairs plots for MCMC estimated selectivity parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
 
-(ref:fig-base-pairs-sel-fr) French here
+(ref:fig-base-pairs-sel-fr) Diagrammes de paires pour les paramètres de sélectivité estimés par MCMC dans le modèle de base. Les lignes dans les tracés de points dans les panneaux triangulaires inférieurs sont des modèles linéaires avec des intervalles de confiance de 95 % ombrés. Les tracés des lignes dans les panneaux diagonaux représentent la densité des valeurs des paramètres, et les valeurs dans les panneaux triangulaires supérieurs sont les corrélations entre les paramètres, la taille du texte étant directement proportionnelle à la valeur absolue de ces valeurs. Voir la figure \@ref(fig:fig-base-trace-selex) pour la description des indices des paramètres.
 
 ```{r fig-base-pairs-sel, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-sel-fr)", "(ref:fig-base-pairs-sel-en)"), out.width = "6.5in", fig.asp = 1}
 # Remove 4 and 7 because they are fixed in the model (HSMAS and DCPUE indices) and will produce NAs
