@@ -1,16 +1,29 @@
-## BRIDGE MODEL FIGURES
+```{r bridge-model-figures-title-en, eval = !fr(), results = 'asis'}
+cat("## BRIDGE MODEL FIGURES
+")
+```
+
+```{r bridge-model-figures-title-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## FIGURES DU MODÈLE DE PONT
+")
+```
 
 (ref:fig-bridge-group1-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the first four bridging models. Points and bars on the left in the left panel represent $B_0$ values and 95% credible interval. The first model in the legend has a shaded ribbon representing the credible interval (CI), the others have dotted lines the same colour as the medians which represent the CI.
 
-(ref:fig-bridge-group1-biomass-fr) French caption here
+(ref:fig-bridge-group1-biomass-fr) Estimations MCMC de la biomasse reproductrice (panneau de gauche) et de la biomasse reproductrice relative (panneau de droite) pour les quatre premiers modèles de rapprochement. Les points et les barres à gauche dans le panneau de gauche représentent les valeurs $B_0$ et l'intervalle de crédibilité à 95 %. Le premier modèle dans la légende a un ruban ombré représentant l'intervalle de crédibilité (IC), les autres ont des lignes pointillées de la même couleur que les médianes qui représentent l'IC.
 
 ```{r bridge-biomass-group1, fig.cap = ifelse(fr(), "(ref:fig-bridge-group1-biomass-fr)", "(ref:fig-bridge-group1-biomass-en)"), out.width = "100%"}
+
+title_text <- tr("Bridge models group")
 cowplot::plot_grid(
   plot_biomass_mcmc(models$bridge_grps[[1]],
-                    legend_title = "Bridge models group 1",
+                    legend_title = paste0(title_text, " 1"),
                     angle_x_labels = TRUE,
-                    ylim = c(0, 1000)) +
-    theme(legend.key.size = unit(0.1, 'cm')),
+                    ylim = c(0, 1000),
+                    leg_loc = c(0.8, 0.95)) +
+    theme(legend.key.size = unit(0.1, 'cm'),
+          legend.title = element_text(size = 8),
+          legend.text = element_text(size = 8)),
   plot_biomass_mcmc(models$bridge_grps[[1]],
                     rel = TRUE,
                     leg_loc = NULL,
@@ -22,7 +35,7 @@ cowplot::plot_grid(
 
 (ref:fig-bridge3-pairs-en) Pairs plots for MCMC estimated parameters in the bridging model in which data from 2015--2021 are added. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-bridge3-pairs-fr) French here
+(ref:fig-bridge3-pairs-fr) Diagrammes de paires pour les paramètres estimés par MCMC dans le modèle de transition dans lequel les données de 2015--2021 sont ajoutées. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
 
 ```{r fig-bridge3-pairs, fig.cap = ifelse(fr(), "(ref:fig-bridge3-pairs-fr)", "(ref:fig-bridge3-pairs-en)")}
 plot_pairs_mcmc(models$bridge_grps[[1]][[3]],
@@ -40,15 +53,20 @@ plot_pairs_mcmc(models$bridge_grps[[1]][[3]],
 
 (ref:fig-bridge-group2-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the second group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
 
-(ref:fig-bridge-group2-biomass-fr) French caption here
+(ref:fig-bridge-group2-biomass-fr) Estimations MCMC de la biomasse reproductrice (panneau de gauche) et de la biomasse reproductrice relative (panneau de droite) pour le deuxième groupe de modèles de pontage. Voir la figure \@ref(fig:bridge-biomass-groupe1) pour plus d'informations.
 
 ```{r bridge-biomass-group2, fig.cap = ifelse(fr(), "(ref:fig-bridge-group2-biomass-fr)", "(ref:fig-bridge-group2-biomass-en)"), out.width = "100%"}
+
+title_text <- tr("Bridge models group")
 cowplot::plot_grid(
   plot_biomass_mcmc(models$bridge_grps[[2]],
-                    legend_title = "Bridge models group 2",
+                    legend_title = paste0(title_text, " 2"),
                     angle_x_labels = TRUE,
-                    ylim = c(0, 300)) +
-    theme(legend.key.size = unit(0.1, 'cm')),
+                    ylim = c(0, 300),
+                    leg_loc = c(0.8, 0.95)) +
+    theme(legend.key.size = unit(0.1, 'cm'),
+          legend.title = element_text(size = 8),
+          legend.text = element_text(size = 8)),
   plot_biomass_mcmc(models$bridge_grps[[2]],
                     rel = TRUE,
                     leg_loc = NULL,
@@ -72,15 +90,20 @@ cowplot::plot_grid(
 
 (ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the third group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
 
-(ref:fig-bridge-group3-biomass-fr) French caption here
+(ref:fig-bridge-group3-biomass-fr) Estimations MCMC de la biomasse reproductrice (panneau de gauche) et de la biomasse reproductrice relative (panneau de droite) pour le troisième groupe de modèles de pontage. Voir la figure \@ref(fig:bridge-biomass-groupe1) pour plus d'informations.
 
 ```{r bridge-biomass-group3, fig.cap = ifelse(fr(), "(ref:fig-bridge-group3-biomass-fr)", "(ref:fig-bridge-group3-biomass-en)"), out.width = "100%"}
+
+title_text <- tr("Bridge models group")
 cowplot::plot_grid(
   plot_biomass_mcmc(models$bridge_grps[[3]],
-                    legend_title = "Bridge models group 3",
+                    legend_title = paste0(title_text, " 3"),
                     angle_x_labels = TRUE,
-                    ylim = c(0, 300)) +
-    theme(legend.key.size = unit(0.1, 'cm')),
+                    ylim = c(0, 300),
+                    leg_loc = c(0.8, 0.95)) +
+    theme(legend.key.size = unit(0.1, 'cm'),
+          legend.title = element_text(size = 8),
+          legend.text = element_text(size = 7)),
   plot_biomass_mcmc(models$bridge_grps[[3]],
                     rel = TRUE,
                     leg_loc = NULL,
@@ -92,7 +115,7 @@ cowplot::plot_grid(
 
 (ref:fig-bridge-fishing-year-autocor-en) Autocorrelation plots for MCMC estimated lead parameters in the bridge model that has a modified fishing year. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-bridge-fishing-year-autocor-fr) French here
+(ref:fig-bridge-fishing-year-autocor-fr) Graphiques d'autocorrélation pour les paramètres principaux estimés par MCMC dans le modèle de pont avec une année de pêche modifiée. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
 
 ```{r fig-bridge-fishing-year-autocor, fig.cap = ifelse(fr(), "(ref:fig-bridge-fishing-year-autocor-fr)", "(ref:fig-bridge-fishing-year-autocor-en)"), fig.asp = 1}
 plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
@@ -110,9 +133,9 @@ plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
 
 (ref:fig-bridge-fishing-year-selpars-autocor-en) Autocorrelation plots for MCMC estimated lead parameters in the bridge model that has a modified fishing year. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-bridge-fishing-year-selpars-autocor-fr) French here
+(ref:fig-bridge-fishing-year-selpars-autocor-fr) Graphiques d'autocorrélation pour les paramètres principaux estimés par MCMC dans le modèle de pont avec une année de pêche modifiée. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
 
-```{r fig-bridge-fishing-year-selpars-autocor, fig.cap = ifelse(fr(), "(ref:fig-bridge-fishing-year-autocor-selpars-fr)", "(ref:fig-bridge-fishing-year-selpars-autocor-en)"), fig.asp = 1}
+```{r fig-bridge-fishing-year-selpars-autocor, fig.cap = ifelse(fr(), "(ref:fig-bridge-fishing-year-selpars-autocor-fr)", "(ref:fig-bridge-fishing-year-selpars-autocor-en)"), fig.asp = 1}
 plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
                    plot_sel = TRUE,
                    text_title_size = NULL,
@@ -124,7 +147,7 @@ plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
 
 (ref:fig-bridge10-pairs-en) Pairs plots for MCMC estimated parameters in the bridging model for which the WCHG index was removed. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-bridge10-pairs-fr) French here
+(ref:fig-bridge10-pairs-fr) Graphiques de paires pour les paramètres estimés par MCMC dans le modèle de transition pour lequel l'indice WCHG a été supprimé. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
 
 ```{r fig-bridge10-pairs, fig.cap = ifelse(fr(), "(ref:fig-bridge10-pairs-fr)", "(ref:fig-bridge10-pairs-en)")}
 plot_pairs_mcmc(models$bridge_grps[[3]][[2]],
