@@ -1,14 +1,11 @@
 # FIGURES
 
 <!-- Catch/CPUE -------------------------------------------------------------->
-
 (ref:fig-catch-spatial-en) Spatial distribution of commercial catch from
 `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`. The colour scale is log10 transformed. Cells are 7 km wide and are only shown in cases where there are at least 3 unique vessels in a given cell to meet privacy requirements.
 
 (ref:fig-catch-spatial-fr) Distribution spatiale des captures commerciales de
-`r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`. 
-L'échelle de couleurs est transformée en log10. 
-Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y a au moins trois bateaux uniques dans une cellule donnée pour qu’on puisse satisfaire aux exigences en matière de confdentialité.
+`r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`. L'échelle des couleurs est transformée en log10. Les cellules ont une largeur de 7 km et ne sont représentées que dans les cas où il y a au moins 3 navires uniques dans une cellule donnée, afin de respecter les exigences en matière de confidentialité.
 
 ```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)"), out.width = "6in", eval=user!="seananderson"}
 ## if the location of labels needs moving...
@@ -19,18 +16,15 @@ plot_catch_spatial(dat$catch_spatial,
                    # major_labels = labels,
                    start_year = base_model$dat$start.yr,
                    fill_scale = ggplot2::scale_fill_viridis_c(trans = "log10", option = "D"),
-                   colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D")
-  )
+                   colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"),
+                   french = fr()) +
+  scale_y_continuous(label = comma)
 ```
 
-(ref:fig-cpue-spatial-en) Spatial distribution of commercial CPUE from
-`r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`. The colour scale is log10 transformed. Cells are 7 km wide and are only shown in cases where there are at least 3 unique vessels in a given cell to meet privacy requirements.
+(ref:fig-cpue-spatial-en) Spatial distribution of commercial CPUE from `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`. The colour scale is log10 transformed. Cells are 7 km wide and are only shown in cases where there are at least 3 unique vessels in a given cell to meet privacy requirements.
 
 
-(ref:fig-cpue-spatial-fr) Distribution spatiale de la CPUE commerciales de
-`r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`.
-L'échelle de couleurs est transformée en log10. 
-Les cellules sont larges de 7 km et ne sont indiquées que dans les cas où il y a au moins trois bateaux uniques dans une cellule donnée pour qu’on puisse satisfaire aux exigences en matière de confdentialité.
+(ref:fig-cpue-spatial-fr) Distribution spatiale de la CPUE commerciale de `r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`. L'échelle des couleurs est transformée en log10. Les cellules ont une largeur de 7 km et ne sont représentées que dans les cas où il y a au moins 3 navires uniques dans une cellule donnée afin de respecter les exigences en matière de protection de la vie privée.
 
 
 ```{r fig-cpue-spatial, fig.cap = ifelse(fr(), "(ref:fig-cpue-spatial-fr)", "(ref:fig-cpue-spatial-en)"), out.width = "6in",eval=user!="seananderson"}
@@ -38,13 +32,14 @@ plot_cpue_spatial(dat$cpue_spatial,
                   show_majorbound = TRUE, 
                   start_year = base_model$dat$start.yr,
                   fill_scale = ggplot2::scale_fill_viridis_c(trans = "log10", option = "D"),
-                  colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"))
+                  colour_scale = ggplot2::scale_colour_viridis_c(trans = "log10", option = "D"),
+                  french = fr()) +
+  scale_y_continuous(label = comma)
 ```
 
 (ref:fig-trawl-footprint-en) Spatial coverage of the commercial trawl sector for all species (black polygons) overlaid with the coverage by the four synoptic surveys (colors). Synoptic surveys are shown as a grid of 2km x 2km blocks, which represent 'active blocks' in the survey design. The presence of a block in this figure does not mean that it has been surveyed, only that it is in the set of blocks that can be surveyed as detailed in the survey design.
 
-(ref:fig-trawl-footprint-fr) Couverture spatiale du secteur du chalutage commercial pour toutes les espèces (polygones noirs) superposée à la couverture des quatre enquêtes synoptiques (couleurs). Les enquêtes synoptiques sont représentées sous la forme d'une grille de blocs de 2 km x 2 km, qui représentent des 'blocs actifs' dans la conception de l'enquête. La présence d'un bloc dans cette figure ne signifie pas qu'il a fait l'objet d'une enquête, mais seulement qu'il fait partie de l'ensemble des blocs pouvant faire l'objet d'une enquête, conformément au plan d'enquête.
-
+(ref:fig-trawl-footprint-fr) Couverture spatiale du secteur du chalutage commercial pour toutes les espèces (polygones noirs) superposée à la couverture des quatre enquêtes synoptiques (couleurs). Les enquêtes synoptiques sont représentées sous la forme d'une grille de blocs de 2 km x 2 km, qui représentent des « blocs actifs » dans la conception de l'enquête. La présence d'un bloc sur cette figure ne signifie pas qu'il a fait l'objet d'une enquête, mais seulement qu'il fait partie de l'ensemble des blocs pouvant faire l'objet d'une enquête, conformément au plan d'enquête.
 
 ```{r fig-trawl-footprint, fig.cap = ifelse(fr(), "(ref:fig-trawl-footprint-fr)", "(ref:fig-trawl-footprint-en)")}
 
@@ -53,7 +48,7 @@ plot_trawl_footprint()
 
 (ref:fig-catch-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. In the years prior to 1996, many tows of `r sp` were discarded without logs being kept.
 
-(ref:fig-catch-fr) Capture commerciale de `r tr(sp)` par flotte. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, la capture de l'année 2005 correspond à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006.
+(ref:fig-catch-fr) Prises commerciales de `r sp` par flotte. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, les captures de l'année 2005 correspondent à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006. La zone grise qui s'étend du début de la série chronologique jusqu'en 1996 indique que les données ne sont pas fiables. Au cours des années antérieures à 1996, de nombreux traits de `r sp` ont été rejetés sans qu'aucun journal n'ait été tenu.
 
 ```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 yrs <- sort(unique(catch$year))
@@ -67,7 +62,7 @@ plot_catch(catch,
 
 (ref:fig-catch-fleet-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20. See the previous figure for an explanation of the shaded grey area.
 
-(ref:fig-catch-fleet-fr) French here
+(ref:fig-catch-fleet-fr) Prises commerciales de `r sp` par flottille. Chaque année de capture commence le 21 février et se termine le 20 février. Voir la figure précédente pour une explication de la zone grisée.
 
 ```{r fig-catch-fleet, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 yrs <- sort(unique(catch$year))
@@ -83,7 +78,7 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 
 (ref:fig-catch-fit-en) Predicted catch compared to the observed catch data for the two commercial fleets used in the model. The solid lines are either the observed catches or the median catch by fleet; the dotted lines are the 95% CI for the posterior of the catch fits.
 
-(ref:fig-catch-fit-fr) French here
+(ref:fig-catch-fit-fr) Prises prédites comparées aux données de prises observées pour les deux flottes commerciales utilisées dans le modèle. Les lignes pleines représentent soit les captures observées, soit la médiane des captures par flotte ; les lignes pointillées représentent l'IC à 95 % pour la postériorité des ajustements des captures.
 
 ```{r fig-catch-fit, fig.cap = ifelse(fr(), "(ref:fig-catch-fit-fr)", "(ref:fig-catch-fit-en)")}
 plot_catch_fit_mcmc(base_model,
@@ -94,7 +89,7 @@ plot_catch_fit_mcmc(base_model,
 
 (ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with $B_{MSY}$ reference points. The solid black line with points show the medians of the posteriors, the shaded ribbon encapsulated by dashed lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% CI for that parameter. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t. The $B_{MSY}$ reference point lines are shown here for reference only, they are not advised for use in decision making for this stock. See section \@ref(scam-ref-points) for more details.
 
-(ref:fig-base-sb-fr) French here
+(ref:fig-base-sb-fr) Biomasse de frai de `r sp` pour le modèle de base avec les points de référence $B_{MSY}$. La ligne noire continue avec des points montre les médianes des postérieures, le ruban ombré encapsulé par des lignes en pointillés couvre l'IC à 95% pour les postérieures, le point à $B_0$ est l'estimation médiane de la biomasse non pêchée, et la ligne verticale au-dessus de ce point est l'IC à 95% pour ce paramètre. La partie supérieure de l'IC n'est pas montrée pour des raisons de clarté de la trajectoire, la médiane et l'IC pour $B_0$ sont ici `r paste0(base_sbo[1], ", ", base_sbo[2])` mille t. Les lignes du point de référence $B_{MSY}$ sont montrées ici à titre de référence uniquement, il n'est pas conseillé de les utiliser dans la prise de décision pour ce stock. Voir la section \@ref(scam-ref-points) pour plus de détails.
 
 ```{r fig-base-sb, fig.cap = ifelse(fr(), "(ref:fig-base-sb-fr)", "(ref:fig-base-sb-en)")}
 plot_biomass_mcmc(base_model,
@@ -106,7 +101,7 @@ plot_biomass_mcmc(base_model,
 
 (ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. See Figure \@ref(fig:fig-base-sb) for more information. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t.
 
-(ref:fig-base-sb-bo-fr) French here
+(ref:fig-base-sb-bo-fr) Biomasse de frai de `r sp` pour le modèle de base avec des points de référence $B_0$. Voir la figure \@ref(fig:fig-base-sb) pour plus d'informations. La partie supérieure de l'IC n'est pas montrée pour des raisons de clarté de la trajectoire, la médiane et l'IC pour $B_0$ sont ici `r paste0(base_sbo[1], ", ", base_sbo[2])` mille t.
 
 ```{r fig-base-sb-bo, fig.cap = ifelse(fr(), "(ref:fig-base-sb-bo-fr)", "(ref:fig-base-sb-bo-en)")}
 plot_biomass_mcmc(base_model,
@@ -136,7 +131,7 @@ plot_biomass_mcmc(base_model,
 
 (ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours.
 
-(ref:fig-base-sb-vuln-compare-fr) French here
+(ref:fig-base-sb-vuln-compare-fr) Biomasse reproductrice de `r sp` pour le modèle de base comparée à la biomasse vulnérable pour les pêcheries au chalut pour le modèle de base. La biomasse reproductrice est en noir et son IC à 95 % est ombré. Les deux trajectoires de biomasse vulnérable ont leur IC à 95 % contenu dans les lignes pointillées de leurs couleurs respectives.
 
 ```{r fig-base-sb-vuln-compare, fig.cap = ifelse(fr(), "(ref:fig-base-sb-vuln-compare-fr)", "(ref:fig-base-sb-vuln-compare-en)")}
 plot_vuln_mcmc(base_model,
@@ -148,7 +143,7 @@ plot_vuln_mcmc(base_model,
 
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The black points are the medians of the posteriors, the vertical black lines are the 95% CIs for the posteriors, the point at $R_0$ is the median estimate for the initial recruitment parameter $R_0$, and the vertical line over that point and shaded ribbon across the time series is the 95% CI for $R_0$.
 
-(ref:fig-base-recr-fr) French here
+(ref:fig-base-recr-fr) Recrutement de `r sp` pour le modèle de base. Les points noirs sont les médianes des valeurs postérieures, les lignes noires verticales sont les IC à 95% des valeurs postérieures, le point à $R_0$ est l'estimation médiane du paramètre de recrutement initial $R_0$, et la ligne verticale au-dessus de ce point et le ruban ombré à travers la série temporelle est l'IC à 95% pour $R_0$.
 
 ```{r fig-base-recr, fig.cap = ifelse(fr(), "(ref:fig-base-recr-fr)", "(ref:fig-base-recr-en)")}
 plot_recr_mcmc(base_model,
@@ -161,7 +156,7 @@ plot_recr_mcmc(base_model,
 
 (ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries for a single sex. The plots for the second sex are not shown, because they are the same. The shaded area represents the 95% CI.
 
-(ref:fig-base-f-fr) French here
+(ref:fig-base-f-fr) Mortalité par pêche pour le modèle de base pour les deux pêcheries au chalut pour un seul sexe. Les graphiques pour le deuxième sexe ne sont pas présentés, car ils sont identiques. La zone ombrée représente l'IC à 95 %.
 
 ```{r fig-base-f, fig.cap = ifelse(fr(), "(ref:fig-base-f-fr)", "(ref:fig-base-f-en)")}
 plot_f_mcmc(base_model,
@@ -175,7 +170,7 @@ plot_f_mcmc(base_model,
 
 <!-- The 2014 WCHG Synoptic index point is shown but was not included in the model. -->
 
-(ref:fig-base-index-fits-fr) French here
+(ref:fig-base-index-fits-fr) Ajustements de l'indice pour le modèle de base. Les points gris clair et les lignes verticales indiquent les valeurs de l'indice et les IC à 95 % ; les points noirs indiquent les médianes des valeurs postérieures ; les lignes verticales pleines noires indiquent les IC à 95 % des valeurs postérieures.
 
 ```{r fig-base-index-fits, fig.cap = ifelse(fr(), "(ref:fig-base-index-fits-fr)", "(ref:fig-base-index-fits-en)")}
 plot_index_mcmc(base_model,
@@ -187,7 +182,7 @@ plot_index_mcmc(base_model,
 
 (ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in `r iscam`. The vertical lines represent the 95% CIs for those posteriors.
 
-(ref:fig-base-index-resids-fr) Indice Log des résidus normalisés. Les points représentent la médiane des valeurs postérieures pour le paramètre $\epsilon$ dans `r iscam`. Les lignes verticales représentent les intervalles crédibles à 95 % pour ces valeurs postérieures.
+(ref:fig-base-index-resids-fr) Index logarithmique des résidus normalisés. Les points représentent la médiane des postérités des paramètres $\epsilon_{k,t}$ dans `r iscam`. Les lignes verticales représentent les IC à 95 % pour ces postérités.
 
 ```{r fig-base-index-resids, fig.cap = ifelse(fr(), "(ref:fig-base-index-resids-fr)", "(ref:fig-base-index-resids-en)")}
 plot_index_mcmc(base_model,
@@ -203,7 +198,7 @@ plot_index_mcmc(base_model,
 
 (ref:fig-base-age-fits-ft-en) Age composition fits for each sex for the Freezer trawler fleet. The vertical bars are the age composition data points. The sum of the bar values equals 1 for each year/sex combination. The black points are the medians of the posteriors for each age. The red shaded area with dotted edges represents the 95% CIs. The panel labels are the total number of specimens (sex aggregated) fit for the year.
 
-(ref:fig-base-age-fits-ft-fr) French here
+(ref:fig-base-age-fits-ft-fr) Ajustements de la composition par âge pour chaque sexe pour la flotte de chalutiers congélateurs. Les barres verticales représentent les points de données sur la composition par âge. La somme des valeurs des barres est égale à 1 pour chaque combinaison année/sexe. Les points noirs sont les médianes des postérieurs pour chaque âge. La zone ombrée en rouge avec des bords en pointillés représente les IC à 95 %. Les étiquettes des panneaux représentent le nombre total de spécimens (agrégés par sexe) correspondant à l'année.
 
 ```{r fig-base-age-fits-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ft-fr)", "(ref:fig-base-age-fits-ft-en)")}
 plot_age_fits_mcmc(base_model,
@@ -215,7 +210,7 @@ plot_age_fits_mcmc(base_model,
 
 (ref:fig-base-age-resids-ft-en) Pearson residuals for the age composition fits for each sex for the Freezer trawler fleet. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
-(ref:fig-base-age-resids-ft-fr) French here
+(ref:fig-base-age-resids-ft-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour la flotte de chalutiers congélateurs. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
 
 ```{r fig-base-age-resids-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ft-fr)", "(ref:fig-base-age-resids-ft-en)")}
 plot_age_resids_mcmc(base_model,
@@ -228,7 +223,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
-(ref:fig-base-age-fits-ss-firsthalf-fr) French here
+(ref:fig-base-age-fits-ss-firsthalf-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille côtière de 1996 à 2007. Voir Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du graphique.
 
 ```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-firsthalf-fr)", "(ref:fig-base-age-fits-ss-firsthalf-en)")}
 plot_age_fits_mcmc(base_model,
@@ -241,7 +236,7 @@ plot_age_fits_mcmc(base_model,
 
 (ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
-(ref:fig-base-age-fits-ss-secondhalf-fr) French here
+(ref:fig-base-age-fits-ss-secondhalf-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille Shoreside de 2008--2019. Voir la Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
 
 ```{r fig-base-age-fits-secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-secondhalf-fr)", "(ref:fig-base-age-fits-ss-secondhalf-en)")}
 plot_age_fits_mcmc(base_model,
@@ -254,7 +249,7 @@ plot_age_fits_mcmc(base_model,
 
 (ref:fig-base-age-resids-ss-en) Pearson residuals for the age composition fits for each sex for the Shoreside fleet. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
-(ref:fig-base-age-resids-ss-fr) French here
+(ref:fig-base-age-resids-ss-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour la flotte côtière. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
 
 ```{r fig-base-age-resids-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ss-fr)", "(ref:fig-base-age-resids-ss-en)")}
 plot_age_resids_mcmc(base_model,
@@ -267,7 +262,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-qcs-en) Age composition fits for each sex for the `r qcs`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
-(ref:fig-base-age-fits-qcs-fr) French here
+(ref:fig-base-age-fits-qcs-fr) Ajustements de la composition par âge pour chaque sexe pour le `r qcs`. Voir la figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
 
 ```{r fig-base-age-fits-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-qcs-fr)", "(ref:fig-base-age-fits-qcs-en)")}
 plot_age_fits_mcmc(base_model,
@@ -279,7 +274,7 @@ plot_age_fits_mcmc(base_model,
 
 (ref:fig-base-age-resids-qcs-en) Pearson residuals for the age composition fits for each sex for the `r qcs`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
-(ref:fig-base-age-resids-qcs-fr) French here
+(ref:fig-base-age-resids-qcs-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour le `r qcs`. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
 
 ```{r fig-base-age-resids-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-qcs-fr)", "(ref:fig-base-age-resids-qcs-en)")}
 plot_age_resids_mcmc(base_model,
@@ -292,7 +287,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-hss-en) Age composition fits for each sex for the `r hss`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
-(ref:fig-base-age-fits-hss-fr) French here
+(ref:fig-base-age-fits-hss-fr) Ajustements de la composition par âge pour chaque sexe pour le `r hss`. Voir la figure \@ref(fig:fig-base-age-fits-ft) pour plus de détails.
 
 ```{r fig-base-age-fits-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-hss-fr)", "(ref:fig-base-age-fits-hss-en)")}
 plot_age_fits_mcmc(base_model,
@@ -302,9 +297,9 @@ plot_age_fits_mcmc(base_model,
   ylim(0, 0.3)
 ```
 
-(ref:fig-base-age-resids-hss-en)  Pearson residuals for the age composition fits for each sex for the `r hss`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
+(ref:fig-base-age-resids-hss-en) Pearson residuals for the age composition fits for each sex for the `r hss`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
-(ref:fig-base-age-resids-hss-fr) French here
+(ref:fig-base-age-resids-hss-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour le `r hss`. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
 
 ```{r fig-base-age-resids-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-hss-fr)", "(ref:fig-base-age-resids-hss-en)")}
 plot_age_resids_mcmc(base_model,
@@ -317,7 +312,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-wcvis-en) Age composition fits for each sex for the `r wcvis`. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
-(ref:fig-base-age-fits-wcvis-fr) French here
+(ref:fig-base-age-fits-wcvis-fr) Ajustements de la composition par âge pour chaque sexe pour le `r wcvis`. Voir la figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
 
 ```{r fig-base-age-fits-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wcvis-fr)", "(ref:fig-base-age-fits-wcvis-en)")}
 plot_age_fits_mcmc(base_model,
@@ -327,9 +322,9 @@ plot_age_fits_mcmc(base_model,
   ylim(0, 0.3)
 ```
 
-(ref:fig-base-age-resids-wcvis-en)  Pearson residuals for the age composition fits for each sex for the `r wcvis`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
+(ref:fig-base-age-resids-wcvis-en) Pearson residuals for the age composition fits for each sex for the `r wcvis`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
-(ref:fig-base-age-resids-wcvis-fr) French here
+(ref:fig-base-age-resids-wcvis-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour le `r wcvis`. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
 
 ```{r fig-base-age-resids-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wcvis-fr)", "(ref:fig-base-age-resids-wcvis-en)")}
 plot_age_resids_mcmc(base_model,
@@ -362,7 +357,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots are median selectivity-at-age estimates; the shaded areas are the 95% CI for those estimates. Dashed lines are maturity curves, with the colours represent sex as in the legend. Single lines with no CI are fixed selectivities.
 
-(ref:fig-base-selex-fr) French goes here
+(ref:fig-base-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points représentent les estimations médianes de la sélectivité à l'âge ; les zones ombrées représentent l'IC à 95 % de ces estimations. Les lignes en pointillé représentent les courbes de maturité, les couleurs représentant le sexe comme dans la légende. Les lignes simples sans IC sont des sélectivités fixes.
 
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
 plot_selex_mcmc(base_model,
@@ -374,7 +369,7 @@ plot_selex_mcmc(base_model,
 
 (ref:fig-base-ref-points-en) Posterior distributions for reference points and other values of interest for the base model. Subscripts are 1 = Freezer trawlers and 2 = Shoreside.
 
-(ref:fig-base-ref-points-fr) French here
+(ref:fig-base-ref-points-fr) Distributions postérieures pour les points de référence et autres valeurs d'intérêt pour le modèle de base. Les indices sont 1 = Chalutiers congélateurs et 2 = Chalutiers côtiers.
 
 ```{r fig-base-ref-points, fig.cap = ifelse(fr(), "(ref:fig-base-ref-points-fr)", "(ref:fig-base-ref-points-en)")}
 plot_ref_points(base_model)

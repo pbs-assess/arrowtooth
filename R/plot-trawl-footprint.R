@@ -23,13 +23,13 @@ plot_trawl_footprint <- function(
     crs_num = 3156, # Zone 9 NAD83
     utm_zone = 9, # For boundary labels only
     bath = c(100, 200, 500),
-    x_lim = c(122, 890),
-    y_lim = c(5373, 6027),
+    x_lim = c(122, 920),
+    y_lim = c(5343, 6057),
     rotation_angle = 0,
     rotation_center = c(500, 5700),
     show_majorbound = TRUE,
     major_labels = gfplot:::boundary_labels(utm_zone, xmin = x_lim[1]),
-    leg_pos = c(0.86, 0.85),
+    leg_pos = c(0.97, 0.97),
     trawl_foot_fill = "black",
     trawl_foot_alpha = 1,
     survey_alpha = 0.5){
@@ -192,8 +192,8 @@ plot_trawl_footprint <- function(
             aes(geometry = geometry / 1000),
             lwd = 0.4,
             col = "grey70",
-            alpha = 0.7,
-            fill = "grey70") +
+            alpha = 1,
+            fill = "grey90") +
     coord_sf(datum = st_crs(crs_num),
              xlim = x_lim,
              ylim = y_lim,
@@ -209,15 +209,18 @@ plot_trawl_footprint <- function(
             color = "transparent",
             alpha = survey_alpha) +
     scale_colour_brewer(palette = "Dark2") +
-    coord_equal(xlim = x_lim, ylim = y_lim) +
     coord_sf(datum = st_crs(crs_num),
              xlim = x_lim,
              ylim = y_lim,
              expand = FALSE) +
-    scale_x_continuous(labels = comma) +
-    scale_y_continuous(labels = comma) +
+    scale_x_continuous(limits = c(150, 1100),
+                       labels = comma) +
+    scale_y_continuous(limits = c(5300, 6100),
+                       labels = comma) +
     guides(colour = guide_legend(override.aes = list(alpha = 1))) +
-    theme(legend.position = leg_pos) +
+    #theme(legend.position = leg_pos) +
+    theme(legend.justification = c(1, 1),
+          legend.position = c(0.97, 0.97)) +
     xlab(tr("Easting")) +
     ylab(tr("Northing"))
 
