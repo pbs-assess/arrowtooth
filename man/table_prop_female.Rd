@@ -10,6 +10,7 @@ table_prop_female(
   return_df = FALSE,
   format = "latex",
   yrs = NULL,
+  ret_means = FALSE,
   ...
 )
 }

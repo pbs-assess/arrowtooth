@@ -14,6 +14,8 @@
 #' @param format The format of table as in [knitr::kable()]
 #' @param yrs A vector of years to include in the output table. If `NULL`,
 #' all years will be included
+#' @params ret_means Logical. If `TRUE`, return a list of the gear mean values.
+#' Takes priority over `ret_df`
 #'
 #' @return A [csasdown::csas_table()]
 #' @importFrom csasdown csas_table
@@ -24,16 +26,29 @@ table_prop_female <- function(prop_lst,
                               return_df = FALSE,
                               format = "latex",
                               yrs = NULL,
+                              ret_means = FALSE,
                               ...){
+
+  ct_sym <- sym(tr("Commercial trawl"))
+  qcs_sym <- sym(tr("QCS"))
+  hs_sym <- sym(tr("HS"))
+  wcvi_sym <- sym(tr("WCVI"))
+  wchg_sym <- sym(tr("WCHG"))
 
   d <- map_df(prop_lst, ~{.x}) |>
     pivot_wider(names_from = "data_source", values_from = "prop_female") |>
     rename(Year = year,
-           `Commercial trawl` = commercial_coastwide,
-           `QCS` = qcsss,
-           `HS` = hsss,
-           `WCVI` = wcviss,
-           `WCHG` = wchgss)
+           !!ct_sym := commercial_coastwide,
+           !!qcs_sym := qcsss,
+           !!hs_sym := hsss,
+           !!wcvi_sym := wcviss,
+           !!wchg_sym := wchgss)
+
+  mean_vec <- d[-1] |> colMeans(na.rm = TRUE)
+  if(ret_means){
+    return(mean_vec)
+  }
+
   j <- bind_cols(d[, 1], map_df(d[-1], ~{f(.x, 2)}))
 
   k <- bind_cols(j[, 1], map_df(j[-1], ~{gsub("\\s*NA\\s*", "--", .x)})) |>
@@ -60,6 +75,10 @@ table_prop_female <- function(prop_lst,
   if(return_df){
     return(x)
   }
+  # Translate Year
+  x <- x |>
+    mutate(Year = tr("Year"))
+
   out <- csas_table(x,
              format = format,
              ...)
@@ -130,6 +149,30 @@ table_prop_female_weights <- function(samples = NULL,
 
   if(return_df){
     return(d)
+  }
+  # Translate column names
+  survey_sym <- sym(tr("Survey"))
+  year_sym <- sym(tr("Year"))
+  num_trips_sym <- sym(tr("Number of trips"))
+  num_samples_sym <- sym(tr("Number of samples"))
+  num_weights_m_sym <- sym(tr("Number of weights - Male"))
+  num_weights_f_sym <- sym(tr("Number of weights - Female"))
+
+  if(type == "survey"){
+    d <- d |>
+      mutate(Survey = tr(Survey)) |>
+      rename(!!survey_sym := `Survey`,
+             !!year_sym := `Year`,
+             !!num_samples_sym := `Number of samples`,
+             !!num_weights_m_sym := `Number of weights - Male`,
+             !!num_weights_f_sym := `Number of weights - Female`)
+  }else{
+    d <- d |>
+      rename(!!year_sym := `Year`,
+             !!num_trips_sym := `Number of trips`,
+             !!num_samples_sym := `Number of samples`,
+             !!num_weights_m_sym := `Number of weights - Male`,
+             !!num_weights_f_sym := `Number of weights - Female`)
   }
 
   tab <- csas_table(d,

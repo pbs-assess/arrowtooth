@@ -72,8 +72,78 @@ For surveys,the same algorithm is followed except that the quarter of the year i
 ")
 ```
 
-```{r appendix-prop-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-prop-para-1-en>>
+```{r appendix-prop-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# ANALYSE DE LA PROPORTION FÉMININE {#app:prop-female}
+## Introduction
+Le modèle split-sex nécessite une proportion de femelles comme donnée d'entrée. Dans le Golfe de l'Alaska, les fréquences de longueur des observateurs ont été utilisées pour déterminer que le stock est composé d'environ 70% de femelles (@goa2021). En `r bc`, les données de la pêche commerciale et des relevés synoptiques ont été utilisées pour déterminer la proportion de femelles. Cette annexe décrit l'algorithme de pondération utilisé, qui est le même que celui utilisé dans @grandin2017 et basé sur les méthodes appliquées dans @holt2016. L'analyse ici est basée sur des données de zone agrégées pour un stock à l'échelle de la côte.
+
+## Sélection des données
+Les données d'âge des échantillons commerciaux et synoptiques ont été filtrées pour être introduites dans la routine de proportion de femelles.
+
+**Pêche commerciale au chalut**
+
+Les trois attributs suivants ont été utilisés pour filtrer les données d'âge pour la pêche commerciale au chalut :
+
+1. Catégorie d'espèces
+   a. Codes inclus :
+      i. Non triés
+      i. Rejets
+   b. Codes rejetés :
+      i. Inconnu
+      i. Trié
+      i. Gardiens
+      i. Palangre
+2. Type d'échantillon
+   a. Codes inclus :
+      i. Capture totale
+      i. Aléatoire
+      i. Aléatoire à partir d'un ensemble attribué aléatoirement
+      i. Aléatoire à partir de l'ensemble après l'ensemble attribué aléatoirement
+      i. Aléatoire à partir de l'ensemble demandé par le capitaine du navire
+   b. Codes rejetés
+      i. Sélectionnés (divers codes)
+      i. Stratifié
+      i. Échantillon inconnu pour l'enquête triennale du NMFS
+3. Code de l'engin
+   a. Codes inclus :
+      i. Chalut de fond
+      i. Chalut inconnu
+   b. Codes rejetés
+      i. Inconnu
+      i. Piège
+      i. Filet maillant
+      i. Ligne à main
+      i. Palangre
+      i. Chalut pélagique
+      i. Traîne
+      i. Senne
+      i. turlutte
+      i. Récréatif
+      i. Diverses autres méthodes de capture obscures
+
+**Enquêtes synoptiques
+Toutes les données disponibles sur l'âge provenant des enquêtes synoptiques ont été utilisées.
+
+**Années**
+Les données d'âge de 1996 à 2019 ont été utilisées. Aucune donnée d'âge n'était disponible après 2019.
+
+**Trimestres de l'année
+1 = 1er janvier - 31 mars
+2 = 1er avril - 30 juin
+3 = 1er juillet - 30 septembre
+4 = 1er octobre - 31 décembre
+
+**Zones**
+Toute la côte, définie comme les zones 3CD et 5ABCDE agrégées.
+
+**Sexe
+Mâles et femelles uniquement. Le sexe de certains enregistrements est inconnu ou non sexé. Ces enregistrements ainsi que ceux dont le sexe est NUL ont été supprimés.
+## Pêche commerciale au chalut
+Les observations au sein d'un échantillon sont susceptibles d'être corrélées en raison de la petite zone qui est chalutée lors d'un seul événement de pêche. En outre, les échantillons de sorties peuvent être corrélés en raison des pratiques de pêche d'un seul navire. Cet algorithme calcule un poids moyen par sortie spécifique au sexe, calculé à partir des observations de longueur spécifiques au sexe individuelles converties en poids à l'aide de l'Eq. \@ref(eq:specimen-wt), puis utilise les Eqs. \@ref(eq:sample-wt)--\@ref(eq:prop-female) pour estimer la proportion de femelles.
+
+## Enquêtes synoptiques
+Pour les enquêtes, le même algorithme est suivi, sauf que le trimestre de l'année n'est pas inclus dans le calcul. Cela s'explique par le fait que les enquêtes sont des événements uniques qui se déroulent uniquement pendant les mois d'été.
+")
 ```
 
 ```{r appendix-prop-equations-en, eval = !fr(), results = 'asis'}
@@ -136,8 +206,64 @@ where $P_y$ is the proportion female by weight for year $y$ and $W_{y,s}$ for $s
 ")
 ```
 
-```{r appendix-prop-equations-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-prop-equations-en>>
+```{r appendix-prop-equations-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## EQUATIONS
+Les poids des spécimens sans données de poids mais avec des données de longueur sont calculés comme suit :
+\begin{equation}
+\hat{w}_{i,j,s} = \alpha_s l_{i,j,s}^{\beta_s}
+(\#eq:specimen-wt)
+\end{equation}
+où $\alpha_s$ et $\beta_s$ sont des paramètres pour le sexe $s$ et $w_{i,j,s}$ et $l_{i,j,s}$ sont des observations appariées longueur-poids pour le spécimen $i$ dans l'échantillon $j$.
+
+Le poids total pour chaque échantillon est la somme des spécimens de l'échantillon :
+\begin{equation}
+W_{j,s,t} = \sum_{i=1}^{N_{j,s,t}}{\hat{w}_{i,j,s,t}}
+(\#eq:sample-wt)
+\end{equation}
+où $W_{j,s,t}$ est le poids total pour l'échantillon $j$, le sexe $s$, le voyage $t$, et $N_{j,s,t}$ est le nombre de spécimens dans l'échantillon $j$ pour le sexe $s$.
+
+Le calcul du poids moyen de l'échantillon par sortie et par sexe est donné par la formule suivante :
+\begin{equation}
+W_{s,t} = \frac{\sum\limits_{j=1}^{K_t}{W_{j,s,t}S_{j,t}}}{\sum\limits_{j=1}^{K_t}{S_{j,t}}}
+(\#eq:mean-sample-wt)
+\end{equation}
+où $W_{s,t}$ est le poids moyen pour le sexe $s$ et le voyage $t$, pondéré par le poids de l'échantillon, où $K_t$ est le nombre d'échantillons dans le voyage $t$, et $S_{j,t}$ est le poids de l'échantillon pour l'échantillon $j$ du voyage $t$.
+
+Pour calculer le poids total des captures pour les traits échantillonnés au cours de chaque sortie, nous utilisons la formule suivante :
+\begin{equation}
+C_t = \sum_{j=1}^{K_t}{C_{j,t}}
+(\#eq:catch-wt)
+\end{equation}
+où $C_t$ est le poids total de la capture pour les traits échantillonnés pour le voyage $t$, $K_t$ est le nombre d'échantillons dans le voyage $t$, et $C_{j,t}$ est le poids de la capture associé à l'échantillon $j$ et au voyage $t$.
+
+Le poids total de chaque trimestre de l'année par sexe est donné par :
+\begin{equation}
+W_{q,s} = \frac{\sum\limits_{t=1}^{T_q}{W_{q,s,t}R_{q,t}}}{\sum\limits_{t=1}^{T_q}{R_{q,t}}}
+(\#eq:quarter-wt)
+\end{equation}
+où $W_{q,s}$ est le poids total pour le sexe $s$ et le trimestre de l'année $q$, $R_{q,t}$ est le poids de la sortie pour toutes les sorties échantillonnées au cours du trimestre $q$, et $T_q$ est le nombre de sorties échantillonnées au cours du trimestre $q$.
+
+Le poids total des captures pour les traits échantillonnés par trimestre de l'année est le suivant :
+\begin{equation}
+C_q = \sum_{t=1}^{K_q}{C_t}
+(\#eq:total-catch-quarter)
+\end{equation}
+où $C_q$ est le poids total des captures pour les traits échantillonnés pour le trimestre $q$, $K_q$ est le nombre de sorties au cours du trimestre $q$, et $C_t$ est le poids des captures associé à la sortie $t$.
+
+Maintenant, le poids total par année et par sexe est calculé à partir de :
+\begin{equation}
+W_{y,s} = \frac{\sum\limits_{q=1}^{4}{W_{q,y,s}C_{q,y}}}{\sum\limits_{q=1}^{4}{C_{q,y}}}
+(\#eq:total-catch-year)
+\end{equation}
+où $W_{s,y}$ est le poids total pour l'année $y$, sexe $s$, $W_{q,y,s}$ est le poids au cours du trimestre $q$ de l'année $y$, et $C_{q,y}$ est la prise au cours du trimestre $q$ de l'année $y$.
+
+Enfin, la proportion de femelles est donnée par
+\begin{equation}
+P_y = \frac{W_{y,s=Femelle}}{W_{y,s=Mâle} + W_{y,s=Femelle}}
+(\#eq:prop-female)
+\end{equation}
+où $P_y$ est la proportion de femelles en poids pour l'année $y$ et $W_{y,s}$ pour $s$ = Femelle et $s$ = Mâle sont donnés par l'Eq. \@ref(eq:total-catch-year).
+")
 ```
 
 ```{r appendix-prop-results-en, eval = !fr(), results = 'asis'}
@@ -148,8 +274,12 @@ Tables \@ref(tab:prop-female-comm-weights-table) and \@ref(tab:prop-female-surv-
 ")
 ```
 
-```{r appendix-prop-results-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-prop-results-en>>
+```{r appendix-prop-results-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## Résultats
+Le tableau \@ref(tab:prop-female-table) montre les proportions de femelles pour la pêche commerciale au chalut et les quatre enquêtes synoptiques. Les moyennes de toutes les années incluses dans le tableau sont indiquées dans la dernière ligne. Il existe une très bonne concordance entre les proportions moyennes des campagnes et celles de la pêche commerciale et il est donc raisonnable de prendre la moyenne des moyennes pour obtenir une valeur unique pour la proportion globale de femelles dans le stock `r sp` en `r bc`. La moyenne des moyennes pour les enquêtes synoptiques et la pêche commerciale est `r total_prop_female`. Il s'agit de la proportion utilisée comme entrée dans tous les modèles (de base, de transition, de sensibilité et rétrospectifs) de la présente évaluation.
+
+Les tableaux \@ref(tab:prop-female-comm-weights-table) et \@ref(tab:prop-female-surv-weights-table) donnent un résumé des données utilisées pour les calculs de la proportion de femelles. Pour la plupart des années, un grand nombre de poids sont inclus.
+")
 ```
 
 ```{r prop-female-table, results = "asis"}
@@ -157,7 +287,7 @@ Tables \@ref(tab:prop-female-comm-weights-table) and \@ref(tab:prop-female-surv-
 cap <- paste0("Proportion of female ", sp, " in the commercial trawl fishery and four synoptic surveys coastwide. The survey acronyms stand for QCS = ", qcs, ", HS = ", hss, ", WCVI = ", wcvis, " and WCHG = ", wchgs, ".")
               
 if(fr()){
-  cap <- paste0("French here")
+  cap <- paste0("Proportion de femelles ", sp, " dans la pêche commerciale au chalut et dans quatre enquêtes synoptiques sur l'ensemble de la côte. Les acronymes des enquêtes sont ", tr("QCS"), " = ", qcs, ", ", tr("HS"), " = ", hss, ", ", tr("WCVI"), " = ", wcvis, " et ", tr("WCHG"), " = ", wchgs, ".")
 }
 
 table_prop_female(prop_female_lst, digits = 2, caption = cap)
@@ -167,7 +297,7 @@ table_prop_female(prop_female_lst, digits = 2, caption = cap)
 ```{r prop-female-comm-weights-table, results = "asis"}
 cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp, " in the commercial trawl fishery.")
 if(fr()){
-  cap <- paste0("French here")
+  cap <- paste0("Résumé des échantillons et des poids utilisés pour le calcul de la proportion de femelles ", sp, " dans la pêche commerciale au chalut.")
 }
 table_prop_female_weights(dat$commercial_samples,
                           end_yr = 2019,
@@ -178,7 +308,7 @@ table_prop_female_weights(dat$commercial_samples,
 ```{r prop-female-surv-weights-table, results = "asis"}
 cap <- paste0("Summary of samples and weights used for the calculation of proportion of female ", sp, " in the synoptic surveys. See Table \\ref{tab:prop-female-table} for survey acronym meanings.")
 if(fr()){
-  cap <- paste0("French here")
+  cap <- paste0("Résumé des échantillons et des poids utilisés pour le calcul de la proportion de femmes ", sp, " dans les enquêtes synoptiques. Voir le tableau \ref{tab:prop-female-table} pour la signification des acronymes des enquêtes.")
 }
 table_prop_female_weights(dat$survey_samples,
                           type = "survey",

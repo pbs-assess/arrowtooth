@@ -2,7 +2,7 @@
 
 (ref:fig-retro-biomass-en) Spawning biomass for retrospective models comparing the base model with models with successively removed years of data. All models have the same parameterization, and were run as MCMCs in exactly the same way as the base model.
 
-(ref:fig-retro-biomass-fr) French here
+(ref:fig-retro-biomass-fr) Biomasse de frai pour les modèles rétrospectifs comparant le modèle de base avec des modèles avec des années de données enlevées successivement. Tous les modèles ont la même paramétrisation et ont été exécutés en tant que MCMC exactement de la même manière que le modèle de base.
 
 ```{r fig-retro-biomass, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-fr)", "(ref:fig-retro-biomass-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
@@ -13,13 +13,14 @@ plot_biomass_mcmc(models$retro_grps[[1]],
                   point_size = 1,
                   palette = "Paired",
                   bo_refpt_colors = c("salmon", "darkgreen"),
-                  ylim = c(0, 500))
+                  ylim = c(0, 500),
+                  leg_loc = c(0.97, 0.96))
 
 ```
 
 (ref:fig-retro-biomass-closer-en) A closer view of Figure \@ref(fig:fig-retro-biomass).
 
-(ref:fig-retro-biomass-closer-fr) French here
+(ref:fig-retro-biomass-closer-fr) Une vue plus rapprochée de la figure \@ref(fig:fig-retro-biomass).
 
 ```{r fig-retro-biomass-closer, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-closer-fr)", "(ref:fig-retro-biomass-closer-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
@@ -37,7 +38,7 @@ plot_biomass_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-biomass-rel-en) Relative spawning biomass for retrospective models.
 
-(ref:fig-retro-biomass-rel-fr) French here
+(ref:fig-retro-biomass-rel-fr) Biomasse de frai relative pour les modèles rétrospectifs.
 
 ```{r fig-retro-biomass-rel, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-rel-fr)", "(ref:fig-retro-biomass-rel-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
@@ -56,7 +57,8 @@ plot_biomass_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-recr-en) Recruitment of `r sp` for the retrospective models. The points are the medians of the posteriors, the vertical lines are the 95% Credible intervals for the posteriors, the points at $R_0$ are the median estimates for the initial recruitment parameters $R_0$, and the vertical lines over those points is the 95% Credible interval for $R_0$. The shaded ribbon is the $R_0$ credible interval across the whole time series for the base model. The models are slightly offset from each other for ease of viewing.
 
-(ref:fig-retro-recr-fr) French here
+(ref:fig-retro-recr-fr) Recrutement de `r sp` pour les modèles rétrospectifs. Les points sont les médianes des postérieures, les lignes verticales sont les intervalles crédibles à 95% pour les postérieures, les points à $R_0$ sont les estimations médianes pour les paramètres de recrutement initial $R_0$, et les lignes verticales au-dessus de ces points sont l'intervalle crédible à 95% pour $R_0$. Le ruban ombré est l'intervalle de crédibilité de $R_0$ sur l'ensemble de la série temporelle pour le modèle de base. Les modèles sont légèrement décalés l'un par rapport à l'autre pour faciliter la visualisation.
+
 
 ```{r fig-retro-recr, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-fr)", "(ref:fig-retro-recr-en)")}
 plot_recr_mcmc(models$retro_grps[[1]],
@@ -65,13 +67,14 @@ plot_recr_mcmc(models$retro_grps[[1]],
                line_width = 0.5,
                point_size = 1,
                palette = "Paired",
-               leg_loc = c(0, 1),
-               ylim = c(0, 600))
+               ylim = c(0, 600),
+               leg_loc = c(0.03, 0.94))
 ```
 
 (ref:fig-retro-recr-closer-en) Recruitment of `r sp` for the retrospective models. The points are the medians of the posteriors, the vertical lines are the 95% CIs for the posteriors, the points at $R_0$ are the median estimates for the initial recruitment parameters $R_0$, and the vertical lines over those points is the 95% CI for $R_0$. The shaded ribbon is the $R_0$ CI across the whole time series for the base model. The models are slightly offset from each other for ease of viewing.
 
-(ref:fig-retro-recr-closer-fr) French here
+(ref:fig-retro-recr-closer-fr) Recrutement de `r sp` pour les modèles rétrospectifs. Les points sont les médianes des valeurs postérieures, les lignes verticales sont les IC à 95% des valeurs postérieures, les points à $R_0$ sont les estimations médianes des paramètres de recrutement initial $R_0$, et les lignes verticales au-dessus de ces points sont les IC à 95% pour $R_0$. Le ruban ombré est l'IC de $R_0$ sur l'ensemble de la série temporelle pour le modèle de base. Les modèles sont légèrement décalés les uns par rapport aux autres pour faciliter la visualisation.
+
 
 ```{r fig-retro-recr-closer, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-closer-fr)", "(ref:fig-retro-recr-closer-en)")}
 plot_recr_mcmc(models$retro_grps[[1]],
@@ -86,7 +89,8 @@ plot_recr_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-f-en) Fishing mortality for the base and retrospective models for the two trawl fisheries. The shaded area represents the 95% CI for the base model, the dotted lines represent the 95% CI for the retrospective models.
 
-(ref:fig-retro-f-fr) French here
+(ref:fig-retro-f-fr) Mortalité par pêche pour les modèles de base et rétrospectif pour les deux pêcheries au chalut. La zone ombrée représente l'IC à 95 % pour le modèle de base, les lignes pointillées représentent l'IC à 95 % pour les modèles rétrospectifs.
+
 
 ```{r fig-retro-f, fig.cap = ifelse(fr(), "(ref:fig-retro-f-fr)", "(ref:fig-retro-f-en)")}
 plot_f_mcmc(models$retro_grps[[1]],
@@ -95,12 +99,13 @@ plot_f_mcmc(models$retro_grps[[1]],
             line_width = 0.5,
             point_size = 1.5,
             palette = "Paired",
-            leg_loc = c(0, 1))
+            leg_loc = c(0.03, 0.94))
 ```
 
 (ref:fig-retro-index-fits-en) Index fits for the base and retrospective models. The light grey points and vertical lines show the index values and 95% CIs. The other coloured points show the medians of the posteriors; the solid vertical lines show the 95% CIs for the posteriors. The lines connecting points along the time series are only present for aesthetic value.
 
-(ref:fig-retro-index-fits-fr) French here
+(ref:fig-retro-index-fits-fr) Ajustements de l'indice pour les modèles de base et rétrospectif. Les points gris clair et les lignes verticales indiquent les valeurs de l'indice et les IC à 95 %. Les autres points colorés indiquent les médianes des valeurs postérieures ; les lignes verticales pleines indiquent les IC à 95 % pour les valeurs postérieures. Les lignes reliant les points le long de la série temporelle ne sont présentes que pour des raisons esthétiques.
+
 
 ```{r fig-retro-index-fits, fig.cap = ifelse(fr(), "(ref:fig-retro-index-fits-fr)", "(ref:fig-retro-index-fits-en)")}
 plot_index_mcmc(models$retro_grps[[1]],
@@ -117,7 +122,7 @@ plot_index_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-index-resids-en) Log standardized residuals for the base and retrospective model index fits.
 
-(ref:fig-retro-index-resids-fr) French here
+(ref:fig-retro-index-resids-fr) Résidus logarithmiques standardisés pour les ajustements de l'indice du modèle de base et du modèle rétrospectif.
 
 ```{r fig-retro-index-resids, fig.cap = ifelse(fr(), "(ref:fig-retro-index-resids-fr)", "(ref:fig-retro-index-resids-en)")}
 plot_index_mcmc(models$retro_grps[[1]],

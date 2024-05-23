@@ -4,8 +4,9 @@ cat("# BIOLOGICAL DATA APPENDIX {#app:bio-data-appendix}
 This appendix summarizes the biological data for `r sp` in `r bc`. The length and age compositions collected from both surveys and commercial sources are illustrated (Figures \@ref(fig:fig-lengths) and \@ref(fig:fig-ages)); however, all biological parameters were estimated from synoptic survey data only. The values used in the assessment (Table \@ref(tab:growth-params-table)) were aggregated from the four synoptic surveys that are each run biennially off the West coast of `r bc`: the `r qcs`, the `r hss`, the `r wcvis`, and the `r wchgs`.")
 ```
 
-```{r appendix-data-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-data-para-1-en>>
+```{r appendix-data-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# BIOLOGICAL DATA APPENDIX {#app:bio-data-appendix}
+Cette annexe résume les données biologiques pour `r sp` dans `r bc`. La composition des longueurs et des âges recueillis à partir des campagnes et des sources commerciales est illustrée (figures \@ref(fig:fig-longues) et \@ref(fig:fig-âges)) ; cependant, tous les paramètres biologiques ont été estimés à partir des données des campagnes synoptiques uniquement. Les valeurs utilisées dans l'évaluation (tableau \@ref(tab:growth-params-table)) ont été agrégées à partir des quatre campagnes synoptiques réalisées tous les deux ans au large de la côte ouest de la `r bc` : la `r qcs`, la `r hss`, la `r wcvis` et la `r wchgs`.")
 ```
 
 ```{r appendix-data-para-2-en, eval = !fr(), results = 'asis'}
@@ -21,8 +22,17 @@ We applied Eq. \@ref(eq:length-weight) to survey observations for the three syno
     ")
 ```
 
-```{r appendix-data-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-data-para-2-en>>
+```{r appendix-data-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## MODÈLE DE LONGUEUR ET DE POIDS {#length-weight-model}
+Toutes les paires de données longueur/poids valides ont été extraites sur la base des critères indiqués dans le tableau A.1. L'équation longueur-poids utilisée était la suivante
+\begin{equation}
+  W_s = \alpha_s L_s^{\beta_s}
+  (\#eq:length-weight)
+\end{equation}
+où $\alpha_s$ et $\beta_s$ sont des paramètres pour le sexe $s$ et $L_s$ et $W_s$ sont des observations appariées de longueur et de poids.
+
+Nous avons appliqué l'Eq. \@ref(eq:longueur-poids) aux observations des trois campagnes synoptiques utilisées dans cette évaluation. Les résultats sont représentés pour chaque campagne individuellement et avec les données de la quatrième campagne `r wchgs` pour représenter les zones 3CD et 5ABCDE de la PMFC combinées comme « l'ensemble de la côte » (Figure \@ref(fig:fig-length-weight)).
+    ")
 ```
 
 ```{r appendix-data-para-3-en, eval = !fr(), results = 'asis'}
@@ -38,8 +48,17 @@ We applied Eq. \@ref(eq:vonb) to survey observations for the three synoptic surv
 ")
 ```
 
-```{r appendix-data-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-data-para-3-en>>
+```{r appendix-data-para-3-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## MODÈLE DE VON-BERTALANFFY {#vonb-model}
+Nous avons utilisé la fonction de von-Bertalanffy pour estimer les taux de croissance de `r sp` :
+\begin{equation}
+  L_s = L_{\infty_s}(1 - e^{-k_s (a_s - t_{0_s})})
+  (\#eq:vonb)
+\end{equation}
+où $L_{\infty_s}$, $k_s$, et $t_{0_s}$ sont des paramètres spécifiques au sexe $s$ et $L_s$ et $a_s$ sont des observations appariées longueur-âge.
+
+Nous avons appliqué l'Eq. \@ref(eq:vonb) aux observations des trois campagnes synoptiques utilisées dans cette évaluation. Les résultats sont représentés pour chaque campagne individuellement, et avec les données de la quatrième campagne `r wchgs` pour représenter les zones 3CD et 5ABCDE de la PMFC combinées comme 'l'ensemble de la côte' (Figure \@ref(fig:fig-vb)).
+")
 ```
 
 ```{r appendix-data-para-4-en, eval = !fr(), results = 'asis'}
@@ -61,16 +80,30 @@ The same equation can also be applied to lengths instead of ages. We applied Eq.
 ")
 ```
 
-```{r appendix-data-para-4-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-data-para-4-en>>
+```{r appendix-data-para-4-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## MODÈLE DE MATURITÉ À L'ÂGE
+Le modèle de maturité à l'âge utilisé pour `r sp` estime l'âge à 50 % de maturité ($a_{s_{50\%}}$) et l'écart-type de l'âge à 50 % de maturité ($\sigma_{s_{50\%}}$) en appliquant l'algorithme de Broyden Fletcher Goldfarb Shanno à mémoire limitée avec limites (L-BFGS-B) pour minimiser la somme des carrés entre la proportion observée et la proportion attendue de maturités :
+\begin{equation}
+  P_{a_s} = \frac{1}{1 + e^{-\sigma_{s_{50\%}}(a_s-a_{s_{50\%}})}}
+  (\#eq:mat-at-age)
+\end{equation}
+où $P_{a_s}$ est la proportion observée d'individus matures à l'âge $a_s$ pour le sexe $s$. 
+
+Un code de maturité (stade de maturité) de 3 ou plus signifie que le poisson est mature, l'échelle de code étant l'échelle standard des poissons plats de 1 à 7.
+l'échelle standard des poissons plats de 1 à 7 [@holt2016].
+
+La même équation peut également être appliquée aux longueurs au lieu des âges. Nous avons appliqué l'Eq. \@ref(eq:mat-at-age) aux observations d'âge et de longueur des trois campagnes synoptiques utilisées dans cette évaluation. Les résultats sont représentés pour chaque campagne individuellement, et avec les données de la quatrième campagne `r wchgs` pour représenter les zones 3CD et 5ABCDE de la PMFC combinées comme 'l'ensemble de la côte' (Figure \@ref(fig:fig-mat)).
+
+\clearpage
+## FIGURES
+")
 ```
 
 <!-- Length compositions: --------------------------------------------------------->
 
 (ref:fig-lengths-en) Length-frequency plot where female fish are shown as red bars and male fish are shown behind as blue bars. The total number of fish measured for a given survey and year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. 
 
-(ref:fig-lengths-fr) Graphique de la fréquence selon la longueur où les poissons femelles sont représentés par des barres rouge et les poissons mâles sont représentés derrière par des barres bleu. Le nombre total de poissons mesurés pour un relevé et une année donnés est indiqué au coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s’il y a plus de 20 poissons mesurés pour une combinaison donnée de relevé et d’année. 
-TODO: translate weighting description?
+(ref:fig-lengths-fr) Diagramme de fréquence de longueur où les poissons femelles sont représentés par des barres rouges et les poissons mâles sont représentés derrière par des barres bleues. Le nombre total de poissons mesurés pour une étude et une année données est indiqué dans le coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s'il y a plus de 20 poissons mesurés pour une combinaison enquête-année donnée. 
 
 ```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1, out.width = "6in"}
 
@@ -90,150 +123,110 @@ bin_width3 <- diff(quantile(length_samples_ss$length,
 bin_width <- mean(c(bin_width1, bin_width2, bin_width3), na.rm = TRUE)
 
 ss <- tidy_lengths_weighted(length_samples_survey,
-  dat_survey_sets = dat$survey_sets,
-  bin_size = bin_width,
-  sample_type = "survey"
-)
+                            dat_survey_sets = dat$survey_sets,
+                            bin_size = bin_width,
+                            sample_type = "survey")
 
-sf <- length_samples_ft %>%
+sf <- length_samples_ft |> 
   # mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
-  tidy_lengths_weighted(
-    dat_catch = dat$catch,
-    bin_size = bin_width,
-    sample_type = "commercial", spp_cat_code = 1
-  ) %>%
-  mutate(
-    survey_abbrev = "Freezer Trawlers"
-  )
+  tidy_lengths_weighted(dat_catch = dat$catch,
+                        bin_size = bin_width,
+                        sample_type = "commercial", spp_cat_code = 1) |> 
+  mutate(survey_abbrev = tr("Freezer Trawlers"))
 
-sc <- length_samples_ss %>%
-  # mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
-  tidy_lengths_weighted(
-    dat_catch = dat$catch,
-    bin_size = bin_width,
-    sample_type = "commercial", spp_cat_code = 1
-  ) %>%
-  mutate(
-    survey_abbrev = "Shoreside"
-  )
+sc <- length_samples_ss |> 
+  # mutate(sex = 2) %>% # fake all sex as female for commercial samples;
+  # often not sexed
+  tidy_lengths_weighted(dat_catch = dat$catch,
+                        bin_size = bin_width,
+                        sample_type = "commercial", spp_cat_code = 1) |> 
+  mutate(survey_abbrev = tr("Shoreside"))
 
 min_total <- 20
-
-sc_old <- filter(sc, year < 1995) # are we interested in length frequencies pre-1980?
+ # are we interested in length frequencies pre-1980?
+sc_old <- filter(sc, year < 1995)
 sc <- filter(sc, year > 1995)
-sb <- suppressWarnings(bind_rows(ss, sc, sf))
-sb$survey_abbrev <- factor(sb$survey_abbrev,
-  levels = c(
-    "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
-    tr("Freezer Trawlers"), tr("Shoreside")
-  )
-)
-sb$year <- factor(sb$year, levels = seq(1996, 2021))
+sb <- bind_rows(ss, sc, sf) |> 
+  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = factor(survey_abbrev)) |> 
+  mutate(year = factor(year))
 
 g_lengths <- plot_lengths(sb,
-  fill_col = c("M" = "#0096FF10", "F" = "#FF000010"),
-  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
-  survey_cols = NULL,
-  # survey_cols = stats::setNames(
-  #   c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62", 
-  #     "#0096FF", "#0096FF"),
-  #     # "#4682B4", "#4682B4"),
-  #   c(
-  #     "SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI",
-  #     tr("Freezer Trawlers"),
-  #     tr("Shoreside")
-  # )
-  # ),
-  bin_size = bin_width, min_total = min_total
-) +
+                          fill_col = c("M" = "#0096FF10", "F" = "#FF000010"),
+                          line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+                          survey_cols = NULL,
+                          bin_size = bin_width,
+                          min_total = min_total,
+                          french = fr()) +
   # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
   guides(colour = "none", fill = "none") +
   ggtitle("") +
-  ggplot2::xlab(paste(tr("Length"), "(cm)")) +
-  ggplot2::ylab(tr("Relative length frequency"))
+  xlab(paste(tr("Length"), "(cm)")) +
+  ylab(tr("Relative length frequency"))
 
 g_lengths
 ```
 
 <!-- Age composition --------------------------------------------------------->
 
-(ref:fig-ages-en) Example age-frequency plot. Female fish are shown as
-red circles and male fish are shown behind as blue
-circles. The total number of fish aged for a given survey or fishery and year are
-indicated along the top of the panels. Diagonal lines are shown at five-year
-intervals to facilitate tracing cohorts through time. 
+(ref:fig-ages-en) Example age-frequency plot. Female fish are shown as red circles and male fish are shown behind as blue circles. The total number of fish aged for a given survey or fishery and year are indicated along the top of the panels. Diagonal lines are shown at five-year intervals to facilitate tracing cohorts through time.
 
-(ref:fig-ages-fr) Exemple de graphique de la fréquence selon l’âge. Les poissons femelles sont représentés par des cercles rouge, et les poissons mâles sont représentés derrière par des cercles bleu. Le nombre total de poissons dont l’âge a été déterminé pour un relevé ou une pêcherie et une année donnés est indiqué en haut des panneaux. Les lignes diagonales sont représentées à des intervalles de cinq ans pour faciliter le suivi des cohortes au fl du temps.
-TODO translate weighting
+(ref:fig-ages-fr) Exemple de diagramme de fréquence d'âge. Les poissons femelles sont représentés par des cercles rouges et les poissons mâles par des cercles bleus. Le nombre total de poissons âgés pour une enquête ou une pêcherie et une année données est indiqué en haut des panneaux. Des lignes diagonales sont tracées à intervalles de cinq ans pour faciliter le suivi des cohortes dans le temps.
 
 ```{r fig-ages, fig.cap = ifelse(fr(), "(ref:fig-ages-fr)", "(ref:fig-ages-en)"), fig.asp = 1, out.width = "6in"}
 
-ss <- tidy_ages_weighted(dat$survey_samples, dat_survey_sets = dat$survey_sets,
-  sample_type = "survey"
-)
+ss <- tidy_ages_weighted(dat$survey_samples,
+                         dat_survey_sets = dat$survey_sets,
+                         sample_type = "survey") |> 
+  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = factor(survey_abbrev))
 
-ss$survey_abbrev <- factor(ss$survey_abbrev)
 s_ages <- plot_ages(ss,
-  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
-  survey_cols = NULL
-  # survey_cols = stats::setNames(
-  #   c("#FC8D62", "#FC8D62", "#FC8D62", "#FC8D62"),
-  #   c("SYN WCHG", "SYN HS", "SYN QCS", "SYN WCVI")
-  # )
-) +
-  facet_wrap(~survey_abbrev, nrow = 1, scales = "free_x") +
+                    line_col = c("M" = "#0000FF",
+                                 "F" = "#FF0000"),
+                    survey_cols = NULL) +
+  facet_wrap(~survey_abbrev,
+             nrow = 1,
+             scales = "free_x") +
   guides(fill = "none", colour = "none") +
-  theme(
-    plot.title = element_blank(),
-    axis.title = element_blank()
-  )
+  theme(plot.title = element_blank(),
+        axis.title = element_blank())
 
+sc <- tidy_ages_weighted(comm_ss,
+                         dat_catch = dat$catch,
+                         sample_type = "commercial") |> 
+  mutate(survey_abbrev = tr("Shoreside"))
 
-sc <- tidy_ages_weighted(comm_ss, dat_catch = dat$catch,
-  sample_type = "commercial"
-) %>% mutate(
-  survey_abbrev = "Shoreside"
-)
+sf <- tidy_ages_weighted(comm_ft,
+                         dat_catch = dat$catch,
+                         sample_type = "commercial") |> 
+  mutate(survey_abbrev = tr("Freezer Trawlers"))
 
-sf <- tidy_ages_weighted(comm_ft, dat_catch = dat$catch,
-  sample_type = "commercial"
-) %>% mutate(
-  survey_abbrev = "Freezer Trawlers"
-)
-
-sb <- suppressWarnings(bind_rows(sc, sf))
-
-sb$survey_abbrev <- factor(sb$survey_abbrev)
+sb <- suppressWarnings(bind_rows(sc, sf)) |> 
+  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = factor(survey_abbrev))
 
 c_ages <- plot_ages(sb,
-  line_col = c("M" = "#0000FF", "F" = "#FF0000"),
-  survey_cols = NULL
-  # survey_cols = stats::setNames(
-  #   # c("black", "black"), 
-  #   c("#0096FF", "#0096FF"),
-  #   c("Freezer Trawlers", "Shoreside"))
-) +
+                    line_col = c("M" = "#0000FF",
+                                 "F" = "#FF0000"),
+                    survey_cols = NULL) +
   guides(fill = "none", colour = "none") +
-  theme(
-    plot.title = element_blank(),
-    axis.title = element_blank()
-  )
+  theme(plot.title = element_blank(),
+        axis.title = element_blank())
 
-grid.arrange(s_ages, c_ages,
-  nrow = 2,
-  # heights = c(1.1,1),
-  left = tr("Ages (years)"),
-  bottom = tr("Year sampled")
-)
+grid.arrange(s_ages,
+             c_ages,
+             nrow = 2,
+             # heights = c(1.1,1),
+             left = tr("Ages (years)"),
+             bottom = tr("Year sampled"))
 ```
 
 <!-- Length/weight ----------------------------------------------------------->
 
-(ref:fig-length-weight-en) Length/weight fits by sex. 
-The length-weight curve is of the form $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers. The variables $a$ and $b$ represent the estimated length-weight parameters. Female model fits are indicated as solid red lines and male model fits are indicated as blue lines. Text on the panels shows the parameter estimates and open circles represent individual fish that the models are fit to. These figures include all survey samples.
+(ref:fig-length-weight-en) Length/weight fits by sex. The length-weight curve is of the form $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers. The variables $a$ and $b$ represent the estimated length-weight parameters. Female model fits are indicated as solid red lines and male model fits are indicated as blue lines. Text on the panels shows the parameter estimates and open circles represent individual fish that the models are fit to. These figures include all survey samples.
 
-(ref:fig-length-weight-fr) Ajustement du modèle pour le poids en fonction de la longueur et du sexe. 
-La courbe de croissance de la longueur selon le poids est de la forme $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$, où $W_i$ et $L_i$ représentent le poids et la longueur pour les poissons i et σ représente l’échelle des erreurs d’observation. Nous avons fxé les degrés de liberté de la distribution de Student t à 3 pour conférer une certaine robustesse par rapport aux valeurs aberrantes. Les variables a et b représentent les paramètres de la longueur selon le poids estimés. Les ajustements du modèle pour les femelles sont indiqués par des lignes pleines rouge, et les ajustements du modèle pour les mâles sont indiqués par des lignes bleu tiretées. Le texte sur les panneaux montre les estimations des paramètres, et les cercles ouverts représentent les poissons individuels auxquels les modèles sont ajustés.
+(ref:fig-length-weight-fr) Ajustements longueur-poids par sexe. La courbe longueur-poids est de la forme $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ avec $W_i$ et $L_i$ représentant le poids et la longueur pour le poisson $i$ et $\sigma$ représentant l'échelle d'erreur d'observation. Les degrés de liberté de la distribution Student-t sont fixés à 3 pour être robustes aux valeurs aberrantes. Les variables $a$ et $b$ représentent les paramètres longueur-poids estimés. Les ajustements du modèle féminin sont indiqués par des lignes rouges pleines et les ajustements du modèle masculin sont indiqués par des lignes bleues. Le texte sur les panneaux montre les estimations des paramètres et les cercles ouverts représentent les poissons individuels auxquels les modèles sont ajustés. Ces chiffres incluent tous les échantillons de l'étude.
 
 ```{r fig-length-weight, fig.cap = ifelse(fr(), "(ref:fig-length-weight-fr)", "(ref:fig-length-weight-en)"), out.width = "6in"}
 
@@ -265,10 +258,12 @@ lw_title_lst <- list(
 plot_lw_panels <- function(lw_f, lw_m){
   plot_length_weight(object_female = lw_f,
                      object_male = lw_m,
-                     col = c("Female" = "#FF0000", "Male" = "#0000FF"),
-                     #pts_col = TRUE,
+                     col = c("Female" = "#FF0000",
+                             "Male" = "#0000FF"),
                      french = fr()) +
-    guides(colour = "none", fill = "none", lty = "none") +
+    guides(colour = "none",
+           fill = "none",
+           lty = "none") +
     
     # coord_cartesian(xlim = c(0, 85), ylim = c(0, 6.7)) +
     xlim(0, 85) +
@@ -295,7 +290,6 @@ grid.arrange(grobs = lw_plot_lst,
 
 ```
 
-
 <!-- Growth ------------------------------------------------------------------>
 
 (ref:fig-vb-en) The length-age growth curve is a von-Bertalanffy model of the form $L_i \sim \operatorname{Log-normal} \left( \log(l_\mathrm{inf} (1 - \exp(-k (A_i - t_0)))), \sigma \right)$ where $L_i$ and $A_i$ represent the length and age of fish $i$, $l_\mathrm{inf}$, $k$, and $t_0$ represent the von-Bertalanffy growth parameters, and $\sigma$ represents the scale parameter. Female model fits are indicated as solid red lines and male model fits are indicated as dashed blue lines. Text on the panels shows the parameter estimates and open circles represent individual fish that the models are fit to. 
@@ -303,7 +297,8 @@ grid.arrange(grobs = lw_plot_lst,
 <!-- These figures include all survey samples.  -->
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
 
-(ref:fig-vb-fr) TODO
+(ref:fig-vb-fr) La courbe de croissance longueur-âge est un modèle de von-Bertalanffy de la forme $L_i \sim \operatorname{Log-normal} \left( \log(l_\mathrm{inf} (1 - \exp(-k (A_i - t_0)))), \sigma \right)$ où $L_i$ et $A_i$ représentent la longueur et l'âge du poisson $i$, $l_\mathrm{inf}$, $k$, et $t_0$ représentent les paramètres de croissance de von-Bertalanffy, et $\sigma$ représente le paramètre d'échelle. Les ajustements du modèle féminin sont indiqués par des lignes rouges pleines et les ajustements du modèle masculin sont indiqués par des lignes bleues en pointillés. Le texte sur les panneaux montre les estimations des paramètres et les cercles ouverts représentent les poissons individuels auxquels les modèles sont ajustés. 
+
 
 ```{r fig-vb, fig.cap = ifelse(fr(), "(ref:fig-vb-fr)", "(ref:fig-vb-en)"), fig.asp = 1.2, out.width = "6in"}
 
@@ -380,10 +375,6 @@ grid.arrange(grobs = vb_plot_lst,
 <!-- Maturity ---------------------------------------------------------------->
 
 ```{r calc-maturities}
-# mat_model <- function(par, age, prop_mature) {
-#   prop_m <- 1 / (1 + exp(-(age - par[1]) / par[2]))
-#   sum((prop_m - prop_mature)^2) # sum of squares
-# }
 
 mat_model <- function(par, age, prop_mature){
   prop_m <- plogis(age, par[1], par[2])
@@ -391,31 +382,28 @@ mat_model <- function(par, age, prop_mature){
 }
 
 
-save_ogive_dataframe <- function(data, maturities_kept) {
- 
-  matlst <- list()
+save_ogive_dataframe <- \(data, maturities_kept){
+   matlst <- list()
   obj <- list()
   for (sex in 1:2) {
 
-    matlst[[sex]] <- data[!duplicated(data$specimen_id), , drop = FALSE] %>%
+    matlst[[sex]] <- data[!duplicated(data$specimen_id), , drop = FALSE] |> 
       filter(maturity_code %in% maturities_kept,
-             maturity_convention_code != 9) %>%
-      filter(sex == !!sex) %>%
-      filter(!is.na(age)) %>%
-      group_by(age) %>%
-      mutate(is_mature = ifelse(maturity_code < 3, FALSE, TRUE)) %>%
-      summarize(prop_mature = sum(is_mature) / n()) %>%
+             maturity_convention_code != 9) |> 
+      filter(sex == !!sex) |> 
+      filter(!is.na(age)) |> 
+      group_by(age) |> 
+      mutate(is_mature = ifelse(maturity_code < 3, FALSE, TRUE)) |> 
+      summarize(prop_mature = sum(is_mature) / n()) |> 
       ungroup()
 
-    obj[[sex]] <- optim(
-      par = c(6, 1),
-      fn = mat_model,
-      method = "L-BFGS-B",
-      lower = 0.00,
-      upper = Inf,
-      age = matlst[[sex]]$age,
-      prop_mature = matlst[[sex]]$prop_mature
-    )
+    obj[[sex]] <- optim(par = c(6, 1),
+                        fn = mat_model,
+                        method = "L-BFGS-B",
+                        lower = 0.00,
+                        upper = Inf,
+                        age = matlst[[sex]]$age,
+                        prop_mature = matlst[[sex]]$prop_mature)
 
     matlst[[sex]]$sex <- sex
     matlst[[sex]]$age50mat <- round(obj[[sex]]$par[1], 2)
@@ -426,10 +414,12 @@ save_ogive_dataframe <- function(data, maturities_kept) {
 
   df$data <- deparse(substitute(data))
   df$maturities_kept <- paste0(deparse(maturities_kept))
+
   df
 }
 
-`Synoptic only` <- survey_samples_syn %>% filter(age < 41)
+`Synoptic only` <- survey_samples_syn |> 
+  filter(age < 41)
 `All samples` <- all_age_samples
 
 d1 <- save_ogive_dataframe(`Synoptic only`,
@@ -448,141 +438,44 @@ d4 <- save_ogive_dataframe(`All samples`,
 #   maturities_kept = c(1, 4, 5, 6)
 # )
 
-mat_dat <- bind_rows(d1, d2, d3, d4) %>% mutate(
-  model = case_when(
-    maturities_kept == paste0(deparse(c(1, 2, 3, 4, 5, 6, 7))) ~ paste(data),
-    maturities_kept == paste0(deparse(c(1, 2, 3, 4, 5, 6))) ~ paste(data, "\n(resting removed)"),
-    maturities_kept == paste0(deparse(c(1, 4, 5, 6))) ~ paste(data, "\n(maturing, developing \nand resting removed)")
-    # maturities_kept == paste0(deparse(c(1, 2, 3, 4, 5, 6))) ~ "Resting removed",
-    # maturities_kept == paste0(deparse(c(1, 4, 5, 6))) ~ "Maturing, developing \nand resting removed"
-  ),
-  sex = ifelse(sex == 1L, "Male", "Female")
-)
-unique(mat_dat$model)
-mat_dat$model <- factor(mat_dat$model, levels = c(
-  "Synoptic only",
-  "All samples",
-  "All samples \n(resting removed)",
-  "All samples \n(maturing, developing \nand resting removed)"
-  # "Resting removed",
-  # "Maturing, developing \nand resting removed"
-  # "Synoptic only \n(maturing, developing \nand resting removed)"
-), labels = c(
-  "Synoptic only",
-  "All samples",
-  # "All samples \n(resting removed)",
-  # "All samples \n(maturing, developing \nand resting removed)"
-  "Resting removed",
-  "Maturing, developing \nand resting removed"
-  # "Synoptic only \n(maturing, developing \nand resting removed)"
-))
+mat_dat <- bind_rows(d1, d2, d3, d4) |> 
+  mutate(model = case_when(
+    maturities_kept == paste0(deparse(c(1, 2, 3, 4, 5, 6, 7))) ~ 
+      paste(data),
+    maturities_kept == paste0(deparse(c(1, 2, 3, 4, 5, 6))) ~ 
+      paste(data, "\n(resting removed)"),
+    maturities_kept == paste0(deparse(c(1, 4, 5, 6))) ~ 
+      paste(data, "\n(maturing, developing \nand resting removed)")),
+  sex = ifelse(sex == 1L, "Male", "Female"))
 
+mat_dat <- mat_dat |> 
+  mutate(
+    model = ifelse(model == "Synoptic only",
+                   tr("Synoptic only"),
+                   ifelse(model == "All samples",
+                          tr("All samples"),
+                          ifelse(model == "All samples \n(resting removed)",
+                                 ifelse(fr(),
+                                        "Tous les échantillons \n(mise au repos supprimée)",
+                                        "All samples \n(resting removed)"),
+                                 ifelse(model == "All samples \n(maturing, developing \nand resting removed)",
+                                        ifelse(fr(),
+                                               "Tous les échantillons \nmaturation, développement \net la mise au repos supprimée",
+                                               "All samples \n(maturing, developing \nand resting removed)"),
+                                        "Model name not recognized"))))) |> 
+  mutate(model = factor(model))
 ```
 
-
-(ref:fig-mat-en) Age-at-maturity ogive plots. Maturity ogives are logistic curves fit to the proportion of fish at each age that were categorized as mature vs. not mature. The dashed vertical lines indicate the estimated age at 50% maturity. Models are fit to all available samples regardless of time of year. The ogives used in the base model  were based only on synoptic survey samples (male age at 50% maturity = `r mat_dat[mat_dat$model == "Synoptic only" & mat_dat$sex == "Male", ]$age50mat[1]`, female age at 50% maturity = `r mat_dat[mat_dat$model == "Synoptic only" & mat_dat$sex == "Female", ]$age50mat[1]`). Including all other survey and commercial samples ('All samples') doesn't not change the shape of the ogive, but we use this slightly larger dataset to check the influence of removing macroscopic maturity classifications that may be prone to misclassification and/or have uncertainty in their relationship with functional maturity ('Resting removed' and 'Maturing, developing and resting removed'). Maturing, developing and resting removed had the best fit to the data (male age at 50% maturity = `r mat_dat[mat_dat$model == "Maturing, developing \nand resting removed" & mat_dat$sex == "Male", ]$age50mat[1]`, female age at 50% maturity = `r mat_dat[mat_dat$model == "Maturing, developing \nand resting removed" & mat_dat$sex == "Female", ]$age50mat[1]`). 
-These values were used as a sensitivity run.
+(ref:fig-mat-en) Age-at-maturity ogive plots. Maturity ogives are logistic curves fit to the proportion of fish at each age that were categorized as mature vs. not mature. The dashed vertical lines indicate the estimated age at 50% maturity. Models are fit to all available samples regardless of time of year. The ogives used in the base model  were based only on synoptic survey samples (male age at 50% maturity = `r mat_dat[mat_dat$model == "Synoptic only" & mat_dat$sex == "Male", ]$age50mat[1]`, female age at 50% maturity = `r mat_dat[mat_dat$model == "Synoptic only" & mat_dat$sex == "Female", ]$age50mat[1]`). Including all other survey and commercial samples ('All samples') doesn't not change the shape of the ogive, but we use this slightly larger dataset to check the influence of removing macroscopic maturity classifications that may be prone to misclassification and/or have uncertainty in their relationship with functional maturity ('Resting removed' and 'Maturing, developing and resting removed'). Maturing, developing and resting removed had the best fit to the data (male age at 50% maturity = `r mat_dat[mat_dat$model == "Maturing, developing \nand resting removed" & mat_dat$sex == "Male", ]$age50mat[1]`, female age at 50% maturity = `r mat_dat[mat_dat$model == "Maturing, developing \nand resting removed" & mat_dat$sex == "Female", ]$age50mat[1]`). These values were used as a sensitivity run.
 <!-- However, we used the ogive with resting removed as our sensitivity run as it represented the most extreme alternative reality supported by the data (male age at 50% maturity = `r mat_dat[mat_dat$model == "Resting removed" & mat_dat$sex == "Male", ]$age50mat[1]`, female age at 50% maturity = `r mat_dat[mat_dat$model == "Resting removed" & mat_dat$sex == "Female", ]$age50mat[1]`). -->
 
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
 
-(ref:fig-mat-fr) L’âge-à-maturité pour les courbes de fréquences cumulées. TODO: the rest of translation.
+(ref:fig-mat-fr) Diagrammes ogive âge-maturité. Les ogives de maturité sont des courbes logistiques ajustées à la proportion de poissons à chaque âge qui ont été catégorisés comme matures vs. non matures. Les lignes verticales en pointillés indiquent l'âge estimé à 50 % de maturité. Les modèles sont ajustés à tous les échantillons disponibles, quelle que soit la période de l'année. Les ogives utilisées dans le modèle de base étaient basées uniquement sur les échantillons de l'enquête synoptique (âge des mâles à 50 % de maturité = `r mat_dat[mat_dat$model == "Synoptique uniquement" & mat_dat$sex == "Male", ]$age50mat[1]`, âge des femelles à 50 % de maturité = `r mat_dat[mat_dat$model == "Synoptique uniquement" & mat_dat$sex == "Female", ]$age50mat[1]`). L'inclusion de tous les autres échantillons de l'enquête et des échantillons commerciaux ('Tous les échantillons') ne modifie pas la forme de l'ogive, mais nous utilisons cet ensemble de données légèrement plus important pour vérifier l'influence de la suppression des classifications de la maturité macroscopique qui peuvent être sujettes à des erreurs de classification et/ou dont la relation avec la maturité fonctionnelle est incertaine ('Repos supprimé' et 'Maturation, développement et repos supprimé'). Les classifications 'maturation', 'développement' et 'repos' étaient les mieux adaptées aux données (âge des mâles à 50 % de maturité = `r mat_dat[mat_dat$model == "Tous les échantillons \nmaturation, développement \net la mise au repos supprimée" & mat_dat$sex == "Male", ]$age50mat[1]`, âge de la femelle à 50 % de maturité = `r mat_dat[mat_dat$model == "Tous les échantillons \nmaturation, développement \net la mise au repos supprimée" & mat_dat$sex == "Female", ]$age50mat[1]`). Ces valeurs ont été utilisées dans le cadre d'une étude de sensibilité.
 
 ```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 0.5, out.width = "6in"}
-# library(RColorBrewer)
-# library(patchwork)
-# female_cols <- RColorBrewer::brewer.pal(n = 6, name = "Reds")
-female_cols <- RColorBrewer::brewer.pal(n = 8, name = "YlOrRd")
-female_cols <- female_cols[4:7]
-female_cols <- rev(female_cols)
 
-# male_cols <- RColorBrewer::brewer.pal(n = 6, name = "Blues")
-male_cols <- RColorBrewer::brewer.pal(n = 9, name = "YlGnBu")
-male_cols <- male_cols[4:8]
-male_cols <- rev(male_cols)
-
-
-plot_bridging_mat_ogives <- function(mat_dat,
-                                     plot_sex = "Female",
-                                     col_vec = female_cols,
-                                     ogive_size = 1.3,
-                                     ogive_alpha = 0.4) {
-
-  models <- unique(mat_dat$model)
-
-  p <- mat_dat %>%
-    filter(sex == !!plot_sex) %>%
-    ggplot() +
-    geom_point(aes(age, prop_mature, colour = model),
-      # shape = 1,
-      alpha = 0.7
-    ) +
-    scale_color_manual(values = col_vec, name = "Model") +
-    ylab("Proportion mature") +
-    xlab("Age") +
-    ggtitle(plot_sex) +
-    ggsidekick::theme_sleek()
-
-
-  add_ogive <- function(p, i){
-  p + geom_function(
-    data = NULL,
-    size = ogive_size,
-    alpha = ogive_alpha,
-    # lty="dashed",
-    fun = function(x) {
-      plogis(
-        x,
-        mat_dat[mat_dat$model == models[i] & mat_dat$sex == plot_sex, ]$age50mat[1],
-        mat_dat[mat_dat$model == models[i] & mat_dat$sex == plot_sex, ]$sd50mat[1]
-      )
-    }, colour = col_vec[i], inherit.aes = FALSE
-  ) +
-    geom_vline(
-      data = NULL,
-      size = ogive_size / 2, lty = "dashed", alpha = ogive_alpha, xintercept =
-        mat_dat[mat_dat$model == models[i] &
-                  mat_dat$sex == plot_sex, ]$age50mat[1], colour = col_vec[i]
-    )
-    }
-
-  for (i in seq_along(models)){
-    p <- p %>% add_ogive(i)
-  }
-
-  p + coord_cartesian(expand = F, xlim = c(0, 26))
-}
-
-p1 <- plot_bridging_mat_ogives(mat_dat, plot_sex = "Male", col_vec = male_cols) + theme(
-  legend.title = element_blank(),
-  axis.title.x = element_blank(),
-  legend.position = c(0.7, 0.25))
-p2 <- plot_bridging_mat_ogives(mat_dat, plot_sex = "Female", col_vec = female_cols) +
-  theme(
-    axis.text.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.title.y = element_blank(),
-  legend.title = element_blank(),
-  axis.title.x = element_blank(),
-  legend.position = c(0.7, 0.25))
-
-xlab <- ggplot(data.frame(l = "Age", x = 13, y = 1)) +
-  geom_text(aes(x, y, label = l))+
-  theme_void()
-
-
-# (p1 + p2 )/xlab +
-#   patchwork::plot_layout(heights = c(20, 1.5)) & coord_cartesian(expand = F, xlim = c(0, 26)) & theme(
-#   legend.title = element_blank(),
-#   axis.title.x = element_blank(),
-#   legend.position = c(0.7, 0.25)
-# )
-
-grid.arrange(grobs = list(p1, p2),
-             ncol = 2,
-             # left = paste0(tr("Length"), " (cm)"),
-             bottom = tr("Age (years)"))
-
+plot_age_mat_ogives(mat_dat)
 ```
 
 \pagebreak
@@ -592,14 +485,15 @@ cat("## TABLES
 ")
 ```
 
-```{r appendix-data-para-5-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<appendix-data-para-5-en>>
+```{r appendix-data-para-5-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## TABLEAUX
+")
 ```
 
 ```{r growth-params-table, results = "asis"}
 cap <- paste0("Growth parameters estimated outside the ", iscam, " model. All parameters were estimated using samples from the four synoptic surveys, and were filtered to include areas 3CD and 5ABCDE only. For the age-at-50\\% maturity estimates, the following values were used to further filter the data: maturity\\_convention\\_code = 4 (flatfish), maturity\\_code = 5 (Male - Spawning, testes large, white and sperm evident), (Female - Ripe, ovaries containing entirely translucent, mature ova. eggs loose and will run from oviducts under slight pressure), and usability codes = 0 (Unknown), 1 (Fully usable), 2 (Fail, but all data usable), 6 (Gear torn, all data ok).")
 if(fr()){
-  cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ".")
+  cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ". Tous les paramètres ont été estimés à l'aide d'échantillons provenant des quatre campagnes synoptiques, et ont été filtrés pour inclure uniquement les zones 3CD et 5ABCDE. Pour les estimations de l'âge à 50 ans et de la maturité, les valeurs suivantes ont été utilisées pour filtrer davantage les données : code de maturité = 4 (poissons plats), code de maturité = 5 (mâle - frai, testicules larges, blancs et sperme évident), (femelle - mûre, ovaires contenant des ovules entièrement translucides et matures. Les œufs se détachent et s'écoulent des oviductes sous une légère pression), et les codes d'utilisabilité = 0 (Inconnu), 1 (Entièrement utilisable), 2 (Échec, mais toutes les données sont utilisables), 6 (Équipement déchiré, toutes les données sont correctes).")
 }
 
 table_growth_params(base_model,

@@ -192,8 +192,8 @@ if(!exists("models") || !exists("drs"))
 ```{r data-setup, cache.lazy = FALSE}
 # This chunk requires the chunk above that loads load-models.R has been run
 
-bc <- "British Columbia"
-sp <- "Arrowtooth Flounder"
+bc <- tr("British Columbia")
+sp <- tr("Arrowtooth Flounder")
 iscam <- "ISCAM"
 
 month_fishing_starts <- 2
@@ -235,7 +235,7 @@ if(any(wchg_2014_row)){
 }
 
 # These must be removed for call to add_extra_indices()
-survey_index <- dat$survey_index %>% 
+survey_index <- dat$survey_index |> 
   select(-species_common_name, -species_science_name)
 survey_index <- add_extra_indices(survey_index, 
                                   iphc = iphc,
@@ -311,51 +311,14 @@ age_precision <- dat$age_precision
 
 theme_set(gfiscam_theme())
 
-# Gear names are set in the data file for each model
-
-gear_names <- models[[1]][[1]][[1]]$dat$gear_names
-
-if(fr()){
-  # Translate all gear names to French
-  gear_names_fr <- map_chr(gear_names, ~{
-      tr(.x, allow_missing = TRUE)
-  })
-
-  # Base model
-  models[[1]][[1]] <-
-    replace_gear_names(models[[1]][[1]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_fr)
-  models$bridge_grps[[1]] <-
-    replace_gear_names(models$bridge_grps[[1]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_fr)
-  models$bridge_grps[[2]] <-
-    replace_gear_names(models$bridge_grps[[2]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_fr)
-}else{
- # Translate all gear names to English
-  gear_names_en <- map_chr(gear_names, ~{
-      fr2en(.x, allow_missing = TRUE)
-  })
-
-  # Base model
-  models[[1]][[1]] <-
-    replace_gear_names(models[[1]][[1]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_en)
-  models$bridge_grps[[1]] <-
-    replace_gear_names(models$bridge_grps[[1]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_en)
-  models$bridge_grps[[2]] <-
-    replace_gear_names(models$bridge_grps[[2]],
-                       old_gear_names = gear_names,
-                       new_gear_names = gear_names_en)
+if(!exists("curr_gear_language")){
+  curr_gear_language <- "en"
 }
 
+models <- set_gear_language(models, curr_gear_language)
+
 base_model <- models$base_grps[[1]][[1]]
+curr_gear_language <- ifelse(fr(), "fr", "en")
 
 base_all_gears <- gear_lu_table(base_model, "all")
 base_age_gears <- gear_lu_table(base_model, "age")
@@ -368,14 +331,14 @@ mcmc_sample_freq <- mcmc_chain_length / mcmc_num_samples
 mcmc_burn_in <- 1000
 mcmc_actual_samples <- mcmc_num_samples - mcmc_burn_in
 
-qcs <- "Queen Charlotte Sound Synoptic Survey"
-hsmas <- "Hecate Strait Multispecies Assemblage Survey"
-hss <- "Hecate Strait Synoptic Survey"
-wcvis <- "West Coast Vancouver Island Synoptic Survey"
-wchgs <- "West Coast Haida Gwaii Synoptic Survey"
-dcpue <- "Discard CPUE Index"
+qcs <- tr("Queen Charlotte Sound Synoptic Survey")
+hsmas <- tr("Hecate Strait Multispecies Assemblage Survey")
+hss <- tr("Hecate Strait Synoptic Survey")
+wcvis <- tr("West Coast Vancouver Island Synoptic Survey")
+wchgs <- tr("West Coast Haida Gwaii Synoptic Survey")
+dcpue <- tr("Discard CPUE Index")
 
-la <- "2015 assessment"
+la <- ifelse(fr(), "Évaluation de 2015", "2015 assessment")
 # tv_block1 <- paste0(unique(filter(base_model$mcmccalcs$selest_quants,
 #                                   gear == "QCS Synoptic", block == 1)$start_year),
 #                     "--", 
@@ -471,7 +434,7 @@ which_prob_less_50_50 <- which_prob_less_50_50[length(which_prob_less_50_50)]
 prob_less_50_50 <- table_dec[which_prob_less_50_50, ]
 prob_greater_50_50 <- table_dec[which_prob_less_50_50 + 1, ]
 
-catch_less_50_50 <- prob_less_50_50 %>% pull(catch_col)
+catch_less_50_50 <- prob_less_50_50 |> pull(catch_col)
 val_less_50_50 <- prob_less_50_50 |> pull(i_2023)
 
 # Decision table column indices for P(B_2023<0.4B0) and P(B_2023<0.4B0)
@@ -539,18 +502,18 @@ length_samples_ss <- filter(
 
 all_length_samples <- bind_rows(length_samples_survey, length_samples_ft, length_samples_ss)
 
-all_age_samples <- bind_rows(dat$survey_samples, comm_ft, comm_ss) %>%
+all_age_samples <- bind_rows(dat$survey_samples, comm_ft, comm_ss) |>
   filter(!is.na(age) & age < 40)
 # it seems there's one extreme outlier... 50 y, also size and sex wouldn't make sense so definite error
 
 # TODO: should the reported values (and coastwide plot) be for just from the 4 trawl surveys combined? Doesn't seem to fit as well if commercial samples added. 
-#vb_m <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#vb_m <- fit_vb(dat$survey_samples |> filter(survey_series_id %in% c(1, 3, 4, 16)), 
 #               sex = "male", method = "tmb", too_high_quantile = 1)
 
-#vb_f <- fit_vb(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#vb_f <- fit_vb(dat$survey_samples |> filter(survey_series_id %in% c(1, 3, 4, 16)), 
 #               sex = "female", method = "tmb", too_high_quantile = 1)
 
-#mat_fit <- fit_mat_ogive(dat$survey_samples %>% filter(survey_series_id %in% c(1, 3, 4, 16)), 
+#mat_fit <- fit_mat_ogive(dat$survey_samples |> filter(survey_series_id %in% c(1, 3, 4, 16)), 
 #                         type = "age", sample_id_re = TRUE, year_re = FALSE)
 #                     
 # Use function from this package as it is (very) slightly different than what 
@@ -587,12 +550,10 @@ if(file.exists(prop_female_fn)){
   saveRDS(prop_female_lst, prop_female_fn)
 }
 
-prop_female_table <- table_prop_female(prop_female_lst, return_df = TRUE)
-total_prop_female <- f(tail(prop_female_table, 1)[-1] |>
-                         unlist() |>
-                         as.numeric() |>
-                         mean(),
-                       2)
+prop_female_means <- table_prop_female(prop_female_lst,
+                                       ret_means = TRUE)
+
+total_prop_female <- f(mean(prop_female_means), 2)
 ```
 
 ```{r model-param-value-calcs}
