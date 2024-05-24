@@ -46,7 +46,7 @@ where the superscript $\mathrm{Pos}$ denotes positive component parameters, $O_{
 ```{r app-geostat-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# GEOSTATISTICAL STANDARDIZATION OF SURVEY INDICES {#app:geostat}
 Nous avons utilisé des GLMM géostatistiques spatiotemporels (modèles linéaires généralisés à effets mixtes) pour normaliser les indices d'enquête en tant qu'alternative aux estimateurs basés sur la conception [par exemple, @shelton2014; @thorson2015ices; @anderson2019synopsis; @anderson2022sdmTMB].
-Nous avons appliqué ces modèles de deux manières :
+Nous avons appliqué ces modèles de deux manières:
 1. pour normaliser les indices des relevés individuels en vue de leur utilisation dans le modèle d'évaluation des stocks et
 1. pour 'assembler' les quatre campagnes synoptiques au chalut en un seul indice synthétique afin de le comparer aux tendances de la biomasse estimée à partir du modèle d'évaluation des stocks et à l'indice de la CPUE des rejets commerciaux.
 

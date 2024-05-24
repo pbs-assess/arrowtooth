@@ -122,7 +122,7 @@ include_graphics(file.path(drs$nongit_dir,
 
 (ref:fig-condition-smoother-en) Log depth smoother from the condition model. Line represents mean and the ribbon 95% confidence intervals. Horizontal rug lines are shown on the top where data are present.
 
-(ref:fig-condition-smoother-fr) Lissage logarithmique de la profondeur à partir du modèle de condition. La ligne représente la moyenne et les intervalles de confiance à 95%. Les lignes horizontales du tapis sont indiquées en haut lorsque des données sont présentes.
+(ref:fig-condition-smoother-fr) Lissage logarithmique de la profondeur à partir du modèle de condition. La ligne représente la moyenne et les intervalles de confiance à 95 %. Les lignes horizontales du tapis sont indiquées en haut lorsque des données sont présentes.
 
 ```{r fig-condition-smoother, fig.cap = ifelse(fr(), "(ref:fig-condition-smoother-fr)", "(ref:fig-condition-smoother-en)"), out.width = "5.0in", results = 'asis'}
 

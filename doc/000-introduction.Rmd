@@ -14,7 +14,7 @@ cat("## PURPOSE OF DOCUMENT
 ```
 ```{r intro-para-02-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("## OBJECTIF DU DOCUMENT
-Le `r sp` est géré comme un stock côtier en `r bc`, la majorité des captures provenant des principales zones de la Commission des pêches maritimes du Pacifique (PMFC) 3CD ; `r wcvi`, 5AB ; `r qcs` et 5CD ; `r hs` (Figures \@ref(fig:fig-catch-spatial)--\@ref(fig:fig-trawl-footprint), Tableau \@ref(tab:area-catch-table)). Le détroit de Géorgie (zone de gestion 4B) n'est pas inclus dans cette évaluation du stock. Le total admissible des captures (TAC) est de 5 000 tonnes depuis le 21 février 2020. Le TAC a été de 15 000 t pendant de nombreuses années avant la réduction de 2020. Le 21 février est la date de début de la pêche au chalut du poisson de fond chaque année.")
+Le `r sp` est géré comme un stock côtier en `r bc`, la majorité des captures provenant des principales zones de la Commission des pêches maritimes du Pacifique (PMFC) 3CD; `r wcvi`, 5AB; `r qcs` et 5CD; `r hs` (Figures \@ref(fig:fig-catch-spatial)--\@ref(fig:fig-trawl-footprint), Tableau \@ref(tab:area-catch-table)). Le détroit de Géorgie (zone de gestion 4B) n'est pas inclus dans cette évaluation du stock. Le total admissible des captures (TAC) est de 5 000 tonnes depuis le 21 février 2020. Le TAC a été de 15 000 t pendant de nombreuses années avant la réduction de 2020. Le 21 février est la date de début de la pêche au chalut du poisson de fond chaque année.")
 ```
 
 ```{r intro-para-03-en, eval = !fr(), results = 'asis'}
@@ -54,7 +54,7 @@ cat("`r sp` have a diet comprised of zooplankton, fish, and benthic invertebrate
 ```
 
 ```{r intro-para-07-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("Le régime alimentaire des `r sp` se compose de zooplancton, de poissons et d'invertébrés benthiques. Les juvéniles se nourrissent principalement de proies mobiles telles que les euphausiacés, les cumacés, les carides et les amphipodes. Les adultes sont plus piscivores et cannibales, se nourrissant de harengs du Pacifique (*Clupea pallasii*), de dauphins juvéniles (*Theragra chalcogramma*) et de lançons du Pacifique (*Ammodytes hexapterus*), entre autres espèces [@fargo1981 ; @yang1993].")
+cat("Le régime alimentaire des `r sp` se compose de zooplancton, de poissons et d'invertébrés benthiques. Les juvéniles se nourrissent principalement de proies mobiles telles que les euphausiacés, les cumacés, les carides et les amphipodes. Les adultes sont plus piscivores et cannibales, se nourrissant de harengs du Pacifique (*Clupea pallasii*), de dauphins juvéniles (*Theragra chalcogramma*) et de lançons du Pacifique (*Ammodytes hexapterus*), entre autres espèces [@fargo1981; @yang1993].")
 ```
 
 ```{r intro-para-08-en, eval = !fr(), results = 'asis'}
