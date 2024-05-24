@@ -9,11 +9,19 @@ Before fitting a standardization model, we had to filter and manipulate the avai
 
 Commercial groundfish bottom trawl data from 1996 to present have been recorded to the fishing-event level in the presence of on-board observers or video monitoring. Since we have data on individual vessels for this modern fleet, and in keeping with previous analyses for Pacific groundfish stocks, we defined a 'fleet' for the modern dataset that includes only vessels that qualify by passing some criteria of regularly catching (and subsequently discarding) `r sp`.
 
-We follow the approach used in several recent B.C. groundfish stock assessments by requiring vessels to have caught (and discarded) the species in at least 100 tows across all years of interest, and to have passed a threshold of five trips (trips that recorded some of the species) for at least five years---all from 1996 to 2021 inclusive")
+We follow the approach used in several recent B.C. groundfish stock assessments by requiring vessels to have caught (and discarded) the species in at least 100 tows across all years of interest, and to have passed a threshold of five trips (trips that recorded some of the species) for at least five years---all from 1996 to 2021 inclusive.")
 ```
 
-```{r app-cpue-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-cpue-para-1-en>>
+```{r app-cpue-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# REJETER L'INDICE CPUE STANDARDISATION {#app:dcpue}
+Nous nous appuyons sur les méthodes décrites dans @anderson2019synopsis et @forrest2020pcod, que nous reproduisons en partie ici par souci d'exhaustivité. Nous avons cherché à générer un indice de l'abondance de `r sp` à partir des données de captures par unité d'effort (CPUE) des rejets de chaluts commerciaux, normalisé pour la profondeur, la localité de pêche, le mois, le navire et la latitude. Les localités de pêche sont des régions spatiales de taille similaire aux zones de gestion des pêcheries du Pacifique (PFMA) et sont des sous-zones des zones statistiques mineures de la côte ouest de la Colombie-Britannique qui ont été traditionnellement pêchées.
+
+## DÉFINITION DE LA FLOTTE DE REJETS COMMERCIAUX
+Avant d'ajuster un modèle de standardisation, nous avons dû filtrer et manipuler les données de capture et d'effort disponibles afin de générer un ensemble de données approprié pour l'ajustement du modèle. L'aspect unique de cette analyse, par rapport à une analyse similaire de la CPUE dans d'autres évaluations récentes des stocks réalisées en `r bc`, est que nous avons commencé par filtrer toutes les données relatives aux événements de pêche commerciale au chalut de fond afin de n'inclure que les événements pour lesquels `r sp` a été capturé et toutes les captures ont été rejetées. Cette approche a été suggérée par les représentants de l'industrie lors d'une réunion du groupe de travail technique afin d'éviter les traits ciblant `r sp` et de minimiser les problèmes liés aux changements de comportement en matière de ciblage au fil du temps.
+
+Les données relatives au chalutage de fond commercial de poisson de fond de 1996 à aujourd'hui ont été enregistrées au niveau de l'événement de pêche en présence d'observateurs à bord ou d'une surveillance vidéo. Étant donné que nous disposons de données sur les navires individuels pour cette flotte moderne, et conformément aux analyses précédentes pour les stocks de poissons de fond du Pacifique, nous avons défini une « flotte » pour l'ensemble de données modernes qui comprend uniquement les navires qui se qualifient en satisfaisant à certains critères de capture régulière (et de rejet ultérieur) de `r sp`.
+
+Nous suivons l'approche utilisée dans plusieurs évaluations récentes des stocks de poissons de fond de la Colombie-Britannique en exigeant que les navires aient capturé (et rejeté) l'espèce dans au moins 100 traits pendant toutes les années d'intérêt, et qu'ils aient dépassé un seuil de cinq sorties (sorties qui ont enregistré une partie de l'espèce) pendant au moins cinq ans----toutes de 1996 à 2021 inclusivement.")
 ```
 
 ```{r app-cpue-para-2-en, eval = !fr(), results = 'asis'}
@@ -23,14 +31,16 @@ For depth and latitude, we binned the values into a sequence of bands to allow f
 Predictors that are treated as factors in a statistical model need a reference or base level---a level from which the other coefficients for that variable estimate a difference. The base level then becomes the predictor value that is used in the prediction for the standardized index. We chose the most frequent factor level as the base level. For example, we set the base month as the most common month observed in the dataset filtered for only tows where the species was caught. This choice of base level only affects the intercept or relative magnitude of our index because of the form of our model (discussed below). This relative magnitude should not affect the outcomes of the stock assessment model because the discard CPUE index catchability is estimated with an uninformative prior.")
 ```
 
-```{r app-cpue-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-cpue-para-2-en>>
+```{r app-cpue-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## DÉFINITION DES PRÉDICTEURS DU MODÈLE DE STANDARDISATION
+Pour la profondeur et la latitude, nous avons réparti les valeurs dans une séquence de bandes afin de tenir compte des relations non linéaires entre ces prédicteurs et la CPUE [e.g., @maunder2004a]. Pour la profondeur, nous avons réparti la profondeur du chalut en bandes de 25 m de large. Pour la latitude, nous avons utilisé des bandes de 0,1 degré de large. Afin de disposer de suffisamment de données pour estimer un coefficient pour chaque niveau de facteur, nous avons limité l'éventail des tranches de profondeur à celles qui se situaient entre 0,1 % et 99,9 % de probabilité cumulée d'observations positives, puis nous avons supprimé tous les niveaux de facteur (pour tous les prédicteurs) qui contenaient moins de 0,1 % d'observations positives.
+
+Les prédicteurs traités comme des facteurs dans un modèle statistique ont besoin d'une référence ou d'un niveau de base - un niveau à partir duquel les autres coefficients de cette variable estiment une différence. Le niveau de base devient alors la valeur prédictive utilisée dans la prédiction de l'indice standardisé. Nous avons choisi le niveau de facteur le plus fréquent comme niveau de base. Par exemple, nous avons fixé le mois de base comme étant le mois le plus fréquent observé dans l'ensemble de données filtré pour les seuls traits où l'espèce a été capturée. Ce choix du niveau de base n'affecte que l'ordonnée à l'origine ou l'ampleur relative de notre indice en raison de la forme de notre modèle (voir ci-dessous). Cette ampleur relative ne devrait pas affecter les résultats du modèle d'évaluation des stocks, car la capturabilité de l'indice de CPUE des rejets est estimée avec un a priori non informatif.")
 ```
 
 ```{r app-cpue-para-3-en, eval = !fr(), results = 'asis'}
 cat("## GLMM INDEX STANDARDIZATION MODEL
-Fisheries CPUE data contains both zeros and positive continuous values. A variety of approaches have been used in the fishery literature to model such
-data. Here, we use a Tweedie GLMM (generalised linear mixed effect model):
+Fisheries CPUE data contains both zeros and positive continuous values. A variety of approaches have been used in the fishery literature to model such data. Here, we use a Tweedie GLMM (generalised linear mixed effect model):
 \begin{align}
    (\#eq:cpue-tweedie)
   y_i &\sim \mathrm{Tweedie}(\mu_i, p, \phi), \quad 1 < p < 2,\\
@@ -52,8 +62,28 @@ data. Here, we use a Tweedie GLMM (generalised linear mixed effect model):
 where $i$ represents a single tow, $y_i$ represents the catch (kg) per unit effort (hours trawled), $\bm{X_i}$ represents a vector of fixed-effect predictors (depth bins, months, latitude bins), $\bm{\beta}$ represents a vector of associated coefficients, and $\mu_i$ represents the expected CPUE in a trip or tow. The random effect intercepts ($\alpha$ symbols) are allowed to vary from the overall intercept by locality $j$ (\(\alpha^\mathrm{locality}_j\)), locality-year $k$ (\(\alpha^\mathrm{locality-year}_k\)), and vessel $l$ (\(\alpha^\mathrm{vessel}_l\)) and are constrained by normal distributions with respective standard deviations denoted by $\sigma$ parameters.")
 ```
 
-```{r app-cpue-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-cpue-para-3-en>>
+```{r app-cpue-para-3-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## MODÈLE DE STANDARDISATION DE L'INDICE GLMM
+Les données de CPUE des pêcheries contiennent à la fois des zéros et des valeurs continues positives. Diverses approches ont été utilisées dans la littérature halieutique pour modéliser ces données. Ici, nous utilisons un modèle GLMM (modèle linéaire généralisé à effets mixtes) de Tweedie :
+\begin{align}
+   (\#eq:cpue-tweedie)
+  y_i &\sim \mathrm{Tweedie}(\mu_i, p, \phi), \quad 1 < p < 2,\\
+  \mu_i &= \exp \left(
+  \bm{X}_i \bm{\beta}
+  + \alpha^\mathrm{locality}_{j[i]}
+  + \alpha^\mathrm{locality-year}_{k[i]}
+  + \alpha^\mathrm{vessel}_{l[i]}
+  \right),\\
+\alpha^\mathrm{locality}_j &\sim
+  \mathrm{Normal}(0, \sigma^2_{\alpha \; \mathrm{locality}}),\\
+ (\#eq:cpue-locality-year)
+\alpha^\mathrm{locality-year}_k &\sim
+  \mathrm{Normal}(0, \sigma^2_{\alpha \; \mathrm{locality-year}}),\\
+ (\#eq:cpue-vessel)
+\alpha^\mathrm{vessel}_l &\sim
+  \mathrm{Normal}(0, \sigma^2_{\alpha \; \mathrm{vessel}}),
+\end{align}
+où $i$ représente un seul trait, $y_i$ représente la prise (kg) par unité d'effort (heures de chalutage), $\bm{X_i}$ représente un vecteur de prédicteurs à effet fixe (bins de profondeur, mois, bins de latitude), $\bm{\beta}$ représente un vecteur de coefficients associés, et $\mu_i$ représente la CPUE attendue au cours d'une sortie ou d'un trait. Les ordonnées à effet aléatoire (symboles $\alpha$) peuvent varier par rapport à l'ordonnée globale en fonction de la localité $j$ (\(\alpha^\mathrm{locality}_j\)), de la localité-année $k$ (\(\alpha^\mathrm{locality-year}_k\)), et le navire $l$ (\(\alpha^\mathrm{vessel}_l\)) et sont contraints par des distributions normales avec des écarts-types respectifs indiqués par les paramètres $\sigma$.")
 ```
 
 ```{r app-cpue-para-4-en, eval = !fr(), results = 'asis'}
@@ -65,8 +95,14 @@ where $\bm{X_t}$ represents a vector of predictors set to the reference ($r$) le
 
 For comparison, we calculated an unstandardized timeseries using a similar procedure but without any of the covariates other than a factor predictor for each year. This is similar to calculating the geometric mean of CPUE each year but with an assumed Tweedie observation model instead of a lognormal observation model that does not allow for zeros.")
 ```
-```{r app-cpue-para-4-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-cpue-para-4-en>>
+```{r app-cpue-para-4-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("Nous pouvons alors calculer l'estimation normalisée de la PUE pour l'année $t$, $\mu_t$, comme suit
+\begin{equation}
+  \mu_tt = \exp \left(\bm{X}_t \bm{\beta} \right)
+\end{equation}
+où $\bm{X_t}$ représente un vecteur de variables prédictives fixé aux niveaux de référence ($r$) avec l'année fixée à l'année d'intérêt. Comme chacun des intercepts aléatoires $\alpha$ est fixé à zéro, l'indice est prédit pour une localité moyenne, une localité-année et un navire (pour les données modernes). Nous avons estimé les effets fixes avec le maximum de vraisemblance marginale tout en intégrant les effets aléatoires avec le logiciel statistique TMB via le paquetage R glmmTMB [@brooks2017]. Nous avons utilisé les erreurs standard ($\mathrm{SE}$) calculées par TMB sur $\log (\mu_t)$ via la méthode delta généralisée. Nous avons ensuite calculé les intervalles de confiance de Wald à 95 % comme $exp (\mu_t \pm 1,96 \mathrm{SE}_t)$.
+
+À titre de comparaison, nous avons calculé une série temporelle non normalisée en utilisant une procédure similaire mais sans aucune des covariables autres qu'un facteur prédictif pour chaque année. Cela revient à calculer la moyenne géométrique de la CPUE chaque année, mais avec un modèle d'observation Tweedie supposé au lieu d'un modèle d'observation lognormal qui ne permet pas les zéros.")
 ```
 
 ```{r bubble-utils}
@@ -110,23 +146,49 @@ bub(4)
 bub(5)
 ```
 
-```{r cpue-catch-effort, fig.cap = ifelse(fr(), paste0("Le total des captures et de l'effort de la flotte de rejets de ", tr(sp), "." ), paste0("Total catch and effort from the discard fleet of ", sp, ".")), out.width = "6in", results = 'asis'}
+(ref:fig-cpue-catch-effort-en) Total catch and effort from the discard fleet of `r sp`
+
+(ref:fig-cpue-catch-effort-fr) Le total des captures et de l'effort de la flotte de rejets de `r sp`.
+
+```{r fig-cpue-catch-effort, fig.cap = ifelse(fr(), "(ref:fig-cpue-catch-effort-fr)", "(ref:fig-cpue-catch-effort-en)"), out.width = "6in", results = 'asis'}
+
  knitr::include_graphics(file.path(cpuefold, "catch-effort-1.png"), dpi = NA)
 ```
 
-```{r cpue-coef-fixed, fig.cap = ifelse(fr(), "Estimations des coefficients à effet fixe. Dans tous les cas, les valeurs sont par rapport au niveau du facteur de référence (le plus courant). Les points, les lignes épaisses et les lignes fines représentent la moyenne, les intervalles de confiance à 50 \\% et à 95 \\%.", "Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level (the missing factor level in each plot). Dots, thick, and thin lines represent mean, 50\\%, and 95\\% confidence intervals."), out.width = "6in", results = 'asis'}
+(ref:fig-cpue-coef-fixed-en) Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level (the missing factor level in each plot). Dots, thick, and thin lines represent mean, 50%, and 95% confidence intervals.
+
+(ref:fig-cpue-coef-fixed-fr) Estimations du coefficient de l'effet fixe. Dans tous les cas, les valeurs se rapportent au niveau de facteur de référence (le plus courant) (le niveau de facteur manquant dans chaque graphique). Les points, les lignes épaisses et les lignes fines représentent la moyenne, les intervalles de confiance à 50 % et à 95 %.
+
+
+```{r fig-cpue-coef-fixed, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-fixed-fr)", "(ref:fig-cpue-coef-fixed-en)"), out.width = "6in", results = 'asis'}
+
  knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot1-1.png"), dpi = NA)
 ```
 
-```{r cpue-coef-re1, fig.cap = ifelse(fr(), "Valeurs d'interception aléatoires dans l'espace logarithmique pour la localité et le navire.", "Random intercept values in log space for locality and vessel."), out.width = "\\textwidth", results = 'asis'}
+(ref:fig-cpue-coef-rel-en) Random intercept values in log space for locality and vessel.
+
+(ref:fig-cpue-coef-rel-fr) Valeurs d'interception aléatoires dans l'espace logarithmique pour la localité et le navire.
+
+```{r fig-cpue-coef-rel, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-rel-fr)", "(ref:fig-cpue-coef-rel-en)"), out.width = "\\textwidth", results = 'asis'}
+
  knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot2-1.png"), dpi = NA)
 ```
 
-```{r cpue-coef-re2, fig.cap = ifelse(fr(), "Valeurs d'interception aléatoires pour l'effet d'interaction localité-année. Les étiquettes des panneaux représentent les ID des localités.", "Random intercept values for the locality-year interaction effect. Panel labels represent IDs for the localities."), out.width = "\\textwidth", results = 'asis'}
+(ref:fig-cpue-coef-rel2-en) Random intercept values for the locality-year interaction effect. Panel labels represent IDs for the localities.
+
+(ref:fig-cpue-coef-rel2-fr) Valeurs d'interception aléatoires pour l'effet d'interaction localité-année. Les étiquettes des panneaux représentent les identifiants des localités.
+
+```{r fig-cpue-coef-rel2, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-rel2-fr)", "(ref:fig-cpue-coef-rel2-en)"), out.width = "\\textwidth", results = 'asis'}
+
  knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot3-1.png"), dpi = NA)
 ```
 
-```{r cpue-stand-index, fig.cap = ifelse(fr(), "Indices de CPUE. La ligne rouge est la version standardisée, la ligne noire continue est une version avec seulement un prédicteur de l'année avec le modèle d'observation Tweedie, la ligne en pointillés est la somme des captures pour l'espèce divisée par l'effort pour toutes les espèces chaque année. Les rubans indiquent les intervalles de confiance à 95 \\% (Wald).", "Commercial discard CPUE indices. The red line is the standardized version, the black solid line is a version with only a year predictor with the Tweedie observation model, and the dashed line is the summed catch for the species divided by effort. The ribbons indicate the 95\\% (Wald) confidence intervals. The standardization process is not having a large impact on the shape of the time series here, which is likely indicative that there have not been systematic changes in the standardization factors included in the model that have impacted CPUE."), out.width = "\\textwidth", results = 'asis'}
+(ref:fig-cpue-stand-index-en) Commercial discard CPUE indices. The red line is the standardized version, the black solid line is a version with only a year predictor with the Tweedie observation model, and the dashed line is the summed catch for the species divided by effort. The ribbons indicate the 95% (Wald) confidence intervals. The standardization process is not having a large impact on the shape of the time series here, which is likely indicative that there have not been systematic changes in the standardization factors included in the model that have impacted CPUE.
+
+(ref:fig-cpue-stand-index-fr) Indices de CPUE pour les rejets commerciaux. La ligne rouge est la version standardisée, la ligne noire pleine est une version avec seulement un prédicteur annuel avec le modèle d'observation Tweedie, et la ligne en pointillé est la prise additionnée pour les espèces divisée par l'effort. Les rubans indiquent les intervalles de confiance à 95 % (Wald). Le processus de standardisation n'a pas un grand impact sur la forme de la série temporelle ici, ce qui indique probablement qu'il n'y a pas eu de changements systématiques dans les facteurs de standardisation inclus dans le modèle qui ont eu un impact sur la CPUE.
+
+```{r fig-cpue-stand-index, fig.cap = ifelse(fr(), "(ref:fig-cpue-stand-index-fr)", "(ref:fig-cpue-stand-index-en)"), out.width = "\\textwidth", results = 'asis'}
+
  knitr::include_graphics(file.path(cpuefold, "predictions-stand-1.png"), dpi = NA)
 ```
 

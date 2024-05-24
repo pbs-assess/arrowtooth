@@ -21,8 +21,27 @@ The following list describes modifications specific to the `r sp` assessment:
 1. Unfished spawning biomass is represented as $SB_0$ or $B_0$, and includes biomass from both sexes.")
 ```
 
-```{r app-model-eq-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-1-en>>
+```{r app-model-eq-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# DESCRIPTION DU MODELE {#app:model-desc}
+## Introduction
+La modélisation de l'évaluation des stocks a été réalisée à l'aide du modèle statistique intégré de capture et d'âge (`r iscam`), développé par S. Martell [@martell2011]. `r iscam` a été écrit en utilisant le cadre AD Model Builder. `r iscam` est un modèle statistique de capture par âge avec de nombreuses options de modélisation mises en œuvre dans un cadre d'estimation bayésien. Les auteurs ont modifié `r iscam` de manière substantielle au fil des ans, et d'autres modifications importantes ont été apportées pour cette évaluation. Le paquet [gfiscam](https://github.com/pbs-assess/gfiscam), sur la branche [WSL2](https://github.com/pbs-assess/gfiscam/tree/wsl2) contient tout le code et les Makefiles nécessaires pour compiler `r iscam` afin d'exécuter les modèles présentés dans cette évaluation.
+
+L'exécution de tous les modèles `r iscam` a été réalisée sous Linux à l'aide de scripts Bourne again shell (Bash). La compilation des résultats et la génération des tableaux et des figures ont été effectuées en R à l'aide du paquet [gfiscamutils](https://github.com/pbs-assess/gfiscamutils) développé par les auteurs.
+
+## Description du modèle
+Cette section contient la documentation et les équations du modèle structuré par âge `r iscam`, sa version en régime permanent qui est utilisée pour calculer les points de référence, les modèles d'observation utilisés pour prédire les observations, et les composants de la fonction objective qui formulent le critère statistique utilisé pour estimer les paramètres du modèle. Une liste documentée des symboles utilisés dans les équations du modèle est donnée dans le tableau \@ref(tab:iscam-variables). La documentation présentée ici est essentiellement une version révisée du guide de l'utilisateur `r iscam` [@iscam].
+
+Notez que toutes les équations du modèle sont présentées pour un modèle structuré par sexe avec $S$ sexes. Les modèles peuvent donc être construits avec des données et des estimations pour deux sexes, pour les femmes uniquement, ou pour les hommes et les femmes combinés en une seule catégorie de sexe.
+
+La liste suivante décrit les modifications spécifiques à l'évaluation `r sp` :
+1. Séparation des sexes, $S = 2$.
+1. Pêche commerciale à deux flottes.
+1. La mortalité totale est constante à travers les âges, $Z_{t,a}$ = $Z_{t}$. Une mortalité spécifique à l'âge et au sexe a été tentée, mais le modèle ne convergeait pas avec les paramètres supplémentaires requis.
+1. Sélectivité spécifique au sexe.
+1. Sélectivité optionnelle variable dans le temps pour le `r qcs`.
+1. Les observations de la composition par âge ont été supposées provenir d'une distribution Dirichlet-multinomiale.
+1. Fécondité et maturité sont synonymes et utilisés de manière interchangeable.
+1. La biomasse reproductrice non pêchée est représentée par $SB_0$ ou $B_0$ et comprend la biomasse des deux sexes.")
 ```
 
 ```{r app-model-eq-para-2-en, eval = !fr(), results = 'asis'}
@@ -39,8 +58,18 @@ and the density-dependent term is given by:
 which simplifies to Eq. \@ref(eq:df14). The equilibrium yield $C_e$ for a given fishing mortality rate is given by Eq. \@ref(eq:df15). These steady-state conditions are critical for determining various reference points such as \emph{F}\subscr{MSY} and \emph{B}\subscr{MSY}.")
 ```
 
-```{r app-model-eq-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-2-en>>
+```{r app-model-eq-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## MÉTHODES ANALYTIQUES: CONSIDÉRATIONS SUR L'ÉQUILIBRE
+### Un modèle structuré par âge en régime permanent
+Pour les conditions d'équilibre représentées dans la section \@ref(model-steady-state), nous supposons que le vecteur de paramètres $\Theta$ dans l'Eq. \@ref(eq:df01) est inconnu et serait estimé en ajustant \r iscam` aux données.
+
+Pour un ensemble donné de paramètres de croissance et de paramètres de maturité à l'âge définis par l'Eq. \@ref(eq:df02), la croissance est supposée suivre la méthode de von Bertalanffy (Eq. \@ref(eq:df03)). Le poids moyen à l'âge est donné par la relation allométrique de l'Eq. \@ref(eq:df04), et la vulnérabilité et la fécondité spécifiques à l'âge sont données par des fonctions logistiques basées sur l'âge (Eqns. \ref(eq:df05) et \ref(eq:df06)). Les termes 'vulnérabilité' et 'sélectivité' sont utilisés de manière interchangeable dans le présent document, bien que, techniquement, la sélectivité se réfère à l'engin de pêche, tandis que la vulnérabilité se réfère à tous les processus affectant la disponibilité des poissons pour la pêcherie. Les paramètres de sélectivité peuvent être fixes ou estimés.
+
+La survie des populations non pêchées et pêchées est définie par les équations suivantes \@ref(eq:df07) et \@ref(eq:df08), respectivement. On suppose que tous les individus âgés de $A$ et plus (c'est-à-dire le groupe plus) ont le même taux de mortalité total. Les fonctions d'incidence se réfèrent à la durée de vie ou aux quantités par recrue telles que la biomasse de frai par recrue ($\phi_E$ et $\phi_e$, Eq. \@ref(eq:df09)) ou la biomasse vulnérable par recrue ($\phi_B$ et $\phi_b$, Eq. \@ref(eq:df10)). Il convient de noter que les indices en majuscules et en minuscules désignent respectivement les conditions non pêchées et pêchées. La biomasse reproductrice non pêchée est donnée par l'Eq. \@ref(eq:df12) et le ratio de compensation du recrutement [@myers1998] est donné par l'Eq. \@ref(eq:df13). Le recrutement d'équilibre $R_e$ est donné par l'équation \@ref(eq:df14). On suppose que le recrutement suit un modèle de recrutement du stock de Beverton-Holt de la forme indiquée dans l'Eq. \@ref(eq:df14), où le taux maximal de survie des juvéniles $s_o$ est donné par :
+\[s_o=\frac{\kappa}{\phi_E}\]
+et le terme dépendant de la densité est donné par :
+\[\beta=\frac{\kappa-1}{R_{{o}}\phi_{{E}}}\]
+qui se simplifie en Eq. \@ref(eq:df14). Le rendement d'équilibre $C_e$ pour un taux de mortalité par pêche donné est donné par l'Eq. \@ref(eq:df15). Ces conditions d'équilibre sont essentielles pour déterminer divers points de référence tels que \emph{F}\subscr{MSY} et \emph{B}\subscr{MSY}.")
 ```
 
 ```{r app-model-eq-para-3-en, eval = !fr(), results = 'asis'}
@@ -48,8 +77,9 @@ cat("### MSY-based Reference Points
 When defining reference points for this assessment, the two commercial trawl fleets were used to calculate MSY quantities. `r iscam` calculates \emph{F}\subscr{MSY} by finding the value of \emph{F}\subscr{e} that results in the zero derivative of Eq. \@ref(eq:df15). This is accomplished numerically using a Newton-Raphson method where an initial guess for \emph{F}\subscr{MSY} is set equal to 1.5$M$ [@iscam; @grandin2017].")
 ```
 
-```{r app-model-eq-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-3-en>>
+```{r app-model-eq-para-3-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Points de référence basés sur le RMD
+Lors de la définition des points de référence pour cette évaluation, les deux flottes de chalutiers commerciaux ont été utilisées pour calculer les quantités de la PME. `r iscam` calcule \emph{F}\subscr{MSY} en trouvant la valeur de \emph{F}\subscr{e} qui résulte en la dérivée zéro de l'Eq. \@ref(eq:df15). Cette opération est réalisée numériquement à l'aide d'une méthode de Newton-Raphson dans laquelle une estimation initiale de \emph{F}\subscr{MSY} est fixée à 1,5$M$ [@iscam; @grandin2017].")
 ```
 
 ```{r app-model-eq-para-4-en, eval = !fr(), results = 'asis'}
@@ -66,11 +96,24 @@ State variables in each year are updated using Eqns. \@ref(eq:df23)--\@ref(eq:df
 
 Numbers-at-age are propagated over time using Eq. \@ref(eq:df26), where members of the plus group (age $A$) are all assumed to have the same total mortality rate.
 
-Recruitment to age $k$ is assumed to follow a Beverton-Holt model for `r sp` (Eq. \@ref(eq:df27)) where the maximum juvenile survival rate ($s_o$) is defined by $s_o=\kappa/\phi_E$. For the Beverton-Holt model, $\beta$ is derived by solving Eq. \@ref(eq:df27) for $\beta$ conditional on estimates of $h$ and $R_o$.")
+Recruitment to age $k$ is assumed to follow a Beverton-Holt model for `r sp` (Eq. \@ref(eq:df27)) where the maximum juvenile survival rate ($s_0$) is defined by $s_0=\kappa/\phi_E$. For the Beverton-Holt model, $\beta$ is derived by solving Eq. \@ref(eq:df27) for $\beta$ conditional on estimates of $h$ and $R_0$.")
 ```
 
-```{r app-model-eq-para-4-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-4-en>>
+```{r app-model-eq-para-4-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## Méthodes analytiques : Dynamique de l'état
+Le vecteur de paramètres estimé dans `r iscam` est défini dans l'Eq. \@ref(eq:df16) dans la section \@ref(model-catch-age). Les paramètres estimés $R_0$, $h$, et $M$, sont les paramètres principaux de la population qui définissent l'échelle globale et la productivité de la population.
+
+Les composantes de la variance du modèle ont été réparties en utilisant une approche basée sur les erreurs dans les variables. Le paramètre clé de la variance est l'inverse de la variance totale $\vartheta^2$ (c'est-à-dire la variance totale). Ce paramètre peut être fixe ou estimé, et il a été estimé pour ce modèle. La variance totale est divisée en composantes d'erreur d'observation et de processus par le paramètre de modèle $\rho$, qui représente la proportion de la variance totale due à l'erreur d'observation (Eq. \@ref(eq:df17)) [@punt1999; @deriso2007].
+
+Les variables d'état non observées dans l'Eq. \@ref(eq:df18) comprennent les effectifs à l'âge du sexe $s$ à l'année $t$ ($N_{t,a,s}$), la biomasse du stock reproducteur à l'année $t$ ($SB_{t}$) et le taux de mortalité total spécifique à l'âge ($Z_{t,a,s}$). Les effectifs initiaux en âge la première année (Eq. \@ref(eq:df19)) et les recrues annuelles (Eq. \@ref(eq:df20)) sont traités comme des paramètres estimés et utilisés pour initialiser le tableau des effectifs en âge.
+
+La vulnérabilité à l'âge est ici supposée invariante dans le temps et est modélisée à l'aide d'une fonction logistique à deux paramètres (Eq. \@ref(eq:df21)). La mortalité par pêche annuelle pour chaque engin $k$ au cours de l'année $t$ est l'exposant du vecteur estimé $\Gamma_{k,t}$ (Eq. \@ref(eq:df22)). Le vecteur des paramètres logarithmiques du taux de mortalité par pêche $\Gamma_{k,t}$ est un vecteur borné dont la valeur minimale est de $-30,0$ et la limite supérieure de $3,0$. Dans l'espace arithmétique, cela correspond à une valeur minimale de $9.36e^{-14}$ et à une valeur maximale de $20.01$ pour les taux annuels de mortalité par pêche. Les années où il n'y a aucune capture déclarée pour une flotte donnée, aucun paramètre de taux de mortalité par pêche correspondant n'est estimé et l'hypothèse implicite est qu'il n'y a pas eu de pêche cette année-là.
+
+Les variables d'état de chaque année sont mises à jour à l'aide des équations suivantes \@ref(eq:df23)--\@ref(eq:df26), où la biomasse reproductrice est le produit des nombres à l'âge et de la biomasse mature à l'âge (Eq. \@ref(eq:df23)). Le taux de mortalité total est donné par l'équation \@ref(eq:df24), et la capture totale (en poids) pour chaque engin est donnée par l'équation \@ref(eq:df25), en supposant que la mortalité naturelle et la mortalité par pêche se produisent simultanément tout au long de l'année.
+
+Les effectifs en âge sont propagés dans le temps à l'aide de l'équation suivante \@ref(eq:df26), où les membres du groupe plus (âge $A$) sont tous supposés avoir le même taux de mortalité total.
+
+Le recrutement à l'âge $k$ est supposé suivre un modèle de Beverton-Holt pour `r sp` (Eq. \@ref(eq:df27)) où le taux maximum de survie juvénile ($s_0$) est défini par $s_0=\kappa/\phi_E$. Pour le modèle de Beverton-Holt, $\beta$ est dérivé en résolvant l'Eq. \@ref(eq:df27) pour $\beta$ conditionnellement aux estimations de $h$ et $R_0$.")
 ```
 
 ```{r app-model-eq-para-5-en, eval = !fr(), results = 'asis'}
@@ -90,8 +133,21 @@ Tests showed the model was insensitive to changes in the penalty function parame
 The objective function components are discussed in more detail in the following sections.")
 ```
 
-```{r app-model-eq-para-5-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-5-en>>
+```{r app-model-eq-para-5-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## Résidus, vraisemblances et composantes de la valeur de la fonction objective {#secObjFunc}
+La fonction objective contient cinq composantes principales :
+1. La log-vraisemblance négative pour les données de capture
+1. La log-vraisemblance négative pour les données d'abondance relative
+1. Le log-vraisemblance négatif pour les données de composition par âge
+1. Les distributions préalables pour les paramètres du modèle
+1. Trois fonctions de pénalité qui sont invoquées pour régulariser la solution pendant les phases intermédiaires de l'estimation des paramètres non linéaires. Les fonctions de pénalité :
+    - contraignent les estimations du recrutement annuel à se conformer à une fonction stock-recrutement de Beverton-Holt
+    - contraignent faiblement les écarts logarithmiques du recrutement à une distribution normale
+    - contraindre faiblement les estimations du logarithme de la mortalité par pêche à une distribution normale ($\sim N(\ln(0,2), 4,0)$) pour éviter que les estimations des captures ne dépassent la biomasse estimée.
+
+Les tests ont montré que le modèle était insensible aux changements des paramètres de la fonction de pénalité, ce qui indique que les autres composantes de la vraisemblance et les distributions de probabilités préalables étaient les contributeurs les plus importants à la fonction objective.
+
+Les composantes de la fonction objective sont examinées plus en détail dans les sections suivantes.")
 ```
 
 ```{r app-model-eq-para-6-en, eval = !fr(), results = 'asis'}
@@ -126,8 +182,36 @@ where $\rho \varphi^2$ is the proportion of the total error that is associated w
 The $\omega_{k,t}$ terms allow each observation to be weighted relative to the total error $\rho \varphi^2$. Note that if $\omega_{k,t}=0$ then Eq. \@ref(eq:df5) is undefined; therefore, `r iscam` adds a small constant to $\omega_{k,t}$ ($e^{-10}$, which is equivalent to assuming an extremely large variance) to ensure the likelihood can be evaluated. In this assessment, values for $\omega_{k,t}$ were set to the inverse of the annual CVs from the survey or Discard CPUE index (Table \@ref(tab:survey-index-data-table)).")
 ```
 
-```{r app-model-eq-para-6-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-6-en>>
+```{r app-model-eq-para-6-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Données sur les captures
+On suppose que les erreurs de mesure dans les observations de captures sont distribuées de façon log-normale et que les résidus sont donnés par :
+\begin{equation}
+  \eta_{k,t}=\ln(C_{k,t}+o) - \ln(\hat{C}_{k,t}+o)
+  \label{eq:df1}
+\end{equation} où $o$ est une petite constante ($e^{-10}$) pour s'assurer que le résidu est défini dans le cas d'une observation de prise nulle. Les résidus sont supposés être normalement distribués avec un écart-type spécifié par l'utilisateur $\sigma_{C}$. Actuellement, on suppose que les captures observées pour chaque engin $k$ ont le même écart-type. La log-vraisemblance négative (en ignorant la constante d'échelle) pour les données de capture est donnée par :
+\begin{equation}
+  \ell_C = \sum_k[ T_k\ln(\sigma_C)+\frac{\sum_t(\eta_{k,t})^2}{2\sigma_C^2}]
+  \label{eq:df2}
+\end{equation} où $T_k$ est le nombre total d'observations de captures pour le type d'engin $k$.
+
+### Données d'abondance relative
+Les données d'abondance relative sont supposées être proportionnelles à la biomasse reproductrice qui est vulnérable à l'engin d'échantillonnage :
+\begin{equation}
+  V_{k,t} = \sum_a SN_{t,a} e^{-\lambda_{k,t} Z_{t,a}} v_{k,a} w_a
+  \label{eq:df3}
+\end{equation} où $v_{k,a}$ est la sélectivité par âge de l'engin $k$, et $w_a$ est le poids moyen à l'âge. Une fraction de la mortalité totale spécifiée par l'utilisateur $\lambda_{k,t}$ ajuste les nombres à l'âge pour corriger le calendrier de l'enquête. Les résidus entre l'indice d'abondance relative observé et prédit sont donnés par :
+\begin{equation}
+  \epsilon_{k,t} = \ln(I_{k,t}) - \ln(q_k)+\ln(V_{k,t})
+  \label{eq:df4}
+\end{equation} où $I_{k,t}$ est l'indice d'abondance relative observé, $q_k$ est le coefficient de capturabilité pour l'indice $k$, et $V_{k,t}$ est la biomasse vulnérable prédite au moment de l'échantillonnage. Le coefficient de capturabilité $q_k$ est évalué à son estimation conditionnelle du maximum de vraisemblance :
+\[q_k =\frac{1}{N_k} \sum_{t \in I_{k,t}} \ln(I_{k,t}) - \ln(V_{k,t}) \label{eq:df5}\] où $N_k$ est le nombre d'observations d'abondance relative pour l'indice $k$ [@walters1994]. La log-vraisemblance négative pour les données d'abondance relative est donnée par :
+\begin{equation}\label{eq:df5}
+  \ell_I = \sum_k \sum_{t \in I_{k,t}} \ln(\sigma_{k,t})+\frac{\epsilon_{k,t}^2}{2\sigma_{k,t}^2}
+\end{equation} où :
+\[\sigma_{k,t} = \frac{\rho \varphi^2}{\omega_{k,t}} \label{eq:df7}\]
+où $\rho \varphi^2$ est la proportion de l'erreur totale associée aux erreurs d'observation, et $\omega_{k,t}$ est un poids relatif spécifié par l'utilisateur pour l'observation $t$ de l'engin $k$.
+
+Les termes $\omega_{k,t}$ permettent de pondérer chaque observation par rapport à l'erreur totale $\rho \varphi^2$. On notera que si $\omega_{k,t}=0$, l'équation \@ref(eq:df5) n'est pas définie ; par conséquent, \r iscam` ajoute une petite constante à $\omega_{k,t}$ ($e^{-10}$, ce qui équivaut à supposer une variance extrêmement grande) afin de s'assurer que la vraisemblance peut être évaluée. Dans cette évaluation, les valeurs de $\omega_{k,t}$ ont été fixées à l'inverse des CV annuels de l'enquête ou de l'indice de CPUE des rejets (Tableau \@ref(tab:survey-index-data-table)).")
 ```
 
 ```{r app-model-eq-para-7-en, eval = !fr(), results = 'asis'}
@@ -185,17 +269,63 @@ The negative log likelihood for the recruitment deviations is given by the norma
 ")
 ```
 
-```{r app-model-eq-para-7-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-7-en>>
+```{r app-model-eq-para-7-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Données sur la composition par âge
+**Distribution multinomiale**
+La théorie de l'échantillonnage suggère que les données sur la composition par âge sont dérivées d'une distribution multinomiale [@fournier1982]. Cependant, les applications de `r iscam` ont généralement supposé que les proportions d'âge sont obtenues à partir d'une distribution logistique multivariée (également appelée normale logistique) [@schnute1995 ; @richards1997]. `r iscam` s'écarte du modèle multinomial traditionnel en raison des choix concernant la pondération des données de composition par âge dans la fonction objectif. Tout d'abord, la distribution multinomiale nécessite la spécification d'une taille d'échantillon effective. Cette pondération peut être effectuée arbitrairement ou par repondération itérative [@mcallister1997, @gavaris2002; @francis2016], et dans le cas de proportions d'âge multiples et potentiellement conflictuelles, cette procédure peut ne pas converger. La taille effective supposée de l'échantillon peut avoir un impact important sur les résultats globaux du modèle.
+
+L'une des caractéristiques de la distribution logistique multivariée est que les données relatives aux proportions d'âge peuvent être pondérées sur la base de l'estimation conditionnelle du maximum de vraisemblance de la variance des proportions d'âge. Par conséquent, la contribution des données relatives à la composition par âge à la fonction objective globale est « auto-pondérée » et dépend des autres composantes du modèle. En ignorant l'indice du type d'engin pour plus de clarté, les proportions par âge observées et prédites doivent satisfaire à la contrainte suivante :
+\[\sum_{a=1}^A p_{t,a} = 1\]
+pour chaque année. Les résidus entre les proportions observées ($p_{t,a}$) et prédites ($\hat{p}_{t,a}$) sont donnés par :
+\begin{equation}\label{eq:df33}
+  \eta_{t,a}=\ln(p_{t,a})-\ln(\hat{p}_{t,a})-\frac{1}{A}\sum_{a=1}^A\left[\ln(p_{t,a})-\ln(\hat{p}_{t,a}) \right]
+\end{equation} L'estimation conditionnelle du maximum de vraisemblance de la variance est donnée par
+\[\hat{\tau}^2=\frac{1}{(A-1)T}\sum_{t=1}^T\sum_{a=1}^A \eta_{t,a}^2\]
+et la log-vraisemblance négative évaluée à l'estimation conditionnelle du maximum de vraisemblance de la variance est donnée par :
+\begin{equation}
+  \ell_A = (A-1)T \ln(\hat{\tau}^2).
+  \label{eq:df6}
+\end{equation} En bref, la vraisemblance logistique multivariée pour les données sur la composition par âge est simplement le logarithme de la variance résiduelle pondérée par le nombre d'observations sur les années et les âges.
+
+La logistique multivariée a été utilisée dans les modèles `r la` et bridge de cette évaluation avant le modèle `r bridge_models_text[[2]][1]` bridge (Section \@ref(bridging)).
+
+**Distribution multinomiale de Dirichlet**
+La distribution multinomiale de Dirichlet (DM) a été implémentée dans `r iscam` pour cette évaluation en remplacement de la repondération itérative des données d'âge et à la place de la vraisemblance logistique multivariée, qui présentait des problèmes de convergence avec plusieurs des configurations de modèles les plus complexes. La DM évite d'estimer les tailles d'échantillon effectives à partir du modèle. La distribution incorpore un paramètre supplémentaire par flotte par rapport à la distribution multinomiale. Cette méthode a été testée par rapport à l'approche de repondération itérative introduite dans @mcallister1997, avec des résultats similaires [@thorson2016].
+
+La vraisemblance pour le DM est similaire à la vraisemblance multinomiale, avec deux termes supplémentaires (Eq. \@ref(eq:dm-like)). Le premier terme de la vraisemblance DM $\frac{\Gamma(n+1)}{\Pi_{a=1}^{a_{max}}\Gamma(n\tilde{\pi_a}+1)}$ est la vraisemblance multinomiale. Ce terme ne dépend pas des paramètres et garantit une vraisemblance multinomiale lorsque $\beta >> n$.  
+\begin{equation}
+  L(\pi,\beta|\tilde{\pi},n) = \frac{\Gamma(n+1)}{\Pi_{a=1}^{a_{max}}\Gamma(n\tilde{\pi_a}+1)} \frac{\Gamma(\beta)}{\Gamma(n+\beta)} \Gamma_{a=1}^{a_{max}} \frac{\Gamma(n\tilde{\pi}_a+\beta\pi_a)}{\Gamma(\beta\pi_a)}
+  \label{eq:dm-like}
+\end{equation}
+La taille effective de l'échantillon $n_\mathrm{eff}$ est :
+\begin{equation}
+  n_{eff} = \frac{n+n\beta}{n+\beta}
+  \label{eq:dm-eff}
+\end{equation} La paramétrisation 'saturante' du DM a été mise en œuvre dans l'ISCAM pour cette évaluation. Cette paramétrisation revient à la distribution multinomiale lorsque $\beta$ est suffisamment grand (Eq. \@ref(eq:dm-eff)), c'est-à-dire $n_\mathrm{eff} \simeq n$ lorsque $\beta >> n$. Elle fournit une borne supérieure pour les faibles valeurs de $hat{\beta}$, c'est-à-dire $n_\mathrm{eff} \simeq 1 + \beta$ lorsque $n >> \beta$.
+
+Le logarithme négatif de la vraisemblance pour les écarts de recrutement est donné par la densité normale (sans tenir compte de la constante d'échelle) :
+\begin{equation}
+  \ell_\delta = n\ln(\tau) + \frac{\sum_{t=1+k}^T \delta^2_t}{2\tau^2}
+  \label{eq:df8}
+\end{equation} Eqs. \@ref(eq:df7) et \@ref(eq:df8) sont essentielles pour estimer la biomasse du stock reproducteur non pêché et la compensation du recrutement via les modèles de recrutement. La relation entre ($s_o,\beta$) et ($B_o,\kappa$) est donnée par :
+\begin{equation}\label{eq:df9}
+  s_o = \frac{\kappa}{\phi_E}
+\end{equation}
+\begin{equation}\label{eq:df10}
+  \beta = \frac{\kappa-1}{B_o} \qquad (\mathrm{Beverton-Holt})
+\end{equation} où $s_o$ est le taux maximum de survie des juvéniles, et $\beta$ est l'effet de la densité sur le recrutement, et $B_o$ est la biomasse du stock reproducteur non pêché. La biomasse du stock reproducteur non pêché à l'état d'équilibre par recrue est donnée par $\phi_E$, qui est la somme des produits entre la survie par âge et la fécondité relative.
+")
 ```
 
 ```{r app-model-eq-para-8-en, eval = !fr(), results = 'asis'}
 cat("### Parameter Estimation and Uncertainty
-Parameter estimation and quantifying uncertainty was carried out using the tools available in AD Model Builder. AD Model Builder (ADMB) is software for creating executable code to estimate the parameters and associated probability distributions for nonlinear statistical models. The software is freely available from \href{http://admb-project.org/}{the ADMB project}. The ADMB software was used to develop [gfiscam](https://github.com/pbs-assess/gfiscam), which was developed from the [original `r iscam` project](https://sites.google.com/site/iscamproject/home).
+Parameter estimation and quantifying uncertainty was carried out using the tools available in AD Model Builder. AD Model Builder (ADMB) is software for creating executable code to estimate the parameters and associated probability distributions for nonlinear statistical models. The software is freely available from [the ADMB project](http://admb-project.org/). The ADMB software was used to develop [gfiscam](https://github.com/pbs-assess/gfiscam), which was developed from the [original `r iscam` project](https://sites.google.com/site/iscamproject/home).
 
 There are five distinct components that make up the objective function that ADMB is minimizing:
-\[f = \mbox{negative loglikelihoods} + \mbox{constraints}+\mbox{priors for parameters} + \mbox{survey priors} + \mbox{convergence penalties}.\]
+\[f = \mbox{negative loglikelihoods} + \mbox{constraints}+\mbox{priors for parameters}\]
+\[+ \mbox{survey priors} + \mbox{convergence penalties}.\]
 The purpose of this section is to document all of the components that make up the objective function.
+\
 
 **Negative log-likelihoods**
 The negative log-likelihoods pertain specifically elements that deal with the data and variance partitioning and have already been described in detail in earlier portions of Section \@ref(secObjFunc). There are four specific elements that make up the vector of the objective function:
@@ -203,8 +333,29 @@ The negative log-likelihoods pertain specifically elements that deal with the da
   \vec{\ell}=\ell_C, \ell_I, \ell_A, \ell_\delta.
   \label{eq:df11}
 \end{equation} To reiterate, these are the likelihood of the catch data $\ell_C$, likelihood of the survey data $\ell_I$, the likelihood of the age-composition data $\ell_A$ and the likelihood of the stock-recruitment residuals $\ell_\delta$. Each of these elements are expressed in negative log-space, and ADMB attempts to estimate model parameters by minimizing the sum of these elements.\
+")
+```
 
-**Constraints**
+```{r app-model-eq-para-8-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Estimation des paramètres et incertitude
+L'estimation des paramètres et la quantification de l'incertitude ont été réalisées à l'aide des outils disponibles dans AD Model Builder. AD Model Builder (ADMB) est un logiciel permettant de créer un code exécutable pour estimer les paramètres et les distributions de probabilité associées pour les modèles statistiques non linéaires. Le logiciel est disponible gratuitement sur [le projet ADMB](http://admb-project.org/). Le logiciel ADMB a été utilisé pour développer [gfiscam](https://github.com/pbs-assess/gfiscam), qui a été développé à partir du [projet original `r iscam`](https://sites.google.com/site/iscamproject/home).
+
+La fonction objective que ADMB cherche à minimiser est composée de cinq éléments distincts :
+\[f = \mbox{vraisemblances logiques négatives} + \mbox{contraintes}+\mbox{priorités pour les paramètres}\]
+\[+ \mbox{priorités de l'enquête} + \mbox{pénalités de convergence}.\]
+Le but de cette section est de documenter tous les éléments qui composent la fonction objective.
+
+**Log-vraisemblances négatives**
+Les log-vraisemblances négatives se rapportent spécifiquement aux éléments qui traitent des données et du partitionnement de la variance et ont déjà été décrites en détail dans les parties précédentes de la section \@ref(secObjFunc). Quatre éléments spécifiques composent le vecteur de la fonction objective :
+\begin{equation}
+  \vec{\ell}=\ell_C, \ell_I, \ell_A, \ell_\delta.
+  \label{eq:df11}
+\end{equation} Pour rappel, il s'agit de la vraisemblance des données de capture $\ell_C$, de la vraisemblance des données d'enquête $\ell_I$, de la vraisemblance des données de composition par âge $\ell_A$ et de la vraisemblance des résidus stock-recrutement $\ell_Delta$. Chacun de ces éléments est exprimé en logarithme négatif et ADMB tente d'estimer les paramètres du modèle en minimisant la somme de ces éléments.\
+")
+```
+
+```{r app-model-eq-para-9-en, eval = !fr(), results = 'asis'}
+cat("**Constraints**
 There are two specific constraints that are described here: (1) parameter bounds and (2) constraints to ensure that a parameter vector sums to 0.
 
 In `r iscam` the user must specify the lower and upper bounds for the leading parameters defined in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$). All estimated selectivity parameters $\vec{\gamma}_k$ are estimated in log space and have a minimum and maximum values of -5.0 and 5.0, respectively. These values are hard-wired into the code, but should be sufficiently large/small enough to capture a wide range of selectivities.
@@ -212,21 +363,30 @@ In `r iscam` the user must specify the lower and upper bounds for the leading pa
 Estimated fishing mortality rates are also constrained (in log space) to have a minimum value of -30, and a maximum value of 3.0, also hard-wired. Log annual recruitment deviations are also constrained to have minimum and maximum values of -15.0 and 15.0 and there is an additional constraint to ensure the vector of deviations sums to 0. This is necessary in order to be able to estimate the average recruitment $\bar{R}$. 
 
 **Priors for parameters**
-Each of the seven leading parameters (eight if there are two sexes) specified in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$) are declared as bounded parameters and in addition the user can also specify an informative prior distribution for each of these parameters. Five distinct prior distributions can be implemented: uniform, normal, lognormal, beta and a gamma distribution. See Table \@ref(tab:param-settings-table) for inital values and prior types and values used for this `r sp` assessment.")
+Each of the seven leading parameters (eight if there are two sexes) specified in the control file ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$) are declared as bounded parameters and in addition the user can also specify an informative prior distribution for each of these parameters. Five distinct prior distributions can be implemented: uniform, normal, lognormal, beta and a gamma distribution. See Table \@ref(tab:param-settings-table) for inital values and prior types and values used for this `r sp` assessment.
+")
 ```
 
-```{r app-model-eq-para-8-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-8-en>>
+```{r app-model-eq-para-9-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("**Contraintes**
+Deux contraintes spécifiques sont décrites ici : (1) les limites des paramètres et (2) les contraintes visant à garantir que la somme d'un vecteur de paramètres est égale à 0.
+
+Dans `r iscam`, l'utilisateur doit spécifier les limites inférieures et supérieures des paramètres principaux définis dans le fichier de contrôle ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$). Tous les paramètres de sélectivité estimés $\vec{\gamma}_k$ sont estimés dans l'espace logarithmique et ont des valeurs minimale et maximale de -5,0 et 5,0, respectivement. Ces valeurs sont câblées dans le code, mais devraient être suffisamment grandes/petites pour capturer une large gamme de sélectivités.
+
+Les taux estimés de mortalité par pêche sont également contraints (en espace logarithmique) à avoir une valeur minimale de -30 et une valeur maximale de 3,0, également câblée. Les écarts logarithmiques du recrutement annuel sont également contraints d'avoir des valeurs minimales et maximales de -15,0 et 15,0 et il existe une contrainte supplémentaire pour s'assurer que le vecteur des écarts est égal à 0. Ceci est nécessaire pour pouvoir estimer le recrutement moyen $\bar{R}$. 
+
+**Préférences pour les paramètres**
+Chacun des sept paramètres principaux (huit s'il y a deux sexes) spécifiés dans le fichier de contrôle ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$) est déclaré comme paramètre borné et l'utilisateur peut en outre spécifier une distribution préalable informative pour chacun de ces paramètres. Cinq distributions préalables distinctes peuvent être mises en œuvre : uniforme, normale, lognormale, bêta et gamma. Voir le tableau \@ref(tab:param-settings-table) pour les valeurs initiales et les types et valeurs d'antériorité utilisés pour cette évaluation `r sp`.")
 ```
 
 \clearpage
 
-```{r app-model-eq-para-9-en, eval = !fr(), results = 'asis'}
+```{r app-model-eq-para-10-en, eval = !fr(), results = 'asis'}
 cat("## Model parameters, symbols, and equations {#model-equations}")
 ```
 
-```{r app-model-eq-para-9-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-9-en>>
+```{r app-model-eq-para-10-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## Paramètres, symboles et équations du modèle {#model-equations}")
 ```
 
 \FloatBarrier
@@ -292,7 +452,7 @@ $\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
 
 \clearpage
 
-```{r app-model-eq-para-10-en, eval = !fr(), results = 'asis'}
+```{r app-model-eq-para-11-en, eval = !fr(), results = 'asis'}
 cat("### Steady-state age-structured model {#model-steady-state}
 Assumptions in this steady-state model include:
 - Unequal vulnerability-at-age
@@ -446,8 +606,159 @@ Recruitment for this model is a Beverton-Holt formulation with the lognormal bia
 ")
 ```
 
-```{r app-model-eq-para-10-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-model-eq-para-10-en>>
+```{r app-model-eq-para-11-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### Modèle structuré par âge à l'état stable {#model-steady-state}
+Les hypothèses de ce modèle à l'état stable sont les suivantes :
+- Vulnérabilité inégale à l'âge
+- Fécondité spécifique à l'âge
+- Recrutement de type Beverton-Holt
+
+**Paramètres** 
+Le modèle comprend des paramètres de régime permanent:
+
+\begin{flalign}
+  \Theta = (B_0,h,\kappa,M_s,\hat{a}_{k,s,b},\hat{\gamma}_{k,s,b}); \qquad B_0>0; \qquad 0.2 \leq h < 1; \qquad \kappa>1; \qquad M_s>0 &&
+  \label{eq:df01} &&
+\end{flalign} et des paramètres fixes de croissance et de maturité:
+\begin{flalign}
+  \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s) &&
+  \label{eq:df02}     
+\end{flalign} **Informations sur le calendrier des âges**
+L'âge est défini comme suit:
+\begin{flalign}
+  l_{a,s}=l_{}\left(1-e^{\left(-k_s\left(a-t_{o,s}\right)\right)}\right) &&
+  \label{eq:df03}
+\end{flalign} et le poids à l'âge par sexe comme:
+\begin{flalign}
+  w_{a,s}=\acute{a}_s(l_{a,s})^{\acute{b}_s}. &&
+  \label{eq:df04}
+\end{flalign} La vulnérabilité à l'âge est définie comme suit:
+\begin{flalign}
+  v_{a,s}=\left(1+e^{\left(\frac{-(\hat{a_{s}}-a)}{\hat{\gamma_{s}}}\right)}\right)^{-1} &&
+  \label{eq:df05}
+\end{flalign} et la fécondité à l'âge comme:
+\begin{flalign}
+  f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1} &&
+  \label{eq:df06}
+\end{flalign} **Survivance**
+La survie des populations non pêchées est définie comme suit:
+\begin{flalign}
+  \iota_{a,s} = \begin{cases}
+    \frac{1}{S}, & a = 1 \\
+    \iota_{a-1,s}e^{-M_s}, & 1 < a < A \\
+    \frac{\iota_{a-1,s}}{(1-e^{-M_s})}, & a = A \\
+  \end{cases} &&
+  \label{eq:df07}
+\end{flalign} et pour les populations pêchées:
+\begin{flalign}
+  \hat{\iota}_{a,s} = \begin{cases}
+    \frac{1}{S}, & a = 1 \\
+    \hat{\iota}_{a-1,s}e^{-M_s-F_{e}v_{a-1,s}}, & 1 < a < A \\
+    \frac{\hat{\iota}_{a-1,s}e^{-M_s-F_ev_{a-1,s}}}{(1-e^{-M_s-F_e v_{a,s}})}, & a = A \\
+  \end{cases} &&
+\label{eq:df08}
+\end{flalign}  **Fonctions d'incidence**
+Les fonctions d'incidence se réfèrent à la durée de vie ou aux quantités par recrue. La biomasse de frai par recrue pour les populations non pêchées ou pêchées est définie comme suit:
+\begin{flalign}
+  \phi_E=\sum_{s=1}^S\sum_{a=1}^\infty \iota_{a,s} f_{a,s} & &
+  \phi_e=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{a,s} f_{a,s} &&
+  \label{eq:df09}
+\end{flalign} La biomasse vulnérable par recrue pour les populations non pêchées ou pêchées est définie comme suit:
+\begin{flalign}
+  \phi_B=\sum_{s=1}^S\sum_{a=1}^\infty \iota_{a,s} w_{a,s} v_{a,s} & & &
+  \phi_b=\sum_{s=1}^S\sum_{a=1}^\infty \hat{\iota}_{a,s} w_{a,s} v_{a,s} &&
+  \label{eq:df10}
+\end{flalign} Le rendement par recrue pour la pêcherie est donné par:
+\begin{flalign}
+  \phi_q=\sum_{s=1}^S\sum_{a=1}^\infty
+  \frac{\hat{\iota}_{a,s} w_{a,s} v_{a,s}}{M_s+F_ev_{a,s}}
+  \left(1-e^{(-M_s-F_ev_{a,s})}\right) &&
+  \label{eq:df11}
+\end{flalign} **Conditions en régime permanent**
+La biomasse dans des conditions non pêchées est définie comme suit:
+\begin{flalign}
+  B_o=R_o\phi_E &&
+  \label{eq:df12}
+\end{flalign} Le recrutement d'équilibre est donné par:
+\begin{flalign}
+  \kappa=\frac{4h}{1-h} &&
+  \label{eq:df13}
+\end{flalign}
+\begin{flalign}
+  R_0=\frac{B_0}{\phi_E} &&
+  \label{eq:df13-1}
+\end{flalign}
+\begin{flalign}
+  R_e=R_0 \frac{\kappa-\frac{\phi_E}{\phi_e}}{\kappa-1}; \qquad (\mathrm{Beverton-Holt}) &&
+  \label{eq:df14}
+\end{flalign} Le rendement d'équilibre est donné par:
+\begin{flalign}
+  C_e=F_e R_e\phi_q &&
+  \label{eq:df15}
+\end{flalign}
+### Modèle statistique de l'âge de capture {#model-catch-age}
+Ce modèle utilise l'équation de capture de Baranov et C* et F* comme paramètres principaux.
+
+**Paramètres estimés ou fixes**
+\begin{flalign}
+  \Theta= (R_0,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\digamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}+1}^{t=\acute{t}-1}) &&
+  \label{eq:df16}
+\end{flalign}
+\begin{flalign}
+  \sigma=\frac{\sqrt{\rho}}{\vartheta}; \qquad \tau=\frac{\sqrt{(1-\rho)}}{\vartheta} &&
+  \label{eq:df17}
+\end{flalign} **États non observés**
+Le nombre d'individus à l'âge, la biomasse du stock reproducteur et les taux de mortalité totale:
+\begin{flalign}
+  N_{t,a,s}; \qquad B_{t,s}; \qquad Z_{t,a,s} &&
+  \label{eq:df18}
+\end{flalign} **États initiaux**
+Les nombres initiaux en âge la première année et les recrues annuelles sont traités comme des paramètres estimés et utilisés pour initialiser la matrice des nombres en âge.:
+\begin{flalign}
+  N_{t,a,s}=\frac{1}{S}\overline{R}_{\mathrm{init}}e^{\omega_\mathrm{init,t}}e^{-M_s(a-1)}; \qquad (\acute{t}-A)<t<1; \qquad 2\leq a \leq A &&
+  \label{eq:df19}
+\end{flalign}
+\begin{flalign}
+  N_{t,a,s}=\frac{1}{S}\bar{R}e^{\omega_{t}}; \qquad 1\leq t\leq T; \qquad a=1 &&
+  \label{eq:df20}
+\end{flalign} La sélectivité par âge pour le type d'engin $k$ est fonction des paramètres de sélectivité et de la mortalité par pêche annuelle pour chaque engin $k$ au cours de l'année $t$.:
+\begin{flalign}
+  v_{k,a}= \frac{1}{1+e^{-\frac{\left(a - \hat{a}_k\right)}{\hat{\gamma}_k}}} &&
+  \label{eq:df21}
+\end{flalign} La mortalité par pêche pour chaque engin $k$ au cours de l'année $t$ est l'exposant du logarithme estimé de la mortalité par pêche $\digamma_{k,t}$:
+\begin{flalign}
+  F_{k,t}=e^{\digamma_{k,t}} &&
+  \label{eq:df22}
+\end{flalign} **Dynamique de l'État ($t>1$)**
+Les variables d'état de chaque année sont mises à jour à l'aide des équations suivantes, où la biomasse reproductrice est le produit des effectifs à l'âge et de la biomasse mature à l'âge..
+\begin{flalign}
+  B_{t,s}=\sum_a N_{t,a,s}f_{a,s} &&
+  \label{eq:df23}
+\end{flalign} Le taux de mortalité total est donné par:
+\begin{flalign}
+  Z_{t,a,s}=M_s+\sum_k F_{k,t} v_{k,t,a,s} &&
+  \label{eq:df24}
+\end{flalign} et la capture totale (en poids) pour chaque engin est donnée par:
+\begin{flalign}
+  \hat{C}_{k,t}=\sum _ s\sum _ a\frac {N_{{t,a,s}}w_{{a,s}}F_{k,t} v_{{k,t,a,s}} ( 1-{e^{-Z_{t,a,s}}} ) }{Z_{t,a,s}}^{\eta_t} &&
+  \label{eq:df25}
+\end{flalign} en supposant que la mortalité naturelle et la mortalité par pêche se produisent simultanément tout au long de l'année. Les effectifs en âge sont propagés dans le temps comme suit:
+\begin{flalign}
+  N_{t,a,s} = \begin{cases}
+    \frac{s_oE_{t-1}}{1+\beta E_{t-1}} e^{(\omega_t-0.5\tau^2)} & a=1 \\
+    N_{t-1,a-1,s} e^{(-Z_{t-1,a-1,s})} &a>1 \\
+    N_{t-1,a,s} e^{(-Z_{t-1,a,s})} & a=A \\
+  \end{cases} &&
+  \label{eq:df26}
+\end{flalign} où les membres du groupe plus (âge A) sont tous supposés avoir le même taux de mortalité total.
+
+**Modèle de recrutement**
+Le recrutement pour ce modèle est une formulation de Beverton-Holt avec un terme de correction de biais lognormal $-0.5\tau^2$.:
+\begin{flalign}
+  R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}; \qquad (\mathrm{Beverton-Holt}) &&
+  \label{eq:df27}
+\end{flalign}
+")
 ```
 
 \clearpage

@@ -43,8 +43,45 @@ O_{\s,t} \right),
 where the superscript $\mathrm{Pos}$ denotes positive component parameters, $O_{\s, t}$ represents an offset variable (here log area swept) and the other parameters have a similar definition to the binomial model above.")
 ```
 
-```{r app-geostat-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-geostat-para-1-en>>
+```{r app-geostat-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# GEOSTATISTICAL STANDARDIZATION OF SURVEY INDICES {#app:geostat}
+Nous avons utilisé des GLMM géostatistiques spatiotemporels (modèles linéaires généralisés à effets mixtes) pour normaliser les indices d'enquête en tant qu'alternative aux estimateurs basés sur la conception [par exemple, @shelton2014; @thorson2015ices; @anderson2019synopsis; @anderson2022sdmTMB].
+Nous avons appliqué ces modèles de deux manières :
+1. pour normaliser les indices des relevés individuels en vue de leur utilisation dans le modèle d'évaluation des stocks et
+1. pour 'assembler' les quatre campagnes synoptiques au chalut en un seul indice synthétique afin de le comparer aux tendances de la biomasse estimée à partir du modèle d'évaluation des stocks et à l'indice de la CPUE des rejets commerciaux.
+
+## MODÉLISATION DES ENQUÊTES INDIVIDUELLES
+Pour les indices des relevés individuels, nous avons utilisé des modèles delta/hurdle (appelés ici modèle $\Delta$-Gamma [@aitchison1955]). Dans ce modèle, la capture de l'étude synoptique (Figures \@ref(fig:geo-bubble1), \@ref(fig:geo-bubble2)) est définie sur la base d'un modèle de probabilité de rencontre et d'un modèle de capture positive.
+\begin{equation}
+  \mathrm{Pr} [C > 0] = p,
+\end{equation}
+where $C$ is the observed catch $p$ is the probability of encounter. The positive component given encounter is defined as
+\begin{equation}
+  \mathrm{Pr} [C = c \vert C > 0] = \mathrm{Gamma}\left(c, \gamma, \lambda / \gamma \right),
+\end{equation}
+où $c$ est la prise observée étant donné $C > 0$, $\gamma$ est le paramètre de forme, $\lambda$ est la valeur attendue, et $\lambda / \gamma$ combiné est le paramètre d'échelle.
+
+La composante linéaire du modèle binomial de rencontre est définie comme suit
+\begin{align}
+  p_{\s,t} &=
+  \mathrm{logit}^{-1} \left(\alpha_k^\mathrm{Bin} + f(\ln(D_{\s,t})) + \omega_{\s}^\mathrm{Bin} + \epsilon_{\s,t}^\mathrm{Bin} \right),
+\end{align}
+où l'exposant $\mathrm{Bin}$ désigne les paramètres des composantes binomiales. Le paramètre $\alpha_k^\mathrm{Bin}$ est une ordonnée à l'origine pour chaque étude $k$, $f(\ln(D_{\s,t}))$ est un lisseur pénalisé sur la profondeur logarithmique du fond, $\omega_{\s}^\mathrm{Bin}$ est une valeur de champ aléatoire spatial.
+\begin{align}
+  \boldsymbol{\omega} &\sim \operatorname{MVNormal} \left( \boldsymbol{0}, \boldsymbol{\Sigma}_\omega \right),
+\end{align}
+and $\epsilon_{\s,t}^\mathrm{Bin}$ is a spatiotemporal random field value
+\begin{align}
+  \boldsymbol{\epsilon} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}).
+\end{align}
+
+La composante linéaire du modèle de capture positif Gamma est définie comme suit
+\begin{align}
+  \lambda_{\s,t} &=
+  \exp \left(\alpha_k^\mathrm{Pos} + f(\ln(D_{\s,t})) + \omega_{\s}^\mathrm{Pos} + \epsilon{\s,t}^\mathrm{Pos} +
+O_{\s,t} \right),
+\end{align}
+où l'exposant $\mathrm{Pos}$ désigne les paramètres positifs de la composante, $O_{\s, t}$ représente une variable de décalage (ici le logarithme de la surface balayée) et les autres paramètres ont une définition similaire à celle du modèle binomial ci-dessus.")
 ```
 
 ```{r app-geostat-para-2-en, eval = !fr(), results = 'asis'}
@@ -98,15 +135,62 @@ The total biomass $b$ for a given year $t$ is calculated as:
 where $j$ indexes $n_j$ grid cells, $p_j$ is the probability of encounter in grid cell $j$, $\lambda_j$ is the expected catch conditional on encounter in grid cell $j$, and $a_j$ is the area of grid cell $j$ (4 km^2^).")
 ```
 
-```{r app-geostat-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-geostat-para-2-en>>
-```
+```{r app-geostat-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## ENQUÊTE SUR LES POINTS DE SUTURE
+Pour l'assemblage de l'enquête, les modèles ont pris une forme similaire, à l'exception de ce qui suit :
+1. les modèles n'incluaient pas d'intercepts indépendants pour les années individuelles
+1. les effets aléatoires spatio-temporels ont été autorisés à suivre une marche aléatoire (cela a permis de limiter le modèle lors de l'assemblage des enquêtes bisannuelles)
+1. nous avons considéré des modèles qui incluaient et excluaient un lisseur pour la profondeur
+1. nous avons envisagé un modèle d'erreur d'observation de Tweedie comme alternative.
 
+La composante linéaire du modèle binomial de rencontre est définie comme suit
+\begin{align}
+  p_{\s,t} &=
+  \mathrm{logit}^{-1} \left(\beta_0^\mathrm{Bin} + f (d_{\s,t}) + \omega_{\s}^\mathrm{Bin} + \delta_{\s,t}^\mathrm{Bin} \right),
+\end{align}
+où l'exposant $\mathrm{Bin}$ désigne les paramètres des composantes binomiales. Le paramètre $\beta_0^\mathrm{Bin}$ est un intercept global, $f (d_{\s,t})$ est une fonction de lissage pénalisée pour la profondeur logarithmique avec une dimension de base supérieure de 5, $\omega_{\s}^\mathrm{Bin}$ est une valeur de champ aléatoire spatial.
+\begin{align}
+  \boldsymbol{\omega} &\sim \operatorname{MVNormal} \left( \boldsymbol{0}, \boldsymbol{\Sigma}_\omega \right),
+\end{align}
+et $\delta_{\s,t}^\mathrm{Bin}$ est un effet aléatoire tiré d'un champ aléatoire spatiotemporel qui est supposé suivre une marche aléatoire
+\begin{align}
+  \boldsymbol{\delta}_{t=1} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}),\\
+  \boldsymbol{\delta}_{t>1} &= \boldsymbol{\delta}_{t-1} +  \boldsymbol{\epsilon_{t-1}},  \:
+  \boldsymbol{\epsilon_{t-1}} \sim \operatorname{MVNormal} \left(\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon} \right).
+\end{align}
+
+La composante linéaire du modèle de capture positive Gamma est définie comme suit
+\begin{align}
+  \lambda_{\s,t} &=
+  \exp \left(\beta_0^\mathrm{Pos} + f (d_{\s,t}) + \omega_{\s}^\mathrm{Pos} + \delta_{\s,t}^\mathrm{Pos} +
+  O_{\s,t} \right),
+\end{align}
+où l'exposant $\mathrm{Pos}$ désigne les paramètres des composantes positives, $O_{\s, t}$ représente une variable de décalage (ici le logarithme de la surface balayée) et les autres paramètres ont une définition similaire à celle du modèle binomial ci-dessus.
+
+Nous avons également considéré un modèle de Tweedie dont la composante linéaire est définie comme suit
+\begin{align}
+  \mu_{\s,t} &= \exp \left(\beta_0 + f (d_{\s,t}) + \omega_{\s} + O_{\s,t} + \delta_{\s,t} \right),
+\end{align}
+où les paramètres ont une définition similaire à celle des modèles binomiaux et gamma, mais où les données sont prises en compte par une distribution d'observation unique - la Tweedie - avec les paramètres de moyenne, de puissance et d'échelle qui lui sont associés.
+
+En outre, nous avons examiné des versions des modèles ci-dessus sans que la profondeur ne soit un prédicteur. Au total, nous avons ajusté quatre modèles : $\Delta$-Gamma avec profondeur, $\Delta$-Gamma sans profondeur, Tweedie avec profondeur et Tweedie sans profondeur.
+
+Parmi les modèles considérés, les modèles sans profondeur font moins d'hypothèses. En outre, la source de données sur la profondeur est différente de la source de données utilisée pour la grille et il est possible qu'elles représentent des variables légèrement différentes. Étant donné que les tendances des modèles incluant la profondeur étaient similaires à celles des modèles n'incluant pas la profondeur, les modèles n'incluant pas la profondeur sont probablement meilleurs pour le processus d'assemblage. Les prédictions du modèle $\Delta$-Gamma sans profondeur sont donc présentées dans les figures \@ref(fig:geo-predmap1) et \@ref(fig:geo-predmap2).
+
+## Calcul de la biomasse annuelle standardisée
+
+La biomasse totale $b$ pour une année donnée $t$ est calculée comme suit :
+\begin{equation}
+  b_t = \sum^{n_j}_{j = 1} p_{j,t} \lambda_{j,t} a_j,
+\end{equation}
+où $j$ désigne $n_j$ cellules de la grille, $p_j$ est la probabilité de rencontre dans la cellule de la grille $j$, $\lambda_j$ est la prise attendue conditionnellement à la rencontre dans la cellule de la grille $j$, et $a_j$ est la surface de la cellule de la grille $j$ (4 km^2^).")
+
+```
 ```{r app-geostat-para-3-en, eval = !fr(), results = 'asis'}
 cat("## MODEL FITTING
 We fit our models with the R package [sdmTMB](https://github.com/pbs-assess/sdmTMB) [@anderson2019synopsis; @anderson2022sdmTMB], which develops input Stochastic Partial Differential Equation (SPDE) matrices using the R package INLA [@lindgren2011; @rue2017], calculates the model log likelihood via a TMB [@kristensen2016] template, and minimizes the negative marginal log likelihood via the R [@r2022] non-linear minimization routine `stats::nlminb()`. The Laplace approximation, as implemented in TMB, is used to integrate over random effects. We followed this optimization with a Newton optimizer, `stats::optimHess()` to further reduce the negative log likelihood.
 
-To ensure our final optimization was consistent with convergence, we checked that all gradients with respect to fixed effects were < 0.001 and that Hessian matrices were positive-definite. We constructed our SPDE meshes such that the minimum allowed distance between vertices in the mesh (INLA `cutoff`) was 20 km in the coastwide model; 10 km for `r qcs`, `r hss`, and the `r wcvis`; and 7 km for `r wchgs` (smaller survey area with a sharp depth transition).
+To ensure our final optimization was consistent with convergence, we checked that all gradients with respect to fixed effects were < 0.001 and that Hessian matrices were positive-definite. We constructed our SPDE meshes such that the minimum allowed distance between vertices in the mesh (INLA 'cutoff') was 20 km in the coastwide model; 10 km for `r qcs`, `r hss`, and the `r wcvis`; and 7 km for `r wchgs` (smaller survey area with a sharp depth transition).
 
 ## MODELLED INDICES
 The geostatistical indices for individual surveys had lower CVs, on average, than the design-based indices---particularly in Queen Charlotte Sound (Fig. \@ref(fig:geo-individual)). The $\Delta$-Gamma and Tweedie stitched indices were similar to each other. The most noticeable difference was that including a smoother for depth slightly reduced the estimate of biomass in 2003--2004 and shrunk the confidence intervals in those years (Fig. \@ref(fig:geo-indexes)).
@@ -114,42 +198,110 @@ The geostatistical indices for individual surveys had lower CVs, on average, tha
 The geostatistical coastwide stitched survey indices all showed a strong resemblance to the commercial Discard CPUE index (Fig. \@ref(fig:geo-indexes-cpue)) with mostly overlapping confidence intervals, marked declines from 2010 to 2021, and a dip in the mid 2000s. There was some discrepancy in the initial year of the survey (2003) with the Discard CPUE being slightly higher,  although the majority of the confidence intervals still overlap.")
 ```
 
-```{r app-geostat-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-geostat-para-3-en>>
+```{r app-geostat-para-3-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## AJUSTEMENT DU MODÈLE
+Nous avons ajusté nos modèles avec le package R [sdmTMB](https://github.com/pbs-assess/sdmTMB) [@anderson2019synopsis; @anderson2022sdmTMB], qui développe des matrices d'équations aux dérivées partielles stochastiques (SPDE) d'entrée à l'aide du package R INLA [@lindgren2011; @rue2017], calcule la log-vraisemblance du modèle via un modèle TMB [@kristensen2016], et minimise la log-vraisemblance marginale négative via la routine de minimisation non linéaire R [@r2022] `stats::nlminb()`. L'approximation de Laplace, telle qu'elle est implémentée dans TMB, est utilisée pour intégrer les effets aléatoires. Nous avons suivi cette optimisation avec un optimiseur de Newton, `stats::optimHess()` pour réduire davantage la vraisemblance logarithmique négative.
+
+Pour s'assurer que notre optimisation finale était compatible avec la convergence, nous avons vérifié que tous les gradients par rapport aux effets fixes étaient < 0,001 et que les matrices hessiennes étaient positivement définies. Nous avons construit nos maillages SPDE de manière à ce que la distance minimale autorisée entre les sommets du maillage (INLA 'cutoff') soit de 20 km dans le modèle de la côte; 10 km pour `r qcs`, `r hss`, et `r wcvis`; et 7 km pour `r wchgs` (zone d'étude plus petite avec une transition de profondeur marquée).
+
+## INDICES MODÉLISÉS
+Les indices géostatistiques pour les relevés individuels avaient des CV plus faibles, en moyenne, que les indices basés sur la conception - en particulier dans le détroit de la Reine-Charlotte (Fig. \@ref(fig:geo-individual)). Les indices cousus $\Delta$-Gamma et Tweedie étaient similaires les uns aux autres. La différence la plus notable est que l'inclusion d'un lisseur pour la profondeur a légèrement réduit l'estimation de la biomasse en 2003-2004 et a rétréci les intervalles de confiance pour ces années (Fig. \@ref(fig:geo-indexes)).
+
+Les indices géostatistiques des relevés couplés à l'échelle de la côte ont tous montré une forte ressemblance avec l'indice de CPUE des rejets commerciaux (Fig. \@ref(fig:geo-indexes-cpue)) avec des intervalles de confiance qui se chevauchent pour la plupart, des déclins marqués de 2010 à 2021, et un creux au milieu des années 2000. La première année de l'étude (2003) a été marquée par une certaine divergence, la CPUE des rejets étant légèrement plus élevée, bien que la majorité des intervalles de confiance se chevauchent toujours.
+")
 ```
 
 ```{r app-geostat-para-4-en, eval = !fr(), results = 'asis'}
 cat("## GEOSTATISTICAL INDEX FIGURES {#geostat-figs}")
 ```
 
-```{r app-geostat-para-4-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-geostat-para-4-en>>
+```{r app-geostat-para-4-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## INDICES GÉOSTATISTIQUES {#geostat-figs}")
 ```
 
-```{r geo-bubble1, fig.cap = ifelse(fr(), "Graphique à bulles des données d'enquête de 2003 à 2012. La superficie et la couleur des cercles correspondent à la densité des mouillages. Les zones où les captures de limande à dents de flèche sont nulles sont indiquées par une croix grise.", "Survey data bubble plot for 2003 to 2012. The area and colour of circles corresponds to set density. Sets with zero Arrowtooth Flounder catch are indicated with a grey cross."), out.width = "\\textwidth", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-raw1.png"), dpi = NA)
+
+(ref:fig-geo-bubble1-en) Survey data bubble plot for 2003 to 2012. The area and colour of circles corresponds to set density. Sets with zero `r sp` catch are indicated with a grey cross. 
+
+(ref:fig-geo-bubble1-fr) Graphique à bulles des données d'enquête de 2003 à 2012. La surface et la couleur des cercles correspondent à la densité des calées. Les ensembles dont la prise `r sp` est nulle sont indiqués par une croix grise. 
+
+```{r fig-geo-bubble1, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble1-fr)", "(ref:fig-geo-bubble1-en)"), out.width = "\\textwidth", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "geostat-map-raw1.png"),
+                 dpi = NA)
 ```
 
-```{r geo-bubble2, fig.cap = ifelse(fr(), "Graphique à bulles des données d'enquête pour 2013 à 2021. La superficie et la couleur des cercles correspondent à la densité des mouillages. Les zones où il n'y a pas de prises de limande à dents de flèche sont indiquées par une croix grise.", "Survey data bubble plot for 2013 to 2021. The area and colour of circles corresponds to set density. Sets with zero Arrowtooth Flounder catch are indicated with a grey cross."), out.width = "\\textwidth", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-raw2.png"), dpi = NA)
+(ref:fig-geo-bubble2-en) Survey data bubble plot for 2013 to 2021. The area and colour of circles corresponds to set density. Sets with zero `r sp` catch are indicated with a grey cross.
+
+(ref:fig-geo-bubble2-fr) Graphique à bulles des données d'enquête pour la période 2013-2021. La surface et la couleur des cercles correspondent à la densité de l'ensemble. Les ensembles dont les prises `r sp` sont nulles sont indiqués par une croix grise.
+
+```{r fig-geo-bubble2, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble2-fr)", "(ref:fig-geo-bubble2-en)"), out.width = "\\textwidth", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "geostat-map-raw2.png"),
+                 dpi = NA)
 ```
 
-```{r geo-predmap1, fig.cap = ifelse(fr(), "Densité de la biomasse de la limande à dents de flèche prévue pour 2003 à 2012 à partir du modèle $\\Delta$-Gamma sans profondeur pour l'ensemble de la côte.", "Predicted Arrowtooth Flounder biomass density for 2003 to 2012 from the coastwide $\\Delta$-Gamma model without depth."), out.width = "\\textwidth", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-pred1.png"), dpi = NA)
+(ref:fig-geo-predmap1-en) Predicted `r sp` biomass density for 2003 to 2012 from the coastwide $\Delta$-Gamma model without depth.
+
+(ref:fig-geo-predmap1-fr) Densité de biomasse `r sp` prédite pour 2003 à 2012 à partir du modèle $\Delta$-Gamma pour l'ensemble de la côte sans profondeur.
+
+```{r fig-geo-predmap1, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap1-fr)", "(ref:fig-geo-predmap1-en)"), out.width = "\\textwidth", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "geostat-map-pred1.png"),
+                 dpi = NA)
 ```
 
-```{r geo-predmap2, fig.cap = ifelse(fr(), "Densité de la biomasse de la limande à dents de flèche prévue pour 2013 à 2021 à partir du modèle $\\Delta$-Gamma sans profondeur pour l'ensemble de la côte.", "Predicted Arrowtooth Flounder biomass density for 2013 to 2021 from the coastwide $\\Delta$-Gamma model without depth."), out.width = "\\textwidth", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-map-pred2.png"), dpi = NA)
+(ref:fig-geo-predmap2-en) Predicted `r sp` biomass density for 2013 to 2021 from the coastwide $\Delta$-Gamma model without depth.
+
+(ref:fig-geo-predmap2-fr) Densité de biomasse `r sp` prédite pour 2013 à 2021 à partir du modèle $\Delta$-Gamma pour l'ensemble de la côte sans profondeur.
+
+```{r fig-geo-predmap2, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap2-fr)", "(ref:fig-geo-predmap2-en)"), out.width = "\\textwidth", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "geostat-map-pred2.png"),
+                 dpi = NA)
 ```
 
-```{r geo-individual, fig.cap = ifelse(fr(), "Indices géostatistiques individuels comparés aux indices basés sur la conception. Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95 \\%.", "Individual geostatistical indices compared to design-based indices. Lines indicate means and ribbons 95\\% percent confidence intervals."), results = 'asis'}
- knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-individual-vs-design.png"), dpi = NA)
+(ref:fig-geo-individual-en) Individual geostatistical indices compared to design-based indices. Lines indicate means and ribbons 95% confidence intervals.
+
+(ref:fig-geo-individual-fr) Indices géostatistiques individuels comparés aux indices basés sur le plan. Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95 %.
+
+```{r fig-geo-individual, fig.cap = ifelse(fr(), "(ref:fig-geo-individual-fr)", "(ref:fig-geo-individual-en)"), results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "geostat-individual-vs-design.png"),
+                 dpi = NA)
 ```
 
-```{r geo-indexes, fig.cap = ifelse(fr(), "Indices d'abondance cousus pour la limande à dents de flèche à partir de quatre modèles. Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95 \\%.", "Stitched indexes of abundance for Arrowtooth Flounder from four models. Lines indicate means and ribbons 95\\% confidence intervals."), out.width = "5.5in", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-indexes.png"), dpi = NA)
+(ref:fig-geo-indexes-en) Stitched indexes of abundance for `r sp` from four models. Lines indicate means and ribbons 95% confidence intervals.
+
+(ref:fig-geo-indexes-fr) Indices d'abondance cousus pour `r sp` à partir de quatre modèles. Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95 %.
+
+```{r fig-geo-indexes, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-fr)", "(ref:fig-geo-indexes-en)"), out.width = "5.5in", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "geostat-indexes.png"),
+                 dpi = NA)
 ```
 
-```{r geo-indexes-cpue, fig.cap = ifelse(fr(), "Indices d'abondance cousus pour la limande à dents de flèche à partir de quatre modèles, l'indice de la CPUE des rejets commerciaux étant indiqué en gris (pointillé). Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95 \\%. Tous les indices ont été centrés de manière à ce que leurs moyennes géométriques de 2003 à 2021 soient égales.", "Stitched indexes of abundance for Arrowtooth Flounder from four models with the commercial discard CPUE index shown in (dashed) grey. Lines indicate means and ribbons 95\\% confidence intervals. All indexes were centered such that their geometric means from 2003--2021 were one."), out.width = "5.5in", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "geostat-indexes-cpue.png"), dpi = NA)
+(ref:fig-geo-indexes-cpue-en) Stitched indexes of abundance for `r sp` from four models with the commercial discard CPUE index shown in (dashed) grey. Lines indicate means and ribbons 95% confidence intervals. All indexes were centered such that their geometric means from 2003--2021 were one.
+
+(ref:fig-geo-indexes-cpue-fr) Indices d'abondance cousus pour `r sp` à partir de quatre modèles avec l'indice de CPUE des rejets commerciaux indiqué en gris (pointillé). Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95%. Tous les indices ont été centrés de manière à ce que leurs moyennes géométriques de 2003 à 2021 soient égales.
+
+```{r geo-indexes-cpue, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-cpue-fr)", "(ref:fig-geo-indexes-cpue-en)"), out.width = "5.5in", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "geostat-indexes-cpue.png"),
+                 dpi = NA)
 ```
+
+\clearpage

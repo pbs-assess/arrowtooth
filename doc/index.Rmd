@@ -405,7 +405,7 @@ depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
 # P(B2023<0.4B0), P(B2024<0.4B0), P(B2025<0.4B0), P(B2023<0.4B0),
 # P(B2023<B2022), P(B2024<B2023), P(B2025<B2024)
 table_dec <- table_decisions(base_model, ret_df = TRUE, digits = 3)
-catch_col <- sym(grep("^Catch", names(table_dec), value = TRUE))
+catch_col <- sym(grep(tr("Catch"), names(table_dec), value = TRUE))
 
 # Decision table column indices for P(B_2023<B_2022)
 i_2023 <- grep("\\{2023\\} < B", names(table_dec))

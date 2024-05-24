@@ -26,8 +26,32 @@ We considered a model that included a spatial random field; however, the varianc
 Finally, we also explored a model configuration where depth was included as a non-orthogonal third-order polynomial that could evolve between years via a random walk. This model included independent spatial and spatiotemporal random fields and a smoother on year, because the previous random field configuration would not converge with the increased flexibility of a time-vary depth effect.")
 ```
 
-```{r app-cond-para-1-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-cond-para-1-en>>
+```{r app-cond-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# TENDANCES DE L'ÉTAT CORPOREL
+Nous avons étudié les tendances spatio-temporelles de la condition corporelle `r sp` [@nash2006a], la condition corporelle (ci-après « condition ») indiquant la « rondeur » d'un organisme. Pour ce faire, nous avons ajusté un modèle géostatistique à l'échelle de la côte aux résidus de la relation longueur-poids de `r sp` en suivant d'autres approches récentes [@thorson2015condition ; @lindmark2022].
+
+## MODÈLE DE CONDITION
+Nous avons d'abord ajusté un modèle longueur-poids non spatial de la forme $\log (W_i) \sim$ Student-t $(\mathrm{df} = 3, \log(a) + b \log(L_i), \sigma),$ avec $W_i$ et $L_i$ représentant le poids et la longueur pour le poisson $i$ et $\sigma$ représentant l'échelle d'erreur d'observation. Les degrés de liberté (df) de la distribution Student-t sont fixés à 3 pour être robustes aux valeurs aberrantes. Les variables $a$ et $b$ représentent les paramètres longueur-poids estimés. Nous les avons ajustés séparément pour les poissons mâles et femelles.
+
+Nous avons ensuite calculé le facteur de condition $K^\mathrm{cond}$ comme $W_i / \widehat{W}_i$ où $\widehat{W}_i$ se réfère au poids prédit à partir du modèle poids-longueur ci-dessus. Nous avons supprimé les valeurs du facteur de condition qui étaient supérieures au quantile 0,995 ou inférieures au quantile 0,005 afin de réduire l'effet des valeurs aberrantes.
+
+Nous avons ensuite ajusté un modèle géostatistique en suivant les méthodes de l'annexe \@ref(app:geostat).
+
+Notre modèle était de la forme suivante
+\begin{align}
+  K^\mathrm{cond}_{s,t} &\sim \operatorname{Lognormal} \left(\mu^\mathrm{cond}_{s,t}, \sigma^\mathrm{cond} \right),\\
+  \mu^\mathrm{cond}_{s,t} &= \exp \left(\beta_0 + f (d_{s,t}) + \delta_{s,t} \right).
+\end{align}Ici, $\beta_0$ est un intercept global, $f (d_{s,t})$ est un lisseur pénalisé pour la profondeur, et $\delta_{s,t}$ représente un champ aléatoire spatio-temporel qui suit une marche aléatoire.
+\begin{align}
+  \boldsymbol{\delta}_{t=1} &\sim \operatorname{MVNormal} (\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon}),\\
+  \boldsymbol{\delta}_{t>1} &= \boldsymbol{\delta}_{t-1} +  \boldsymbol{\epsilon_{t-1}},  \:
+  \boldsymbol{\epsilon_{t-1}} \sim \operatorname{MVNormal} \left(\boldsymbol{0}, \boldsymbol{\Sigma}_{\epsilon} \right).
+\end{align}
+
+Nous avons envisagé un modèle qui incluait un champ aléatoire spatial; cependant, la variance de ce champ aléatoire a été estimée proche de zéro et nous l'avons donc exclu de notre modèle final. Nous avons ensuite calculé un indice de facteur de condition annuel comme la moyenne prédite de $K^\mathrm{cond}_{s,t}$ dans toutes les cellules de grille de 2 km de l'enquête $\times$ 2 km chaque année.
+
+Enfin, nous avons également exploré une configuration de modèle dans laquelle la profondeur était incluse sous la forme d'un polynôme non orthogonal de troisième ordre qui pouvait évoluer entre les années par le biais d'une marche aléatoire. Ce modèle comprenait des champs aléatoires spatiaux et spatiotemporels indépendants et un lissage sur l'année, parce que la configuration précédente de champ aléatoire ne convergeait pas avec la flexibilité accrue d'un effet de profondeur variable dans le temps.
+")
 ```
 
 ```{r app-cond-para-2-en, eval = !fr(), results = 'asis'}
@@ -41,34 +65,81 @@ The depth smoother indicates a higher condition factor in deeper waters (Fig. \@
 There is ongoing research on this topic for all groundfish species (Philina English, Robyn Forrest pers. comm.)")
 ```
 
-```{r app-cond-para-2-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-cond-para-2-en>>
+```{r app-cond-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## RÉSULTATS DE LA CONDITION
+Notre modélisation révèle un déclin global de la condition corporelle sur l'ensemble de la côte d'environ 2004 à 2012, une augmentation jusqu'en 2015, et un déclin ultérieur au cours des dernières années se stabilisant depuis 2019 (Fig. \@ref(fig:condition-index)). Cependant, lorsque l'on ventile les données par enquête, on constate que cette tendance générale masque les différences observées le long de la côte (Fig. \@ref(fig:condition-index-surv)). La variation dans le temps est relativement faible par rapport à la variation entre les régions (Fig. \@ref(fig:condition-index-surv)).
+
+La condition dans le `r wcvis` est en déclin depuis 2015 environ, mais la condition dans les autres régions étudiées est restée relativement stable au cours de ces années (Fig. \@ref(fig:condition-index-surv)). En outre, la tendance à l'augmentation de l'indice sur l'ensemble de la côte entre 2012 et 2015 a été largement alimentée par le `r qcs` (Fig. \@ref(fig:condition-index-surv)). Nous pouvons également observer ces tendances en regardant les prédictions spatiales dans le temps (Fig. \@ref(fig:condition-map)).
+
+Le lissage en profondeur indique un facteur de condition plus élevé dans les eaux plus profondes (Fig. \@ref(fig:condition-smoother)), ce qui coïncide avec un facteur de condition plus élevé dans le `r wcvis`, qui couvre des régions plus profondes que les autres enquêtes. Lorsqu'on le laisse varier dans le temps par une marche aléatoire, l'effet de la profondeur ne semble pas lié aux températures moyennes du fond enregistrées sur tous les traits à des profondeurs comprises entre 100 et 200 m pour chaque année (Fig. \@ref(fig:condition-tv)). Ceci est cohérent avec d'autres résultats selon lesquels des facteurs latents non mesurés peuvent expliquer la grande majorité de la variabilité spatio-temporelle de la condition des poissons [@lindmark2022].
+
+Des recherches sont en cours sur ce sujet pour toutes les espèces de poissons de fond (Philina English, Robyn Forrest comm. pers.).")
 ```
 
 ```{r app-cond-para-3-en, eval = !fr(), results = 'asis'}
 cat("## CONDITION FIGURES")
 ```
 
-```{r app-cond-para-3-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<app-cond-para-3-en>>
+```{r app-cond-para-3-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## CHIFFRES DE L'ÉTAT")
 ```
 
-```{r condition-index, fig.cap = ifelse(fr(), "Indice de condition de la côte. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 \\%.", "Coastwide condition index. Lines and ribbons indicate means and 95\\% confidence intervals."), out.width = "4.2in", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-coastwide.png"), dpi = NA)
+(ref:fig-fig-condition-index-en) Coastwide condition index. Lines and ribbons indicate means and 95% confidence intervals.
+
+(ref:fig-fig-condition-index-fr) Indice de condition pour l'ensemble de la côte. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 %.
+
+```{r fig-condition-index, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-fr)", "(ref:fig-fig-condition-index-en)"), out.width = "4.2in", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "condition-coastwide.png"),
+                 dpi = NA)
 ```
 
-```{r condition-index-surv, fig.cap = ifelse(fr(), "Indice de condition réparti par région d'enquête. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 \\%.", "Condition index split by survey region. Lines and ribbons indicate means and 95\\% confidence intervals."), out.width = "4.9in", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-by-survey.png"), dpi = NA)
+(ref:fig-fig-condition-index-surv-en) Condition index split by survey region. Lines and ribbons indicate means and 95% confidence intervals.
+
+(ref:fig-fig-condition-index-surv-fr) Indice de condition divisé par région d'enquête. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 %.
+
+```{r fig-condition-index-surv, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-surv-fr)", "(ref:fig-fig-condition-index-surv-en) "), out.width = "4.9in", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "condition-by-survey.png"),
+                 dpi = NA)
 ```
 
-```{r condition-map, fig.cap = ifelse(fr(), "Carte côtière des anomalies de condition modélisées. Les valeurs sont représentées dans l'espace logarithmique de sorte que les valeurs bleues sont plus dodues que prévu et les valeurs rouges moins dodues que prévu. Les axes X et Y sont en unités de km de la zone UTM 9.", "Coastwide map of modelled condition anomalies. Values are shown in log space such that blue values are plumper than expected and red values less plump than expected. X and Y axes are in UTM zone 9 units of km."), out.width = "\\textwidth", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-map.png"), dpi = NA)
+(ref:fig-condition-map-en) Coastwide map of modelled condition anomalies. Values are shown in log space such that blue values are plumper than expected and red values less plump than expected. X and Y axes are in UTM zone 9 units of km.
+
+(ref:fig-condition-map-fr) Carte des anomalies de condition modélisées sur l'ensemble de la côte. Les valeurs sont représentées dans l'espace logarithmique, de sorte que les valeurs bleues sont plus dodues que prévu et les valeurs rouges moins dodues que prévu. Les axes X et Y sont en unités de km de la zone UTM 9.
+
+```{r fig-condition-map, fig.cap = ifelse(fr(), "(ref:fig-condition-map-fr)", "(ref:fig-condition-map-en)"), out.width = "\\textwidth", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "condition-map.png"),
+                 dpi = NA)
 ```
 
-```{r condition-smoother, fig.cap = ifelse(fr(), "Lissage de la profondeur logarithmique à partir du modèle de condition. La ligne représente la moyenne et le ruban les intervalles de confiance à 95 \\%. Les lignes de rugosité horizontales sont représentées en haut lorsque des données sont présentes.", "Log depth smoother from the condition model. Line represents mean and the ribbon 95\\% confidence intervals. Horizontal rug lines are shown on the top where data are present."), out.width = "5.0in", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-smoother.png"), dpi = NA)
+(ref:fig-condition-smoother-en) Log depth smoother from the condition model. Line represents mean and the ribbon 95% confidence intervals. Horizontal rug lines are shown on the top where data are present.
+
+(ref:fig-condition-smoother-fr) Lissage logarithmique de la profondeur à partir du modèle de condition. La ligne représente la moyenne et les intervalles de confiance à 95%. Les lignes horizontales du tapis sont indiquées en haut lorsque des données sont présentes.
+
+```{r fig-condition-smoother, fig.cap = ifelse(fr(), "(ref:fig-condition-smoother-fr)", "(ref:fig-condition-smoother-en)"), out.width = "5.0in", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "condition-smoother.png"),
+                 dpi = NA)
 ```
 
-```{r condition-tv, fig.cap = ifelse(fr(), "Effet polynomial du troisième ordre variant dans le temps de la profondeur sur la condition. La ligne représente la moyenne et le ruban les intervalles de confiance à 95 \\%. Les deux sont colorées par les températures moyennes du fond (degrés C) enregistrées sur tous les traits de chalut à des profondeurs comprises entre 100 et 200 m pour chaque année.", "Time-varying third order polynomial effect of depth on condition. Line represents mean and the ribbon 95\\% confidence intervals and both are coloured by the mean bottom temperatures (degrees C) recorded on all trawl tows at depths between 100 and 200 m in each year. "), out.width = "5.0in", results = 'asis'}
-knitr::include_graphics(file.path(drs$nongit_dir, "geostat-figs", "condition-tv-raw-poly-3.png"), dpi = NA)
+(ref:fig-condition-tv-en) Time-varying third order polynomial effect of depth on condition. Line represents mean and the ribbon 95% confidence intervals and both are coloured by the mean bottom temperatures (degrees C) recorded on all trawl tows at depths between 100 and 200 m in each year. 
+
+(ref:fig-condition-tv-fr) Effet polynomial de troisième ordre variable dans le temps de la profondeur sur la condition. La ligne représente la moyenne et le ruban les intervalles de confiance à 95 % et tous deux sont colorés par les températures moyennes du fond (degrés C) enregistrées sur tous les traits de chalut à des profondeurs comprises entre 100 et 200 m pour chaque année. 
+
+```{r fig-condition-tv, fig.cap = ifelse(fr(), "(ref:fig-condition-tv-fr)", "(ref:fig-condition-tv-en)"), out.width = "5.0in", results = 'asis'}
+
+include_graphics(file.path(drs$nongit_dir,
+                           "geostat-figs",
+                           "condition-tv-raw-poly-3.png"),
+                 dpi = NA)
 ```

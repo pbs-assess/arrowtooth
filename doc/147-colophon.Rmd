@@ -1,9 +1,28 @@
-# COMPUTATIONAL ENVIRONMENT
+```{r app-comp-env-para-1-en, eval = !fr(), results = 'asis'}
+cat("# COMPUTATIONAL ENVIRONMENT
 
-The source code for this assessment is available at <https://github.com/pbs-assess/arrowtooth>.
+The source code for this assessment is available at:
+
+<https://github.com/pbs-assess/arrowtooth>
 
 This version of the document was generated on `r lubridate::as_date(Sys.time())` with
 `r devtools::session_info()$platform$version` [@r2022] and R package versions:
+
+")
+```
+
+```{r app-comp-env-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# ENVIRONNEMENT INFORMATIQUE
+
+Le code source de cette évaluation est disponible à l'adresse suivante:
+
+<https://github.com/pbs-assess/arrowtooth>
+
+Cette version du document a été générée sur `r lubridate::as_date(Sys.time())` avec
+`r devtools::session_info()$platform$version` [@r2022] et les versions du paquet R:
+
+")
+```
 
 ```{r env, echo = FALSE, results='asis', message=FALSE, warning=FALSE, eval=TRUE, cache=FALSE}
 # library(TMB)
@@ -20,13 +39,23 @@ info <- session_info()$packages |>
   as_tibble() |> 
   select(package, loadedversion) |> 
   filter(package %in% pkgs) |> 
-  setNames(c("Package", "Version")) |>
+  setNames(c(tr("Package"), tr("Version"))) |>
   csas_table()
 
 info
 ```
 
-Packages maintained by the authors used to generate this report can be viewed at:
+```{r app-comp-env-para-2-en, eval = !fr(), results = 'asis'}
+cat("Packages maintained by the authors used to generate this report can be viewed at:
+
+")
+```
+
+```{r app-comp-env-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("Les paquets maintenus par les auteurs et utilisés pour générer ce rapport peuvent être consultés à l'adresse suivante:
+
+")
+```
 
 https://github.com/pbs-assess/arrowtooth
 
@@ -44,4 +73,4 @@ https://github.com/pbs-assess/rosettafish
 
 https://github.com/pbs-assess/sdmTMB
 
-
+\clearpage
