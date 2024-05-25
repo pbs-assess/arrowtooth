@@ -202,7 +202,7 @@ où $W_{y_i,j}$ est le poids de la capture en kg pour `r sp` dans la strate $i$,
 La variance de l'estimation de la biomasse de l'enquête $V_y$ pour `r sp` au cours de l'année $y$ est calculée en kg$^2$ comme suit :
 \begin{equation} 
   V_y = \sum_{i=1}^{k} \frac{\sigma_{y_i}^2 A_i^2}{n_{y_i}} = \sum_{i=1}^{k} V_{y_i} 
-(\#eq:enquête-biomasse-variance)
+(\#eq:survey-biomass-variance)
 \end{equation} 
 
 où $\sigma_{y_i}^2$ est la variance de la CPUE en kg$^2$/km$^4$ pour l'année $y$ dans la strate $i$, $V_{y_i}$ est la variance de `r sp` dans la strate $i$ pour l'année $y$, où $\sigma_{y_i}^2$ a été obtenu à partir d'échantillons bootstrapped (voir ci-dessous).
@@ -253,7 +253,7 @@ Les données sur la composition par âge représentaient l'ensemble de la côte 
 1. `r qcs` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[3]])$year), collapse = '--')`
 1. `r hss` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[4]])$year), collapse = '--')`
 1. `r wcvis` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[5]])$year), collapse = '--')`
-1. `r wchgs` (Figure \ref(fig:fig-ages)), 2016--2018, (modèles de transition uniquement)
+1. `r wchgs` (Figure \@ref(fig:fig-ages)), 2016--2018, (modèles de transition uniquement)
 
 Les données sur la composition par âge ont été introduites dans les modèles d'évaluation sous forme de proportions pondérées en fonction de l'âge. La pondération était basée sur un schéma stratifié qui ajustait l'effort d'échantillonnage inégal entre les strates de profondeur et la densité de la biomasse du trait (enquêtes) ou la période trimestrielle au sein d'une année et le poids de la capture du trait (commercial). Les détails sont donnés dans @holt2016 (page 160) et le `r la` [@grandin2017]. Les méthodes sont codées dans le paquet [gfplot] (https://github.com/pbs-assess/gfplot). Le `r la` a utilisé un code personnalisé car le package gfplot n'était pas encore disponible.
 

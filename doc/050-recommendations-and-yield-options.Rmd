@@ -1,7 +1,7 @@
 ```{r recommendations-and-yield-para-1-en, eval = !fr(), results = 'asis'}
 cat("# RECOMMENDATIONS AND YIELD OPTIONS {#decisions}
 ## REFERENCE REMOVAL RATE
-As outlined in Section \@ref(ref-removal-rate), the reference removal rate was calculated as the amount of constant catch taken each year for the long term to bring the relative spawning biomass to $0.4B_0$. The long-term annual catch calculated was `r f(f_bo_40$catch * 1000)` t. Table \@ref(tab:rate-table) gives the values including the associated instantaneous fishing mortality and annual exploitation rate values.
+As outlined in Section \@ref(reference-removal-rate), the reference removal rate was calculated as the amount of constant catch taken each year for the long term to bring the relative spawning biomass to $0.4B_0$. The long-term annual catch calculated was `r f(f_bo_40$catch * 1000)` t. Table \@ref(tab:rate-table) gives the values including the associated instantaneous fishing mortality and annual exploitation rate values.
 
 ")
 ```
@@ -9,7 +9,7 @@ As outlined in Section \@ref(ref-removal-rate), the reference removal rate was c
 ```{r recommendations-and-yield-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# RECOMMANDATIONS ET OPTIONS DE RENDEMENT {#decisions}
 ## TAUX DE PRÉLÈVEMENT DE RÉFÉRENCE
-Comme indiqué à la section \@ref(ref-removal-rate), le taux de prélèvement de référence a été calculé comme la quantité de capture constante prélevée chaque année à long terme pour amener la biomasse reproductrice relative à 0,4B_0$. La capture annuelle à long terme calculée était `r f(f_bo_40$catch * 1000)` t. Le tableau \@ref(tab:rate-table) donne les valeurs, y compris les valeurs associées de mortalité par pêche instantanée et de taux d'exploitation annuel.
+Comme indiqué à la section \@ref(reference-removal-rate), le taux de prélèvement de référence a été calculé comme la quantité de capture constante prélevée chaque année à long terme pour amener la biomasse reproductrice relative à $0,4B_0$. La capture annuelle à long terme calculée était `r f(f_bo_40$catch * 1000)` t. Le tableau \@ref(tab:rate-table) donne les valeurs, y compris les valeurs associées de mortalité par pêche instantanée et de taux d'exploitation annuel.
 
 ")
 ```

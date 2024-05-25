@@ -25,6 +25,21 @@ plot_biomass_mcmc(models$sens_grps[[1]],
                   leg_loc = c(0.97, 0.96))
 ```
 
+(ref:fig-sens-variance-rel-en) Relative spawning biomass for sensitivities to changes in the $\vartheta^2$ and $\rho$ parameters (due to changes to $\sigma$ and $\tau$), and steepness ($h$) parameter.
+
+(ref:fig-sens-variance-rel-fr) Biomasse de frai relative pour les sensibilités aux changements des paramètres $\vartheta^2$ et $\rho$ (dus aux changements de $\sigma$ et $\tau$), et du paramètre de pente ($h$).
+
+```{r fig-sens-variance-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-rel-fr)", "(ref:fig-sens-variance-rel-en)")}
+plot_biomass_mcmc(models$sens_grps[[1]],
+                  rel = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  line_width = 0.5,
+                  point_size = 1.5,
+                  leg_loc = c(0.97, 0.96))
+```
+
 (ref:fig-sens-steepness-prior-en) Priors and posteriors for the sensitivity in which the steepness prior was changed. This can be compared to the base model in Figure \@ref(fig:fig-base-priors-posts).
 
 (ref:fig-sens-steepness-prior-fr) Priors et posteriors pour la sensibilité dans laquelle le prieur de la pente a été modifié. Ce modèle peut être comparé au modèle de base de la figure \@ref(fig:fig-base-priors-posts).

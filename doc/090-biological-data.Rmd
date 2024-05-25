@@ -6,7 +6,7 @@ This appendix summarizes the biological data for `r sp` in `r bc`. The length an
 
 ```{r appendix-data-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# DONNÉES BIOLOGIQUES {#app:bio-data-appendix}
-Cette annexe résume les données biologiques pour `r sp` dans `r bc`. La composition des longueurs et des âges recueillis à partir des campagnes et des sources commerciales est illustrée (figures \@ref(fig:fig-longues) et \@ref(fig:fig-âges)) ; cependant, tous les paramètres biologiques ont été estimés à partir des données des campagnes synoptiques uniquement. Les valeurs utilisées dans l'évaluation (tableau \@ref(tab:growth-params-table)) ont été agrégées à partir des quatre campagnes synoptiques réalisées tous les deux ans au large de la côte ouest de la `r bc` : la `r qcs`, la `r hss`, la `r wcvis` et la `r wchgs`.")
+Cette annexe résume les données biologiques pour `r sp` dans `r bc`. La composition des longueurs et des âges recueillis à partir des campagnes et des sources commerciales est illustrée (figures \@ref(fig:fig-lengths) et \@ref(fig:fig-ages)); cependant, tous les paramètres biologiques ont été estimés à partir des données des campagnes synoptiques uniquement. Les valeurs utilisées dans l'évaluation (tableau \@ref(tab:growth-params-table)) ont été agrégées à partir des quatre campagnes synoptiques réalisées tous les deux ans au large de la côte ouest de la `r bc` : la `r qcs`, la `r hss`, la `r wcvis` et la `r wchgs`.")
 ```
 
 ```{r appendix-data-para-2-en, eval = !fr(), results = 'asis'}
@@ -31,7 +31,7 @@ Toutes les paires de données longueur/poids valides ont été extraites sur la 
 \end{equation}
 où $\alpha_s$ et $\beta_s$ sont des paramètres pour le sexe $s$ et $L_s$ et $W_s$ sont des observations appariées de longueur et de poids.
 
-Nous avons appliqué l'Eq. \@ref(eq:longueur-poids) aux observations des trois campagnes synoptiques utilisées dans cette évaluation. Les résultats sont représentés pour chaque campagne individuellement et avec les données de la quatrième campagne `r wchgs` pour représenter les zones 3CD et 5ABCDE de la PMFC combinées comme « l'ensemble de la côte » (Figure \@ref(fig:fig-length-weight)).
+Nous avons appliqué l'Eq. \@ref(eq:length-weight) aux observations des trois campagnes synoptiques utilisées dans cette évaluation. Les résultats sont représentés pour chaque campagne individuellement et avec les données de la quatrième campagne `r wchgs` pour représenter les zones 3CD et 5ABCDE de la PMFC combinées comme « l'ensemble de la côte » (Figure \@ref(fig:fig-length-weight)).
     ")
 ```
 

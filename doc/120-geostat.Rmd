@@ -51,7 +51,7 @@ Nous avons appliqué ces modèles de deux manières:
 1. pour 'assembler' les quatre campagnes synoptiques au chalut en un seul indice synthétique afin de le comparer aux tendances de la biomasse estimée à partir du modèle d'évaluation des stocks et à l'indice de la CPUE des rejets commerciaux.
 
 ## MODÉLISATION DES ENQUÊTES INDIVIDUELLES
-Pour les indices des relevés individuels, nous avons utilisé des modèles delta/hurdle (appelés ici modèle $\Delta$-Gamma [@aitchison1955]). Dans ce modèle, la capture de l'étude synoptique (Figures \@ref(fig:geo-bubble1), \@ref(fig:geo-bubble2)) est définie sur la base d'un modèle de probabilité de rencontre et d'un modèle de capture positive.
+Pour les indices des relevés individuels, nous avons utilisé des modèles delta/hurdle (appelés ici modèle $\Delta$-Gamma [@aitchison1955]). Dans ce modèle, la capture de l'étude synoptique (figures \@ref(fig:fig-geo-bubble1), \@ref(fig:fig-geo-bubble2)) est définie sur la base d'un modèle de probabilité de rencontre et d'un modèle de capture positive.
 \begin{equation}
   \mathrm{Pr} [C > 0] = p,
 \end{equation}
@@ -175,7 +175,7 @@ où les paramètres ont une définition similaire à celle des modèles binomiau
 
 En outre, nous avons examiné des versions des modèles ci-dessus sans que la profondeur ne soit un prédicteur. Au total, nous avons ajusté quatre modèles : $\Delta$-Gamma avec profondeur, $\Delta$-Gamma sans profondeur, Tweedie avec profondeur et Tweedie sans profondeur.
 
-Parmi les modèles considérés, les modèles sans profondeur font moins d'hypothèses. En outre, la source de données sur la profondeur est différente de la source de données utilisée pour la grille et il est possible qu'elles représentent des variables légèrement différentes. Étant donné que les tendances des modèles incluant la profondeur étaient similaires à celles des modèles n'incluant pas la profondeur, les modèles n'incluant pas la profondeur sont probablement meilleurs pour le processus d'assemblage. Les prédictions du modèle $\Delta$-Gamma sans profondeur sont donc présentées dans les figures \@ref(fig:geo-predmap1) et \@ref(fig:geo-predmap2).
+Parmi les modèles considérés, les modèles sans profondeur font moins d'hypothèses. En outre, la source de données sur la profondeur est différente de la source de données utilisée pour la grille et il est possible qu'elles représentent des variables légèrement différentes. Étant donné que les tendances des modèles incluant la profondeur étaient similaires à celles des modèles n'incluant pas la profondeur, les modèles n'incluant pas la profondeur sont probablement meilleurs pour le processus d'assemblage. Les prédictions du modèle $\Delta$-Gamma sans profondeur sont donc présentées dans les figures \@ref(fig:fig-geo-predmap1) et \@ref(fig:fig-geo-predmap2).
 
 ## Calcul de la biomasse annuelle standardisée
 
@@ -193,7 +193,7 @@ We fit our models with the R package [sdmTMB](https://github.com/pbs-assess/sdmT
 To ensure our final optimization was consistent with convergence, we checked that all gradients with respect to fixed effects were < 0.001 and that Hessian matrices were positive-definite. We constructed our SPDE meshes such that the minimum allowed distance between vertices in the mesh (INLA 'cutoff') was 20 km in the coastwide model; 10 km for `r qcs`, `r hss`, and the `r wcvis`; and 7 km for `r wchgs` (smaller survey area with a sharp depth transition).
 
 ## MODELLED INDICES
-The geostatistical indices for individual surveys had lower CVs, on average, than the design-based indices---particularly in Queen Charlotte Sound (Fig. \@ref(fig:geo-individual)). The $\Delta$-Gamma and Tweedie stitched indices were similar to each other. The most noticeable difference was that including a smoother for depth slightly reduced the estimate of biomass in 2003--2004 and shrunk the confidence intervals in those years (Fig. \@ref(fig:geo-indexes)).
+The geostatistical indices for individual surveys had lower CVs, on average, than the design-based indices---particularly in Queen Charlotte Sound (Fig. \@ref(fig:fig-geo-individual)). The $\Delta$-Gamma and Tweedie stitched indices were similar to each other. The most noticeable difference was that including a smoother for depth slightly reduced the estimate of biomass in 2003--2004 and shrunk the confidence intervals in those years (Fig. \@ref(fig:fig-geo-indexes)).
 
 The geostatistical coastwide stitched survey indices all showed a strong resemblance to the commercial Discard CPUE index (Fig. \@ref(fig:geo-indexes-cpue)) with mostly overlapping confidence intervals, marked declines from 2010 to 2021, and a dip in the mid 2000s. There was some discrepancy in the initial year of the survey (2003) with the Discard CPUE being slightly higher,  although the majority of the confidence intervals still overlap.")
 ```
@@ -205,9 +205,9 @@ Nous avons ajusté nos modèles avec le package R [sdmTMB](https://github.com/pb
 Pour s'assurer que notre optimisation finale était compatible avec la convergence, nous avons vérifié que tous les gradients par rapport aux effets fixes étaient < 0,001 et que les matrices hessiennes étaient positivement définies. Nous avons construit nos maillages SPDE de manière à ce que la distance minimale autorisée entre les sommets du maillage (INLA 'cutoff') soit de 20 km dans le modèle de la côte; 10 km pour `r qcs`, `r hss`, et `r wcvis`; et 7 km pour `r wchgs` (zone d'étude plus petite avec une transition de profondeur marquée).
 
 ## INDICES MODÉLISÉS
-Les indices géostatistiques pour les relevés individuels avaient des CV plus faibles, en moyenne, que les indices basés sur la conception - en particulier dans le détroit de la Reine-Charlotte (Fig. \@ref(fig:geo-individual)). Les indices cousus $\Delta$-Gamma et Tweedie étaient similaires les uns aux autres. La différence la plus notable est que l'inclusion d'un lisseur pour la profondeur a légèrement réduit l'estimation de la biomasse en 2003-2004 et a rétréci les intervalles de confiance pour ces années (Fig. \@ref(fig:geo-indexes)).
+Les indices géostatistiques pour les relevés individuels avaient des CV plus faibles, en moyenne, que les indices basés sur la conception - en particulier dans le détroit de la Reine-Charlotte (Fig. \@ref(fig:fig-geo-individual)). Les indices cousus $\Delta$-Gamma et Tweedie étaient similaires les uns aux autres. La différence la plus notable est que l'inclusion d'un lisseur pour la profondeur a légèrement réduit l'estimation de la biomasse en 2003-2004 et a rétréci les intervalles de confiance pour ces années (Fig. \@ref(fig:fig-geo-indexes)).
 
-Les indices géostatistiques des relevés couplés à l'échelle de la côte ont tous montré une forte ressemblance avec l'indice de CPUE des rejets commerciaux (Fig. \@ref(fig:geo-indexes-cpue)) avec des intervalles de confiance qui se chevauchent pour la plupart, des déclins marqués de 2010 à 2021, et un creux au milieu des années 2000. La première année de l'étude (2003) a été marquée par une certaine divergence, la CPUE des rejets étant légèrement plus élevée, bien que la majorité des intervalles de confiance se chevauchent toujours.
+Les indices géostatistiques des relevés couplés à l'échelle de la côte ont tous montré une forte ressemblance avec l'indice de CPUE des rejets commerciaux (Fig. \@ref(fig:fig-geo-indexes-cpue)) avec des intervalles de confiance qui se chevauchent pour la plupart, des déclins marqués de 2010 à 2021, et un creux au milieu des années 2000. La première année de l'étude (2003) a été marquée par une certaine divergence, la CPUE des rejets étant légèrement plus élevée, bien que la majorité des intervalles de confiance se chevauchent toujours.
 ")
 ```
 
@@ -296,7 +296,7 @@ include_graphics(file.path(drs$nongit_dir,
 
 (ref:fig-geo-indexes-cpue-fr) Indices d'abondance cousus pour `r sp` à partir de quatre modèles avec l'indice de CPUE des rejets commerciaux indiqué en gris (pointillé). Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95%. Tous les indices ont été centrés de manière à ce que leurs moyennes géométriques de 2003 à 2021 soient égales.
 
-```{r geo-indexes-cpue, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-cpue-fr)", "(ref:fig-geo-indexes-cpue-en)"), out.width = "5.5in", results = 'asis'}
+```{r fig-geo-indexes-cpue, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-cpue-fr)", "(ref:fig-geo-indexes-cpue-en)"), out.width = "5.5in", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
                            "geostat-figs",
