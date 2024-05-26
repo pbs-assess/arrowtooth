@@ -39,7 +39,7 @@ plot_cpue_spatial(dat$cpue_spatial,
 
 (ref:fig-trawl-footprint-en) Spatial coverage of the commercial trawl sector for all species (black polygons) overlaid with the coverage by the four synoptic surveys (colors). Synoptic surveys are shown as a grid of 2km x 2km blocks, which represent 'active blocks' in the survey design. The presence of a block in this figure does not mean that it has been surveyed, only that it is in the set of blocks that can be surveyed as detailed in the survey design.
 
-(ref:fig-trawl-footprint-fr) Couverture spatiale du secteur du chalutage commercial pour toutes les espèces (polygones noirs) superposée à la couverture des quatre enquêtes synoptiques (couleurs). Les enquêtes synoptiques sont représentées sous la forme d'une grille de blocs de 2 km x 2 km, qui représentent des « blocs actifs » dans la conception de l'enquête. La présence d'un bloc sur cette figure ne signifie pas qu'il a fait l'objet d'une enquête, mais seulement qu'il fait partie de l'ensemble des blocs pouvant faire l'objet d'une enquête, conformément au plan d'enquête.
+(ref:fig-trawl-footprint-fr) Couverture spatiale du secteur du chalutage commercial pour toutes les espèces (polygones noirs) superposée à la couverture des quatre enquêtes synoptiques (couleurs). Les enquêtes synoptiques sont représentées sous la forme d'une grille de blocs de 2 km x 2 km, qui représentent des 'blocs actifs' dans la conception de l'enquête. La présence d'un bloc sur cette figure ne signifie pas qu'il a fait l'objet d'une enquête, mais seulement qu'il fait partie de l'ensemble des blocs pouvant faire l'objet d'une enquête, conformément au plan d'enquête.
 
 ```{r fig-trawl-footprint, fig.cap = ifelse(fr(), "(ref:fig-trawl-footprint-fr)", "(ref:fig-trawl-footprint-en)")}
 
