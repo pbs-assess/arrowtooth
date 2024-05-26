@@ -303,6 +303,13 @@ La taille effective de l'échantillon $n_\mathrm{eff}$ est :
   \label{eq:dm-eff}
 \end{equation} La paramétrisation 'saturante' du DM a été mise en œuvre dans l'ISCAM pour cette évaluation. Cette paramétrisation revient à la distribution multinomiale lorsque $\beta$ est suffisamment grand (Eq. \@ref(eq:dm-eff)), c'est-à-dire $n_\mathrm{eff} \simeq n$ lorsque $\beta >> n$. Elle fournit une borne supérieure pour les faibles valeurs de $hat{\beta}$, c'est-à-dire $n_\mathrm{eff} \simeq 1 + \beta$ lorsque $n >> \beta$.
 
+### Recrutement du stock
+Cette évaluation du stock suppose un recrutement Beverton-Holt. Le recrutement annuel et la composition initiale par âge sont traités comme des variables latentes dans `r iscam`, et les résidus entre les recrutements estimés et les modèles déterministes stock-recrutement sont utilisés pour estimer la biomasse du stock reproducteur non pêché et la compensation du recrutement. Les résidus entre les recrues estimées et prédites sont donnés par:
+\begin{equation}
+  \delta_t = \ln(\bar{R}e^{w_t}) - \ln(R_t)
+  \label{eq:df7}
+\end{equation} où $R_t$ est donné par l'équation \@ref(eq:df27). Dans cette équation, $k$ est l'âge au moment du recrutement. Un terme de correction du biais pour les erreurs du processus lognormal est inclus dans l'équation \@ref(eq:df27).
+
 Le logarithme négatif de la vraisemblance pour les écarts de recrutement est donné par la densité normale (sans tenir compte de la constante d'échelle) :
 \begin{equation}
   \ell_\delta = n\ln(\tau) + \frac{\sum_{t=1+k}^T \delta^2_t}{2\tau^2}
