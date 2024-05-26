@@ -31,7 +31,7 @@ Toutes les paires de données longueur/poids valides ont été extraites sur la 
 \end{equation}
 où $\alpha_s$ et $\beta_s$ sont des paramètres pour le sexe $s$ et $L_s$ et $W_s$ sont des observations appariées de longueur et de poids.
 
-Nous avons appliqué l'Eq. \@ref(eq:length-weight) aux observations des trois campagnes synoptiques utilisées dans cette évaluation. Les résultats sont représentés pour chaque campagne individuellement et avec les données de la quatrième campagne `r wchgs` pour représenter les zones 3CD et 5ABCDE de la PMFC combinées comme « l'ensemble de la côte » (Figure \@ref(fig:fig-length-weight)).
+Nous avons appliqué l'Eq. \@ref(eq:length-weight) aux observations des trois campagnes synoptiques utilisées dans cette évaluation. Les résultats sont représentés pour chaque campagne individuellement et avec les données de la quatrième campagne `r wchgs` pour représenter les zones 3CD et 5ABCDE de la PMFC combinées comme 'l'ensemble de la côte' (Figure \@ref(fig:fig-length-weight)).
     ")
 ```
 

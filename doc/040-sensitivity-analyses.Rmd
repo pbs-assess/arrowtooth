@@ -42,7 +42,7 @@ Nous avons testé la sensibilité des résultats du modèle comme suit :
 1. Estimer la sélectivité variable dans le temps pour les `r qcs`, afin d'essayer d'améliorer l'ajustement de l'indice d'enquête
 1. Indices d'enquête basés sur un modèle géostatistique (Section \@ref(app:geostat))
 1. Supprimer la CPUE des rejets
-1. Modifier l'ogive de maturité pour ne pas inclure les spécimens « en développement » ou « au repos ».
+1. Modifier l'ogive de maturité pour ne pas inclure les spécimens 'en développement' ou 'au repos'.
 1. Fixer la sélectivité de l'indice DCPUE à un niveau égal à la sélectivité de la pêcherie côtière.
 1. Fixer la sélectivité de toutes les enquêtes pour qu'elle soit égale à la sélectivité de la pêche côtière.
 
