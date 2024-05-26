@@ -399,59 +399,54 @@ cat("## Paramètres, symboles et équations du modèle {#model-equations}")
 \FloatBarrier
 \begin{table}[!h]
 \centering
-\caption{\label{tab:iscam-variables} A list of symbols, constants and description
-  for variables used in `r iscam`.}
+\caption{\label{tab:iscam-variables} Une liste de symboles, de constantes
+et une description des variables utilisées dans `r iscam`.}
 \begin{tabular}{lll}
 \hline
-\bf{Symbol} & \bf{Value} & \bf{Description} \\
+\bf{Symbole} & \bf{Valeur} & \bf{Description} \\
 \hline
 \multicolumn{3}{l}{\textbf{Indices}}\\
-$s$ & & Index for sex\\
-$a$ & & Index for age\\
-$t$ & & Index for year\\
-$k$ & & Index for gear\\
-$b$ & & Index for year block in time-varying selectivity \\
-\multicolumn{3}{l}{\textbf{Model dimensions}}\\
-$S$ & $`r base_model$dat$num.sex`$ & Number of sexes\\
-$\acute{a}, A$ & $`r base_model$dat$start.age`$, $`r base_model$dat$end.age`$ & Youngest and oldest age class ($A$ is a plus group)\\
-$\acute{t}, T$ & $`r base_model$dat$start.yr`$, $`r base_model$dat$end.yr`$ & First and last year of catch data\\
-$K$ & $`r base_model$dat$num.gears`$ & Number of gears including survey gears\\
-\multicolumn{3}{l}{\textbf{Observations (data)}}\\
-$C_{k,t}$ & & catch in weight by gear $k$ in year $t$\\
-$I_{k,t}$ & & relative abundance index for gear $k$ in year $t$\\
-%\multicolumn{3}{l}{\textbf{Fixed parameters}}\\
-%no fixed parameters for herring
-%$\rho$ & & Fraction of the total variance associated with observation error\\
-%$\vartheta^2$ & & Total precision (inverse of variance) of the total error\\
-%$\vec{\gamma}_k$ & & Vector of selectivity parameters for gear $k$ \\
-\multicolumn{3}{l}{\textbf{Estimated parameters}}\\
-$R_o$ & & Age-$\acute{a}$ recruits in unfished conditions\\
-$h$ & & Steepness of the stock-recruitment relationship\\
-$\bar{R}$ & & Average age-$\acute{a}$ recruitment from year $\acute{t}$ to $T$\\
-$\bar{R}_\mathrm{init}$ & & Average age-$\acute{a}-1$ to $A$ recruitment for initialization \\
-$M_s$ & & Instantaneous natural mortality rate for sex $s$\\
-$\hat{a}_{k,s,b}, \hat{\gamma}_{k,s,b}$ & & Selectivity parameters for gear $k$, sex $s$, year block $b$ \\
-$\Gamma_{k,s,t}$ & & Logarithm of the instantaneous fishing mortality for gear $k$, sex $s$, year $t$\\
-$\omega_t$ & & Age-$\acute{a}$ deviates from $\bar{R}$ for years $\acute{t}$ to $T$\\
-$\omega_\mathrm{init,t}$ & & Age-$\acute{a}$ deviates from $\bar{R}_\mathrm{init}$ for year $\acute{t}$\\
-$q_k$ & & Catchability parameter for survey $k$\\
-$\rho$ & & Fraction of the total variance associated with observation error\\
-$\vartheta^2$ & & Total precision (inverse of variance) of the total error\\
-\multicolumn{3}{l}{\textbf{Standard deviations}}\\
-$\sigma$ & & Standard deviation for observation errors in survey index\\
-$\tau$ & & Standard deviation in process errors (recruitment deviations)\\
-$\sigma_C$ & & Standard deviation in observed catch by gear\\
-\multicolumn{3}{l}{\textbf{Residuals}}\\
-$\delta_t$ & & Annual recruitment residual\\
-$\eta_t$ & & Residual error in predicted catch\\
-\multicolumn{3}{l}{\textbf{Fixed Growth \& maturity parameters}}\\
-$l_{\infty s}$ & & Asymptotic length for sex $s$ \\
-$\acute{k}_s$ & & Brody growth coefficient for sex $s$ \\
-$t_{o s}$ & & Theoretical age at zero length for sex $s$ \\
-$\acute{a}_s$ & & Scalar in length-weight allometry for sex $s$\\
-$\acute{b}_s$ & & Power parameter in length-weight allometry for sex $s$\\
-$\dot{a}_s$ & & Age at 50\% maturity for sex $s$ \\
-$\dot{\gamma}_s$ & & Standard deviation at 50\% maturity for sex $s$\\
+$s$ & & Index pour le sexe\\
+$a$ & & Index pour l'âge\\
+$t$ & & Indice pour l'année\\
+$k$ & & Index pour l'engrenage\\
+$b$ & & Indice pour le bloc d'années dans la sélectivité variable dans le temps\\
+\multicolumn{3}{l}{\textbf{Dimensions du modèle}}\\
+$S$ & $`r base_model$dat$num.sex`$ & Nombre de sexes\\
+$\acute{a}, A$ & $`r base_model$dat$start.age`$, $`r base_model$dat$end.age`$ & Classe d'âge la plus jeune et la plus âgée ($A$ est un groupe plus)\\
+$\acute{t}, T$ & $`r base_model$dat$start.yr`$, $`r base_model$dat$end.yr`$ & Première et dernière année des données de captures\\
+$K$ & $`r base_model$dat$num.gears`$ & Nombre d'engins, y compris les engins d'enquête\\
+\multicolumn{3}{l}{\textbf{Observations (données)}}\\
+$C_{k,t}$ & & captures en poids par engin $k$ en cours d'année $t$\\
+$I_{k,t}$ & & indice d'abondance relative pour l'engin $k$ en cours d'année $t$\\
+\multicolumn{3}{l}{\textbf{Paramètres estimés}}\\
+$R_o$ & & L'âge-$\acute{a}$ recrute dans des conditions non pêchées\\
+$h$ & & Rugosité de la relation stock-recrutement\\
+$\bar{R}$ & & Âge moyen-$\acute{a}$ recrutement à partir de l'année $\acute{t}$ à $T$\\
+$\bar{R}_\mathrm{init}$ & & Âge moyen-$\acute{a}-1$ à $A$ recrutement pour l'initialisation \\
+$M_s$ & & Taux instantané de mortalité naturelle pour le sexe $s$\\
+$\hat{a}_{k,s,b}, \hat{\gamma}_{k,s,b}$ & & Paramètres de sélectivité pour l'engrenage $k$, sexe $s$, bloc d'années $b$ \\
+$\Gamma_{k,s,t}$ & & Logarithme de la mortalité instantanée par pêche pour l'engin $k$, le sexe $s$, l'année $t$.\\
+$\omega_t$ & & L'âge-$\acute{a}$ s'écarte de $\bar{R}$ depuis des années $\acute{t}$ à $T$\\
+$\omega_\mathrm{init,t}$ & & L'âge-$\acute{a}$ s'écarte de $\bar{R}_\mathrm{init}$ depuis des années $\acute{t}$\\
+$q_k$ & & Paramètre de capturabilité pour l'enquête $k$\\
+$\rho$ & & Fraction de la variance totale associée à l'erreur d'observation\\
+$\vartheta^2$ & & Précision totale (inverse de la variance) de l'erreur totale\\
+\multicolumn{3}{l}{\textbf{Écarts types}}\\
+$\sigma$ & & Écart-type pour les erreurs d'observation dans l'indice d'enquête\\
+$\tau$ & & Écart-type des erreurs de processus (écarts de recrutement)\\
+$\sigma_C$ & & Écart-type des captures observées par engin\\
+\multicolumn{3}{l}{\textbf{Résidus}}\\
+$\delta_t$ & & Recrutement annuel résiduel\\
+$\eta_t$ & & Erreur résiduelle dans les captures prévues\\
+\multicolumn{3}{l}{\textbf{Croissance fixe \& paramètres de maturité}}\\
+$l_{\infty s}$ & & Longueur asymptotique pour le sexe $s$ \\
+$\acute{k}_s$ & & Coefficient de croissance de Brody pour le sexe $s$ \\
+$t_{o s}$ & & Âge théorique à la longueur zéro pour le sexe $s$ \\
+$\acute{a}_s$ & & Scalaire dans l'allométrie longueur-poids pour le sexe $s$\\
+$\acute{b}_s$ & & Paramètre de puissance dans l'allométrie longueur-poids pour le sexe $s$\\
+$\dot{a}_s$ & & Âge à 50 \% pour la maturité sexuelle $s$ \\
+$\dot{\gamma}_s$ & & Écart-type à 50 \% de maturité pour le sexe $s$\\
 \hline
 \end{tabular}
 \end{table}
