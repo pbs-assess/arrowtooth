@@ -10,7 +10,7 @@ We applied these models in two ways:
 1. to 'stitch' the four synoptic trawl surveys into a single synthetic index for comparison with trends in estimated biomass from the stock assessment model and with the commercial discard CPUE index.
 
 ## INDIVIDUAL SURVEY MODELLING
-For the individual survey indices, we used delta/hurdle models (herein referred to as the $\Delta$-Gamma model [@aitchison1955]). In this model, synoptic survey catch (Figures \@ref(fig:geo-bubble1), \@ref(fig:geo-bubble2)) is defined based on a probability of encounter model and a positive catch model.
+For the individual survey indices, we used delta/hurdle models (herein referred to as the $\Delta$-Gamma model [@aitchison1955]). In this model, synoptic survey catch (Figures \@ref(fig:fig-geo-bubble1) and \@ref(fig:fig-geo-bubble2)) is defined based on a probability of encounter model and a positive catch model.
 \begin{equation}
   \mathrm{Pr} [C > 0] = p,
 \end{equation}
@@ -124,7 +124,7 @@ where the parameters have a similar definition as above in the binomial and Gamm
 
 Furthermore, we considered versions of the above models without depth as a predictor. In total, we fit four models: $\Delta$-Gamma with depth, $\Delta$-Gamma without depth, Tweedie with depth, and Tweedie without depth.
 
-Of the models considered, the models without depth made fewer assumptions. In addition, the depth data source is different from the data source used for the grid and it is possible that they represent slightly different variables. Since the trends in the models that included depth were similar to those that did not include depth, the models which do not include depth are likely better for using in the stitching process. Predications from the $\Delta$-Gamma model without depth are therefore shown in Figures \@ref(fig:geo-predmap1) and \@ref(fig:geo-predmap2).
+Of the models considered, the models without depth made fewer assumptions. In addition, the depth data source is different from the data source used for the grid and it is possible that they represent slightly different variables. Since the trends in the models that included depth were similar to those that did not include depth, the models which do not include depth are likely better for using in the stitching process. Predications from the $\Delta$-Gamma model without depth are therefore shown in Figures \@ref(fig:fig-geo-predmap1) and \@ref(fig:fig-geo-predmap2).
 
 ## Calculating annual standardized biomass
 
@@ -195,7 +195,7 @@ To ensure our final optimization was consistent with convergence, we checked tha
 ## MODELLED INDICES
 The geostatistical indices for individual surveys had lower CVs, on average, than the design-based indices---particularly in Queen Charlotte Sound (Fig. \@ref(fig:fig-geo-individual)). The $\Delta$-Gamma and Tweedie stitched indices were similar to each other. The most noticeable difference was that including a smoother for depth slightly reduced the estimate of biomass in 2003--2004 and shrunk the confidence intervals in those years (Fig. \@ref(fig:fig-geo-indexes)).
 
-The geostatistical coastwide stitched survey indices all showed a strong resemblance to the commercial Discard CPUE index (Fig. \@ref(fig:geo-indexes-cpue)) with mostly overlapping confidence intervals, marked declines from 2010 to 2021, and a dip in the mid 2000s. There was some discrepancy in the initial year of the survey (2003) with the Discard CPUE being slightly higher,  although the majority of the confidence intervals still overlap.")
+The geostatistical coastwide stitched survey indices all showed a strong resemblance to the commercial Discard CPUE index (Fig. \@ref(fig:fig-geo-indexes-cpue)) with mostly overlapping confidence intervals, marked declines from 2010 to 2021, and a dip in the mid 2000s. There was some discrepancy in the initial year of the survey (2003) with the Discard CPUE being slightly higher,  although the majority of the confidence intervals still overlap.")
 ```
 
 ```{r app-geostat-para-3-fr, eval = fr(), results = 'asis', needs_trans = FALSE}

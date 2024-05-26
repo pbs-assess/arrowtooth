@@ -27,7 +27,7 @@ cat("Les schémas de migration ne sont pas bien connus pour `r sp`, mais il y a 
 ```
 
 ```{r app-eco-para-3-en, eval = !fr(), results = 'asis'}
-cat("Within Canadian Pacific waters, a lack of correlation between change in abundance and changes in condition suggests that bottom-up ecosystem effects are unlikely to be driving overall stock status for `r  sp`. Coastwide within Canada, the condition index dropped steadily between 2004 and 2012 (Fig. \@ref(fig:condition-index)), while the survey biomass index for the same area increased by over 50% (Fig. \@ref(fig:geo-indexes-cpue)). Likewise, a sharp increase in condition index in 2015 has not been associated with any positive trajectories in biomass in the following 7 years.
+cat("Within Canadian Pacific waters, a lack of correlation between change in abundance and changes in condition suggests that bottom-up ecosystem effects are unlikely to be driving overall stock status for `r  sp`. Coastwide within Canada, the condition index dropped steadily between 2004 and 2012 (Fig. \@ref(fig:fig-condition-index)), while the survey biomass index for the same area increased by over 50% (Fig. \@ref(fig:fig-geo-indexes-cpue)). Likewise, a sharp increase in condition index in 2015 has not been associated with any positive trajectories in biomass in the following 7 years.
 
 ")
 ```
