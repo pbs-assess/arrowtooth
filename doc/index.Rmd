@@ -24,7 +24,7 @@ isbn: "978-0-660-38322-4"
 cat_no: "Fs70-6/2021-012E-PDF"
 citation_english: "Grandin, C.J., Anderson, S.C. and English, P.A. Arrowtooth Flounder (Atheresthes stomias) Stock Assessment for the West Coast of British Columbia in 2021. DFO Can. Sci. Advis. Sec. Res. Doc. 2022/nnn."
 citation_french: "Grandin, C.J., Anderson, S.C. et English, P.A. Évaluation du stock de la plie à dents de flèche (Atheresthes stomias) sur la côte ouest de la Colombie-Britannique en 2021. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2022/nnn."
-citation_other_language: "Grandin, C.J., Anderson, S.C. et English, P.A. Évaluation du stock de la plie à dents de flèche (Atheresthes stomias) sur la côte ouest de la Colombie-Britannique en 2021. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2022/nnn."
+citation_other_language: "Will be injected by the preprocessor"
 
 abstract: |
   Arrowtooth Flounder (*Atheresthes stomias*, Turbot) are an important component of the bottom trawl fishery in British Columbia. They are managed as a coastwide stock, with a current TAC of 5,000 t and catch of 3,051 t in 2021. Prior to the introduction of freezer trawlers in the mid-2000s, most of the historical catch of Arrowtooth Flounder is understood to have been discarded at sea. This was largely due to proteolysis, which occurs in the muscle tissue of this species a short time after it is caught, making the flesh unpalatable. In the past decade, markets have been established for fillets that have been frozen at sea.
