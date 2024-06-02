@@ -56,7 +56,7 @@ Remotes:
     pbs-assess/rosettafish,
     pbs-software/pbs-data/PBSdata,
     pbs-software/pbs-mapping/PBSmapping,
-    pacific-hake/hake-assessment
+    pacific-hake/hake
 URL: https://github.com/pbs-assess/arrowtooth
 BugReports: https://github.com/pbs-assess/arrowtooth/issues
 Roxygen: list(markdown = TRUE)

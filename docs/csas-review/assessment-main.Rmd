@@ -1233,7 +1233,7 @@ grid.arrange(grobs = ma_plot_lst,
 class: center
 ### Growth Parameters fit externally
 
-```{r growth-params-table, results = "asis", eval=isTRUE(user == "grandin")}
+```{r growth-params-table, results = "asis", eval = length(grep("grandin", user))}
 
 # This is a necessary step when compiling a latex table in HTML!
 tex2markdown <- function(texstring) {
@@ -1358,7 +1358,7 @@ cowplot::plot_grid(
 class: center
 ### Bridge models - Index fits for group 2 models
 
-```{r bridge-index-group2, out.width = "85%", eval=isTRUE(user == "grandin")}
+```{r bridge-index-group2, out.width = "85%", eval = length(grep("grandin", user))}
 plot_index_mcmc(models$bridge_grps[[2]],
                 type = "fits",
                 surv_index = survey_index,

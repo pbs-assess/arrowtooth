@@ -6,7 +6,7 @@
 grids}
 \usage{
 plot_trawl_footprint(
-  tf_rda_fn = "/home/grandin/github/main/pbs-data/PBSdata/data/trawlfoot.rda",
+  tf_rda_fn = system.file("data/trawlfoot.rda", package = "PBSdata"),
   crs_num = 3156,
   utm_zone = 9,
   bath = c(100, 200, 500),

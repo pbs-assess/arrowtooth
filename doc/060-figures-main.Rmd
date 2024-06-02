@@ -290,6 +290,7 @@ plot_age_resids_mcmc(base_model,
 (ref:fig-base-age-fits-hss-fr) Ajustements de la composition par âge pour chaque sexe pour le `r hss`. Voir la figure \@ref(fig:fig-base-age-fits-ft) pour plus de détails.
 
 ```{r fig-base-age-fits-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-hss-fr)", "(ref:fig-base-age-fits-hss-en)")}
+
 plot_age_fits_mcmc(base_model,
                    gear = 4,
                    text_title_size = NULL,
@@ -327,6 +328,7 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-wcvis-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour le `r wcvis`. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
 
 ```{r fig-base-age-resids-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wcvis-fr)", "(ref:fig-base-age-resids-wcvis-en)")}
+
 plot_age_resids_mcmc(base_model,
                      gear = 5,
                      text_title_size = NULL,

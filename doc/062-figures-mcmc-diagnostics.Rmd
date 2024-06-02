@@ -10,9 +10,10 @@ cat("## CHIFFRES DU DIAGNOSTIC MCMC POUR LE MODÈLE DE BASE
 
 (ref:fig-base-priors-posts-en) Prior probability distributions used in the base model (blue shaded areas) overlaid with posterior distribution histograms. The solid red line is the mode of the prior distribution, the vertical solid black line is the mean of the prior, and the vertical dashed black lines represent one standard deviation from the mean. Plots that are entirely shaded blue represent uniform priors. Catchability ($q$) parameters for the survey indices have numerical subscripts which are: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
-(ref:fig-base-priors-posts-fr) Distributions de probabilités antérieures utilisées dans le modèle de base (zones ombrées en bleu) superposées aux histogrammes de distribution postérieure. La ligne rouge continue est le mode de la distribution antérieure, la ligne noire continue verticale est la moyenne de la distribution antérieure et les lignes noires verticales en pointillés représentent un écart-type par rapport à la moyenne. Les graphiques entièrement bleus représentent des a priori uniformes. Les paramètres de capturabilité ($q$) pour les indices de l'enquête ont des indices numériques qui sont : `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
+(ref:fig-base-priors-posts-fr) Distributions de probabilités antérieures utilisées dans le modèle de base (zones ombrées en bleu) superposées aux histogrammes de distribution postérieure. La ligne rouge continue est le mode de la distribution antérieure, la ligne noire continue verticale est la moyenne de la distribution antérieure et les lignes noires verticales en pointillés représentent un écart-type par rapport à la moyenne. Les graphiques entièrement bleus représentent des a priori uniformes. Les paramètres de capturabilité ($q$) pour les indices de l'enquête ont des indices numériques qui sont: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
 ```{r fig-base-priors-posts, fig.cap = ifelse(fr(), "(ref:fig-base-priors-posts-fr)", "(ref:fig-base-priors-posts-en)")}
+
 plot_priors_posts_mcmc(base_model,
                        param_rm = c("sel",
                                     "bo",

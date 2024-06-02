@@ -85,7 +85,7 @@ table_param_settings(base_model,
                      caption = cap)
 ```
 
-```{r param-estimates-table, results = "asis", eval=isTRUE(user == "grandin")}
+```{r param-estimates-table, results = "asis", eval = length(grep("grandin", user))}
 cap <- paste0("Posterior median and 95\\% credible interval estimates of key ",
               "parameters for the base model.")
 if(fr()){
