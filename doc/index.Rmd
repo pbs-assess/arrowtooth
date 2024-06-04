@@ -167,7 +167,7 @@ options(knitr.graphics.rel_path = FALSE)
 
 library(devtools)
 library(dplyr)
-if(length(grep("grandin", user))){
+if(as.logical(length(grep("grandin", user)))){
   load_all("~/github/pbs-assess/gfiscamutils")
   load_all("~/github/pbs-assess/gfplot")
   load_all("~/github/pbs-assess/csasdown")
