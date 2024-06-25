@@ -1,0 +1,10 @@
+# Sources of Information
+
+<!-- This is an optional section -->
+
+<div id="refs"></div>
+
+<!-- Required for proper indentation in following sections -->
+\setlength{\parindent}{0in} 
+\setlength{\leftskip}{0in} 
+\setlength{\parskip}{4pt}

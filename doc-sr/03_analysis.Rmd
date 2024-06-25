@@ -1,0 +1,12 @@
+# Analysis and Response
+<!-- This level of header should be title case in English -->
+
+Mandatory section, title may vary.
+
+## Note on this section
+
+This section is the core of the report.
+
+## Indicators of the stock status
+
+Mandatory section for stock status updates, title may vary.

@@ -1,0 +1,43 @@
+<!-- An example of how to include text based on the language. The two chunks below shows how switching the toggle in the YAML header for french allows inclusion/rejection of a paragraph. -->
+
+```{r para-1-context-en, eval = !fr(), results = 'asis'}
+cat("# Context
+
+`r sp` (*`r sp_science`*) stock status on the West Coast of `r bc` was assessed using data from 1996--2021 and examined at a CSAS review meeting on October 19 and 20, 2022.
+
+The model used to assess this stock was the Inegrated Statistic Catch-at-Age Model (ISCAM) and was tuned to five fishery-independent trawl survey series covering 1996--2021. In addition, a Discard CPUE series was used as an index of abundance. This series was created using discards from fishery trawl catch as a proxy for CPUE.
+
+A two-sex base model was selected and implemented in a Bayesian context using Markov chain Monte Carlo (MCMC) methods. The base model estimated 147 parameters in total.
+
+The 2021 assessment estimated a median stock size at the beginning of 2022 of 67.95 kilotonnes (kt) with a credible interval of 56.14--83.83 kt. When divided by the estimated initial or virgin biomass ($B_0$), the median relative biomass for 2022 was estimated to be 0.37 with a credible interval of 0.26--0.51. The esimated median relative biomass for 2011 (10 years prior), was estimated to be 0.77 with a credible interval of 0.53--0.1.09. The estimated biomass has declined each year from 2011--2021.
+
+")
+```
+```{r para-1-context-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+<<para-1-context-en>>
+```
+
+It should include the formal request/question from the client, the response deadline, as well as a short summary of the conclusion (one or two sentences).
+
+The rationale for the approach taken to answer the request can be described (e.g., specific scientific questions that were addressed).
+This section could also include information on previous related meetings and advice on which this process is based.
+
+This section is not intended for detailed background information on the science issues themselves, but rather gives the bigger picture.
+At the end of this section, the reader will have a clear understanding of the reason to produce the report, will know how this specific report fits in the sequence of past advice, and what advice is expected to be produced in the future on this specific issue.
+
+If the objective of the process was to comment on a specific report (e.g., Environmental Assessment report produced by a proponent in the context of the Canadian Environmental Assessment Act) then the relevant link to the report that was the subject of the review could be identified in this section.
+
+This section will be posted in HTML format on the CSAS website followed by the link to the full PDF version of the publication.
+
+## Mandatory paragraph
+
+*The meeting date and title must be exactly as they appear on the Fisheries and Oceans Science Advisory Schedule.
+Be sure to use the default text in the French template for the translation as well as the meeting information on the French version of the schedule.
+Edit the following sentence as necessary.*
+
+This Science Response Report results from the Science Response Process Month Day, Year on the Title of Process Here.
+
+*Add the following sentence if there are other associated publications that will be posted on the schedule.*
+
+Additional publications from this meeting will be posted on the \href{http://www.isdm-gdsi.gc.ca/csas-sccs/applications/events-evenements/index-eng.asp}{DFO Science Advisory Schedule} as they become available.
+

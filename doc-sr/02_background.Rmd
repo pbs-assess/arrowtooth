@@ -1,0 +1,73 @@
+```{r para-1-background-en, eval = !fr(), results = 'asis'}
+cat("# Background
+
+## Description of the Fishery and Management
+
+The commercial fishery for `r sp` has been active for decades. Prior to 2006 there were no limits on the amount of `r sp` that could be caught. In 2006 a TAC of 15,000 t was established and it remained at this level until 2017. In 2017, the TAC was increased to 17,500 t and remained there for two years until it was reduced to 14,000 t in 2019 as a precautionary measure to address concerns raised by the commercial trawl fleet about their oberved reduction in abundance of Arrowtooth Flounder. In 2020 the TAC was decreased to 5,000 t to address industry concerns regarding declining `r sp` abundance on traditional fishing grounds (DFO 2020).
+
+Before the introduction of 100% at-sea observer coverage in the `r bc` groundfish fleets in 1996, reporting of `r sp` discards in fishery logbooks was mandatory, but since `r sp` were not given a TAC until 2005, there was little incentive for skippers to record discards accurately until at-sea observers were present aboard vessels starting in 1996.
+
+The assessment model has been updated by adding new catch for 2022 and 2023 (Table \@ref(tab:overall-catch-table), Figures \@ref(fig:fig-catch) and \@ref(fig:fig-catch-fleet)).
+
+")
+```
+
+```{r para-1-background-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+<<para-1-background-en>>
+```
+
+```{r overall-catch-table, results = "asis"}
+cap <- paste0("Recent coastwide commercial fishery landings and discards (t) ",
+              "for ", sp, ".")
+if(fr()){
+cap <- paste0("Débarquements et rejets récents de la pêche commerciale ",
+              "côtière (t) pour ", sp, ".")
+}
+
+table_catch(catch,
+            digits = 1,
+            caption = cap,
+            start_yr = 1996,
+            font_size = 8,
+            gear_col_widths = "6em")
+```
+
+(ref:fig-catch-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. In the years prior to 1996, many tows of `r sp` were discarded without logs being kept.
+
+(ref:fig-catch-fr) Prises commerciales de `r sp` par flotte. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, les captures de l'année 2005 correspondent à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006. La zone grise qui s'étend du début de la série chronologique jusqu'en 1996 indique que les données ne sont pas fiables. Au cours des années antérieures à 1996, de nombreux traits de `r sp` ont été rejetés sans qu'aucun journal n'ait été tenu.
+
+```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
+yrs <- sort(unique(catch$year))
+plot_catch(catch,
+           french = fr(),
+           unreliable = 1996,
+           xlim = c(min(yrs), max(yrs))) +
+  scale_x_continuous(yrs, breaks = seq(min(yrs), yrs[length(yrs)], by = 2)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5))
+```
+
+(ref:fig-catch-fleet-en) Commercial catch of `r sp` by fleet. Each year of catch starts on Feb. 21 and ends on Feb. 20. See the previous figure for an explanation of the shaded grey area.
+
+(ref:fig-catch-fleet-fr) Prises commerciales de `r sp` par flottille. Chaque année de capture commence le 21 février et se termine le 20 février. Voir la figure précédente pour une explication de la zone grisée.
+
+```{r fig-catch-fleet, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
+yrs <- sort(unique(catch$year))
+plot_catch_fleet(list(catch_ft, catch_ss),
+                 base_model$dat$fleet_gear_names,
+                 french = fr(),
+                 unreliable = 1996,
+                 xlim = c(min(yrs), max(yrs))) +
+  scale_x_continuous(yrs, breaks = seq(min(yrs), yrs[length(yrs)], by = 2)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5))
+
+```
+
+
+This section can be used when it is considered necessary to add some background information to help the readers understand the nature of the issue to address (e.g., key information on the species, population, or area, or more details on the rationale for providing an answer to the request,).
+Science Response Reports are intended to be short. References to more background information may be added in the Sources of Information section.
+
+Some references: [@francis2011, @edwards2013, @swainbenoit2015].
+
+## Description of the fishery
+
+Optional section for stock status updates, title may vary. 
