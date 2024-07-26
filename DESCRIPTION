@@ -24,6 +24,7 @@ Imports:
     gfiscamutils,
     gfplot,
     ggplot2,
+    glmmTMB,
     hake,
     here,
     icesAdvice,
