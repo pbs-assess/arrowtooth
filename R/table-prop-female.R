@@ -14,7 +14,7 @@
 #' @param format The format of table as in [knitr::kable()]
 #' @param yrs A vector of years to include in the output table. If `NULL`,
 #' all years will be included
-#' @params ret_means Logical. If `TRUE`, return a list of the gear mean values.
+#' @param ret_means Logical. If `TRUE`, return a list of the gear mean values.
 #' Takes priority over `ret_df`
 #'
 #' @return A [csasdown::csas_table()]

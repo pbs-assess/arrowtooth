@@ -28,6 +28,9 @@ the second from \code{\link[=props_surv]{props_surv()}}}
 \item{yrs}{A vector of years to include in the output table. If \code{NULL},
 all years will be included}
 
+\item{ret_means}{Logical. If \code{TRUE}, return a list of the gear mean values.
+Takes priority over \code{ret_df}}
+
 \item{...}{Arguments passed to \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 }
 \value{

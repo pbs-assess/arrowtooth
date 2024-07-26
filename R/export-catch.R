@@ -12,6 +12,8 @@
 #' which contains the sum of all catch for both fleets
 #' @param fns A vector of two filenames
 #' @param middle_text A vector of middle column data to insert in the output
+#' @param dr The directory in which the file is to be saved if `write_files`
+#' is `TRUE`
 #' @param ... Arguments passed to [gfplot::tidy_catch()] and in turn, to
 #' [gfplot::set_fishing_year()]
 #'
@@ -39,7 +41,13 @@ export_catch <- function(ct,
                                          area = 1,
                                          sex = 0,
                                          type = 1),
+                         dr = NULL,
                          ...){
+
+  if(write_files && is.null(dr)){
+    stop("You must provide a directory (`dr`) into which the files will ",
+         "be saved.")
+  }
 
   options(pillar.sigfig = 7)
 
@@ -62,13 +70,11 @@ export_catch <- function(ct,
     }
 
     if(write_files){
-      nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
-      dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
-      fn <- file.path(nongit_dir,
-                      file.path("data-output",
-                                fns[1]))
+      dir.create(dr, showWarnings = FALSE, recursive = TRUE)
+      fn <- file.path(dr, fns[1])
 
-      write.table(catch_all, fn,
+      write.table(catch_all,
+                  fn,
                   quote = FALSE,
                   row.names = FALSE)
       message("Created file ", fn)
@@ -116,19 +122,17 @@ export_catch <- function(ct,
   }
 
   if(write_files){
-    nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
-    dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
-    fns[1] <- file.path(nongit_dir,
-                        file.path("data-output",
-                                  fns[1]))
-    fns[2] <- file.path(nongit_dir,
-                        file.path("data-output",
-                                  fns[2]))
-    write.table(catch_ft, fns[1],
+    dir.create(dr, showWarnings = FALSE, recursive = TRUE)
+    fns[1] <- file.path(dr, fns[1])
+    fns[2] <- file.path(dr, fns[2])
+
+    write.table(catch_ft,
+                fns[1],
                 quote = FALSE,
                 row.names = FALSE)
     message("Created file ", fns[1])
-    write.table(catch_ss, fns[2],
+    write.table(catch_ss,
+                fns[2],
                 quote = FALSE,
                 row.names = FALSE)
     message("Created file ", fns[2])

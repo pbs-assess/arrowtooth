@@ -29,6 +29,7 @@ export_survey_indices(
   stitched_syn = NULL,
   write_to_file = TRUE,
   append = FALSE,
+  dr = NULL,
   ...
 )
 }
@@ -55,6 +56,9 @@ cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishin
 \item{write_to_file}{If \code{TRUE}, write the output to the file. If \code{FALSE}, return the data frame}
 
 \item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE}, overwrite the file}
+
+\item{dr}{The directory in which the file is to be saved if \code{write_files}
+is \code{TRUE}}
 }
 \value{
 A data frame containing proportions of females for the required surveys

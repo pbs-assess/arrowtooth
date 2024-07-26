@@ -16,6 +16,7 @@ export_catch(
   fns = c(paste0("catch-ft-", Sys.Date(), ".txt"), paste0("catch-ss-", Sys.Date(),
     ".txt")),
   middle_text = c(gear = 1, group = 1, area = 1, sex = 0, type = 1),
+  dr = NULL,
   ...
 )
 }
@@ -39,6 +40,9 @@ which contains the sum of all catch for both fleets}
 \item{fns}{A vector of two filenames}
 
 \item{middle_text}{A vector of middle column data to insert in the output}
+
+\item{dr}{The directory in which the file is to be saved if \code{write_files}
+is \code{TRUE}}
 
 \item{...}{Arguments passed to \code{\link[gfplot:plot_catch]{gfplot::tidy_catch()}} and in turn, to
 \code{\link[gfplot:plot_catch]{gfplot::set_fishing_year()}}}

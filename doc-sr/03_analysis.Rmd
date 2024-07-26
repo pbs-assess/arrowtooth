@@ -1,7 +1,17 @@
 # Analysis and Response
 <!-- This level of header should be title case in English -->
 
-Mandatory section, title may vary.
+(ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with $B_{MSY}$ reference points. The solid black line with points show the medians of the posteriors, the shaded ribbon encapsulated by dashed lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% CI for that parameter. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t. The $B_{MSY}$ reference point lines are shown here for reference only, they are not advised for use in decision making for this stock. See section \@ref(scam-ref-points) for more details.
+
+(ref:fig-base-sb-fr) French caption
+
+```{r fig-base-sb, fig.cap = ifelse(fr(), "(ref:fig-base-sb-fr)", "(ref:fig-base-sb-en)")}
+plot_biomass_mcmc(base_model,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bmsy_lines = TRUE,
+                  ylim = c(0, 250))
+```
 
 ## Note on this section
 

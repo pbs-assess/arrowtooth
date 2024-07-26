@@ -12,6 +12,8 @@
 #' @param stitched_syn The stitched synoptic index as read in from stitched-syn-index.rds
 #' @param write_to_file If `TRUE`, write the output to the file. If `FALSE`, return the data frame
 #' @param append If `TRUE`, append the output to the file. If `FALSE`, overwrite the file
+#' @param dr The directory in which the file is to be saved if `write_files`
+#' is `TRUE`
 #' @param ... Arguments passed to [props_comm()]
 #'
 #' @return A list of survey indices for pasting into a iSCAM data file
@@ -38,7 +40,13 @@ export_survey_indices <- function(survey_index,
                                   stitched_syn = NULL,
                                   write_to_file = TRUE,
                                   append = FALSE,
+                                  dr = NULL,
                                   ...){
+
+  if(write_to_file && is.null(dr)){
+    stop("You must provide a directory (`dr`) into which the files will ",
+         "be saved.")
+  }
 
   if(!is.null(iphc)){
     iphc <- iphc %>%
@@ -111,12 +119,14 @@ export_survey_indices <- function(survey_index,
   surv_indices <- bind_cols(select(surv_indices, -survey), surv_names)
 
   if(write_to_file){
-    nongit_dir <- file.path(dirname(here()), "arrowtooth-nongit")
-    dir.create(file.path(nongit_dir, "data-output"), showWarnings = FALSE)
-    fn <- file.path(nongit_dir,
-                    file.path("data-output",
-                              paste0("survey-indices-", Sys.Date(), ".txt")))
-    write.table(surv_indices, fn, quote = FALSE, row.names = FALSE, append = append)
+    dir.create(dr, showWarnings = FALSE, recursive = TRUE)
+    fn <- file.path(dr,
+                    paste0("survey-indices-", Sys.Date(), ".txt"))
+    write.table(surv_indices,
+                fn,
+                quote = FALSE,
+                row.names = FALSE,
+                append = append)
     message("Survey indices written to ", fn)
   }else{
     surv_indices
