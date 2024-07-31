@@ -12,16 +12,18 @@ add_extra_indices(
 )
 }
 \arguments{
-\item{surv_index}{A survey index object as returned by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
+\item{surv_index}{A survey index object as returned by
+\code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
 
 \item{iphc}{The IPHC index data}
 
 \item{discard_cpue}{The Discard CPUE index data}
 
-\item{stitched_syn}{The Stitched Synoptics index data}
+\item{stitched_syn}{The Stitched Synoptic index data}
 }
 \value{
-A survey index object as returned by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}, with the additional indices added
+A survey index object as returned by
+\code{\link[gfdata:get_data]{gfdata::get_survey_index()}}, with the additional indices added
 }
 \description{
 Add survey indices from files into the survey index object

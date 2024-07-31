@@ -16,6 +16,9 @@ french_address: |
      Nanaimo, Colombie-Britannique, V9T 6N7, Canada\
 month: October
 french_month: Octobre
+model_path: "/srv/arrowtooth/2022"
+nongit_path: "/srv/arrowtooth/arrowtooth-nongit"
+base_model_path: "/srv/arrowtooth/2024/01-base-models/01-base-model"
 year: 2022
 report_number: nnn
 region: Pacific Region

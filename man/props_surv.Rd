@@ -44,18 +44,22 @@ export_survey_indices(
 
 \item{...}{Arguments passed to \code{\link[=props_comm]{props_comm()}}}
 
-\item{survey_index}{Survey index data frame as output by \code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
+\item{survey_index}{Survey index data frame as output by
+\code{\link[gfdata:get_data]{gfdata::get_survey_index()}}}
 
 \item{iphc}{The IPHC index as read in from iphc-survey-index.rds}
 
-\item{discard_cpue}{The discard CPUE index as read from
-cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year}
+\item{discard_cpue}{The discard CPUE index as read from the
+'cpue-predictions*' file}
 
-\item{stitched_syn}{The stitched synoptic index as read in from stitched-syn-index.rds}
+\item{stitched_syn}{The stitched synoptic index as read in from
+'stitched-syn-index.rds'}
 
-\item{write_to_file}{If \code{TRUE}, write the output to the file. If \code{FALSE}, return the data frame}
+\item{write_to_file}{If \code{TRUE}, write the output to the file. If \code{FALSE},
+return the data frame}
 
-\item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE}, overwrite the file}
+\item{append}{If \code{TRUE}, append the output to the file. If \code{FALSE},
+overwrite the file}
 
 \item{dr}{The directory in which the file is to be saved if \code{write_files}
 is \code{TRUE}}
@@ -73,15 +77,16 @@ Calculate the proportions female for the survey data
 Summarize the data used to make the proportions female table
 
 Extract the female survey index data for pasting into the iSCAM data file.
-The 'Discard CPUE' index must be multiplied by the proportions female from the commercial fishery
-so \code{comm_samples} is required
+The 'Discard CPUE' index must be multiplied by the proportions female
+from the commercial fishery so \code{comm_samples} is required
 }
 \details{
-The CV can be calculated as CV = SD / MEAN or from the Standard error: CV = sqrt(exp(SE^2) - 1)
+The CV can be calculated as CV = SD / MEAN or from the Standard
+error: CV = sqrt(exp(SE^2) - 1)
 }
 \examples{
 \dontrun{
 si <- gfdata::get_survey_index("arrowtooth flounder")
-extract_survey_indices (survey_index, start_year = 1996, end_year = 2019, species_category = 1)
+export_survey_indices(si, start_year = 1996, end_year = 2023, species_category = 1)
 }
 }

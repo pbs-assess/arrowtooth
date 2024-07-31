@@ -1,5 +1,24 @@
-models_dir <- "/srv/arrowtooth/2022"
-nongit_dir <- "/srv/arrowtooth/arrowtooth-nongit"
+if(is.null(rmarkdown::metadata$model_path)){
+  warning("`model_path` not found in the `index.Rmd` file, using ",
+          "defaults found at the top of `doc/load_models.R`")
+  models_dir <- "/srv/arrowtooth/2022"
+}else{
+  models_dir <- rmarkdown::metadata$model_path
+}
+if(is.null(rmarkdown::metadata$base_model_path)){
+  warning("`base_model_path` not found in the `index.Rmd` file, using ",
+          "defaults found at the top of `doc/load_models.R`")
+  base_model_dir <- "/srv/arrowtooth/2024/01-base-models/01-base-model"
+}else{
+  base_model_dir <- rmarkdown::metadata$base_model_path
+}
+if(is.null(rmarkdown::metadata$nongit_path)){
+  warning("`nongit_path` not found in the `index.Rmd` file, using ",
+          "defaults found at the top of `doc/load_models.R`")
+  nongit_dir <- "/srv/arrowtooth/arrowtooth-nongit"
+}else{
+  nongit_dir <- rmarkdown::metadata$nongit_path
+}
 
 # This is a list of vectors of bridge groups (bridge models that will be
 # plotted against each other). It can be `NULL` if to be ignored.
@@ -239,21 +258,12 @@ retro_models_text <- map(retro_models_text, ~{
 retro_models_text <- retro_models_text |>
   map(~{factor(.x, levels = .x)})
 
-# if(here() == "/home/rstudio"){
-#   # For an Rstudio server spawned inside a Docker container
-#   drs <- set_dirs(models_dir = models_dir,
-#                   nongit_dir = nongit_dir,
-#                   base_model_dir = "base",
-#                   bridge_models_dirs = bridge_models_dirs,
-#                   sens_models_dirs = sens_models_dirs,
-#                   check_dir_exists = FALSE)
-# }else{
 drs <- set_dirs(models_dir = models_dir,
                 nongit_dir = nongit_dir,
                 bridge_models_dirs = bridge_models_dirs,
                 sens_models_dirs = sens_models_dirs,
-                retro_models_dirs = retro_models_dirs)
-# }
+                retro_models_dirs = retro_models_dirs,
+                base_model_dir = base_model_dir)
 
 models <- model_setup(drs = drs,
                       bridge_models_text = bridge_models_text,
