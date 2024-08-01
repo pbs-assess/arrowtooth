@@ -11,6 +11,7 @@ A two-sex base model was selected and implemented in a Bayesian context using Ma
 
 The 2021 assessment estimated a median stock size at the beginning of 2022 of 67.95 kilotonnes (kt) with a credible interval of 56.14--83.83 kt. When divided by the estimated initial or virgin biomass ($B_0$), the median relative biomass for 2022 was estimated to be 0.37 with a credible interval of 0.26--0.51. The esimated median relative biomass for 2011 (10 years prior), was estimated to be 0.77 with a credible interval of 0.53--0.1.09. The estimated biomass has declined each year from 2011--2021.
 
+A summary of the 2021 stock assessment can be found in the [Science Advisory Report 2023/042](https://www.dfo-mpo.gc.ca/csas-sccs/Publications/SAR-AS/2023/2023_042-eng.html).
 ")
 ```
 ```{r para-1-context-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
