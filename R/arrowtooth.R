@@ -5,7 +5,7 @@
 #'
 #' @docType _PACKAGE
 #' @name arrowtooth
-
+#'
 #' @import gfplot
 #' @import ggplot2
 #' @importFrom PBSmapping clipPolys
@@ -15,8 +15,7 @@
 #' @importFrom sf st_transform
 #' @importFrom stats quantile
 #' @importFrom utils capture.output
-#'
-#'
+
 NULL
 
 # from: https://github.com/jennybc/googlesheets/blob/master/R/googlesheets.R

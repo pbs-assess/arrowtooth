@@ -18,7 +18,7 @@ month: October
 french_month: Octobre
 model_path: "/srv/arrowtooth/2022"
 nongit_path: "/srv/arrowtooth/arrowtooth-nongit"
-base_model_path: "/srv/arrowtooth/2024/01-base-models/01-base-model"
+base_model_path: "/srv/arrowtooth/2022/01-base-models/01-base-model"
 year: 2022
 report_number: nnn
 region: Pacific Region
@@ -52,6 +52,13 @@ french_abstract: |
   L'ampleur des prises et des rejets avant 1996, ainsi que l'absence d'études antérieures indépendantes des pêcheries, constituent une source majeure d'incertitude dans cette évaluation, ce qui rend difficile l'évaluation de l'échelle et de la productivité du stock. L'utilisation d'une étude géostatistique combinée pour remplacer les indices des études synoptiques séparées pourrait aider à résoudre certains problèmes liés à l'indice de l'étude synoptique du détroit de la Reine-Charlotte, qui présente un taux de déclin plus faible que les autres indices de l'étude. Après avoir évalué les considérations relatives à l'écosystème et la biologie connue du stock, rien n'indique clairement que les conditions environnementales actuelles devraient modifier l'avis sur les captures dans la présente évaluation. Étant donné que le stock est estimé légèrement en dessous de l'RSS dans le modèle de base et proche du LRP dans un modèle de sensibilité avec une plus grande variation du recrutement, ainsi qu'une biomasse estimée du stock reproducteur en déclin, des indices de prospection en déclin et un recrutement estimé en déclin, il est suggéré que cette évaluation du stock soit mise à jour avec de nouvelles données dans environ deux ans, lorsqu'une prospection supplémentaire aura été réalisée dans chaque zone de la côte.
 
 header: "Draft working paper --- Do not cite or circulate" # or "" to omit
+# `show_continued_text` is a logical which, if `true`, places
+# "Continued on the next page..." and "...Continued from the previous page" or
+# the french equivalents (if `french` = `true`) on all long tables created
+# with `csas_table()` that cross page boundaries. If `false`, these will
+# both be absent from all tables. If it is missing or any other value than
+# `false`, it will be assumed to be `true`
+show_continued_text: true
 output:
  csasdown::resdoc_pdf:
    # build_rds is a toggle to re-build all the RDS files for the models
@@ -836,3 +843,4 @@ diff_bio_b40 <- f(0.0064 * 1000, 1)
 
 <!-- For highlighting table cells for readability. See the decision table code for example.  -->
 \definecolor{faint-gray}{gray}{0.9}
+
