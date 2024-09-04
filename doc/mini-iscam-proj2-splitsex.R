@@ -8,8 +8,8 @@ N_fleets <- 2
 projected_N <- 0
 N_t <- N_t + projected_N
 
-TURN_OFF_F <- FALSE
-# TURN_OFF_F <- TRUE
+# TURN_OFF_F <- FALSE
+TURN_OFF_F <- TRUE
 
 # female first
 M <- c(0.20, 0.35)
@@ -220,15 +220,17 @@ abline(h = 0.2, lty = 2)
 if (TURN_OFF_F) SSB_t_noF <- SSB_t
 
 if (FALSE) {
-  # plot(yrs, SSB_t/SSB0, type = "l", ylim = c(0, 1))
-  # # abline(h = 1, lty = 2)
-  # abline(h = 0.4, lty = 2)
-  # abline(h = 0.2, lty = 2)
-  # lines(yrs, SSB_t_noF/SSB0, col = "grey60")
+  plot(yrs, SSB_t/SSB0, type = "l", ylim = c(0, 1))
+  # abline(h = 1, lty = 2)
+  abline(h = 0.4, lty = 2)
+  abline(h = 0.2, lty = 2)
+  lines(yrs, SSB_t_noF/SSB0, col = "grey60")
 
   library(ggplot2)
   dat <- data.frame(year = yrs, SSB = SSB_t / SSB0,
     SSB_dynB0 = SSB_t_noF / SSB0)
+  # dat <- data.frame(year = yrs, SSB = SSB_t / SSB0,
+  #   SSB_dynB0 = SSB_t_noF)
   ggplot(dat, aes(year, SSB)) +
     geom_line() +
     geom_line(aes(y = SSB_dynB0), col = "blue") +
