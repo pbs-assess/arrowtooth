@@ -41,36 +41,36 @@ d <- d %>% filter(vessel_registration_number %in% c(
   "20815", "20689", "21076", "30629", "29254", "29393", "29560",
   "21838", "311591"
 ))
-d2 <- d %>%
-  group_by(year, major_stat_area_code, major_stat_area_description,
-           pos_catch) %>%
-  summarise(n = n()) %>%
-  ungroup() %>%
-  pivot_wider(names_from = "pos_catch", values_from = "n") %>%
-  mutate(`Propotion without arrowtooth` = `0` / (`0` + `1`), total_tows = (`0` + `1`))
+# d2 <- d %>%
+#   group_by(year, major_stat_area_code, major_stat_area_description,
+#            pos_catch) %>%
+#   summarise(n = n()) %>%
+#   ungroup() %>%
+#   pivot_wider(names_from = "pos_catch", values_from = "n") %>%
+#   mutate(`Propotion without arrowtooth` = `0` / (`0` + `1`), total_tows = (`0` + `1`))
 
 d3 <- d %>%
   group_by(year, pos_catch) %>%
   summarise(n = n()) %>%
   ungroup() %>%
   pivot_wider(names_from = "pos_catch", values_from = "n") %>%
-  mutate(`Propotion without arrowtooth` = `0` / (`0` + `1`), total_tows = (`0` + `1`))
+  mutate(`Proportion without arrowtooth` = `0` / (`0` + `1`), total_tows = (`0` + `1`))
 
 max(d3$total_tows)
 
-d2 %>% # filter(year != 2020) %>%
+d3 %>% # filter(year != 2020) %>%
   ggplot() +
-  geom_point(aes(year, `Propotion without arrowtooth`,
-    colour = major_stat_area_description
+  geom_point(aes(year, `Proportion without arrowtooth`
+    # colour = major_stat_area_description
   )) +
   geom_smooth(
-    method = "gam", aes(year, `Propotion without arrowtooth`,
-      colour = major_stat_area_description
+    method = "gam", aes(year, `Proportion without arrowtooth`
+      # colour = major_stat_area_description
     ),
     fill = NA, lty = "dashed"
   ) +
   geom_smooth(
-    data = d3, method = "gam", aes(year, `Propotion without arrowtooth`),
+    data = d3, method = "gam", aes(year, `Proportion without arrowtooth`),
     colour = "black",
     fill = "grey"
   ) +
