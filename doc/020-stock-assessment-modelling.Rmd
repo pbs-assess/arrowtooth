@@ -65,16 +65,16 @@ cat("### Abundance Indices
 
 Six fishery independent indices of abundance were used in this assessment:
 
-1. `r qcs`
-2. `r hsmas`
-3. `r hss`
-4. `r wcvis`
+1. `r qcs` (QCS Synoptic)
+2. `r hsmas` (HS Multi)
+3. `r hss` (HS Synoptic)
+4. `r wcvis` (WCVI Synoptic)
 5. `r wchgs` (bridging only)
-6. `r dcpue`
+6. `r dcpue` (DCPUE)
 
 **`r qcs`**
 
-The `r qcs` has been conducted from July–August in 2003, 2004, and in odd years starting in 2005. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 50--125 m, 125--200 m, 200--330 m, and 330--500 m. Each year blocks are randomly selected within each depth strata. In addition, for the purposes of allocating blocks, the  survey is divided into northern and southern spatial strata.
+The `r qcs` has been conducted from July--August in 2003, 2004, and in odd years starting in 2005. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 50--125 m, 125--200 m, 200--330 m, and 330--500 m. Each year blocks are randomly selected within each depth strata. In addition, for the purposes of allocating blocks, the  survey is divided into northern and southern spatial strata.
 
 **`r hsmas`**
 
@@ -82,15 +82,15 @@ A series of multi-species groundfish bottom trawl surveys were conducted in Heca
 
 **`r hss`**
 
-The `r hss` is part of a coordinated set of long-term surveys that together cover the continental shelf and upper slope of most of the British Columbia coast. The `r qcs` and `r wcvis` described in this section are part of the same set of surveys. All the synoptic surveys follow a random depth stratifed design. The relative allocation of blocks among depth strata was determined by modelling the expected catches of groundfish and determining the target number of tows per stratum that would provide the most precise catch rate data for as many species as possible. The `r hss` has been conducted from May–-June in odd years starting in 2005. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 10--70 m, 70--130 m, 130--220 m, and 220--500 m. Each year blocks are randomly selected within each depth strata.
+The `r hss` is part of a coordinated set of long-term surveys that together cover the continental shelf and upper slope of most of the British Columbia coast. The `r qcs` and `r wcvis` described in this section are part of the same set of surveys. All the synoptic surveys follow a random depth stratifed design. The relative allocation of blocks among depth strata was determined by modelling the expected catches of groundfish and determining the target number of tows per stratum that would provide the most precise catch rate data for as many species as possible. The `r hss` has been conducted from May--June in odd years starting in 2005. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 10--70 m, 70--130 m, 130--220 m, and 220--500 m. Each year blocks are randomly selected within each depth strata.
 
 **`r wcvis`**
 
-The `r wcvis` has been conducted from May–-June in even years starting in 2004. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 50–-125 m, 125--200 m, 200--330 m, and 330--500 m. Each year blocks are randomly selected within each depth strata. In addition, for the purposes of allocating blocks, the survey is divided into northern and southern spatial strata.
+The `r wcvis` has been conducted from May--June in even years starting in 2004. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 50--125 m, 125--200 m, 200--330 m, and 330--500 m. Each year blocks are randomly selected within each depth strata. In addition, for the purposes of allocating blocks, the survey is divided into northern and southern spatial strata.
 
 **`r wchgs`**
 
-The `r wchgs` has been conducted from August-September in even years starting in 2006. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 180--330 m, 330--500 m, 500--800 m, and 800--1,300 m.
+The `r wchgs` has been conducted from August--September in even years starting in 2006. The survey area is divided into 2 km $\times$ 2 km blocks and each block is assigned one of four depth strata based on the average bottom depth in the block. The four depth strata for this survey are 180--330 m, 330--500 m, 500--800 m, and 800--1,300 m.
 
 **`r dcpue`**
 
@@ -113,11 +113,11 @@ Six indices d'abondance indépendants de la pêche ont été utilisés dans cett
 
 **`r qcs`**
 
-Le `r qcs` a été réalisé en juillet-août en 2003, 2004, et les années impaires à partir de 2005. La zone de relevé est divisée en blocs de 2 km $\times$ 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 50--125 m, 125--200 m, 200--330 m, et 330--500 m. Chaque année, des blocs sont sélectionnés au hasard dans chaque strate de profondeur. En outre, pour les besoins de l'attribution des blocs, l'étude est divisée en strates spatiales septentrionales et méridionales.
+Le `r qcs` a été réalisé en juillet--août en 2003, 2004, et les années impaires à partir de 2005. La zone de relevé est divisée en blocs de 2 km $\times$ 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 50--125 m, 125--200 m, 200--330 m, et 330--500 m. Chaque année, des blocs sont sélectionnés au hasard dans chaque strate de profondeur. En outre, pour les besoins de l'attribution des blocs, l'étude est divisée en strates spatiales septentrionales et méridionales.
 
 **`r hsmas`**
 
-Une série de campagnes de chalutage de fond multi-espèces a été menée dans le détroit d'Hécate en mai-juin 1984, 1987, 1989, 1991, 1993, 1995, 1996, 1998, 2000, 2002 et 2003 (@westrheim1984 ; @fargo1984 ; @fargo1988 ; @wilson1991 ; @hand1994 ; @workman1996 ; @workman1997 ; @choromanski2002 ; @choromanski2005). La présente évaluation n'utilise que les observations de 1996 jusqu'à la fin de l'étude en 2003. La conception originale de cette étude attribuait les lieux de pêche par intervalles de 10 brasses de profondeur à l'intérieur d'une grille de 10 milles nautiques dans le détroit d'Hécate. L'étude a été stratifiée a posteriori en utilisant des intervalles de 10 brasses de profondeur pour l'ensemble de la zone d'étude, traitant ainsi chaque intervalle de profondeur comme une strate unique. Malgré les tentatives d'application de la stratification post-échantillonnage, cette approche a entraîné une variance élevée de la campagne [@sinclair2007]. En 2004, le `r hsmas` a été abandonné au profit du `r hss` (décrit ci-dessous).
+Une série de campagnes de chalutage de fond multi-espèces a été menée dans le détroit d'Hécate en mai--juin 1984, 1987, 1989, 1991, 1993, 1995, 1996, 1998, 2000, 2002 et 2003 (@westrheim1984 ; @fargo1984 ; @fargo1988 ; @wilson1991 ; @hand1994 ; @workman1996 ; @workman1997 ; @choromanski2002 ; @choromanski2005). La présente évaluation n'utilise que les observations de 1996 jusqu'à la fin de l'étude en 2003. La conception originale de cette étude attribuait les lieux de pêche par intervalles de 10 brasses de profondeur à l'intérieur d'une grille de 10 milles nautiques dans le détroit d'Hécate. L'étude a été stratifiée a posteriori en utilisant des intervalles de 10 brasses de profondeur pour l'ensemble de la zone d'étude, traitant ainsi chaque intervalle de profondeur comme une strate unique. Malgré les tentatives d'application de la stratification post-échantillonnage, cette approche a entraîné une variance élevée de la campagne [@sinclair2007]. En 2004, le `r hsmas` a été abandonné au profit du `r hss` (décrit ci-dessous).
 
 **`r hss`**
 
@@ -129,7 +129,7 @@ Le `r wcvis` a été mené de mai à juin les années paires à partir de 2004. 
 
 **`r wchgs`**
 
-La campagne `r wchgs` a été menée en août-septembre les années paires à partir de 2006. La zone de relevé est divisée en blocs de 2 km $\times$ 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 180-330 m, 330-500 m, 500-800 m et 800-1 300 m.
+La campagne `r wchgs` a été menée en août-septembre les années paires à partir de 2006. La zone de relevé est divisée en blocs de 2 km $\times$ 2 km et chaque bloc se voit attribuer l'une des quatre strates de profondeur en fonction de la profondeur moyenne du fond dans le bloc. Les quatre strates de profondeur pour cette étude sont 180--330 m, 330--500 m, 500--800 m et 800--1 300 m.
 
 **`r dcpue`**
 
@@ -139,7 +139,7 @@ Un indice normalisé de CPUE commerciale, utilisé dans d'autres évaluations r�
 ```
 
 ```{r sam-swept-area-en, eval = !fr(), results = 'asis'}
-cat("**Swept area analysis for Indices of abundance**
+cat("**Swept Area Analysis for Indices of Abundance**
   
 For all surveys, the swept area estimate of biomass in year $y$ was obtained by summing the product of the CPUE and the area surveyed across the surveyed strata $i$:
 \begin{equation} 
@@ -173,7 +173,7 @@ The CV for `r sp` for each year $y$ was calculated as follows:
 
 where $\textrm{CV}_y$ is the CV for year $y$.
 
-One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95% confidence regions for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
+One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95% confidence intervals for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
   
 We also included a set of geostatistical-model-standardized indices in our sensitivity analyses (Appendix \@ref(app:geostat)).
 
@@ -229,11 +229,11 @@ Ages for the years 1996--2019 are included in this assessment from the two comme
 
 Age composition data represented the whole coast for the following years:
 
-1. Freezer trawlers (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[1]])$year), collapse = '--')`
-1. Shoreside (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[2]])$year), collapse = '--')`
-1. `r qcs` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[3]])$year), collapse = '--')`
-1. `r hss` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[4]])$year), collapse = '--')`
-1. `r wcvis` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[5]])$year), collapse = '--')`
+1. Freezer trawlers (Figure \@ref(fig:fig-ages)), `r base_model$dat$age.comps[[1]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. Shoreside (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[2]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. `r qcs` (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[3]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. `r hss` (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[4]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. `r wcvis` (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[5]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
 1. `r wchgs` (Figure \@ref(fig:fig-ages)), 2016--2018, (bridging models only)
 
 Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed scheme that adjusted for unequal sampling effort across depth strata and tow biomass density (surveys) or quarterly period within a year and tow catch weight (commercial). Details are given in @holt2016 (page 160) and the `r la` [@grandin2017]. The methods are coded into the [gfplot package](https://github.com/pbs-assess/gfplot). The `r la` used custom code as the gfplot package was not yet available.
@@ -290,4 +290,10 @@ Growth parameters were estimated outside the `r iscam` framework. They were inpu
 cat("### Paramètres de croissance
 Les paramètres de croissance ont été estimés en dehors du cadre `r iscam`. Ils ont été introduits dans les fichiers de données pour le modèle d'évaluation du stock. L'appendice \@ref(app:bio-data-appendix) contient des détails, y compris les équations et les valeurs estimées des paramètres de croissance pour le modèle de base dans le tableau \@ref(tab:growth-params-table).
 ")
+```
+
+```{r sam-proportion-zero-tows-en, eval = !fr(), results = 'asis'}
+cat("### Proportion zero tows
+
+The 100% discard rule in the Discard CPUE time series means the entire tow is discarded. Figure \@ref(fig:fig-catch-zero-prop) shows the proportion of commercial tows which caught no `r sp`. The figure shows that the number of tows catching zero `r sp` has increased steadily since approximately 2014 with 2020 having approximately 40% tows with zero `r sp` catch.")
 ```

@@ -1,7 +1,7 @@
 ```{r appendix-prop-para-1-en, eval = !fr(), results = 'asis'}
 cat("# PROPORTION FEMALE ANALYSIS {#app:prop-female}
 ## Introduction
-The split-sex model requires a proportion of females as an input. In the Gulf of Alaska, observer length frequencies were used to determine that the stock is approximately 70% female (@goa2021). In `r bc`, both commercial fishery and synoptic survey data were used to determine the proportion female. This appendix descibes the weighting algorithm used, which is the same as what was used in @grandin2017 and based on the methods applied in @holt2016. The analysis here is based on aggregated area data for a coastwide stock.
+The two-sex model requires a proportion of females as an input. In the Gulf of Alaska, observer length frequencies were used to determine that the stock is approximately 70% female (@goa2021). In `r bc`, both commercial fishery and synoptic survey data were used to determine the proportion female. This appendix descibes the weighting algorithm used, which is the same as what was used in @grandin2017 and based on the methods applied in @holt2016. The analysis here is based on aggregated area data for a coastwide stock.
 
 ## Data Selection
 Both commercial and synoptic sample age data were filtered for input into the proportion female routine.
@@ -75,7 +75,7 @@ For surveys,the same algorithm is followed except that the quarter of the year i
 ```{r appendix-prop-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# ANALYSE DE LA PROPORTION FÉMININE {#app:prop-female}
 ## Introduction
-Le modèle split-sex nécessite une proportion de femelles comme donnée d'entrée. Dans le Golfe de l'Alaska, les fréquences de longueur des observateurs ont été utilisées pour déterminer que le stock est composé d'environ 70% de femelles (@goa2021). En `r bc`, les données de la pêche commerciale et des relevés synoptiques ont été utilisées pour déterminer la proportion de femelles. Cette annexe décrit l'algorithme de pondération utilisé, qui est le même que celui utilisé dans @grandin2017 et basé sur les méthodes appliquées dans @holt2016. L'analyse ici est basée sur des données de zone agrégées pour un stock à l'échelle de la côte.
+Le modèle two-sex nécessite une proportion de femelles comme donnée d'entrée. Dans le Golfe de l'Alaska, les fréquences de longueur des observateurs ont été utilisées pour déterminer que le stock est composé d'environ 70% de femelles (@goa2021). En `r bc`, les données de la pêche commerciale et des relevés synoptiques ont été utilisées pour déterminer la proportion de femelles. Cette annexe décrit l'algorithme de pondération utilisé, qui est le même que celui utilisé dans @grandin2017 et basé sur les méthodes appliquées dans @holt2016. L'analyse ici est basée sur des données de zone agrégées pour un stock à l'échelle de la côte.
 
 ## Sélection des données
 Les données d'âge des échantillons commerciaux et synoptiques ont été filtrées pour être introduites dans la routine de proportion de femelles.

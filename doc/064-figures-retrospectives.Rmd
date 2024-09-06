@@ -1,4 +1,3 @@
-## RETROSPECTIVE FIGURES FOR THE BASE MODEL
 
 (ref:fig-retro-biomass-en) Spawning biomass for retrospective models comparing the base model with models with successively removed years of data. All models have the same parameterization, and were run as MCMCs in exactly the same way as the base model.
 
@@ -36,9 +35,9 @@ plot_biomass_mcmc(models$retro_grps[[1]],
 
 ```
 
-(ref:fig-retro-biomass-rel-en) Relative spawning biomass for retrospective models.
+(ref:fig-retro-biomass-rel-en) Relative spawning biomass for retrospective models. See Figure \@ref(fig:fig-retro-biomass) for legend.
 
-(ref:fig-retro-biomass-rel-fr) Biomasse de frai relative pour les modèles rétrospectifs.
+(ref:fig-retro-biomass-rel-fr) Biomasse de frai relative pour les modèles rétrospectifs. Voir la figure \@ref(fig:fig-retro-biomass) pour la légende.
 
 ```{r fig-retro-biomass-rel, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-rel-fr)", "(ref:fig-retro-biomass-rel-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
@@ -120,9 +119,9 @@ plot_index_mcmc(models$retro_grps[[1]],
                 dodge = 0.1)
 ```
 
-(ref:fig-retro-index-resids-en) Log standardized residuals for the base and retrospective model index fits.
+(ref:fig-retro-index-resids-en) Log standardized residuals for the base and retrospective model index fits. See Figure \@ref(fig:fig-retro-index-fits) for description.
 
-(ref:fig-retro-index-resids-fr) Résidus logarithmiques standardisés pour les ajustements de l'indice du modèle de base et du modèle rétrospectif.
+(ref:fig-retro-index-resids-fr) Résidus logarithmiques standardisés pour les ajustements de l'indice du modèle de base et du modèle rétrospectif. Voir la figure \@ref(fig:fig-retro-index-fits) pour la description.
 
 ```{r fig-retro-index-resids, fig.cap = ifelse(fr(), "(ref:fig-retro-index-resids-fr)", "(ref:fig-retro-index-resids-en)")}
 plot_index_mcmc(models$retro_grps[[1]],

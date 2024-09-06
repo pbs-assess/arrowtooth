@@ -57,9 +57,9 @@ plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
 
 <!-- Natural mortality ------------------------------------------------------->
 
-(ref:fig-sens-m-en) Spawning biomass for sensitivities to changes in the natural mortality ($M$) parameters. In the base model, this parameter is fixed for both male and females. In these sensitivities, it is estimated for the sex in question in addition to the changes in prior, while the parameter for the opposite sex remains fixed.
+(ref:fig-sens-m-en) Spawning biomass for sensitivities to changes in the natural mortality ($M$) parameters. In the base model, this parameter is fixed for both male and females. In these sensitivities, $M$ is estimated for the sex in question in addition to the changes in prior, while the parameter for the opposite sex remains fixed.
 
-(ref:fig-sens-m-fr) Biomasse de frai pour les sensibilités aux changements des paramètres de mortalité naturelle ($M$). Dans le modèle de base, ce paramètre est fixe pour les mâles et les femelles. Dans ces sensibilités, il est estimé pour le sexe en question en plus des changements de priorité, tandis que le paramètre pour le sexe opposé reste fixe.
+(ref:fig-sens-m-fr) Biomasse de frai pour les sensibilités aux changements des paramètres de mortalité naturelle ($M$). Dans le modèle de base, ce paramètre est fixe pour les mâles et les femelles. Dans ces sensibilités, $M$ est estimé pour le sexe en question en plus des changements de priorité, tandis que le paramètre pour le sexe opposé reste fixe.
 
 ```{r fig-sens-m, fig.cap = ifelse(fr(), "(ref:fig-sens-m-fr)", "(ref:fig-sens-m-en)")}
 plot_biomass_mcmc(models$sens_grps[[2]],
@@ -131,9 +131,9 @@ plot_biomass_mcmc(models$sens_grps[[4]],
                   leg_loc = c(0.97, 0.96))
 ```
 
-(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the selectivity ($\hat{a}_k$ and $\gamma_k$) parameters.
+(ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the selectivity ($\hat{a}_k$ and $\gamma_k$) parameters. See Figure \@ref(fig:fig-sens-selex).
 
-(ref:fig-sens-selex-rel-fr) Biomasse de frai relative pour les sensibilités aux changements des paramètres de sélectivité ($\hat{a}_k$ et $\gamma_k$).
+(ref:fig-sens-selex-rel-fr) Biomasse de frai relative pour les sensibilités aux changements des paramètres de sélectivité ($\hat{a}_k$ et $\gamma_k$). Voir la figure \@ref(fig:fig-sens-selex).
 
 ```{r fig-sens-selex-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-rel-fr)", "(ref:fig-sens-selex-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[4]],
@@ -144,15 +144,18 @@ plot_biomass_mcmc(models$sens_grps[[4]],
                   leg_loc = c(0.97, 0.96))
 ```
 
-(ref:fig-sens-sel-eq-mat-vuln-en) Spawning biomass and vulnerable biomass for the sensitivity model for which the selectivity has been set equal to the maturity for the two commercial trawl fleets. The spawning biomass is in black and has its 95% CI shaded. The two vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours.
+(ref:fig-sens-sel-eq-mat-vuln-en) Spawning biomass and vulnerable biomass for the sensitivity model for which the selectivity has been set equal to the maturity for the two commercial trawl fleets. The spawning biomass is in black and has its 95% CI shaded. The two vulnerable biomass trajectories have their 95% CI contained within the dotted lines of their respective colours. The three trajectories are identical because the selectivity is set to match the maturity so that 100% of the biomass is available to the fisheries. This plot is presented as a check to ensure the model is specified correctly.
 
-(ref:fig-sens-sel-eq-mat-vuln-fr) Biomasse féconde et biomasse vulnérable pour le modèle de sensibilité pour lequel la sélectivité a été fixée à la maturité pour les deux flottes de chalutage commercial. La biomasse reproductrice est en noir et son IC à 95 % est ombré. Les deux trajectoires de biomasse vulnérable ont leur IC à 95 % contenu dans les lignes pointillées de leurs couleurs respectives.
+(ref:fig-sens-sel-eq-mat-vuln-fr) Biomasse féconde et biomasse vulnérable pour le modèle de sensibilité pour lequel la sélectivité a été fixée à la maturité pour les deux flottes de chaluts commerciaux. La biomasse reproductrice est en noir et son IC à 95 % est ombré. Les deux trajectoires de biomasse vulnérable ont leur IC à 95 % contenu dans les lignes pointillées de leurs couleurs respectives. Les trois trajectoires sont identiques car la sélectivité est réglée pour correspondre à la maturité, de sorte que 100 % de la biomasse est disponible pour les pêcheries. Ce graphique est présenté pour vérifier que le modèle est correctement spécifié.
+
+Traduit avec DeepL.com (version gratuite)
 
 ```{r fig-sens-sel-eq-mat-vuln, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-vuln-fr)", "(ref:fig-sens-sel-eq-mat-vuln-en)")}
 plot_vuln_mcmc(models$sens_grps[[4]][[2]],
                angle_x_labels = TRUE,
                xlim = c(1997, 2021),
-               ylim = c(0, 800))
+               ylim = c(0, 800),
+               leg_loc = c(0.1, 0.1))
 ```
 
 (ref:fig-sens-selex-index-fits-en) Index fits for the sensitivity where the `r qcs` has time-varying selectivity.
@@ -286,9 +289,9 @@ plot_index_mcmc(models$sens_grps[[6]],
                 text_title_size = NULL)
 ```
 
-(ref:fig-sens-meeting-vuln-en) Spawning biomass and vulnerable biomass for the sensitivities involving removing the DCPUE index, fixing selectivities and maturities, and modifying the maturity ogive.
+(ref:fig-sens-meeting-vuln-en) Spawning biomass and vulnerable biomass for the sensitivities involving removing resting and developing stages of maturity, by modifying the maturity ogive.
 
-(ref:fig-sens-meeting-vuln-fr) Biomasse de frai et biomasse vulnérable pour les sensibilités impliquant la suppression de l'indice DCPUE, la fixation des sélectivités et des maturités, et la modification de l'ogive de maturité.
+(ref:fig-sens-meeting-vuln-fr) Biomasse de frai et biomasse vulnérable pour les sensibilités impliquant la suppression des stades de repos et de développement de la maturité, en modifiant l'ogive de maturité.
 
 ```{r fig-sens-meeting-vuln, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-vuln-fr)", "(ref:fig-sens-meeting-vuln-en)")}
 plot_vuln_mcmc(models$sens_grps[[6]][[3]], 

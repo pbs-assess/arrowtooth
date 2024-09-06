@@ -206,8 +206,8 @@ sens_changes_text <-
                 "Fixer la sélectivité DCPUE à l'estimation Shoreside ($a_{k,F} = 8.67; \\gamma_{k,F} = 1.06; a_{k,M} = 8.40; \\gamma_{k,F} = 0.96$)",
                 "Fix DCPUE selectivity to the Shoreside estimate ($a_{k,F} = 8.67; \\gamma_{k,F} = 1.06; a_{k,M} = 8.40; \\gamma_{k,F} = 0.96$)"),
          ifelse(fr(),
-                "Correction des sélectivités de l'enquête pour l'estimation de Shorside ($a_{k,F} = 8.67; \\gamma_{k,F} = 1.06; a_{k,M} = 8.40; \\gamma_{k,F} = 0.96$)",
-                "Fix all survey selectivities to the Shorside estimate ($a_{k,F} = 8.67; \\gamma_{k,F} = 1.06; a_{k,M} = 8.40; \\gamma_{k,F} = 0.96$)")))
+                "Correction des sélectivités de l'enquête pour l'estimation de Shoreside ($a_{k,F} = 8.67; \\gamma_{k,F} = 1.06; a_{k,M} = 8.40; \\gamma_{k,F} = 0.96$)",
+                "Fix all survey selectivities to the Shoreside estimate ($a_{k,F} = 8.67; \\gamma_{k,F} = 1.06; a_{k,M} = 8.40; \\gamma_{k,F} = 0.96$)")))
 
 # This is a list of vectors of retrospective groups (retrospective models that
 # will be plotted against each other). It can be `NULL` if to be ignored.

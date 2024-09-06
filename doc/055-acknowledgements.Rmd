@@ -4,7 +4,7 @@ We thank members of the `r sp` Technical Working Group (Robyn Forrest, Rowan Hai
 
 We thank the reviewers for their careful reviews, which uncovered structural issues that would have otherwise been missed. This highlights the importance of independent peer review in the advisory process.
 
-We thank participants of the CSAS review meeting which took place on Oct. 19--20, 2022 for their studious and thoughtful comments and requests. Thanks to Shannon Obradovich for chairing the meeting.
+We thank participants of the CSAS review meetings which took place on Oct. 19--20 and December 5, 2022 for their studious and thoughtful comments and requests. Thanks to Shannon Obradovich for chairing the meeting.
 ")
 ```
 
@@ -14,6 +14,6 @@ Nous remercions les membres du groupe de travail technique `r sp` (Robyn Forrest
 
 Nous remercions les évaluateurs pour leurs examens minutieux, qui ont permis de découvrir des problèmes structurels qui n'auraient pas été détectés autrement. Cela souligne l'importance d'un examen indépendant par les pairs dans le processus consultatif.
 
-Nous remercions les participants à la réunion de révision du SCCS qui s'est tenue les 19 et 20 octobre 2022 pour leurs commentaires et demandes studieux et réfléchis. Nous remercions Shannon Obradovich d'avoir présidé la réunion.
+Nous remercions les participants aux réunions de révision du SCCS qui ont eu lieu les 19 et 20 octobre et le 5 décembre 2022 pour leurs commentaires et demandes studieux et réfléchis. Nous remercions Shannon Obradovich pour avoir présidé la réunion.
 ")
 ```

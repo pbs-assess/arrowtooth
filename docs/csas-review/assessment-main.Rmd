@@ -1369,7 +1369,7 @@ plot_index_mcmc(models$bridge_grps[[2]],
 
 ---
 class: center
-### Bridge models - Selectivity estimates for split-sex model
+### Bridge models - Selectivity estimates for two-sex model
 ```{r bridge-group2-sel, out.width = "60%"}
 plot_selex_mcmc(models$bridge_grps[[2]][[4]],
                 show_maturity = TRUE,
@@ -1482,7 +1482,7 @@ The base model is the last bridge model and includes all changes made across the
 - the Dirichlet-Multinomial age weighting parameterization;
 - two-fleets for commercial trawl fishery (Freezer trawlers and Shoreside);
 - addition of the Discard CPUE index;
-- split-sex model;
+- two-sex model;
 - fishing year runs from Feb. 21 - Feb. 20 (instead of Jan. 1 - Dec. 31);
 - removal of all data from `r wchgs` and
 - fixed natural mortality for both sexes (0.2 for females and 0.35 for males)
