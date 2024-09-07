@@ -104,6 +104,18 @@ Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional reference re
 ")
 ```
 
+```{r dynamic-bo-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("## DYNAMIQUE $B_0$ {#dynamic-bo}
+
+Un $B_0$ dynamique a été calculé dans R à l'aide des valeurs moyennes des paramètres et étendu pour inclure le modèle de capture par âge à deux flottes et deux sexes. La mortalité par pêche a été fixée à zéro et toutes les estimations moyennes des paramètres ont été incluses. La figure \@ref(fig:fig-dynamic-b-zero) montre les trajectoires de biomasse estimées pour ce cas.
+
+La biomasse calculée en utilisant une approche dynamique $B_0$ est significativement plus élevée pour toutes les années qu'en utilisant une approche non dynamique $B_0$.
+
+Ce travail a été réalisé à la demande des participants à la réunion d'examen, après la première version de cette évaluation du stock.")
+```
+ 
+```
+
 ```{r scam-fishery-reference-points-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("## POINTS DE RÉFÉRENCE DE LA PÊCHE {#scam-ref-points}
 
