@@ -292,8 +292,3 @@ Les paramètres de croissance ont été estimés en dehors du cadre `r iscam`. I
 ")
 ```
 
-```{r sam-proportion-zero-tows-en, eval = !fr(), results = 'asis'}
-cat("### Proportion zero tows
-
-The 100% discard rule in the Discard CPUE time series means the entire tow is discarded. Figure \@ref(fig:fig-catch-zero-prop) shows the proportion of commercial tows which caught no `r sp`. The figure shows that the number of tows catching zero `r sp` has increased steadily since approximately 2014 with 2020 having approximately 40% tows with zero `r sp` catch.")
-```

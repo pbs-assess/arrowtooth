@@ -12,6 +12,12 @@ Commercial groundfish bottom trawl data from 1996 to present have been recorded 
 We follow the approach used in several recent B.C. groundfish stock assessments by requiring vessels to have caught (and discarded) the species in at least 100 tows across all years of interest, and to have passed a threshold of five trips (trips that recorded some of the species) for at least five years---all from 1996 to 2021 inclusive.")
 ```
 
+```{r sam-proportion-zero-tows-en, eval = !fr(), results = 'asis'}
+cat("
+The 100% discard rule in the Discard CPUE time series means the entire tow is discarded. Figure \@ref(fig:fig-catch-zero-prop) shows the proportion of commercial tows that caught no `r sp`. The figure shows that the number of tows catching zero `r sp` has increased steadily since approximately 2014 with 2020 having approximately 40% tows with zero `r sp` catch.")
+```
+
+
 ```{r app-cpue-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# REJETER L'INDICE CPUE STANDARDISATION {#app:dcpue}
 Nous nous appuyons sur les méthodes décrites dans @anderson2019synopsis et @forrest2020pcod, que nous reproduisons en partie ici par souci d'exhaustivité. Nous avons cherché à générer un indice de l'abondance de `r sp` à partir des données de captures par unité d'effort (CPUE) des rejets de chaluts commerciaux, normalisé pour la profondeur, la localité de pêche, le mois, le navire et la latitude. Les localités de pêche sont des régions spatiales de taille similaire aux zones de gestion des pêcheries du Pacifique (PFMA) et sont des sous-zones des zones statistiques mineures de la côte ouest de la Colombie-Britannique qui ont été traditionnellement pêchées.
@@ -104,6 +110,16 @@ où $\bm{X_t}$ représente un vecteur de variables prédictives fixé aux niveau
 
 À titre de comparaison, nous avons calculé une série temporelle non normalisée en utilisant une procédure similaire mais sans aucune des covariables autres qu'un facteur prédictif pour chaque année. Cela revient à calculer la moyenne géométrique de la CPUE chaque année, mais avec un modèle d'observation Tweedie supposé au lieu d'un modèle d'observation lognormal qui ne permet pas les zéros.")
 ```
+
+(ref:fig-catch-zero-prop-en) Proportion of tows with no `r sp` from `r start_catch_yr` to `r end_catch_yr`. The black dots are the actual coastwide proportions. The black line shows the output from a General Additive Model (GAM) using the points as inputs, the dotted line represents the total number of tows as a proportion of the maximum number of tows made in any given year.
+
+(ref:fig-catch-zero-prop-fr) Proportion de traits sans `r sp` de `r start_catch_yr` à `r end_catch_yr`. Les points noirs représentent les proportions réelles pour l'ensemble de la côte. La ligne noire montre la sortie d'un modèle additif général (MAG) utilisant les points comme entrées, la ligne pointillée représente le nombre total de traits en tant que proportion du nombre maximum de traits effectués au cours d'une année donnée.
+
+```{r fig-catch-zero-prop, fig.cap = ifelse(fr(), "(ref:fig-catch-zero-prop-fr)", "(ref:fig-catch-zero-prop-en)"), results = "asis"}
+
+include_graphics(here("doc/figure/proportion-zero-catch.png"), dpi = NA)
+```
+
 
 ```{r bubble-utils}
 cpuefold <- file.path(drs$nongit_dir, "cpue-figs")

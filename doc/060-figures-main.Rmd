@@ -76,15 +76,6 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 
 ```
 
-(ref:fig-catch-zero-prop-en) Proportion of tows with no `r sp` from `r start_catch_yr` to `r end_catch_yr`. The black dots are the actual coastwide proportions. The black line shows the output from a General Additive Model (GAM) using the points as inputs, the dotted line represents the total number of tows as a proportion of the maximum number of tows made in any given year.
-
-(ref:fig-catch-zero-prop-fr) Proportion de traits sans `r sp` de `r start_catch_yr` à `r end_catch_yr`. Les points noirs représentent les proportions réelles pour l'ensemble de la côte. La ligne noire montre la sortie d'un modèle additif général (MAG) utilisant les points comme entrées, la ligne pointillée représente le nombre total de traits en tant que proportion du nombre maximum de traits effectués au cours d'une année donnée.
-
-```{r fig-catch-zero-prop, fig.cap = ifelse(fr(), "(ref:fig-catch-zero-prop-fr)", "(ref:fig-catch-zero-prop-en)"), results = "asis"}
-
-include_graphics(here("doc/figure/proportion-zero-catch.png"), dpi = NA)
-```
-
 (ref:fig-catch-fit-en) Predicted catch compared to the observed catch data for the two commercial fleets used in the model. The solid lines are either the observed catches or the median catch by fleet; the dotted lines are the 95% CI for the posterior of the catch fits.
 
 (ref:fig-catch-fit-fr) Prises prédites comparées aux données de prises observées pour les deux flottes commerciales utilisées dans le modèle. Les lignes pleines représentent soit les captures observées, soit la médiane des captures par flotte ; les lignes pointillées représentent l'IC à 95 % pour la postériorité des ajustements des captures.
