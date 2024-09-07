@@ -1,11 +1,9 @@
 ```{r dynamic-bo-en, eval = !fr(), results = 'asis'}
 cat("## DYNAMIC $B_0$ {#dynamic-bo}
 
-A dynamic $B_0$ was calculated in R using the mean parameter values and expanded to include the two-fleet, two-sex catch-at-age model. The fishing mortality was set to zero and all mean parameter estimates were included. Figure \@ref(fig:fig-dynamic-b-zero) shows the estimated biomass trajectories for this case.
-
-The biomass calculated using a dynamic $B_0$ approach is significantly higher for all years than using a non-dynamic $B_0$ produces.
-
-This work was done at the request of the review meeting participants, after the initial draft of this stock assessment.")
+A dynamic $B_0$ was calculated by recreating the population dynamics model in R with parameter estimates from the fitted base model. The fishing mortality was set to zero but estimated recruitment deviations were included. Figure \@ref(fig:fig-dynamic-b-zero) shows the estimated dynamic $B_0$ from this exercise.
+This figure illustrates that the model explains a portion of the recent decline by a sequence of poor recruitment.
+")
 ```
 
 ```{r dynamic-bo-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
