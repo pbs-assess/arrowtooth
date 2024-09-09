@@ -103,6 +103,14 @@ Nous suggérons que les recherches futures envisagent l'utilisation de l'indice 
 ```
 
 ```{r recommendations-and-yield-para-5-en, eval = !fr(), results = 'asis'}
+cat("The relationdhip between DNA and spatial area is unknown for `r sp`. In future it is recommended that a genetic study take place to determine differences between `r sp` found in the Strait of Georgia, Queen Charlotte Sound, Hecate Strait, and WCVI.")
+```
+
+```{r recommendations-and-yield-para-5-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("La relation entre l'ADN et la zone spatiale est inconnue pour `r sp`. À l'avenir, il est recommandé de réaliser une étude génétique pour déterminer les différences entre les `r sp` trouvés dans le détroit de Géorgie, le détroit de la Reine-Charlotte, le détroit d'Hécate et la COIV.")
+```
+
+```{r recommendations-and-yield-para-6-en, eval = !fr(), results = 'asis'}
 cat("There is a lack of age structures sampled from the commercial fleets from 2020 onwards. This would have had a minimal effect on this assessment given the last year of data was 2021. However, this may have an increasingly large impact on the assessment in terms of estimating selectivity, recruitment, and tracking age-cohorts within the composition data. Retrospective analyses could be conducted excluding existing commercial age data to partially evaluate this impact. Simulation analyses, possibly including closed-loop simulation, could also evaluate this impact. However, we think it is reasonable to assume that some level of continued age structure sampling from the commercial fleet will be important to this assessment going forward. It is suggested that collecting maturity data from winter samples (from commercial fisheries or surveys) could help reconcile the position of the maturity ogives with respect to selectivity curves because this species is a winter spawner while all the structured surveys operate in the spring/summer/fall months. In addition, future work could investigate various treatments of dynamic B0 (e.g., @berger2019).
 
 Taking into account the ecosystem considerations in Appendix \@ref(app:eco) and known biology of `r sp`, there are no clear indications that current environmental conditions should modify the catch advice in this assessment. Future research could evaluate incorporating environmental variables into the `r sp` stock advice more explicitly. It is not clear what mechanism this should entail, although options may include linking environmental indices to natural mortality or recruitment processes [e.g., @wham]. Other options would include adjusting target fishing mortality based on ecosystem modelling [@howell2021] or through closed-loop simulation that aims to find management procedures that are robust to uncertainties about future environmental conditions [e.g., @anderson2020gfmp].
@@ -112,7 +120,7 @@ Given the stock is estimated slightly below the USR in the base model and close 
 ")
 ```
 
-```{r recommendations-and-yield-para-5-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+```{r recommendations-and-yield-para-6-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("Il n'y a pas de structures d'âge échantillonnées par les flottes commerciales à partir de 2020. Cela n'aurait eu qu'un effet minime sur cette évaluation étant donné que la dernière année de données était 2021. Toutefois, cela pourrait avoir un impact de plus en plus important sur l'évaluation en termes d'estimation de la sélectivité, du recrutement et du suivi des cohortes d'âge dans les données de composition. Des analyses rétrospectives pourraient être menées en excluant les données commerciales existantes sur l'âge afin d'évaluer partiellement cet impact. Des analyses de simulation, comprenant éventuellement une simulation en boucle fermée, pourraient également évaluer cet impact. Cependant, nous pensons qu'il est raisonnable de supposer qu'un certain niveau d'échantillonnage continu de la structure d'âge de la flotte commerciale sera important pour cette évaluation à l'avenir. Il est suggéré que la collecte de données sur la maturité à partir d'échantillons hivernaux (provenant de pêcheries commerciales ou d'enquêtes) pourrait aider à réconcilier la position des ogives de maturité en ce qui concerne les courbes de sélectivité, car cette espèce est un reproducteur hivernal alors que toutes les enquêtes structurées opèrent pendant les mois de printemps/été/automne. En outre, des travaux futurs pourraient étudier divers traitements du B0 dynamique (par exemple, @berger2019).
 
 Compte tenu des considérations écosystémiques de l'appendice \@ref(app:eco) et de la biologie connue du `r sp`, rien n'indique clairement que les conditions environnementales actuelles devraient modifier l'avis sur les captures dans cette évaluation. Les recherches futures pourraient évaluer l'incorporation de variables environnementales dans l'avis sur le stock de `r sp` de manière plus explicite. Le mécanisme à mettre en œuvre n'est pas clair, bien que des options puissent inclure l'établissement d'un lien entre les indices environnementaux et les processus de mortalité naturelle ou de recrutement [par exemple, @wham]. D'autres options pourraient inclure l'ajustement de la mortalité par pêche cible sur la base de la modélisation de l'écosystème [@howell2021] ou par le biais d'une simulation en boucle fermée qui vise à trouver des procédures de gestion qui sont robustes aux incertitudes sur les conditions environnementales futures [par exemple, @anderson2020gfmp].
@@ -120,4 +128,28 @@ Compte tenu des considérations écosystémiques de l'appendice \@ref(app:eco) e
 Étant donné que le stock est estimé légèrement en dessous de l'USR dans le modèle de base et proche du PRL dans un modèle de sensibilité avec une plus grande variation du recrutement, ainsi qu'une biomasse estimée du stock reproducteur en baisse, des indices de relevés en baisse et un recrutement estimé en baisse, il est suggéré que cette évaluation du stock soit mise à jour avec de nouvelles données sur un intervalle relativement court. Nous suggérons un intervalle approprié de deux ans, une fois qu'une étude supplémentaire aura été réalisée pour chaque sous-région et que de nouveaux échantillons biologiques commerciaux seront, espérons-le, disponibles pour le vieillissement.
 
 ")
+```
+
+```{r recommendations-and-yield-para-7-en, eval = !fr(), results = 'asis'}
+cat("Ageing error was not used for this assessment. It is recommended that an ageing error matrix be included in the assessment model, to determine model sensitivty to ageing error.")
+```
+
+```{r recommendations-and-yield-para-7-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("L'erreur de vieillissement n'a pas été utilisée pour cette évaluation. Il est recommandé d'inclure une matrice d'erreur de vieillissement dans le modèle d'évaluation, afin de déterminer la sensibilité du modèle à l'erreur de vieillissement.")
+```
+
+```{r recommendations-and-yield-para-8-en, eval = !fr(), results = 'asis'}
+cat("Selectivity is an issue in this assessment, and one contributing factor could be catchability changing over time. It is recommended that time-varying catchibility be explored in future assessments if the model framework allows for it.")
+```
+
+```{r recommendations-and-yield-para-8-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("La sélectivité est un problème dans cette évaluation, et un facteur contributif pourrait être l'évolution de la capturabilité dans le temps. Il est recommandé d'étudier la variabilité temporelle de la capturabilité dans les évaluations futures si le cadre du modèle le permet.")
+```
+
+```{r recommendations-and-yield-para-9-en, eval = !fr(), results = 'asis'}
+cat("It is recommended that there be a more detailed review of recruitment variance and initial biomass assumptions in future assessments. This includes recruitment assumptions into the projection years.")
+```
+
+```{r recommendations-and-yield-para-9-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("Il est recommandé de procéder à un examen plus détaillé de la variance du recrutement et des hypothèses de biomasse initiale dans les évaluations futures. Cela inclut les hypothèses de recrutement pour les années de projection.")
 ```

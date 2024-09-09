@@ -5,8 +5,8 @@ The source code for this assessment is available at:
 
 <https://github.com/pbs-assess/arrowtooth>
 
-This version of the document was generated on `r lubridate::as_date(Sys.time())` with
-`r devtools::session_info()$platform$version` [@r2022] and R package versions:
+This version of the document was generated on `r format(lubridate::as_date(Sys.time()), format = '%a %b, %d')`
+with `r devtools::session_info()$platform$version` [@r2022] and R package versions:
 
 ")
 ```
@@ -25,14 +25,23 @@ Cette version du document a été générée sur `r lubridate::as_date(Sys.time(
 ```
 
 ```{r env, echo = FALSE, results='asis', message=FALSE, warning=FALSE, eval=TRUE, cache=FALSE}
-# library(TMB)
-# library(bookdown)
-# library(rmarkdown)
-# library(gfdata)
-pkgs <- sort(c("bookdown", "broom", "csasdown",  "dplyr",
-               "gfdata", "gfiscam", "gfiscamutils", "gfplot", "ggplot2",
-               "glmmTMB", "knitr", "purrr", "rmarkdown", "rosettafish",
-               "sdmTMB", "TMB"))
+
+# Need to load sdmTMB here for it to show up in the packages list with version number
+library(sdmTMB)
+library(gfutilities)
+
+pkgs <- sort(c("arrowtooth",
+               "bookdown", "broom",
+               "csasdown",
+               "devtools", "dplyr",
+               "gfdata", "gfiscam", "gfiscamutils", "gfplot", "ggplot2", "glmmTMB", "gridExtra",
+               "here",
+               "kableExtra",
+               "knitr",
+               "purrr",
+               "rmarkdown", "rosettafish",
+               "sdmTMB",
+               "tidylog", "TMB"))
 
 info <- session_info()$packages |> 
   as.data.frame() |> 
@@ -46,7 +55,9 @@ info
 ```
 
 ```{r app-comp-env-para-2-en, eval = !fr(), results = 'asis'}
-cat("Packages maintained by the authors used to generate this report can be viewed at:
+cat("**gfiscam** is not listed above, as it is not an R package. It is an ADMB/C++ package containing the `r iscam` implementation and has a GitHub repository (link below).
+
+Packages maintained by the authors used to generate this report can be viewed at:
 
 ")
 ```
@@ -68,6 +79,10 @@ https://github.com/pbs-assess/gfiscam/wsl2
 https://github.com/pbs-assess/gfiscamutils
 
 https://github.com/pbs-assess/gfplot
+
+https://github.com/pbs-assess/gfutilities
+
+https://github.com/cgrandin/kableExtra
 
 https://github.com/pbs-assess/rosettafish
 
