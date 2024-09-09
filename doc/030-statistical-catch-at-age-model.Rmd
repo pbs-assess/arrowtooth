@@ -104,18 +104,6 @@ Although the PA Policy recommends $F_\mathrm{MSY}$ as a provisional reference re
 ")
 ```
 
-```{r dynamic-bo-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("## DYNAMIQUE $B_0$ {#dynamic-bo}
-
-Un $B_0$ dynamique a été calculé dans R à l'aide des valeurs moyennes des paramètres et étendu pour inclure le modèle de capture par âge à deux flottes et deux sexes. La mortalité par pêche a été fixée à zéro et toutes les estimations moyennes des paramètres ont été incluses. La figure \@ref(fig:fig-dynamic-b-zero) montre les trajectoires de biomasse estimées pour ce cas.
-
-La biomasse calculée en utilisant une approche dynamique $B_0$ est significativement plus élevée pour toutes les années qu'en utilisant une approche non dynamique $B_0$.
-
-Ce travail a été réalisé à la demande des participants à la réunion d'examen, après la première version de cette évaluation du stock.")
-```
- 
-```
-
 ```{r scam-fishery-reference-points-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("## POINTS DE RÉFÉRENCE DE LA PÊCHE {#scam-ref-points}
 
@@ -158,4 +146,19 @@ Enfin, d'un point de vue scientifique, nous notons que $0,4B_0$ a été précéd
 Bien que la politique de l'AP recommande $F_\mathrm{RMD}$ comme taux de prélèvement de référence provisoire, pour les raisons exposées ci-dessus, nous suggérons des points de référence basés sur $B_0$ pour ce stock. Nous suggérons qu'un taux de prélèvement de référence équivalent serait la mortalité par pêche $F$ qui amènerait le stock à $0,4B_0$ à l'équilibre, compte tenu du recrutement récemment observé. Nous avons déterminé cela en projetant le stock 50 ans dans le futur avec des déviations de recrutement tirées au hasard avec remplacement de 2010 à 2019 (en omettant les déviations mal estimées de 2020 et 2021), en utilisant une routine d'optimisation pour trouver la prise constante qui générerait une SSB correspondant à $0,4B_0$ dans une tolérance de 50 t. Nous rapportons le $F$ associé à la fin des 50 ans. Compte tenu d'un nombre suffisant d'années de projection, l'exécution des projections avec un $F$ constant ou une prise constante devrait aboutir à la même conclusion.
 
 ")
+```
+
+```{r dynamic-bo-en, eval = !fr(), results = 'asis'}
+cat("### DYNAMIC $B_0$ {#dynamic-bo}
+
+A dynamic $B_0$ was calculated by recreating the population dynamics model in R with parameter estimates from the fitted base model. The fishing mortality was set to zero but estimated recruitment deviations were included. Figure \@ref(fig:fig-dynamic-b-zero) shows the estimated dynamic $B_0$ from this exercise.
+This figure illustrates that the model explains a portion of the recent decline by a sequence of poor recruitment.
+")
+```
+
+```{r dynamic-bo-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("### DYNAMIQUE $B_0$ {#dynamic-bo}
+
+Un $B_0$ dynamique a été calculé en recréant le modèle de dynamique des populations dans R avec les estimations des paramètres du modèle de base ajusté. La mortalité par pêche a été fixée à zéro, mais les écarts de recrutement estimés ont été inclus. La figure \@ref(fig:fig-dynamic-b-zero) montre la dynamique estimée $B_0$ à partir de cet exercice.
+Cette figure montre que le modèle explique une partie du déclin récent par une séquence de faible recrutement.")
 ```
