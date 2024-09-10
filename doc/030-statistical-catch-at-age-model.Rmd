@@ -149,7 +149,7 @@ Bien que la politique de l'AP recommande $F_\mathrm{RMD}$ comme taux de prélèv
 ```
 
 ```{r dynamic-bo-en, eval = !fr(), results = 'asis'}
-cat("### DYNAMIC $B_0$ {#dynamic-bo}
+cat("### Dynamic $B_0$ {#dynamic-bo}
 
 A dynamic $B_0$ was calculated by recreating the population dynamics model in R with parameter estimates from the fitted base model. The fishing mortality was set to zero but estimated recruitment deviations were included. Figure \@ref(fig:fig-dynamic-b-zero) shows the estimated dynamic $B_0$ from this exercise.
 This figure illustrates that the model explains a portion of the recent decline by a sequence of poor recruitment.
