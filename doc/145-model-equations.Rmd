@@ -386,73 +386,18 @@ Les taux estimés de mortalité par pêche sont également contraints (en espace
 Chacun des sept paramètres principaux (huit s'il y a deux sexes) spécifiés dans le fichier de contrôle ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$) est déclaré comme paramètre borné et l'utilisateur peut en outre spécifier une distribution préalable informative pour chacun de ces paramètres. Cinq distributions préalables distinctes peuvent être mises en œuvre : uniforme, normale, lognormale, bêta et gamma. Voir le tableau \@ref(tab:param-settings-table) pour les valeurs initiales et les types et valeurs d'antériorité utilisés pour cette évaluation `r sp`.")
 ```
 
-\clearpage
+```{r tab-app-model-desc, results = 'asis'}
 
-```{r app-model-eq-para-10-en, eval = !fr(), results = 'asis'}
-cat("## Model parameters, symbols, and equations {#model-equations}")
+cap <- ifelse(fr(),
+              paste0("Une liste de symboles, de constantes et une ",
+                     "description des variables utilisées dans l'", iscam, "."),
+              paste0("A list of symbols, constants and a ",
+                       "description of the variables used in ", iscam, "."))
+
+table_iscam_param_desc(base_model,
+                       cap = cap)
 ```
 
-```{r app-model-eq-para-10-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("## Paramètres, symboles et équations du modèle {#model-equations}")
-```
-
-\FloatBarrier
-\begin{table}[!h]
-\centering
-\caption{\label{tab:iscam-variables} Une liste de symboles, de constantes
-et une description des variables utilisées dans `r iscam`.}
-\begin{tabular}{lll}
-\hline
-\bf{Symbole} & \bf{Valeur} & \bf{Description} \\
-\hline
-\multicolumn{3}{l}{\textbf{Indices}}\\
-$s$ & & Index pour le sexe\\
-$a$ & & Index pour l'âge\\
-$t$ & & Indice pour l'année\\
-$k$ & & Index pour l'engrenage\\
-$b$ & & Indice pour le bloc d'années dans la sélectivité variable dans le temps\\
-\multicolumn{3}{l}{\textbf{Dimensions du modèle}}\\
-$S$ & $`r base_model$dat$num.sex`$ & Nombre de sexes\\
-$\acute{a}, A$ & $`r base_model$dat$start.age`$, $`r base_model$dat$end.age`$ & Classe d'âge la plus jeune et la plus âgée ($A$ est un groupe plus)\\
-$\acute{t}, T$ & $`r base_model$dat$start.yr`$, $`r base_model$dat$end.yr`$ & Première et dernière année des données de captures\\
-$K$ & $`r base_model$dat$num.gears`$ & Nombre d'engins, y compris les engins d'enquête\\
-\multicolumn{3}{l}{\textbf{Observations (données)}}\\
-$C_{k,t}$ & & captures en poids par engin $k$ en cours d'année $t$\\
-$I_{k,t}$ & & indice d'abondance relative pour l'engin $k$ en cours d'année $t$\\
-\multicolumn{3}{l}{\textbf{Paramètres estimés}}\\
-$R_o$ & & L'âge-$\acute{a}$ recrute dans des conditions non pêchées\\
-$h$ & & Rugosité de la relation stock-recrutement\\
-$\bar{R}$ & & Âge moyen-$\acute{a}$ recrutement à partir de l'année $\acute{t}$ à $T$\\
-$\bar{R}_\mathrm{init}$ & & Âge moyen-$\acute{a}-1$ à $A$ recrutement pour l'initialisation \\
-$M_s$ & & Taux instantané de mortalité naturelle pour le sexe $s$\\
-$\hat{a}_{k,s,b}, \hat{\gamma}_{k,s,b}$ & & Paramètres de sélectivité pour l'engrenage $k$, sexe $s$, bloc d'années $b$ \\
-$\Gamma_{k,s,t}$ & & Logarithme de la mortalité instantanée par pêche pour l'engin $k$, le sexe $s$, l'année $t$.\\
-$\omega_t$ & & L'âge-$\acute{a}$ s'écarte de $\bar{R}$ depuis des années $\acute{t}$ à $T$\\
-$\omega_\mathrm{init,t}$ & & L'âge-$\acute{a}$ s'écarte de $\bar{R}_\mathrm{init}$ depuis des années $\acute{t}$\\
-$q_k$ & & Paramètre de capturabilité pour l'enquête $k$\\
-$\rho$ & & Fraction de la variance totale associée à l'erreur d'observation\\
-$\vartheta^2$ & & Précision totale (inverse de la variance) de l'erreur totale\\
-\multicolumn{3}{l}{\textbf{Écarts types}}\\
-$\sigma$ & & Écart-type pour les erreurs d'observation dans l'indice d'enquête\\
-$\tau$ & & Écart-type des erreurs de processus (écarts de recrutement)\\
-$\sigma_C$ & & Écart-type des captures observées par engin\\
-\multicolumn{3}{l}{\textbf{Résidus}}\\
-$\delta_t$ & & Recrutement annuel résiduel\\
-$\eta_t$ & & Erreur résiduelle dans les captures prévues\\
-\multicolumn{3}{l}{\textbf{Croissance fixe \& paramètres de maturité}}\\
-$l_{\infty s}$ & & Longueur asymptotique pour le sexe $s$ \\
-$\acute{k}_s$ & & Coefficient de croissance de Brody pour le sexe $s$ \\
-$t_{o s}$ & & Âge théorique à la longueur zéro pour le sexe $s$ \\
-$\acute{a}_s$ & & Scalaire dans l'allométrie longueur-poids pour le sexe $s$\\
-$\acute{b}_s$ & & Paramètre de puissance dans l'allométrie longueur-poids pour le sexe $s$\\
-$\dot{a}_s$ & & Âge à 50 \% pour la maturité sexuelle $s$ \\
-$\dot{\gamma}_s$ & & Écart-type à 50 \% de maturité pour le sexe $s$\\
-\hline
-\end{tabular}
-\end{table}
-\FloatBarrier
-
-\clearpage
 
 ```{r app-model-eq-para-11-en, eval = !fr(), results = 'asis'}
 cat("### Steady-state age-structured model {#model-steady-state}
