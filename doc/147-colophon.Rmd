@@ -55,7 +55,7 @@ info
 ```
 
 ```{r app-comp-env-para-2-en, eval = !fr(), results = 'asis'}
-cat("**gfiscam** is not listed above, as it is not an R package. It is an ADMB/C++ package containing the `r iscam` implementation and has a GitHub repository (link below).
+cat("\texttt{gfiscam} is an ADMB/C++ package containing the `r iscam` implementation used in this assessment and has a GitHub repository (link below).
 
 Packages maintained by the authors used to generate this report can be viewed at:
 
@@ -63,8 +63,9 @@ Packages maintained by the authors used to generate this report can be viewed at
 ```
 
 ```{r app-comp-env-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("Les paquets maintenus par les auteurs et utilisés pour générer ce rapport peuvent être consultés à l'adresse suivante:
+cat("\texttt{gfiscam} est un paquetage ADMB/C++ contenant l'implémentation de `r iscam` utilisée dans cette évaluation et dispose d'un dépôt GitHub (lien ci-dessous).
 
+Les paquets maintenus par les auteurs utilisés pour générer ce rapport peuvent être consultés à l'adresse suivante :
 ")
 ```
 
