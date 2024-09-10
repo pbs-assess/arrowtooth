@@ -386,13 +386,11 @@ Les taux estimés de mortalité par pêche sont également contraints (en espace
 Chacun des sept paramètres principaux (huit s'il y a deux sexes) spécifiés dans le fichier de contrôle ($\ln(R_o),h,\ln(M_s),\ln(\bar{R}),\ln(R_{\mathrm{init}}),\rho,\vartheta$) est déclaré comme paramètre borné et l'utilisateur peut en outre spécifier une distribution préalable informative pour chacun de ces paramètres. Cinq distributions préalables distinctes peuvent être mises en œuvre : uniforme, normale, lognormale, bêta et gamma. Voir le tableau \@ref(tab:param-settings-table) pour les valeurs initiales et les types et valeurs d'antériorité utilisés pour cette évaluation `r sp`.")
 ```
 
-```{r tab-app-model-desc, results = 'asis'}
+```{r iscam-variables, results = 'asis'}
 
 cap <- ifelse(fr(),
-              paste0("Une liste de symboles, de constantes et une ",
-                     "description des variables utilisées dans l'", iscam, "."),
-              paste0("A list of symbols, constants and a ",
-                       "description of the variables used in ", iscam, "."))
+              paste0("Descriptions des symboles utilisés dans l'", iscam, "."),
+              paste0("Descriptions of the symbols used in ", iscam, "."))
 
 table_iscam_param_desc(base_model,
                        cap = cap)
