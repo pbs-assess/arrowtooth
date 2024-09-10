@@ -5,7 +5,7 @@ The source code for this assessment is available at:
 
 <https://github.com/pbs-assess/arrowtooth>
 
-This version of the document was generated on `r format(lubridate::as_date(Sys.time()), format = '%a %b, %d')`
+This version of the document was generated on `r format(lubridate::as_date(Sys.time()), format = '%a %b %d, %Y')`
 with `r devtools::session_info()$platform$version` [@r2022] and R package versions:
 
 ")
