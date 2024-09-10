@@ -23,8 +23,6 @@ Tous les modèles de pont ont été exécutés en utilisant un échantillonnage 
 ")
 ```
 
-\clearpage
-
 ```{r bridging-para-02-en, eval = !fr(), results = 'asis'}
 cat("Each model in this list is based on the previous one with only one change made so incremental changes can be tracked.
 
