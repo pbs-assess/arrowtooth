@@ -707,7 +707,7 @@ prob_above_02_sbo_2022 <- sum(unlist(base_model$mcmccalcs$depl[, ncol(base_model
 prob_above_04_sbo_2022 <- sum(unlist(base_model$mcmccalcs$depl[, ncol(base_model$mcmccalcs$depl)]) > 0.4) / 
   nrow(base_model$mcmccalcs$depl) * 100
 
-split_sex_model_sel <- models$bridge_grps[[2]][[4]]$mcmccalcs$selest_quants |> filter(gear == "WCHG Synoptic", sex == 2)
+split_sex_model_sel <- models$bridge_grps[[2]][[4]]$mcmccalcs$selest_quants |> filter(gear == 6, sex == 2)
 split_sex_model_sel_ahat <- paste0(f(split_sex_model_sel$a_hat[2]), " (", 
                                    f(split_sex_model_sel$a_hat[1]), "--",
                                    f(split_sex_model_sel$a_hat[3]), ")")

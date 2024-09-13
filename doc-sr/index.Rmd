@@ -640,7 +640,7 @@ prob_above_04_sbo_nextyr <-
 
 split_sex_model_sel <-
   models$bridge_grps[[2]][[4]]$mcmccalcs$selest_quants |>
-  filter(gear == "WCHG Synoptic", sex == 2)
+  filter(gear == 6, sex == 2)
 split_sex_model_sel_ahat <- paste0(f(split_sex_model_sel$a_hat[2]), " (", 
                                    f(split_sex_model_sel$a_hat[1]), "--",
                                    f(split_sex_model_sel$a_hat[3]), ")")
