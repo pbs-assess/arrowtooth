@@ -801,7 +801,7 @@ class: center
 - had no discard reporting prior to 1996, when observers were introduced. Entire tows were often discarded without report;
 - continued to be discarded at sea in great numbers until the arrival of freezer trawlers in the mid 2000's, which could freeze their catch at sea and avoid proteolysis;
 - had large declines recently (2020-2021) which was due to TAC reductions
-- was dominated by Freezer trawlers in the last decade.
+- was dominated by Freezer trawlers from 2010--2019.
 
 **Notes on catch**
 - The commercial fishing year for `r sp` starts on Feb 21 and ends on Feb 20. All yearly catch data in this assessment were aggregated in this way.
