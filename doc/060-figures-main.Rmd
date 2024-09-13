@@ -48,7 +48,7 @@ plot_trawl_footprint()
 
 (ref:fig-catch-en) Commercial catch of `r sp` by area and gear type. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. In the years prior to 1996, many tows of `r sp` were discarded without logs being kept.
 
-(ref:fig-catch-fr)  Prises commerciales de `r sp` par zone et par type d'engin. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, les captures de l'année 2005 correspondent à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006. La zone grise du début de la série chronologique jusqu'en 1996 indique que les données ne sont pas fiables. Au cours des années antérieures à 1996, de nombreux traits de `r sp` ont été rejetés sans qu'aucun journal n'ait été tenu.
+(ref:fig-catch-fr) Prises commerciales de `r sp` par zone et par type d'engin. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, les captures de l'année 2005 correspondent à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006. La zone grise du début de la série chronologique jusqu'en 1996 indique que les données ne sont pas fiables. Au cours des années antérieures à 1996, de nombreux traits de `r sp` ont été rejetés sans qu'aucun journal n'ait été tenu.
 
 ```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 yrs <- sort(unique(catch$year))
