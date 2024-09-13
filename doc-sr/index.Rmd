@@ -273,7 +273,9 @@ survey_samples_syn <- survey_samples |>
                               "SYN HS",
                               "SYN WCVI",
                               "SYN WCHG"))
-commercial_samples <- dat$commercial_samples |> 
+commercial_samples <- readRDS(file.path(drs$nongit_dir,
+                                        "data",
+                                        "arrowtooth-commercial-samples-sept-12-2024.rds")) |> 
   filter(major_stat_area_code %in% major_areas)
 comm_ft <- extract_fleet_samples(commercial_samples)
 comm_ss <- extract_fleet_samples(commercial_samples, include = FALSE)
@@ -374,73 +376,20 @@ table_dec <- table_decisions(base_model, ret_df = TRUE, digits = 3)
 catch_col <- sym(grep(tr("Catch"), names(table_dec), value = TRUE))
 
 # Decision table column indices for P(B_2023<B_2022)
-nms <- names(table_dec)
-i_inds <- grep(".*\\{20[0-9]+\\} < B", nms)
-i_nms <- nms[i_inds]
-i_yrs <- gsub("^.*\\{(20[0-9]+)\\} < B.*$", "\\1", i_nms)
+i_2025 <- grep("\\{2025\\} < B", names(table_dec))
+i_2026 <- grep("\\{2026\\} < B", names(table_dec))
+i_2027 <- grep("\\{2027\\} < B", names(table_dec))
 
-catch_probs_nextyr_curryr <- map(c(0, 5, 10, 15), ~{
-  table_dec |> 
-    filter(!!catch_col == .x) |>
-    pull(i_nms[1])
-})
-names(catch_probs_nextyr_curryr) <- c(0, 5, 10, 15)
-
-catch_probs_nextnextyr_nextyr <- map(c(0, 5, 10, 15), ~{
-  table_dec |> 
-    filter(!!catch_col == .x) |>
-    pull(i_nms[2])
-})
-names(catch_probs_nextnextyr_nextyr) <- c(0, 5, 10, 15)
-
-catch_probs_nextnextnextyr_nextnextyr <- map(c(0, 5, 10, 15), ~{
-  table_dec |> 
-    filter(!!catch_col == .x) |>
-    pull(i_nms[3])
-})
-names(catch_probs_nextnextnextyr_nextnextyr) <- c(0, 5, 10, 15)
-
-probs_proj_less_assess <- table_dec |>
-  select(i_nms[1]) |>
-  pull()
-which_prob_less_50_50 <- which(probs_proj_less_assess < 0.5)
-which_prob_less_50_50 <- which_prob_less_50_50[length(which_prob_less_50_50)]
-prob_less_50_50 <- table_dec[which_prob_less_50_50, ]
-prob_greater_50_50 <- table_dec[which_prob_less_50_50 + 1, ]
-
-catch_less_50_50 <- prob_less_50_50 |> pull(catch_col)
-val_less_50_50 <- prob_less_50_50 |> pull(i_nms[1])
+prob_2025_2024_catch_10 <- table_dec |>
+  filter(!!catch_col == 10) |> pull(i_2025)
+prob_2026_2025_catch_10 <- table_dec |>
+  filter(!!catch_col == 10) |> pull(i_2026)
+prob_2027_2026_catch_10 <- table_dec |>
+  filter(!!catch_col == 10) |> pull(i_2027)
 
 # Decision table column indices for P(B_2023<0.4B0) and P(B_2023<0.4B0)
-i_nextnextyr_4bo <- grep(paste0("\\{", i_yrs[1], "\\} < 0.4B"), names(table_dec))
-i_nextnextyr_2bo <- grep(paste0("\\{", i_yrs[1], "\\} < 0.2B"), names(table_dec))
-
-below_04bo <- table_dec |> 
-  pull(i_nextnextyr_4bo)
-range_below_04bo <- range(below_04bo)
-
-below_02bo <- table_dec |> 
-  pull(i_nextnextyr_2bo)
-range_below_02bo <- range(below_02bo)
-
-# For decision table caption text
-prob_10t_below_2bo <- table_dec |> 
-    filter(!!catch_col == 10) |> pull(i_nextnextyr_2bo)
-prob_10t_below_4bo <- table_dec |> 
-    filter(!!catch_col == 10) |> pull(i_nextnextyr_4bo)
-
-# For the Projections and Decision table section
-uncert_nextnextyr_catch_10 <- base_model$mcmc$proj |>
-  filter(TAC == 10) |>
-  pull(paste0("B", i_yrs[3])) 
-uncert_nextnextyr_catch_10 <- quantile(uncert_nextnextyr_catch_10 /
-                                         base_model$mcmc$params$sbo,
-                                 probs = c(0.025, 0.5, 0.975))
-
-lo_uncert_nextnextyr_catch_10 <- uncert_nextnextyr_catch_10[1]
-hi_uncert_nextnextyr_catch_10 <- uncert_nextnextyr_catch_10[3]
-diff_uncert_nextnextyr_catch_10 <- hi_uncert_nextnextyr_catch_10 - lo_uncert_nextnextyr_catch_10
-names(diff_uncert_nextnextyr_catch_10) <- "difference"
+i_2024_4bo <- grep("\\{2025\\} < 0.4B", names(table_dec))
+i_2024_2bo <- grep("\\{2025\\} < 0.2B", names(table_dec))
 
 ```
 
