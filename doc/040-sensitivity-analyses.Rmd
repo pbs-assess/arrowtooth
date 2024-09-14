@@ -109,7 +109,7 @@ The catchability parameters are $\operatorname{ln}(q_k)$ where $k$ is the gear, 
 
 Two sensitivity models were run to test the influence of the priors for $\operatorname{ln}(q_k)$. In the first, the means for all gears were increased from `r paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$')` to `r paste0('$\operatorname{ln}(', f(sens_qk_mean, 1), ')$')`, and the SD remained at `r paste0('$', f(base_qk_sd, 1), '$')`. In the second, the prior was broadened by setting the SD for all the gears to `r paste0('$', f(base_qk_sd, 1), '$')`. The means for that model remained at `r paste0('$\operatorname{ln}(', f(base_qk_mean, 1), ')$')`.
 
-The absolute and relative biomass was almost identical to the base model for these models (Figures \@ref(fig:fig-sens-q-m) and \@ref(fig:fig-sens-q-rel)). The catchability estimates were also almost identical between these models and the base model (Figure \@ref(fig:fig-sens-q-q)).
+The absolute and relative biomasses were almost identical to the base model for these models (Figures \@ref(fig:fig-sens-q-m) and \@ref(fig:fig-sens-q-rel)). The catchability estimates were also almost identical between these models and the base model (Figure \@ref(fig:fig-sens-q-q)).
 ")
 ```
 

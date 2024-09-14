@@ -1,12 +1,10 @@
 ```{r app-comp-env-para-1-en, eval = !fr(), results = 'asis'}
 cat("# COMPUTATIONAL ENVIRONMENT
 
-The source code for this assessment is available at:
-
-<https://github.com/pbs-assess/arrowtooth>
+The source code for this assessment is available by searching GitHub for the pbs-assess/arrowtooth repository.
 
 This version of the document was generated on `r format(lubridate::as_date(Sys.time()), format = '%a %b %d, %Y')`
-with `r devtools::session_info()$platform$version` [@r2022] and R package versions:
+with `r devtools::session_info()$platform$version` [@r2022].
 
 ")
 ```
@@ -14,79 +12,73 @@ with `r devtools::session_info()$platform$version` [@r2022] and R package versio
 ```{r app-comp-env-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# ENVIRONNEMENT INFORMATIQUE
 
-Le code source de cette évaluation est disponible à l'adresse suivante:
+Le code source de cette évaluation est disponible sur GitHub pour le dépôt pbs-assess/arrowtooth.
 
-<https://github.com/pbs-assess/arrowtooth>
-
-Cette version du document a été générée sur `r lubridate::as_date(Sys.time())` avec
-`r devtools::session_info()$platform$version` [@r2022] et les versions du paquet R:
-
+Cette version du document a été générée le `r format(lubridate::as_date(Sys.time()), format = '%a %b %d, %Y')`
+avec `r devtools::session_info()$platform$version` [@r2022].
 ")
 ```
 
-```{r env, echo = FALSE, results='asis', message=FALSE, warning=FALSE, eval=TRUE, cache=FALSE}
+```{r table-env, echo = FALSE, results = 'asis'}
 
 # Need to load sdmTMB here for it to show up in the packages list with version number
 library(sdmTMB)
 library(gfutilities)
 
-pkgs <- sort(c("arrowtooth",
-               "bookdown", "broom",
-               "csasdown",
-               "devtools", "dplyr",
-               "gfdata", "gfiscam", "gfiscamutils", "gfplot", "ggplot2", "glmmTMB", "gridExtra",
-               "here",
-               "kableExtra",
-               "knitr",
-               "purrr",
-               "rmarkdown", "rosettafish",
-               "sdmTMB",
-               "tidylog", "TMB"))
+pkgs <- list("arrowtooth",
+             "bookdown", "broom",
+             "csasdown",
+             "devtools", "dplyr",
+             "gfdata", "gfiscam", "gfiscamutils", "gfplot", "ggplot2", "glmmTMB", "gridExtra",
+             "here",
+             "kableExtra",
+             "knitr",
+             "purrr",
+             "rmarkdown", "rosettafish",
+             "sdmTMB",
+             "tidylog", "TMB")
 
+pkg_df <- tribble(~package, ~org,
+                  "arrowtooth", "pbs-assess",
+                  "bookdown", "rstudio",
+                  "broom", "tidymodels",
+                  "csasdown", "pbs-assess",
+                  "devtools", "r-lib",
+                  "dplyr", "tidyverse",
+                  "gfdata", "pbs-assess",
+                  "gfiscam", "pbs-assess",
+                  "gfiscamutils", "pbs-assess",
+                  "gfplot", "pbs-assess",
+                  "ggplot2", "tidyverse",
+                  "glmmTMB", "glmmTMB",
+                  "gridExtra", "baptiste",
+                  "here", "r-lib",
+                  "kableExtra", "cgrandin",
+                  "knitr", "yihui",
+                  "purrr", "tidyverse",
+                  "rmarkdown", "rstudio",
+                  "rosettafish", "pbs-assess",
+                  "sdmTMB", "pbs-assess",
+                  "tidylog", "elbersb",
+                  "TMB", "kaskr/adcomp")
+
+gfiscam_pkg <- vec2df(c("gfiscam", "pbs-assess", "16ed7f"),
+                      nms = c("package", "org", "loadedversion"))
+
+cap <- "The packages, their associated GitHub organizations and package versions used for this assessment. All are R packages except for ````gfiscam```` which is an ADMB/C++ package containing the `r iscam` implementation used in this assessment. The Version given in the table for ````gfiscam```` is the commit SHA on GitHub. The Versions for the R packages are what is returned when running the ````session_info()$packages```` command in R."
+if(fr()){
+  cap <- "Les paquets, leurs organisations GitHub associées et les versions des paquets utilisés pour cette évaluation. Tous sont des paquets R à l'exception de ````gfiscam```` qui est un paquet ADMB/C++ contenant l'implémentation `r iscam` utilisée dans cette évaluation. La version indiquée dans le tableau pour ````gfiscam```` est le commit SHA sur GitHub. Les versions des paquets R sont celles qui sont renvoyées lors de l'exécution de la commande ````session_info()$packages```` dans R."
+}
 info <- session_info()$packages |> 
   as.data.frame() |> 
   as_tibble() |> 
   select(package, loadedversion) |> 
   filter(package %in% pkgs) |> 
-  setNames(c(tr("Package"), tr("Version"))) |>
-  csas_table()
+  left_join(pkg_df, by = "package") |>
+  select(package, org, loadedversion) |> 
+  bind_rows(gfiscam_pkg) |> 
+  setNames(c(tr("Package/Repository"), "GitHub User/Organization", tr("Package Version"))) |>
+  csas_table(cap = cap)
 
 info
 ```
-
-```{r app-comp-env-para-2-en, eval = !fr(), results = 'asis'}
-cat("\texttt{gfiscam} is an ADMB/C++ package containing the `r iscam` implementation used in this assessment and has a GitHub repository (link below).
-
-Packages maintained by the authors used to generate this report can be viewed at:
-
-")
-```
-
-```{r app-comp-env-para-2-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("\texttt{gfiscam} est un paquetage ADMB/C++ contenant l'implémentation de `r iscam` utilisée dans cette évaluation et dispose d'un dépôt GitHub (lien ci-dessous).
-
-Les paquets maintenus par les auteurs utilisés pour générer ce rapport peuvent être consultés à l'adresse suivante :
-")
-```
-
-https://github.com/pbs-assess/arrowtooth
-
-https://github.com/pbs-assess/csasdown
-
-https://github.com/pbs-assess/gfdata
-
-https://github.com/pbs-assess/gfiscam/wsl2
-
-https://github.com/pbs-assess/gfiscamutils
-
-https://github.com/pbs-assess/gfplot
-
-https://github.com/pbs-assess/gfutilities
-
-https://github.com/cgrandin/kableExtra
-
-https://github.com/pbs-assess/rosettafish
-
-https://github.com/pbs-assess/sdmTMB
-
-\clearpage
