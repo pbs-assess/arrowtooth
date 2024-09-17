@@ -1,50 +1,36 @@
 #' Rebase and build Groundfish packages automatically
 #' @param git_dir The directory where you have your pbs-assess git repositories
+#' @param quick See `quick` argument in [devtools::install()]
+#' @param dep See `dependencies` argument in [devtools::install()]
 #' @return Nothing
 #' @export
-update_gf_packages <- function(git_dir = "C:/github"){
-  if(tolower(Sys.getenv("USERNAME")) == "grandin"){
-    git_dir <- "D:/github/pbs-assess"
+update_gf_packages <- function(git_dir = "C:/github",
+                               quick = TRUE,
+                               dep = FALSE){
+
+  if(tolower(Sys.getenv("USERNAME")) == "chris-grandin"){
+    git_dir <- "/home/chris-grandin/github/pbs-assess"
+  }
+  if(!dir.exists(git_dir)){
+    stop("The directory `", git_dir, "` does not exist")
   }
   orig_dir <- getwd()
   on.exit(setwd(orig_dir))
 
+  pkg_lst <- c("csasdown", "gfdata", "gfiscamutils",
+               "gfplot", "gfutilities", "rosettafish")
+
   # Git pull packages ---------------------------------------------------------
-  cat(crayon::green("\nRebasing new commits from csasdown...\n"))
-  shell(paste0("cd ", file.path(git_dir, "csasdown"), " && git pull --rebase"))
-
-  cat(crayon::green("\nRebasing new commits from gfdata...\n"))
-  shell(paste0("cd ", file.path(git_dir, "gfdata"), " && git pull --rebase"))
-
-  cat(crayon::green("\nRebasing new commits from gfiscamutils...\n"))
-  shell(paste0("cd ", file.path(git_dir, "gfiscamutils"), " && git pull --rebase"))
-
-  cat(crayon::green("\nRebasing new commits from gfplot...\n"))
-  shell(paste0("cd ", file.path(git_dir, "gfplot"), " && git pull --rebase"))
-
-  cat(crayon::green("\nRebasing new commits from gfutilities...\n"))
-  shell(paste0("cd ", file.path(git_dir, "gfutilities"), " && git pull --rebase"))
-
-  cat(crayon::green("\nRebasing new commits from rosettafish...\n"))
-  shell(paste0("cd ", file.path(git_dir, "rosettafish"), " && git pull --rebase"))
+  walk(pkg_lst, \(pkg){
+    cat(crayon::green(paste0("\nRebasing new commits from ", pkg, "...\n")))
+    system_(paste0("cd ", file.path(git_dir, pkg), " && git pull --rebase"))
+  })
 
   # Install packages ----------------------------------------------------------
   setwd(git_dir)
-  cat(crayon::green("\nBuilding and installing csasdown package...\n"))
-  devtools::install("csasdown", quick = TRUE, dependencies = FALSE)
+  walk(pkg_lst, \(pkg){
+    cat(crayon::green(paste0("\nBuilding and installing ", pkg, " package...\n")))
+    devtools::install(pkg, quick = quick, dependencies = dep)
+  })
 
-  cat(crayon::green("\nBuilding and installing gfdata package...\n"))
-  devtools::install("gfdata", quick = TRUE, dependencies = FALSE)
-
-  cat(crayon::green("\nBuilding and installing gfiscamutils package...\n"))
-  devtools::install("gfiscamutils", quick = TRUE, dependencies = FALSE)
-
-  cat(crayon::green("\nBuilding and installing gfplot package...\n"))
-  devtools::install("gfplot", quick = TRUE, dependencies = FALSE)
-
-  cat(crayon::green("\nBuilding and installing gfutilities package...\n"))
-  devtools::install("gfutilities", quick = TRUE, dependencies = FALSE)
-
-  cat(crayon::green("\nBuilding and installing rosettafish package...\n"))
-  devtools::install("rosettafish", quick = TRUE, dependencies = FALSE)
 }
