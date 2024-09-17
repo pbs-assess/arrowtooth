@@ -37,9 +37,10 @@ Samples from 2022 and 2023 were not aged for this update, and therefore not incl
 ```{r analysis-and-response-mcmc-autocorr-en, eval = !fr(), results = 'asis'}
 cat("## MCMC Diagnostics
 
-The MCMC chain was run to a length of `r f(mcmc_chain_length)`, with every `r f(mcmc_sample_freq)`^th^ posterior sampled, resulting in `r f(mcmc_num_samples)` posteriors saved. Of those, the first `r f(mcmc_burn_in)` were removed as burn-in, leaving `r f(mcmc_actual_samples)` posteriors used for inference.
+The Markov Chain Monte Carlo (MCMC) chain was run to a length of `r f(mcmc_chain_length)`, with every `r f(mcmc_sample_freq)`^th^ posterior sampled, resulting in `r f(mcmc_num_samples)` posteriors saved. Of those, the first `r f(mcmc_burn_in)` were removed as burn-in, leaving `r f(mcmc_actual_samples)` posteriors used for inference.
 
-Figure \@ref(fig:fig-base-autocor) shows the autocorrelation in leading parameters. 
+Figure \@ref(fig:fig-base-trace) shows the traceplots for the leading parameters, all appear stable as in the 2022 assessment. Figure \@ref(fig:fig-base-autocor) shows that there is very little autocorrelation in leading parameters.
+
 ")
 ```
 
@@ -169,9 +170,23 @@ g_lengths <- plot_lengths(sb,
 g_lengths
 ```
 
-(ref:fig-base-autocor-en) Autocorrelation plots for MCMC output of estimated lead parameters in the base model. The x-axis values are the lag between posteriors. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
+(ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. Catchability ($q$) parameters for the survey indices have numerical subscripts which are: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
-(ref:fig-base-autocor-fr) Graphiques d'autocorrélation pour la sortie MCMC des paramètres principaux estimés dans le modèle de base. Les valeurs de l'axe des x correspondent au décalage entre les valeurs postérieures. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
+(ref:fig-base-trace-fr) French here
+
+```{r fig-base-trace, fig.cap = ifelse(fr(), "(ref:fig-base-trace-fr)", "(ref:fig-base-trace-en)"), fig.asp = 1}
+plot_traces_mcmc(base_model,
+                 plot_sel = FALSE, 
+                 param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
+                              "bo", "msy1", "msy2", "fmsy1", "fmsy2",
+                              "umsy1", "umsy2","bmsy",
+                              "so", "beta", "phie"),
+                 text_title_size = NULL)
+```
+
+(ref:fig-base-autocor-en) Autocorrelation plots for MCMC output of estimated lead parameters in the base model. The x-axis values are the lag between posteriors. See Figure \@ref(fig:fig-base-trace) for $q$ subscript descriptions. 
+
+(ref:fig-base-autocor-fr) French here
 
 ```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)"), fig.asp = 1}
 plot_autocorr_mcmc(base_model,
@@ -186,7 +201,6 @@ plot_autocorr_mcmc(base_model,
                    col = "blue",
                    lwd = 2)
 ```
-
 
 \clearpage
 
