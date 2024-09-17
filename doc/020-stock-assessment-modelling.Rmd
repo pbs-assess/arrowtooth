@@ -1,6 +1,6 @@
 ```{r sam-stock-modelling-en, eval = !fr(), results = 'asis'}
 cat("# STOCK ASSESSMENT MODELLING
-We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition of the commercial and survey sample data indicated that the stock is composed of approximately `r f(100 * total_prop_female)`% females; see Appendix \@ref(app:prop-female), Table \@ref(tab:prop-female-table). All models in this assessment, including the base model, bridging models, sensitivity models, and retrospective models, were run using `r total_prop_female` as the proportion of females in the stock. Bridging models 1 and 2, prior to the addition of data up to 2021 used 0.70 for the proportion female, which is what was used in the `r la`.
+We applied a two-sex two-fleet statistical catch-at-age model in a Bayesian estimation framework to assess the coastwide stock of `r sp`. Analysis of the sex composition of the commercial and survey sample data indicated that the stock is composed of approximately `r f(100 * as.numeric(total_prop_female))`% females; see Appendix \@ref(app:prop-female), Table \@ref(tab:prop-female-table). All models in this assessment, including the base model, bridging models, sensitivity models, and retrospective models, were run using `r total_prop_female` as the proportion of females in the stock. Bridging models 1 and 2, prior to the addition of data up to 2021 used 0.70 for the proportion female, which is what was used in the `r la`.
 
 The model was fit to commercial catch data from two fleets, six indices of abundance with associated coefficients of variation, and to age composition data from the commercial trawl fleets and four of the six surveys. Biological parameters used in the model, including growth, weight-at-age, and maturity schedules, were estimated independently for each sex (Appendix \@ref(app:bio-data-appendix)) and input into the assessment model as fixed parameters that were assumed to remain constant over time.
 
@@ -23,7 +23,7 @@ Des points de référence basés sur la biomasse reproductrice non pêchée à l
 ```{r sam-data-inputs-en, eval = !fr(), results = 'asis'}
 cat("## DATA INPUTS
 ### Data Sources
-Data were extracted using the R package [gfdata](https://github.com/pbs-assess/gfdata), which applies standard SQL routines to several databases and reconstructs the various time series accordingly. The databases accessed for this assessment were:
+Data were extracted using the R package ````gfdata````, found on GitHub, in the ````pbs-assess```` organization's repository list. Functions in the ````gfdata```` package apply standard SQL routines to several databases and reconstruct the various time series accordingly. The databases accessed for this assessment were:
 
 1. GFBioSQL: Contains all modern biological sample data for surveys and commercial fisheries. This database includes most of the groundfish specimen data collected since the 1950s.
 2. PacHarvTrawl: Contains Canadian trawl landing data from 1996 to March 31, 2007.
@@ -236,7 +236,7 @@ Age composition data represented the whole coast for the following years:
 1. `r wcvis` (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[5]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
 1. `r wchgs` (Figure \@ref(fig:fig-ages)), 2016--2018, (bridging models only)
 
-Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed scheme that adjusted for unequal sampling effort across depth strata and tow biomass density (surveys) or quarterly period within a year and tow catch weight (commercial). Details are given in @holt2016 (page 160) and the `r la` [@grandin2017]. The methods are coded into the [gfplot package](https://github.com/pbs-assess/gfplot). The `r la` used custom code as the gfplot package was not yet available.
+Age composition data were input to the assessment models as weighted proportions-at-age. Weighting was based on a stratifed scheme that adjusted for unequal sampling effort across depth strata and tow biomass density (surveys) or quarterly period within a year and tow catch weight (commercial). Details are given in @holt2016 (page 160) and the `r la` [@grandin2017]. The methods used are from the ````gfplot```` package, found on GitHub, in the ````pbs-assess```` organization's repository list. The `r la` used custom code as the ````gfplot```` package was not yet available.
 
 Commercial ageing requests included randomly chosen samples from many vessels across both commercial fleets.")
 ```

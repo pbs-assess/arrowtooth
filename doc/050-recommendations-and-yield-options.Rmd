@@ -103,7 +103,7 @@ Nous suggérons que les recherches futures envisagent l'utilisation de l'indice 
 ```
 
 ```{r recommendations-and-yield-para-5-en, eval = !fr(), results = 'asis'}
-cat("The relationdhip between DNA and spatial area is unknown for `r sp`. In future it is recommended that a genetic study take place to determine differences between `r sp` found in the Strait of Georgia, Queen Charlotte Sound, Hecate Strait, and WCVI.")
+cat("The relationship between DNA and spatial area is unknown for `r sp`. In future it is recommended that a genetic study take place to determine differences between `r sp` found in the Strait of Georgia, Queen Charlotte Sound, Hecate Strait, and WCVI.")
 ```
 
 ```{r recommendations-and-yield-para-5-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
@@ -131,7 +131,7 @@ Compte tenu des considérations écosystémiques de l'appendice \@ref(app:eco) e
 ```
 
 ```{r recommendations-and-yield-para-7-en, eval = !fr(), results = 'asis'}
-cat("Ageing error was not used for this assessment. It is recommended that an ageing error matrix be included in the assessment model, to determine model sensitivty to ageing error.")
+cat("Ageing error was not used for this assessment. It is recommended that an ageing error matrix be included in the assessment model, to determine model sensitivity to ageing error.")
 ```
 
 ```{r recommendations-and-yield-para-7-fr, eval = fr(), results = 'asis', needs_trans = FALSE}

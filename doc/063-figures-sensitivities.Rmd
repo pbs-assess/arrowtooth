@@ -148,8 +148,6 @@ plot_biomass_mcmc(models$sens_grps[[4]],
 
 (ref:fig-sens-sel-eq-mat-vuln-fr) Biomasse féconde et biomasse vulnérable pour le modèle de sensibilité pour lequel la sélectivité a été fixée à la maturité pour les deux flottes de chaluts commerciaux. La biomasse reproductrice est en noir et son IC à 95 % est ombré. Les deux trajectoires de biomasse vulnérable ont leur IC à 95 % contenu dans les lignes pointillées de leurs couleurs respectives. Les trois trajectoires sont identiques car la sélectivité est réglée pour correspondre à la maturité, de sorte que 100 % de la biomasse est disponible pour les pêcheries. Ce graphique est présenté pour vérifier que le modèle est correctement spécifié.
 
-Traduit avec DeepL.com (version gratuite)
-
 ```{r fig-sens-sel-eq-mat-vuln, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-vuln-fr)", "(ref:fig-sens-sel-eq-mat-vuln-en)")}
 plot_vuln_mcmc(models$sens_grps[[4]][[2]],
                angle_x_labels = TRUE,

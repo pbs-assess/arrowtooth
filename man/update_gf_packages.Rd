@@ -4,10 +4,14 @@
 \alias{update_gf_packages}
 \title{Rebase and build Groundfish packages automatically}
 \usage{
-update_gf_packages(git_dir = "C:/github")
+update_gf_packages(git_dir = "C:/github", quick = TRUE, dep = FALSE)
 }
 \arguments{
 \item{git_dir}{The directory where you have your pbs-assess git repositories}
+
+\item{quick}{See \code{quick} argument in \code{\link[devtools:install]{devtools::install()}}}
+
+\item{dep}{See \code{dependencies} argument in \code{\link[devtools:install]{devtools::install()}}}
 }
 \value{
 Nothing

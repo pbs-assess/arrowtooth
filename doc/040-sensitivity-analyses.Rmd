@@ -197,7 +197,7 @@ cat("### Modification of the maturity ogive {#sens-change-maturity}
 
 Removing 'developing' and resting' from the maturity ogive produced a better-fitting ogive (Figure \@ref(fig:fig-mat)) and resulted in slightly lower overall $B_0$ estimate and absolute biomass compared to the base model, which resulted in a similar relative biomass (Figures \@ref(fig:fig-sens-meeting) and \@ref(fig:fig-sens-meeting-rel)). This maturity should be considered for the base model in the next assessment. Since it made no qualitative difference on the results, and because it was worked up following the initial review meeting, we did not include it in the base model for this assessment.
 
-The biomass vulnerable to the two fleets compared to the spawning biomass is shown in Figure \@ref(fig:fig-sens-meeting-vuln). The vulnerable biomass is lwoer for each fleet than the spawning biomass, as it should be when only the mature portion of the stock is available to catch.
+The biomass vulnerable to the two fleets compared to the spawning biomass is shown in Figure \@ref(fig:fig-sens-meeting-vuln). The vulnerable biomass is lower for each fleet than the spawning biomass, as it should be when only the mature portion of the stock is available to catch.
 ")
 ```
 

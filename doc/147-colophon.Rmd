@@ -1,7 +1,7 @@
 ```{r app-comp-env-para-1-en, eval = !fr(), results = 'asis'}
 cat("# COMPUTATIONAL ENVIRONMENT
 
-The source code for this assessment is available by searching GitHub for the pbs-assess/arrowtooth repository.
+The source code for this assessment can be found on GitHub, in several packages in the ````pbs-assess```` organization's repository list (Table \@ref(tab:table-env)).
 
 This version of the document was generated on `r format(lubridate::as_date(Sys.time()), format = '%a %b %d, %Y')`
 with `r devtools::session_info()$platform$version` [@r2022].
@@ -12,7 +12,7 @@ with `r devtools::session_info()$platform$version` [@r2022].
 ```{r app-comp-env-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# ENVIRONNEMENT INFORMATIQUE
 
-Le code source de cette évaluation est disponible sur GitHub pour le dépôt pbs-assess/arrowtooth.
+Le code source de cette évaluation est disponible sur GitHub, dans plusieurs paquets de la liste des dépôts de l'organisation ````pbs-assess```` (Tableau \@ref(tab:table-env)).
 
 Cette version du document a été générée le `r format(lubridate::as_date(Sys.time()), format = '%a %b %d, %Y')`
 avec `r devtools::session_info()$platform$version` [@r2022].
@@ -53,7 +53,7 @@ pkg_df <- tribble(~package, ~org,
                   "glmmTMB", "glmmTMB",
                   "gridExtra", "baptiste",
                   "here", "r-lib",
-                  "kableExtra", "cgrandin",
+                  "kableExtra", "cgrandin (forked from haozhu233)",
                   "knitr", "yihui",
                   "purrr", "tidyverse",
                   "rmarkdown", "rstudio",
@@ -62,12 +62,15 @@ pkg_df <- tribble(~package, ~org,
                   "tidylog", "elbersb",
                   "TMB", "kaskr/adcomp")
 
-gfiscam_pkg <- vec2df(c("gfiscam", "pbs-assess", "16ed7f"),
+# Get the current commit of the gfiscam repository
+sha <- system2("git", "-C ~/github/pbs-assess/gfiscam rev-parse HEAD", wait = TRUE, stdout = TRUE)
+
+gfiscam_pkg <- vec2df(c("gfiscam", "pbs-assess", substr(sha, 1, 6)),
                       nms = c("package", "org", "loadedversion"))
 
-cap <- "The packages, their associated GitHub organizations and package versions used for this assessment. All are R packages except for ````gfiscam```` which is an ADMB/C++ package containing the `r iscam` implementation used in this assessment. The Version given in the table for ````gfiscam```` is the commit SHA on GitHub. The Versions for the R packages are what is returned when running the ````session_info()$packages```` command in R."
+cap <- paste0("The packages, their associated GitHub organizations and package versions used for this assessment. All are R packages except for ````gfiscam```` which is an ADMB/C++ package containing the ", iscam, " implementation used in this assessment. The Version given for ````gfiscam```` is the commit SHA on GitHub. The Versions for the R packages are what is returned when running the ````session_info()$packages```` command in R.")
 if(fr()){
-  cap <- "Les paquets, leurs organisations GitHub associées et les versions des paquets utilisés pour cette évaluation. Tous sont des paquets R à l'exception de ````gfiscam```` qui est un paquet ADMB/C++ contenant l'implémentation `r iscam` utilisée dans cette évaluation. La version indiquée dans le tableau pour ````gfiscam```` est le commit SHA sur GitHub. Les versions des paquets R sont celles qui sont renvoyées lors de l'exécution de la commande ````session_info()$packages```` dans R."
+  cap <- paste0("Les paquets, leurs organisations GitHub associées et les versions des paquets utilisés pour cette évaluation. Tous les paquets sont des paquets R sauf ````gfiscam```` qui est un paquet ADMB/C++ contenant l'implémentation ", iscam, ", utilisée dans cette évaluation. La version donnée pour ````gfiscam```` est le commit SHA sur GitHub. Les versions des paquets R sont celles qui sont renvoyées lors de l'exécution de la commande ````session_info()$packages```` dans R.")
 }
 info <- session_info()$packages |> 
   as.data.frame() |> 
@@ -77,7 +80,16 @@ info <- session_info()$packages |>
   left_join(pkg_df, by = "package") |>
   select(package, org, loadedversion) |> 
   bind_rows(gfiscam_pkg) |> 
-  setNames(c(tr("Package/Repository"), "GitHub User/Organization", tr("Package Version"))) |>
+  setNames(c(
+    ifelse(fr(),
+           "Paquet/Dépôt",
+           "Package/Repository"),
+    ifelse(fr(),
+           "Utilisateur GitHub/Organisation",
+           "GitHub User/Organization"),
+    ifelse(fr(),
+           "Version du paquet",
+           "Package Version"))) |>
   csas_table(cap = cap)
 
 info
