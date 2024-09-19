@@ -3,11 +3,11 @@ cat("# Background
 
 ## Description of the Fishery and Management
 
-The commercial fishery for `r sp` has been active for decades. Prior to 2006 there were no limits on the amount of `r sp` that could be caught. In 2006 a TAC of 15,000 t was established and it remained at this level until 2017. In 2017, the TAC was increased to 17,500 t and remained there for two years until it was reduced to 14,000 t in 2019 as a precautionary measure to address concerns raised by the commercial trawl fleet about their oberved reduction in abundance of Arrowtooth Flounder. In 2020 the TAC was decreased to 5,000 t to address industry concerns regarding declining `r sp` abundance on traditional fishing grounds (DFO 2020).
+The commercial fishery for `r sp` has been active for decades. Prior to 2006 there were no limits on the amount of `r sp` that could be caught. In 2006 a Total Allowable Catch (TAC) of 15 kt was established and it remained at this level until 2017. In 2017, the TAC was increased to 17.5 kt and remained there for two years until it was reduced to 14 kt in 2019 as a precautionary measure to address concerns raised by the commercial trawl fleet about their oberved reduction in abundance of Arrowtooth Flounder. In 2020 the TAC was decreased to its current level of 5 kt to address industry concerns regarding declining `r sp` abundance on traditional fishing grounds (@dfomemo2020).
 
 Before the introduction of 100% at-sea observer coverage in the `r bc` groundfish fleets in 1996, reporting of `r sp` discards in fishery logbooks was mandatory, but since `r sp` were not given a TAC until 2005, there was little incentive for skippers to record discards accurately until at-sea observers were present aboard vessels starting in 1996.
 
-The assessment model has been updated by adding new catch for 2022 and 2023. This can be seen in Table \@ref(tab:overall-catch-table) and Figure \@ref(fig:fig-catch-fleet). The Discard CPUE series was also updated.
+Since the `r ca`, there have been two years of new `r sp` commercial catch (2022 and 2023). These values are presented in Table \@ref(tab:fleet-catch-table) and Figure \@ref(fig:fig-catch-fleet). The catch for the Freezer Trawler fleet increased by `r perc_inc_ft_2021_2022`% from 2021 to 2022, but then decreased by `r perc_dec_ft_2022_2023`% from 2022 to 2023. The Shoreside fleet decreased for both years, by `r perc_dec_ss_2021_2022`% from 2021 to 2022, and by `r perc_dec_ss_2022_2023`% from 2022 to 2023.
 
 ")
 ```
@@ -34,7 +34,7 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 
 ```
 
-```{r ft-catch-table, results = "asis"}
+```{r fleet-catch-table, results = "asis"}
 cap <- paste0("Recent coastwide commercial fishery landings and discards ",
               "(t) of ", sp, " by fleet.")
 if(fr()){
@@ -48,5 +48,6 @@ table_catch_fleet(list(catch_ft, catch_ss),
                   caption = cap,
                   start_yr = 1996,
                   font_size = 8,
+                  longtable = FALSE,
                   gear_col_widths = "6em")
 ```

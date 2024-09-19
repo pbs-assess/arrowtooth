@@ -30,9 +30,10 @@ cat_no: "Cat-Number-Here"
 # with `csas_table()` that cross page boundaries. If `false`, these will
 # both be absent from all tables. If it is missing or any other value than
 # `false`, it will be assumed to be `true`
-show_continued_text: true
+show_continued_text: false
 output:
  csasdown::sr_pdf:
+   #latex_engine: lualatex
    french: false
    prepub: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
@@ -40,7 +41,7 @@ output:
    # will remain between compilations. If true, your changes will be lost when you compile
    copy_sty: true
    # line_nums is a toggle to show line numbers on the left side of the page. 
-   line_nums: true
+   line_nums: false
    # line_nums_mod represents showing every Nth line if line_nums is true
    line_nums_mod: 1
    # draft_watermark is a toggle to show/not show a DRAFT watermark across every page
@@ -138,6 +139,7 @@ options(knitr.graphics.rel_path = FALSE)
 library(devtools)
 library(dplyr)
 if(as.logical(length(grep("grandin", user)))){
+  load_all("~/github/kableExtra")
   load_all("~/github/pbs-assess/gfiscamutils")
   load_all("~/github/pbs-assess/gfplot")
   load_all("~/github/pbs-assess/csasdown")
@@ -157,7 +159,7 @@ library(gfutilities)
 library(ggplot2)
 library(gridExtra)
 library(here)
-library(kableExtra)
+#library(kableExtra)
 library(purrr)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
@@ -679,6 +681,21 @@ if(vuln_ratio_yr %in% colnames(models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[
   sel_eq_mat_vuln_ratio <- sel_eq_mat_vuln_bio / sel_eq_mat_bio
 }
 
+ct_ft_2021 <- catch_ft |> filter(year == 2021) |> summarize(value = sum(value))
+ct_ft_2022 <- catch_ft |> filter(year == 2022) |> summarize(value = sum(value))
+perc_inc_ft_2021_2022 <- f(ct_ft_2022 / ct_ft_2021 * 100 - 100, 1)
+
+ct_ft_2023 <- catch_ft |> filter(year == 2023) |> summarize(value = sum(value))
+perc_dec_ft_2022_2023 <- f(100 - ct_ft_2023 / ct_ft_2022 * 100, 1)
+
+ct_ss_2021 <- catch_ss |> filter(year == 2021) |> summarize(value = sum(value))
+ct_ss_2022 <- catch_ss |> filter(year == 2022) |> summarize(value = sum(value))
+ct_ss_2023 <- catch_ss |> filter(year == 2023) |> summarize(value = sum(value))
+perc_dec_ss_2021_2022 <- f(100 - ct_ss_2022 / ct_ss_2021 * 100, 1)
+perc_dec_ss_2022_2023 <- f(100 - ct_ss_2023 / ct_ss_2022 * 100, 1)
+
+# Current assessment text
+ca <- "2022 stock assessment"
 ```
 
 ```{r removal-rate-calcs}
