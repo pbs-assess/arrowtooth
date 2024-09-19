@@ -14,19 +14,19 @@ french_address: |
   ^1^Station bioslogique du Pacifique\
      Pêches et Océans Canada, 3190 Hammond Bay Road\
      Nanaimo, Colombie-Britannique, V9T 6N7, Canada\
-month: October
-french_month: Octobre
+month: September
+french_month: Septembre
 model_path: "/srv/arrowtooth/2022"
 nongit_path: "/srv/arrowtooth/arrowtooth-nongit"
 base_model_path: "/srv/arrowtooth/2022/01-base-models/01-base-model"
-year: 2022
-report_number: nnn
+year: 2024
+report_number: "071"
 region: Pacific Region
 french_region: "Région du Pacifique"
 isbn: "978-0-660-38322-4"
 cat_no: "Fs70-6/2021-012E-PDF"
-citation_english: "Grandin, C.J., Anderson, S.C. and English, P.A. Arrowtooth Flounder (Atheresthes stomias) Stock Assessment for the West Coast of British Columbia in 2021. DFO Can. Sci. Advis. Sec. Res. Doc. 2022/nnn."
-citation_french: "Grandin, C.J., Anderson, S.C. et English, P.A. Évaluation du stock de la plie à dents de flèche (Atheresthes stomias) sur la côte ouest de la Colombie-Britannique en 2021. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2022/nnn."
+citation_english: "Grandin, C.J., Anderson, S.C. and English, P.A. Arrowtooth Flounder (Atheresthes stomias) Stock Assessment for the West Coast of British Columbia in 2021. DFO Can. Sci. Advis. Sec. Res. Doc. 2024/071."
+citation_french: "Grandin, C.J., Anderson, S.C. et English, P.A. Évaluation du stock de la plie à dents de flèche (Atheresthes stomias) sur la côte ouest de la Colombie-Britannique en 2021. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2024/071."
 citation_other_language: "Will be injected by the preprocessor"
 
 abstract: |
@@ -51,7 +51,7 @@ french_abstract: |
 
   La taille des captures et des rejets avant 1996, l'absence de campagnes stratifiées aléatoires avant 2005 couvrant l'ensemble de la côte, l'estimation des courbes de maturité et de sélectivité, l'ampleur supposée de la variabilité du recrutement et l'estimation de $B_0$ sont des sources majeures d'incertitude dans cette évaluation qui rendent difficile l'estimation de la taille et de la productivité du stock. L'utilisation d'un relevé géostatistique assemblé pour remplacer les indices des relevés synoptiques distincts pourrait aider à résoudre certains problèmes liés à l'indice du relevé synoptique du détroit de la Reine-Charlotte, dont le taux de déclin est plus faible que celui des autres indices du relevé. Après avoir évalué les considérations relatives à l'écosystème et la biologie connue du stock, rien n'indique clairement que les conditions environnementales actuelles devraient modifier l'avis sur les captures dans la présente évaluation. Étant donné que le stock est estimé légèrement en dessous de l'USR dans le modèle de base et proche du LRP dans un modèle de sensibilité avec une plus grande variation du recrutement, ainsi qu'une biomasse estimée du stock reproducteur en déclin, des indices de prospection en déclin et un recrutement estimé en déclin, il est suggéré que cette évaluation du stock soit mise à jour avec de nouvelles données dans environ deux ans, lorsqu'une prospection supplémentaire aura été réalisée dans chaque zone de la côte.
 
-header: "Draft working paper --- Do not cite or circulate" # or "" to omit
+header: "" # "Draft working paper --- Do not cite or circulate"
 # `show_continued_text` is a logical which, if `true`, places
 # "Continued on the next page..." and "...Continued from the previous page" or
 # the french equivalents (if `french` = `true`) on all long tables created

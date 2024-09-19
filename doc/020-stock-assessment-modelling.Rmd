@@ -225,7 +225,7 @@ Nous avons également inclus un ensemble d'indices normalisés par un modèle g�
 ```{r sam-age-data-en, eval = !fr(), results = 'asis'}
 cat("### Age Data
 
-Ages for the years 1996--2019 are included in this assessment from the two commercial fleets and three synoptic surveys. The samples were aged by the break-and-bake method, which involves placing a large number of otoliths in a tray, baking them in a specially designed oven, then breaking them to perform age reads. During this process, if the person ageing the otoliths finds one that is not baked enough, they will burn the otolith manually to give it the right contrast for age reading. This extra burning step makes this method equivalent to the traditional break-and-burn method in which the age-reader burns each otolith individually (S. Wischniowski, Sclerochronology Laboratory, Pacifc Biological Station, Pers. Comm.).
+Ages for the years 1996--2019 are included in this assessment from the two commercial fleets and three synoptic surveys. The samples were aged by the bake-and-break method, which involves placing a large number of otoliths in a tray, baking them in a specially designed oven, then breaking them to perform age reads. During this process, if the person ageing the otoliths finds one that is not baked enough, they will burn the otolith manually to give it the right contrast for age reading. This extra burning step makes this method equivalent to the traditional break-and-burn method in which the age-reader burns each otolith individually (S. Wischniowski, Sclerochronology Laboratory, Pacifc Biological Station, Pers. Comm.).
 
 Age composition data represented the whole coast for the following years:
 

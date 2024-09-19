@@ -5,11 +5,14 @@ A set of bridging models was run to determine the effects of incremental model m
 
 The base model from the `r la` [@grandin2017] was run with the newest version of the `r iscam` [@iscam] code and the original data files. The parameter estimates, reference points, estimated trajectories, index fits, and age composition fits were determined to be identical. The 2015 model was a female-only catch-at-age model with four indices of abundance, which included the three Synoptic surveys and the Hecate Strait Multispecies assemblage survey.
 
-The Technical Working Group (TWG) agreed that the model should be two-sex, based on the sexual dimorphism observed in the age and length data for this species, and there being eight more years of data since the `r la`, which allowed for a larger number of age proportion specimens for each sex.
+The Technical Working Group (TWG) for `r sp` was formed prior to the data preparation and assessment modelling to determine which data should be used in the model, survey index suitability for the stock, and the best model parameterization to use for this year's assessment. The group was made up of external and DFO scientists, industry advisors, and fisheries managers who have insight into the `r sp` stock and fishery.
+
+The TWG agreed that the model should be two-sex, based on the sexual dimorphism observed in the age and length data for this species, and there being eight more years of data since the `r la`, which allowed for a larger number of age proportion specimens for each sex.
 
 All bridge models were run using MCMC (Markov chain Monte Carlo) sampling with a chain length of `r f(mcmc_chain_length)`, retaining every `r f(mcmc_sample_freq)`th sample, giving `r f(mcmc_num_samples)` samples, which were then burned in by `r f(mcmc_burn_in)` giving a total of `r f(mcmc_actual_samples)` samples used for inference.
 ")
 ```
+
 ```{r bridging-para-01-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("## RÉSULTATS
 ### Modèles de transition {#bridging}
@@ -17,7 +20,9 @@ Un ensemble de modèles de transition a été exécuté pour déterminer les eff
 
 Le modèle de base du `r la` [@grandin2017] a été exécuté avec la dernière version du code `r iscam` [@iscam] et les fichiers de données originaux. Les estimations des paramètres, les points de référence, les trajectoires estimées, les ajustements de l'indice et les ajustements de la composition par âge ont été jugés identiques. Le modèle de 2015 était un modèle de capture à l'âge pour les femelles uniquement, avec 4 indices d'abondance, qui incluaient les trois relevés synoptiques et le relevé d'assemblage multispécifique du détroit d'Hécate.
 
-Le Groupe de travail technique (GTT) a convenu que le modèle devait être divisé en deux sexes, sur la base du dimorphisme sexuel observé dans les données d'âge et de longueur pour cette espèce, et du fait qu'il y avait 8 années supplémentaires de données depuis le `r la`, ce qui permettait d'avoir un plus grand nombre de spécimens proportionnels à l'âge pour chaque sexe.
+Le groupe de travail technique (GTT) pour le stock `r sp` a été formé avant la préparation des données et la modélisation de l'évaluation afin de déterminer les données à utiliser dans le modèle, la pertinence de l'indice d'enquête pour le stock et la meilleure paramétrisation du modèle à utiliser pour l'évaluation de cette année. Le groupe était composé de scientifiques externes et du MPO, de conseillers de l'industrie et de gestionnaires des pêches qui connaissent bien le stock et la pêcherie de `r sp`.
+
+Le GTT a convenu que le modèle devrait être à deux sexes, compte tenu du dimorphisme sexuel observé dans les données sur l'âge et la longueur de cette espèce, et du fait qu'il y a huit années supplémentaires de données depuis le `r la`, ce qui permet d'avoir un plus grand nombre de spécimens proportionnels à l'âge pour chaque sexe.
 
 Tous les modèles de pont ont été exécutés en utilisant un échantillonnage MCMC (Markov chain Monte Carlo) avec une longueur de chaîne de `r f(mcmc_chain_length)`, retenant chaque `r f(mcmc_sample_freq)`ème échantillon, ce qui donne `r f(mcmc_num_samples)` échantillons, qui ont ensuite été brûlés par `r f(mcmc_burn_in)` donnant un total de `r f(mcmc_actual_samples)` échantillons utilisés pour l'inférence.
 ")

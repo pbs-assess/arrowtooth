@@ -68,9 +68,9 @@ sha <- system2("git", "-C ~/github/pbs-assess/gfiscam rev-parse HEAD", wait = TR
 gfiscam_pkg <- vec2df(c("gfiscam", "pbs-assess", substr(sha, 1, 6)),
                       nms = c("package", "org", "loadedversion"))
 
-cap <- paste0("The packages, their associated GitHub organizations and package versions used for this assessment. All are R packages except for ````gfiscam```` which is an ADMB/C++ package containing the ", iscam, " implementation used in this assessment. The Version given for ````gfiscam```` is the commit SHA on GitHub. The Versions for the R packages are what is returned when running the ````session_info()$packages```` command in R.")
+cap <- paste0("The packages, their associated GitHub organizations and package versions used for this assessment. All are R packages except for ````gfiscam```` which is an ADMB/C++ package containing the ", iscam, " implementation used in this assessment. The 'Package Version' given for ````gfiscam```` is the commit SHA on GitHub. The 'Package Version' for the R packages are what is returned when running the ````session_info()$packages```` command in R.")
 if(fr()){
-  cap <- paste0("Les paquets, leurs organisations GitHub associées et les versions des paquets utilisés pour cette évaluation. Tous les paquets sont des paquets R sauf ````gfiscam```` qui est un paquet ADMB/C++ contenant l'implémentation ", iscam, ", utilisée dans cette évaluation. La version donnée pour ````gfiscam```` est le commit SHA sur GitHub. Les versions des paquets R sont celles qui sont renvoyées lors de l'exécution de la commande ````session_info()$packages```` dans R.")
+  cap <- paste0("Les paquets, leurs organisations GitHub associées et les versions des paquets utilisés pour cette évaluation. Tous les paquets sont des paquets R, à l'exception de ````gfiscam```` qui est un paquet ADMB/C++ contenant l'implémentation ", iscam, "utilisée dans cette évaluation. La « Package Version » donnée pour ````gfiscam```` est le commit SHA sur GitHub. La « Version du paquet » pour les paquets R est celle qui est renvoyée lors de l'exécution de la commande ````session_info()$packages```` dans R.")
 }
 info <- session_info()$packages |> 
   as.data.frame() |> 
