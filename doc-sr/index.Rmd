@@ -681,20 +681,37 @@ if(vuln_ratio_yr %in% colnames(models$sens_grps[[4]][[2]]$mcmccalcs$vbt_quants[[
   sel_eq_mat_vuln_ratio <- sel_eq_mat_vuln_bio / sel_eq_mat_bio
 }
 
-ct_ft_2021 <- catch_ft |> filter(year == 2021) |> summarize(value = sum(value))
-ct_ft_2022 <- catch_ft |> filter(year == 2022) |> summarize(value = sum(value))
+# Current assessment text
+ct_df <- table_catch_fleet(list(catch_ft, catch_ss),
+                           base_model$dat$fleet_gear_names,
+                           show_total_col = TRUE,
+                           ret_df = TRUE)
+# ct_df column 1 is Year, and last column is the total catch for all gears
+# Each fleet has three columns, landings, discards, and total of the two
+names(ct_df) <- c("Year", seq_len(ncol(ct_df))[-1])
+ct_ft_2021 <- ct_df |> 
+  filter(Year == 2021) |> 
+  pull(`4`)
+ct_ft_2022 <- ct_df |> 
+  filter(Year == 2022) |> 
+  pull(`4`)
+ct_ft_2023 <- ct_df |> 
+  filter(Year == 2023) |> 
+  pull(`4`)
 perc_inc_ft_2021_2022 <- f(ct_ft_2022 / ct_ft_2021 * 100 - 100, 1)
-
-ct_ft_2023 <- catch_ft |> filter(year == 2023) |> summarize(value = sum(value))
 perc_dec_ft_2022_2023 <- f(100 - ct_ft_2023 / ct_ft_2022 * 100, 1)
-
-ct_ss_2021 <- catch_ss |> filter(year == 2021) |> summarize(value = sum(value))
-ct_ss_2022 <- catch_ss |> filter(year == 2022) |> summarize(value = sum(value))
-ct_ss_2023 <- catch_ss |> filter(year == 2023) |> summarize(value = sum(value))
+ct_ss_2021 <- ct_df |> 
+  filter(Year == 2021) |> 
+  pull(`7`)
+ct_ss_2022 <- ct_df |> 
+  filter(Year == 2022) |> 
+  pull(`7`)
+ct_ss_2023 <- ct_df |> 
+  filter(Year == 2023) |> 
+  pull(`7`)
 perc_dec_ss_2021_2022 <- f(100 - ct_ss_2022 / ct_ss_2021 * 100, 1)
 perc_dec_ss_2022_2023 <- f(100 - ct_ss_2023 / ct_ss_2022 * 100, 1)
 
-# Current assessment text
 ca <- "2022 stock assessment"
 ```
 
