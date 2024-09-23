@@ -17,10 +17,11 @@ Parameter estimates and fixed values are given in Table \@ref(tab:param-estimate
 ```{r analysis-and-response-survey-en, eval = !fr(), results = 'asis'}
 cat("## Survey Indices and Catch
 
-Since the `r ca`, there has been one new year added for each survey index included (Figure \@ref(fig:fig-base-index-fits)), except for the `r hsmas` which has a terminal year of 2003. The `r wcviss` took place in 2022, and the `r qcsss` and the `r hsss` both took place in 2023. The `r dcpue` had two new index points estimated and added, for 2022 and 2023. The `r dcpue` is created using a Generalized Linear Mixed Model (GLMM), and as such all the indices in the time series are estimated each time new data are added. The estimated values for each year in the `r dcpue` were therefore slightly different than those used in the `r ca` (the light grey points and bars in Figure \@ref(fig:fig-base-index-fits)).
+In this update, there is one new survey year for each of the three synoptic surveys included in the model (Figure \@ref(fig:fig-base-index-fits)). The `r hsmas` has a terminal year of 2003 and therefore was not updated with any new data. The `r wcviss` took place in 2022; the `r qcsss` and the `r hsss` both took place in 2023. The `r dcpue` had a new index point added for each new year, 2022 and 2023 as it is based on the commercial discards in catch. The `r dcpue` is created using a Generalized Linear Mixed Model (GLMM), and as such all the indices in the time series are estimated each time new data are added anywhere in the time series. The estimated values for each year in the `r dcpue`  (the light grey points and bars in Figure \@ref(fig:fig-base-index-fits)) were therefore slightly different than those in Figure 14 of the `r ca`.
 
-The 2022 point for the `r dcpue` and the 2023 point for the `r qcsss` were not fit well by the model, however the median posterior estimates are within the 95% index confidence intervals for those years. Overall trends of all indices follow those seen in the `r ca`, with the `r qcsss` and `r hsss` indices being fit slightly better in the 2005--2012 time period than in the 2022 assessment.
+The 2022 point for the `r dcpue` and the 2023 point for the `r qcsss` were not fit well by the model, however the median posterior estimates are within the range of uncertainty for those years. Overall trends of all index estimates follow those seen in the `r ca`, with the `r qcsss` and `r hsss` indices being fit slightly better in the 2005--2012 time period than in the 2022 assessment.
 
+The increase in the survey indices for 2023 is driving the increase in estimated biomass for the beginning of 2024 seen in Figures \@ref(fig:fig-base-sb-bo) and \@ref(fig:fig-base-depletion).
 ")
 ```
 
@@ -28,28 +29,29 @@ The 2022 point for the `r dcpue` and the 2023 point for the `r qcsss` were not f
 <<analysis-and-response-survey-en>>
 ```
 
+```{r analysis-and-response-loengths-en, eval = !fr(), results = 'asis'}
+cat("## Length and Age data
+
+Sex-specific length data have continued to be recorded for the surveys, but have been almost non-existent in the fishery after 2019. Figure \@ref(fig:fig-lengths) shows a summary of the length data; the lack of data since 2019 is evident, except for a small amount in 2019 and moderate amount in 2023 for the Freezer Trawler fleet. Recent survey data show a simliar trend to previous years, with more, and larger, females in the stock. In 2023, the Freezer Trawler fleet saw a larger proportion of smaller males than the large females.
+
+Samples from 2022 and 2023 were not aged for this update, and therefore not included in the update model. Implications of this are discussed in the next section.
+
+")
+```
+
 ```{r analysis-and-response-recruitment-en, eval = !fr(), results = 'asis'}
 cat("## Recruitment
 
 The posterior median recruitment was estimated to be below the credible interval for the $R_0$ estimate for `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr`, with a very large credible interval (Figure \@ref(fig:fig-base-recr)). In the `r ca`, only the last two years of recruitment estimates had large credible intervals due to uncertainty around age class strength. The last four years of the model presented here have a large credible interval due to lack of new ages being included in the model for 2022 and 2023. Despite the large uncertainties, the recruitment estimates for `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr` appear to be slightly increasing and higher than those estimated for 2015--2019.
 
+It is recommended that in addition to catch data and survey indices, the next assessment or update incorporate age data from 2022 to present in the model to alleviate this limitation.
 ")
 ```
 
 ```{r analysis-and-response-growth-en, eval = !fr(), results = 'asis'}
 cat("## Growth
 
-Growth parameters were estimated outside the `r iscam` model and the only differences when compared to the `r ca` were in the scalar in length-weight allometry ($\alpha$) parameter for males which went from $0.0000095$ in the 2022 assessment to $`r base_model$dat$lw.alpha[2]`$, the power in length-weight allometry ($\beta$) parameter for females which went from $3.0515274$ in the 2022 assessment to $`r base_model$dat$lw.beta[1]`$, and the power in length-weight allometry ($\beta$) parameter for males which went from $2.9741834$ in the 2022 assessment to $`r base_model$dat$lw.beta[2]`$. Table \@ref(tab:growth-params-table) shows all the values input into the model for this update.
-
-")
-```
-
-```{r analysis-and-response-loengths-en, eval = !fr(), results = 'asis'}
-cat("## Length and Age data
-
-Sex-specific length data have continued to be recorded for the surveys, but have been almost non-existent in the fishery after 2019. Figure \@ref(fig:fig-lengths) shows the lack of commercial lengths since 2019, except for a small amount in 2019 and moderate amount in 2023 for the Freezer Trawler fleet. Recent survey data show a simliar trend to previous years, with more large females than males in the stock. In 2023, the Freezer Trawler fleet saw a larger proportion of males.
-
-Samples from 2022 and 2023 were not aged for this update, and therefore not included in the update model.
+Growth parameters were estimated outside the `r iscam` model and the only differences when compared to the `r ca` were in the scalar in length-weight allometry ($\alpha$) parameter for males which went from $0.0000095$ in the 2022 assessment to $`r base_model$dat$lw.alpha[2]`$, the power in length-weight allometry ($\beta$) parameter for females which went from $3.0515274$ in the 2022 assessment to $`r base_model$dat$lw.beta[1]`$, and the power in length-weight allometry ($\beta$) parameter for males which went from $2.9741834$ in the 2022 assessment to $`r base_model$dat$lw.beta[2]`$. Table \@ref(tab:growth-params-table) shows all the values input into the model for this update, and can be compared directly with Table A.1 in the `r ca` [@arf2022].
 
 ")
 ```
@@ -59,11 +61,10 @@ cat("## Fishing Mortality and Selectivity
 
 The estimated fishing mortality follows the catch data closely, as this model is tuned to catch. The increase in catch in 2022 in the Freezer Trawler fleet is apparent as is the reduction in catch in 2023 (Figure \@ref(fig:fig-base-f)).
 
-Posterior estimates of age-at-50%-harvest ($\hat{a}_k$) and the standard deviation in the logistic selectivity ogive ($\hat{\gamma}_k$) are provided in Table \@ref(tab:param-estimates-table). The median posterior estimates of age-at-50%-harvest were higher for females than males for all gears except for the `r hss`, which had a higher estimate for males. The estimates of standard deviation were similar between sexes by gear. The estimates were all very close to the estimates in Table 6 of the `r ca`.
+Posterior estimates of age-at-50%-harvest ($\hat{a}_k$) and the standard deviation in the logistic selectivity ogive ($\hat{\gamma}_k$) are provided in Table \@ref(tab:param-estimates-table). The median posterior estimates of those selectivity parameters were similar for males and females for both commercial gears and the surveys. The estimates were all close to the estimates in Table 6 of the `r ca`. There were no drastic changes in the selectivity estimates caused by the addition of new catch and survey index data. The selectivity plots are shown in Figure \@ref(fig:fig-base-mcmc-selex) which when compared to Figure 27 in the `r ca`, shows almost no difference.
 
 ")
 ```
-
 
 ```{r analysis-and-response-growth-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<analysis-and-response-growth-en>>
@@ -72,11 +73,11 @@ Posterior estimates of age-at-50%-harvest ($\hat{a}_k$) and the standard deviati
 ```{r analysis-and-response-mcmc-autocorr-en, eval = !fr(), results = 'asis'}
 cat("## MCMC Diagnostics
 
-The Markov Chain Monte Carlo (MCMC) chain was run to a length of `r f(mcmc_chain_length)`, with every `r f(mcmc_sample_freq)`^th^ posterior sampled, resulting in `r f(mcmc_num_samples)` posteriors saved. Of those, the first `r f(mcmc_burn_in)` were removed as burn-in, leaving `r f(mcmc_actual_samples)` posteriors used for inference.
+The Markov Chain Monte Carlo (MCMC) chain was run to a length of `r f(mcmc_chain_length)`, with every `r f(mcmc_sample_freq)`^th^ posterior sampled, resulting in `r f(mcmc_num_samples)` posteriors saved. Of those, the first `r f(mcmc_burn_in)` were removed as burn-in, leaving `r f(mcmc_actual_samples)` posteriors used for inference. Those `r f(mcmc_actual_samples)` posteriors were used for all the MCMC diagnostic plots in this update.
 
-Figure \@ref(fig:fig-base-trace) shows the traceplots for the leading parameters, all appear stable as in the 2022 assessment. Figure \@ref(fig:fig-base-autocor) shows that there is very little autocorrelation in leading parameters.
+Figure \@ref(fig:fig-base-trace) shows the traceplots for the leading parameters, all appear stable as they did in the 2022 assessment. Figure \@ref(fig:fig-base-autocor) shows that there is very little autocorrelation in leading parameters.
 
-The catchability parameters appear to show more correlation with each other in this update model than they were in the `r ca`. A comparison of the pairs plots (Figure \@ref(fig:fig-base-pairs)) and Figure 41 from the `r ca` shows that there is a higher correlation between the $q_1$ and $q_3$ parameters in particular. These are the catchability parameters for the `r qcsss` and the `r hsss`.
+The catchability parameters appear to show more correlation with each other in this update model than seen in the `r ca`. A comparison of the pairs plots from this update (Figure \@ref(fig:fig-base-pairs)) and Figure 41 from the `r ca` shows that there is a higher correlation between the $q_1$ and $q_3$ parameters in particular. These are the catchability parameters for the `r qcsss` and the `r hsss`.
 
 ")
 ```
@@ -240,6 +241,16 @@ plot_f_mcmc(base_model,
             text_title_size = NULL, xlim = c(1997, 2023))
 ```
 
+(ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots show estimated median selectivity-at-age, and the shaded areas show the 95% credible intervals (CI). Single dotted lines with no CI (HS Multi, Discard CPUE) represent fixed selectivities. Dashed lines represent maturity-at-age based on logistic curves fit to the proportion of mature fish at age.
+
+(ref:fig-base-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent les intervalles de crédibilité (IC) à 95 %. Les lignes pointillées simples sans IC (HS Multi, Discard CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
+
+```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
+plot_selex_mcmc(base_model,
+                show_maturity = TRUE,
+                leg_loc = "facet")
+```
+
 (ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
 (ref:fig-base-trace-fr) French here
@@ -293,12 +304,12 @@ plot_pairs_mcmc(base_model,
 
 \clearpage
 
-```{r sam-age-data-en, eval = !fr(), results = 'asis'}
+```{r indicators-of-stock-status-en, eval = !fr(), results = 'asis'}
 cat("## Indicators of Stock Status
 
-Typically DFO's reference points of $0.4B_{MSY}$ for the LRP and $0.8B_{MSY}$ for the USR are used as they are defined in the Sustainable Fisheries Framework (SFF, @dfo2009). However for `r sp`, reference points based on the Maximum Sustainable Yield (MSY) were strongly impacted by estimates of selectivity in the trawl fisheries. Because the selectivity ogives were estimated to the right of the maturity ogive, the MSY-based reference points were overly optimistic, since the vulnerable biomass appeared to include the entire stock, and not just the mature fish. Reference points based on estimated equilibrium unfished spawning biomass, $B_0$, were used instead as $B_0$ is not impacted directly by selectivity estimates. Because the reference points are not the standard DFO reference points, the typical stock 'zones' (i.e. healthy, cautious, and critical) are not defined.
+Typically DFO's reference points of $0.4B_{MSY}$ for the LRP and $0.8B_{MSY}$ for the USR are used as they are defined in the Sustainable Fisheries Framework (SFF, [@dfo2009]). However for `r sp`, reference points based on the Maximum Sustainable Yield (MSY) were strongly impacted by estimates of selectivity in the trawl fisheries. Because the selectivity ogives were estimated to the right of the maturity ogive, the MSY-based reference points were overly optimistic, since the vulnerable biomass appeared to include the entire stock, and not just the mature fish. Reference points based on estimated equilibrium unfished spawning biomass, $B_0$, were used instead as $B_0$ is not impacted directly by selectivity estimates. Because the reference points used here are not the standard SFF reference points, the typical stock 'zones' (i.e. healthy, cautious, and critical) are not defined.
 
-Projection of catch levels was performed for this update, but the values were truncated in comparison to the `r ca`. Advice was given to Science that the projected catch levels should be from 1 to 8 kilotonnes (kt) in increments of 1 kt for this update instead of 1 to 15 kt as was applied in the `r ca`. Figure \@ref(fig:fig-rel-biomass-proj) shows the biomass trajectories resulting in the application of the catch levels as catch to the stock for the years `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1`. Figure \@ref(fig:fig-rel-biomass-proj-closeup) shows a closer view of the projected trajectories.
+Projection of catch levels was performed for this update, but the values were truncated in comparison to the `r ca`. Advice was given to Science from Fisheries managers that the projected catch levels should be from 1 to 8 kilotonnes (kt) in increments of 1 kt for this update instead of 1 to 15 kt as was applied in the `r ca`. Figure \@ref(fig:fig-rel-biomass-proj) shows the biomass trajectories resulting in the application of the catch levels as catch to the stock for the years `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1`. Figure \@ref(fig:fig-rel-biomass-proj-closeup) shows a closer view of the projected trajectories.
 
 Harvest decision tables are provided as advice to managers (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) with constant catch policies ranging from 1 to 8 kilotonnes, from `r base_model$dat$end.yr + 2` to `r base_model$dat$end.yr +  base_model$proj$num.projyrs + 1`. To interpret the decision tables with respect to the LPR ($0.2B_0$) and USR ($0.4B_0$), the probability of being above the USR is $P(B_t > USR)$, the probability of being above the LRP but below the USR is $P(B_t > LRP) - P(B_t > USR)$, and the probability of being below the LRP is $1 - P(B_t > LRP)$, where $t$ is the year, and $B_t$ is the relative biomass at the beginning of year $t$.
 
@@ -311,13 +322,13 @@ Harvest decision tables provided in this document include probabilities at the b
 3. the USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)),
 4. the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass))
 
-Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextyr-proj) show the uncertainty in the relative spawning biomass estimates for projected years given the catch values provided in the harvest decision tables. They are essentially a visual depiction of the decision tables. The horizontal lines in the figures are the 95% confidence intervals of the realitive biomass. The probabilities given in the harvest decision tables are close to being the proportion of those lines above each reference point shown as vertical lines in the plots.
+Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextyr-proj) show the uncertainty in the relative spawning biomass estimates for projected years given the catch values provided in the harvest decision tables. They are essentially a visual depiction of the decision tables, except that the lower 2.5% and upper 2.5% of the posteriors are not included in the plots, but are included in the probability calculations in the decision tables. The horizontal lines in the figures are the 95% CIs of the relative biomass. The probabilities given in the harvest decision tables are close to being the proportion of those lines to the right of each reference point shown as vertical lines in the plots.
 
 ")
 ```
 
-```{r sam-age-data-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<sam-age-data-en>>
+```{r indicators-of-stock-status-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
+<<indicators-of-stock-status-en>>
 ```
 
 (ref:fig-rel-biomass-proj-en) Estimated relative spawning biomass ($B_t/B_0$) for the base model. The shaded area represents the 95% Credible Interval (CI) and the solid line with points shows the connected medians. Horizontal lines indicate the $0.2B_0$ (solid red) and $0.4B_0$ (dashed green) reference points. The colored dots from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` are the posterior medians representing the projected catch levels, with solid lines connecting them; the dashed lines from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` represent the 95% CIs for those posteriors. The constant catch values (in kt) are shown as text on the right of the end points of each projected trajectory. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.

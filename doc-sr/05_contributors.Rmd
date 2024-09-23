@@ -6,15 +6,19 @@ Contributors to the Science Response, where an asterisk ‘*’ indicates the pr
 ")
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo = FALSE, include = FALSE}
 contributors <- tibble::tribble(
   ~Name,            ~Affiliation,
   "Chris Grandin*", "DFO Science, Pacific Region",
   "Finn, Deirdre",  "DFO Fisheries Management, Pacific Region",
   "Sean Anderson*", "DFO Science, Pacific Region")
+
+names(contributors) <- tr(names(contributors))
+names(contributors) <- paste0("\\textbf{", names(contributors), "}")
 ```
 
-```{r, results='asis'}
+```{r, results = 'asis'}
+
 csasdown::csas_table(contributors)
 ```
 

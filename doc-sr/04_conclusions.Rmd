@@ -18,7 +18,7 @@ There are several harvest decision tables provided in this document (Tables \@re
 3. the USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)), and
 4. the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass)).
 
-Some observations from the decsion tables:
+Some observations from the decision tables:
 
 1. The probability of being above the LRP of $0.2B_0$ at the beginning of 2025 is 0.993 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-02bo)),
 
