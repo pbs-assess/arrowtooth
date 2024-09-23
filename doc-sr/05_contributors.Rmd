@@ -1,13 +1,17 @@
-# Contributors
+```{r contributors-en, eval = !fr(), results = 'asis'}
+cat("# Contributors
 
-Mandatory section and title.
+Contributors to the Science Response, where an asterisk ‘*’ indicates the primary author(s).
+
+")
+```
 
 ```{r, echo=FALSE, include=FALSE}
 contributors <- tibble::tribble(
-  ~Name,          ~Affiliation,
-  "Jane Smith",   "DFO Science, Pacific Region",
-  "John Smith",   "DFO Science, Maritimes Region",
-)
+  ~Name,            ~Affiliation,
+  "Chris Grandin*", "DFO Science, Pacific Region",
+  "Finn, Deirdre",  "DFO Fisheries Management, Pacific Region",
+  "Sean Anderson*", "DFO Science, Pacific Region")
 ```
 
 ```{r, results='asis'}

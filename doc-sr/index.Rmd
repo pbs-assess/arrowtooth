@@ -1,9 +1,9 @@
 ---
-title: "Stock Status update for Arrowtooth Flounder (*Atheresthes stomias*) for the West Coast of British Columbia in 2023"
-french_title: "Mise à jour de l'état des stocks de flétan noir (*Atheresthes stomias*) pour la côte ouest de la Colombie-Britannique en 2023"
-title_short: "Stock Status Update for Arrowtooth Flounder in 2023"
-citation_english: "Grandin, C.J., Anderson, S.C. and English, P.A. Arrowtooth Flounder (Atheresthes stomias) Stock Assessment for the West Coast of British Columbia in 2021. DFO Can. Sci. Advis. Sec. Res. Doc. 2022/nnn."
-citation_french: "Grandin, C.J., Anderson, S.C. et English, P.A. Évaluation du stock de la plie à dents de flèche (Atheresthes stomias) sur la côte ouest de la Colombie-Britannique en 2021. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2022/nnn."
+title: "Stock Status update for Arrowtooth Flounder (*Atheresthes stomias*) for the West Coast of British Columbia in 2024"
+french_title: "Mise à jour de l'état des stocks de flétan noir (*Atheresthes stomias*) pour la côte ouest de la Colombie-Britannique en 2024"
+title_short: "Arrowtooth draft SR -- Do not cite or circulate" #"Stock Status Update for Arrowtooth Flounder in 2023"
+citation_english: "DFO, Stock Status update for Arrowtooth Flounder (*Atheresthes stomias*) for the West Coast of British Columbia in 2024. DFO Can. Sci. Advis. Sec. Res. Doc. 2024/nnn."
+citation_french: "MPO, Mise à jour de l'état des stocks de la plie à dents de flèche (*Atheresthes stomias*) pour la côte ouest de la Colombie-Britannique en 2024. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2024/nnn."
 model_path: "/srv/arrowtooth/2022"
 nongit_path: "/srv/arrowtooth/arrowtooth-nongit"
 base_model_path: "/srv/arrowtooth/2024/01-base-models/01-base-model"
@@ -12,7 +12,7 @@ month: "September"
 french_month: "Septembre"
 report_number: 999 # This *must* be numeric! E.g., not `nnn`.
 approver: |
-  Approver Name\
+  Andrew Thompson\
   Regional Director
 approval_year: 2024
 approval_month: "September"

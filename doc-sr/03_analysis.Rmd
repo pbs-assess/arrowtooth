@@ -5,6 +5,8 @@ cat("# Analysis and Response
 
 The model used to assess this stock was the Integrated Statistical Catch-at-Age Model (`r iscam`). It was tuned to four fishery-independent trawl survey series covering `r start_catch_yr`--2021, a Discard CPUE series as an index of abundance, annual estimates of commercial catch from two fleets (Freezer Trawlers and Shoreside), and age composition data from the two fleets in the commercial fishery and the four surveys. A two-sex, two-fleet base model was selected and implemented in a Bayesian context using Markov Chain Monte Carlo (MCMC) methods. Leading parameters estimated included $R_0$, initial recruitment, $h$, steepness of the stock-recruitment relationship, $\bar{R}$, average recruitment, and $q_k, k=1,2,3,4,5$, catchability of the four surveys and the Discard CPUE index. Selectivity parameters were also estimated for each sex, fleet, and survey.
 
+Parameter estimates and fixed values are given in Table \@ref(tab:param-estimates-table). As in the `r ca`, the natural mortality was fixed at 0.2 for females and 0.35 for males. All estimated parameter estimates were very close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
+
 ")
 ```
 
@@ -26,6 +28,14 @@ The 2022 point for the `r dcpue` and the 2023 point for the `r qcsss` were not f
 <<analysis-and-response-survey-en>>
 ```
 
+```{r analysis-and-response-recruitment-en, eval = !fr(), results = 'asis'}
+cat("## Recruitment
+
+The posterior median recruitment was estimated to be below the credible interval for the $R_0$ estimate for `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr`, with a very large credible interval (Figure \@ref(fig:fig-base-recr)). In the `r ca`, only the last two years of recruitment estimates had large credible intervals due to uncertainty around age class strength. The last four years of the model presented here have a large credible interval due to lack of new ages being included in the model for 2022 and 2023. Despite the large uncertainties, the recruitment estimates for `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr` appear to be slightly increasing and higher than those estimated for 2015--2019.
+
+")
+```
+
 ```{r analysis-and-response-growth-en, eval = !fr(), results = 'asis'}
 cat("## Growth
 
@@ -44,6 +54,17 @@ Samples from 2022 and 2023 were not aged for this update, and therefore not incl
 ")
 ```
 
+```{r analysis-and-response-fishing-mortality-en, eval = !fr(), results = 'asis'}
+cat("## Fishing Mortality and Selectivity
+
+The estimated fishing mortality follows the catch data closely, as this model is tuned to catch. The increase in catch in 2022 in the Freezer Trawler fleet is apparent as is the reduction in catch in 2023 (Figure \@ref(fig:fig-base-f)).
+
+Posterior estimates of age-at-50%-harvest ($\hat{a}_k$) and the standard deviation in the logistic selectivity ogive ($\hat{\gamma}_k$) are provided in Table \@ref(tab:param-estimates-table). The median posterior estimates of age-at-50%-harvest were higher for females than males for all gears except for the `r hss`, which had a higher estimate for males. The estimates of standard deviation were similar between sexes by gear. The estimates were all very close to the estimates in Table 6 of the `r ca`.
+
+")
+```
+
+
 ```{r analysis-and-response-growth-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<analysis-and-response-growth-en>>
 ```
@@ -55,16 +76,15 @@ The Markov Chain Monte Carlo (MCMC) chain was run to a length of `r f(mcmc_chain
 
 Figure \@ref(fig:fig-base-trace) shows the traceplots for the leading parameters, all appear stable as in the 2022 assessment. Figure \@ref(fig:fig-base-autocor) shows that there is very little autocorrelation in leading parameters.
 
+The catchability parameters appear to show more correlation with each other in this update model than they were in the `r ca`. A comparison of the pairs plots (Figure \@ref(fig:fig-base-pairs)) and Figure 41 from the `r ca` shows that there is a higher correlation between the $q_1$ and $q_3$ parameters in particular. These are the catchability parameters for the `r qcsss` and the `r hsss`.
+
 ")
 ```
 
 ```{r analysis-and-response-mcmc-autocorr-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<analysis-and-response-mcmc-autocorr-en>>
 ```
-(ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. The
-solid black line with points show the medians of the posteriors, the shaded ribbon encapsulated by dashed
-lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass,
-and the vertical line over that point is the 95% confidence interval.
+(ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. The solid black line with points show the medians of the posteriors, the shaded ribbon encapsulated by dashed lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% confidence interval.
 
 (ref:fig-base-sb-bo-fr) French here
 
@@ -74,20 +94,20 @@ plot_biomass_mcmc(base_model,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
                   bo_refpt_colors = c("salmon", "darkgreen"),
-                  ylim = c(0, 260))
+                  ylim = c(0, 250))
 ```
 
-(ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours.
+(ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% CI. Horizontal lines indicate the 0.2 $B_0$ (solid, red) and 0.4 $B_0$ (dashed, green) reference points. Because the ribbon represents relative spawning biomass (depletion) and the reference points are with respect to $B_0$, all uncertainty about the ratio of the spawning biomass to the reference points is captured in the ribbon and the reference points are shown as point values.
 
-(ref:fig-base-sb-vuln-compare-fr) Biomasse reproductrice de `r sp` pour le modèle de base comparée à la biomasse vulnérable pour les pêcheries au chalut pour le modèle de base. La biomasse reproductrice est en noir et son IC à 95 % est ombré. Les deux trajectoires de biomasse vulnérable ont leur IC à 95 % contenu dans les lignes pointillées de leurs couleurs respectives.
+(ref:fig-base-depletion-fr) French here
 
-```{r fig-base-sb-vuln-compare, fig.cap = ifelse(fr(), "(ref:fig-base-sb-vuln-compare-fr)", "(ref:fig-base-sb-vuln-compare-en)")}
-
-plot_vuln_mcmc(base_model,
-               angle_x_labels = TRUE,
-               xlim = c(1997, 2023),
-               ylim = c(0, 180),
-               leg_loc = c(0.05, 0.05))
+```{r fig-base-depletion, fig.cap = ifelse(fr(), "(ref:fig-base-depletion-fr)", "(ref:fig-base-depletion-en)")}
+plot_biomass_mcmc(base_model,
+                  rel = TRUE,
+                  show_bo_lines = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  ylim = c(0, 1.3))
 ```
 
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The black points are the medians of the posteriors, the vertical black lines are the 95% CIs for the posteriors, the point at $R_0$ is the median estimate for the initial recruitment parameter $R_0$, and the vertical line over that point and shaded ribbon across the time series is the 95% CI for $R_0$.
@@ -127,6 +147,21 @@ table_growth_params(base_model,
                     alpha_digits = 7,
                     caption = cap)
 
+```
+
+```{r param-estimates-table, results = "asis"}
+cap <- paste0("Posterior median and 95\\% credible interval estimates of key ",
+              "parameters for the base model.")
+if(fr()){
+cap <- paste0("Estimations de la médiane postérieure et de l'intervalle ",
+              "crédible à 95 \\% des paramètres clés pour le modèle de base.")
+}
+
+table_param_est_mcmc(base_model,
+                     font_size = 8,
+                     caption = cap,
+                     bold_header = FALSE,
+                     show_year_range = FALSE)
 ```
 
 (ref:fig-lengths-en) Length-frequency plot where female fish are shown as red bars and male fish are shown behind as blue bars. The total number of fish measured for a given survey or fishery per year are indicated in the top left corner of each panel. Histograms are only shown if there are more than 20 fish measured for a given survey-year combination. 
@@ -195,7 +230,17 @@ g_lengths <- plot_lengths(sb,
 g_lengths
 ```
 
-(ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. Catchability ($q$) parameters for the survey indices have numerical subscripts which are: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
+(ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries for females only. The plots for the males are not shown, because they are the same. The shaded area represents the 95% CI.
+
+(ref:fig-base-f-fr) French here
+
+```{r fig-base-f, fig.cap = ifelse(fr(), "(ref:fig-base-f-fr)", "(ref:fig-base-f-en)")}
+plot_f_mcmc(base_model,
+            angle_x_labels = TRUE,
+            text_title_size = NULL, xlim = c(1997, 2023))
+```
+
+(ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
 (ref:fig-base-trace-fr) French here
 
@@ -209,7 +254,7 @@ plot_traces_mcmc(base_model,
                  text_title_size = NULL)
 ```
 
-(ref:fig-base-autocor-en) Autocorrelation plots for MCMC output of estimated lead parameters in the base model. The x-axis values are the lag between posteriors. See Figure \@ref(fig:fig-base-trace) for $q$ subscript descriptions. 
+(ref:fig-base-autocor-en) Autocorrelation plots for MCMC output of estimated lead parameters in the base model. The x-axis values are the lag between posteriors. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`. 
 
 (ref:fig-base-autocor-fr) French here
 
@@ -227,25 +272,46 @@ plot_autocorr_mcmc(base_model,
                    lwd = 2)
 ```
 
+(ref:fig-base-pairs-en) Pairs plots for MCMC estimated parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
+
+(ref:fig-base-pairs-fr) French here
+
+```{r fig-base-pairs, fig.cap = ifelse(fr(), "(ref:fig-base-pairs-fr)", "(ref:fig-base-pairs-en)"), fig.asp = 1}
+
+plot_pairs_mcmc(base_model,
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta",
+                             "so", "beta", "phie"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
+
 \clearpage
 
 ```{r sam-age-data-en, eval = !fr(), results = 'asis'}
 cat("## Indicators of Stock Status
 
-Typically, DFO's reference points of $0.4B_{MSY}$ for the LRP and $0.8B_{MSY}$ for the USR are used, however for `r sp`, reference points based on the Maximum Sustainable Yield (MSY) were strongly impacted by estimates of selectivity in the trawl fisheries. Because the selectivity ogives were estimated to the right of the maturity ogive, the MSY-based reference points were overly optimistic, since the vulnerable biomass appeared to include the entire stock, and not just the mature fish. Reference points based on estimated equilibrium unfished spawning biomass, $B_0$, were used instead as $B_0$ is not impacted directly by selectivity estimates. Because the reference points are not the standard DFO reference points, the typical stock 'zones' (i.e. healthy, cautious, and critical) are not defined.
+Typically DFO's reference points of $0.4B_{MSY}$ for the LRP and $0.8B_{MSY}$ for the USR are used as they are defined in the Sustainable Fisheries Framework (SFF, @dfo2009). However for `r sp`, reference points based on the Maximum Sustainable Yield (MSY) were strongly impacted by estimates of selectivity in the trawl fisheries. Because the selectivity ogives were estimated to the right of the maturity ogive, the MSY-based reference points were overly optimistic, since the vulnerable biomass appeared to include the entire stock, and not just the mature fish. Reference points based on estimated equilibrium unfished spawning biomass, $B_0$, were used instead as $B_0$ is not impacted directly by selectivity estimates. Because the reference points are not the standard DFO reference points, the typical stock 'zones' (i.e. healthy, cautious, and critical) are not defined.
 
-Harvest decision tables are provided as advice to managers (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) with constant catch policies ranging from 0 to 8 kilotonnes, from `r base_model$dat$end.yr + 1` to `r base_model$dat$end.yr +  base_model$proj$num.projyrs + 1`. To interpret the decision tables with respect to the LPR ($0.2B_0$) and USR ($0.4B_0$), the probability of being above the USR is $P(B_t > USR)$, the probability of being above the LRP but below the USR is $P(B_t > LRP) - P(B_t > USR)$, and the probability of being below the LRP is $1 - P(B_t > LRP)$.
+Projection of catch levels was performed for this update, but the values were truncated in comparison to the `r ca`. Advice was given to Science that the projected catch levels should be from 1 to 8 kilotonnes (kt) in increments of 1 kt for this update instead of 1 to 15 kt as was applied in the `r ca`. Figure \@ref(fig:fig-rel-biomass-proj) shows the biomass trajectories resulting in the application of the catch levels as catch to the stock for the years `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1`. Figure \@ref(fig:fig-rel-biomass-proj-closeup) shows a closer view of the projected trajectories.
 
-During the review meeting for the `r ca`, participants deliberated about the validity of the USR being set to $0.4B_0$ and requested an 'alternative USR' of $0.35B_0$. This was included in the 2022 Research Document and is included here as well.
+Harvest decision tables are provided as advice to managers (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) with constant catch policies ranging from 1 to 8 kilotonnes, from `r base_model$dat$end.yr + 2` to `r base_model$dat$end.yr +  base_model$proj$num.projyrs + 1`. To interpret the decision tables with respect to the LPR ($0.2B_0$) and USR ($0.4B_0$), the probability of being above the USR is $P(B_t > USR)$, the probability of being above the LRP but below the USR is $P(B_t > LRP) - P(B_t > USR)$, and the probability of being below the LRP is $1 - P(B_t > LRP)$, where $t$ is the year, and $B_t$ is the relative biomass at the beginning of year $t$.
 
-Harvest decision tables provided in this document include:
+During the review meeting for the `r ca`, participants deliberated about the validity of the USR being set to $0.4B_0$ and requested an 'alternative USR' of $0.35B_0$. This was included in the 2022 Research Document and is included in this update as well.
 
-1. Probabilities of being above the LRP of $02.B_0$ (Table \@ref(tab:decision-table-02bo)),
-2. Probabilities of being above the alternative USR of $0.35B_0$ (Table \@ref(tab:decision-table-035bo)), and
-3. Probabilities of being above the USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)),
-4. Probabilities of being above the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass))
+Harvest decision tables provided in this document include probabilities at the beginning of the year of being above:
 
-Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextyr-proj) show the uncertainty in the relative spawning biomass estimates for projected years given the catch values provided in the harvest decision tables. The horizontal lines in the figures are the 95% confidence intervals of the realitive biomass. The probabilities given in the harvest decision tables are the proportion of those lines above each reference point shown as vertical lines in the plots.
+1. the LRP of $02.B_0$ (Table \@ref(tab:decision-table-02bo)),
+2. the alternative USR of $0.35B_0$ (Table \@ref(tab:decision-table-035bo)), and
+3. the USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)),
+4. the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass))
+
+Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextyr-proj) show the uncertainty in the relative spawning biomass estimates for projected years given the catch values provided in the harvest decision tables. They are essentially a visual depiction of the decision tables. The horizontal lines in the figures are the 95% confidence intervals of the realitive biomass. The probabilities given in the harvest decision tables are close to being the proportion of those lines above each reference point shown as vertical lines in the plots.
 
 ")
 ```
@@ -254,9 +320,9 @@ Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-ne
 <<sam-age-data-en>>
 ```
 
-(ref:fig-rel-biomass-proj-en) Estimated relative spawning biomass ($B_t/B_0$) for the base model. The shaded area represents the 95% credible interval (CI) and the solid line with points represents the median. Horizontal lines indicate the $0.2B_0$ (solid red) and $0.4B_0$ (dashed green) reference points. The colored dots from 2025 to 2027 are the medians of the posteriors for the projected catch levels, with solid lines connecting them; the dashed lines from 2023 to 2026 represent the 95% CIs for those posteriors. The constant catch values are shown as text on the right of the end points of each projected trajectory. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing for each catch level.
+(ref:fig-rel-biomass-proj-en) Estimated relative spawning biomass ($B_t/B_0$) for the base model. The shaded area represents the 95% Credible Interval (CI) and the solid line with points shows the connected medians. Horizontal lines indicate the $0.2B_0$ (solid red) and $0.4B_0$ (dashed green) reference points. The colored dots from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` are the posterior medians representing the projected catch levels, with solid lines connecting them; the dashed lines from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` represent the 95% CIs for those posteriors. The constant catch values (in kt) are shown as text on the right of the end points of each projected trajectory. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.
 
-(ref:fig-rel-biomass-proj-fr)  Estimation de la biomasse féconde relative ($B_t/B_0$) pour le modèle de base. La zone ombrée représente l'intervalle de crédibilité (IC) à 95% et la ligne continue avec des points représente la médiane. Les lignes horizontales indiquent les points de référence $0,2B_0$ (rouge plein) et $0,4B_0$ (vert pointillé). Les points colorés de 2025 à 2027 sont les médianes des valeurs postérieures pour les niveaux de capture projetés, avec des lignes solides les reliant ; les lignes en pointillé de 2023 à 2026 représentent les IC à 95 % pour ces valeurs postérieures. Les valeurs de captures constantes sont indiquées sous forme de texte à droite des points d'arrivée de chaque trajectoire projetée. Voir les tables de décision (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) pour les probabilités de dépassement des points de référence et d'augmentation du stock pour chaque niveau de capture.
+(ref:fig-rel-biomass-proj-fr) French here
 
 ```{r fig-rel-biomass-proj, fig.cap = ifelse(fr(), "(ref:fig-rel-biomass-proj-fr)", "(ref:fig-rel-biomass-proj-en)")}
 plot_biomass_proj_mcmc(base_model,
@@ -273,9 +339,9 @@ plot_biomass_proj_mcmc(base_model,
                        proj_catch_vals = 1:8)
 ```
 
-(ref:fig-rel-biomass-proj-closeup-en) Closeup view of relative spawning biomass for the `r sp` base model with $B_0$-based reference points and projections into the future. The constant catch values are shown as text on the right of the end points of each projected trajectory. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing for each catch level.
+(ref:fig-rel-biomass-proj-closeup-en) Closeup view of most recent relative spawning biomass (Figure \@ref(fig:fig-rel-biomass-proj)) for the `r sp` base model with $B_0$-based reference points and projections into the future. The constant catch values (in kt) are shown as text on the right of the end points of each projected trajectory. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.
 
-(ref:fig-rel-biomass-proj-closeup-fr) Vue rapprochée de la biomasse reproductrice relative pour le modèle de base `r sp` avec des points de référence basés sur $B_0$ et des projections dans l'avenir. Les valeurs des captures constantes sont indiquées sous forme de texte à droite des points finaux de chaque trajectoire projetée. Voir les tables de décision (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) pour les probabilités de dépassement des points de référence et d'augmentation du stock pour chaque niveau de capture.
+(ref:fig-rel-biomass-proj-closeup-fr) French here
 
 ```{r fig-rel-biomass-proj-closeup, fig.cap = ifelse(fr(), "(ref:fig-rel-biomass-proj-closeup-fr)", "(ref:fig-rel-biomass-proj-closeup-en)")}
 plot_biomass_proj_mcmc(base_model,
@@ -293,9 +359,9 @@ plot_biomass_proj_mcmc(base_model,
                        proj_catch_vals = 1:8)
 ```
 
-(ref:fig-catch-streams-proj-nextyr-en) Projected `r base_model$dat$end.yr + 2` relative spawning biomass for catch in kilotonnes occurring in `r base_model$dat$end.yr + 1`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextyr-en) Projected `r base_model$dat$end.yr + 2` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 1`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative USR, $0.35B_0$, and the dashed green line is the USR, $0.4B_0$.
 
-(ref:fig-catch-streams-proj-nextyr-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 2` pour les captures en kilotonnes effectuées en `r base_model$dat$end.yr + 1`. Les points noirs sont les médianes des valeurs postérieures et les lignes noires horizontales sont les IC à 95 % (2,5 % - 97,5 %). La ligne rouge continue est la LRP, $0,2B_0$, la ligne bleue pointillée est la ligne $0,35B_0$, et la ligne verte pointillée est l'USR, $0,4B_0$.
+(ref:fig-catch-streams-proj-nextyr-fr) French here
 
 ```{r fig-catch-streams-nextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextyr-fr)", "(ref:fig-catch-streams-proj-nextyr-en)")}
 
@@ -303,9 +369,9 @@ plot_ref_points_dist_mcmc(base_model,
                           biomass_col = "B2025",
                           proj_catch_vals = 1:8)
 ```
-(ref:fig-catch-streams-proj-nextnextyr-en) Projected `r base_model$dat$end.yr + 3` relative spawning biomass for catch in kilotonnes occurring in `r base_model$dat$end.yr + 2`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextnextyr-en) Projected `r base_model$dat$end.yr + 3` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 2`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative USR, $0.35B_0$, and the dashed green line is the USR, $0.4B_0$.
 
-(ref:fig-catch-streams-proj-nextnextyr-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 3` pour les captures en kilotonnes effectuées dans `r base_model$dat$end.yr + 2`. Les points noirs sont les médianes des valeurs postérieures et les lignes noires horizontales sont les IC à 95 % (2,5 % - 97,5 %). La ligne rouge continue est la LRP, $0,2B_0$, la ligne bleue pointillée est la ligne $0,35B_0$, et la ligne verte pointillée est l'USR, $0,4B_0$.
+(ref:fig-catch-streams-proj-nextnextyr-fr) French here.
 
 ```{r fig-catch-streams-nextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextnextyr-fr)", "(ref:fig-catch-streams-proj-nextnextyr-en)")}
 
@@ -314,9 +380,9 @@ plot_ref_points_dist_mcmc(base_model,
                           proj_catch_vals = 1:8)
 ```
 
-(ref:fig-catch-streams-proj-nextnextnextyr-en) Projected `r base_model$dat$end.yr + 4` relative spawning biomass for catch in kilotonnes occurring in `r base_model$dat$end.yr + 3`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextnextnextyr-en) Projected `r base_model$dat$end.yr + 4` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 3`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative USR, $0.35B_0$, and the dashed green line is the USR, $0.4B_0$.
 
-(ref:fig-catch-streams-proj-nextnextnextyr-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 4` pour les captures en kilotonnes effectuées en `r base_model$dat$end.yr + 3`. Les points noirs sont les médianes des valeurs postérieures et les lignes noires horizontales sont les IC à 95 % (2,5 % - 97,5 %). La ligne rouge continue est la LRP, $0,2B_0$, la ligne bleue pointillée est la ligne $0,35B_0$, et la ligne verte pointillée est l'USR, $0,4B_0$.
+(ref:fig-catch-streams-proj-nextnextnextyr-fr) French here.
 
 ```{r fig-catch-streams-nextnextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextnextnextyr-fr)", "(ref:fig-catch-streams-proj-nextnextnextyr-en)")}
 
@@ -327,13 +393,14 @@ plot_ref_points_dist_mcmc(base_model,
 
 ```{r decision-table-02bo, results = "asis"}
 
-cap <- paste0("Probabilities that projected biomass will be above the $0.2B_0$ Limit Reference Point for catch levels of 1 to 8 kilotonnes.")
+cap <- paste0("Probabilities that projected biomass will be above the $0.2B_0$ LRP for catch levels of 1 to 8 kt.")
 
 if(fr()){
-  cap <- "Probabilités que la biomasse projetée soit supérieure au point de référence de la limite de 0,2B_0$ pour des niveaux de capture de 1 à 8 kilotonnes."
+  cap <- "Probabilités que la biomasse projetée soit supérieure au PRL de $0,2B_0$ pour des niveaux de capture de 1 à 8 kt."
 }
 table_decision(base_model,
                catch_vals = 1:8,
+               rm_yrs = 2024,
                refpt = 0.2,
                prob_gt = TRUE,
                year_to_year = FALSE,
@@ -342,13 +409,14 @@ table_decision(base_model,
 
 ```{r decision-table-035bo, results = "asis"}
 
-cap <- paste0("Probabilities that projected biomass will be above the $0.35B_0$ Reference Point for catch levels of 1 to 8 kilotonnes.")
+cap <- paste0("Probabilities that projected biomass will be above the $0.35B_0$ alternative USR for catch levels of 1 to 8 kt.")
 
 if(fr()){
-  cap <- "Probabilité que la biomasse projetée soit supérieure au point de référence 0,35B_0$ pour des niveaux de capture de 1 à 8 kilotonnes."
+  cap <- "Probabilités que la biomasse projetée soit supérieure au USR alternatif de $0,35B_0$ pour des niveaux de capture de 1 à 8 kt."
 }
 table_decision(base_model,
                catch_vals = 1:8,
+               rm_yrs = 2024,
                refpt = 0.35,
                prob_gt = TRUE,
                year_to_year = FALSE,
@@ -357,14 +425,16 @@ table_decision(base_model,
 
 ```{r decision-table-04bo, results = "asis"}
 
-cap <- paste0("Probabilities that projected biomass will be above the $0.4B_0$ Upper Stock Reference for catch levels of 1 to 8 kilotonnes.")
+cap <- paste0("Probabilities that projected biomass will be above the $0.4B_0$ USR for catch levels of 1 to 8 kt.")
 
 if(fr()){
-  cap <- "Probabilité que la biomasse projetée soit supérieure à la référence du stock supérieur de 0,4 milliard de dollars pour des niveaux de capture de 1 à 8 kilotonnes."
+  cap <- "Probabilités que la biomasse projetée soit supérieure au USR de $0,4B_0$ pour des niveaux de capture de 1 à 8 kt."
 }
 table_decision(base_model,
                catch_vals = 1:8,
+               rm_yrs = 2024,
                refpt = 0.4,
+               inc_years = -2024,
                prob_gt = TRUE,
                year_to_year = FALSE,
                cap = cap)
@@ -372,21 +442,14 @@ table_decision(base_model,
 
 ```{r decision-table-decreasing-biomass, results = "asis"}
 
-cap <- paste0("Probabilities that projected biomass will increase for catch levels of 1 to 8 kilotonnes.")
+cap <- paste0("Probabilities that projected biomass will increase for catch levels of 1 to 8 kt.")
 
 if(fr()){
-  cap <- "Probabilités que la biomasse projetée augmente pour des niveaux de capture de 1 à 8 kilotonnes."
+  cap <- "Probabilités que la biomasse projetée augmente pour des niveaux de capture de 1 à 8 kt. "
 }
 table_decision(base_model,
                catch_vals = 1:8,
-               refpt = 0.4,
                prob_gt = TRUE,
                year_to_year = TRUE,
                cap = cap)
 ```
-
-
-### Comparison with previous assessment
-
-, and output similar fits to the
-survey indices and the discard CPUE index as it did in the `r ca`.

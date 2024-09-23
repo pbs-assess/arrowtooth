@@ -1,4 +1,42 @@
-# Conclusions
+```{r conclusions-en, eval = !fr(), results = 'asis'}
+cat("# Conclusions
 
-Mandatory section and title.
+The `r iscam` model used in this update was of the same structure, and having the same assumptions as the model used in the `r ca`. New data added were commercial catch for 2022 and 2023, new survey index points, and new Discard CPUE index points. The growth parameters, estimated outside the `r iscam` framework, changed by a very small amount, which did not affect the model esitmates.
 
+With the addition of the new data, the relative spawning biomass only had negligible differences from `r start_catch_yr`--2021, as reported in the `r ca`, although the inital biomass, $B_0$, and the spawning biomass values were estimated to be slightly lower in this update than in the `r ca`.
+
+Index fits appeared slightly better in this update, and there were no large changes in fits to any index points in the four survey indices and the `r dcpue`. Three of the synoptic survey indices had one new index point added each (the `r hsmas` has a terminal year of 2003 and was not updated), and the `r dcpue` had two new index points added (2022 and 2023) since it is based on commercial catch.
+
+Typically DFO's reference points of $0.4B_{MSY}$ for the LRP and $0.8B_{MSY}$ for the USR are used as they are defined in the Sustainable Fisheries Framework (SFF, @dfo2009). However for `r sp`, reference points based on the Maximum Sustainable Yield (MSY) were strongly impacted by estimates of selectivity in the trawl fisheries. For this reason, $B_0$-based reference points were used for this stock in the `r ca`, and in this update as well. The projeced catch streams show medians and credible intervals for catches of 1 to 15 kt, in 1 kt increments (Figures \@ref(fig:fig-rel-biomass-proj) and \@ref(fig:fig-rel-biomass-proj-closeup)). The figure shows that for catch values of 1-6 kt the biomass will increase to 2027. For values of 7-8 kt the biomass will remain flat, and remain below the USR of $0.4B_0$.
+
+Recruitment estimates have a large CI for the last 4 years of the model (Figure \@ref(fig:fig-base-recr)), which is two more years than the `r ca` has. This is due to the lack of new ages being included in the model for 2022 and 2023. This will be rectified in the next assessment or update by having ageing completed for those years, and any new years to be added.
+
+There are several harvest decision tables provided in this document (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) which, for 8 different catch levels from 1 kt to 8 kt, give the probabilites of the projected relative biomass being above:
+
+1. the LRP of $02.B_0$ (Table \@ref(tab:decision-table-02bo)),
+2. the alternative USR of $0.35B_0$ (Table \@ref(tab:decision-table-035bo)),
+3. the USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)), and
+4. the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass)).
+
+Some observations from the decsion tables:
+
+1. The probability of being above the LRP of $0.2B_0$ at the beginning of 2025 is 0.993 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-02bo)),
+
+2. The probability of being above the LRP of $0.2B_0$ at the beginning of 2027 is 0.975 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-02bo)),
+
+3. The probability of being above the alternative USR of $0.35B_0$ at the beginning of 2025 is 0.606 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-035bo)),
+
+4. The probability of being above the alternative USR of $0.35B_0$ at the beginning of 2027 is 0.603 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-035bo)),
+
+5. The probability of being above the USR of $0.4B_0$ at the beginning of 2025 is 0.369 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-04bo)),
+
+6. The probability of being above the USR of $0.4B_0$ at the beginning of 2027 is 0.420 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-04bo)),
+
+7. A probability of 0.5 of being above the USR of $0.4B_0$ at the beginning of 2025 occurs between 2 and 4 kt of catch in 2024. A higher catch will result in the probability being less than 0.5 (Table \@ref(tab:decision-table-04bo)),
+
+8. A probability of 0.5 of being above the USR of $0.4B_0$ at the beginning of 2027 occurs between 4 and 5 kt of constant catch for each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs`. A higher constant catch will result in the probability being less than 0.5 (Table \@ref(tab:decision-table-decreasing-biomass)), and
+
+9. A probability of 0.5 of biomass increasing year-to-year for each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` occurs between 7 and 8 kt of constant catch in each year (Table \@ref(tab:decision-table-decreasing-biomass)).
+
+")
+```
