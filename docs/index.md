@@ -6,7 +6,7 @@ permalink: /
 
 ### 2024 Science Response (SR):
 
-- [PDF - ](https://pbs-assess.github.io/arrowtooth/sr/sr-2024-arrowtooth-pre-review-draft-sept-23-2024.pdfsr-english.pdf)
+- [PDF - 2024 Science Response for Arrowtooth Flounder](https://pbs-assess.github.io/arrowtooth/sr/sr-2024-arrowtooth-pre-review-draft-sept-23-2024.pdfsr-english.pdf)
 
 - [Slides for 2024 Science Response (SR)](https://pbs-assess.github.io/arrowtooth/csas-review/sr-main.html)
 
