@@ -4,6 +4,7 @@ title: Resources
 permalink: /
 ---
 
+
 ### 2024 Science Response (SR):
 
 - [PDF - 2024 Science Response for Arrowtooth Flounder](https://pbs-assess.github.io/arrowtooth/sr/sr-2024-arrowtooth-pre-review-draft-sept-23-2024.pdf)
