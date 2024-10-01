@@ -1,0 +1,667 @@
+---
+title: "Stock Status update for Arrowtooth Flounder (*Atheresthes stomias*) for the West Coast of British Columbia in 2024"
+subtitle: "Assessment model"
+author: "C. Grandin"
+institute: "DFO"
+date: "Slides compiled on `r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "xaringan-themer.css", "code-custom.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+
+background-image: url(figures/arrowtooth_flounder.jpeg)
+
+---
+exclude: true
+```{r setup, echo=FALSE, cache=FALSE, message=FALSE, results='hide', warning=FALSE}
+library(knitr)
+if (is_latex_output()) {
+  knitr_figs_dir <- "knitr-figs-pdf/"
+  knitr_cache_dir <- "knitr-cache-pdf/"
+  fig_out_type <- "png"
+} else {
+  knitr_figs_dir <- "knitr-figs-docx/"
+  knitr_cache_dir <- "knitr-cache-docx/"
+  fig_out_type <- "png"
+}
+fig_asp <- 0.618
+fig_width <- 8
+fig_out_width <- "5.5in"
+fig_dpi <- 180
+fig_align <- "center"
+fig_pos <- "H"
+user <- Sys.info()[["user"]]
+opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  results = 'hide',
+  comment = "#>",
+  fig.path = knitr_figs_dir,
+  cache.path = knitr_cache_dir,
+  fig.asp = fig_asp,
+  fig.width = fig_width,
+  out.width = fig_out_width,
+  echo = FALSE,
+  # autodep = isTRUE(user %in% "seananderson"),
+  # cache = isTRUE(user %in% "seananderson"),
+  cache.comments = FALSE,
+  dev = fig_out_type,
+  dpi = fig_dpi,
+  fig.align = fig_align,
+  fig.pos = fig_pos
+)
+options(
+  # Prevent xtable from adding a timestamp comment to the table code
+  # it produces
+  xtable.comment = FALSE,
+  # Don't allow kableExtra to load packages, we add them manually in
+  # csasdown
+  kableExtra.latex.load_packages = FALSE,
+  # Stop chunk output (echo) running into the margins
+  width = 80,
+  # Don't use scientific notation (stops tables from showing 1.2e3, etc.)
+  scipen = 999)
+# Fixes weird bug where knitr::include_graphics() thinks the non-git folder
+# is relative
+options(knitr.graphics.rel_path = FALSE)
+```
+
+```{r library-setup, cache = FALSE, fig.keep='none'}
+# Libraries in alphabetical order
+library(devtools)
+library(dplyr)
+if(as.logical(length(grep("grandin", user)))){
+  #library(kableExtra)
+  load_all("~/github/kableExtra")
+  load_all("~/github/pbs-assess/gfiscamutils")
+  load_all("~/github/pbs-assess/gfplot")
+  load_all("~/github/pbs-assess/csasdown")
+  load_all("~/github/pbs-assess/rosettafish")
+}else if(user == "seananderson"){
+  library(gfiscamutils)
+  load_all("~/src/gfiscamutils/")
+  load_all("~/src/csasdown/")
+  # load_all("~/src/gfplot/")
+  library(gfplot)
+}else{
+  library(gfiscamutils)
+  library(gfplot)
+  library(csasdown)
+}
+library(gfutilities)
+library(ggplot2)
+library(gridExtra)
+library(here)
+#library(kableExtra)
+library(purrr)
+library(rosettafish)
+library(tidylog, warn.conflicts = FALSE)
+load_all(".")
+
+meta <- rmarkdown::metadata$output
+build_rds <- FALSE
+if(!is.null(meta)){
+  build_rds <- meta$`csasdown::resdoc_pdf`$build_rds
+}
+```
+
+```{r include = FALSE}
+# Don't load the models if they already exist
+if(!exists("models") || !exists("drs"))
+  source(here("doc/load-models.R"), local = knitr::knit_global())
+```
+
+```{r data-setup, cache.lazy = FALSE}
+# This chunk requires the chunk above that loads load-models.R has been run
+
+bc <- tr("British Columbia")
+sp <- tr("Arrowtooth Flounder")
+iscam <- "ISCAM"
+
+month_fishing_starts <- 2
+day_fishing_starts <- 21
+
+data_dir <- file.path(drs$nongit_dir, "data")
+data_output_dir <- file.path(drs$nongit_dir, "data-output")
+
+if(!dir.exists(data_dir)){
+  stop("Data directory does not exist: ", data_dir, call. = FALSE)
+}
+iphc_file <- file.path(data_dir, "iphc-survey-index.rds")
+if(!file.exists(iphc_file)){
+  stop("IPHC file does not exist: ", iphc_file, call. = FALSE)
+}
+discard_cpue_file <- file.path(data_dir,
+"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year.csv")
+#"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-jan-1-year.csv")
+if(!file.exists(discard_cpue_file)){
+  stop("Discard CPUE file does not exist: ", discard_cpue_file, call. = FALSE)
+}
+stitched_syn_file <- file.path(data_dir, "stitched-syn-index.rds")
+if(!file.exists(stitched_syn_file)){
+  stop("Stitched Synoptics file does not exist: ", stitched_syn_file, call. = FALSE)
+}
+
+iphc <- readRDS(iphc_file)$series_ABCD_full$ser_longest
+discard_cpue <- read_csv(discard_cpue_file)
+stitched_syn <- readRDS(stitched_syn_file)
+
+dat <- readRDS(file.path(drs$nongit_dir, "data",
+                         #"arrowtooth-flounder-aug11-2022.rds"))
+                         "arrowtooth-flounder-june25-2024.rds"))
+
+# Remove 2014 WCHG index point
+wchg_2014_row <- 
+  dat$survey_index$survey_abbrev == "SYN WCHG" & dat$survey_index$year == 2014
+if(any(wchg_2014_row)){
+  dat$survey_index <- dat$survey_index[-which(wchg_2014_row), ]
+}
+
+# These must be removed for call to add_extra_indices()
+survey_index <- dat$survey_index |> 
+  select(-species_common_name, -species_science_name)
+survey_index <- add_extra_indices(survey_index, 
+                                  iphc = iphc,
+                                  discard_cpue = discard_cpue,
+                                  stitched_syn = stitched_syn)
+# Survey index for geostat
+geo_files <- dir(file.path(drs$nongit_dir, "survey-geostat"),
+                 full.names = TRUE,
+                 pattern = "^i-arrowtooth.*\\.rds$")
+ind_geo <- purrr::map_dfr(geo_files, readRDS)
+survey_index_geo <- ind_geo |>  filter(model == "no-depth") |> as_tibble()
+survey_index_geo <- survey_index_geo |>
+  rename(biomass = est,
+         lowerci = lwr,
+         upperci = upr,
+         re = se,
+         survey_abbrev = surveys) |>
+  mutate(num_sets = NA,
+         num_pos_sets = NA,
+         survey_series_id = NA,
+         survey_series_desc = "") |>
+  select(-c(log_est, species, survey, ssids, ssid_string,
+            family, anisotropy, spatiotemporal, share_range,
+            model, max_grad)) |>
+  select(year, biomass, lowerci, upperci,
+         re, num_sets, num_pos_sets,
+         survey_series_id, survey_abbrev, survey_series_desc) |>
+  add_extra_indices(discard_cpue = discard_cpue)
+# Add HS MSA survey so plot will work
+hs_multi <- survey_index |> filter(survey_abbrev == "OTHER HS MSA")
+survey_index_geo <- survey_index_geo |>
+  bind_rows(hs_multi)
+
+# Areas 3CD and 5ABCDE only 
+major_areas <- c("03","04", "05", "06", "07", "08", "09")
+tidy_areas <- c("3[CD]+", "5[ABCDE]+")
+survey_sets <- dat$survey_sets |> 
+  filter(major_stat_area_code %in% major_areas)
+survey_samples <- dat$survey_samples |> 
+  filter(major_stat_area_code %in% major_areas)
+survey_samples_syn <- survey_samples |> 
+  filter(survey_abbrev %in% c("SYN QCS",
+                              "SYN HS",
+                              "SYN WCVI",
+                              "SYN WCHG"))
+commercial_samples <- readRDS(file.path(drs$nongit_dir,
+                                        "data",
+                                        "arrowtooth-commercial-samples-sept-12-2024.rds")) |> 
+  filter(major_stat_area_code %in% major_areas)
+comm_ft <- extract_fleet_samples(commercial_samples)
+comm_ss <- extract_fleet_samples(commercial_samples, include = FALSE)
+
+# Aggregated commercial catch
+month_start <- 2
+day_start <- 21
+dat$catch <- dat$catch |>
+  filter(year < year(Sys.Date()))
+catch <- tidy_catch(dat$catch,
+                    areas = tidy_areas,
+                    month_fishing_starts = month_start,
+                    day_fishing_starts = day_start)
+# Catch by fleet
+catch_ft <- extract_fleet_catch(dat$catch) |> 
+  tidy_catch(areas = tidy_areas,
+             month_fishing_starts = month_start,
+             day_fishing_starts = day_start)
+
+catch_ss <- extract_fleet_catch(dat$catch, include = FALSE) |> 
+  tidy_catch(areas = tidy_areas,
+             month_fishing_starts = month_start,
+             day_fishing_starts = day_start)
+
+cpue_spatial <- dat$cpue_spatial
+cpue_spatial_ll <- dat$cpue_spatial_ll
+age_precision <- dat$age_precision
+
+theme_set(gfiscam_theme())
+
+if(!exists("curr_gear_language")){
+  curr_gear_language <- "en"
+}
+
+models <- set_gear_language(models, curr_gear_language)
+
+base_model <- models$base_grps[[1]][[1]]
+curr_gear_language <- ifelse(fr(), "fr", "en")
+
+base_all_gears <- gear_lu_table(base_model, "all")
+base_age_gears <- gear_lu_table(base_model, "age")
+base_index_gears <- gear_lu_table(base_model, "index")
+base_fleet_gears <- gear_lu_table(base_model, "fleet")
+
+mcmc_chain_length <- 10000000
+mcmc_num_samples <- 2000
+mcmc_sample_freq <- mcmc_chain_length / mcmc_num_samples
+mcmc_burn_in <- 1000
+mcmc_actual_samples <- mcmc_num_samples - mcmc_burn_in
+
+qcs <- tr("Queen Charlotte Sound Synoptic Survey")
+hsmas <- tr("Hecate Strait Multispecies Assemblage Survey")
+hss <- tr("Hecate Strait Synoptic Survey")
+wcvis <- tr("West Coast Vancouver Island Synoptic Survey")
+wchgs <- tr("West Coast Haida Gwaii Synoptic Survey")
+dcpue <- tr("Discard CPUE Index")
+
+la <- ifelse(fr(), "Évaluation de 2015", "2015 assessment")
+
+# Number of parameters estimated (from PAR file)
+num_params <- get_num_params_est(base_model)
+
+# Catch table
+ct <- as_tibble(base_model$dat$catch)
+ct_start_yr <- min(ct$year)
+ct_end_yr <- max(ct$year)
+
+# Reference points (table values)
+ref_pts <- as_tibble(base_model$mcmccalcs$params_quants)
+
+# Projected biomass
+end_yr <- base_model$dat$end.yr
+assess_yr <- end_yr + 1
+proj_yr <- assess_yr + 1
+sbt_quants <- as_tibble(base_model$mcmccalcs$sbt_quants)
+proj_bio <- sbt_quants[, as.character(assess_yr)] |> pull()
+
+# Fishing mortality
+f_max_by_gear <- map_dbl(base_model$mcmccalcs$ft_quants, ~{
+  max(.x[2,])
+})
+f_max <- max(f_max_by_gear)
+which_f_max <- which(f_max == f_max_by_gear)
+which_f_max_gear <- base_model$dat$fleet_gear_names[which_f_max]
+which_f_max_yr <- names(which(base_model$mcmccalcs$ft_quants[[which_f_max]][2, ] == f_max))
+
+f_ci <- base_model$mcmccalcs$ft_quants[[which_f_max]][, base_model$mcmccalcs$ft_quants[[which_f_max]][2, ] == f_max]
+
+# Relative spawning biomass
+depl_end <- as_tibble(base_model$mcmccalcs$depl_quants) |>
+  select(!!sym(as.character(assess_yr))) |> 
+  pull()
+
+theme_set(theme_pbs())
+```
+
+```{r biological-params}
+
+find_length_outliers <- function(xx) {
+  yy <- stats::pnorm(xx,
+    mean = mean(xx, na.rm = TRUE),
+    sd = stats::sd(xx, na.rm = TRUE), log.p = TRUE
+  )
+  zz <- stats::qnorm(yy, log.p = TRUE)
+  out <- zz[zz > 4 & !is.na(zz)]
+  if (length(out) > 1L) {
+    return(xx[which(zz > 4)])
+  } else {
+    return(numeric(0))
+  }
+}
+
+length_samples_survey <- filter(
+  dat$survey_samples,
+  !length %in% find_length_outliers(dat$survey_samples$length)
+)
+
+length_samples_ft <- filter(
+  comm_ft,
+  !length %in% find_length_outliers(comm_ft$length)
+)
+
+length_samples_ss <- filter(
+  comm_ss,
+  !length %in% find_length_outliers(comm_ss$length)
+)
+
+all_length_samples <- bind_rows(length_samples_survey,
+                                length_samples_ft,
+                                length_samples_ss)
+
+all_age_samples <- bind_rows(dat$survey_samples, comm_ft, comm_ss) |>
+  filter(!is.na(age) & age < 40)
+
+# Use function from this package as it is (very) slightly different than what 
+# fit_mat_ogive() returns, and is what is input into the model
+mat_fit <- export_mat_lw_age(dat$survey_samples, write_file = FALSE)
+# TODO: what random effects wanted? If year, than params are saved as
+# mat_fit$mat_perc$mean$f.mean.p0.5 and mat_fit$mat_perc$mean$m.mean.p0.5
+# instead of mat_fit$mat_perc$f.p0.5 and mat_fit$mat_perc$m.p0.5. I assume
+# fig:fig-mat should also be made to match 
+
+# Natural mortality values in the control file
+param_ctl_table <- models$bridge_grps[[3]][[2]]$ctl$params |>
+  as_tibble(rownames = "param")
+male_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_male") |>
+                    pull(ival))
+female_m_ctl <- exp(param_ctl_table |> filter(param == "log_m_female") |>
+                      pull(ival))
+
+# Current assessment text
+ct_df <- table_catch_fleet(list(catch_ft, catch_ss),
+                           base_model$dat$fleet_gear_names,
+                           show_total_col = TRUE,
+                           ret_df = TRUE)
+# ct_df column 1 is Year, and last column is the total catch for all gears
+# Each fleet has three columns, landings, discards, and total of the two
+names(ct_df) <- c("Year", seq_len(ncol(ct_df))[-1])
+ct_ft_2021 <- ct_df |> 
+  filter(Year == 2021) |> 
+  pull(`4`)
+ct_ft_2022 <- ct_df |> 
+  filter(Year == 2022) |> 
+  pull(`4`)
+ct_ft_2023 <- ct_df |> 
+  filter(Year == 2023) |> 
+  pull(`4`)
+perc_inc_ft_2021_2022 <- f(ct_ft_2022 / ct_ft_2021 * 100 - 100, 1)
+perc_dec_ft_2022_2023 <- f(100 - ct_ft_2023 / ct_ft_2022 * 100, 1)
+ct_ss_2021 <- ct_df |> 
+  filter(Year == 2021) |> 
+  pull(`7`)
+ct_ss_2022 <- ct_df |> 
+  filter(Year == 2022) |> 
+  pull(`7`)
+ct_ss_2023 <- ct_df |> 
+  filter(Year == 2023) |> 
+  pull(`7`)
+perc_dec_ss_2021_2022 <- f(100 - ct_ss_2022 / ct_ss_2021 * 100, 1)
+perc_dec_ss_2022_2023 <- f(100 - ct_ss_2023 / ct_ss_2022 * 100, 1)
+
+ca <- "2022 stock assessment"
+
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+```
+
+---
+class: center, bg_arf_face_close
+### Introduction
+
+.left[
+**`r sp`**
+- are a flatfish that occurs in the offshore waters of `r bc`;
+- mostly feed on Capelin, Euphausiids, Walleye Pollock, Pandalid shrimp, Herring, and other forage fish;
+- are prey for mostly Pacific Cod, Pacific Halibut, and Steller sea lions; for juveniles, adult `r sp` and Walleye Pollock;
+- are primarily caught by bottom trawl fishery, and sometimes by hook and line in the Halibut fishery;
+- must be frozen shortly after catching due to proteolysis of the flesh;
+- seasonal vertical migration to deeper water in winter, shallower in summer; and
+- spawn and hatch in deeper water (>350m), in winter.
+- were first assessed in 2015 ([Research Document](https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ResDocs-DocRech/2017/2017_025-eng.html))
+
+**The last (2022) assessment model**
+- includes data from 1996-2021,
+- includes 3 synoptic surveys (QCS, HS, and WCVI),
+- includes a `r dcpue`, which tracks discards in the commercial fleets,
+- is split by sex, and has two commercial trawl fleets (Freezer trawlers and Shoreside).
+]
+<div class="footer" id="a">
+  <a href="https://www.flickr.com/photos/77659781@N00/6150221707">Photo Source</a>
+</div>
+
+---
+class: center
+### Management History
+
+.left[
+- Are managed as a coastwide stock the TAC is a coastwide amount to be shared by all fleets.
+- There were no limits on catch prior to 2006.
+- A TAC of 15 kt was in place from 2006-2017.
+- The TAC increased to 17.5 kt in 2017.
+- The TAC decreased to 14 kt in 2019.
+- In January 2020 late changes to the IFMP to address declining abundance in the synoptic surveys were recommended. These changes included:
+  - reducing 2019/2020 carryover allowance from 30% to 10%,
+  - reducing 2020/2021 TAC from 14 kt to 5 kt,
+  - reducing the amount of temporary quota a license can hold from 16% to 8% of TAC, and
+  - implementing new spatial closures from November 1 to March 31 to limit harvesting of spawning aggregations.
+- The TAC was reduced further to 4kt after the 2022 assessment was completed and remains there.
+- Closures in 2024 were implemented to protect spawning aggregations of `r sp`:
+  - Rennell Sound (November 15, 2024 -- January 15, 2025)
+  - Turtleback/Cape Cook (October 15, 2024 -- December 31, 2024)
+  - 800 Line/Circle Tow (November 15, 2024 -- March 31, 2025 )
+
+.link-style1[[2024 Integrated Fisheries Management Plan for Groundfish](https://www.pac.dfo-mpo.gc.ca/fm-gp/mplans/ground-fond-ifmp-pgip-sm-eng.html)]
+]
+
+---
+class: center
+### Spatial Catch by Area
+```{r management-areas, out.width = 900}
+plot_catch_spatial(dat$catch_spatial, 
+                   show_majorbound = TRUE, 
+                   # major_labels = labels,
+                   start_year = base_model$dat$start.yr,
+                   fill_scale = scale_fill_viridis_c(trans = "log10", option = "D"),
+                   colour_scale = scale_colour_viridis_c(trans = "log10", option = "D"))
+
+```
+
+---
+class: center
+### At-sea sampling
+
+.left[
+***From the 2024 IFMP:***
+
+- Beginning November 1, 2023, a new at-sea sampling pilot program for `r sp` commenced on select *Option A* groundfish trawl vessels delivering frozen products.
+
+- Vessel crew are responsible for collecting random samples from unsorted catch at-sea and deliver them to dockside monitoring program staff.
+
+- Vessel delivers representative `r sp` samples to dockside observers for biological sampling.
+
+- Not applicable to vessels delivering fresh product (Shoreside vessels or 'wet' boats).
+
+]
+
+---
+class: center
+### Catch
+
+.left[
+
+- There was no discard reporting prior to 1996, when observers were introduced. Entire tows were often discarded without report. Because of this, a historical catch reconstruction was not attempted.
+
+- `r sp` continued to be discarded at sea in great numbers until the arrival of Freezer Trawlers in the mid 2000's, which could freeze their catch at sea and avoid proteolysis.
+
+- There have been large declines recently (2020-2023) which correspond to TAC reductions.
+
+- The catch has been dominated by Freezer Trawlers from 2010--2023.
+
+- The commercial fishing year for `r sp` starts on Feb 21 and ends on Feb 20. All yearly catch data in this assessment were aggregated in this way.
+
+- The catch (landings + discards) for the Freezer Trawler fleet increased by `r perc_inc_ft_2021_2022`% from 2021 to 2022, but then decreased by `r perc_dec_ft_2022_2023`% from 2022 to 2023. The Shoreside fleet decreased for both years, by `r perc_dec_ss_2021_2022`% from 2021 to 2022, and by `r perc_dec_ss_2022_2023`% from 2022 to 2023.
+]
+
+---
+class: center
+### Catch by fleet
+
+```{r catch-by-fleet, out.width = 900}
+
+yrs <- sort(unique(catch$year))
+plot_catch_fleet(list(catch_ft, catch_ss),
+                 base_model$dat$fleet_gear_names,
+                 french = fr(),
+                 unreliable = 1996,
+                 xlim = c(min(yrs), max(yrs))) +
+  scale_x_continuous(yrs, breaks = seq(min(yrs), yrs[length(yrs)], by = 2)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 0.55, vjust = 0.5),
+        axis.title.x = element_blank())
+```
+
+---
+class: center
+### Catch by fleet
+
+```{r fleet-catch-table, results = "asis"}
+
+table_catch_fleets(list(catch_ft, catch_ss),
+                   base_model$dat$fleet_gear_names,
+                   digits = 1,
+                   start_yr = 2015,
+                   font_size = 8,
+                   longtable = FALSE,
+                   format = "html",
+                   bold_headers = TRUE,
+                   gear_col_widths = "6em") |> 
+  kable_styling(font_size = 20)
+```
+
+
+---
+class: center
+### Stock Assessment Model
+.left[
+- no changes to the 2022 parameterization,
+
+- includes catch data from `r start_catch_yr`--`r end_catch_yr`,
+
+- includes ages from `r start_catch_yr`-- 2021 (no new ages),
+
+- very small change in growth parameters from the `r ca`,
+
+- includes 3 synoptic surveys (QCS, HS, and WCVI),
+
+- includes a `r dcpue`, which tracks discards in the commercial fleets,
+
+- is split by sex, and has two commercial trawl fleets (Freezer trawlers and Shoreside).
+
+- MCMC chain of `r f(mcmc_chain_length)`, sampled every `r f(mcmc_sample_freq)`, with burn-in of `r f(mcmc_burn_in)`, leaving `r f(mcmc_actual_samples)` posterior samples for inference
+
+- M fixed at 0.2 for Females and 0.35 for Males
+
+- all parameter estimates were very close to those in Table 6 of the `r ca`
+
+- median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)`
+
+- the median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there was not much scaling effect in the relative biomass
+]
+
+---
+class: center
+### Absolute Biomass
+
+```{r fig-base-sb-bo, out.width = 900}
+plot_biomass_mcmc(base_model,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  show_bo_lines = TRUE,
+                  bo_refpt_colors = c("salmon", "darkgreen"),
+                  ylim = c(0, 250))
+```
+
+---
+class: center
+### Relative Biomass
+
+```{r fig-base-sb-bo-rel, out.width = 900}
+
+plot_biomass_mcmc(base_model,
+                  rel = TRUE,
+                  show_bo_lines = TRUE,
+                  angle_x_labels = TRUE,
+                  text_title_size = NULL,
+                  ylim = c(0, 1.3))
+
+```
+---
+class: center
+### Length data
+
+```{r length-data, out.width = 900}
+
+bin_width1 <- diff(quantile(length_samples_survey$length,
+  na.rm = TRUE,
+  probs = c(0, 1)
+)) / 20
+
+bin_width2 <- diff(quantile(length_samples_ft$length,
+  na.rm = TRUE, probs = c(0, 1)
+)) / 20
+
+bin_width3 <- diff(quantile(length_samples_ss$length,
+  na.rm = TRUE, probs = c(0, 1)
+)) / 20
+
+bin_width <- mean(c(bin_width1, bin_width2, bin_width3), na.rm = TRUE)
+
+ss <- tidy_lengths_weighted(length_samples_survey,
+                            dat_survey_sets = dat$survey_sets,
+                            bin_size = bin_width,
+                            sample_type = "survey")
+
+sf <- length_samples_ft |> 
+  # mutate(sex = 2) %>% # fake all sex as female for commercial samples; often not sexed
+  tidy_lengths_weighted(dat_catch = dat$catch,
+                        bin_size = bin_width,
+                        sample_type = "commercial", spp_cat_code = 1) |> 
+  mutate(survey_abbrev = tr("Freezer Trawlers"))
+
+sc <- length_samples_ss |> 
+  # mutate(sex = 2) %>% # fake all sex as female for commercial samples;
+  # often not sexed
+  tidy_lengths_weighted(dat_catch = dat$catch,
+                        bin_size = bin_width,
+                        sample_type = "commercial", spp_cat_code = 1) |> 
+  mutate(survey_abbrev = tr("Shoreside"))
+
+min_total <- 20
+ # are we interested in length frequencies pre-1980?
+sc_old <- filter(sc, year < 1995)
+sc <- filter(sc, year > 1995)
+sb <- bind_rows(ss, sc, sf) |> 
+  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = factor(survey_abbrev)) |> 
+  mutate(year = factor(year))
+
+g_lengths <- plot_lengths(sb,
+                          fill_col = c("M" = "#0096FF10", "F" = "#FF000010"),
+                          line_col = c("M" = "#0000FF", "F" = "#FF0000"),
+                          survey_cols = NULL,
+                          bin_size = bin_width,
+                          min_total = min_total,
+                          french = fr()) +
+  # scale_x_continuous(breaks = x_breaks, labels = x_labels) +
+  guides(colour = "none", fill = "none") +
+  ggtitle("") +
+  xlab(paste(tr("Length"), "(cm)")) +
+  ylab(tr("Relative length frequency")) +
+  theme(strip.text.y.left = element_text(angle = 0))
+
+g_lengths
+
+```
