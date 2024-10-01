@@ -6,7 +6,7 @@ permalink: /
 
 ### 2024 Science Response (SR):
 
-- [PDF - 2024 Science Response for Arrowtooth Flounder](https://pbs-assess.github.io/arrowtooth/sr/sr-2024-arrowtooth-pre-review-draft-sept-23-2024.pdfsr-english.pdf)
+- [PDF - 2024 Science Response for Arrowtooth Flounder](https://pbs-assess.github.io/arrowtooth/sr/sr-2024-arrowtooth-pre-review-draft-sept-23-2024.pdf)
 
 - [Slides for 2024 Science Response (SR)](https://pbs-assess.github.io/arrowtooth/csas-review/sr-main.html)
 
@@ -22,7 +22,7 @@ permalink: /
 
 - [Technical Working Group (presented at TWG meeting on June 16, 2021)](https://pbs-assess.github.io/arrowtooth/pre-review/pre-review.html)
 
-### Science Advisory Report (SAR) for 2022
+### 2022 Science Advisory Report (SAR)
 
 - [2022 Science Advisory Report (SAR)](https://www.dfo-mpo.gc.ca/csas-sccs/Publications/SAR-AS/2023/2023_042-eng.html)
 
