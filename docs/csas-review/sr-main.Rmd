@@ -457,19 +457,6 @@ class: center
 ]
 
 ---
-class: center
-### Spatial Catch by Area
-```{r management-areas, out.width = 900}
-plot_catch_spatial(dat$catch_spatial, 
-                   show_majorbound = TRUE, 
-                   # major_labels = labels,
-                   start_year = base_model$dat$start.yr,
-                   fill_scale = scale_fill_viridis_c(trans = "log10", option = "D"),
-                   colour_scale = scale_colour_viridis_c(trans = "log10", option = "D"))
-
-```
-
----
 class: center, bg_arf
 ### At-sea sampling
 
@@ -514,6 +501,19 @@ class: center, bg_arf_pencil
   <a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page">Photo Source</a>
 </div>
 
+---
+class: center
+### Spatial Catch by Area 1996-2023
+
+```{r management-areas, out.width = 900}
+plot_catch_spatial(dat$catch_spatial, 
+                   show_majorbound = TRUE, 
+                   # major_labels = labels,
+                   start_year = base_model$dat$start.yr,
+                   fill_scale = scale_fill_viridis_c(trans = "log10", option = "D"),
+                   colour_scale = scale_colour_viridis_c(trans = "log10", option = "D"))
+
+```
 
 ---
 class: center
@@ -568,8 +568,6 @@ class: center
 - includes a `r dcpue`, which tracks discards in the commercial fleets,
 
 - is split by sex, and has two commercial trawl fleets (Freezer trawlers and Shoreside).
-
-- MCMC chain of `r f(mcmc_chain_length)`, sampled every `r f(mcmc_sample_freq)`, with burn-in of `r f(mcmc_burn_in)`, leaving `r f(mcmc_actual_samples)` posterior samples for inference
 
 - M fixed at 0.2 for Females and 0.35 for Males
 
@@ -755,6 +753,15 @@ class: center
 
 .left[
 
+- MCMC chain of `r f(mcmc_chain_length)`, sampled every `r f(mcmc_sample_freq)`, with burn-in of `r f(mcmc_burn_in)`, leaving `r f(mcmc_actual_samples)` posterior samples for inference.
+
+- Traceplots appear stable, without artifacts, as in the `r ca`.
+
+- There is very little autocorrelation in the parameters.
+
+- Catchability parameters show more correlation with each other in this update than in the `r ca`, this is mostly evident in the catchability for the `r qcsss` and the `r hsss` parameters (q1 and q3).
+
+- The pairs plot is Figure 41 in the `r ca`.
 ]
 
 ---
@@ -810,12 +817,18 @@ plot_pairs_mcmc(base_model,
 
 ---
 class: center
-### Catch Projections
+### Catch Projections and Decision Tables
 
 .left[
 
-- DFO Sustainable Fisheries Framework (SFF) reference points could not be used, as the selectivity estimates included non-mature fish which appeared to make the entire stock vulnerable to the stock
-- 
+- DFO Sustainable Fisheries Framework (SFF) reference points could not be used (MSY-based), as the selectivity estimates included non-mature fish which appeared to make the entire stock vulnerable to the stock.
+
+- The LRP is $0.2B_0$, the USR is $0.4B_0$, and the alternative USR $0.35B_0$.
+
+- The catch levels projected were truncated at Fishery management's request to 1kt to 8kt in 1kt increments. In the `r ca`, they were from 1kt to 15kt.
+
+- Decision tables are also opposite of the ones in the `r ca`, as all of the probabilities are of being ***above*** the reference points instead of below.
+
 ]
 
 ---
@@ -940,3 +953,4 @@ plot_ref_points_dist_mcmc(base_model,
                           biomass_col = "B2027",
                           proj_catch_vals = 1:8)
 ```
+
