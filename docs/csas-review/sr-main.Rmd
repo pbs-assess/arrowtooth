@@ -138,8 +138,7 @@ if(!file.exists(iphc_file)){
   stop("IPHC file does not exist: ", iphc_file, call. = FALSE)
 }
 discard_cpue_file <- file.path(data_dir,
-"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year.csv")
-#"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-jan-1-year.csv")
+"cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-2024.csv")
 if(!file.exists(discard_cpue_file)){
   stop("Discard CPUE file does not exist: ", discard_cpue_file, call. = FALSE)
 }
@@ -471,24 +470,30 @@ plot_catch_spatial(dat$catch_spatial,
 ```
 
 ---
-class: center
+class: center, bg_arf
 ### At-sea sampling
 
 .left[
 ***From the 2024 IFMP:***
 
-- Beginning November 1, 2023, a new at-sea sampling pilot program for `r sp` commenced on select *Option A* groundfish trawl vessels delivering frozen products.
+- <SPAN STYLE="font-size:18.0pt">Beginning November 1, 2023, a new at-sea sampling pilot program for `r sp` commenced on select</SPAN> <SPAN STYLE="color:#c00000;font-size:18.0pt" class="Bold">Option A</SPAN> <SPAN STYLE="font-size:18.0pt">groundfish trawl vessels delivering frozen products.</SPAN>
 
-- Vessel crew are responsible for collecting random samples from unsorted catch at-sea and deliver them to dockside monitoring program staff.
 
-- Vessel delivers representative `r sp` samples to dockside observers for biological sampling.
+- <SPAN STYLE="font-size:18.0pt">Vessel crew are responsible for collecting random samples from unsorted catch at-sea and deliver them to dockside monitoring program staff.</SPAN>
 
-- Not applicable to vessels delivering fresh product (Shoreside vessels or 'wet' boats).
+
+- <SPAN STYLE="font-size:18.0pt">Vessel delivers representative `r sp` samples to dockside observers for biological sampling.</SPAN>
+
+
+- <SPAN STYLE="font-size:18.0pt">Not applicable to vessels delivering fresh product (Shoreside vessels or 'wet' boats).</SPAN>
 
 ]
+<div class="footer" id="a">
+  <a href="https://www.seafoodwatch.org/recommendation/flounder/arrowtooth-flounder-525">Photo Source</a>
+</div>
 
 ---
-class: center
+class: center, bg_arf_pencil
 ### Catch
 
 .left[
@@ -505,6 +510,10 @@ class: center
 
 - The catch (landings + discards) for the Freezer Trawler fleet increased by `r perc_inc_ft_2021_2022`% from 2021 to 2022, but then decreased by `r perc_dec_ft_2022_2023`% from 2022 to 2023. The Shoreside fleet decreased for both years, by `r perc_dec_ss_2021_2022`% from 2021 to 2022, and by `r perc_dec_ss_2022_2023`% from 2022 to 2023.
 ]
+<div class="footer" id="a">
+  <a href="https://stock.adobe.com/images/arrowtooth-flounder-atheresthes-stomas-a-flatfish-from-the-north-pacific-in-top-view/317577516?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page">Photo Source</a>
+</div>
+
 
 ---
 class: center
@@ -598,6 +607,69 @@ plot_biomass_mcmc(base_model,
                   ylim = c(0, 1.3))
 
 ```
+
+---
+class: center
+### Recruitment estimates
+
+```{r fig-base-recr, out.width = 900}
+
+plot_recr_mcmc(base_model,
+               angle_x_labels = TRUE,
+               text_title_size = NULL,
+               leg_loc = NULL)
+```
+
+---
+class: center
+### Index fits
+
+.left[
+
+- One new index point added for each of the 3 Synoptic surveys:
+  - 2022 for the `r wcviss`,
+  - 2023 for the `r qcsss` and the `r hsss`,
+
+- Two new index points for the `r dcpue`, 2022 and 2023.
+
+- `r dcpue` values for all years changed from the `r ca` because they are fit by a GLMM (light grey points in Figure 5).
+
+- The 2022 point for the `r dcpue` and the 2023 point for the `r qcsss` were not fit well, but the medians were within the uncertainty.
+
+- The slight increase in the survey indices in 2023 are driving the increase in estimated biomass for the beginning of 2024.
+]
+
+---
+class: center
+### Index fits
+
+```{r fig-base-index-fits, out.width = 900}
+
+plot_index_mcmc(base_model,
+                type = "fits",
+                end_year = end_yr,
+                surv_index = survey_index,
+                leg_loc = NULL,
+                text_title_size = NULL)
+```
+
+---
+class: center
+### Length data
+
+.left[
+
+- sex-specific lengths continue to be recorded for surveys, and show that the population is made up of a greater proportion of larger females than males.
+ 
+- no length sampling since 2019 for the Shoreside fleet.
+ 
+- Small number of length samples in 2020 in the Freezer Trawler fleet, then none until 2023 when the new at-sea sampling started (bags of fish frozen at sea and sampled on shore)
+ 
+- Survey data show larger females make up more of the samples than males.
+ 
+- In 2023, the Freezer Trawler fleet sampled more males than females, or at least male length distribution was tighter than females.
+]
+
 ---
 class: center
 ### Length data
@@ -664,4 +736,207 @@ g_lengths <- plot_lengths(sb,
 
 g_lengths
 
+```
+
+---
+class: center
+### Selectivity and Maturity
+
+```{r fig-base-mcmc-selex, out.width = 900}
+
+plot_selex_mcmc(base_model,
+                show_maturity = TRUE,
+                leg_loc = "facet")
+```
+
+---
+class: center
+### MCMC Diagnostics
+
+.left[
+
+]
+
+---
+class: center
+### MCMC Diagnostics - Traceplots
+
+```{r fig-base-trace, out.width = 900}
+plot_traces_mcmc(base_model,
+                 plot_sel = FALSE, 
+                 param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
+                              "bo", "msy1", "msy2", "fmsy1", "fmsy2",
+                              "umsy1", "umsy2","bmsy",
+                              "so", "beta", "phie"),
+                 text_title_size = NULL)
+```
+
+---
+class: center
+### MCMC Diagnostics - Autocorrelations in parameters
+
+```{r fig-base-autocor, out.width = 900}
+plot_autocorr_mcmc(base_model,
+                   plot_sel = FALSE, 
+                   param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
+                                "bo", "msy1", "msy2", "fmsy1", "fmsy2",
+                                "umsy1", "umsy2","bmsy",
+                                "so", "beta", "phie"),
+                   rows_cols = c(3, 4),
+                   text_title_size = NULL,
+                   lag_max = 1000,
+                   col = "blue",
+                   lwd = 2)
+```
+
+---
+class: center
+### MCMC Diagnostics - Parameter correlations
+
+```{r fig-base-pairs, out.width = 900}
+
+plot_pairs_mcmc(base_model,
+                plot_sel = FALSE,
+                param_rm = c("m1", "m2", "rho", "ssb",
+                             "msy1", "msy2",
+                             "fmsy1", "fmsy2",
+                             "umsy1", "umsy2",
+                             "bmsy", "bo", "sbo", "vartheta",
+                             "so", "beta", "phie"),
+                text_title_size = NULL,
+                tick_label_size = 4,
+                point_size = 0.5)
+```
+
+---
+class: center
+### Catch Projections
+
+.left[
+
+- DFO Sustainable Fisheries Framework (SFF) reference points could not be used, as the selectivity estimates included non-mature fish which appeared to make the entire stock vulnerable to the stock
+- 
+]
+
+---
+class: center
+### Catch Projections
+
+```{r fig-rel-biomass-proj-closeup, out.width = 900}
+
+plot_biomass_proj_mcmc(base_model,
+                       palette = "Spectral",
+                       leg_loc = NULL,
+                       rel = TRUE,
+                       xlim = c(2019, 2027),
+                       ylim = c(0, 0.9),
+                       show_bo_lines = TRUE,
+                       angle_x_labels = TRUE,
+                       line_width = 0.5,
+                       point_size = 1,
+                       label_font_size = 3,
+                       nudge_catch_labels = c(-0.1, 0),
+                       proj_catch_vals = 1:8)
+```
+
+---
+class: center
+### Decision tables - $0.2B_0$
+
+Probability that projected biomass is greater than the <SPAN STYLE="color:#c00000" class="Bold">LRP</SPAN> of $0.2B_0$
+
+```{r decision-table-02bo, results = "asis"}
+
+table_decision(base_model,
+               catch_vals = 1:8,
+               rm_yrs = 2024,
+               refpt = 0.2,
+               prob_gt = TRUE,
+               year_to_year = FALSE,
+               format = "html")
+```
+
+---
+class: center
+### Decision tables - $0.35B_0$
+
+Probability that projected biomass is greater than the <SPAN STYLE="color:#c00000" class="Bold">alternative USR</SPAN> of $0.35B_0$
+
+```{r decision-table-035bo, results = "asis"}
+
+table_decision(base_model,
+               catch_vals = 1:8,
+               rm_yrs = 2024,
+               refpt = 0.35,
+               prob_gt = TRUE,
+               year_to_year = FALSE,
+               format = "html")
+
+```
+
+---
+class: center
+### Decision tables - $0.4B_0$
+
+Probability that projected biomass is greater than the <SPAN STYLE="color:#c00000" class="Bold">USR</SPAN> of $0.4B_0$
+
+```{r decision-table-04bo, results = "asis"}
+
+table_decision(base_model,
+               catch_vals = 1:8,
+               rm_yrs = 2024,
+               refpt = 0.4,
+               prob_gt = TRUE,
+               year_to_year = FALSE,
+               format = "html")
+
+```
+
+---
+class: center
+### Decision tables - Biomass increase
+
+Probability that projected biomass will increase from one year to the next
+
+```{r decision-table-increasing-biomass, results = "asis"}
+
+table_decision(base_model,
+               catch_vals = 1:8,
+               prob_gt = TRUE,
+               year_to_year = TRUE,
+               format = "html")
+
+```
+
+---
+class: center
+### Projected Relative Biomass in 2025 for Catch in 2024
+
+```{r fig-catch-streams-nextyr-proj, out.width = 900}
+
+plot_ref_points_dist_mcmc(base_model,
+                          biomass_col = "B2025",
+                          proj_catch_vals = 1:8)
+```
+
+---
+class: center
+### Projected Relative Biomass in 2026 for Catch in 2025
+
+```{r fig-catch-streams-nextyr-nextyr-proj, out.width = 900}
+
+plot_ref_points_dist_mcmc(base_model,
+                          biomass_col = "B2026",
+                          proj_catch_vals = 1:8)
+```
+
+---
+class: center
+### Projected Relative Biomass in 2027 for Catch in 2026
+
+```{r fig-catch-streams-nextyr-nextyr-nextyr-proj, out.width = 900}
+
+plot_ref_points_dist_mcmc(base_model,
+                          biomass_col = "B2027",
+                          proj_catch_vals = 1:8)
 ```
