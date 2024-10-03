@@ -38,5 +38,6 @@ Some observations from the decision tables:
 
 9. A probability of 0.5 of biomass increasing year-to-year for each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` occurs between 7 and 8 kt of constant catch in each year (Table \@ref(tab:decision-table-decreasing-biomass)).
 
+This stock should be reviewed once again in three years, or September/October 2027 as a Science Response. In addition to new catch data, that update model must have new age data included for the three synoptic surveys and both fleets in the commercial fishery for the time period 2022-2026.
 ")
 ```

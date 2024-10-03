@@ -5,7 +5,9 @@ cat("# Analysis and Response
 
 The model used to assess this stock was the Integrated Statistical Catch-at-Age Model (`r iscam`). It was tuned to four fishery-independent trawl survey series covering `r start_catch_yr`--2021, a Discard CPUE series as an index of abundance, annual estimates of commercial catch from two fleets (Freezer Trawlers and Shoreside), and age composition data from the two fleets in the commercial fishery and the four surveys. A two-sex, two-fleet base model was selected and implemented in a Bayesian context using Markov Chain Monte Carlo (MCMC) methods. Leading parameters estimated included $R_0$, initial recruitment, $h$, steepness of the stock-recruitment relationship, $\bar{R}$, average recruitment, and $q_k, k=1,2,3,4,5$, catchability of the four surveys and the Discard CPUE index. Selectivity parameters were also estimated for each sex, fleet, and survey.
 
-Parameter estimates and fixed values are given in Table \@ref(tab:param-estimates-table). As in the `r ca`, the natural mortality was fixed at 0.2 for females and 0.35 for males. All estimated parameter estimates were very close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
+Parameter estimates and fixed values are given in Table \@ref(tab:param-estimates-table). As in the `r ca`, the natural mortality was fixed at 0.2 for females and 0.35 for males. Selectivity was estimated for all survey indices but fixed for the Discard CPUE ($a\\hat_7 = 9.5$ and $\\gamma_7 = 0.5$ for both sexes in Table \@ref(tab:param-estimates-table)).
+
+All estimated parameter estimates were very close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
 
 ")
 ```
@@ -36,6 +38,7 @@ Sex-specific length data have continued to be recorded for the surveys, but have
 
 Samples from 2022 and 2023 were not aged for this update, and therefore not included in the update model. Implications of this are discussed in the next section.
 
+Even though there were no new ages added to the update model, age fits and residuals could have changed with the addition of other data. These were double-checked and did not vary at all from the fits and residuals in the `r ca` (Figures 16--26), and therefore are not shown in this update in the interest of keeping the document a reasonable length.
 ")
 ```
 
@@ -85,6 +88,18 @@ The catchability parameters appear to show more correlation with each other in t
 ```{r analysis-and-response-mcmc-autocorr-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
 <<analysis-and-response-mcmc-autocorr-en>>
 ```
+
+```{r analysis-and-response-projection-assumptions-en, eval = !fr(), results = 'asis'}
+cat("## Projection assumptions
+
+Projection assumptions for this update were identical to those in the `r ca`. Projected log recruitment deviations in the years 2025-2027 were drawn randomly with replacement from the estimated 2010--2019 deviations (omitting poorly estimated 2020--2023 deviations). All other model parameterizations remained the same as in the pre-projection period.
+")
+```
+
+```{r analysis-and-response-projection-assumptions-fr, eval = fr(), needs_trans = TRUE}
+<<analysis-and-response-projection-assumptions-en>>
+```
+
 (ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. The solid black line with points show the medians of the posteriors, the shaded ribbon encapsulated by dashed lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% confidence interval.
 
 (ref:fig-base-sb-bo-fr) French here
@@ -278,7 +293,7 @@ plot_autocorr_mcmc(base_model,
                                 "so", "beta", "phie"),
                    rows_cols = c(3, 4),
                    text_title_size = NULL,
-                   lag_max = 1000,
+                   lag_max = 100,
                    col = "blue",
                    lwd = 2)
 ```
