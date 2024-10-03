@@ -7,7 +7,7 @@ The model used to assess this stock was the Integrated Statistical Catch-at-Age 
 
 Parameter estimates and fixed values are given in Table \@ref(tab:param-estimates-table). As in the `r ca`, the natural mortality was fixed at 0.2 for females and 0.35 for males. Selectivity was estimated for all survey indices but fixed for the Discard CPUE ($a\\hat_7 = 9.5$ and $\\gamma_7 = 0.5$ for both sexes in Table \@ref(tab:param-estimates-table)).
 
-All estimated parameter estimates were very close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
+All estimated parameter estimates were close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
 
 ")
 ```
@@ -278,24 +278,6 @@ plot_traces_mcmc(base_model,
                               "umsy1", "umsy2","bmsy",
                               "so", "beta", "phie"),
                  text_title_size = NULL)
-```
-
-(ref:fig-base-autocor-en) Autocorrelation plots for MCMC output of estimated lead parameters in the base model. The x-axis values are the lag between posteriors. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`. 
-
-(ref:fig-base-autocor-fr) French here
-
-```{r fig-base-autocor, fig.cap = ifelse(fr(), "(ref:fig-base-autocor-fr)", "(ref:fig-base-autocor-en)"), fig.asp = 1}
-plot_autocorr_mcmc(base_model,
-                   plot_sel = FALSE, 
-                   param_rm = c("m1", "m2", "rho", "ssb", "vartheta",
-                                "bo", "msy1", "msy2", "fmsy1", "fmsy2",
-                                "umsy1", "umsy2","bmsy",
-                                "so", "beta", "phie"),
-                   rows_cols = c(3, 4),
-                   text_title_size = NULL,
-                   lag_max = 100,
-                   col = "blue",
-                   lwd = 2)
 ```
 
 (ref:fig-base-pairs-en) Pairs plots for MCMC estimated parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
