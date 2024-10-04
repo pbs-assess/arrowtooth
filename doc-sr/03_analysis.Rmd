@@ -320,17 +320,17 @@ csas_table(rhat_df,
 ```{r indicators-of-stock-status-en, eval = !fr(), results = 'asis'}
 cat("## Indicators of Stock Status
 
-Reference points for `r sp` based on the Maximum Sustainable Yield (MSY) were strongly impacted by estimates of selectivity in the trawl fisheries. Because the selectivity ogives were estimated to the right of the maturity ogive, the MSY-based reference points were overly optimistic, since the vulnerable biomass appeared to include the entire stock, and not just the mature fish. Reference points based on estimated equilibrium unfished spawning biomass, $B_0$, were used instead as $B_0$ is not impacted directly by selectivity estimates.
+Reference points for `r sp` based on the Maximum Sustainable Yield (MSY) were strongly impacted by estimates of selectivity in the trawl fisheries. Because the selectivity ogives were estimated to the right of the maturity ogive, it appears that the younger fish have several times to spawn before becoming available to the fishery. This implies that all of the vulnerable (i.e., fully selected) biomass could be harvested because the population could be sustained by those younger spawners that are invulnerable to the fishery. This is a theoretical condition subject to the assumptions in the stock assessment model and the data limitations therein. Due to this limitation, MSY-base reference points were ruled out and reference points based on estimated equilibrium unfished spawning biomass, $B_0$, were used instead as $B_0$ is not impacted directly by selectivity estimates.
 
 Based on a request from GMU, projections were performed for this update at catch levels from 1 to 8 kilotonnes (kt) in increments of 1 kt for this update instead of 1 to 15 kt as was applied in the `r ca`. Figure \@ref(fig:fig-rel-biomass-proj) shows the biomass trajectories resulting in the application of the catch levels as catch to the stock for the years `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1`. Figure \@ref(fig:fig-rel-biomass-proj-closeup) shows a closer view of the projected trajectories.
 
-Harvest decision tables are provided as advice to managers (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) with constant catch policies ranging from 1 to 8 kt, from `r base_model$dat$end.yr + 2` to `r base_model$dat$end.yr +  base_model$proj$num.projyrs + 1`. To interpret the decision tables with respect to the LPR ($0.2B_0$) and proposed USR ($0.4B_0$), the probability of being above the proposed USR is $P(B_t > USR)$, the probability of being above the LRP but below the proposed USR is $P(B_t > LRP) - P(B_t > USR)$, and the probability of being below the LRP is $1 - P(B_t > LRP)$, where $t$ is the year, and $B_t$ is the relative biomass at the beginning of year $t$. During the review meeting for the `r ca`, there was a request to provide status relative to an 'alternative' proposed USR of $0.35B_0$. This was included in the 2022 Research Document and in this document.
+Harvest decision tables are provided as advice to managers (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) with constant catch policies ranging from 1 to 8 kt, from `r base_model$dat$end.yr + 2` to `r base_model$dat$end.yr +  base_model$proj$num.projyrs + 1`. To interpret the decision tables with respect to the LPR ($0.2B_0$) and candidate USR ($0.4B_0$), the probability of being above the candidate USR is $P(B_t > USR)$, the probability of being above the LRP but below the candidate USR is $P(B_t > LRP) - P(B_t > USR)$, and the probability of being below the LRP is $1 - P(B_t > LRP)$, where $t$ is the year, and $B_t$ is the relative biomass at the beginning of year $t$. During the review meeting for the `r ca`, there was a request to provide status relative to an 'alternative' candidate USR of $0.35B_0$. This was included in the 2022 Research Document and in this document.
 
 Harvest decision tables provided in this document include probabilities at the beginning of the year of being above:
 
 1. the LRP of $02.B_0$ (Table \@ref(tab:decision-table-02bo)),
-2. the alternative proposed USR of $0.35B_0$ (Table \@ref(tab:decision-table-035bo)), and
-3. the proposed USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)),
+2. the alternative candidate USR of $0.35B_0$ (Table \@ref(tab:decision-table-035bo)), and
+3. the candidate USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)),
 4. the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass))
 
 Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-nextnextnextyr-proj) show the uncertainty in the relative spawning biomass estimates for projected years given the catch values provided in the harvest decision tables. They are essentially a visual depiction of the decision tables, except that the lower 2.5% and upper 2.5% of the posteriors are not included in the plots, but are included in the probability calculations in the decision tables. The horizontal lines in the figures are the 95% CIs of the relative biomass. The probabilities given in the harvest decision tables are close to being the proportion of those lines to the right of each reference point shown as vertical lines in the plots.
@@ -387,7 +387,7 @@ plot_biomass_proj_mcmc(base_model,
   guides(color = guide_legend(ncol = 2))
 ```
 
-(ref:fig-catch-streams-proj-nextyr-en) Projected `r base_model$dat$end.yr + 2` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 1`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative proposed USR, $0.35B_0$, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextyr-en) Projected `r base_model$dat$end.yr + 2` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 1`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative candidate USR, $0.35B_0$, and the dashed green line is the USR, $0.4B_0$.
 
 (ref:fig-catch-streams-proj-nextyr-fr) French here
 
@@ -397,7 +397,7 @@ plot_ref_points_dist_mcmc(base_model,
                           biomass_col = "B2025",
                           proj_catch_vals = 1:8)
 ```
-(ref:fig-catch-streams-proj-nextnextyr-en) Projected `r base_model$dat$end.yr + 3` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 2`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative proposed USR, $0.35B_0$, and the dashed green line is the proposed USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextnextyr-en) Projected `r base_model$dat$end.yr + 3` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 2`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative candidate USR, $0.35B_0$, and the dashed green line is the candidate USR, $0.4B_0$.
 
 (ref:fig-catch-streams-proj-nextnextyr-fr) French here.
 
@@ -408,7 +408,7 @@ plot_ref_points_dist_mcmc(base_model,
                           proj_catch_vals = 1:8)
 ```
 
-(ref:fig-catch-streams-proj-nextnextnextyr-en) Projected `r base_model$dat$end.yr + 4` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 3`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative proposed USR, $0.35B_0$, and the dashed green line is the proposed USR, $0.4B_0$.
+(ref:fig-catch-streams-proj-nextnextnextyr-en) Projected `r base_model$dat$end.yr + 4` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 3`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative candidate USR, $0.35B_0$, and the dashed green line is the candidate USR, $0.4B_0$.
 
 (ref:fig-catch-streams-proj-nextnextnextyr-fr) French here.
 
@@ -437,7 +437,7 @@ table_decision(base_model,
 
 ```{r decision-table-035bo, results = "asis"}
 
-cap <- paste0("Probabilities that projected biomass will be above the $0.35B_0$ alternative proposed USR for catch levels of 1 to 8 kt.")
+cap <- paste0("Probabilities that projected biomass will be above the $0.35B_0$ alternative candidate USR for catch levels of 1 to 8 kt.")
 
 if(fr()){
   cap <- "Probabilités que la biomasse projetée soit supérieure au USR alternatif de $0,35B_0$ pour des niveaux de capture de 1 à 8 kt."
@@ -470,10 +470,10 @@ table_decision(base_model,
 
 ```{r decision-table-decreasing-biomass, results = "asis"}
 
-cap <- paste0("Probabilities that projected biomass will increase for catch levels of 1 to 8 kt.")
+cap <- paste0("Probabilities that projected biomass will increase from one projected year to the next for catch levels of 1 to 8 kt.")
 
 if(fr()){
-  cap <- "Probabilités que la biomasse projetée augmente pour des niveaux de capture de 1 à 8 kt. "
+  cap <- ""
 }
 table_decision(base_model,
                catch_vals = 1:8,

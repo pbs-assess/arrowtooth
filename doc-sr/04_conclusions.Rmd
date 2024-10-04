@@ -13,7 +13,7 @@ Recruitment in the last four years of the model is estimated with a large degree
 
 There are several harvest decision tables provided in this document (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) which, for 8 different catch levels from 1 kt to 8 kt, give the probabilities of the projected relative biomass being above:
 
-1. the LRP of $02.B_0$ (Table \@ref(tab:decision-table-02bo)),
+1. the LRP of $0.2B_0$ (Table \@ref(tab:decision-table-02bo)),
 2. the alternative USR of $0.35B_0$ (Table \@ref(tab:decision-table-035bo)),
 3. the USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)), and
 4. the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass)).
@@ -24,17 +24,17 @@ Some observations from the decision tables:
 
 2. The probability of being above the LRP of $0.2B_0$ at the beginning of 2027 is 0.98 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-02bo)),
 
-3. The probability of being above the alternative proposed USR of $0.35B_0$ at the beginning of 2025 is 0.61 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-035bo)),
+3. The probability of being above the alternative candidate USR of $0.35B_0$ at the beginning of 2025 is 0.61 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-035bo)),
 
-4. The probability of being above the alternative proposed USR of $0.35B_0$ at the beginning of 2027 is 0.60 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-035bo)),
+4. The probability of being above the alternative candidate USR of $0.35B_0$ at the beginning of 2027 is 0.60 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-035bo)),
 
-5. The probability of being above the proposed USR of $0.4B_0$ at the beginning of 2025 is 0.37 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-04bo)),
+5. The probability of being above the candidate USR of $0.4B_0$ at the beginning of 2025 is 0.37 if the highest catch level of 8 kt is caught in 2024 (Table \@ref(tab:decision-table-04bo)),
 
-6. The probability of being above the proposed USR of $0.4B_0$ at the beginning of 2027 is 0.42 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-04bo)),
+6. The probability of being above the candidate USR of $0.4B_0$ at the beginning of 2027 is 0.42 if the highest catch level of 8 kt is caught each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` (Table \@ref(tab:decision-table-04bo)),
 
-7. A probability of 0.5 of being above the proposed USR of $0.4B_0$ at the beginning of 2025 occurs between 2 and 4 kt of catch in 2024. A higher catch will result in the probability being less than 0.5 (Table \@ref(tab:decision-table-04bo)),
+7. A probability of 0.5 of being above the candidate USR of $0.4B_0$ at the beginning of 2025 occurs between 2 and 4 kt of catch in 2024. A higher catch will result in the probability being less than 0.5 (Table \@ref(tab:decision-table-04bo)),
 
-8. A probability of 0.5 of being above the proposed USR of $0.4B_0$ at the beginning of 2027 occurs between 4 and 5 kt of constant catch for each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs`. A higher constant catch will result in the probability being less than 0.5 (Table \@ref(tab:decision-table-decreasing-biomass)), and
+8. A probability of 0.5 of being above the candidate USR of $0.4B_0$ at the beginning of 2027 occurs between 4 and 5 kt of constant catch for each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs`. A higher constant catch will result in the probability being less than 0.5 (Table \@ref(tab:decision-table-decreasing-biomass)), and
 
 9. A probability of 0.5 of biomass increasing year-to-year for each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` occurs between 7 and 8 kt of constant catch in each year (Table \@ref(tab:decision-table-decreasing-biomass)).
 
