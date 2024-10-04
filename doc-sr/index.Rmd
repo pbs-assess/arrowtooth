@@ -712,6 +712,52 @@ ct_ss_2023 <- ct_df |>
 perc_dec_ss_2021_2022 <- f(100 - ct_ss_2022 / ct_ss_2021 * 100, 1)
 perc_dec_ss_2022_2023 <- f(100 - ct_ss_2023 / ct_ss_2022 * 100, 1)
 
+# create and filter an MCMC diagnostic data frame with one value column
+# (second column parameter name) for rstan Rhat and ESS values
+create_mcmc_diag <- function(df,
+                             fun = rstan::Rhat,
+                             digits = 3,
+                             value_nm = "Rhat"){
+  
+  d <- df |>
+  map_dbl(~{fun(.x)}) |>
+  enframe() |> 
+  filter(!is.na(value)) |> 
+  filter(!grepl("^sel", name)) |> 
+  filter(!grepl("msy", name)) |> 
+  filter(!grepl("ssb|beta", name)) |> 
+  filter(!grepl("^bo$", name)) |> 
+  filter(!grepl("^so$", name)) |> 
+  mutate(value = f(value, digits))
+  names(d) <- c("param", value_nm)
+  
+  d
+}
+# Rhat values for MCMC diagnostics as requested by Mazur review Oct. 2, 2024
+rhat_df <- base_model$mcmc$params |>
+  create_mcmc_diag()
+ess_bulk_df <- base_model$mcmc$params |>
+  create_mcmc_diag(fun = rstan::ess_bulk,
+                   digits = 0,
+                   value_nm = "ESS bulk")
+ess_tail_df <- base_model$mcmc$params |>
+  create_mcmc_diag(fun = rstan::ess_tail,
+                   digits = 0,
+                   value_nm = "ESS tail")
+
+lu_param_nm <- tibble(param = c("ro", "h", "rbar", "rinit", "sbo",
+                                "q1", "q2", "q3", "q4", "q5"),
+                      Parameter = c("$R_0$", "$h$", "$\\bar{R}$", "$\\bar{R}_{init}$",
+                                    "$SB_0$", "$q_1$", "$q_2$", "$q_3$", "$q_4$", "$q_5$"))
+rhat_df <- rhat_df |> 
+  full_join(ess_bulk_df, by = "param") |> 
+  full_join(ess_tail_df, by = "param") |> 
+  full_join(lu_param_nm, by = "param") |> 
+  select(-param) |> 
+  select(Parameter, everything())
+
+names(rhat_df) <- c("Parameter", "$\\hat{R}$", "$ESS_{bulk}$", "$ESS_{tail}$")
+
 ca <- "2022 stock assessment"
 ```
 

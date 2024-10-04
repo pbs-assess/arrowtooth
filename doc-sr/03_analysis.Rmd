@@ -5,7 +5,7 @@ cat("# Analysis and Response
 
 The model used to assess this stock was the Integrated Statistical Catch-at-Age Model (`r iscam`). It was tuned to four fishery-independent trawl survey series covering `r start_catch_yr`--2023, a Discard CPUE series as an index of abundance, annual estimates of commercial catch from two fleets (Freezer Trawlers and Shoreside), and age composition data from the two fleets in the commercial fishery and the four surveys. A two-sex, two-fleet base model was selected and implemented in a Bayesian context using Markov Chain Monte Carlo (MCMC) methods. Leading parameters estimated included $R_0$, initial recruitment, $h$, steepness of the stock-recruitment relationship, $\bar{R}$, average recruitment, and $q_k, k=1,2,3,4,5$, catchability of the four surveys and the Discard CPUE index. Selectivity parameters were also estimated for each sex, fleet, and survey.
 
-Parameter estimates and fixed values are given in Table \@ref(tab:param-estimates-table). As in the `r ca`, the natural mortality was fixed at 0.2 for females and 0.35 for males. Selectivity was estimated for all survey indices but fixed for the Discard CPUE ($a\\hat_7 = 9.5$ and $\\gamma_7 = 0.5$ for both sexes in Table \@ref(tab:param-estimates-table)).
+Parameter estimates and fixed values are given in Table \@ref(tab:param-estimates-table). As in the `r ca`, the natural mortality was fixed at 0.2 for females and 0.35 for males. Selectivity was estimated for all survey indices but fixed for the Discard CPUE ($\hat{a}_{7,sex,1} = 9.5$ and $\gamma_{7,sex,1} = 0.5$ for both sexes in Table \@ref(tab:param-estimates-table)).
 
 All estimated parameter estimates were close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
 
@@ -81,6 +81,8 @@ Figure \@ref(fig:fig-base-trace) shows the traceplots for the leading parameters
 
 The catchability parameters appear to show more correlation with each other in this update model than seen in the `r ca`. A comparison of the pairs plots from this update (Figure \@ref(fig:fig-base-pairs)) and Figure 41 from the `r ca` shows that there is a higher correlation between the $q_1$ and $q_3$ parameters in particular. These are the catchability parameters for the `r qcsss` and the `r hsss`.
 
+The within-chain $\hat{R}$ and Effective sample sizes (ESS) for the main part of the posterior distribution ($ESS_{bulk}$) as well as the tails ($ESS_{tail}$) were computed for each lead parameter. All values are considered acceptable for convergence of the MCMC chain. The criteria are a value of 1 of less for $\hat{R}$ and a value close to the number of posteriors for the ESS values. Table \@ref(tab:mcmc-diagnostics-rhat-table) shows the values calculated.
+
 ")
 ```
 
@@ -91,11 +93,11 @@ The catchability parameters appear to show more correlation with each other in t
 ```{r analysis-and-response-projection-assumptions-en, eval = !fr(), results = 'asis'}
 cat("## Projection assumptions
 
-Projection assumptions for this update were identical to those in the `r ca`. Projected log recruitment deviations in the years 2025-2027 were drawn randomly with replacement from the estimated 2010--2019 deviations (omitting poorly estimated 2020--2023 deviations). All other model parameterizations remained the same as in the pre-projection period.
+Projection assumptions for this update were identical to those in the `r ca`. Projected log recruitment deviations in the years 2025-2027 were drawn randomly with replacement from the estimated 2010--2019 deviations (omitting poorly estimated 2020--2024 deviations). All other model parameterizations remained the same as in the pre-projection period.
 ")
 ```
 
-```{r analysis-and-response-projection-assumptions-fr, eval = fr(), needs_trans = TRUE}
+```{r analysis-and-response-projection-assumptions-fr, eval = fr(), results = "asis", needs_trans = TRUE}
 <<analysis-and-response-projection-assumptions-en>>
 ```
 
@@ -299,6 +301,22 @@ plot_pairs_mcmc(base_model,
 ```
 
 \clearpage
+
+```{r mcmc-diagnostics-rhat-table, results = "asis"}
+cap <- paste0("Values calculated to show convergence of the MCMC chain. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: ",
+paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", "),
+".")
+if(fr()){
+cap <- paste0("")
+}
+
+csas_table(rhat_df,
+           format = "latex",
+           align = rep("r", ncol(rhat_df)),
+           cap = cap,
+           longtable = FALSE)
+```
+
 
 ```{r indicators-of-stock-status-en, eval = !fr(), results = 'asis'}
 cat("## Indicators of Stock Status
