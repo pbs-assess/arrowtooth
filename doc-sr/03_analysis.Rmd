@@ -7,7 +7,7 @@ The model used to assess this stock was the Integrated Statistical Catch-at-Age 
 
 Parameter estimates and fixed values are given in Table \@ref(tab:param-estimates-table). As in the `r ca`, the natural mortality was fixed at 0.2 for females and 0.35 for males. Selectivity was estimated for all survey indices but fixed for the Discard CPUE ($\hat{a}_{7,sex,1} = 9.5$ and $\gamma_{7,sex,1} = 0.5$ for both sexes in Table \@ref(tab:param-estimates-table)).
 
-All estimated parameter estimates were close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
+All estimated parameter estimates were close to those in Table 6 of the `r ca`. The median posterior for $B_0$ decreased from 184.16 in `r ca` to `r f(median(base_model$mcmccalcs$params$sbo), 2)` for this model. The median posterior biomass estimates for most years were also slightly less than the estimates in the `r ca`, so there is almost no scaling effect in the relative biomass and Figure \@ref(fig:fig-base-depletion) looks almost identical to Figure 9 in the `r ca`, other than the two new points for 2022 and 2023. In both cases, relative biomass estimates from 2020 and forward were under the USR $0.4B_0$ reference line.
 
 ")
 ```
@@ -81,7 +81,7 @@ Figure \@ref(fig:fig-base-trace) shows the traceplots for the leading parameters
 
 The catchability parameters appear to show more correlation with each other in this update model than seen in the `r ca`. A comparison of the pairs plots from this update (Figure \@ref(fig:fig-base-pairs)) and Figure 41 from the `r ca` shows that there is a higher correlation between the $q_1$ and $q_3$ parameters in particular. These are the catchability parameters for the `r qcsss` and the `r hsss`.
 
-The within-chain $\hat{R}$ and Effective sample sizes (ESS) for the main part of the posterior distribution ($ESS_{bulk}$) as well as the tails ($ESS_{tail}$) were computed for each lead parameter. All values are considered acceptable for convergence of the MCMC chain. The criteria are a value of 1 of less for $\hat{R}$ and a value close to the number of posteriors for the ESS values. Table \@ref(tab:mcmc-diagnostics-rhat-table) shows the values calculated.
+The within-chain $\hat{R}$ and Effective sample sizes (ESS) for the main part of the posterior distribution ($ESS_{bulk}$) as well as the tails ($ESS_{tail}$) were computed for each lead parameter. All values are considered acceptable for convergence of the MCMC chain. The criteria are a value of 1.01 or less for $\hat{R}$ and a value close to the number of posteriors for the ESS values. Table \@ref(tab:mcmc-diagnostics-rhat-table) shows the values calculated.
 
 ")
 ```
@@ -154,9 +154,9 @@ plot_index_mcmc(base_model,
 ```
 
 ```{r growth-params-table, results = "asis"}
-cap <- paste0("Growth parameters estimated outside the ", iscam, " model. All parameters were estimated using samples from the four synoptic surveys, and were filtered to include areas 3CD and 5ABCDE only. For the age-at-50\\% maturity estimates, the following values were used to further filter the data: maturity\\_convention\\_code = 4 (flatfish), maturity\\_code = 5 (Male - Spawning, testes large, white and sperm evident), (Female - Ripe, ovaries containing entirely translucent, mature ova. eggs loose and will run from oviducts under slight pressure), and usability codes = 0 (Unknown), 1 (Fully usable), 2 (Fail, but all data usable), 6 (Gear torn, all data ok).")
+cap <- paste0("Growth parameters estimated outside the ", iscam, " model. All parameters were estimated using samples from the three synoptic surveys used in the model, and were filtered to include areas 3CD and 5ABCDE only. For the age-at-50\\% maturity estimates, the following values were used to further filter the data: maturity\\_convention\\_code = 4 (flatfish), maturity\\_code = 5 (Male - Spawning, testes large, white and sperm evident), (Female - Ripe, ovaries containing entirely translucent, mature ova. eggs loose and will run from oviducts under slight pressure), and usability codes = 0 (Unknown), 1 (Fully usable), 2 (Fail, but all data usable), 6 (Gear torn, all data ok).")
 if(fr()){
-  cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ". Tous les paramètres ont été estimés à l'aide d'échantillons provenant des quatre campagnes synoptiques, et ont été filtrés pour inclure uniquement les zones 3CD et 5ABCDE. Pour les estimations de l'âge à 50 ans et de la maturité, les valeurs suivantes ont été utilisées pour filtrer davantage les données : code de maturité = 4 (poissons plats), code de maturité = 5 (mâle - frai, testicules larges, blancs et sperme évident), (femelle - mûre, ovaires contenant des ovules entièrement translucides et matures. Les œufs se détachent et s'écoulent des oviductes sous une légère pression), et les codes d'utilisabilité = 0 (Inconnu), 1 (Entièrement utilisable), 2 (Échec, mais toutes les données sont utilisables), 6 (Équipement déchiré, toutes les données sont correctes).")
+  cap <- paste0("")
 }
 
 table_growth_params(base_model,
@@ -167,11 +167,10 @@ table_growth_params(base_model,
 ```
 
 ```{r param-estimates-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% credible interval estimates of key ",
-              "parameters for the base model.")
+cap <- paste0("Posterior median and 95\\% credible interval estimates of key parameters for the base model. Parameters with the same values in all three value columns (2.5\\%, 50\\%, and 97.5\\%) are fixed in the model. The selectivity parameters $\\hat{a}$ and $\\hat{\\gamma}$ are the two parameters representing the shape of each logistic selectivity curves. Subscripts for those parameters represent gear number, sex (m/f), and area number (all are area 1 for 'coastwide' in this model). The gear name is the second column in the table and correspond to the gear number subscripts.")
+
 if(fr()){
-cap <- paste0("Estimations de la médiane postérieure et de l'intervalle ",
-              "crédible à 95 \\% des paramètres clés pour le modèle de base.")
+cap <- paste0("")
 }
 
 table_param_est_mcmc(base_model,
@@ -343,7 +342,7 @@ Figures \@ref(fig:fig-catch-streams-nextyr-proj)--\@ref(fig:fig-catch-streams-ne
 <<indicators-of-stock-status-en>>
 ```
 
-(ref:fig-rel-biomass-proj-en) Estimated relative spawning biomass ($B_t/B_0$) for the base model. The shaded area represents the 95% Credible Interval (CI) and the solid line with points shows the connected medians. Horizontal lines indicate the $0.2B_0$ (solid red) and $0.4B_0$ (dashed green) reference points. The colored dots from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` are the posterior medians representing the projected catch levels, with solid lines connecting them; the dashed lines from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` represent the 95% CIs for those posteriors. The constant catch values (in kt) are shown as text on the right of the end points of each projected trajectory. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.
+(ref:fig-rel-biomass-proj-en) Estimated relative spawning biomass ($B_t/B_0$) for the base model. The shaded area represents the 95% Credible Interval (CI) and the solid line with points shows the connected medians. Horizontal lines indicate the $0.2B_0$ (solid red) and $0.4B_0$ (dashed green) reference points. The colored dots from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` are the posterior medians representing the projected catch levels, with solid lines connecting them; the dashed lines from `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1` represent the 95% CIs for those posteriors. The projected constant catch values (in kt) are shown in the legend. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.
 
 (ref:fig-rel-biomass-proj-fr) French here
 
@@ -359,10 +358,13 @@ plot_biomass_proj_mcmc(base_model,
                        line_width = 0.5,
                        point_size = 1,
                        label_font_size = 3,
-                       proj_catch_vals = 1:8)
+                       proj_catch_vals = 1:8) +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.8, 0.8)) +
+  guides(color = guide_legend(ncol = 2))
 ```
 
-(ref:fig-rel-biomass-proj-closeup-en) Closeup view of most recent relative spawning biomass (Figure \@ref(fig:fig-rel-biomass-proj)) for the `r sp` base model with $B_0$-based reference points and projections into the future. The constant catch values (in kt) are shown as text on the right of the end points of each projected trajectory. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.
+(ref:fig-rel-biomass-proj-closeup-en) Closeup view of most recent relative spawning biomass (Figure \@ref(fig:fig-rel-biomass-proj)) for the `r sp` base model with $B_0$-based reference points and projections into the future. The projected constant catch values (in kt) are shown in the legend. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.
 
 (ref:fig-rel-biomass-proj-closeup-fr) French here
 
@@ -379,7 +381,10 @@ plot_biomass_proj_mcmc(base_model,
                        point_size = 1,
                        label_font_size = 3,
                        nudge_catch_labels = c(-0.1, 0),
-                       proj_catch_vals = 1:8)
+                       proj_catch_vals = 1:8) +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.2, 0.8)) +
+  guides(color = guide_legend(ncol = 2))
 ```
 
 (ref:fig-catch-streams-proj-nextyr-en) Projected `r base_model$dat$end.yr + 2` relative spawning biomass for several possible catch levels in `r base_model$dat$end.yr + 1`. Black points are medians of the posterior and horizontal black lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the alternative proposed USR, $0.35B_0$, and the dashed green line is the USR, $0.4B_0$.
