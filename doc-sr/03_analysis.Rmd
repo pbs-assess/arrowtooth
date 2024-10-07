@@ -256,9 +256,9 @@ plot_f_mcmc(base_model,
             text_title_size = NULL, xlim = c(1997, 2023))
 ```
 
-(ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots show estimated median selectivity-at-age, and the shaded areas show the 95% credible intervals (CI). Single dotted lines with no CI (HS Multi, Discard CPUE) represent fixed selectivities. Dashed lines represent maturity-at-age based on logistic curves fit to the proportion of mature fish at age.
+(ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots show estimated median selectivity-at-age, and the shaded areas show the 95% CI. Single dotted lines with no CI (HS Multi, Discard CPUE) represent fixed selectivities. Dashed lines represent maturity-at-age based on logistic curves fit to the proportion of mature fish at age.
 
-(ref:fig-base-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent les intervalles de crédibilité (IC) à 95 %. Les lignes pointillées simples sans IC (HS Multi, Discard CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
+(ref:fig-base-selex-fr) French here
 
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
 plot_selex_mcmc(base_model,
@@ -266,7 +266,7 @@ plot_selex_mcmc(base_model,
                 leg_loc = "facet")
 ```
 
-(ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
+(ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. Numerical indices $k$ on Catchability ($q_k$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
 (ref:fig-base-trace-fr) French here
 
@@ -280,7 +280,7 @@ plot_traces_mcmc(base_model,
                  text_title_size = NULL)
 ```
 
-(ref:fig-base-pairs-en) Pairs plots for MCMC estimated parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. Numerical indices on Catchability ($q$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
+(ref:fig-base-pairs-en) Pairs plots for MCMC estimated parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. Numerical indices $k$ on Catchability ($q_k$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
 (ref:fig-base-pairs-fr) French here
 

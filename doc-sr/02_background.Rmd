@@ -25,6 +25,7 @@ Since the `r ca`, there have been two years of new `r sp` commercial catch (2022
 yrs <- sort(unique(catch$year))
 plot_catch_fleet(list(catch_ft, catch_ss),
                  base_model$dat$fleet_gear_names,
+                 units = "kt",
                  french = fr(),
                  unreliable = 1996,
                  xlim = c(min(yrs), max(yrs))) +
@@ -37,7 +38,7 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 ```{r fleet-catch-table, results = "asis"}
 cap <- paste0("Recent coastwide commercial fishery landings and discards (tonnes) of ", sp, " by fleet. 'Total' columns are the sum of landings and discards by fleet, and 'Total Catch' is the sum of the fleet 'Total' columns.")
 if(fr()){
-cap <- paste0("Débarquements et rejets récents (en tonnes) de ", sp, " par flotte dans le cadre de la pêche commerciale à l'échelle de la côte. Les colonnes 'Total' représentent la somme des débarquements et des rejets par flotte, et la colonne 'Capture totale' est la somme des colonnes 'Total' des flottes.")
+cap <- paste0("")
 }
 
 table_catch_fleet(list(catch_ft, catch_ss),
