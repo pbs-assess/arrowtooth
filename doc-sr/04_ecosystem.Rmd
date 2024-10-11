@@ -1,0 +1,13 @@
+```{r app-eco-para-1-en, eval = !fr(), results = 'asis'}
+cat("## Ecosystem Considerations
+
+There has not been any additional work done in ecosystem-based science for `r sp` in the two years since the `r ca `, although continuation of the body condition work (Appendices E and F, `r ca`) may be useful and will be revisited in the next stock assessment update.
+
+A winter survey is planned for 2026 to sample several species, including `r sp`. Spawning and hatching are known to occur in winter [@arf1995; @blood2007], and analyzing maturities at that stage may give a better understanding of the maturity ogive and it's apparent shift to the right of selectivity.
+
+")
+```
+
+```{r app-eco-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+<<app-eco-para-1-en>>
+```

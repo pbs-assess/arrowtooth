@@ -165,7 +165,7 @@ plot_traces_mcmc(models$base_model,
 
 
 ```{r fig-base-mcmc-effn, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-effn-fr)", "(ref:fig-base-mcmc-effn-en)"), out.width = "100%"}
-plot_param_stats_mcmc(models$base_model)
+plot_param_stats_mcmc(base_model)
 ```
 
 ```{r fig-base-mcmc-sel, fig.cap = "Selectivity", out.width = "100%"}

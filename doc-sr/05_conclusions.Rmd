@@ -7,7 +7,7 @@ With the addition of the new data, the relative spawning biomass trajectory from
 
 There were no large changes in fits to any index points in the four survey indices and the `r dcpue`. Three of the synoptic survey indices had one new index point added each (the `r hsmas` has a terminal year of 2003 and was not updated), and the `r dcpue` had two new index points added (2022 and 2023) since it is based on commercial catch.
 
-The projections show medians and credible intervals for catches of 1 to 8 kt, in 1 kt increments (Figures \@ref(fig:fig-rel-biomass-proj) and \@ref(fig:fig-rel-biomass-proj-closeup)). The figure shows that for catch values of 1--6 kt the median of projected biomass is expected to increase to 2027. For catch values of 7--8 kt the median of projected biomass is expected to remain flat, and remain below the USR of $0.4B_0$.
+The projections show medians and CIs for catches of 1 to 8 kt, in 1 kt increments (Figures \@ref(fig:fig-rel-biomass-proj) and \@ref(fig:fig-rel-biomass-proj-closeup)). The figure shows that for catch values of 1--6 kt the median of projected biomass is expected to increase to 2027. For catch values of 7--8 kt the median of projected biomass is expected to remain flat, and remain below the USR of $0.4B_0$.
 
 Recruitment in the last four years of the model is estimated with a large degree of uncertainty (Figure \@ref(fig:fig-base-recr)). This is due to the lack of new ages being included in the model for 2022 and 2023. We expect new age composition data to be available for the next update to this assessment.
 

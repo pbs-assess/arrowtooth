@@ -1,7 +1,7 @@
 ```{r contributors-en, eval = !fr(), results = 'asis'}
 cat("# Contributors
 
-Contributors to the Science Response, where an asterisk ‘*’ indicates the primary author(s).
+Contributors to the Science Response, where an asterisk '*' indicates the primary author(s).
 
 ")
 ```
@@ -10,8 +10,7 @@ Contributors to the Science Response, where an asterisk ‘*’ indicates the pr
 contributors <- tibble::tribble(
   ~Name,            ~Affiliation,
   "Chris Grandin*", "DFO Science, Pacific Region",
-  "Finn, Deirdre",  "DFO Fisheries Management, Pacific Region",
-  "Sean Anderson*", "DFO Science, Pacific Region")
+  "Finn, Deirdre",  "DFO Fisheries Management, Pacific Region")
 
 names(contributors) <- tr(names(contributors))
 names(contributors) <- paste0("\\textbf{", names(contributors), "}")
