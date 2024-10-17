@@ -43,7 +43,7 @@ Nous avons testé la sensibilité des résultats du modèle comme suit :
 1. Indices d'enquête basés sur un modèle géostatistique (Section \@ref(app:geostat))
 1. Supprimer la CPUE des rejets
 1. Modifier l'ogive de maturité pour ne pas inclure les spécimens 'en développement' ou 'au repos'.
-1. Fixer la sélectivité de l'indice DCPUE à un niveau égal à la sélectivité de la pêcherie côtière.
+1. Fixer la sélectivité de l'indice RCPUE à un niveau égal à la sélectivité de la pêcherie côtière.
 1. Fixer la sélectivité de toutes les enquêtes pour qu'elle soit égale à la sélectivité de la pêche côtière.
 
 Cette liste de scénarios de sensibilité, avec plus de détails, est fournie dans le tableau \@ref(tab:sens-param-settings-table). Les paramètres du modèle de base sont indiqués dans le tableau \@ref(tab:param-settings-table). Tous les modèles de sensibilité ont été exécutés à l'aide de MCMC avec une longueur de chaîne de `r f(mcmc_chain_length)`, une fréquence d'échantillonnage de `r f(mcmc_sample_freq)`, donnant `r f(mcmc_num_samples)` échantillons, qui ont ensuite été brûlés par `r f(mcmc_burn_in)` donnant un total de `r f(mcmc_actual_samples)` échantillons retenus pour l'inférence.")
@@ -186,7 +186,7 @@ We tested the impact of removing the Discard CPUE index. The relative biomass tr
 ```
 
 ```{r scam-sens-remove-discard-cpue-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("### Suppression de l'indice de CPUE de rejets du modèle {#sens-remove-dcpue}
+cat("### Suppression de l'indice de RCPUE de rejets du modèle {#sens-remove-dcpue}
 Nous avons testé l'impact de la suppression de l'indice de CPUE des rejets. La trajectoire de la biomasse relative est restée similaire, avec seulement une légère augmentation de la biomasse de fin d'année et une biomasse relative globale légèrement inférieure (Figure \@ref(fig:fig-sens-meeting-rel)). Les ajustements pour les indices de l'enquête n'ont montré que des écarts mineurs par rapport aux ajustements du modèle de base (Figure \@ref(fig:fig-sens-remove-dcpue-index-fits)).
 ")
 ```
@@ -224,13 +224,13 @@ Fixing the survey selectivities produced a large change in the model, with a muc
 
 ```{r scam-sens-fix-selectivities-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("### Fixation des sélectivités {#sens-fix-selectivities}
-Il y a eu deux sensibilités pour lesquelles les sélectivités ont été fixées à la valeur estimée de la pêche côtière dans le modèle de base:
+Il y avait deux sensibilités pour lesquelles les sélectivités étaient fixées à la valeur estimée de la pêche côtière dans le modèle de base :
 
-1. Fixer la sélectivité de l'indice DCPUE à la sélectivité de la pêche à terre
+1. Fixer la sélectivité de l'indice de Rejet CPUE des rejets à la sélectivité de la pêche à terre
 1. Fixer la sélectivité de toutes les enquêtes à la sélectivité de la pêche côtière
 
-La fixation de la sélectivité de l'indice DCPUE a entraîné une biomasse absolue et relative légèrement inférieure à celle du modèle de base. Il n'y a pas eu de différences substantielles dans l'ajustement de l'indice.
+La fixation de la sélectivité de la Rejet CPUE des rejets a entraîné une biomasse absolue et relative légèrement inférieure pour la dernière année par rapport au modèle de base. Il n'y a pas eu de différences substantielles dans l'ajustement de l'indice.
 
-La fixation des sélectivités des campagnes a entraîné un changement important dans le modèle, avec une estimation $B_0$ beaucoup plus élevée (Figure \@ref(fig:fig-sens-meeting)) entraînant une forte réduction de la biomasse relative (Figure \@ref(fig:fig-sens-meeting-rel)). Il y a également eu une forte augmentation de la biomasse à la fin de la série chronologique, ce qui implique une croissance exponentielle du stock, ce qui n'est pas réaliste. Les ajustements de l'indice étaient légèrement différents avec ce modèle, avec une différence d'ajustement prononcée pour le `r qcsss`.
+La fixation des sélectivités de l'enquête a entraîné un changement important dans le modèle, avec une estimation $B_0$ beaucoup plus élevée (Figure \@ref(fig:fig-sens-meeting)) entraînant une forte réduction de la biomasse relative (Figure \@ref(fig:fig-sens-meeting-rel)). On a également observé une forte augmentation de la biomasse à la fin de la série chronologique, ce qui implique une croissance exponentielle soudaine du stock, ce qui n'est pas réaliste. Les ajustements de l'indice étaient légèrement différents avec ce modèle, avec une estimation inférieure prononcée pour le `r qcsss` en 2010.
 ")
 ```

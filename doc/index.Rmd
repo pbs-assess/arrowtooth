@@ -45,9 +45,9 @@ french_abstract: |
 
   Cette évaluation adapte un modèle bayésien structuré par âge à deux sexes et deux flottes aux données de capture, d'enquête et de composition par âge des années 1996--2021 pour les zones de gestion 3CD (côte ouest de l'île de Vancouver), 5AB (détroit de la Reine-Charlotte), 5CD (détroit d'Hécate), et 5E (côte ouest de Haida Gwaii) combinées. Les données de capture antérieures à l'introduction des observateurs en mer en 1996 ont été jugées trop peu fiables pour être incluses dans l'évaluation en raison des quantités inconnues de rejets en mer.
 
-  Le modèle de base présenté dans cette évaluation estime que la biomasse féconde médiane de 2022 est de 67,77 kt et qu'elle suit une trajectoire décroissante depuis 2011, avec une tendance à l'aplatissement à partir de 2020-2022. Les points de référence basés sur le rendement maximal durable (RMD) ont été fortement influencés par la relation entre les ogives de maturité estimées et la sélectivité commerciale par âge dans les pêcheries au chalut. Des points de référence basés sur des fractions de $B_0$ (biomasse féconde non pêchée) ont été choisis à la place, comme cela avait été fait dans la dernière évaluation. La biomasse féconde médiane de 2022 devrait être inférieure à l'USR (Upper Stock Reference) 0,4B_0$ et supérieure au LRP (Limit Reference Point) 0,2B_0$. La probabilité que la biomasse reproductrice soit inférieure au PRL $0,2B_0$ en 2022 était nulle dans le modèle de base, bien qu'un modèle de sensibilité avec une plus grande variance du recrutement ait estimé que le stock était proche du PRL. D'autres analyses de sensibilité ont été effectuées pour tester les effets des paramètres fixes, des distributions de probabilité a priori et du traitement des données d'entrée sur les résultats du modèle. Dans plusieurs modèles de sensibilité, les diagnostics MCMC (Markov chain Monte Carlo) étaient médiocres ou les estimations de la sélectivité et/ou de la capturabilité étaient déraisonnables. Une série d'exécutions rétrospectives du modèle sur huit ans a indiqué un point de rupture distinct lorsque les données de 2019 ont été ajoutées. Depuis 2019, les données entraînent des baisses de la biomasse reproductrice estimée entre 2010 et 2019.
+  Le modèle de base présenté dans cette évaluation estime que la biomasse féconde médiane de 2022 est de 67,77 kt et qu'elle suit une trajectoire décroissante depuis 2011, avec une tendance à l'aplatissement à partir de 2020-2022. Les points de référence basés sur le rendement maximal durable (RMD) ont été fortement influencés par la relation entre les ogives de maturité estimées et la sélectivité commerciale par âge dans les pêcheries au chalut. Des points de référence basés sur des fractions de $B_0$ (biomasse féconde non pêchée) ont été choisis à la place, comme cela avait été fait dans la dernière évaluation. La biomasse féconde médiane de 2022 devrait être inférieure à l'USR (Upper Stock Reference) $0,4B_0$ et supérieure au LRP (Limit Reference Point) $0,2B_0$. La probabilité que la biomasse reproductrice soit inférieure au PRL $0,2B_0$ en 2022 était nulle dans le modèle de base, bien qu'un modèle de sensibilité avec une plus grande variance du recrutement ait estimé que le stock était proche du PRL. D'autres analyses de sensibilité ont été effectuées pour tester les effets des paramètres fixes, des distributions de probabilité a priori et du traitement des données d'entrée sur les résultats du modèle. Dans plusieurs modèles de sensibilité, les diagnostics MCMC (Markov chain Monte Carlo) étaient médiocres ou les estimations de la sélectivité et/ou de la capturabilité étaient déraisonnables. Une série d'exécutions rétrospectives du modèle sur huit ans a indiqué un point de rupture distinct lorsque les données de 2019 ont été ajoutées. Depuis 2019, les données entraînent des baisses de la biomasse reproductrice estimée entre 2010 et 2019.
 
-   L'avis de gestion est fourni sous la forme d'une table de décision sur les captures qui prévoit les impacts d'une gamme de niveaux de capture en 2022 sur l'état du stock de flétan noir par rapport aux points de référence. La table de décision du modèle de base suggère qu'une prise de 2022 égale à 5 kt (le TAC de 2022) entraînerait une biomasse de 2023 inférieure à l'USR de 0,4B_0$ avec une probabilité de 0,68$. La même prise donnerait une probabilité quasi nulle que la biomasse de 2023 soit inférieure au PRL de 0,2B_0$. Une prise constante égale à 15 kt donnerait une biomasse en 2026 avec une probabilité d'environ 0,5$ d'être inférieure au PRL de 0,2B_0$. Un taux de prélèvement de référence de $U_{0.4B_0} = 10,5$% de la population vulnérable chaque année, ce qui équivaut à un prélèvement annuel d'environ 4,4 kt, a été estimé pour amener le stock à 0,4B_0$ à long terme, en supposant que le faible recrutement estimé de 2010 à 2019 se poursuive.
+   L'avis de gestion est fourni sous la forme d'une table de décision sur les captures qui prévoit les impacts d'une gamme de niveaux de capture en 2022 sur l'état du stock de flétan noir par rapport aux points de référence. La table de décision du modèle de base suggère qu'une prise de 2022 égale à 5 kt (le TAC de 2022) entraînerait une biomasse de 2023 inférieure à l'USR de $0,4B_0$ avec une probabilité de $0,68$. La même prise donnerait une probabilité quasi nulle que la biomasse de 2023 soit inférieure au PRL de $0,2B_0$. Une prise constante égale à 15 kt donnerait une biomasse en 2026 avec une probabilité d'environ $0,5$ d'être inférieure au PRL de $0,2B_0$. Un taux de prélèvement de référence de $U_{0,4B_0}$ = 10,5% de la population vulnérable chaque année, ce qui équivaut à un prélèvement annuel d'environ 4,4 kt, a été estimé pour amener le stock à $0,4B_0$ à long terme, en supposant que le faible recrutement estimé de 2010 à 2019 se poursuive.
 
   La taille des captures et des rejets avant 1996, l'absence de campagnes stratifiées aléatoires avant 2005 couvrant l'ensemble de la côte, l'estimation des courbes de maturité et de sélectivité, l'ampleur supposée de la variabilité du recrutement et l'estimation de $B_0$ sont des sources majeures d'incertitude dans cette évaluation qui rendent difficile l'estimation de la taille et de la productivité du stock. L'utilisation d'un relevé géostatistique assemblé pour remplacer les indices des relevés synoptiques distincts pourrait aider à résoudre certains problèmes liés à l'indice du relevé synoptique du détroit de la Reine-Charlotte, dont le taux de déclin est plus faible que celui des autres indices du relevé. Après avoir évalué les considérations relatives à l'écosystème et la biologie connue du stock, rien n'indique clairement que les conditions environnementales actuelles devraient modifier l'avis sur les captures dans la présente évaluation. Étant donné que le stock est estimé légèrement en dessous de l'USR dans le modèle de base et proche du LRP dans un modèle de sensibilité avec une plus grande variation du recrutement, ainsi qu'une biomasse estimée du stock reproducteur en déclin, des indices de prospection en déclin et un recrutement estimé en déclin, il est suggéré que cette évaluation du stock soit mise à jour avec de nouvelles données dans environ deux ans, lorsqu'une prospection supplémentaire aura été réalisée dans chaque zone de la côte.
 
@@ -64,7 +64,7 @@ output:
    # build_rds is a toggle to re-build all the RDS files for the models
    build_rds: false
    keep_md: true
-   french: false
+   french: true
    # copy_sty is a toggle to copy the style file from the csasdown package
    # every time you compile the document. If false, any changes you have
    # made to the style file in your project will remain between
@@ -170,6 +170,8 @@ options(
 # Fixes weird bug where knitr::include_graphics() thinks the non-git folder
 # is relative
 options(knitr.graphics.rel_path = FALSE)
+#meta <- rmarkdown::metadata$output
+#options(french = meta$`csasdown::resdoc_pdf`$french)
 ```
 
 ```{r library-setup, cache = TRUE, fig.keep = 'none'}
@@ -211,9 +213,11 @@ if(!is.null(meta)){
 ```
 
 ```{r include = FALSE}
-# Don't load the models if they already exist
-if(!exists("models") || !exists("drs"))
-  source("load-models.R", local = knitr::knit_global())
+
+source(here::here("doc/model-names.R"),
+       local = knitr::knit_global())
+source(here::here("doc/load-models.R"),
+       local = knitr::knit_global())
 ```
 
 ```{r data-setup, cache.lazy = FALSE}

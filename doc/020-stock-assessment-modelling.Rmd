@@ -28,19 +28,17 @@ Data were extracted using the R package ````gfdata````, found on GitHub, in the 
 1. GFBioSQL: Contains all modern biological sample data for surveys and commercial fisheries. This database includes most of the groundfish specimen data collected since the 1950s.
 2. PacHarvTrawl: Contains Canadian trawl landing data from 1996 to March 31, 2007.
 3. GFFOS: Contains Canadian trawl landings from April 1, 2007 to present. This database is essentially a copy of the Fisheries and Oceans Canada (DFO) Fishery Operations (FOS) database with a slightly different structure that makes it easier for our assessment needs.
-
 ")
 ```
 
 ```{r sam-data-inputs-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("## ENTRÉES DE DONNÉES
-### SOURCES DE DONNÉES
-Les données ont été extraites à l'aide du paquet R [gfdata] (https://github.com/pbs-assess/gfdata), qui applique des routines SQL standard à plusieurs bases de données et reconstruit les différentes séries temporelles en conséquence. Les bases de données consultées pour cette évaluation sont les suivantes
+### Sources des données
+Les données ont été extraites à l'aide du paquet R ````gfdata````, trouvé sur GitHub, dans la liste des dépôts de l'organisation ````pbs-assess````. Les fonctions du paquetage ````gfdata```` appliquent des routines SQL standard à plusieurs bases de données et reconstruisent les différentes séries temporelles en conséquence. Les bases de données consultées pour cette évaluation sont les suivantes
 
 1. GFBioSQL : Contient toutes les données modernes d'échantillons biologiques pour les enquêtes et les pêcheries commerciales. Cette base de données comprend la plupart des données sur les spécimens de poissons de fond collectées depuis les années 1950.
 2. PacHarvTrawl : Contient les données de débarquement des chaluts canadiens de 1996 au 31 mars 2007.
-3. GFFOS : contient les données sur les débarquements canadiens au chalut du 1er avril 2007 à aujourd'hui. Cette base de données est essentiellement une copie de la base de données des opérations de pêche (FOS) de Pêches et Océans Canada (MPO), avec une structure légèrement différente qui la rend plus facile à utiliser pour nos besoins d'évaluation.
-
+3. GFFOS : contient les données sur les débarquements canadiens au chalut du 1er avril 2007 à aujourd'hui. Cette base de données est essentiellement une copie de la base de données des opérations de pêche (SEP) de Pêches et Océans Canada (MPO), avec une structure légèrement différente qui la rend plus facile à utiliser pour nos besoins d'évaluation.
 ")
 ```
 
@@ -104,12 +102,12 @@ cat("### Indices d'abondance
 
 Six indices d'abondance indépendants de la pêche ont été utilisés dans cette évaluation :
 
-1. `r qcs`
-2. `r hsmas`
-3. `r hss`
-4. `r wcvis`
+1. `r qcs` (DRC Synoptique)
+2. `r hsmas` (DH multi-espèces)
+3. `r hss` (DH Synoptique)
+4. `r wcvis` (COIV Synoptique)
 5. `r wchgs` (uniquement pour les ponts)
-6. `r dcpue`
+6. `r dcpue` (Rejet CPUE)
 
 **`r qcs`**
 
@@ -244,20 +242,21 @@ Commercial ageing requests included randomly chosen samples from many vessels ac
 ```{r sam-age-data-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("### Données sur l'âge
 
-Les âges pour les années 1996--2019 sont inclus dans cette évaluation et proviennent des deux flottes commerciales et des trois études synoptiques. Les échantillons ont été vieillis par la méthode 'casser-et-cuire', qui consiste à placer un grand nombre d'otolithes dans un plateau, à les cuire dans un four spécialement conçu à cet effet, puis à les briser pour effectuer la lecture de l'âge. Au cours de ce processus, si la personne qui vieillit les otolithes en trouve un qui n'est pas assez cuit, elle le brûle manuellement pour lui donner le bon contraste pour la lecture de l'âge. Cette étape supplémentaire de cuisson rend cette méthode équivalente à la méthode traditionnelle 'break-and-burn' dans laquelle le lecteur d'âge brûle chaque otolithe individuellement (S. Wischniowski, Sclerochronology Laboratory, Pacifc Biological Station, Pers. Comm.).
+Les âges pour les années 1996--2019 sont inclus dans cette évaluation et proviennent des deux flottes commerciales et des trois études synoptiques. Les échantillons ont été vieillis par la méthode 'casser-et-cuire', qui consiste à placer un grand nombre d'otolithes dans un plateau, à les cuire dans un four spécialement conçu à cet effet, puis à les briser pour effectuer la lecture de l'âge. Au cours de ce processus, si la personne qui vieillit les otolithes en trouve un qui n'est pas assez cuit, elle le brûle manuellement pour lui donner le bon contraste pour la lecture de l'âge. Cette étape supplémentaire de cuisson rend cette méthode équivalente à la méthode traditionnelle 'briser et brûler' dans laquelle le lecteur d'âge brûle chaque otolithe individuellement (S. Wischniowski, Sclerochronology Laboratory, Pacifc Biological Station, comm. pers.).
 
 Les données sur la composition par âge représentaient l'ensemble de la côte pour les années suivantes :
 
-1. Chalutiers congélateurs (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[1]])$year), collapse = '--')`
-1. Rivage (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[2]])$year), collapse = '--')`
-1. `r qcs` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[3]])$year), collapse = '--')`
-1. `r hss` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[4]])$year), collapse = '--')`
-1. `r wcvis` (Figure \@ref(fig:fig-ages)), `r paste(range(as_tibble(base_model$dat$age.comps[[5]])$year), collapse = '--')`
+1. Chalutiers congélateurs  (Figure \@ref(fig:fig-ages)), `r base_model$dat$age.comps[[1]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. Rivage (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[2]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. `r qcs` (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[3]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. `r hss` (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[4]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
+1. `r wcvis` (Figure \@ref(fig:fig-ages)),`r base_model$dat$age.comps[[5]] |> as_tibble() |> filter(year > 0) |> pull(year) |> range() |> paste(collapse = '--')`
 1. `r wchgs` (Figure \@ref(fig:fig-ages)), 2016--2018, (modèles de transition uniquement)
 
-Les données sur la composition par âge ont été introduites dans les modèles d'évaluation sous forme de proportions pondérées en fonction de l'âge. La pondération était basée sur un schéma stratifié qui ajustait l'effort d'échantillonnage inégal entre les strates de profondeur et la densité de la biomasse du trait (enquêtes) ou la période trimestrielle au sein d'une année et le poids de la capture du trait (commercial). Les détails sont donnés dans @holt2016 (page 160) et le `r la` [@grandin2017]. Les méthodes sont codées dans le paquet [gfplot] (https://github.com/pbs-assess/gfplot). Le `r la` a utilisé un code personnalisé car le package gfplot n'était pas encore disponible.
+Les données relatives à la composition par âge ont été introduites dans les modèles d'évaluation sous la forme de proportions pondérées en fonction de l'âge. La pondération était basée sur un schéma stratifié qui ajustait l'effort d'échantillonnage inégal entre les strates de profondeur et la densité de la biomasse du trait (enquêtes) ou la période trimestrielle au sein d'une année et le poids de la capture du trait (commercial). Les détails sont donnés dans @holt2016 (page 160) et le `r la` [@grandin2017]. Les méthodes utilisées proviennent du paquetage ````gfplot````, trouvé sur GitHub, dans la liste des dépôts de l'organisation ````pbs-assess````. Le `r la` a utilisé un code personnalisé car le paquet ````gfplot```` n'était pas encore disponible.
 
-Les demandes de vieillissement commercial comprenaient des échantillons choisis au hasard sur de nombreux navires des deux flottes commerciales.")
+Les demandes de vieillissement commercial comprenaient des échantillons choisis au hasard parmi de nombreux navires des deux flottes commerciales.
+")
 ```
 
 ```{r sam-length-data-en, eval = !fr(), results = 'asis'}
@@ -267,7 +266,8 @@ Length data from the freezer trawler and shoreside fleets and from the synoptic 
 
 Females did not vary in length significantly between the two fleets, with both having an overall median of `r median(length_samples_ft$length, na.rm = TRUE)` cm. Males had a median of `r median(filter(length_samples_ft, sex == 1)$length, na.rm = TRUE)` cm for the Freezer trawler fleet and `r median(filter(length_samples_ss, sex == 1)$length, na.rm = TRUE)` cm for the Shoreside fleet. Females had a median of `r median(filter(length_samples_ft, sex == 2)$length, na.rm = TRUE)` cm for the Freezer trawler fleet and `r median(filter(length_samples_ss, sex == 2)$length, na.rm = TRUE)` cm for the Shoreside fleet.
 
-Females have been sampled more often than males in both fleets. This difference in sampling is due to the proportion of females in the population being higher than males. Appendix \@ref(app:prop-female) describes in detail how the proportion female was calculated.")
+Females have been sampled more often than males in both fleets. This difference in sampling is due to the proportion of females in the population being higher than males. Appendix \@ref(app:prop-female) describes in detail how the proportion female was calculated.
+")
 ```
 
 ```{r sam-length-data-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
@@ -277,7 +277,8 @@ Les données de longueur provenant des flottes de chalutiers congélateurs et de
 
 La longueur des femelles ne varie pas de manière significative entre les deux flottes, qui présentent toutes deux une médiane globale de `r median(length_samples_ft$length, na.rm = TRUE)` cm. Les mâles avaient une médiane de `r median(filter(length_samples_ft, sex == 1)$length, na.rm = TRUE)` cm pour la flottille de chalutiers congélateurs et de `r median(filter(length_samples_ss, sex == 1)$length, na.rm = TRUE)` cm pour la flottille de chalutiers côtiers. Les femelles avaient une médiane de `r median(filter(length_samples_ft, sex == 2)$length, na.rm = TRUE)` cm pour la flotte de chalutiers congélateurs et `r median(filter(length_samples_ss, sex == 2)$length, na.rm = TRUE)` cm pour la flotte côtière.
 
-Les femelles ont été échantillonnées plus souvent que les mâles dans les deux flottes. Cette différence d'échantillonnage est due au fait que la proportion de femelles dans la population est plus élevée que celle des mâles. L'annexe \@ref(app:prop-female) décrit en détail comment la proportion de femelles a été calculée.")
+Les femelles ont été échantillonnées plus souvent que les mâles dans les deux flottes. Cette différence d'échantillonnage est due au fait que la proportion de femelles dans la population est plus élevée que celle des mâles. L'annexe \@ref(app:prop-female) décrit en détail comment la proportion de femelles a été calculée.
+")
 ```
 
 ```{r sam-growth-parameters-en, eval = !fr(), results = 'asis'}

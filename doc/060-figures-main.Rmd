@@ -98,7 +98,9 @@ plot_biomass_mcmc(base_model,
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bmsy_lines = TRUE,
-                  ylim = c(0, 250))
+                  ylim = c(0, 250),
+                  ylim = c(0, 250),
+                  units = "1000 t")
 ```
 
 (ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. See Figure \@ref(fig:fig-base-sb) for more information. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t.
@@ -111,7 +113,8 @@ plot_biomass_mcmc(base_model,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
                   bo_refpt_colors = c("salmon", "darkgreen"),
-                  ylim = c(0, 250))
+                  ylim = c(0, 250),
+                  units = "1000 t")
 ```
 
 <!-- Relative spawning biomass ----------------------------------------------->
@@ -149,7 +152,8 @@ plot_vuln_mcmc(base_model,
                angle_x_labels = TRUE,
                xlim = c(1997, 2021),
                ylim = c(0, 180),
-               leg_loc = c(0.05, 0.05))
+               leg_loc = c(0.05, 0.05),
+               units = "1000 t")
 ```
 
 (ref:fig-base-recr-en) Recruitment of `r sp` for the base model. The black points are the medians of the posteriors, the vertical black lines are the 95% CIs for the posteriors, the point at $R_0$ is the median estimate for the initial recruitment parameter $R_0$, and the vertical line over that point and shaded ribbon across the time series is the 95% CI for $R_0$.
@@ -188,7 +192,8 @@ plot_index_mcmc(base_model,
                 type = "fits",
                 surv_index = survey_index,
                 leg_loc = NULL,
-                text_title_size = NULL)
+                text_title_size = NULL,
+                units = "1000 t")
 ```
 
 (ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in `r iscam`. The vertical lines represent the 95% CIs for those posteriors.
@@ -370,7 +375,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots show estimated median selectivity-at-age, and the shaded areas show the 95% credible intervals (CI). Single dotted lines with no CI (HS Multi, Discard CPUE) represent fixed selectivities. Dashed lines represent maturity-at-age based on logistic curves fit to the proportion of mature fish at age.
 
-(ref:fig-base-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent les intervalles de crédibilité (IC) à 95 %. Les lignes pointillées simples sans IC (HS Multi, Discard CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
+(ref:fig-base-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent les intervalles de crédibilité (IC) à 95 %. Les lignes pointillées simples sans IC (HS multi-espèces, Rejets CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
 
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
 plot_selex_mcmc(base_model,
@@ -382,7 +387,7 @@ plot_selex_mcmc(base_model,
 
 (ref:fig-base-ref-points-en) Posterior distributions for reference points and other values of interest for the base model. Subscripts are 1 = Freezer trawlers and 2 = Shoreside.
 
-(ref:fig-base-ref-points-fr) Distributions postérieures pour les points de référence et autres valeurs d'intérêt pour le modèle de base. Les indices sont 1 = Chalutiers congélateurs et 2 = Chalutiers côtiers.
+(ref:fig-base-ref-points-fr) Distributions postérieures pour les points de référence et autres valeurs d'intérêt pour le modèle de base. Les indices sont 1 = chalutiers congélateurs et 2 = bord de mer.
 
 ```{r fig-base-ref-points, fig.cap = ifelse(fr(), "(ref:fig-base-ref-points-fr)", "(ref:fig-base-ref-points-en)")}
 plot_ref_points(base_model)
