@@ -114,7 +114,10 @@ plot_biomass_mcmc(models$sens_grps[[3]],
 ```{r fig-sens-q-q, fig.cap = ifelse(fr(), "(ref:fig-sens-q-q-fr)", "(ref:fig-sens-q-q-en)")}
 plot_q_mcmc(models$sens_grps[[3]],
             leg_loc = "facet",
-            gear = NULL)
+            gear = NULL) +
+    theme(legend.key.size = unit(0.1, 'cm'),
+          legend.title = element_text(size = 8),
+          legend.text = element_text(size = 6))
 ```
 
 <!-- Selectivity and Geostat surveys ----------------------------------------->
