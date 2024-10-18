@@ -139,7 +139,7 @@ sens_models_text <-
 # This will be used to generate the sensitivity parameter table later
 sens_models_text_no_base <- sens_models_text
 # Add base model text to each sensitivity group
-sens_models_text <- map(sens_models_text, ~{c("Base model", .x)})
+sens_models_text <- map(sens_models_text, ~{c(tr("Base model"), .x)})
 # Make these factors so that they can be reordered in the legends later
 sens_models_text <- sens_models_text %>% map(~{factor(.x, levels = .x)})
 
