@@ -1,7 +1,7 @@
 
 (ref:fig-retro-biomass-en) Spawning biomass for retrospective models comparing the base model with models with successively removed years of data. All models have the same parameterization, and were run as MCMCs in exactly the same way as the base model.
 
-(ref:fig-retro-biomass-fr) Biomasse de frai pour les modèles rétrospectifs comparant le modèle de base avec des modèles avec des années de données enlevées successivement. Tous les modèles ont la même paramétrisation et ont été exécutés en tant que MCMC exactement de la même manière que le modèle de base.
+(ref:fig-retro-biomass-fr) Biomasse de frai pour les modèles rétrospectifs comparant le modèle de base avec des modèles avec des années de données enlevées successivement. Tous les modèles ont la même paramétrisation et ont été exécutés en tant que CMMC exactement de la même manière que le modèle de base.
 
 ```{r fig-retro-biomass, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-fr)", "(ref:fig-retro-biomass-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],

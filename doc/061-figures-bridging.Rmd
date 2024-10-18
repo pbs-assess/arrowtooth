@@ -150,7 +150,7 @@ plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
 
 (ref:fig-bridge10-pairs-en) Pairs plots for MCMC estimated parameters in the bridging model for which the WCHG index was removed. See Figure \@ref(fig:fig-base-priors-posts) for $q$ subscript descriptions.
 
-(ref:fig-bridge10-pairs-fr) Graphiques de paires pour les paramètres estimés par MCMC dans le modèle de transition pour lequel l'indice COHG a été supprimé. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
+(ref:fig-bridge10-pairs-fr) Graphiques de paires pour les paramètres estimés par CMMC dans le modèle de transition pour lequel l'indice COHG a été supprimé. Voir la figure \@ref(fig:fig-base-priors-posts) pour les descriptions des indices $q$.
 
 ```{r fig-bridge10-pairs, fig.cap = ifelse(fr(), "(ref:fig-bridge10-pairs-fr)", "(ref:fig-bridge10-pairs-en)")}
 plot_pairs_mcmc(models$bridge_grps[[3]][[2]],

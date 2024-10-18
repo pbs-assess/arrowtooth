@@ -20,7 +20,6 @@ table_catch(catch,
             digits = 1,
             caption = cap,
             start_yr = 1996,
-            font_size = 8,
             gear_col_widths = "6em")
 ```
 
@@ -37,7 +36,6 @@ table_catch_fleet(list(catch_ft, catch_ss),
                   digits = 1,
                   caption = cap,
                   start_yr = 1996,
-                  font_size = 8,
                   gear_col_widths = "6em")
 ```
 
@@ -54,7 +52,6 @@ table_catch(catch,
             caption = cap,
             start_yr = 1996,
             by_area = TRUE,
-            font_size = 8,
             gear_col_widths = "6em")
 
 ```
