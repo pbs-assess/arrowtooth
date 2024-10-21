@@ -11,6 +11,7 @@ table_prop_female(
   format = "latex",
   yrs = NULL,
   ret_means = FALSE,
+  bold_headers = TRUE,
   ...
 )
 }
@@ -30,6 +31,8 @@ all years will be included}
 
 \item{ret_means}{Logical. If \code{TRUE}, return a list of the gear mean values.
 Takes priority over \code{ret_df}}
+
+\item{bold_headers}{If \code{TRUE}, make all column headers bold}
 
 \item{...}{Arguments passed to \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 }

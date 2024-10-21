@@ -16,6 +16,7 @@
 #' all years will be included
 #' @param ret_means Logical. If `TRUE`, return a list of the gear mean values.
 #' Takes priority over `ret_df`
+#' @param bold_headers If `TRUE`, make all column headers bold
 #'
 #' @return A [csasdown::csas_table()]
 #' @importFrom csasdown csas_table
@@ -27,6 +28,7 @@ table_prop_female <- function(prop_lst,
                               format = "latex",
                               yrs = NULL,
                               ret_means = FALSE,
+                              bold_headers = TRUE,
                               ...){
 
   ct_sym <- sym(tr("Commercial trawl"))
@@ -55,7 +57,7 @@ table_prop_female <- function(prop_lst,
     filter(Year <= end_yr) |>
     mutate(Year = as.character(Year))
 
-  means <- vec2df(c("Mean", f(map_dbl(d[-1], ~{mean(.x, na.rm = TRUE)}), 2)),
+  means <- vec2df(c(tr("Mean"), f(map_dbl(d[-1], ~{mean(.x, na.rm = TRUE)}), 2)),
                   nms = names(k))
 
   x <- bind_rows(k, means)
@@ -75,9 +77,13 @@ table_prop_female <- function(prop_lst,
   if(return_df){
     return(x)
   }
-  # Translate Year
-  x <- x |>
-    mutate(Year = tr("Year"))
+
+  # Translate the Year column header only
+  names(x) <- gsub("Year", tr("Year"), names(x))
+
+  if(bold_headers){
+    names(x) <- paste0("\\textbf{", names(x), "}")
+  }
 
   out <- csas_table(x,
              format = format,
