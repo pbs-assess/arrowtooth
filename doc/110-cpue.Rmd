@@ -20,7 +20,7 @@ The 100% discard rule in the Discard CPUE time series means the entire tow is di
 
 ```{r app-cpue-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# REJETER L'INDICE CPUE STANDARDISATION {#app:dcpue}
-Nous nous appuyons sur les méthodes décrites dans @anderson2019synopsis et @forrest2020pcod, que nous reproduisons en partie ici par souci d'exhaustivité. Nous avons cherché à générer un indice de l'abondance de `r sp` à partir des données de captures par unité d'effort (CPUE) des rejets de chaluts commerciaux, normalisé pour la profondeur, la localité de pêche, le mois, le navire et la latitude. Les localités de pêche sont des régions spatiales de taille similaire aux zones de gestion des pêcheries du Pacifique (PFMA) et sont des sous-zones des zones statistiques mineures de la côte ouest de la Colombie-Britannique qui ont été traditionnellement pêchées.
+Nous nous appuyons sur les méthodes décrites dans @anderson2019synopsis et @forrest2020pcod, que nous reproduisons en partie ici par souci d'exhaustivité. Nous avons cherché à générer un indice de l'abondance de `r sp` à partir des données de captures par unité d'effort (CPUE) des rejets de chaluts commerciaux, normalisé pour la profondeur, la localité de pêche, le mois, le navire et la latitude. Les localités de pêche sont des régions spatiales de taille similaire aux zones de gestion des pêcheries du Pacifique (ZGPP) et sont des sous-zones des zones statistiques mineures de la côte ouest de la Colombie-Britannique qui ont été traditionnellement pêchées.
 
 ## DÉFINITION DE LA FLOTTE DE REJETS COMMERCIAUX
 Avant d'ajuster un modèle de standardisation, nous avons dû filtrer et manipuler les données de capture et d'effort disponibles afin de générer un ensemble de données approprié pour l'ajustement du modèle. L'aspect unique de cette analyse, par rapport à une analyse similaire de la CPUE dans d'autres évaluations récentes des stocks réalisées en `r bc`, est que nous avons commencé par filtrer toutes les données relatives aux événements de pêche commerciale au chalut de fond afin de n'inclure que les événements pour lesquels `r sp` a été capturé et toutes les captures ont été rejetées. Cette approche a été suggérée par les représentants de l'industrie lors d'une réunion du groupe de travail technique afin d'éviter les traits ciblant `r sp` et de minimiser les problèmes liés aux changements de comportement en matière de ciblage au fil du temps.
@@ -168,7 +168,33 @@ bub(5)
 
 ```{r fig-cpue-catch-effort, fig.cap = ifelse(fr(), "(ref:fig-cpue-catch-effort-fr)", "(ref:fig-cpue-catch-effort-en)"), out.width = "6in", results = 'asis'}
 
- knitr::include_graphics(file.path(cpuefold, "catch-effort-1.png"), dpi = NA)
+if(!exists("dfleet")){
+  dfleet <- cpue_get_fleet()
+}
+
+sc_sym <- sym(ifelse(fr(),
+                     "Espèces capturées",
+                     "Species catch"))
+hf_sym <- sym(ifelse(fr(),
+                     "Heures de pêche",
+                     "Hours fished"))
+dfleet |> 
+  bind_rows() |> 
+  group_by(year, area) |> 
+  summarise(
+    !!sc_sym := sum(spp_catch) / 1000, 
+    !!hf_sym := sum(hours_fished) / 1000) |> 
+  reshape2::melt(id.vars = c("year", "area")) |> 
+  ggplot(aes(year, value)) +
+  geom_line() +
+  facet_grid(variable~area, scales = "free_y") +
+  ylab(ifelse(fr(),
+              "Valeur (1 000 kg ou 1 000 heures)",
+              "Value (1,000 kg or 1,000 hours)")) +
+  xlab("") +
+  ylim(0, NA)
+}
+#knitr::include_graphics(file.path(cpuefold, "catch-effort-1.png"), dpi = NA)
 ```
 
 (ref:fig-cpue-coef-fixed-en) Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level (the missing factor level in each plot). Dots, thick, and thin lines represent mean, 50%, and 95% confidence intervals.

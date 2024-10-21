@@ -57,7 +57,7 @@ table_prop_female <- function(prop_lst,
     filter(Year <= end_yr) |>
     mutate(Year = as.character(Year))
 
-  means <- vec2df(c(tr("Mean"), f(map_.dbl(d[-1], ~{mean(.x, na.rm = TRUE)}), 2)),
+  means <- vec2df(c(tr("Mean"), f(map_dbl(d[-1], ~{mean(.x, na.rm = TRUE)}), 2)),
                   nms = names(k))
 
   x <- bind_rows(k, means)
