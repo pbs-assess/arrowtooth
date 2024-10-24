@@ -100,5 +100,6 @@ run_discard_index_model <- \(dfleet,
   predictions <- plyr::ldply(model, predict_cpue_index_tweedie)
   write_csv(predictions, fn_predictions)
 
-  model
+  list(model = model,
+       predictions = predictions)
 }
