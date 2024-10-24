@@ -142,36 +142,78 @@ cpue_cap_text <- function(type) {
 }
 ```
 
-```{r cpue-bubble1, fig.cap = cpue_cap_text("locality"), out.width = "6in", results = 'asis'}
-bub(1)
+```{r cpue-locality-bubble, fig.cap = cpue_cap_text("locality"), out.width = "6in", fig.asp = max(dfleet_sum$locality) / 70, results = 'asis'}
+
+dfleet <- cpue_extraction()
+gfplot:::plot_predictor_bubbles(dfleet,
+                                "locality",
+                                french = fr()) +
+  theme(axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
+
 ```
 
-```{r cpue-bubble2, fig.cap = cpue_cap_text("depth"), out.width = "6in", results = 'asis'}
-bub(2)
+```{r cpue-depth-bubble, fig.cap = cpue_cap_text("depth"), out.width = "6in", fig.asp = max(dfleet_sum$depth) / 50, results = 'asis'}
+
+if(!exists("dfleet")){
+  dfleet <- cpue_extraction()
+}
+gfplot:::plot_predictor_bubbles(dfleet,
+                                "depth",
+                                french = fr()) +
+  theme(axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
 ```
 
-```{r cpue-bubble3, fig.cap = cpue_cap_text("latitude"), out.width = "6in", results = 'asis'}
-bub(3)
+```{r cpue-latitude-bubble, fig.cap = cpue_cap_text("latitude"), out.width = "6in", fig.asp = max(dfleet_sum$latitude) / 60, results = 'asis'}
+
+if(!exists("dfleet")){
+  dfleet <- cpue_extraction()
+}
+gfplot:::plot_predictor_bubbles(dfleet,
+                                "latitude",
+                                french = fr()) +
+  theme(axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
 ```
 
-```{r cpue-bubble4, fig.cap = paste0(cpue_cap_text("vessel"), ifelse(fr(), "Les numéros d'identification des navires ont été rendus anonymes par un tri aléatoire des navires et l'attribution de numéros séquentiels.", "The vessel ID numbers of have anonymized by randomly sorting the vessels and assigning sequential numbers.")), out.width="6in", results='asis'}
-bub(4)
+(ref:fig-cpue-vessel-bubble-en) `r paste0(cpue_cap_text("vessel"))` The vessel ID numbers of have been made anonymous by randomly sorting the vessels and assigning sequential numbers.
+
+(ref:fig-cpue-vessel-bubble-fr) `r paste0(cpue_cap_text("vessel"))` Les numéros d'identification des navires ont été rendus anonymes par un tri aléatoire des navires et l'attribution de numéros séquentiels.
+
+```{r cpue-vessel-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-vessel-bubble-fr)", "(ref:fig-cpue-vessel-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$vessel) / 50, results = 'asis'}
+
+if(!exists("dfleet")){
+  dfleet <- cpue_extraction()
+}
+gfplot:::plot_predictor_bubbles(dfleet,
+                                "vessel",
+                                french = fr()) +
+  theme(axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
 ```
 
-```{r cpue-bubble5, fig.cap = cpue_cap_text("month"), out.width="6in", results='asis'}
-bub(5)
+```{r cpue-month-bubble, fig.cap = cpue_cap_text("month"), out.width = "6in", fig.asp = max(dfleet_sum$month)/30, results = 'asis'}
+
+if(!exists("dfleet")){
+  dfleet <- cpue_extraction()
+}
+gfplot:::plot_predictor_bubbles(dfleet,
+                                "month",
+                                french = fr()) +
+  theme(axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank())
 ```
 
-(ref:fig-cpue-catch-effort-en) Total catch and effort from the discard fleet of `r sp`
+(ref:fig-cpue-catch-effort-en) Total catch and effort from the discard fleet of `r sp`.
 
 (ref:fig-cpue-catch-effort-fr) Le total des captures et de l'effort de la flotte de rejets de `r sp`.
 
-```{r fig-cpue-catch-effort, fig.cap = ifelse(fr(), "(ref:fig-cpue-catch-effort-fr)", "(ref:fig-cpue-catch-effort-en)"), out.width = "6in", results = 'asis'}
+```{r fig-cpue-catch-effort, fig.cap = ifelse(fr(), "(ref:fig-cpue-catch-effort-fr)", "(ref:fig-cpue-catch-effort-en)"), out.width = "6in", fig.asp = 0.9, results = 'asis'}
 
 if(!exists("dfleet")){
-  dfleet <- cpue_get_fleet()
+  dfleet <- cpue_extraction()
 }
-
 sc_sym <- sym(ifelse(fr(),
                      "Espèces capturées",
                      "Species catch"))
@@ -193,9 +235,16 @@ dfleet |>
               "Value (1,000 kg or 1,000 hours)")) +
   xlab("") +
   ylim(0, NA)
-}
 #knitr::include_graphics(file.path(cpuefold, "catch-effort-1.png"), dpi = NA)
 ```
+
+```{r fit-cpue, results='hide', warning=FALSE, message=FALSE}
+
+model <- run_discard_index_model(dfleet = dfleet,
+                                 params = cpue_extraction(ret_params = TRUE),
+                                 fn_csv = "/srv/arrowtooth/arrowtooth-nongit/data")
+```
+
 
 (ref:fig-cpue-coef-fixed-en) Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level (the missing factor level in each plot). Dots, thick, and thin lines represent mean, 50%, and 95% confidence intervals.
 
@@ -204,7 +253,11 @@ dfleet |>
 
 ```{r fig-cpue-coef-fixed, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-fixed-fr)", "(ref:fig-cpue-coef-fixed-en)"), out.width = "6in", results = 'asis'}
 
- knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot1-1.png"), dpi = NA)
+toplot <- which(attr(
+  model, "split_labels")$formula_version == "Full standardization")
+plot_fixed_effect_coefs(model[[toplot[i]]]) +
+     ggtitle(params$area_name)
+#knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot1-1.png"), dpi = NA)
 ```
 
 (ref:fig-cpue-coef-rel-en) Random intercept values in log space for locality and vessel.
@@ -213,7 +266,12 @@ dfleet |>
 
 ```{r fig-cpue-coef-rel, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-rel-fr)", "(ref:fig-cpue-coef-rel-en)"), out.width = "\\textwidth", results = 'asis'}
 
- knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot2-1.png"), dpi = NA)
+toplot <- which(attr(
+  model, "split_labels")$formula_version == "Full standardization")
+plot_random_intercepts(model[[toplot[i]]],
+                       re_names = c("locality", "vessel")) +
+     ggtitle(params$area_name)
+#knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot2-1.png"), dpi = NA)
 ```
 
 (ref:fig-cpue-coef-rel2-en) Random intercept values for the locality-year interaction effect. Panel labels represent IDs for the localities.
@@ -222,7 +280,11 @@ dfleet |>
 
 ```{r fig-cpue-coef-rel2, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-rel2-fr)", "(ref:fig-cpue-coef-rel2-en)"), out.width = "\\textwidth", results = 'asis'}
 
- knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot3-1.png"), dpi = NA)
+toplot <- which(attr(
+  model, "split_labels")$formula_version == "Full standardization")
+plot_year_locality_interactions(model[[toplot[i]]]) +
+     ggtitle(params$area_name)
+#knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot3-1.png"), dpi = NA)
 ```
 
 (ref:fig-cpue-stand-index-en) Commercial discard CPUE indices. The red line is the standardized version, the black solid line is a version with only a year predictor with the Tweedie observation model, and the dashed line is the summed catch for the species divided by effort. The ribbons indicate the 95% (Wald) confidence intervals. The standardization process is not having a large impact on the shape of the time series here, which is likely indicative that there have not been systematic changes in the standardization factors included in the model that have impacted CPUE.
