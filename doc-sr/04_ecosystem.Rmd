@@ -9,5 +9,11 @@ A winter survey is planned for 2026 to sample several species, including `r sp`.
 ```
 
 ```{r app-eco-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-<<app-eco-para-1-en>>
+cat("## Considérations relatives à l'écosystème
+
+Il n'y a pas eu de travaux supplémentaires dans le domaine des sciences écosystémiques pour `r sp` au cours des deux années qui se sont écoulées depuis le `r ca `, bien que la poursuite des travaux sur l'état corporel (annexes E et F, `r ca `) puisse être utile et sera réexaminée lors de la prochaine mise à jour de l'évaluation du stock.
+
+Une étude hivernale est prévue pour 2026 afin d'échantillonner plusieurs espèces, y compris le `r sp`. On sait que le frai et l'éclosion ont lieu en hiver [@arf1995 ; @blood2007], et l'analyse des maturités à ce stade peut permettre de mieux comprendre l'ogive de maturité et son déplacement apparent vers la droite de la sélectivité.
+
+")
 ```

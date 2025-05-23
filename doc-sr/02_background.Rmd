@@ -13,7 +13,18 @@ Since the `r ca`, there have been two years of new `r sp` commercial catch (2022
 ```
 
 ```{r para-1-background-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-<<para-1-background-en>>
+cat("
+# Contexte
+
+## Description de la pêche et de la gestion
+
+La pêche commerciale du `r sp` est active depuis les années 1950. Avant 2006, il n'y avait aucune limite à la quantité de `r sp` qui pouvait être capturée. En 2006, un total admissible des captures (TAC) de 15 kt a été établi et est resté à ce niveau jusqu'en 2017. En 2017, le TAC a été porté à 17,5 kt et est resté à ce niveau pendant deux ans avant d'être ramené à 14 kt en 2019, à titre de mesure de précaution, pour répondre aux préoccupations exprimées par la flotte de chalutiers commerciaux concernant la réduction observée de l'abondance de la limande à dents d'archer. En 2020, le TAC a été ramené à son niveau actuel de 5 kt pour répondre aux préoccupations du secteur concernant la diminution de l'abondance de la `r sp` sur les zones de pêche traditionnelles [@dfomemo2020].
+
+Avant l'introduction d'une couverture à 100 % par des observateurs en mer dans les flottes de poissons de fond en 1996, la déclaration des rejets de `r sp` dans les journaux de bord était obligatoire, mais comme le `r sp` n'a pas reçu de TAC avant 2005, les capitaines n'étaient guère incités à enregistrer les rejets avec précision jusqu'à ce que des observateurs en mer soient présents à bord des navires à partir de 1996.
+
+Depuis le `r ca`, il y a eu deux années de nouvelles prises commerciales de `r sp` (2022 et 2023). Ces valeurs sont présentées dans le tableau \@ref(tab:fleet-catch-table) et la figure \@ref(fig:fig-catch-fleet) avec le reste des données de capture à partir de `r start_catch_yr`. La prise (débarquements + rejets) de la flotte de chalutiers congélateurs a augmenté de `r perc_inc_ft_2021_2022`% de 2021 à 2022, mais a ensuite diminué de `r perc_dec_ft_2022_2023`% de 2022 à 2023. La flotte côtière a diminué pour les deux années, de `r perc_dec_ss_2021_2022`% de 2021 à 2022, et de `r perc_dec_ss_2022_2023`% de 2022 à 2023.
+
+")
 ```
 
 (ref:fig-catch-fleet-en) Commercial catch of `r sp` by fleet and gear type. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. In the years prior to 1996, many tows of `r sp` were discarded without logs being kept.

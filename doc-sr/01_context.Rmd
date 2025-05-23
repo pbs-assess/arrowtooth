@@ -12,7 +12,13 @@ Stock Assessment Update of `r sp` (*`r sp_science`*) in `r bc` in 2024.
 ")
 ```
 
-```{r para-1-context-fr, eval = fr(), results = 'asis', needs_trans = TRUE}
-<<para-1-context-en>>
+```{r para-1-context-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# Contexte
+
+L'état du stock de `r sp` (*`r sp_science`*) sur la côte ouest de `r bc` a été évalué pour la dernière fois en utilisant les données de 1996--2021 [@arf2022 ; @dfo2023arrowtoothSAR]. Dans la dernière évaluation (révisée en 2022 ; le '`r ca`'), le stock a été estimé légèrement en dessous de la référence supérieure du stock (RSS) dans le modèle de base et proche du point de référence limite (PRL) dans un modèle de sensibilité avec une plus grande variation du recrutement. Le modèle a également montré une baisse de la biomasse estimée du stock reproducteur, une baisse des indices d'enquête et une baisse du recrutement estimé. En raison de ces problèmes, l'unité de gestion des poissons de fond (GGPF) a demandé une mise à jour du stock sur deux ans. Cette période de deux ans a été choisie parce que les indices des relevés biennaux inclus dans le modèle auraient chacun une nouvelle année de données.
+
+Le `r ca` a estimé une taille médiane du stock au début de 2022 (ou à la fin de 2021) de 67,95 kilotonnes (kt) avec un intervalle crédible (IC) de 56,14--83,83 kt. Lorsqu'elle est divisée par la biomasse non pêchée estimée ($B_0$), la biomasse relative médiane pour 2022 a été estimée à 0,37 avec un IC de 0,26--0,51. La biomasse relative médiane estimée pour 2011 était de 0,77 avec un IC de 0,53--1,09. La biomasse estimée a diminué chaque année entre 2011 et 2021.
+
+Cette réponse scientifique résulte du processus de réponse scientifique du 2 octobre 2024 sur la mise à jour de l'évaluation du stock de `r sp` (*`r sp_science`*) dans `r bc` en 2024.")
 ```
 

@@ -37,12 +37,12 @@ output:
    latex_engine: lualatex
    # If `true`, alternative figure text and figure tags are added for
    # PDF web accessibility compliance
-   accessible_pdf: true
+   accessible_pdf: false
    # The name of the directory containing pre-made figures such as png files
    # that will be included using `include_graphics()`
    figures_dir: figure
    # This value will be the return value for `fr()` in your code
-   french: false
+   french: true
    prepub: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
    # the document. If false, any changes you have made to the style file in your project
