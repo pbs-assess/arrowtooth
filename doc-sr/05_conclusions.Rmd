@@ -49,35 +49,36 @@ Le modèle `r iscam` utilisé dans cette mise à jour avait la même structure e
 
 Avec l'ajout des nouvelles données, la trajectoire de la biomasse reproductrice relative de `r start_catch_yr` à 2021 est restée largement inchangée par rapport au modèle `r ca`, bien que la biomasse initiale, $B_0$, et les valeurs absolues de la biomasse reproductrice aient été estimées légèrement inférieures dans cette mise à jour à celles du modèle `r ca`.
 
-Aucune modification importante n'a été observée dans les ajustements des quatre indices de relevé et du modèle `r dcpue`. Trois des indices de l'enquête synoptique ont chacun reçu un nouvel indice (l'indice « r hsmas » a pour année terminale 2003 et n'a pas été mis à jour), et l'indice « r dcpue » a reçu deux nouveaux indice (2022 et 2023) car il est basé sur les captures commerciales.
+Aucune modification importante n'a été observée dans les ajustements des quatre indices de relevé et du modèle `r dcpue`. Trois des indices de l'enquête synoptique ont chacun reçu un nouvel indice (l'indice `r hsmas` a pour année terminale 2003 et n'a pas été mis à jour), et l'indice `r dcpue` a reçu deux nouveaux indice (2022 et 2023) car il est basé sur les captures commerciales.
 
 Les projections présentent les médianes et les IC pour des captures de 1 à 8 kt, par incréments de 1 kt (Figures \@ref(fig:fig-rel-biomass-proj) et \@ref(fig:fig-rel-biomass-proj-closeup)). La figure montre que pour des captures de 1 à 6 kt, la médiane de la biomasse projetée devrait augmenter jusqu'en 2027. Pour des captures de 7 à 8 kt, la médiane de la biomasse projetée devrait rester stable et inférieure au seuil de référence de $0,4B_0$.
 
-Le recrutement au cours des quatre dernières années du modèle est estimé avec un degré élevé d'incertitude (Figure \@ref(fig:fig-base-recr)). Cela est dû à l'absence de nouvelles données d'âge incluses dans le modèle pour 2022 et 2023. Nous prévoyons que de nouvelles données sur la composition par âge seront disponibles pour la prochaine mise à jour de cette évaluation. Ce document contient plusieurs tableaux de décision de pêche (Tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) qui, pour huit niveaux de capture différents, de 1 kt à 8 kt, indiquent les probabilités que la biomasse relative projetée soit supérieure à :
+Le recrutement au cours des quatre dernières années du modèle est estimé avec un degré élevé d'incertitude (Figure \@ref(fig:fig-base-recr)). Cela est dû à l'absence de nouvelles données d'âge incluses dans le modèle pour 2022 et 2023. Nous prévoyons que de nouvelles données sur la composition par âge seront disponibles pour la prochaine mise à jour de cette évaluation. Ce document contient plusieurs tableaux de décision de pêche (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) qui, pour huit niveaux de capture différents, de 1 kt à 8 kt, indiquent les probabilités que la biomasse relative projetée soit supérieure à :
 
-1. le PRL de $0,2B_0$ (Tableau \@ref(tab:decision-table-02bo)),
-2. le RSS alternatif de $0,35B_0$ (Tableau \@ref(tab:decision-table-035bo)),
-3. le RSS de $0,4B_0$ (Tableau \@ref(tab:decision-table-04bo)), et
-4. la biomasse de l’année précédente (Tableau \@ref(tab:decision-table-decreasing-biomass)).
+1. le PRL de $0,2B_0$ (tableau \@ref(tab:decision-table-02bo)),
+2. le RSS alternatif de $0,35B_0$ (tableau \@ref(tab:decision-table-035bo)),
+3. le RSS de $0,4B_0$ (tableau \@ref(tab:decision-table-04bo)), et
+4. la biomasse de l’année précédente (tableau \@ref(tab:decision-table-decreasing-biomass)).
 
 Quelques observations issues des tables de décision :
 
-1. La probabilité d'être au-dessus du PRL de $0,2B_0$ début 2025 est de 0,99 si le niveau de capture maximal de 8 kt est atteint en 2024 (Tableau \@ref(tab:decision-table-02bo)).
-2. La probabilité d'être au-dessus du LRP de $0,2B_0$ au début de 2027 est de 0,98 si le niveau de capture le plus élevé de 8 kt est capturé chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` (Tableau \@ref(tab:decision-table-02bo)),
+1. La probabilité d'être au-dessus du PRL de $0,2B_0$ début 2025 est de 0,99 si le niveau de capture maximal de 8 kt est atteint en 2024 (tableau \@ref(tab:decision-table-02bo)).
+
+2. La probabilité d'être au-dessus du LRP de $0,2B_0$ au début de 2027 est de 0,98 si le niveau de capture le plus élevé de 8 kt est capturé chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` (tableau \@ref(tab:decision-table-02bo)),
 
 3. La probabilité d'être au-dessus du candidat alternatif USR de $0,35B_0$ au début de 2025 est de 0,61 si le niveau de capture le plus élevé de 8 kt est capturé en 2024 (Tableau \@ref(tab:decision-table-035bo)),
 
-4. La probabilité d'être au-dessus du candidat alternatif USR de $0,35B_0$ au début de 2027 est de 0,60 si le niveau de capture le plus élevé de 8 kt est capturé chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` (Tableau \@ref(tab:decision-table-035bo)),
+4. La probabilité d'être au-dessus du candidat alternatif USR de $0,35B_0$ au début de 2027 est de 0,60 si le niveau de capture le plus élevé de 8 kt est capturé chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` (tableau \@ref(tab:decision-table-035bo)),
 
-5. La probabilité d'être au-dessus du candidat USR de $0,4B_0$ au début de 2025 est de 0,37 si le niveau de capture le plus élevé de 8 kt est capturé en 2024 (Tableau \@ref(tab:decision-table-04bo)),
+5. La probabilité d'être au-dessus du candidat USR de $0,4B_0$ au début de 2025 est de 0,37 si le niveau de capture le plus élevé de 8 kt est capturé en 2024 (tableau \@ref(tab:decision-table-04bo)),
 
-6. La probabilité d'être au-dessus du candidat USR de $0,4B_0$ au début de 2027 est de 0,42 si le niveau de capture le plus élevé de 8 kt est capturé chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` (Tableau \@ref(tab:decision-table-04bo)),
+6. La probabilité d'être au-dessus du candidat USR de $0,4B_0$ au début de 2027 est de 0,42 si le niveau de capture le plus élevé de 8 kt est capturé chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` (tableau \@ref(tab:decision-table-04bo)),
 
-7. Une probabilité de 0,5 d'être au-dessus du USR candidat de $0,4B_0$ au début de 2025 se produit entre 2 et 4 kt de captures en 2024. Une capture plus élevée entraînera une probabilité inférieure à 0,5 (Tableau \@ref(tab:decision-table-04bo)),
+7. Une probabilité de 0,5 d'être au-dessus du USR candidat de $0,4B_0$ au début de 2025 se produit entre 2 et 4 kt de captures en 2024. Une capture plus élevée entraînera une probabilité inférieure à 0,5 (tableau \@ref(tab:decision-table-04bo)),
 
-8. Une probabilité de 0,5 d'être au-dessus du candidat USR de $0,4B_0$ au début de 2027 se produit entre 4 et 5 kt de capture constante pour chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs`. Une prise constante plus élevée entraînera une probabilité inférieure à 0,5 (Tableau \@ref(tab:decision-table-decreasing-biomass)), et
+8. Une probabilité de 0,5 d'être au-dessus du candidat USR de $0,4B_0$ au début de 2027 se produit entre 4 et 5 kt de capture constante pour chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs`. Une prise constante plus élevée entraînera une probabilité inférieure à 0,5 (tableau \@ref(tab:decision-table-decreasing-biomass)), et
 
-9. Une probabilité de 0,5 que la biomasse augmente d'année en année pour chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` se produit entre 7 et 8 kt de capture constante chaque année (Tableau \@ref(tab:decision-table-decreasing-biomass)).
+9. Une probabilité de 0,5 que la biomasse augmente d'année en année pour chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` se produit entre 7 et 8 kt de capture constante chaque année (tableau \@ref(tab:decision-table-decreasing-biomass)).
 
 Ce stock devrait être réexaminé une fois de plus dans trois ans, en septembre ou octobre 2027, dans le cadre d’une réponse scientifique. En plus des nouvelles données sur les prises et les indices d'enquête, ce modèle de mise à jour doit inclure de nouvelles données sur l'âge pour les trois enquêtes synoptiques et les deux flottes de la pêche commerciale pour la période 2022-2026.
 
