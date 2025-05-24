@@ -1,7 +1,5 @@
 ```{r para-1-background-en, eval = !fr(), results = 'asis'}
-cat("# Background
-
-## Description of the Fishery and Management
+cat("## Description of the Fishery and Management
 
 The commercial fishery for `r sp` has been active since the 1950s. Prior to 2006 there were no limits on the amount of `r sp` that could be caught. In 2006 a Total Allowable Catch (TAC) of 15 kt was established and it remained at this level until 2017. In 2017, the TAC was increased to 17.5 kt and remained there for two years until it was reduced to 14 kt in 2019 as a precautionary measure to address concerns raised by the commercial trawl fleet about their oberved reduction in abundance of Arrowtooth Flounder. In 2020 the TAC was decreased to its current level of 5 kt to address industry concerns regarding declining `r sp` abundance on traditional fishing grounds [@dfomemo2020].
 
@@ -13,10 +11,7 @@ Since the `r ca`, there have been two years of new `r sp` commercial catch (2022
 ```
 
 ```{r para-1-background-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("
-# Contexte
-
-## Description de la pêche et de la gestion
+cat("## Description de la pêche et de la gestion
 
 La pêche commerciale du `r sp` est active depuis les années 1950. Avant 2006, il n'y avait aucune limite à la quantité de `r sp` qui pouvait être capturée. En 2006, un total admissible des captures (TAC) de 15 kt a été établi et est resté à ce niveau jusqu'en 2017. En 2017, le TAC a été porté à 17,5 kt et est resté à ce niveau pendant deux ans avant d'être ramené à 14 kt en 2019, à titre de mesure de précaution, pour répondre aux préoccupations exprimées par la flotte de chalutiers commerciaux concernant la réduction observée de l'abondance de la limande à dents d'archer. En 2020, le TAC a été ramené à son niveau actuel de 5 kt pour répondre aux préoccupations du secteur concernant la diminution de l'abondance de la `r sp` sur les zones de pêche traditionnelles [@dfomemo2020].
 
@@ -53,7 +48,7 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 ```{r fleet-catch-table, results = "asis"}
 cap <- paste0("Recent coastwide commercial fishery landings and discards (tonnes) of ", sp, " by fleet. 'Total' columns are the sum of landings and discards by fleet, and 'Total Catch' is the sum of the fleet 'Total' columns.")
 if(fr()){
-cap <- paste0("")
+  cap <- paste0("Débarquements et rejets récents de la pêche commerciale côtière (tonnes) de ", sp, " par flotte. Les colonnes 'Total' représentent la somme des débarquements et des rejets par flotte, et 'Total des captures' représente la somme des colonnes 'Total' de la flotte.")
 }
 
 table_catch_fleet(list(catch_ft, catch_ss),

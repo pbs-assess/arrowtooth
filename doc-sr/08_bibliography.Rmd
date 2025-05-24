@@ -1,4 +1,12 @@
-# Sources of Information
+```{r sources-of-information-en, eval = !fr(), results = 'asis'}
+cat("# Sources of Information
+")
+```
+
+```{r sources-of-information-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# Sources d'information
+")
+```
 
 <!-- This is an optional section -->
 

@@ -1,7 +1,9 @@
 ---
 title: "Stock Status update for Arrowtooth Flounder (*Atheresthes stomias*) for the West Coast of British Columbia in 2024"
 french_title: "Mise à jour de l'état des stocks de flétan noir (*Atheresthes stomias*) pour la côte ouest de la Colombie-Britannique en 2024"
-title_short: "Arrowtooth draft SR -- Do not cite or circulate" #"Stock Status Update for Arrowtooth Flounder in 2023"
+# Keep title_short as is (don't call it title_short_english) for backwards compatibility
+title_short: "Stock Status Update for Arrowtooth Flounder in 2023"
+title_short_french: "Mise à jour de l'état des stocks de plie à dents de flèche en 2023"
 citation_english: "DFO, Stock Status update for Arrowtooth Flounder (*Atheresthes stomias*) for the West Coast of British Columbia in 2024. DFO Can. Sci. Advis. Sec. Res. Doc. 2024/nnn."
 citation_french: "MPO, Mise à jour de l'état des stocks de la plie à dents de flèche (*Atheresthes stomias*) pour la côte ouest de la Colombie-Britannique en 2024. DFO Secr. can. de consult. sci. du MPO. Doc. de rech 2024/nnn."
 model_path: "/srv/arrowtooth/2022"
@@ -73,7 +75,10 @@ type:
 knit: (function(input, ...) csasdown::render())
 site: bookdown::bookdown_site
 link-citations: true
-bibliography: ../doc/bib/refs.bib
+# Experimenting with evaluating code from a tag. See line containing
+# doc_dir <- near the end of the file
+doc_dir: file.path(path.expand("~"), "github/pbs-assess/arrowtooth/doc")
+bibliography: /home/grandin/github/pbs-assess/arrowtooth/doc/bib/refs.bib
 lot: true
 lof: true
 # Any extra LaTeX code for the header:
@@ -85,8 +90,8 @@ lof: true
 
 curr_dir <- basename(getwd())
 curr_dir_up1 <- basename(dirname(getwd()))
-if(curr_dir != "doc" && curr_dir_up1 != "arrowtooth"){
-  stop("You must be in the 'arrowtooth/doc' directory to source this file.\n",
+if(!grepl("doc", curr_dir)){
+  bail("You must be in the 'arrowtooth/doc' directory to source this file.\n",
        "The current directory is: ", getwd())
 }
 
@@ -147,6 +152,7 @@ options(knitr.graphics.rel_path = FALSE)
 library(devtools)
 library(dplyr)
 if(as.logical(length(grep("grandin", user)))){
+  arrowtooth_repo_dir <- "~/github/pbs-assess/arrowtooth"
   load_all("~/github/kableExtra")
   load_all("~/github/pbs-assess/gfiscamutils")
   load_all("~/github/pbs-assess/gfplot")
@@ -171,7 +177,7 @@ library(here)
 library(purrr)
 library(rosettafish)
 library(tidylog, warn.conflicts = FALSE)
-load_all(".")
+load_all(arrowtooth_repo_dir)
 
 yaml_tags <- rmarkdown::metadata
 meta <- yaml_tags$output
@@ -185,7 +191,10 @@ if(!is.null(meta)){
 ```{r include = FALSE}
 # Don't load the models if they already exist
 if(!exists("models") || !exists("drs"))
-  source("../doc/load-models.R", local = knitr::knit_global())
+  source(file.path(arrowtooth_repo_dir,
+                   "doc",
+                   "load-models.R"),
+         local = knitr::knit_global())
 ```
 
 ```{r data-setup, cache.lazy = FALSE}
@@ -764,7 +773,10 @@ rhat_df <- rhat_df |>
   select(-param) |> 
   select(Parameter, everything())
 
-names(rhat_df) <- c("Parameter", "$\\hat{R}$", "$ESS_{bulk}$", "$ESS_{tail}$")
+names(rhat_df) <- c("Parameter",
+                    "$\\boldsymbol{\\hat{R}}$",
+                    "$\\boldsymbol{ESS_{bulk}}$",
+                    "$\\boldsymbol{ESS_{tail}}$")
 
 ca <- "2022 stock assessment"
 ```
@@ -863,7 +875,12 @@ diff_bio_b40 <- f(0.0064 * 1000, 1)
   
 
 
+figures_dir <- here(rmarkdown::metadata$output$`csasdown::sr_pdf`$figures_dir)
+accessible_pdf <- rmarkdown::metadata$output$`csasdown::sr_pdf`$accessible_pdf
+#doc_dir <- eval(parse(text = noquote(rmarkdown::metadata$doc_dir)))
+#bib_dir <- file.path(doc_dir, rmarkdown::metadata$bibliography)
 ```
 
 <!-- For highlighting table cells for readability. See the decision table code for example.  -->
 \definecolor{faint-gray}{gray}{0.9}
+

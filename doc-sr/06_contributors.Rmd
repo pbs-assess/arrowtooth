@@ -7,11 +7,17 @@ Contributors to the Science Response, where an asterisk '*' indicates the primar
 ```
 
 ```{r, echo = FALSE, include = FALSE}
+
 contributors <- tibble::tribble(
   ~Name,            ~Affiliation,
   "Chris Grandin*", "DFO Science, Pacific Region",
   "Finn, Deirdre",  "DFO Fisheries Management, Pacific Region")
-
+if(fr()){
+  contributors <- tibble::tribble(
+    ~Name,            ~Affiliation,
+    "Chris Grandin*", "Secteur des sciences du MPO, région du Pacifique",
+    "Finn, Deirdre",  "Gestion des pêches du MPO, région du Pacifique")
+  }
 names(contributors) <- tr(names(contributors))
 names(contributors) <- paste0("\\textbf{", names(contributors), "}")
 ```

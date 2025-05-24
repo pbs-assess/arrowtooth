@@ -20,9 +20,9 @@ cat("
 
 Le modèle utilisé pour évaluer ce stock est le modèle statistique intégré de capture en fonction de l'âge (`r iscam`). Il a été réglé sur quatre séries de relevés au chalut indépendants de la pêcherie couvrant `r start_catch_yr`--2023, une série de CPUE de rejets comme indice d'abondance, des estimations annuelles de la prise commerciale de deux flottilles (Chalutiers congélateurs et Bord de mer), et des données sur la composition par âge des deux flottilles dans la pêcherie commerciale et les quatre relevés. Un modèle de base à deux sexes et deux flottilles a été sélectionné et mis en œuvre dans un contexte bayésien à l'aide de méthodes de Chaîne de Markov Monte Carlo (CMMC). Les principaux paramètres estimés comprenaient $R_0$, le recrutement initial, $h$, la pente de la relation stock-recrutement, $bar{R}$, le recrutement moyen, et $q_k$, où $k \in \{1,2,3,4,5\}$, la capturabilité des quatre enquêtes et l'indice de CPUE des rejets. Les paramètres de sélectivité ont également été estimés pour chaque sexe, flotte et enquête.
 
-Les estimations des paramètres et les valeurs fixes sont présentées dans le tableau \ref(tab:param-estimates-table). Comme pour le `r ca`, la mortalité naturelle a été fixée à 0,2 pour les femelles et à 0,35 pour les mâles. La sélectivité a été estimée pour tous les indices d'enquête mais fixée pour la CPUE des rejets ($\hat{a}_{7,sex,1} = 9,5$ et $\gamma_{7,sex,1} = 0,5$ pour les deux sexes dans le tableau \@ref(tab:param-estimates-table)).
+Les estimations des paramètres et les valeurs fixes sont présentées dans le tableau \@ref(tab:param-estimates-table). Comme pour le `r ca`, la mortalité naturelle a été fixée à 0,2 pour les femelles et à 0,35 pour les mâles. La sélectivité a été estimée pour tous les indices d'enquête mais fixée pour la CPUE des rejets ($\hat{a}_{7,sex,1} = 9,5$ et $\gamma_{7,sex,1} = 0,5$ pour les deux sexes dans le tableau \@ref(tab:param-estimates-table)).
 
-Toutes les estimations des paramètres étaient proches de celles du tableau 6 du `r ca`. L'a posteriori médian pour $B_0$ a diminué de 184,16 dans `r ca` à `r f(median(base_model$mcmccalcs$params$sbo), 2)` pour ce modèle. Les estimations médianes de la biomasse a posteriori pour la plupart des années étaient également légèrement inférieures aux estimations dans le `r ca`, de sorte que la biomasse relative semble presque identique à la Figure 9 dans le `r ca`, à l'exception des deux nouveaux points pour 2022 et 2023 malgré les nouvelles estimations de $B_0$ et les estimations médianes de la biomasse a posteriori qui sont légèrement inférieures dans cette mise à jour. Dans les deux cas, les estimations de la biomasse relative à partir de 2020 étaient inférieures à la ligne de référence RSS $0,4B_0$.
+Toutes les estimations des paramètres étaient proches de celles du tableau 6 du `r ca`. L'a posteriori médian pour $B_0$ a diminué de 184,16 dans `r ca` à `r f(median(base_model$mcmccalcs$params$sbo), 2)` pour ce modèle. Les estimations médianes de la biomasse a posteriori pour la plupart des années étaient également légèrement inférieures aux estimations dans le `r ca`, de sorte que la biomasse relative semble presque identique à la figure 9 dans le `r ca`, à l'exception des deux nouveaux points pour 2022 et 2023 malgré les nouvelles estimations de $B_0$ et les estimations médianes de la biomasse a posteriori qui sont légèrement inférieures dans cette mise à jour. Dans les deux cas, les estimations de la biomasse relative à partir de 2020 étaient inférieures à la ligne de référence RSS $0,4B_0$.
 
 ")
 ```
@@ -30,9 +30,9 @@ Toutes les estimations des paramètres étaient proches de celles du tableau 6 d
 ```{r analysis-and-response-survey-en, eval = !fr(), results = 'asis'}
 cat("## Survey Indices and Catch
 
-In this update, there is one new survey year for each of the three synoptic surveys included in the model (Figure \@ref(fig:fig-base-index-fits)). The `r hsmas` has a terminal year of 2003 and therefore was not updated with any new data. The `r wcviss` took place in 2022; the `r qcsss` and the `r hsss` both took place in 2023. The `r dcpue` had a new index point added for each new year, 2022 and 2023 as it is based on the commercial discards in catch. The `r dcpue` is created using a Generalized Linear Mixed Model (GLMM), and as such all the indices in the time series are estimated each time new data are added anywhere in the time series. The estimated values for each year in the `r dcpue`  (the light grey points and bars in Figure \@ref(fig:fig-base-index-fits)) were therefore slightly different than those in Figure 14 of the `r ca`.
+In this update, there is one new survey year for each of the three synoptic surveys included in the model (Figure \@ref(fig:fig-base-index-fits)). The `r hsmas` has a terminal year of 2003 and therefore was not updated with any new data. The `r wcvis` took place in 2022; the `r qcs` and the `r hss` both took place in 2023. The `r dcpue` had a new index point added for each new year, 2022 and 2023 as it is based on the commercial discards in catch. The `r dcpue` is created using a Generalized Linear Mixed Model (GLMM), and as such all the indices in the time series are estimated each time new data are added anywhere in the time series. The estimated values for each year in the `r dcpue` (the light grey points and bars in Figure \@ref(fig:fig-base-index-fits)) were therefore slightly different than those in Figure 14 of the `r ca`.
 
-The 2022 point for the `r dcpue` and the 2023 point for the `r qcsss` were not fit well by the model; however, the median posterior estimates were within the 95% CI for those years. Overall, trends of all index estimates follow those seen in the `r ca`, with the `r qcsss` and `r hsss` indices being fit slightly better in the 2005--2012 time period than in the 2022 assessment.
+The 2022 point for the `r dcpue` and the 2023 point for the `r qcs` were not fit well by the model; however, the median posterior estimates were within the 95% CI for those years. Overall, trends of all index estimates follow those seen in the `r ca`, with the `r qcs` and `r hss` indices being fit slightly better in the 2005--2012 time period than in the 2022 assessment.
 
 The increase in the survey indices for 2023 is driving the increase in estimated biomass for the beginning of 2024 seen in Figures \@ref(fig:fig-base-sb-bo) and \@ref(fig:fig-base-depletion).
 ")
@@ -42,9 +42,9 @@ The increase in the survey indices for 2023 is driving the increase in estimated
 cat("
 ## Indices d'enquête et captures
 
-Dans cette mise à jour, il y a une nouvelle année de relevé pour chacune des trois campagnes synoptiques incluses dans le modèle (Figure \@ref(fig:fig-base-index-fits)). L'année terminale de `r hsmas` est 2003 et n'a donc pas été mise à jour avec de nouvelles données. Le `r wcviss` a eu lieu en 2022 ; le `r qcsss` et le `r hsss` ont tous deux eu lieu en 2023. Un nouveau point d'indice a été ajouté au `r dcpue` pour chaque nouvelle année, 2022 et 2023, car il est basé sur les rejets commerciaux dans les captures. Le `r dcpue` est créé à l'aide d'un modèle linéaire mixte généralisé (GLMM) et, en tant que tel, tous les indices de la série temporelle sont estimés chaque fois que de nouvelles données sont ajoutées à un endroit quelconque de la série temporelle. Les valeurs estimées pour chaque année dans le `r dcpue` (les points et barres gris clair dans la figure \@ref(fig:fig-base-index-fits)) étaient donc légèrement différentes de celles de la figure 14 du `r ca`.
+Dans cette mise à jour, il y a une nouvelle année de relevé pour chacune des trois campagnes synoptiques incluses dans le modèle (figure \@ref(fig:fig-base-index-fits)). L'année terminale de `r hsmas` est 2003 et n'a donc pas été mise à jour avec de nouvelles données. Le `r wcvis` a eu lieu en 2022 ; le `r qcs` et le `r hss` ont tous deux eu lieu en 2023. Un nouveau point d'indice a été ajouté au `r dcpue` pour chaque nouvelle année, 2022 et 2023, car il est basé sur les rejets commerciaux dans les captures. Le `r dcpue` est créé à l'aide d'un modèle linéaire mixte généralisé (GLMM) et, en tant que tel, tous les indices de la série temporelle sont estimés chaque fois que de nouvelles données sont ajoutées à un endroit quelconque de la série temporelle. Les valeurs estimées pour chaque année dans le `r dcpue` (les points et barres gris clair dans la figure \@ref(fig:fig-base-index-fits)) étaient donc légèrement différentes de celles de la figure 14 du `r ca`.
 
-Le point 2022 pour le `r dcpue` et le point 2023 pour le `r qcsss` n'ont pas été bien ajustés par le modèle ; cependant, les estimations médianes a posteriori étaient dans l'IC à 95% pour ces années. Dans l'ensemble, les tendances de toutes les estimations d'indices suivent celles observées dans le `r ca`, les indices `r qcsss` et `r hsss` étant légèrement mieux ajustés dans la période 2005--2012 que dans l'évaluation de 2022.
+Le point 2022 pour le `r dcpue` et le point 2023 pour le `r qcs` n'ont pas été bien ajustés par le modèle ; cependant, les estimations médianes a posteriori étaient dans l'IC à 95% pour ces années. Dans l'ensemble, les tendances de toutes les estimations d'indices suivent celles observées dans le `r ca`, les indices `r qcs` et `r hss` étant légèrement mieux ajustés dans la période 2005--2012 que dans l'évaluation de 2022.
 
 L'augmentation des indices d'enquête pour 2023 est à l'origine de l'augmentation de la biomasse estimée pour le début de 2024, telle qu'elle apparaît dans les figures \@ref(fig:fig-base-sb-bo) et \@ref(fig:fig-base-depletion).
 ")
@@ -69,7 +69,7 @@ Les données de longueur spécifiques au sexe ont continué à être enregistré
 
 Les échantillons de 2022 et 2023 n'ont pas été vieillis pour cette mise à jour et n'ont donc pas été inclus dans le modèle de mise à jour. Les implications de cette situation sont examinées dans la section suivante.
 
-Même si aucun nouvel âge n'a été ajouté au modèle de mise à jour, les ajustements d'âge et les résidus auraient pu changer avec l'ajout d'autres données. Celles-ci ont été vérifiées deux fois et n'ont pas varié du tout par rapport aux ajustements et aux résidus dans le `r ca` (Figures 16--26), et ne sont donc pas montrées dans cette mise à jour dans le but de garder le document à une longueur raisonnable.")
+Même si aucun nouvel âge n'a été ajouté au modèle de mise à jour, les ajustements d'âge et les résidus auraient pu changer avec l'ajout d'autres données. Celles-ci ont été vérifiées deux fois et n'ont pas varié du tout par rapport aux ajustements et aux résidus dans le `r ca` (figures 16--26), et ne sont donc pas montrées dans cette mise à jour dans le but de garder le document à une longueur raisonnable.")
 ```
 
 ```{r analysis-and-response-recruitment-en, eval = !fr(), results = 'asis'}
@@ -85,7 +85,7 @@ It is recommended that in addition to catch data and survey indices, the next as
 cat("
 ## Recrutement
 
-Il a été estimé que le recrutement médian postérieur était inférieur à l'IC à 95 % de l'estimation $R_0$ pour `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr`, avec un IC très large (Figure \@ref(fig:fig-base-recr)). Dans le `r ca`, seules les deux dernières années des estimations du recrutement avaient des IC importants en raison de l'incertitude concernant la force des classes d'âge. Les quatre dernières années du modèle présenté ici ont un grand IC en raison de l'absence de nouveaux âges inclus dans le modèle pour 2022 et 2023. Malgré les grandes incertitudes, les estimations du recrutement pour `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr` semblent augmenter légèrement et être plus élevées que celles estimées pour 2015--2019.
+Il a été estimé que le recrutement médian postérieur était inférieur à l'IC à 95 % de l'estimation $R_0$ pour `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr`, avec un IC très large (figure \@ref(fig:fig-base-recr)). Dans le `r ca`, seules les deux dernières années des estimations du recrutement avaient des IC importants en raison de l'incertitude concernant la force des classes d'âge. Les quatre dernières années du modèle présenté ici ont un grand IC en raison de l'absence de nouveaux âges inclus dans le modèle pour 2022 et 2023. Malgré les grandes incertitudes, les estimations du recrutement pour `r base_model$dat$end.yr - 3`--`r base_model$dat$end.yr` semblent augmenter légèrement et être plus élevées que celles estimées pour 2015--2019.
 
 Il est recommandé qu'en plus des données de capture et des indices de relevés, la prochaine évaluation ou actualisation incorpore les données d'âge de 2022 à aujourd'hui dans le modèle afin de remédier à cette limitation.
 ")
@@ -120,7 +120,7 @@ Posterior estimates of age-at-50%-harvest ($\hat{a}_k$) and the standard deviati
 ```{r analysis-and-response-fishing-mortality-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("## Mortalité par pêche et sélectivité
 
-La mortalité par pêche estimée suit de près les données de capture, étant donné que ce modèle est adapté aux captures. L'augmentation des captures en 2022 dans la flotte de chalutiers congélateurs est évidente, tout comme la réduction des captures en 2023 (Figure \@ref(fig:fig-base-f)).
+La mortalité par pêche estimée suit de près les données de capture, étant donné que ce modèle est adapté aux captures. L'augmentation des captures en 2022 dans la flotte de chalutiers congélateurs est évidente, tout comme la réduction des captures en 2023 (figure \@ref(fig:fig-base-f)).
 
 Les estimations postérieures de l'âge à 50% de capture ($\hat{a}_k$) et l'écart type de l'ogive logistique de sélectivité ($\hat{\gamma}_k$) sont fournis dans le Tableau \@ref(tab:param-estimates-table). Les estimations médianes a posteriori de ces paramètres de sélectivité étaient similaires pour les mâles et les femelles, tant pour les engins commerciaux que pour les enquêtes. Les estimations étaient toutes proches des estimations du tableau 6 du `r ca`. Il n'y a pas eu de changements radicaux dans les estimations de la sélectivité causés par l'ajout de nouvelles données de capture et d'indice d'enquête. Les diagrammes de sélectivité sont présentés dans la figure \@ref(fig:fig-base-mcmc-selex) qui, comparée à la figure 27 du `r ca`, ne montre pratiquement aucune différence.
 
@@ -134,7 +134,7 @@ The Markov Chain Monte Carlo (MCMC) chain was run to a length of `r f(mcmc_chain
 
 Figure \@ref(fig:fig-base-trace) shows the traceplots for the leading parameters; all appear stable as they did in the `r ca` with little autocorrelation.
 
-The catchability parameters appear to show more correlation with each other in this update model than seen in the `r ca`. A comparison of the pairs plots from this update (Figure \@ref(fig:fig-base-pairs)) and Figure 41 from the `r ca` shows that there is a higher correlation between the $q_1$ and $q_3$ parameters in particular. These are the catchability parameters for the `r qcsss` and the `r hsss`.
+The catchability parameters appear to show more correlation with each other in this update model than seen in the `r ca`. A comparison of the pairs plots from this update (Figure \@ref(fig:fig-base-pairs)) and Figure 41 from the `r ca` shows that there is a higher correlation between the $q_1$ and $q_3$ parameters in particular. These are the catchability parameters for the `r qcs` and the `r hss`.
 
 The within-chain $\hat{R}$ and Effective sample sizes (ESS) for the main part of the posterior distribution ($ESS_{bulk}$) as well as the tails ($ESS_{tail}$) were computed for each lead parameter. All values are considered acceptable for convergence of the MCMC chain. The criteria are a value of 1.01 or less for $\hat{R}$ and a value close to the number of posteriors for the ESS values. Table \@ref(tab:mcmc-diagnostics-rhat-table) shows the values calculated.
 
@@ -145,11 +145,11 @@ The within-chain $\hat{R}$ and Effective sample sizes (ESS) for the main part of
 cat("
 ## Diagnostics MCMC
 
-La chaîne de Markov Chain Monte Carlo (MCMC) a été exécutée jusqu'à une longueur de `r f(mcmc_chain_length)`, avec chaque `r f(mcmc_sample_freq)`^th^ posterior échantillonné, résultant en `r f(mcmc_num_samples)` échantillons a posteriori sauvegardés. Parmi ces échantillons sauvegardés, les premiers `r f(mcmc_burn_in)` ont été supprimés en tant que burn-in, laissant `r f(mcmc_actual_samples)` échantillons postérieurs pour l'inférence.
+La Chaîne de Markov Monte Carlo (CMMC) a été exécutée jusqu'à une longueur de `r f(mcmc_chain_length)`, avec chaque `r f(mcmc_sample_freq)`^th^ posterior échantillonné, résultant en `r f(mcmc_num_samples)` échantillons a posteriori sauvegardés. Parmi ces échantillons sauvegardés, les premiers `r f(mcmc_burn_in)` ont été supprimés en tant que burn-in, laissant `r f(mcmc_actual_samples)` échantillons postérieurs pour l'inférence.
 
 La figure \@ref(fig:fig-base-trace) montre les tracés des paramètres principaux ; tous semblent stables comme ils l'étaient dans `r ca` avec peu d'autocorrélation.
 
-Les paramètres de capturabilité semblent présenter une plus grande corrélation entre eux dans ce modèle de mise à jour que dans le `r ca`. Une comparaison des diagrammes de paires de cette mise à jour (Figure \@ref(fig:fig-base-pairs)) et de la Figure 41 du `r ca` montre qu'il y a une plus grande corrélation entre les paramètres $q_1$ et $q_3$ en particulier. Ce sont les paramètres de capturabilité pour les `r qcsss` et les `r hsss`.
+Les paramètres de capturabilité semblent présenter une plus grande corrélation entre eux dans ce modèle de mise à jour que dans le `r ca`. Une comparaison des diagrammes de paires de cette mise à jour (figure \@ref(fig:fig-base-pairs)) et de la figure 41 du `r ca` montre qu'il y a une plus grande corrélation entre les paramètres $q_1$ et $q_3$ en particulier. Ce sont les paramètres de capturabilité pour les `r qcs` et les `r hss`.
 
 Les $\hat{R}$ intra-chaîne et les tailles effectives d'échantillon (TEE) pour la partie principale de la distribution a posteriori ($ESS_{bulk}$) ainsi que les queues ($ESS_{tail}$) ont été calculés pour chaque paramètre principal. Toutes les valeurs sont considérées comme acceptables pour la convergence de la chaîne CMMC. Les critères sont une valeur de 1,01 ou moins pour $\hat{R}$ et une valeur proche du nombre de postérités pour les valeurs ESS. Le tableau \@ref(tab:mcmc-diagnostics-rhat-table) montre les valeurs calculées.
 
@@ -174,9 +174,9 @@ Les hypothèses de projection pour cette mise à jour sont identiques à celles 
 
 (ref:fig-base-sb-bo-fr) Biomasse de frai de `r sp` pour le modèle de base avec $B_0$ points de référence. La ligne noire continue avec des points montre les médianes des postérieures, le ruban ombré encapsulé par des lignes en pointillés couvre l'IC à 95% pour les postérieures, le point à $B_0$ est l'estimation médiane de la biomasse non pêchée, et la ligne verticale au-dessus de ce point est l'intervalle de confiance à 95%.
 
-(ref:fig-base-sb-bo-en-alt) This figure shows that the median estimated biomass has declined steadily since 2011 and is now close to 40\% of the initial stock biomass B0.
+(ref:fig-base-sb-bo-en-alt) This figure shows that the median estimated biomass has declined steadily since 2011 and is now close to 40% of the initial stock biomass B0.
 
-(ref:fig-base-sb-bo-fr-alt) Cette figure montre que la biomasse médiane estimée a diminué régulièrement depuis 2011 et est maintenant proche de 40 \% de la biomasse du stock initial B0.
+(ref:fig-base-sb-bo-fr-alt) Cette figure montre que la biomasse médiane estimée a diminué régulièrement depuis 2011 et est maintenant proche de 40 % de la biomasse du stock initial B0.
 
 ```{r fig-base-sb-bo, fig.cap = ifelse(fr(), "(ref:fig-base-sb-bo-fr)", "(ref:fig-base-sb-bo-en)")}
 plot_biomass_mcmc(base_model,
@@ -191,9 +191,9 @@ plot_biomass_mcmc(base_model,
 
 (ref:fig-base-depletion-fr) Biomasse de frai relative pour le modèle de base. La zone ombrée représente l'IC à 95%. Les lignes horizontales indiquent les points de référence 0,2 $B_0$ (solide, rouge) et 0,4 $B_0$ (pointillé, vert). Étant donné que le ruban représente la biomasse de frai relative (épuisement) et que les points de référence se rapportent à $B_0$, toute l'incertitude concernant le rapport entre la biomasse de frai et les points de référence est capturée dans le ruban et les points de référence sont représentés sous forme de valeurs ponctuelles.
 
-(ref:fig-base-depletion-en-alt) This figure shows the same trajectory as the previous figure with a decline since 2011 and the stock estimated close to 40\% of B0.
+(ref:fig-base-depletion-en-alt) This figure shows the same trajectory as the previous figure with a decline since 2011 and the stock estimated close to 40% of B0.
 
-(ref:fig-base-depletion-fr-alt) Ce chiffre montre la même trajectoire que le chiffre précédent avec une baisse depuis 2011 et un stock estimé à près de 40\% de B0.
+(ref:fig-base-depletion-fr-alt) Ce chiffre montre la même trajectoire que le chiffre précédent avec une baisse depuis 2011 et un stock estimé à près de 40 % de B0.
 
 ```{r fig-base-depletion, fig.cap = ifelse(fr(), "(ref:fig-base-depletion-fr)", "(ref:fig-base-depletion-en)")}
 plot_biomass_mcmc(base_model,
@@ -230,6 +230,7 @@ plot_recr_mcmc(base_model,
 (ref:fig-base-index-fits-fr-alt) Cette figure montre que tous les ajustements de l'indice ont été estimés en baisse ces dernières années.
 
 ```{r fig-base-index-fits, fig.cap = ifelse(fr(), "(ref:fig-base-index-fits-fr)", "(ref:fig-base-index-fits-en)")}
+
 plot_index_mcmc(base_model,
                 type = "fits",
                 end_year = 2023,
@@ -239,9 +240,9 @@ plot_index_mcmc(base_model,
 ```
 
 ```{r growth-params-table, results = "asis"}
-cap <- paste0("Growth parameters estimated outside the ", iscam, " model. All parameters were estimated using samples from the three synoptic surveys used in the model, and were filtered to include areas 3CD and 5ABCDE only. For the age-at-50\\% maturity estimates, the following values were used to further filter the data: maturity\\_convention\\_code = 4 (flatfish), maturity\\_code = 5 (Male - Spawning, testes large, white and sperm evident), (Female - Ripe, ovaries containing entirely translucent, mature ova. eggs loose and will run from oviducts under slight pressure), and usability codes = 0 (Unknown), 1 (Fully usable), 2 (Fail, but all data usable), 6 (Gear torn, all data ok).")
+cap <- paste0("Growth parameters estimated outside the ", iscam, " model. All parameters were estimated using samples from the three synoptic surveys used in the model, and were filtered to include areas 3CD and 5ABCDE only. For the age-at-50% maturity estimates, the following values were used to further filter the data: maturity_convention_code = 4 (flatfish), maturity_code = 5 (Male - Spawning, testes large, white and sperm evident), (Female - Ripe, ovaries containing entirely translucent, mature ova. eggs loose and will run from oviducts under slight pressure), and usability codes = 0 (Unknown), 1 (Fully usable), 2 (Fail, but all data usable), 6 (Gear torn, all data ok).")
 if(fr()){
-  cap <- paste0("")
+  cap <- paste0("Paramètres de croissance estimés en dehors du modèle ", iscam, ". Tous les paramètres ont été estimés à l'aide d'échantillons provenant des trois relevés synoptiques utilisés dans le modèle et ont été filtrés pour inclure uniquement les zones 3CD et 5ABCDE. Pour les estimations de maturité à 50 %, les valeurs suivantes ont été utilisées pour filtrer davantage les données : maturity_convention_code = 4 (poisson plat), maturity_code = 5 (mâle - ponte, testicules gros, blancs et sperme visible), (femelle - mûre, ovaires contenant des ovules entièrement translucides et matures. les œufs se détachent et s'écoulent des oviductes sous une légère pression), et codes d'utilisabilité = 0 (inconnu), 1 (entièrement utilisable), 2 (échec, mais toutes les données sont utilisables), 6 (équipement déchiré, toutes les données sont correctes).")
 }
 
 table_growth_params(base_model,
@@ -252,16 +253,16 @@ table_growth_params(base_model,
 ```
 
 ```{r param-estimates-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% CI estimates of key parameters for the base model. Parameters with the same values in all three value columns (2.5\\%, 50\\%, and 97.5\\%) are fixed in the model. The selectivity parameters $\\hat{a}$ and $\\hat{\\gamma}$ are the two parameters representing the shape of each logistic selectivity curves. Subscripts for those parameters represent gear number, sex (m/f), and area number (all are area 1 for 'coastwide' in this model). The gear name is the second column in the table and correspond to the gear number subscripts.")
+cap <- paste0("Posterior median and 95% CI estimates of key parameters for the base model. Parameters with the same values in all three value columns (2.5%, 50%, and 97.5%) are fixed in the model. The selectivity parameters $\\hat{a}$ and $\\hat{\\gamma}$ are the two parameters representing the shape of each logistic selectivity curves. Subscripts for those parameters represent gear number, sex (m/f), and area number (all are area 1 for 'coastwide' in this model). The gear name is the second column in the table and correspond to the gear number subscripts.")
 
 if(fr()){
-  cap <- paste0("Estimations de la médiane postérieure et de l'IC à 95 \\% des paramètres clés pour le modèle de base. Les paramètres ayant les mêmes valeurs dans les trois colonnes de valeurs (2,5\\%, 50\\% et 97,5\\%) sont fixés dans le modèle. Les paramètres de sélectivité $\\hat{a}$ et $\\hat{\\gamma}$ sont les deux paramètres représentant la forme de chaque courbe de sélectivité logistique. Les indices de ces paramètres représentent le numéro de l'engin, le sexe (m/f) et le numéro de la zone (toutes les zones sont la zone 1 pour 'l'ensemble du littoral' dans ce modèle). Le nom de l'engin figure dans la deuxième colonne du tableau et correspond aux indices du numéro de l'engin.")
+  cap <- paste0("Estimations de la médiane postérieure et de l'IC à 95 % des paramètres clés pour le modèle de base. Les paramètres ayant les mêmes valeurs dans les trois colonnes de valeurs (2,5%, 50% et 97,5%) sont fixés dans le modèle. Les paramètres de sélectivité $\\hat{a}$ et $\\hat{\\gamma}$ sont les deux paramètres représentant la forme de chaque courbe de sélectivité logistique. Les indices de ces paramètres représentent le numéro de l'engin, le sexe (m/f) et le numéro de la zone (toutes les zones sont la zone 1 pour 'l'ensemble du littoral' dans ce modèle). Le nom de l'engin figure dans la deuxième colonne du tableau et correspond aux indices du numéro de l'engin.")
 }
 
 table_param_est_mcmc(base_model,
                      font_size = 8,
                      caption = cap,
-                     bold_header = FALSE,
+                     bold_headers = TRUE,
                      show_year_range = FALSE)
 ```
 
@@ -367,7 +368,7 @@ plot_selex_mcmc(base_model,
 
 (ref:fig-base-trace-en) Trace plots for MCMC output of estimated lead parameters in the base model. The MCMC run has chain length `r f(mcmc_chain_length)` with a sample taken every `r f(mcmc_sample_freq)`^th^ iteration. Of the `r f(mcmc_num_samples)` samples taken, the first `r f(mcmc_burn_in)` were removed as a burn-in period. Numerical indices $k$ on Catchability ($q_k$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
-(ref:fig-base-trace-fr) Tracés pour la sortie MCMC des paramètres de plomb estimés dans le modèle de base. L'exécution MCMC a une longueur de chaîne `r f(mcmc_chain_length)` avec un échantillon prélevé toutes les `r f(mcmc_sample_freq)`^e^ itérations. Parmi les `r f(mcmc_num_samples)` échantillons prélevés, les premiers `r f(mcmc_burn_in)` ont été supprimés en tant que période de rodage. Les indices numériques $k$ sur les paramètres de capturabilité ($q_k$) pour les indices d'enquête sont définis comme suit : `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = " , ")`.
+(ref:fig-base-trace-fr) Tracés pour la sortie CMMC des paramètres de plomb estimés dans le modèle de base. L'exécution CMMC a une longueur de chaîne `r f(mcmc_chain_length)` avec un échantillon prélevé toutes les `r f(mcmc_sample_freq)`^e^ itérations. Parmi les `r f(mcmc_num_samples)` échantillons prélevés, les premiers `r f(mcmc_burn_in)` ont été supprimés en tant que période de rodage. Les indices numériques $k$ sur les paramètres de capturabilité ($q_k$) pour les indices d'enquête sont définis comme suit : `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = " , ")`.
 
 (ref:fig-base-trace-en-alt) This figure shows that trace plots for leading parameters do not show any signs or artifacts or bias.
 
@@ -385,7 +386,7 @@ plot_traces_mcmc(base_model,
 
 (ref:fig-base-pairs-en) Pairs plots for MCMC estimated parameters in the base model. The lines in the points plots in the lower triangular panels are linear models with shaded 95% confidence intervals. The line plots in the diagonal panels represent density of the parameter values, and the values in the upper triangular panels are the correlations between parameters with text size being directly proportional to the absolute value of those values. Numerical indices $k$ on Catchability ($q_k$) parameters for the survey indices are defined as: `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", ")`.
 
-(ref:fig-base-pairs-fr) Diagrammes de paires pour les paramètres estimés par le MCMC dans le modèle de base. Les lignes dans les tracés de points dans les panneaux triangulaires inférieurs sont des modèles linéaires avec des intervalles de confiance de 95 % ombrés. Les tracés des lignes dans les panneaux diagonaux représentent la densité des valeurs des paramètres, et les valeurs dans les panneaux triangulaires supérieurs sont les corrélations entre les paramètres, la taille du texte étant directement proportionnelle à la valeur absolue de ces valeurs. Les indices numériques $k$ sur les paramètres de capturabilité ($q_k$) pour les indices d'enquête sont définis comme suit : `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = " , ")`.
+(ref:fig-base-pairs-fr) Diagrammes de paires pour les paramètres estimés par le CMMC dans le modèle de base. Les lignes dans les tracés de points dans les panneaux triangulaires inférieurs sont des modèles linéaires avec des intervalles de confiance de 95 % ombrés. Les tracés des lignes dans les panneaux diagonaux représentent la densité des valeurs des paramètres, et les valeurs dans les panneaux triangulaires supérieurs sont les corrélations entre les paramètres, la taille du texte étant directement proportionnelle à la valeur absolue de ces valeurs. Les indices numériques $k$ sur les paramètres de capturabilité ($q_k$) pour les indices d'enquête sont définis comme suit : `r paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = " , ")`.
 
 (ref:fig-base-pairs-en-alt) This figure shows that there is some positive correlation among the catchibility parameters.
 
@@ -415,7 +416,7 @@ cap <- paste0("Values calculated to show convergence of the MCMC chain. Numerica
               ".")
 
 if(fr()){
-  cap <- paste0("Valeurs calculées pour montrer la convergence de la chaîne MCMC. Les indices numériques sur les paramètres de capturabilité ($q$) pour les indices d'enquête sont définis comme suit : ",
+  cap <- paste0("Valeurs calculées pour montrer la convergence de la chaîne CMMC. Les indices numériques sur les paramètres de capturabilité ($q$) pour les indices d'enquête sont définis comme suit : ",
                 paste(base_index_gears$gear, " = ", base_index_gears$gear_name, collapse = ", "),
                 ".")
 }
@@ -424,6 +425,7 @@ csas_table(rhat_df,
            format = "latex",
            align = rep("r", ncol(rhat_df)),
            caption = cap,
+           bold_header = TRUE,
            longtable = FALSE)
 ```
 
@@ -439,7 +441,7 @@ Harvest decision tables are provided as advice to managers (Tables \@ref(tab:dec
 
 Harvest decision tables provided in this document include probabilities at the beginning of the year of being above:
 
-1. the LRP of $02.B_0$ (Table \@ref(tab:decision-table-02bo)),
+1. the LRP of $0.2B_0$ (Table \@ref(tab:decision-table-02bo)),
 2. the alternative candidate USR of $0.35B_0$ (Table \@ref(tab:decision-table-035bo)), and
 3. the candidate USR of $0.4B_0$ (Table \@ref(tab:decision-table-04bo)),
 4. the previous year's biomass (Table \@ref(tab:decision-table-decreasing-biomass))
@@ -457,12 +459,12 @@ Les points de référence pour `r sp` basés sur le rendement maximal durable (R
 
 A la demande de l'UGM, les projections ont été réalisées pour cette actualisation à des niveaux de capture de 1 à 8 kilotonnes (kt) par incréments de 1 kt pour cette actualisation, au lieu de 1 à 15 kt comme c'était le cas dans le `r ca`. La figure \@ref(fig:fig-rel-biomass-proj) montre les trajectoires de la biomasse résultant de l'application des niveaux de capture en tant que prise au stock pour les années `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1`. La figure \@ref(fig:fig-rel-biomass-proj-closeup) présente une vue rapprochée des trajectoires projetées.
 
-Les tables de décision de récolte sont fournies à titre de conseil aux gestionnaires (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) avec des politiques de capture constante allant de 1 à 8 kt, de `r base_model$dat$end.yr + 2` à `r base_model$dat$end.yr + base_model$proj$num.projyrs + 1`. Pour interpréter les tables de décision en ce qui concerne le LPR ($0.2B_0$) et le candidat RSS ($0. 4B_0$), la probabilité d'être au-dessus de le RSS candidate est $P(B_t > RSS)$, la probabilité d'être au-dessus du PRL mais en dessous de le RSS candidate est $P(B_t > PRL) - P(B_t > RSS)$, et la probabilité d'être en dessous du PRL est $1 - P(B_t > PRL)$, où $t$ est l'année, et $B_t$ est la biomasse relative au début de l'année $t$. Lors de la réunion d'examen du `r ca`, il a été demandé de fournir un état relatif à un RSS candidat 'alternatif' de $0,35B_0$. Cette demande a été incluse dans le document de recherche 2022 et dans le présent document.
+Les tables de décision de récolte sont fournies à titre de conseil aux gestionnaires (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) avec des politiques de capture constante allant de 1 à 8 kt, de `r base_model$dat$end.yr + 2` à `r base_model$dat$end.yr + base_model$proj$num.projyrs + 1`. Pour interpréter les tables de décision en ce qui concerne le PRL ($0,2B_0$) et le candidat RSS ($0,4B_0$), la probabilité d'être au-dessus de le RSS candidate est $P(B_t > RSS)$, la probabilité d'être au-dessus du PRL mais en dessous de le RSS candidate est $P(B_t > PRL) - P(B_t > RSS)$, et la probabilité d'être en dessous du PRL est $1 - P(B_t > PRL)$, où $t$ est l'année, et $B_t$ est la biomasse relative au début de l'année $t$. Lors de la réunion d'examen du `r ca`, il a été demandé de fournir un état relatif à un RSS candidat 'alternatif' de $0,35B_0$. Cette demande a été incluse dans le document de recherche 2022 et dans le présent document.
 
 Les tableaux de décision sur les récoltes fournis dans le présent document incluent les probabilités, au début de l'année, d'être au-dessus de
 
 1. le PRL de $02,B_0$ (tableau \@ref(tab:decision-table-02bo)),
-2. le RSS candidat alternatif de $0.35B_0$ (tableau \@ref(tab:decision-table-035bo)), et
+2. le RSS candidat alternatif de $0,35B_0$ (tableau \@ref(tab:decision-table-035bo)), et
 3. le RSS candidat de $0,4B_0$ (tableau \@ref(tab:decision-table-04bo)),
 4. la biomasse de l'année précédente (tableau \@ref(tab:decision-table-decreasing-biomass))
 
@@ -499,7 +501,7 @@ plot_biomass_proj_mcmc(base_model,
 
 (ref:fig-rel-biomass-proj-closeup-en) Closeup view of most recent relative spawning biomass (Figure \@ref(fig:fig-rel-biomass-proj)) for the `r sp` base model with $B_0$-based reference points and projections into the future. The projected constant catch values (in kt) are shown in the legend. See the decision tables (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) for probabilities of being above reference points and of the stock increasing year-to-year in the projection years for each catch level.
 
-(ref:fig-rel-biomass-proj-closeup-fr) Vue rapprochée de la biomasse reproductrice relative la plus récente (Figure \@ref(fig:fig-rel-biomass-proj)) pour le modèle de base `r sp` avec des points de référence basés sur $B_0$ et des projections dans l'avenir. Les valeurs des captures constantes projetées (en kt) sont indiquées dans la légende. Voir les tables de décision (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) pour les probabilités de dépasser les points de référence et d'augmenter le stock d'année en année dans les années de projection pour chaque niveau de capture.
+(ref:fig-rel-biomass-proj-closeup-fr) Vue rapprochée de la biomasse reproductrice relative la plus récente (figure \@ref(fig:fig-rel-biomass-proj)) pour le modèle de base `r sp` avec des points de référence basés sur $B_0$ et des projections dans l'avenir. Les valeurs des captures constantes projetées (en kt) sont indiquées dans la légende. Voir les tables de décision (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) pour les probabilités de dépasser les points de référence et d'augmenter le stock d'année en année dans les années de projection pour chaque niveau de capture.
 
 (ref:fig-rel-biomass-proj-closeup-en-alt) This figure shows a closeup of the projected years from the previous figure.
 
@@ -528,9 +530,9 @@ plot_biomass_proj_mcmc(base_model,
 
 (ref:fig-catch-streams-nextyr-proj-fr) Projection de la biomasse reproductrice relative de `r base_model$dat$end.yr + 2` pour plusieurs niveaux de capture possibles dans `r base_model$dat$end.yr + 1`. Les points noirs sont les médianes des valeurs postérieures et les lignes noires horizontales sont les IC à 95 % (2,5 %-97,5 %). La ligne rouge continue est le PRL, $0,2B_0$, la ligne bleue pointillée est le candidat RSS alternatif, $0,35B_0$, et la ligne verte pointillée est le RSS, $0,4B_0$.
 
-(ref:fig-catch-streams-nextyr-proj-en-alt) This figure shows that for catches of 2000 tonnes or less in 2024 the biomass will remain at or above 40\% of B0 at the beginning of 2025.
+(ref:fig-catch-streams-nextyr-proj-en-alt) This figure shows that for catches of 2000 tonnes or less in 2024 the biomass will remain at or above 40% of B0 at the beginning of 2025.
 
-(ref:fig-catch-streams-nextyr-proj-fr-alt) Cette figure montre que pour les captures de 2000 tonnes ou moins en 2024 et la biomasse restera égale ou supérieure à 40 \% de B0 au début de 2025.
+(ref:fig-catch-streams-nextyr-proj-fr-alt) Cette figure montre que pour les captures de 2000 tonnes ou moins en 2024 et la biomasse restera égale ou supérieure à 40 % de B0 au début de 2025.
 
 ```{r fig-catch-streams-nextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-nextyr-proj-fr)", "(ref:fig-catch-streams-nextyr-proj-en)")}
 
@@ -542,9 +544,9 @@ plot_ref_points_dist_mcmc(base_model,
 
 (ref:fig-catch-streams-nextnextyr-proj-fr) Projection de la biomasse reproductrice relative de `r base_model$dat$end.yr + 3` pour plusieurs niveaux de capture possibles dans `r base_model$dat$end.yr + 2`. Les points noirs sont les médianes des valeurs postérieures et les lignes noires horizontales sont les IC à 95 % (2,5 %-97,5 %). La ligne rouge continue est le PRL, $0,2B_0$, la ligne bleue pointillée est le candidat RSS alternatif, $0,35B_0$, et la ligne verte pointillée est le candidat RSS, $0,4B_0$.
 
-(ref:fig-catch-streams-nextnextyr-proj-en-alt) This figure shows that for catches of 5000 tonnes or less in 2024 and 2025 the biomass will remain at or above 40\% of B0 at the beginning of 2026.
+(ref:fig-catch-streams-nextnextyr-proj-en-alt) This figure shows that for catches of 5000 tonnes or less in 2024 and 2025 the biomass will remain at or above 40% of B0 at the beginning of 2026.
 
-(ref:fig-catch-streams-nextnextyr-proj-fr-alt) Cette figure montre que pour les captures de 5 000 tonnes ou moins en 2024 et 2025 et la biomasse restera égale ou supérieure à 40 \% de B0 au début de 2026.
+(ref:fig-catch-streams-nextnextyr-proj-fr-alt) Cette figure montre que pour les captures de 5 000 tonnes ou moins en 2024 et 2025 et la biomasse restera égale ou supérieure à 40 % de B0 au début de 2026.
 
 ```{r fig-catch-streams-nextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-nextnextyr-proj-fr)", "(ref:fig-catch-streams-nextnextyr-proj-en)")}
 
@@ -557,9 +559,9 @@ plot_ref_points_dist_mcmc(base_model,
 
 (ref:fig-catch-streams-nextnextnextyr-proj-fr) Projection de la biomasse reproductrice relative de `r base_model$dat$end.yr + 4` pour plusieurs niveaux de capture possibles dans `r base_model$dat$end.yr + 3`. Les points noirs sont les médianes des valeurs postérieures et les lignes noires horizontales sont les IC à 95 % (2,5 %-97,5 %). La ligne rouge continue est le PRL, $0,2B_0$, la ligne bleue pointillée est le candidat RSS alternatif, $0,35B_0$, et la ligne verte pointillée est le candidat RSS, $0,4B_0$.
 
-(ref:fig-catch-streams-nextnextnextyr-proj-en-alt) This figure shows that for catches of 6000 tonnes or less in 2024 through 2026 the biomass will remain at or above 40\% of B0 at the beginning of 2027.
+(ref:fig-catch-streams-nextnextnextyr-proj-en-alt) This figure shows that for catches of 6000 tonnes or less in 2024 through 2026 the biomass will remain at or above 40% of B0 at the beginning of 2027.
 
-(ref:fig-catch-streams-nextnextnextyr-proj-fr-alt) Cette figure montre que pour les captures de 6 000 tonnes ou moins entre 2024 et 2026 et la biomasse restera égale ou supérieure à 40 \% de B0 au début de 2027.
+(ref:fig-catch-streams-nextnextnextyr-proj-fr-alt) Cette figure montre que pour les captures de 6 000 tonnes ou moins entre 2024 et 2026 et la biomasse restera égale ou supérieure à 40 % de B0 au début de 2027.
 
 ```{r fig-catch-streams-nextnextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-nextnextnextyr-proj-fr)", "(ref:fig-catch-streams-nextnextnextyr-proj-en)")}
 
@@ -580,6 +582,7 @@ table_decision(base_model,
                rm_yrs = 2024,
                refpt = 0.2,
                prob_gt = TRUE,
+               bold_header = TRUE,
                year_to_year = FALSE,
                caption = cap)
 ```
@@ -596,6 +599,7 @@ table_decision(base_model,
                rm_yrs = 2024,
                refpt = 0.35,
                prob_gt = TRUE,
+               bold_header = TRUE,
                year_to_year = FALSE,
                caption = cap)
 ```
@@ -613,6 +617,7 @@ table_decision(base_model,
                refpt = 0.4,
                inc_years = -2024,
                prob_gt = TRUE,
+               bold_header = TRUE,
                year_to_year = FALSE,
                caption = cap)
 ```
@@ -627,6 +632,7 @@ if(fr()){
 table_decision(base_model,
                catch_vals = 1:8,
                prob_gt = TRUE,
+               bold_header = TRUE,
                year_to_year = TRUE,
                caption = cap)
 ```

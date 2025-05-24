@@ -1,3 +1,14 @@
-# Approval
+```{r approval-en, eval = !fr(), results = 'asis'}
+cat("# Approval
+
 Approval text will be added when approval is finalized
+")
+```
+
+```{r approval-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# Approbation
+
+Le texte d'approbation sera ajouté lorsque l'approbation sera finalisée
+")
+```
 <!-- \MakeApproval -->
