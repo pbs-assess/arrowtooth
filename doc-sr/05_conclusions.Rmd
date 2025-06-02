@@ -38,7 +38,7 @@ Some observations from the decision tables:
 
 9. A probability of 0.5 of biomass increasing year-to-year for each year from `r end_yr + 1` to `r end_yr + base_model$proj$num.projyrs` occurs between 7 and 8 kt of constant catch in each year (Table \@ref(tab:decision-table-decreasing-biomass)).
 
-This stock should be reviewed once again in three years, in September or October 2027 as a Science Response. In addition to new catch and survey index data, that update model must have new age data included for the three synoptic surveys and both fleets in the commercial fishery for the time period 2022-2026.
+This stock should be reviewed once again in three years, in September or October 2027 as a Science Response. In addition to new catch and survey index data, that update model should have new age data included for the three synoptic surveys and both fleets in the commercial fishery for the time period 2022-2026.
 ")
 ```
 
@@ -80,7 +80,7 @@ Quelques observations issues des tables de décision :
 
 9. Une probabilité de 0,5 que la biomasse augmente d'année en année pour chaque année de `r end_yr + 1` à `r end_yr + base_model$proj$num.projyrs` se produit entre 7 et 8 kt de capture constante chaque année (tableau \@ref(tab:decision-table-decreasing-biomass)).
 
-Ce stock devrait être réexaminé une fois de plus dans trois ans, en septembre ou octobre 2027, dans le cadre d’une réponse scientifique. En plus des nouvelles données sur les prises et les indices d'enquête, ce modèle de mise à jour doit inclure de nouvelles données sur l'âge pour les trois enquêtes synoptiques et les deux flottes de la pêche commerciale pour la période 2022-2026.
+Ce stock devrait faire l'objet d'un nouvel examen dans trois ans, en septembre ou octobre 2027, dans le cadre d'une réponse scientifique. Outre les nouvelles données sur les captures et les indices d'enquête, ce modèle actualisé devrait inclure de nouvelles données sur l'âge pour les trois enquêtes synoptiques et les deux flottes de la pêche commerciale pour la période 2022-2026.
 
 ")
 ```

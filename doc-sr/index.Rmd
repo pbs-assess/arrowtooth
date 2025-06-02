@@ -44,7 +44,7 @@ output:
    # that will be included using `include_graphics()`
    figures_dir: figure
    # This value will be the return value for `fr()` in your code
-   french: true
+   french: false
    prepub: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
    # the document. If false, any changes you have made to the style file in your project

@@ -1,22 +1,40 @@
 ```{r contributors-en, eval = !fr(), results = 'asis'}
 cat("# Contributors
+")
+  ```
 
-Contributors to the Science Response, where an asterisk '*' indicates the primary author(s).
-
+```{r contributors-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
+cat("# Contributeurs
 ")
 ```
+
 
 ```{r, echo = FALSE, include = FALSE}
 
 contributors <- tibble::tribble(
   ~Name,            ~Affiliation,
-  "Chris Grandin*", "DFO Science, Pacific Region",
-  "Finn, Deirdre",  "DFO Fisheries Management, Pacific Region")
+  "Chris Grandin*",  "DFO Science, Pacific Region",
+  "Sean Anderson",   "DFO Science, Pacific Region",
+  "Dana Haggarty",   "DFO Science, Pacific Region",
+  "Mackenzie Mazur", "DFO Science, Pacific Region",
+  "Jim Ianelli",     "NOAA, Pacific Region",
+  "Jessica Finney",  "CSAS, Pacific Region",
+  "Deirdre Finn",    "DFO Fisheries Management, Pacific Region",
+  "Lindsay Richardson-Deranger", "DFO Fisheries Management, Pacific Region",
+  "Rachel Rickaby",  "DFO Fisheries Management, Pacific Region")
+
 if(fr()){
   contributors <- tibble::tribble(
     ~Name,            ~Affiliation,
-    "Chris Grandin*", "Secteur des sciences du MPO, région du Pacifique",
-    "Finn, Deirdre",  "Gestion des pêches du MPO, région du Pacifique")
+    "Chris Grandin*",  "Secteur des sciences du MPO, Région du Pacifique",
+    "Sean Anderson",   "Secteur des sciences du MPO, Région du Pacifique",
+    "Dana Haggarty",   "Secteur des sciences du MPO, Région du Pacifique",
+    "Mackenzie Mazur", "Secteur des sciences du MPO, Région du Pacifique",
+    "Jim Ianelli",     "ANOA, région du Pacifique",
+    "Jessica Finney",  "SCCS, région du Pacifique",
+    "Deirdre Finn",    "Gestion des pêches du MPO, Région Pacifique",
+    "Lindsay Richardson-Deranger", "Gestion des pêches du MPO, Région Pacifique",
+    "Rachel Rickaby",  "Gestion des pêches du MPO, Région Pacifique")
   }
 names(contributors) <- tr(names(contributors))
 names(contributors) <- paste0("\\textbf{", names(contributors), "}")
@@ -24,7 +42,12 @@ names(contributors) <- paste0("\\textbf{", names(contributors), "}")
 
 ```{r, results = 'asis'}
 
-csasdown::csas_table(contributors)
+cap <- "Contributors to the Science Response, where an asterisk '*' indicates the primary author(s)."
+if(fr()){
+  cap <- "Contributeurs à la réponse scientifique, où un astérisque “*” indique le(s) auteur(s) principal(aux)."
+}
+csas_table(contributors,
+           caption = cap)
 ```
 
 <!-- Decrease the table index by one to account for the contributors table: -->
