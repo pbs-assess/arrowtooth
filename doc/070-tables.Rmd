@@ -20,6 +20,7 @@ table_catch(catch,
             digits = 1,
             caption = cap,
             start_yr = 1996,
+            bold_header = TRUE,
             gear_col_widths = "6em")
 ```
 
@@ -36,7 +37,8 @@ table_catch_fleet(list(catch_ft, catch_ss),
                   digits = 1,
                   caption = cap,
                   start_yr = 1996,
-                  gear_col_widths = "6em")
+                  bold_header = TRUE,
+                  gear_col_widths = "4em")
 ```
 
 ```{r area-catch-table, results = "asis"}
@@ -52,8 +54,8 @@ table_catch(catch,
             caption = cap,
             start_yr = 1996,
             by_area = TRUE,
+            bold_header = TRUE,
             gear_col_widths = "6em")
-
 ```
 
 ```{r survey-index-data-table, results = "asis"}
@@ -65,8 +67,8 @@ cap <- paste0("Indices d'abondance et CV pour le modèle de base.")
 table_index_values(base_model,
                    digits = 2,
                    caption = cap,
+                   bold_header = TRUE,
                    col_widths = "3em")
-
 ```
 
 ```{r param-settings-table, results = "asis"}
@@ -78,29 +80,31 @@ cap <- paste0("Paramètres et distributions de probabilité antérieures utilis�
 table_param_settings(base_model,
                      col_widths = "4em",
                      font_size = 9,
+                     bold_header = TRUE,
                      caption = cap)
 ```
 
 ```{r param-estimates-table, results = "asis", eval = as.logical(length(grep("grandin", user)))}
-cap <- paste0("Posterior median and 95\\% credible interval estimates of key ",
+cap <- paste0("Posterior median and 95% credible interval estimates of key ",
               "parameters for the base model.")
 if(fr()){
 cap <- paste0("Estimations de la médiane postérieure et de l'intervalle ",
-              "crédible à 95 \\% des paramètres clés pour le modèle de base.")
+              "crédible à 95 % des paramètres clés pour le modèle de base.")
 }
 
 table_param_est_mcmc(base_model,
                      caption = cap,
+                     bold_header = TRUE,
                      show_year_range = FALSE)
 ```
 
 ```{r reference-points-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% credible interval of proposed ",
+cap <- paste0("Posterior median and 95% credible interval of proposed ",
               "reference points for the base model. Biomass numbers are in ",
               "thousands of tonnes. Subscript 1 signifies the Freezer ",
               "trawler fleet, subscript 2 signifies the Shoreside fleet.")
 if(fr()){
-cap <- paste0("Médiane postérieure et intervalle de crédibilité à 95 \\% des ",
+cap <- paste0("Médiane postérieure et intervalle de crédibilité à 95 % des ",
               "points de référence proposés pour le modèle de base. Les ",
               "chiffres relatifs à la biomasse sont exprimés en milliers ",
               "de tonnes. L'indice 1 correspond à la flotte de chalutiers ",
@@ -112,6 +116,7 @@ table_ref_points_mcmc(base_model,
                       caption = cap,
                       digits = 2,
                       model_col_widths = "10em",
+                      bold_header = TRUE,
                       ord = c(1, 13, 14, 11, 12,
                               4,  7,  2, 15, 16,
                               3,  6,  9, 10,  5,
@@ -119,10 +124,10 @@ table_ref_points_mcmc(base_model,
 ```
 
 ```{r biomass-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% credible intervals of spawning ",
+cap <- paste0("Posterior median and 95% credible intervals of spawning ",
               "biomass for the base model. Values are in thousands of tonnes.")
 if(fr()){
-cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% de la ",
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 % de la ",
               "biomasse féconde pour le modèle de base. Les valeurs sont ",
               "exprimées en milliers de tonnes.")
 }
@@ -130,29 +135,31 @@ cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% de la "
 table_ts_values_mcmc(base_model,
                      value = "sbt",
                      caption = cap,
+                     bold_header = TRUE,
                      digits = 2)
 ```
 
 ```{r depletion-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% credible intervals for relative ",
+cap <- paste0("Posterior median and 95% credible intervals for relative ",
               "spawning biomass for the base model.")
 if(fr()){
-cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% pour ",
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 % pour ",
               "la biomasse frayante relative pour le modèle de base.")
 }
 
 table_ts_values_mcmc(base_model,
                      value = "depl",
                      caption = cap,
+                     bold_header = TRUE,
                      digits = 2)
 
 ```
 
 ```{r recruitment-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% credible intervals for recruitment ",
+cap <- paste0("Posterior median and 95% credible intervals for recruitment ",
               "for the base model. Values are in millions of fish.")
 if(fr()){
-cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% du ",
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 % du ",
               "recrutement pour le modèle de base. Les valeurs sont exprimées ",
               "en millions de poissons.")
 }
@@ -160,34 +167,37 @@ cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% du ",
 table_ts_values_mcmc(base_model,
                      value = "rt",
                      caption = cap,
+                     bold_header = TRUE,
                      digits = 2)
 ```
 
 ```{r instantaneous-fishing-mortality-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% credible intervals for fishing mortality ",
+cap <- paste0("Posterior median and 95% credible intervals for fishing mortality ",
               "for the base model.")
 if(fr()){
-cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% pour la ",
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 % pour la ",
               "mortalité par pêche pour le modèle de base.")
 }
 
 table_ts_values_mcmc(base_model,
                      value = "ft",
                      caption = cap,
+                     bold_header = TRUE,
                      digits = 2)
 ```
 
 ```{r annual-harvest-rate-table, results = "asis"}
-cap <- paste0("Posterior median and 95\\% credible intervals for ",
+cap <- paste0("Posterior median and 95% credible intervals for ",
               "annnual harvest rate ($U_t$) for the base model.")
 if(fr()){
-cap <- paste0("Médiane postérieure et intervalles crédibles à 95 \\% ",
+cap <- paste0("Médiane postérieure et intervalles crédibles à 95 % ",
               "pour le taux de récolte annuel ($U_t$) pour le modèle de base.")
 }
 
 table_ts_values_mcmc(base_model,
                      value = "ut",
                      caption = cap,
+                     bold_header = TRUE,
                      digits = 2)
 ```
 
@@ -202,27 +212,28 @@ cap <- paste0("Un résumé des changements de paramètres du modèle de base ",
 table_sens_param_changes(sens_models_text_no_base,
                          sens_changes_text,
                          col_widths = "20em",
+                         bold_header = TRUE,
                          caption = cap)
 ```
 
 ```{r rate-table, results = "asis"}
 cap <- paste0("Reference rates, calculated as the constant rate at which fishing needs to occur on an annual basis by each fleet long term (50 years) to bring the relative spawning biomass to within 50 t of $0.4B_0$ given recent average recruitment. In this case the routine was able to come within ", diff_bio_b40, " t of $0.4B_0$. The $F$ values are the instantaneous fishing mortalities and the $U$ values are the annual exploitation rate. The last column shows the long term annual catch by fleet and the total. This is the value which, if caught every year for the long term would result in the biomass being close to $0.4B_0$.")
 if(fr()){
-  cap <- "Les taux de référence, calculés comme le taux constant auquel la pêche doit être pratiquée sur une base annuelle par chaque flottille à long terme (50 ans) pour ramener la biomasse reproductrice relative à moins de 50 t de $0{,}4B_0$ compte tenu du recrutement moyen récent. Dans ce cas, la routine a permis de se rapprocher de 6,4 t de $0{,}4B_0$. Les valeurs $F$ sont les mortalités par pêche instantanées et les valeurs $U$ sont le taux d'exploitation annuel. La dernière colonne indique les captures annuelles à long terme par flotte et le total. Il s'agit de la valeur qui, si elle était capturée chaque année à long terme, permettrait à la biomasse d'être proche de $0{,}4B_0$."
+  cap <- "Les taux de référence, calculés comme le taux constant auquel la pêche doit être pratiquée sur une base annuelle par chaque flottille à long terme (50 ans) pour ramener la biomasse reproductrice relative à moins de 50 t de $0,4B_0$ compte tenu du recrutement moyen récent. Dans ce cas, la routine a permis de se rapprocher de 6,4 t de $0,4B_0$. Les valeurs $F$ sont les mortalités par pêche instantanées et les valeurs $U$ sont le taux d'exploitation annuel. La dernière colonne indique les captures annuelles à long terme par flotte et le total. Il s'agit de la valeur qui, si elle était capturée chaque année à long terme, permettrait à la biomasse d'être proche de $0,4B_0$."
 }
-# f_bo_40 is defined at the botttom of index.Rmd
+# f_bo_40 is defined at the bottom of index.Rmd
 table_ref_rate(base_model,
                f_bo_40,
+               bold_header = TRUE,
                caption = cap)
 ```
 
 \clearpage
 
-\begin{landscapepage}
 ```{r decision-table, results = "asis"}
-cap <- paste0("Decision table for the base model showing posterior probabilities that projected biomass is below selected reference points and benchmarks (Table \\ref{tab:reference-points-table}). An example of how to read this table is: For a catch of 10,000 t there is a ", f(prob_10t_below_2bo * 100, 1), "\\% probability that the ", base_model$dat$end.yr + 2, " biomass will fall below the LRP of $0.2B_0$, a ", f(prob_10t_below_4bo * 100, 1), "\\% probability that it will fall below the USR of $0.4B_0$, and a ", f(prob_2023_2022_catch_10 * 100, 1), "\\% probability that the biomass in ", base_model$dat$end.yr + 2, " will be less than the biomass in ", base_model$dat$end.yr + 1, ". For projections beyond ", base_model$dat$end.yr + 2, " the catch is the same value for each projected year in each row of the table. So for the example of a constant catch each year of 10,000 t, the probability that the biomass will decline from one year to the next is ", f(prob_2023_2022_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 1, " to ", base_model$dat$end.yr + 2, ", ", f(prob_2024_2023_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 2, " to ", base_model$dat$end.yr + 3, ", ", f(prob_2025_2024_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 3, " to ", base_model$dat$end.yr + 4, ", and ", f(prob_2026_2025_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 4, " to ", base_model$dat$end.yr + 5, ".")
+cap <- paste0("Decision table for the base model showing posterior probabilities that projected biomass is below selected reference points and benchmarks (Table \\ref{tab:reference-points-table}). An example of how to read this table is: For a catch of 10,000 t there is a ", f(prob_10t_below_2bo * 100, 1), "% probability that the ", base_model$dat$end.yr + 2, " biomass will fall below the LRP of $0.2B_0$, a ", f(prob_10t_below_4bo * 100, 1), "% probability that it will fall below the USR of $0.4B_0$, and a ", f(prob_2023_2022_catch_10 * 100, 1), "% probability that the biomass in ", base_model$dat$end.yr + 2, " will be less than the biomass in ", base_model$dat$end.yr + 1, ". For projections beyond ", base_model$dat$end.yr + 2, " the catch is the same value for each projected year in each row of the table. So for the example of a constant catch each year of 10,000 t, the probability that the biomass will decline from one year to the next is ", f(prob_2023_2022_catch_10 * 100, 1), "% from ", base_model$dat$end.yr + 1, " to ", base_model$dat$end.yr + 2, ", ", f(prob_2024_2023_catch_10 * 100, 1), "% from ", base_model$dat$end.yr + 2, " to ", base_model$dat$end.yr + 3, ", ", f(prob_2025_2024_catch_10 * 100, 1), "% from ", base_model$dat$end.yr + 3, " to ", base_model$dat$end.yr + 4, ", and ", f(prob_2026_2025_catch_10 * 100, 1), "% from ", base_model$dat$end.yr + 4, " to ", base_model$dat$end.yr + 5, ".")
 if(fr()){
-cap <- paste0("Tableau de décision pour le modèle de base montrant les probabilités postérieures que la biomasse projetée est inférieure aux points de référence sélectionnés et aux repères (Tableau \\ref{tab:reference-points-table}). Voici un exemple de lecture de ce tableau: Pour une prise de 10 000 t, il y a ", f(prob_10t_below_2bo * 100, 1), "\\% probabilité de ", base_model$dat$end.yr + 2, " biomasse tombe en dessous du ", tr("LRP"), " de $0{,}2B_0$, un ", f(prob_10t_below_4bo * 100, 1), "\\% probabilité de qu'elle tombe en dessous de l'", tr("USR"), " de $0{,}4B_0$, et un ", f(prob_2023_2022_catch_10 * 100, 1), "\\% probabilité de que la biomasse en ", base_model$dat$end.yr + 2, " soit inférieure à la biomasse en ", base_model$dat$end.yr + 1, ". Pour les projections au-delà de ", base_model$dat$end.yr + 2, " la capture est la même valeur pour chaque année projetée dans chaque rangée du tableau. Ainsi, pour l'exemple d'une prise constante de 10 000 t chaque année, la probabilité que la biomasse diminue d'une année à l'autre est de ", f(prob_2023_2022_catch_10 * 100, 1), "\\% de ", base_model$dat$end.yr + 1, " à ", base_model$dat$end.yr + 2, ", ", f(prob_2024_2023_catch_10 * 100, 1), "\\% de ", base_model$dat$end.yr + 2, " to ", base_model$dat$end.yr + 3, ", ", f(prob_2025_2024_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 3, " to ", base_model$dat$end.yr + 4, ", et ", f(prob_2026_2025_catch_10 * 100, 1), "\\% from ", base_model$dat$end.yr + 4, " to ", base_model$dat$end.yr + 5, ".")
+cap <- paste0("Tableau de décision pour le modèle de base montrant les probabilités postérieures que la biomasse projetée est inférieure aux points de référence sélectionnés et aux repères (Tableau \\ref{tab:reference-points-table}). Voici un exemple de lecture de ce tableau: Pour une prise de 10 000 t, il y a ", f(prob_10t_below_2bo * 100, 1), "% probabilité de ", base_model$dat$end.yr + 2, " biomasse tombe en dessous du ", tr("LRP"), " de $0{,}2B_0$, un ", f(prob_10t_below_4bo * 100, 1), "% probabilité de qu'elle tombe en dessous de l'", tr("USR"), " de $0{,}4B_0$, et un ", f(prob_2023_2022_catch_10 * 100, 1), "% probabilité de que la biomasse en ", base_model$dat$end.yr + 2, " soit inférieure à la biomasse en ", base_model$dat$end.yr + 1, ". Pour les projections au-delà de ", base_model$dat$end.yr + 2, " la capture est la même valeur pour chaque année projetée dans chaque rangée du tableau. Ainsi, pour l'exemple d'une prise constante de 10 000 t chaque année, la probabilité que la biomasse diminue d'une année à l'autre est de ", f(prob_2023_2022_catch_10 * 100, 1), "% de ", base_model$dat$end.yr + 1, " à ", base_model$dat$end.yr + 2, ", ", f(prob_2024_2023_catch_10 * 100, 1), "% de ", base_model$dat$end.yr + 2, " to ", base_model$dat$end.yr + 3, ", ", f(prob_2025_2024_catch_10 * 100, 1), "% from ", base_model$dat$end.yr + 3, " to ", base_model$dat$end.yr + 4, ", et ", f(prob_2026_2025_catch_10 * 100, 1), "% from ", base_model$dat$end.yr + 4, " to ", base_model$dat$end.yr + 5, ".")
 }
 
 decision_table_col_width <- "5em"
@@ -231,19 +242,17 @@ table_decisions(base_model,
                 font_size = 6,
                 digits = 3,
                 col_widths = decision_table_col_width,
+                bold_header = TRUE,
                 caption = cap) |>
-                #booktabs = TRUE,
-                #longtable = FALSE,
-                #escape = TRUE) |>
   row_spec(1, hline_after = TRUE) |>
   row_spec(6, hline_after = TRUE) |>
   row_spec(11, hline_after = TRUE) |>
   column_spec(c(1, 6:9, 14:17),
               background = "faint-gray",
-              width = decision_table_col_width)
+              width = decision_table_col_width) |> 
+  landscape()
   #column_spec(6:9, background = "faint-gray", width = decision_table_col_width) |> 
   #column_spec(14:17, background = "faint-gray", width = decision_table_col_width)
 ```
-\end{landscapepage}
 
 \clearpage
