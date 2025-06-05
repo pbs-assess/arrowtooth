@@ -144,7 +144,26 @@ cpue_cap_text <- function(type) {
 
 ```{r cpue-locality-bubble, fig.cap = cpue_cap_text("locality"), out.width = "6in", fig.asp = max(dfleet_sum$locality) / 70, results = 'asis'}
 
-dfleet <- cpue_extraction()
+params <-  list(
+  species_proper = "Arrowtooth Flounder",
+  area = c("^5A|^5B|^5C|^5D|^5E|^3C|^3D"),
+  area_name = c("3CD5ABCDE"),
+  skip_single_variable_models = FALSE,
+  use_alt_year = FALSE,
+  alt_year_start_date = "02-21",
+  final_year = 2021,
+  final_date = "2021-12-31",
+  discard_only = TRUE,
+  lat_range = c(48, Inf),
+  min_positive_tows = 140,
+  min_positive_trips = 10,
+  min_yrs_with_trips = 5,
+  depth_range = c(-Inf, Inf),
+  era = "modern",
+  parallel = TRUE)
+
+dfleet <- cpue_extraction(params = params)
+
 gfplot:::plot_predictor_bubbles(dfleet,
                                 "locality",
                                 french = fr()) +
@@ -191,9 +210,18 @@ gfplot:::plot_predictor_bubbles(dfleet,
                                 french = fr()) +
   theme(axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
+
+dfleet_sum <- dfleet |>
+  bind_rows() |>
+  group_by(area) |>
+  summarise(locality = length(unique(locality)),
+            depth = length(unique(depth)),
+            latitude = length(unique(latitude)),
+            vessel = length(unique(vessel)),
+            month = length(unique(month)))
 ```
 
-```{r cpue-month-bubble, fig.cap = cpue_cap_text("month"), out.width = "6in", fig.asp = max(dfleet_sum$month)/30, results = 'asis'}
+```{r cpue-month-bubble, fig.cap = cpue_cap_text("month"), out.width = "6in", fig.asp = max(dfleet_sum$month) / 30, results = 'asis'}
 
 if(!exists("dfleet")){
   dfleet <- cpue_extraction()
@@ -256,7 +284,7 @@ predictions <- mod_pred$predictions
 
 toplot <- which(attr(
   model, "split_labels")$formula_version == "Full standardization")
-plot_fixed_effect_coefs(model[[toplot[i]]]) +
+plot_fixed_effect_coefs(model[[toplot]]) +
      ggtitle(params$area_name)
 #knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot1-1.png"), dpi = NA)
 ```
@@ -269,7 +297,7 @@ plot_fixed_effect_coefs(model[[toplot[i]]]) +
 
 toplot <- which(attr(
   model, "split_labels")$formula_version == "Full standardization")
-plot_random_intercepts(model[[toplot[i]]],
+plot_random_intercepts(model[[toplot]],
                        re_names = c("locality", "vessel")) +
      ggtitle(params$area_name)
 #knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot2-1.png"), dpi = NA)
@@ -283,7 +311,7 @@ plot_random_intercepts(model[[toplot[i]]],
 
 toplot <- which(attr(
   model, "split_labels")$formula_version == "Full standardization")
-plot_year_locality_interactions(model[[toplot[i]]]) +
+plot_year_locality_interactions(model[[toplot]]) +
      ggtitle(params$area_name)
 #knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot3-1.png"), dpi = NA)
 ```

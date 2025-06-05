@@ -8,6 +8,7 @@
 #'
 #' @import gfplot
 #' @import ggplot2
+#' @import lubridate
 #' @importFrom PBSmapping clipPolys
 #' @importFrom rlang .data
 #' @importFrom scales comma

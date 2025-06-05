@@ -57,14 +57,23 @@ header: "" # "Draft working paper --- Do not cite or circulate"
 # the french equivalents (if `french` = `true`) on all long tables created
 # with `csas_table()` that cross page boundaries. If `false`, these will
 # both be absent from all tables. If it is missing or any other value than
-# `false`, it will be assumed to be `true`
+# `true` or `false`, it will be assumed to be `true`
 show_continued_text: false
 output:
  csasdown::resdoc_pdf:
    # build_rds is a toggle to re-build all the RDS files for the models
    build_rds: false
    keep_md: true
-   french: true
+   # `lualatex` is required for `accessibile_pdf` to work
+   latex_engine: lualatex
+   # If `true`, alternative figure text and figure tags are added for
+   # PDF web accessibility compliance
+   accessible_pdf: false
+   # The name of the directory containing pre-made figures such as png files
+   # that will be included using `include_graphics()`
+   figures_dir: figure
+   # This value will be the return value for `fr()` in your code
+   french: false
    # copy_sty is a toggle to copy the style file from the csasdown package
    # every time you compile the document. If false, any changes you have
    # made to the style file in your project will remain between
@@ -185,11 +194,13 @@ if(as.logical(length(grep("grandin", user)))){
   load_all("~/github/pbs-assess/gfplot")
   load_all("~/github/pbs-assess/csasdown")
   load_all("~/github/pbs-assess/rosettafish")
+load_all("~/github/pbs-assess/arrowtooth")
 }else if(user == "seananderson"){
   load_all("~/src/gfutilities/")
   load_all("~/src/gfiscamutils/")
   load_all("~/src/csasdown/")
   load_all("~/src/rosettafish/")
+  load_all("~/src/arrowtooth")
   library(gfplot)
 }else{
   library(gfiscamutils)
@@ -203,7 +214,6 @@ library(here)
 library(kableExtra)
 library(purrr)
 library(tidylog, warn.conflicts = FALSE)
-load_all()
 
 meta <- rmarkdown::metadata$output
 build_rds <- FALSE
@@ -842,6 +852,8 @@ diff_bio_b40 <- f(0.0064 * 1000, 1)
 #   select(-c(F2022, U2022, f_bo_40, u_bo_40))
   
 
+figures_dir <- here(rmarkdown::metadata$output$`csasdown::sr_pdf`$figures_dir)
+accessible_pf <- rmarkdown::metadata$output$`csasdown::sr_pdf`$accessible_pdf
 
 ```
 

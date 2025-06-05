@@ -11,6 +11,7 @@
 cpue_extraction <- \(fn_cpue = file.path(drs$nongit_dir,
                                          "cpue-figs",
                                          "arrowtooth-cpue-to-2024-10-21.rds"),
+                     params,
                      ret_params = FALSE){
     # fn_cpue_predict = file.path(
     #   drs$nongit_dir,
@@ -88,13 +89,5 @@ cpue_extraction <- \(fn_cpue = file.path(drs$nongit_dir,
 
   dfleet <- define_fleet(params$area, params$area_name)
 
-  # dfleet_sum <- dfleet |>
-  #   bind_rows() |>
-  #   group_by(area) |>
-  #   summarise(locality = length(unique(locality)),
-  #             depth = length(unique(depth)),
-  #             latitude = length(unique(latitude)),
-  #             vessel = length(unique(vessel)),
-  #             month = length(unique(month)))
   dfleet
 }

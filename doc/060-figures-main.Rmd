@@ -99,7 +99,6 @@ plot_biomass_mcmc(base_model,
                   text_title_size = NULL,
                   show_bmsy_lines = TRUE,
                   ylim = c(0, 250),
-                  ylim = c(0, 250),
                   units = "1000 t")
 ```
 

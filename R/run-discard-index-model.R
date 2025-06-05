@@ -57,7 +57,7 @@ run_discard_index_model <- \(dfleet,
                                "-",
                                params$area_name,
                                "-",
-                               lubridate::as_date(now()),
+                               lubridate::as_date(lubridate::now()),
                                ".rds"))
   fn_predictions <- file.path(fn_csv,
                         paste0("cpue-predictions-arrowtooth-",

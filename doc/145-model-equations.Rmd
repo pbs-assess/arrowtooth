@@ -393,7 +393,7 @@ cap <- ifelse(fr(),
               paste0("Descriptions of the symbols used in ", iscam, "."))
 
 table_iscam_param_desc(base_model,
-                       cap = cap)
+                       caption = cap)
 ```
 
 
