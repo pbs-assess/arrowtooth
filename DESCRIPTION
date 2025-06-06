@@ -38,8 +38,10 @@ Imports:
     reshape2,
     rlang,
     scales,
+    sdmTMB,
     sf,
     stats,
+    stringr,
     tibble,
     tidyr,
     tidyselect,
@@ -55,6 +57,7 @@ Remotes:
     pbs-assess/gfplot,
     pbs-assess/gfutilities,
     pbs-assess/rosettafish,
+    pbs-assess/sdmTMB,
     pbs-software/pbs-data/PBSdata,
     pbs-software/pbs-mapping/PBSmapping,
     pacific-hake/hake-assessment

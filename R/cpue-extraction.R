@@ -9,7 +9,7 @@
 #' @return A data frame, or the `params` list, if `ret_params` is `TRUE`
 #' @export
 cpue_extraction <- \(fn_cpue = file.path(drs$nongit_dir,
-                                         "cpue-figs",
+                                         "data",
                                          "arrowtooth-cpue-to-2024-10-21.rds"),
                      params,
                      ret_params = FALSE){

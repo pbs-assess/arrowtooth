@@ -122,7 +122,7 @@ include_graphics(here("doc/figure/proportion-zero-catch.png"), dpi = NA)
 
 
 ```{r bubble-utils}
-cpuefold <- file.path(drs$nongit_dir, "cpue-figs")
+cpuefold <- file.path(drs$nongit_dir, "figures-cpue")
 
 bub <- function(.n) {
   knitr::include_graphics(file.path(cpuefold, paste0("bubble-plots-", .n, "-1.png")), dpi = NA)

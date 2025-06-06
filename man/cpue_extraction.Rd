@@ -5,7 +5,7 @@
 \title{Extract CPUE for Arrowtooth Flounder}
 \usage{
 cpue_extraction(
-  fn_cpue = file.path(drs$nongit_dir, "cpue-figs", "arrowtooth-cpue-to-2024-10-21.rds"),
+  fn_cpue = file.path(drs$nongit_dir, "data", "arrowtooth-cpue-to-2024-10-21.rds"),
   ret_params = FALSE
 )
 }

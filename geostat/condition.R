@@ -6,21 +6,33 @@ library(scales)
 
 source(here("geostat/utils.R"))
 
-dr <- paste0(here(), "-nongit")
+dr <- "/srv/arrowtooth/arrowtooth-nongit"
+#dr <- paste0(here(), "-nongit")
 
-dir.create(file.path(dr, "geostat-figs"), showWarnings = FALSE)
+dir.create(file.path(dr, "figures-geostat"), showWarnings = FALSE)
 d <- readRDS(file.path(dr, "data", "arrowtooth-flounder-aug11-2022.rds"))
 
 dat <- d$survey_samples
 dset <- d$survey_sets
 
-dat <- left_join(select(dat, fishing_event_id, year, length, sex, age, weight, usability_code, specimen_id), dset)
-dat <- filter(dat, survey_abbrev %in% c("SYN HS"   ,"SYN QCS",  "SYN WCHG", "SYN WCVI"))
+dat <- left_join(select(dat,
+                        fishing_event_id,
+                        year,
+                        length,
+                        sex,
+                        age,
+                        weight,
+                        usability_code,
+                        specimen_id),
+                 dset)
+dat <- filter(dat, survey_abbrev %in% c("SYN HS",
+                                        "SYN QCS",
+                                        "SYN WCHG",
+                                        "SYN WCVI"))
 dat <- filter(dat, !is.na(depth_m))
 
 mf <- gfplot::fit_length_weight(dat, sex = "female")
 mm <- gfplot::fit_length_weight(dat, sex = "male")
-
 
 # mf$data$predicted_weight <- exp(mf$pars$log_a + mf$pars$b * log(mf$data$length))
 # mf$data$residuals <- (mf$data$weight - mf$data$predicted_weight)/mf$data$weight
@@ -52,7 +64,9 @@ ggplot(ds, aes(longitude, latitude, colour = log(cond_fac))) +
 
 ds$X <- NULL
 ds$Y <- NULL
-ds <- sdmTMB::add_utm_columns(ds, ll_names = c("longitude", "latitude"), utm_crs = 32609)
+ds <- sdmTMB::add_utm_columns(ds,
+                              ll_names = c("longitude", "latitude"),
+                              utm_crs = 32609)
 
 mesh <- make_mesh(ds, c("X", "Y"), cutoff = 20)
 # plot(mesh)
@@ -76,83 +90,116 @@ sanity(fit)
 # v <- visreg::visreg(fit, xvar = "log_depth")
 # ggplot(v$res, aes(log_depth, visregRes)) + geom_point()
 
-png(file.path(dr, "geostat-figs", "condition-smoother.png"), width = 6, height = 4, units = "in", res = 200)
+png(file.path(dr,
+              "figures-geostat",
+              "condition-smoother.png"),
+    width = 6,
+    height = 4,
+    units = "in",
+    res = 200)
 
 plot_smooth(fit, select = 1, ggplot = TRUE, rug = FALSE) +
   scale_x_continuous(trans = "exp",
-                     breaks = c(log(100), log(200), log(300), log(400), log(500)),
-                     labels = c("100", "200", "300", "400", "500")) +
+                     breaks = c(log(100),
+                                log(200),
+                                log(300),
+                                log(400),
+                                log(500)),
+                     labels = c("100",
+                                "200",
+                                "300",
+                                "400",
+                                "500")) +
   scale_y_continuous(breaks = c(0.97, 1, 1.03, 1.06, 1.09)) +
   coord_cartesian(expand = FALSE) +
   ylab("Predicted condition factor") +
   xlab("Depth (m)") +
-  ggplot2::geom_rug(
-    data = fit$data, mapping = ggplot2::aes_string(x = "log_depth"),
-    sides = "t", inherit.aes = FALSE, alpha = 0.01, size = 0.5
-  ) +
+  ggplot2::geom_rug(data = fit$data,
+                    mapping = ggplot2::aes_string(x = "log_depth"),
+                    sides = "t",
+                    inherit.aes = FALSE,
+                    alpha = 0.01,
+                    size = 0.5) +
   gfplot::theme_pbs()
 
 dev.off()
 
-
-
 ## time-varying depth effect on condition
 
 fit_tv <- sdmTMB(cond_fac ~ 0 + s(year),
-              time_varying = ~ 0 + poly(log_depth, 3, raw = T),
-              mesh = mesh,
-              data = ds,
-              # spatial = "off",
-              spatial = "on",
-              # spatiotemporal = "rw",
-              silent = FALSE,
-              time = "year",
-              family = lognormal(link = "log"),
-              control = sdmTMBcontrol(newton_loops = 1L),
-              priors = sdmTMBpriors(
-                matern_s = pc_matern(range_gt = 25, sigma_lt = 2),
-                matern_st = pc_matern(range_gt = 25, sigma_lt = 2)
-              ))
+                 time_varying = ~ 0 + poly(log_depth, 3, raw = T),
+                 mesh = mesh,
+                 data = ds,
+                 # spatial = "off",
+                 spatial = "on",
+                 # spatiotemporal = "rw",
+                 silent = FALSE,
+                 time = "year",
+                 family = lognormal(link = "log"),
+                 control = sdmTMBcontrol(newton_loops = 1L),
+                 priors = sdmTMBpriors(
+                   matern_s = pc_matern(range_gt = 25, sigma_lt = 2),
+                   matern_st = pc_matern(range_gt = 25, sigma_lt = 2)))
 sanity(fit_tv)
 
 AIC(fit_tv)
 
-
-nd <- expand.grid(
-  log_depth = seq(min(ds$log_depth),
-                     max(ds$log_depth),
-                     length.out = 50
-  ),
-  year = unique(ds$year) # all years
-)
+nd <- expand.grid(log_depth = seq(min(ds$log_depth),
+                                  max(ds$log_depth),
+                                  length.out = 50),
+                  year = unique(ds$year)) # all years
 
 p <- predict(fit_tv, newdata = nd, se_fit = TRUE, re_form = NA)
 
 # add annual mean temperature for colouring the year lines
-td <- readRDS(file.path(dr, "data", "trawl_temp.rds")) %>% group_by(fishing_event_id) %>% summarise(temp = mean(avg, na.rm =T))
-td <- left_join(ds, td) %>% filter(depth_m < 200 & depth_m > 100) %>% group_by(year) %>% summarise(yr_mean_temp = mean(temp, na.rm = T))
-p2 <- left_join(p, td) %>%
-  filter(log_depth < log(450)) %>%
+td <- readRDS(file.path(dr,
+                        "data",
+                        "trawl_temp.rds")) |>
+  group_by(fishing_event_id) |>
+  summarise(temp = mean(avg, na.rm = TRUE))
+
+td <- left_join(ds, td) |>
+  filter(depth_m < 200 & depth_m > 100) |>
+  group_by(year) |>
+  summarise(yr_mean_temp = mean(temp, na.rm = TRUE))
+
+p2 <- left_join(p, td) |>
+  filter(log_depth < log(450)) |>
   filter(year != 2020) # temp data missing for 2020
 
 ## check pattern within years of certain surveys
 # yrs <- ds %>% filter(survey_abbrev == "SYN WCVI")
 # p2 <- p2 %>% filter(year %in% unique(yrs$year))
 
-png(file.path(dr, "geostat-figs", "condition-tv-raw-poly-3.png"), width = 6, height = 4, units = "in", res = 200)
+png(file.path(dr,
+              "figures-geostat",
+              "condition-tv-raw-poly-3.png"),
+    width = 6,
+    height = 4,
+    units = "in",
+    res = 200)
 
-ggplot(p2, aes(log_depth, exp(est),
-              ymin = exp(est - 1.96 * est_se),
-              ymax = exp(est + 1.96 * est_se),
-              group = as.factor(year)
-)) +
+ggplot(p2,
+       aes(log_depth,
+           exp(est),
+           ymin = exp(est - 1.96 * est_se),
+           ymax = exp(est + 1.96 * est_se),
+           group = as.factor(year))) +
   geom_line(aes(colour = yr_mean_temp), lwd = 1) +
   geom_ribbon(aes(fill = yr_mean_temp), alpha = 0.05) +
   scale_colour_viridis_c(option = "plasma") +
   scale_fill_viridis_c(option = "plasma") +
   scale_x_continuous(trans = "exp",
-                     breaks = c(log(100), log(200), log(300), log(400), log(500)),
-                     labels = c("100", "200", "300", "400", "500")) +
+                     breaks = c(log(100),
+                                log(200),
+                                log(300),
+                                log(400),
+                                log(500)),
+                     labels = c("100",
+                                "200",
+                                "300",
+                                "400",
+                                "500")) +
   coord_cartesian(expand = F) +
   labs(x = "Depth (m)", y = "Predicted condition factor",
        fill = "Mean bottom \ntemperature at \n100-200 m \ndepths",
@@ -160,8 +207,6 @@ ggplot(p2, aes(log_depth, exp(est),
   gfplot::theme_pbs()
 
 dev.off()
-
-
 
 nd <- readRDS(here("geostat/synoptic_grid.rds"))
 fitted_yrs <- sort(unique(ds$year))
@@ -176,32 +221,48 @@ ind <- get_index_sims(p,
   agg_function = function(x) mean(x),
   area_function = function(x, area) x * area)
 
-ggplot(ind, aes(year, exp(est), ymin = exp(lwr), ymax = exp(upr))) +
-  geom_ribbon(alpha= 0.5) + geom_line() +
+ggplot(ind,
+       aes(year, exp(est), ymin = exp(lwr), ymax = exp(upr))) +
+  geom_ribbon(alpha= 0.5) +
+  geom_line() +
   gfplot::theme_pbs() +
-  ylab("Condition factor") + xlab("Year")
+  ylab("Condition factor") +
+  xlab("Year")
 
-ggsave(file.path(dr, "geostat-figs", "condition-coastwide.png"), width = 6, height = 4)
+ggsave(file.path(dr,
+                 "figures-geostat",
+                 "condition-coastwide.png"),
+       width = 6,
+       height = 4)
 
-out <- split(nd, nd$survey) %>%
-  purrr::map(function(.x) {
+out <- split(nd, nd$survey) |>
+  purrr::map(function(.x){
     p <- predict(fit, newdata = .x, nsim = 300)
     ind <- get_index_sims(p,
-      agg_function = function(x) mean(x),
-      area_function = function(x, area) x * area)
-    ind
-  })
+                          agg_function = function(x) mean(x),
+                          area_function = function(x, area) x * area)
+    ind})
 outs <- bind_rows(out, .id = "survey")
 
-ggplot(outs, aes(year, exp(est), ymin = exp(lwr), ymax = exp(upr), colour = survey, fill = survey)) +
-  geom_ribbon(alpha= 0.5, colour = NA) + geom_line() +
+ggplot(outs,
+       aes(year, exp(est), ymin = exp(lwr), ymax = exp(upr),
+           colour = survey,
+           fill = survey)) +
+  geom_ribbon(alpha= 0.5, colour = NA) +
+  geom_line() +
   scale_fill_brewer(palette = "Set2") +
   scale_colour_brewer(palette = "Set2") +
   gfplot::theme_pbs() +
-  ylab("Condition factor") + xlab("Year") +
-  labs(fill = "Survey", colour = "Survey")
+  ylab("Condition factor") +
+  xlab("Year") +
+  labs(fill = "Survey",
+       colour = "Survey")
   # facet_wrap(~survey)
-ggsave(file.path(dr, "geostat-figs", "condition-by-survey.png"), width = 6, height = 4)
+ggsave(file.path(dr,
+                 "figures-geostat",
+                 "condition-by-survey.png"),
+       width = 6,
+       height = 4)
 
 pmap <- predict(fit, newdata = nd)
 
@@ -215,15 +276,20 @@ g <- ggplot(pmap, aes(X, Y, fill = est)) +
   geom_tile(width = 2, height = 2) +
   facet_wrap(~year) +
   scale_fill_gradient2() +
-  geom_polygon(
-    data = coast, aes_string(x = "X", y = "Y", group = "PID"),
-    fill = NA, col = "grey70", lwd = 0.2, inherit.aes = FALSE
-  ) +
+  geom_polygon(data = coast,
+               aes_string(x = "X", y = "Y", group = "PID"),
+               fill = NA,
+               col = "grey70",
+               lwd = 0.2,
+               inherit.aes = FALSE) +
   gfplot::theme_pbs() +
-  coord_fixed(
-    expand = FALSE, xlim = range(pmap$X) + c(-10, 10),
-    ylim = range(pmap$Y) + c(-10, 10)
-  ) +
+  coord_fixed(expand = FALSE,
+              xlim = range(pmap$X) + c(-10, 10),
+              ylim = range(pmap$Y) + c(-10, 10)) +
   labs(fill = "Condition anomaly\n(log space)")
 
-ggsave(file.path(dr, "geostat-figs", "condition-map3.png"), width = 10, height = 10)
+ggsave(file.path(dr,
+                 "figures-geostat",
+                 "condition-map3.png"),
+       width = 10,
+       height = 10)

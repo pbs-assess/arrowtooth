@@ -10,12 +10,13 @@ library(gfiscamutils)
 
 source(here("geostat/utils.R"))
 
-dr <- paste0(here(), "-nongit")
+dr <- "/srv/arrowtooth/arrowtooth-nongit"
+#dr <- paste0(here(), "-nongit")
 
 dat <- prep_data(folder = dr)
 list_species <- "arrowtooth flounder"
 
-f <- file.path(dr, "geostat-figs")
+f <- file.path(dr, "figures-geostat")
 if (!file.exists(file.path(f, "geo-delta-gamma-depth.rds"))) { # pick one
   out <- purrr::map(list_species, ~
       fit_index(
@@ -206,60 +207,6 @@ coords <- coord_equal(
 )
 utm_labs <- labs(x = "Easting", y = "Northing")
 
-plot_multiyear_survey_sets <- function(dat, survey_abbrev,
-  density_lab = "", french = FALSE) {
-  density_lab <- if (french) {
-    bquote(atop("Densité de la biomasse", ~ (kg / km^2)))
-  } else {
-    bquote(atop("Biomass density", ~ (kg / km^2)))
-  }
-  ggplot(filter(dat, density > 0), aes(X, Y,
-    size = density,
-    fill = density,
-    colour = density
-  )) +
-    scale_size_area(max_size = 8) +
-    geom_point(
-      data = filter(dat, density == 0), pch = 4,
-      size = 0.7, col = "grey60"
-    ) +
-    coords +
-    geom_point(alpha = 0.5, pch = 21) +
-    facet_wrap(~year) +
-    geom_polygon(
-      data = coast, aes_string(x = "X", y = "Y", group = "PID"),
-      fill = "grey87", col = "grey70", lwd = 0.2, inherit.aes = FALSE
-    ) +
-    scale_fill_viridis_c(trans = "sqrt") +
-    scale_colour_viridis_c(trans = "sqrt") +
-    labs(
-      fill = density_lab,
-      colour = density_lab,
-      size = density_lab, x = tr("Easting"),
-      y = tr("Northing")
-    ) +
-    guides(
-      size = guide_legend(order = 1),
-      fill = guide_colorbar(order = 0),
-      colour = "none"
-    ) +
-    gfplot::theme_pbs()
-}
-
-g <- dat %>%
-  filter(year %in% 2003:2012) %>%
-  arrange(-density) %>%
-  plot_multiyear_survey_sets() +
-  facet_wrap(~year, ncol = 3)
-# data <- dplyr::filter(data, !(year == 2014 & survey_abbrev == "SYN WCHG")) # not used
-ggsave(file.path(f, "geostat-map-raw1.png"), width = 9, height = 11)
-
-g <- dat %>%
-  filter(year > 2012) %>%
-  arrange(-density) %>%
-  plot_multiyear_survey_sets() +
-  facet_wrap(~year, ncol = 3)
-ggsave(file.path(f, "geostat-map-raw2.png"), width = 9, height = 10)
 
 plot_map <- function(dat, column, max_colour) {
   ggplot(dat, aes_string("X", "Y", fill = column, colour = column)) +

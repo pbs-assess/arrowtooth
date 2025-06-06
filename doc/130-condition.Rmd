@@ -90,8 +90,11 @@ cat("## CHIFFRES DE L'ÉTAT")
 
 ```{r fig-condition-index, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-fr)", "(ref:fig-fig-condition-index-en)"), out.width = "4.2in", results = 'asis'}
 
+# dat is set in index.Rmd, read in from an RDS file
+d <- condition_data_prep(survey_sets)
+
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "condition-coastwide.png"),
                  dpi = NA)
 ```
@@ -103,7 +106,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-condition-index-surv, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-surv-fr)", "(ref:fig-fig-condition-index-surv-en) "), out.width = "4.9in", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "condition-by-survey.png"),
                  dpi = NA)
 ```
@@ -115,7 +118,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-condition-map, fig.cap = ifelse(fr(), "(ref:fig-condition-map-fr)", "(ref:fig-condition-map-en)"), out.width = "\\textwidth", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "condition-map.png"),
                  dpi = NA)
 ```
@@ -127,7 +130,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-condition-smoother, fig.cap = ifelse(fr(), "(ref:fig-condition-smoother-fr)", "(ref:fig-condition-smoother-en)"), out.width = "5.0in", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "condition-smoother.png"),
                  dpi = NA)
 ```
@@ -139,7 +142,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-condition-tv, fig.cap = ifelse(fr(), "(ref:fig-condition-tv-fr)", "(ref:fig-condition-tv-en)"), out.width = "5.0in", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "condition-tv-raw-poly-3.png"),
                  dpi = NA)
 ```

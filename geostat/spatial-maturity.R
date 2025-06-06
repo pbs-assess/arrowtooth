@@ -22,7 +22,7 @@ d <- sdmTMB::add_utm_columns(d, c("longitude", "latitude"), utm_crs = 32609)
 
 # prep for plotting
 
-nd <- readRDS(file.path("../arrowtooth-nongit", "geostat-figs", "synoptic_grid.rds"))
+nd <- readRDS(file.path("../arrowtooth-nongit", "figures-geostat", "synoptic_grid.rds"))
 
 nd <- na.omit(nd)
 nd$log_depth <- log(nd$depth)

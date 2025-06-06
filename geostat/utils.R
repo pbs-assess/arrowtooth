@@ -1,18 +1,3 @@
-prep_data <- function(folder, region = c("SYN QCS", "SYN HS", "SYN WCVI", "SYN WCHG")) {
-  # dat <- readRDS(here("arrowtooth-nongit", "data", "arrowtooth-flounder-aug10-2021.rds"))$survey_sets %>%
-  #   dplyr::filter(survey_abbrev %in% region)
-  dat <- readRDS(file.path(folder, "data", "arrowtooth-flounder-aug11-2022.rds"))$survey_sets %>%
-    dplyr::filter(survey_abbrev %in% region)
-  # change from per m2 to per km2:
-  dat$density <- dat[["density_kgpm2"]] * 1000000
-  dat$log_depth <- log(dat$depth_m)
-  dat$area_swept1 <- dat$doorspread_m * (dat$speed_mpm * dat$duration_min)
-  dat$area_swept2 <- dat$tow_length_m * dat$doorspread_m
-  dat$area_swept <- ifelse(!is.na(dat$area_swept2), dat$area_swept2, dat$area_swept1)
-  dat <- dplyr::filter(dat, !is.na(area_swept))
-  dat <- sdmTMB::add_utm_columns(dat, c("longitude", "latitude"), utm_crs = 32609)
-}
-
 fit_index <- function(dat,
   species = "arrowtooth flounder",
   folder = ".",
@@ -39,7 +24,7 @@ fit_index <- function(dat,
   # points(dat$X, dat$Y, pch = ".")
   # mesh$mesh$n
 
-  nd <- readRDS(file.path(folder, "geostat-figs", "synoptic_grid.rds")) %>%
+  nd <- readRDS(file.path(folder, "figures-geostat", "synoptic_grid.rds")) %>%
     dplyr::filter(survey %in% region)
   fitted_yrs <- sort(unique(dat$year))
   nd <- make_grid(nd, years = fitted_yrs)

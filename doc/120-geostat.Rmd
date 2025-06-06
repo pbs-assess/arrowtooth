@@ -226,10 +226,22 @@ cat("## INDICES GÉOSTATISTIQUES {#geostat-figs}")
 
 ```{r fig-geo-bubble1, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble1-fr)", "(ref:fig-geo-bubble1-en)"), out.width = "\\textwidth", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
-                           "geostat-map-raw1.png"),
-                 dpi = NA)
+dat <- geostat_prep_data()
+if(!exists("fits_df")){
+  fits_df <- geostat_fit_indices()  
+}
+
+g <- dat |> 
+  filter(year %in% 2003:2012) |> 
+  arrange(-density) |> 
+  geostat_plot_biomass_map_bubbles() +
+  facet_wrap(~year, ncol = 3)
+
+g
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "geostat-map-raw1.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-geo-bubble2-en) Survey data bubble plot for 2013 to 2021. The area and colour of circles corresponds to set density. Sets with zero `r sp` catch are indicated with a grey cross.
@@ -238,10 +250,17 @@ include_graphics(file.path(drs$nongit_dir,
 
 ```{r fig-geo-bubble2, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble2-fr)", "(ref:fig-geo-bubble2-en)"), out.width = "\\textwidth", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
-                           "geostat-map-raw2.png"),
-                 dpi = NA)
+g <- dat |> 
+  filter(year > 2012) |> 
+  arrange(-density) |> 
+  geostat_plot_biomass_map_bubbles() +
+  facet_wrap(~year, ncol = 3)
+
+g
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "geostat-map-raw2.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-geo-predmap1-en) Predicted `r sp` biomass density for 2003 to 2012 from the coastwide $\Delta$-Gamma model without depth.
@@ -250,10 +269,19 @@ include_graphics(file.path(drs$nongit_dir,
 
 ```{r fig-geo-predmap1, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap1-fr)", "(ref:fig-geo-predmap1-en)"), out.width = "\\textwidth", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
-                           "geostat-map-pred1.png"),
-                 dpi = NA)
+dat <- geostat_prep_data()
+yr_cutoff <- 2012
+dat_cutoff <- dat |>
+  filter(year <= yr_cutoff)
+
+geostat_plot_biomass_map_polygons(d = dat_cutoff,
+                                  column = "est_total") +
+  theme(axis.text.x = element_text(size = 6))
+
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "geostat-map-pred1.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-geo-predmap2-en) Predicted `r sp` biomass density for 2013 to 2021 from the coastwide $\Delta$-Gamma model without depth.
@@ -263,7 +291,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-geo-predmap2, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap2-fr)", "(ref:fig-geo-predmap2-en)"), out.width = "\\textwidth", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "geostat-map-pred2.png"),
                  dpi = NA)
 ```
@@ -275,7 +303,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-geo-individual, fig.cap = ifelse(fr(), "(ref:fig-geo-individual-fr)", "(ref:fig-geo-individual-en)"), results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "geostat-individual-vs-design.png"),
                  dpi = NA)
 ```
@@ -287,7 +315,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-geo-indexes, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-fr)", "(ref:fig-geo-indexes-en)"), out.width = "5.5in", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "geostat-indexes.png"),
                  dpi = NA)
 ```
@@ -299,7 +327,7 @@ include_graphics(file.path(drs$nongit_dir,
 ```{r fig-geo-indexes-cpue, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-cpue-fr)", "(ref:fig-geo-indexes-cpue-en)"), out.width = "5.5in", results = 'asis'}
 
 include_graphics(file.path(drs$nongit_dir,
-                           "geostat-figs",
+                           "figures-geostat",
                            "geostat-indexes-cpue.png"),
                  dpi = NA)
 ```
