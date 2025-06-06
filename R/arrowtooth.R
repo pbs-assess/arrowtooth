@@ -10,7 +10,7 @@
 #' @import ggplot2
 #' @import lubridate
 #' @import purrr
-#' 
+#'
 #' @importFrom PBSmapping clipPolys
 #' @importFrom rlang .data global_env
 #' @importFrom scales comma
