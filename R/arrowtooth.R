@@ -9,12 +9,18 @@
 #' @import gfplot
 #' @import ggplot2
 #' @import lubridate
+#' @import purrr
+#' 
 #' @importFrom PBSmapping clipPolys
-#' @importFrom rlang .data
+#' @importFrom rlang .data global_env
 #' @importFrom scales comma
+#' @importFrom sdmTMB add_utm_columns delta_gamma get_index make_mesh
+#' @importFrom sdmTMB pc_matern sanity sdmTMB sdmTMBcontrol sdmTMBpriors tweedie
 #' @importFrom sf st_as_sf st_cast st_combine st_crs st_point st_sfc st_set_crs
 #' @importFrom sf st_transform
 #' @importFrom stats quantile
+#' @importFrom stringr str_to_title
+#' @importFrom TMB openmp
 #' @importFrom utils capture.output
 
 NULL
