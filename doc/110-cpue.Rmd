@@ -117,16 +117,17 @@ où $\bm{X_t}$ représente un vecteur de variables prédictives fixé aux niveau
 
 ```{r fig-catch-zero-prop, fig.cap = ifelse(fr(), "(ref:fig-catch-zero-prop-fr)", "(ref:fig-catch-zero-prop-en)"), results = "asis"}
 
-include_graphics(here("doc/figure/proportion-zero-catch.png"), dpi = NA)
+plot_proportion_zero_tows()
+#include_graphics(here("doc/figure/proportion-zero-catch.png"), dpi = NA)
 ```
 
 
 ```{r bubble-utils}
-cpuefold <- file.path(drs$nongit_dir, "figures-cpue")
+#cpuefold <- file.path(drs$nongit_dir, "figures-cpue")
 
-bub <- function(.n) {
-  knitr::include_graphics(file.path(cpuefold, paste0("bubble-plots-", .n, "-1.png")), dpi = NA)
-}
+# bub <- function(.n) {
+#   knitr::include_graphics(file.path(cpuefold, paste0("bubble-plots-", .n, "-1.png")), dpi = NA)
+# }
 
 cpue_cap_text <- function(type) {
   if(fr()){
@@ -140,9 +141,6 @@ cpue_cap_text <- function(type) {
            "represents the number of fishing events.")
   }
 }
-```
-
-```{r cpue-locality-bubble, fig.cap = cpue_cap_text("locality"), out.width = "6in", fig.asp = max(dfleet_sum$locality) / 70, results = 'asis'}
 
 params <-  list(
   species_proper = "Arrowtooth Flounder",
@@ -164,6 +162,19 @@ params <-  list(
 
 dfleet <- cpue_extraction(params = params)
 
+dfleet_sum <- dfleet |>
+  bind_rows() |>
+  group_by(area) |>
+  summarise(locality = length(unique(locality)),
+            depth = length(unique(depth)),
+            latitude = length(unique(latitude)),
+            vessel = length(unique(vessel)),
+            month = length(unique(month)))
+
+```
+
+```{r cpue-locality-bubble, fig.cap = cpue_cap_text("locality"), out.width = "6in", fig.asp = max(dfleet_sum$locality) / 70, results = 'asis'}
+
 gfplot:::plot_predictor_bubbles(dfleet,
                                 "locality",
                                 french = fr()) +
@@ -175,7 +186,7 @@ gfplot:::plot_predictor_bubbles(dfleet,
 ```{r cpue-depth-bubble, fig.cap = cpue_cap_text("depth"), out.width = "6in", fig.asp = max(dfleet_sum$depth) / 50, results = 'asis'}
 
 if(!exists("dfleet")){
-  dfleet <- cpue_extraction()
+  dfleet <- cpue_extraction(params = params)
 }
 gfplot:::plot_predictor_bubbles(dfleet,
                                 "depth",
@@ -187,7 +198,7 @@ gfplot:::plot_predictor_bubbles(dfleet,
 ```{r cpue-latitude-bubble, fig.cap = cpue_cap_text("latitude"), out.width = "6in", fig.asp = max(dfleet_sum$latitude) / 60, results = 'asis'}
 
 if(!exists("dfleet")){
-  dfleet <- cpue_extraction()
+  dfleet <- cpue_extraction(params = params)
 }
 gfplot:::plot_predictor_bubbles(dfleet,
                                 "latitude",
@@ -203,7 +214,7 @@ gfplot:::plot_predictor_bubbles(dfleet,
 ```{r cpue-vessel-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-vessel-bubble-fr)", "(ref:fig-cpue-vessel-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$vessel) / 50, results = 'asis'}
 
 if(!exists("dfleet")){
-  dfleet <- cpue_extraction()
+  dfleet <- cpue_extraction(params = params)
 }
 gfplot:::plot_predictor_bubbles(dfleet,
                                 "vessel",
@@ -211,20 +222,12 @@ gfplot:::plot_predictor_bubbles(dfleet,
   theme(axis.text.y = element_blank(), 
         axis.ticks.y = element_blank())
 
-dfleet_sum <- dfleet |>
-  bind_rows() |>
-  group_by(area) |>
-  summarise(locality = length(unique(locality)),
-            depth = length(unique(depth)),
-            latitude = length(unique(latitude)),
-            vessel = length(unique(vessel)),
-            month = length(unique(month)))
 ```
 
 ```{r cpue-month-bubble, fig.cap = cpue_cap_text("month"), out.width = "6in", fig.asp = max(dfleet_sum$month) / 30, results = 'asis'}
 
 if(!exists("dfleet")){
-  dfleet <- cpue_extraction()
+  dfleet <- cpue_extraction(params = params)
 }
 gfplot:::plot_predictor_bubbles(dfleet,
                                 "month",
@@ -240,7 +243,7 @@ gfplot:::plot_predictor_bubbles(dfleet,
 ```{r fig-cpue-catch-effort, fig.cap = ifelse(fr(), "(ref:fig-cpue-catch-effort-fr)", "(ref:fig-cpue-catch-effort-en)"), out.width = "6in", fig.asp = 0.9, results = 'asis'}
 
 if(!exists("dfleet")){
-  dfleet <- cpue_extraction()
+  dfleet <- cpue_extraction(params = params)
 }
 sc_sym <- sym(ifelse(fr(),
                      "Espèces capturées",
@@ -268,9 +271,12 @@ dfleet |>
 
 ```{r fit-cpue, results = 'hide', warning = FALSE, message = FALSE}
 
-mod_pred <- run_discard_index_model(dfleet = dfleet,
-                                    params = cpue_extraction(ret_params = TRUE),
-                                    fn_csv = "/srv/arrowtooth/arrowtooth-nongit/data")
+if(!exists("mod_pred")){
+  mod_pred <- run_discard_index_model(dfleet = dfleet,
+                                      params = params,
+                                      fn_csv = "/srv/arrowtooth/arrowtooth-nongit/data")
+}
+
 model <- mod_pred$model
 predictions <- mod_pred$predictions
 ```
@@ -284,6 +290,7 @@ predictions <- mod_pred$predictions
 
 toplot <- which(attr(
   model, "split_labels")$formula_version == "Full standardization")
+
 plot_fixed_effect_coefs(model[[toplot]]) +
      ggtitle(params$area_name)
 #knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot1-1.png"), dpi = NA)
@@ -297,6 +304,7 @@ plot_fixed_effect_coefs(model[[toplot]]) +
 
 toplot <- which(attr(
   model, "split_labels")$formula_version == "Full standardization")
+
 plot_random_intercepts(model[[toplot]],
                        re_names = c("locality", "vessel")) +
      ggtitle(params$area_name)
@@ -311,6 +319,7 @@ plot_random_intercepts(model[[toplot]],
 
 toplot <- which(attr(
   model, "split_labels")$formula_version == "Full standardization")
+
 plot_year_locality_interactions(model[[toplot]]) +
      ggtitle(params$area_name)
 #knitr::include_graphics(file.path(cpuefold,  "cpue-coef-plot3-1.png"), dpi = NA)
