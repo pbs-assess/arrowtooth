@@ -3,15 +3,15 @@
 # run index.Rmd to get all data loaded.
 
 dat_split <- gfplot::split_catch_maturity(
-  survey_sets = dat$survey_sets,
-  fish = dat$survey_samples, survey = c("SYN HS", "SYN QCS", "SYN WCVI"),
+  survey_sets = survey_sets,
+  fish = survey_samples, survey = c("SYN HS", "SYN QCS", "SYN WCVI"),
   p_threshold = 0.95,
   use_median_ratio = TRUE, sample_id_re = FALSE
 )
 
 dat_split2 <- gfplot::split_catch_maturity(
-  survey_sets = dat$survey_sets,
-  fish = dat$survey_samples, survey = c("SYN HS", "SYN QCS", "SYN WCVI"),
+  survey_sets = survey_sets,
+  fish = survey_samples, survey = c("SYN HS", "SYN QCS", "SYN WCVI"),
   p_threshold = 0.05,
   use_median_ratio = TRUE, sample_id_re = FALSE
 )

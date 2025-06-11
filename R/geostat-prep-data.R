@@ -21,10 +21,9 @@ geostat_prep_data <- \(
     stop("File does not exist:\n", fn)
   }
   dat <- readRDS(fn)
-  ss <- dat$survey_sets |>
-    filter(survey_abbrev %in% survey_abbrevs_vec)
 
-  ss <- ss |>
+  ss <- dat$survey_sets |>
+    filter(survey_abbrev %in% survey_abbrevs_vec) |>
     mutate(density = density_kgpm2 * 1e6) |>
     mutate(log_depth = log(depth_m)) |>
     mutate(area_swept1 = doorspread_m * speed_mpm * duration_min) |>

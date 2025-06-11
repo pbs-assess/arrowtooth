@@ -159,7 +159,7 @@ plot_bridging_mat_ogives <- function(mat_dat,
   ) +
     geom_vline(
       data = NULL,
-      size = ogive_size / 2, lty = "dashed", alpha = ogive_alpha, xintercept =
+      linewidth = ogive_size / 2, lty = "dashed", alpha = ogive_alpha, xintercept =
         mat_dat[mat_dat$model == models[i] &
                   mat_dat$sex == plot_sex, ]$age50mat[1], colour = col_vec[i]
     )

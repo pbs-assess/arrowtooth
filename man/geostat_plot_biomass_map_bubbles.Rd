@@ -12,7 +12,7 @@ geostat_plot_biomass_map_bubbles(
 )
 }
 \arguments{
-\item{d}{Output from \code{\link[=prep_data]{prep_data()}}}
+\item{d}{Output from \code{\link[=geostat_prep_data]{geostat_prep_data()}}}
 
 \item{deg_offset}{Degrees offset vector of 2 values for coastline}
 

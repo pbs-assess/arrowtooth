@@ -5,13 +5,13 @@
 \title{Plot the proportion of bottom trawls with zero arrowtooth flounder}
 \usage{
 plot_proportion_zero_tows(
-  cpue_fn = file.path("srv", "arrowtooth", "arrowtooth-nongit", "data",
+  fn_cpue = file.path("/srv", "arrowtooth", "arrowtooth-nongit", "data",
     "cpue-modern.rds"),
   by_area = FALSE
 )
 }
 \arguments{
-\item{cpue_fn}{The filename for the CPUE modern file which was extratced
+\item{fn_cpue}{The filename for the CPUE modern file which was extratced
 by running the following:
 \code{gfdata::get_cpue_index(gear = "bottom trawl", min_cpue_year = 1996)}}
 

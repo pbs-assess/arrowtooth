@@ -13,7 +13,7 @@ source(here("geostat/utils.R"))
 dr <- "/srv/arrowtooth/arrowtooth-nongit"
 #dr <- paste0(here(), "-nongit")
 
-dat <- prep_data(folder = dr)
+dat <- geostat_prep_data()
 list_species <- "arrowtooth flounder"
 
 f <- file.path(dr, "figures-geostat")
@@ -122,7 +122,7 @@ saveRDS(ind, file.path(f, "geostat-stitched-index.rds"))
 group_by(ind, type) %>%
   summarise(mean_cv = mean(cv))
 
-data_dir <- file.path("../arrowtooth-nongit/", "data")
+data_dir <- "/srv/arrowtooth/arrowtooth-nongit/data"
 discard_cpue_file <- file.path(data_dir,
   "cpue-predictions-arrowtooth-flounder-modern-3CD5ABCDE-discard-july-26-feb-fishing-year.csv")
 discard_cpue <- readr::read_csv(discard_cpue_file)

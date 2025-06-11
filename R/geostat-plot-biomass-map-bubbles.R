@@ -1,6 +1,6 @@
 #' Plot spatial maps showing biomass density, one for each year
 #'
-#' @param d Output from [prep_data()]
+#' @param d Output from [geostat_prep_data()]
 #' @param deg_offset Degrees offset vector of 2 values for coastline
 #' @param meters_offset Meters UTM offset for coordinates used in limits of
 #' plot
@@ -21,11 +21,13 @@ geostat_plot_biomass_map_bubbles <- \(d,
   coast <- gfplot:::load_coastline(range(d$longitude) + deg_offset,
                                    range(d$latitude) + deg_offset,
                                    utm_zone = utm_zone)
-
   coords <- coord_equal(expand = FALSE,
                         xlim = range(d$X) + meters_offset,
                         ylim = range(d$Y) + meters_offset)
 
+
+  # d <- d |>
+  #   rename(density = density_kgpm2)
   d0 <- d |>
     filter(density == 0)
   d <- d |>

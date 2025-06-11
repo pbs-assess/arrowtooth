@@ -6,14 +6,11 @@
 \usage{
 cpue_extraction(
   fn_cpue = file.path(drs$nongit_dir, "data", "arrowtooth-cpue-to-2024-10-21.rds"),
-  params,
-  ret_params = FALSE
+  params
 )
 }
 \arguments{
 \item{fn_cpue}{The file name of the cpue index data used}
-
-\item{ret_params}{If \code{TRUE}, return \code{params} list instead}
 }
 \value{
 A data frame, or the \code{params} list, if \code{ret_params} is \code{TRUE}

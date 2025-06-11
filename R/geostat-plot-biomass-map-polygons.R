@@ -6,7 +6,8 @@ geostat_plot_biomass_map_polygons <- \(d,
                                        utm_zone = 9,
                                        utm_crs = 32609,
                                        yr_less_equal = 2012,
-                                       upper_prob = 0.995){
+                                       upper_prob = 0.995,
+                                       ret_pred = FALSE){
 
   if(fr()){
     density_lab <- bquote(atop("Densité de la biomasse",
@@ -26,6 +27,10 @@ geostat_plot_biomass_map_polygons <- \(d,
                                        probs = upper_prob),
                               !!new_col)) |>
     filter(year <= yr_less_equal)
+
+  if(ret_pred){
+    return(pred)
+  }
 
   geostat_plot_map(d,
                    pred,

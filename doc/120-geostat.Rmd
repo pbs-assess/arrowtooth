@@ -227,6 +227,7 @@ cat("## INDICES GÉOSTATISTIQUES {#geostat-figs}")
 ```{r fig-geo-bubble1, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble1-fr)", "(ref:fig-geo-bubble1-en)"), out.width = "\\textwidth", results = 'asis'}
 
 dat <- geostat_prep_data()
+
 if(!exists("fits_df")){
   fits_df <- geostat_fit_indices()  
 }
@@ -269,12 +270,22 @@ g
 
 ```{r fig-geo-predmap1, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap1-fr)", "(ref:fig-geo-predmap1-en)"), out.width = "\\textwidth", results = 'asis'}
 
-dat <- geostat_prep_data()
+if(!exists("dat")){
+  dat <- geostat_prep_data()
+}
+
+fitted_yrs <- sort(unique(dat$year))
+
+if(!exists("pred")){
+  pred <- geostat_get_pred_grid(years = fitted_yrs)
+}
+
 yr_cutoff <- 2012
 dat_cutoff <- dat |>
   filter(year <= yr_cutoff)
 
 geostat_plot_biomass_map_polygons(d = dat_cutoff,
+                                  pred = pred,
                                   column = "est_total") +
   theme(axis.text.x = element_text(size = 6))
 
@@ -290,10 +301,18 @@ geostat_plot_biomass_map_polygons(d = dat_cutoff,
 
 ```{r fig-geo-predmap2, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap2-fr)", "(ref:fig-geo-predmap2-en)"), out.width = "\\textwidth", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "geostat-map-pred2.png"),
-                 dpi = NA)
+dat_cutoff <- dat |>
+  filter(year > yr_cutoff)
+
+geostat_plot_biomass_map_polygons(d = dat_cutoff,
+                                  pred = pred,
+                                  column = "est_total") +
+  theme(axis.text.x = element_text(size = 6))
+
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "geostat-map-pred2.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-geo-individual-en) Individual geostatistical indices compared to design-based indices. Lines indicate means and ribbons 95% confidence intervals.
@@ -302,10 +321,12 @@ include_graphics(file.path(drs$nongit_dir,
 
 ```{r fig-geo-individual, fig.cap = ifelse(fr(), "(ref:fig-geo-individual-fr)", "(ref:fig-geo-individual-en)"), results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "geostat-individual-vs-design.png"),
-                 dpi = NA)
+geostat_plot_individual_vs_design(survey_index)
+
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "geostat-individual-vs-design.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-geo-indexes-en) Stitched indexes of abundance for `r sp` from four models. Lines indicate means and ribbons 95% confidence intervals.
@@ -314,10 +335,11 @@ include_graphics(file.path(drs$nongit_dir,
 
 ```{r fig-geo-indexes, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-fr)", "(ref:fig-geo-indexes-en)"), out.width = "5.5in", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "geostat-indexes.png"),
-                 dpi = NA)
+geostat_plot_stitched_indices(dat)
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "geostat-indexes.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-geo-indexes-cpue-en) Stitched indexes of abundance for `r sp` from four models with the commercial discard CPUE index shown in (dashed) grey. Lines indicate means and ribbons 95% confidence intervals. All indexes were centered such that their geometric means from 2003--2021 were one.
