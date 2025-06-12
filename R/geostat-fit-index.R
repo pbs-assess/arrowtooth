@@ -37,7 +37,7 @@ geostat_fit_index <- \(
   ...) {
 
   if(!file.exists(grid_fn)){
-    stop("File `", grid_fn, "` does not exist.")
+    bail("File `", grid_fn, "` does not exist.")
   }
 
   dat <- dat |>
