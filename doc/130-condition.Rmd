@@ -91,12 +91,18 @@ cat("## CHIFFRES DE L'ÉTAT")
 ```{r fig-condition-index, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-fr)", "(ref:fig-fig-condition-index-en)"), out.width = "4.2in", results = 'asis'}
 
 # dat is set in index.Rmd, read in from an RDS file
-d <- condition_data_prep(survey_sets)
+#d <- condition_data_prep(survey_sets)
+d <- condition_data_prep(dat)
+if(!exists("cond_fit")){
+  cond_fit <- condition_fit(d)
+}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "condition-coastwide.png"),
-                 dpi = NA)
+condition_factor(cond_fit)
+
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "condition-coastwide.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-fig-condition-index-surv-en) Condition index split by survey region. Lines and ribbons indicate means and 95% confidence intervals.
@@ -105,10 +111,16 @@ include_graphics(file.path(drs$nongit_dir,
 
 ```{r fig-condition-index-surv, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-surv-fr)", "(ref:fig-fig-condition-index-surv-en) "), out.width = "4.9in", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "condition-by-survey.png"),
-                 dpi = NA)
+d <- condition_data_prep(dat)
+if(!exists("cond_fit")){
+  cond_fit <- condition_fit(d)
+}
+condition_factor(cond_fit)
+
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "condition-by-survey.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-condition-map-en) Coastwide map of modelled condition anomalies. Values are shown in log space such that blue values are plumper than expected and red values less plump than expected. X and Y axes are in UTM zone 9 units of km.

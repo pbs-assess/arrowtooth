@@ -10,9 +10,10 @@ condition_data_prep(
 )
 }
 \arguments{
-\item{d}{A list, as output from \code{\link[gfdata:get_data]{gfdata::get_survey_sets()}}}
+\item{d}{A list, as output from \code{\link[gfdata:get_data]{gfdata::get_data()}}}
 
-\item{survey_abbrev}{A survey abbreviation as found in \code{d$survey_abbrev}}
+\item{survey_abbrev}{A survey abbreviation as found in
+\code{d$survey_sets$survey_abbrev}}
 }
 \value{
 A data frame of survey sets

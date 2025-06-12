@@ -10,6 +10,7 @@
 #' @import ggplot2
 #' @import lubridate
 #' @import purrr
+#' @import sdmTMB
 #'
 #' @importFrom PBSmapping clipPolys
 #' @importFrom rlang .data global_env
