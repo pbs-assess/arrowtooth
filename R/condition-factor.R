@@ -5,7 +5,7 @@
 #' @param grid_fn The Synoptic grid data frame
 #'
 #' @returns A [ggplot2::ggplot()] object
-#' @export2
+#' @export
 condition_factor <- \(
   fit_lst,
   grid_fn = "/srv/arrowtooth/arrowtooth-nongit/data/synoptic_grid.rds"){
