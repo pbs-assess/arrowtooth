@@ -154,6 +154,8 @@ plot_trawl_footprint <- function(
     major_labels <- attributes(major)$PolyData |>
       as_tibble()
 
+    # Manually change the location coordinates for the label text of each area
+    # from lat/longs to Eastings/Northings
     major_labels[major_labels$label == "4B",]$X <- 885
     major_labels[major_labels$label == "4B",]$Y <- 5475
     major_labels[major_labels$label == "3C",]$X <- 200
@@ -198,6 +200,10 @@ plot_trawl_footprint <- function(
              xlim = x_lim,
              ylim = y_lim,
              expand = FALSE)
+
+  # Show only active blocks for the survey
+  surv <- surv |>
+    filter(active_block)
 
   g <- g +
     geom_sf(data = tf,
