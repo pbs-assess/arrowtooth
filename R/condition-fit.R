@@ -60,7 +60,7 @@ condition_fit <- \(d){
                 data = ds,
                 spatial = "off",
                 spatiotemporal = "rw",
-                silent = FALSE,
+                silent = TRUE,
                 time = "year",
                 family = lognormal(link = "log"),
                 control = sdmTMBcontrol(newton_loops = 1L),

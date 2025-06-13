@@ -129,10 +129,11 @@ condition_factor(cond_fit)
 
 ```{r fig-condition-map, fig.cap = ifelse(fr(), "(ref:fig-condition-map-fr)", "(ref:fig-condition-map-en)"), out.width = "\\textwidth", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "condition-map.png"),
-                 dpi = NA)
+condition_anomaly_map(cond_fit)
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "condition-map.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-condition-smoother-en) Log depth smoother from the condition model. Line represents mean and the ribbon 95% confidence intervals. Horizontal rug lines are shown on the top where data are present.
@@ -141,20 +142,22 @@ include_graphics(file.path(drs$nongit_dir,
 
 ```{r fig-condition-smoother, fig.cap = ifelse(fr(), "(ref:fig-condition-smoother-fr)", "(ref:fig-condition-smoother-en)"), out.width = "5.0in", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "condition-smoother.png"),
-                 dpi = NA)
+condition_smooth(cond_fit)
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "condition-smoother.png"),
+#                  dpi = NA)
 ```
 
 (ref:fig-condition-tv-en) Time-varying third order polynomial effect of depth on condition. Line represents mean and the ribbon 95% confidence intervals and both are coloured by the mean bottom temperatures (degrees C) recorded on all trawl tows at depths between 100 and 200 m in each year. 
 
 (ref:fig-condition-tv-fr) Effet polynomial de troisième ordre variable dans le temps de la profondeur sur la condition. La ligne représente la moyenne et le ruban les intervalles de confiance à 95 % et tous deux sont colorés par les températures moyennes du fond (degrés C) enregistrées sur tous les traits de chalut à des profondeurs comprises entre 100 et 200 m pour chaque année. 
 
-```{r fig-condition-tv, fig.cap = ifelse(fr(), "(ref:fig-condition-tv-fr)", "(ref:fig-condition-tv-en)"), out.width = "5.0in", results = 'asis'}
+```{r fig-condition-tv, fig.cap = ifelse(fr(), "(ref:fig-condition-tv-fr)", "(ref:fig-condition-tv-en)"), out.width = "5.0in", results = "asis", message = FALSE, warnings = FALSE, echo = FALSE}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "condition-tv-raw-poly-3.png"),
-                 dpi = NA)
+condition_tv_depth(cond_fit)
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "condition-tv-raw-poly-3.png"),
+#                  dpi = NA)
 ```
