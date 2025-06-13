@@ -216,6 +216,7 @@ plot_index_mcmc(base_model,
 (ref:fig-base-age-fits-ft-fr) Ajustements de la composition par âge pour chaque sexe pour la flotte de chalutiers congélateurs. Les barres verticales représentent les points de données sur la composition par âge. La somme des valeurs des barres est égale à 1 pour chaque combinaison année/sexe. Les points noirs sont les médianes des postérieurs pour chaque âge. La zone ombrée en rouge avec des bords en pointillés représente les IC à 95 %. Les étiquettes des panneaux représentent le nombre total de spécimens (agrégés par sexe) correspondant à l'année.
 
 ```{r fig-base-age-fits-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ft-fr)", "(ref:fig-base-age-fits-ft-en)")}
+
 plot_age_fits_mcmc(base_model,
                    gear = 1,
                    text_title_size = NULL,
