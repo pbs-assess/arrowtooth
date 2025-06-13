@@ -2,6 +2,20 @@
 
 \newcommand{\s}{\boldsymbol{s}}
 
+```{r setup-geo-dat, echo = FALSE, cache = FALSE, message = FALSE, results = "hide", warning = FALSE}
+
+geo_dat <- geostat_prep_data()
+fitted_yrs <- sort(unique(geo_dat$year))
+yr_cutoff <- 2012
+dat_cutoff <- geo_dat |>
+  filter(year <= yr_cutoff)
+
+pred <- geostat_get_pred_grid(years = fitted_yrs)
+
+fits_df <- geostat_fit_indices()  
+
+```
+
 ```{r app-geostat-para-1-en, eval = !fr(), results = 'asis'}
 cat("# GEOSTATISTICAL STANDARDIZATION OF SURVEY INDICES {#app:geostat}
 We used geostatistical spatiotemporal GLMMs (generalized linear mixed effect models) to standardize the survey indices as an alternative to design-based estimators [e.g., @shelton2014; @thorson2015ices; @anderson2019synopsis; @anderson2022sdmTMB].
@@ -220,20 +234,14 @@ cat("## INDICES GÉOSTATISTIQUES {#geostat-figs}")
 ```
 
 
-(ref:fig-geo-bubble1-en) Survey data bubble plot for 2003 to 2012. The area and colour of circles corresponds to set density. Sets with zero `r sp` catch are indicated with a grey cross. 
+(ref:fig-geo-bubble1-en) Survey data bubble plot for 2003 to `r yr_cutoff`. The area and colour of circles corresponds to set density. Sets with zero `r sp` catch are indicated with a grey cross. 
 
-(ref:fig-geo-bubble1-fr) Graphique à bulles des données d'enquête de 2003 à 2012. La surface et la couleur des cercles correspondent à la densité des calées. Les ensembles dont la prise `r sp` est nulle sont indiqués par une croix grise. 
+(ref:fig-geo-bubble1-fr) Graphique à bulles des données d'enquête de 2003 à `r yr_cutoff`. La surface et la couleur des cercles correspondent à la densité des calées. Les ensembles dont la prise `r sp` est nulle sont indiqués par une croix grise. 
 
 ```{r fig-geo-bubble1, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble1-fr)", "(ref:fig-geo-bubble1-en)"), out.width = "\\textwidth", results = 'asis'}
 
-dat <- geostat_prep_data()
-
-if(!exists("fits_df")){
-  fits_df <- geostat_fit_indices()  
-}
-
-g <- dat |> 
-  filter(year %in% 2003:2012) |> 
+g <- geo_dat |> 
+  filter(year %in% 2003:yr_cutoff) |> 
   arrange(-density) |> 
   geostat_plot_biomass_map_bubbles() +
   facet_wrap(~year, ncol = 3)
@@ -251,8 +259,8 @@ g
 
 ```{r fig-geo-bubble2, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble2-fr)", "(ref:fig-geo-bubble2-en)"), out.width = "\\textwidth", results = 'asis'}
 
-g <- dat |> 
-  filter(year > 2012) |> 
+g <- geo_dat |> 
+  filter(year > yr_cutoff) |> 
   arrange(-density) |> 
   geostat_plot_biomass_map_bubbles() +
   facet_wrap(~year, ncol = 3)
@@ -264,25 +272,11 @@ g
 #                  dpi = NA)
 ```
 
-(ref:fig-geo-predmap1-en) Predicted `r sp` biomass density for 2003 to 2012 from the coastwide $\Delta$-Gamma model without depth.
+(ref:fig-geo-predmap1-en) Predicted `r sp` biomass density for 2003 to `r yr_cutoff` from the coastwide $\Delta$-Gamma model without depth.
 
-(ref:fig-geo-predmap1-fr) Densité de biomasse `r sp` prédite pour 2003 à 2012 à partir du modèle $\Delta$-Gamma pour l'ensemble de la côte sans profondeur.
+(ref:fig-geo-predmap1-fr) Densité de biomasse `r sp` prédite pour 2003 à `r yr_cutoff` à partir du modèle $\Delta$-Gamma pour l'ensemble de la côte sans profondeur.
 
 ```{r fig-geo-predmap1, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap1-fr)", "(ref:fig-geo-predmap1-en)"), out.width = "\\textwidth", results = 'asis'}
-
-if(!exists("dat")){
-  dat <- geostat_prep_data()
-}
-
-fitted_yrs <- sort(unique(dat$year))
-
-if(!exists("pred")){
-  pred <- geostat_get_pred_grid(years = fitted_yrs)
-}
-
-yr_cutoff <- 2012
-dat_cutoff <- dat |>
-  filter(year <= yr_cutoff)
 
 geostat_plot_biomass_map_polygons(d = dat_cutoff,
                                   pred = pred,
@@ -300,9 +294,6 @@ geostat_plot_biomass_map_polygons(d = dat_cutoff,
 (ref:fig-geo-predmap2-fr) Densité de biomasse `r sp` prédite pour 2013 à 2021 à partir du modèle $\Delta$-Gamma pour l'ensemble de la côte sans profondeur.
 
 ```{r fig-geo-predmap2, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap2-fr)", "(ref:fig-geo-predmap2-en)"), out.width = "\\textwidth", results = 'asis'}
-
-dat_cutoff <- dat |>
-  filter(year > yr_cutoff)
 
 geostat_plot_biomass_map_polygons(d = dat_cutoff,
                                   pred = pred,
@@ -335,7 +326,7 @@ geostat_plot_individual_vs_design(survey_index)
 
 ```{r fig-geo-indexes, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-fr)", "(ref:fig-geo-indexes-en)"), out.width = "5.5in", results = 'asis'}
 
-geostat_plot_stitched_indices(dat)
+geostat_plot_stitched_indices(geo_dat)
 # include_graphics(file.path(drs$nongit_dir,
 #                            "figures-geostat",
 #                            "geostat-indexes.png"),
