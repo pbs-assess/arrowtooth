@@ -25,10 +25,9 @@
 table_prop_female <- function(prop_lst,
                               end_yr = 2019,
                               return_df = FALSE,
-                              format = "latex",
                               yrs = NULL,
                               ret_means = FALSE,
-                              bold_headers = TRUE,
+                              bold_header = TRUE,
                               ...){
 
   ct_sym <- sym(tr("Commercial trawl"))
@@ -70,9 +69,6 @@ table_prop_female <- function(prop_lst,
     x <- x |>
         filter(Year %in% yrs)
   }
-  if(format == "html"){
-    x[x == "--"] <- "&mdash;"
-  }
 
   if(return_df){
     return(x)
@@ -81,13 +77,12 @@ table_prop_female <- function(prop_lst,
   # Translate the Year column header only
   names(x) <- gsub("Year", tr("Year"), names(x))
 
-  if(bold_headers){
-    names(x) <- paste0("\\textbf{", names(x), "}")
-  }
-
   out <- csas_table(x,
-             format = format,
-             ...)
+                    format = "latex",
+                    booktabs = TRUE,
+                    linesep = "",
+                    bold_header = bold_header,
+                    ...)
   if(!is.null(attr(out, "format"))){
     out <- out |>
       row_spec(nrow(x) - 1, hline_after = TRUE) |>

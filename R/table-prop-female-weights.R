@@ -21,7 +21,7 @@ table_prop_female_weights <- function(samples = NULL,
                                       ord = c("QCS", "HS", "WCVI", "WCHG"),
                                       return_df = FALSE,
                                       col_widths = NULL,
-                                      bold_headers = TRUE,
+                                      bold_header = TRUE,
                                       ...){
 
   type <- match.arg(type)
@@ -91,12 +91,11 @@ table_prop_female_weights <- function(samples = NULL,
     str_wrap(16, whitespace_only = FALSE) |>
     linebreak()
 
-  if(bold_headers){
-    names(d) <- paste0("\\textbf{", names(d), "}")
-  }
-
   tab <- csas_table(d,
                     format = "latex",
+                    booktabs = TRUE,
+                    linesep = "",
+                    bold_header = bold_header,
                     ...)
 
   if(type == "survey"){
