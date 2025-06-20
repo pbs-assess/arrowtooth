@@ -42,7 +42,7 @@ cat("Each model in this list is based on the previous one with only one change m
 9. Changed fishing year to start on February 21 (vs. January 1), which is the date currently used by Fisheries Management for the fishing year.
 10. Removed the `r wchgs` index and age comps. The survey was not contributing meaningfully to the assessment and the estimated selectivities were not viable due to too few samples. Its removal was suggested by the TWG.
 11. Fixed both male and female natural mortality parameters. The estimated values were quite low for this species based on assessments in neighbouring jurisdictions [@goa2017; @goa2019; @goa2020; @goa2021].
-
+  
 ")
 ```
 
@@ -60,62 +60,62 @@ cat("Chaque modèle de cette liste est basé sur le précédent avec une seule m
 9. Modification de l'année de pêche pour qu'elle commence le 21 février (au lieu du 1er janvier), qui est la date actuellement utilisée par la gestion des pêches pour l'année de pêche.
 10. Suppression de l'indice `r wchgs` et des comps d'âge. L'enquête ne contribuait pas de manière significative à l'évaluation et les sélectivités estimées n'étaient pas viables en raison du nombre insuffisant d'échantillons. Sa suppression a été suggérée par le GTT.
 11. Fixation des paramètres de mortalité naturelle des mâles et des femelles. Les valeurs estimées étaient assez faibles pour cette espèce d'après les évaluations réalisées dans les juridictions voisines [@goa2017 ; @goa2019 ; @goa2020 ; @goa2021].
-
+..
 ")
 ```
 
 ```{r bridging-para-03-en, eval = !fr(), results = 'asis'}
-cat("
-**Bridge models group 1 (models 1-4)**
+cat("**Bridge models group 1 (models 1-4)**
 Figure \@ref(fig:bridge-biomass-group1) shows the absolute and relative spawning biomass for the first four bridging models in the list above (list items 1--4). Changing the data extraction method for all data up to 2014 had minimal effect, with only a small difference in 2015 absolute biomass and a very small difference in 2015 relative biomass. Small changes in data are mainly due to changes in survey indices, which are caused by survey blocks being removed from the entire survey series. These blocks were found to be unfishable or inappropriate for the index in the surveys since 2014 and were removed from the entire series, changing the historical indices slightly from those included in the `r la`.
 
 Adding the data from 2015--`r base_model$dat$end.yr` caused a large change in the biomass trajectories (Figure \@ref(fig:bridge-biomass-group1)). The biomass began dropping more rapidly starting in 2002, with a relatively steep drop from 2010--2020. This decline in the biomass is caused mainly by the declining indices of abundance in that time period. From 2021--2022 the model shows the beginnings of an upward trend. Credible intervals (CIs) became much narrower with the addition of the 2015--`r base_model$dat$end.yr` data. However, the estimated parameters (except steepness) are all moderately to highly correlated (Figure \@ref(fig:fig-bridge3-pairs)). All the bridging models that follow have high correlation between parameters, except for the last one in which the natural mortalities for both sexes were fixed.
 
 Adding the `r wchgs` age compositions and index into the model had a scaling effect in the earlier part of the trajectory, but both absolute and relative biomasses were nearly identical for 2022 (Figure \@ref(fig:bridge-biomass-group1)).
-
+  
 ")
 ```
 
 ```{r bridging-para-03-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("
-**Modèles de pont groupe 1 (modèles 1-4)**
+cat("**Modèles de pont groupe 1 (modèles 1-4)**
 La figure \@ref(fig:bridge-biomass-group1) montre la biomasse de frai absolue et relative pour les quatre premiers modèles de transition de la liste ci-dessus (éléments de la liste 1--4). Le changement de la méthode d'extraction des données pour toutes les données jusqu'en 2014 n'a eu qu'un effet minime, avec seulement une petite différence dans la biomasse absolue de 2015 et une très petite différence dans la biomasse relative de 2015. Les petits changements dans les données sont principalement dus à des changements dans les indices d'enquête, qui sont causés par des blocs d'enquête qui ont été retirés de la série d'enquête entière. Ces blocs ont été jugés non pêchables ou inappropriés pour l'indice dans les enquêtes depuis 2014 et ont été retirés de l'ensemble de la série, modifiant légèrement les indices historiques par rapport à ceux inclus dans le `r la`.
 
 L'ajout des données de 2015 - `r base_model$dat$end.yr` a provoqué un changement important dans les trajectoires de la biomasse (Figure \@ref(fig:bridge-biomass-group1)). La biomasse a commencé à chuter plus rapidement à partir de 2002, avec une chute relativement importante entre 2010 et 2020. Cette baisse de la biomasse est principalement due à la diminution des indices d'abondance au cours de cette période. À partir de 2021-2022, le modèle montre le début d'une tendance à la hausse. Les intervalles de crédibilité (IC) sont devenus beaucoup plus étroits avec l'ajout des données 2015--`r base_model$dat$end.yr`. Cependant, les paramètres estimés (à l'exception de la pente) sont tous modérément à fortement corrélés (Figure \@ref(fig:fig-bridge3-pairs)). Tous les modèles de transition qui suivent ont une corrélation élevée entre les paramètres, à l'exception du dernier dans lequel les mortalités naturelles pour les deux sexes ont été fixées.
 
 L'ajout de la composition par âge et de l'indice `r wchgs` dans le modèle a eu un effet d'échelle dans la première partie de la trajectoire, mais les biomasses absolues et relatives étaient presque identiques pour 2022 (Figure \@ref(fig:bridge-biomass-group1)).
+  
 ")
 ```
 
 ```{r bridging-para-04-en, eval = !fr(), results = 'asis'}
 cat("**Bridge models group 2 (models 5-8)**
 Figure \@ref(fig:bridge-biomass-group2) shows the absolute and relative spawning biomass for the second group of four bridging models (list items 5--8). Changing the age data weighting to the saturated Dirichlet multinomial (DM) [@thorson2016], caused a drop in absolute biomass and $B_0$. The $B_0$ median for the first model in Figure \@ref(fig:bridge-biomass-group2), when compared to the $B_0$ median for the last model in Figure \@ref(fig:bridge-biomass-group1) shows a difference of`r f((as.numeric(bvals[[1]][[4]]$bo[1]) - as.numeric(bvals[[2]][[1]]$bo[1])) * 1000)` t (from `r f(as.numeric(bvals[[1]][[4]]$bo[1]) * 1000)` to `r f(as.numeric(bvals[[2]][[1]]$bo[1]) * 1000)` t). However, the biomass estimates were also scaled down, so the `r bvals[[1]][[4]]$depl[3]` relative biomass only dropped a small amount (from `r bvals[[1]][[4]]$depl[1]` to `r bvals[[2]][[1]]$depl[1]`).
-    
+
 For the next bridging model, the commercial trawl fishery was split into two fleets: the `r base_model$dat$fleet_gear_names[1]` and `r base_model$dat$fleet_gear_names[2]` fleets. This changed the model internals but had negligible effect on the biomass and relative biomass trajectories (Figure \@ref(fig:bridge-biomass-group2)).
 
 Adding the `r dcpue` (DCPUE) to the model had almost no effect on the absolute biomass and $B_0$ estimates. It did, however, reduce the credible interval (Figure \@ref(fig:bridge-biomass-group2)) on the absolute spawning biomass time series.
 
 The next step in the bridging was to convert the model into a two-sex model. All previous bridge models were female-only. This step involved significant modifications to the `r iscam` model code. This change caused a drop in final-year biomass and relative biomass, and some overall scaling up of the historical relative biomass trajectory (Figure \@ref(fig:bridge-biomass-group2)). The selectivity age-at-50% estimates ($\hat{a}$) for females in the `r wchgs` for this model were unreasonable at `r split_sex_model_sel_ahat` years.
+  
 ")
 ```
 
 ```{r bridging-para-04-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("**Groupe de modèles de transition 2 (modèles 5-8)**
 La figure \@ref(fig:bridge-biomass-group2) montre la biomasse de frai absolue et relative pour le deuxième groupe de quatre modèles de pontage (éléments de liste 5--8). La modification de la pondération des données sur l'âge en faveur de la méthode multinomiale de Dirichlet saturée (DM) [@thorson2016] a entraîné une baisse de la biomasse absolue et de $B_0$. La médiane $B_0$ pour le premier modèle de la figure \@ref(fig:bridge-biomass-group2), comparée à la médiane $B_0$ pour le dernier modèle de la figure \@ref(fig:bridge-biomass-group1), montre une différence de `r f(as.numeric(bvals[[1]][[4]]$bo[1]) - as.numeric(bvals[[2]][[1]]$bo[1]))` mille t (de `r bvals[[1]][[4]]$bo[1]` à `r bvals[[2]][[1]]$bo[1]` mille t). Toutefois, les estimations de la biomasse ont également été réduites, de sorte que la biomasse relative de `r bvals[[1]][[4]]$depl[3]` n'a diminué que légèrement (de `r bvals[[1]][[4]]$depl[1]` à `r bvals[[2]][[1]]$depl[1]`).
-    
+
 Pour le modèle de transition suivant, la pêche commerciale au chalut a été divisée en deux flottes : les flottes `r base_model$dat$fleet_gear_names[1]` et `r base_model$dat$fleet_gear_names[2]`. Cela a modifié les éléments internes du modèle mais a eu un effet négligeable sur les trajectoires de la biomasse et de la biomasse relative (figure \@ref(fig:bridge-biomass-group2)).
 
 L'ajout de `r dcpue` (RCPUE) au modèle n'a eu pratiquement aucun effet sur les estimations de la biomasse absolue et de $B_0$. Elle a cependant réduit l'intervalle de crédibilité (Figure \@ref(fig:bridge-biomass-group2)) sur la série temporelle de la biomasse de frai absolue.
 
 L'étape suivante du rapprochement a consisté à convertir le modèle en un modèle à deux sexes. Tous les modèles de pont précédents étaient exclusivement féminins. Cette étape a impliqué des modifications significatives du code du modèle `r iscam`. Ce changement a entraîné une baisse de la biomasse de l'année finale et de la biomasse relative, ainsi qu'une augmentation globale de la trajectoire historique de la biomasse relative (figure \@ref(fig:bridge-biomass-group2)). Les estimations de la sélectivité de l'âge à 50% ($\hat{a}$) pour les femelles dans les `r wchgs` pour ce modèle étaient déraisonnables à `r split_sex_model_sel_ahat` ans.
-
+  
 ")
 ```
 
 ```{r bridging-para-05-en, eval = !fr(), results = 'asis'}
 cat("**Bridge models group 3 (models 9--13)**
 The biomass plots for the final group of bridging models (list items 9-13) can be found in Figure \@ref(fig:bridge-biomass-group3). For the first of these models, the fishing year was changed from what it was in the `r la`, January 1--December 31 to February 21--February 20. This change was made to reflect the start date for the fishery each year in Canada (February 21). The effect of this is the median $B_0$ and relative biomass being the same as the two-sex base model found in Figure \@ref(fig:bridge-biomass-group2). The credible interval of the absolute biomass is the same size but moves slightly from `r bvals[[2]][[4]]$sbt[2]` to `r bvals[[3]][[1]]$sbt[2]`. The credible interval on the relative biomass is the same in size and position for the base model and the model with the fishery timing change (Figure \@ref(fig:bridge-biomass-group3)).
-    
+
 The `r wchgs` was removed (it was also removed in the `r la`) as it had poor selectivity estimates.
 
 The natural mortality estimates from the model at this point were `r bvals[[3]][[2]]$m_male[1]` for males and `r bvals[[3]][[2]]$m_female[1]` for females with credible intervals of `r bvals[[3]][[2]]$m_male[2]` and `r bvals[[3]][[2]]$m_female[2]` respectively. The female estimate of natural mortality was close to the fixed value for females in assessments done in neighbouring jurisdictions (0.20), but the male estimate was much lower than what was used in neighboring stocks (0.35). Based on the estimated natural mortality values and the high correlation between estimated parameters for this model (Figure \@ref(fig:fig-bridge10-pairs)), we decided to fix the natural mortalities at the same values as the Gulf of Alaska and Bering Sea and Aleutian Islands assessments [@goa2021; @goa2020; @goa2019; @bering2019]; 0.20 for females and 0.35 for males.
@@ -125,7 +125,7 @@ The natural mortality estimates from the model at this point were `r bvals[[3]][
 ```{r bridging-para-05-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("**Groupe de modèles de transition 3 (modèles 9--13)**
 Les diagrammes de biomasse pour le dernier groupe de modèles de transition (éléments de la liste 9-13) figurent dans la figure \@ref(fig:bridge-biomass-group3). Pour le premier de ces modèles, l'année de pêche a été modifiée par rapport à ce qu'elle était dans le `r la`, à savoir du 1er janvier au 31 décembre, au 21 février au 20 février. Ce changement a été effectué pour refléter la date de début de la pêche chaque année au Canada (21 février). Cela a pour effet d'augmenter légèrement la médiane $B_0$ de `r bvals[[2]][[4]]$sbo[1]` à `r bvals[[3]][[1]]$sbo[1]` mille t, et la `r bvals[[2]][[4]]$depl[3]` biomasse relative étant ramenée de `r bvals[[2]][[4]]$depl[1]` à `r bvals[[3]][[1]]$depl[1]`. L'intervalle de crédibilité de la biomasse absolue est fortement réduit par cette modification de la période de pêche, qui passe de `r bvals[[2]][[4]]$sbt[2]` à `r bvals[[3]][[1]]$sbt[2]`. L'intervalle de crédibilité de la biomasse relative est également beaucoup plus petit que celui du modèle précédent dans le groupe 2 ; `r bvals[[2]][[4]]$depl[2]` pour le modèle précédent contre `r bvals[[3]][[1]]$depl[2]` pour le modèle avec changement de période de pêche (figure \@ref(fig:bridge-biomass-group3)). Ce minuscule intervalle de crédibilité indique que les paramètres sont fortement autocorrélés, comme le montrent les figures \@ref(fig:fig-bridge-fishing-year-autocor) et \@ref(fig:fig-bridge-fishing-year-selpars-autocor).
-    
+
 Le `r wchgs` a été supprimé (il a également été supprimé dans le `r la`) car il avait peu d'effet sur la biomasse et les estimations de sélectivité étaient médiocres (Figure \@ref(fig:bridge-biomass-group3)). Le résultat a été une trajectoire de biomasse réduite, avec une biomasse relative similaire à celle du modèle précédent.
 
 Les estimations de la mortalité naturelle du modèle à ce stade étaient `r bvals[[3]][[2]]$m_male[1]` pour les mâles et `r bvals[[3]][[2]]$m_female[1]` pour les femelles, avec des intervalles crédibles de `r bvals[[3]][[2]]$m_male[2]` et `r bvals[[3]][[2]]$m_female[2]`, respectivement. L'estimation de la mortalité naturelle des femelles était proche de la valeur fixée pour les femelles dans les évaluations réalisées dans les juridictions voisines (0,20), mais l'estimation des mâles était beaucoup plus faible que celle utilisée dans les stocks voisins (0,35). Sur la base des valeurs estimées de la mortalité naturelle et de la forte corrélation entre les paramètres estimés pour ce modèle (Figure \@ref(fig:fig-bridge10-pairs)), nous avons décidé de fixer les mortalités naturelles aux mêmes valeurs que les évaluations du Golfe de l'Alaska et de la Mer de Béring et des Iles Aléoutiennes [@goa2021; @goa2020; @goa2019; @bering2019]; 0,20 pour les femelles et 0,35 pour les mâles.

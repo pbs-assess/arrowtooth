@@ -14,6 +14,10 @@ cat("## CHIFFRES DU MODÈLE DE SENSIBILITÉ
 
 (ref:fig-sens-variance-fr) Biomasse de frai pour les sensibilités aux changements des paramètres $\vartheta^2$ et $\rho$ (dus aux changements de $\sigma$ et $\tau$), et du paramètre d'inclinaison ($h$). Les estimations de $B_0$ pour les modèles '`r names(models$sens_grps[[1]])[2]`' et '`r names(models$sens_grps[[1]])[3]`' sont en dehors des limites de l'axe. Par souci de clarté des trajectoires, ils ont été laissés en dehors du graphique. Ils sont estimés comme `r sens_1_2_sbo$est` mille t et `r sens_1_3_sbo$est` mille t respectivement.
 
+(ref:fig-sens-variance-en-alt) This figure shows that there are little differences in spawning biomass between these models
+
+(ref:fig-sens-variance-fr-alt) Ce graphique montre qu'il existe peu de différences entre ces modèles en termes de biomasse reproductrice
+
 ```{r fig-sens-variance, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-fr)", "(ref:fig-sens-variance-en)")}
 plot_biomass_mcmc(models$sens_grps[[1]],
                   angle_x_labels = TRUE,
@@ -29,6 +33,10 @@ plot_biomass_mcmc(models$sens_grps[[1]],
 
 (ref:fig-sens-variance-rel-fr) Biomasse de frai relative pour les sensibilités aux changements des paramètres $\vartheta^2$ et $\rho$ (dus aux changements de $\sigma$ et $\tau$), et du paramètre de pente ($h$).
 
+(ref:fig-sens-variance-rel-en-alt) This figure shows that lowering sigma and increasing tau causes the relative spawning biomass to be scaled down by a large amount
+
+(ref:fig-sens-variance-rel-fr-alt) Cette figure montre que la diminution de sigma et l'augmentation de tau entraînent une réduction importante de la biomasse reproductrice relative
+
 ```{r fig-sens-variance-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-variance-rel-fr)", "(ref:fig-sens-variance-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[1]],
                   rel = TRUE,
@@ -43,6 +51,10 @@ plot_biomass_mcmc(models$sens_grps[[1]],
 (ref:fig-sens-steepness-prior-en) Priors and posteriors for the sensitivity in which the steepness prior was changed. This can be compared to the base model in Figure \@ref(fig:fig-base-priors-posts).
 
 (ref:fig-sens-steepness-prior-fr) Priors et posteriors pour la sensibilité dans laquelle le prieur de la pente a été modifié. Ce modèle peut être comparé au modèle de base de la figure \@ref(fig:fig-base-priors-posts).
+
+(ref:fig-sens-steepness-prior-en-alt) This figure shows that like the base model the estimate of steepness matches the prior closely
+
+(ref:fig-sens-steepness-prior-fr-alt) Ce graphique montre que, comme pour le modèle de base l'estimation de la pente correspond étroitement à la distribution a priori
 
 ```{r sens-steepness-prior, fig.cap = ifelse(fr(), "(ref:fig-sens-steepness-prior-fr)", "(ref:fig-sens-steepness-prior-en)"), out.width = "100%"}
 plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
@@ -61,6 +73,10 @@ plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
 
 (ref:fig-sens-m-fr) Biomasse de frai pour les sensibilités aux changements des paramètres de mortalité naturelle ($M$). Dans le modèle de base, ce paramètre est fixe pour les mâles et les femelles. Dans ces sensibilités, $M$ est estimé pour le sexe en question en plus des changements de priorité, tandis que le paramètre pour le sexe opposé reste fixe.
 
+(ref:fig-sens-m-en-alt) This figure shows that manipulation of the prior on natural mortality for females causes the spawning biomass to be scaled much higher than the same manipulation on the prior for natural mortality for males does
+
+(ref:fig-sens-m-fr-alt) Ce graphique montre que la manipulation de la probabilité a priori de mortalité naturelle chez les femelles entraîne une augmentation beaucoup plus importante de la biomasse reproductrice que la manipulation de la probabilité a priori de mortalité naturelle chez les mâles
+
 ```{r fig-sens-m, fig.cap = ifelse(fr(), "(ref:fig-sens-m-fr)", "(ref:fig-sens-m-en)")}
 plot_biomass_mcmc(models$sens_grps[[2]],
                   angle_x_labels = TRUE,
@@ -71,6 +87,10 @@ plot_biomass_mcmc(models$sens_grps[[2]],
 (ref:fig-sens-m-rel-en) Relative spawning biomass for sensitivities to changes in the natural mortality ($M$) parameters.
 
 (ref:fig-sens-m-rel-fr) Biomasse de frai relative pour les sensibilités aux changements des paramètres de mortalité naturelle ($M$).
+
+(ref:fig-sens-m-rel-en-alt) This figure shows that manipulation of the prior on natural mortality for females causes the relative spawning biomass to be scaled higher than the same manipulation on the prior for natural mortality for males does
+
+(ref:fig-sens-m-rel-fr-alt) Ce graphique montre que la manipulation de la probabilité a priori de mortalité naturelle chez les femelles entraîne une augmentation de la biomasse reproductrice relative supérieure à celle obtenue par la même manipulation de la probabilité a priori de mortalité naturelle chez les mâles
 
 ```{r fig-sens-m-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-m-rel-fr)", "(ref:fig-sens-m-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[2]],
@@ -86,6 +106,10 @@ plot_biomass_mcmc(models$sens_grps[[2]],
 
 (ref:fig-sens-q-fr) Biomasse de frai pour les sensibilités aux changements des paramètres de capturabilité ($q_k$). Pour ces sensibilités, les priorités pour tous les engins ($k$) sont modifiées de la même manière.
 
+(ref:fig-sens-q-en-alt) This figure shows that manipulation of the prior on catchabilities for all the surveys does not have much effect at all on the spawning biomass estimates
+
+(ref:fig-sens-q-fr-alt) Ce graphique montre que la manipulation des a priori sur les taux de capture pour toutes les enquêtes n'a pratiquement aucun effet sur les estimations de la biomasse reproductrice
+
 ```{r fig-sens-q-m, fig.cap = ifelse(fr(), "(ref:fig-sens-q-fr)", "(ref:fig-sens-q-en)")}
 plot_biomass_mcmc(models$sens_grps[[3]],
                   angle_x_labels = TRUE,
@@ -97,6 +121,10 @@ plot_biomass_mcmc(models$sens_grps[[3]],
 (ref:fig-sens-q-rel-en) Relative spawning biomass for the sensitivities to changes in the priors for the catchability ($q_k$) parameters. For these sensitivities the priors for all gears ($k$) are modified in the same way.
 
 (ref:fig-sens-q-rel-fr) Biomasse de frai relative pour les sensibilités aux changements dans les paramètres de capturabilité ($q_k$). Pour ces sensibilités, les valeurs a priori pour tous les engins ($k$) sont modifiées de la même manière.
+
+(ref:fig-sens-q-rel-en-alt) This figure shows that manipulation of the prior on catchabilities for all the surveys does not have much effect at all on the relative spawning biomass estimates
+
+(ref:fig-sens-q-rel-fr-alt) Ce graphique montre que la manipulation des a priori sur les taux de capture pour toutes les enquêtes n'a pratiquement aucun effet sur les estimations relatives de la biomasse reproductrice
 
 ```{r fig-sens-q-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-q-rel-fr)", "(ref:fig-sens-q-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[3]],
@@ -110,6 +138,10 @@ plot_biomass_mcmc(models$sens_grps[[3]],
 (ref:fig-sens-q-q-en) Catchability estimates for the sensitivities to changes in the priors for the catchability ($q_k$) parameters. The points are the median of the posterior and the vertical lines are the 95% CI.
 
 (ref:fig-sens-q-q-fr) Estimations de la capturabilité pour les sensibilités aux changements dans les a priori pour les paramètres de capturabilité ($q_k$). Les points correspondent à la médiane de l'a posteriori et les lignes verticales à l'IC à 95 %.
+
+(ref:fig-sens-q-q-en-alt) This figure shows that manipulation of the prior on catchabilities for all the surveys has a small effect on the catchability estimates
+
+(ref:fig-sens-q-q-en-alt) Ce graphique montre que la manipulation de l'a priori sur les taux de capture pour toutes les enquêtes a un effet limité sur les estimations des taux de capture
 
 ```{r fig-sens-q-q, fig.cap = ifelse(fr(), "(ref:fig-sens-q-q-fr)", "(ref:fig-sens-q-q-en)")}
 plot_q_mcmc(models$sens_grps[[3]],
@@ -126,6 +158,10 @@ plot_q_mcmc(models$sens_grps[[3]],
 
 (ref:fig-sens-selex-fr) Biomasse de frai pour les sensibilités aux changements des paramètres de sélectivité ($\hat{a}_k$ et $\gamma_k$). Pour la première sensibilité, les sélectivités pour les deux pêcheries commerciales au chalut sont fixées à la maturité pour les deux engins commerciaux au chalut ($k$). Pour la seconde, le `r qcs` a trois blocs d'années ou la sélectivité varie dans le temps, 2003--2010, 2011--2016, et 2017--2021.
 
+(ref:fig-sens-selex-en-alt) This figure shows that fixing the commercial fleet's selectivity to match the maturity ogive causes a very large inflation of the initial biomass estimate and a monotonically decreasing biomass trajectory
+
+(ref:fig-sens-selex-fr-alt) Ce graphique montre que le fait de fixer la sélectivité de la flotte commerciale pour qu'elle corresponde à l'ogive de maturité entraîne une très forte inflation de l'estimation initiale de la biomasse et une trajectoire de biomasse décroissant de façon monotone
+
 ```{r fig-sens-selex, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-fr)", "(ref:fig-sens-selex-en)")}
 plot_biomass_mcmc(models$sens_grps[[4]],
                   angle_x_labels = TRUE,
@@ -137,6 +173,10 @@ plot_biomass_mcmc(models$sens_grps[[4]],
 (ref:fig-sens-selex-rel-en) Relative spawning biomass for the sensitivities to changes in the selectivity ($\hat{a}_k$ and $\gamma_k$) parameters. See Figure \@ref(fig:fig-sens-selex).
 
 (ref:fig-sens-selex-rel-fr) Biomasse de frai relative pour les sensibilités aux changements des paramètres de sélectivité ($\hat{a}_k$ et $\gamma_k$). Voir la figure \@ref(fig:fig-sens-selex).
+
+(ref:fig-sens-selex-rel-en-alt) This figure shows that fixing the commercial fleet's selectivity to match the maturity ogive causes a large inflation of the relative biomass estimates at the beginning of the time series and a monotonically decreasing relative biomass trajectory
+
+(ref:fig-sens-selex-rel-fr-alt) Ce graphique montre que le fait de fixer la sélectivité de la flotte commerciale pour qu'elle corresponde à l'ogive de maturité entraîne une forte inflation des estimations relatives de la biomasse au début de la série chronologique et une trajectoire de biomasse relative en baisse monotone
 
 ```{r fig-sens-selex-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-rel-fr)", "(ref:fig-sens-selex-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[4]],
@@ -151,6 +191,10 @@ plot_biomass_mcmc(models$sens_grps[[4]],
 
 (ref:fig-sens-sel-eq-mat-vuln-fr) Biomasse féconde et biomasse vulnérable pour le modèle de sensibilité pour lequel la sélectivité a été fixée à la maturité pour les deux flottes de chaluts commerciaux. La biomasse reproductrice est en noir et son IC à 95 % est ombré. Les deux trajectoires de biomasse vulnérable ont leur IC à 95 % contenu dans les lignes pointillées de leurs couleurs respectives. Les trois trajectoires sont identiques car la sélectivité est réglée pour correspondre à la maturité, de sorte que 100 % de la biomasse est disponible pour les pêcheries. Ce graphique est présenté pour vérifier que le modèle est correctement spécifié.
 
+(ref:fig-sens-sel-eq-mat-vuln-en-alt) This figure shows that fixing the commercial fleet's selectivity to match the maturity ogive causes the vulnerable biomass to equal the spawning biomass for all years
+
+(ref:fig-sens-sel-eq-mat-vuln-fr-alt) Ce graphique montre que le fait de fixer la sélectivité de la flotte commerciale pour qu'elle corresponde à l'ogive de maturité fait que la biomasse vulnérable est égale à la biomasse reproductrice pour toutes les années
+
 ```{r fig-sens-sel-eq-mat-vuln, fig.cap = ifelse(fr(), "(ref:fig-sens-sel-eq-mat-vuln-fr)", "(ref:fig-sens-sel-eq-mat-vuln-en)")}
 plot_vuln_mcmc(models$sens_grps[[4]][[2]],
                angle_x_labels = TRUE,
@@ -162,6 +206,10 @@ plot_vuln_mcmc(models$sens_grps[[4]][[2]],
 (ref:fig-sens-selex-index-fits-en) Index fits for the sensitivity where the `r qcs` has time-varying selectivity.
 
 (ref:fig-sens-selex-index-fits-fr) Ajustements de l'indice de sensibilité lorsque le `r qcs` a une sélectivité variable dans le temps.
+
+(ref:fig-sens-selex-index-fits-en-alt) This figure shows that estimating 3 year blocked time-varying selectivity for the `r qcs` results in a more optimistic and better fit to the `r qcs` index of abundance
+
+(ref:fig-sens-selex-index-fits-fr-alt) Cette figure montre que l'estimation de la sélectivité variable dans le temps sur 3 ans pour le `r qcs` donne un résultat plus optimiste et mieux adapté à l'indice d'abondance `r qcs`
 
 ```{r fig-sens-selex-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-selex-index-fits-fr)", "(ref:fig-sens-selex-index-fits-en)")}
 plot_index_mcmc(models$sens_grps[[4]],
@@ -178,6 +226,10 @@ plot_index_mcmc(models$sens_grps[[4]],
 
 (ref:fig-sens-qcs-tv-fr) Sélectivité variable dans le temps pour le `r qcs`, où les panneaux sont des blocs d'années : 2003--2010 (gauche), 2011--2016 (milieu), et 2017--2021 (droite). Les points représentent les estimations médianes de la sélectivité à l'âge ; les zones ombrées représentent l'IC à 95 % de ces estimations. Les lignes en pointillé représentent les courbes de maturité, les couleurs représentant le sexe comme dans la légende.
 
+(ref:fig-sens-qcs-tv-en-alt) This figure shows that estimating 3 blocks of time-varying selectivity for the `r qcs` results in very different selectivity by sex for the first two blocks from 1996 to 2010 and 2011 to 2018
+
+(ref:fig-sens-qcs-tv-fr-alt) Ce graphique montre que l'estimation de 3 blocs de sélectivité variable dans le temps pour les résultats `r qcs` donne lieu à une sélectivité très différente selon le sexe pour les deux premiers blocs, de 1996 à 2010 et de 2011 à 2018
+
 ```{r fig-sens-qcs-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-tv-fr)", "(ref:fig-sens-qcs-tv-en)")}
 plot_selex_gear_mcmc(models$sens_grps[[4]][[3]],
                      gear = 3,
@@ -187,6 +239,10 @@ plot_selex_gear_mcmc(models$sens_grps[[4]][[3]],
 (ref:fig-sens-qcs-autocor-sel-en) Autocorrelation for estimated selectivity parameters for the sensitivity model which has time-varying selectivity for the `r qcs`. See Figure \@ref(fig:fig-base-trace-selex) for descriptions of the parameter subscripts.
 
 (ref:fig-sens-qcs-autocor-sel-fr) Autocorrélation des paramètres de sélectivité estimés pour le modèle de sensibilité qui présente une sélectivité variable dans le temps pour les `r qcs`. Voir la figure \@ref(fig:fig-base-trace-selex) pour la description des indices des paramètres.
+
+(ref:fig-sens-qcs-autocor-sel-en-alt) This figure shows that there is little autocorrelation for estimates of leading parameters in the model estimating time-varying selectivity
+
+(ref:fig-sens-qcs-autocor-sel-fr-alt) Cette figure montre qu'il y a peu d'autocorrélation pour les estimations des paramètres principaux dans le modèle estimant la sélectivité variable dans le temps
 
 ```{r fig-sens-qcs-autocor-sel, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-autocor-sel-fr)", "(ref:fig-sens-qcs-autocor-sel-en)"), fig.asp = 1}
 plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
@@ -202,6 +258,10 @@ plot_autocorr_mcmc(models$sens_grps[[4]][[3]],
 
 (ref:fig-sens-qcs-trace-sel-tv-fr) Tracés des paramètres de sélectivité pour le modèle de sensibilité qui a une sélectivité variable dans le temps pour le `r qcs`. Voir la figure \@ref(fig:fig-base-autocor-selex) pour la description des paramètres et des indices.
 
+(ref:fig-sens-qcs-trace-sel-tv-en-alt) This figure shows that there are some issues in the trace plots for selectivity parameters for the model which estimates time-varying selectivity
+
+(ref:fig-sens-qcs-trace-sel-tv-fr-alt) Ce graphique montre qu'il existe certains problèmes dans les tracés des paramètres de sélectivité pour le modèle qui estime la sélectivité variable dans le temps
+
 ```{r fig-sens-qcs-trace-sel-tv, fig.cap = ifelse(fr(), "(ref:fig-sens-qcs-trace-sel-tv-fr)", "(ref:fig-sens-qcs-trace-sel-tv-en)"),  fig.asp = 1}
 plot_traces_mcmc(models$sens_grps[[4]][[3]],
                  plot_sel = TRUE, 
@@ -216,6 +276,10 @@ plot_traces_mcmc(models$sens_grps[[4]][[3]],
 
 (ref:fig-sens-geostat-fr) Biomasse de frai pour la sensibilité dans laquelle les données de l'indice d'enquête basé sur la conception ont été remplacées par des indices d'enquête basés sur des données géostatistiques. Voir l'annexe \@ref(app:geostat).
 
+(ref:fig-sens-geostat-en-alt) This figure shows that there is a larger estimate of B0 and a larger biomass estimated at the end of the time series for the model using geostatistical based survey indices
+
+(ref:fig-sens-geostat-fr-alt) Ce graphique montre que l'estimation de B0 est plus élevée et que la biomasse estimée à la fin de la série chronologique est plus importante pour le modèle utilisant des indices d'enquête géostatistiques
+
 ```{r fig-sens-geostat, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-fr)", "(ref:fig-sens-geostat-en)")}
 plot_biomass_mcmc(models$sens_grps[[5]],
                   angle_x_labels = TRUE,
@@ -228,6 +292,10 @@ plot_biomass_mcmc(models$sens_grps[[5]],
 (ref:fig-sens-geostat-rel-en) Relative spawning biomass for the sensitivity in which the design-based survey index data has been replaced with geostatistical-based survey indices. See Appendix \@ref(app:geostat).
 
 (ref:fig-sens-geostat-rel-fr) Biomasse reproductrice relative pour la sensibilité dans laquelle les données de l'indice d'enquête basé sur la conception ont été remplacées par des indices d'enquête basés sur des données géostatistiques. Voir l'annexe \@ref(app:geostat).
+
+(ref:fig-sens-geostat-rel-en-alt) This figure shows that there is a slightly larger estimate of relative biomass at the end of the time series for the model using geostatistical based survey indices
+
+(ref:fig-sens-geostat-rel-fr-alt) Ce graphique montre que l'estimation de la biomasse relative à la fin de la série chronologique est légèrement supérieure pour le modèle utilisant des indices d'enquête géostatistiques
 
 ```{r fig-sens-geostat-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-rel-fr)", "(ref:fig-sens-geostat-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[5]],
@@ -243,6 +311,10 @@ plot_biomass_mcmc(models$sens_grps[[5]],
 
 (ref:fig-sens-geostat-index-fits-fr) Ajustements de l'indice pour la sensibilité dans laquelle les données de l'indice d'enquête basé sur le plan ont été remplacées par des indices d'enquête basés sur la géostatistique. Voir l'annexe \@ref(app:geostat).
 
+(ref:fig-sens-geostat-index-fits-en-alt) This figure shows that the fits to the indices of abundance for the model which uses geostatistical based survey indices is similar to the base model
+
+(ref:fig-sens-geostat-index-fits-fr-alt) Cette figure montre que l'ajustement aux indices d'abondance pour le modèle qui utilise des indices d'enquête géostatistiques est similaire à celui du modèle de base
+
 ```{r fig-sens-geostat-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-geostat-index-fits-fr)", "(ref:fig-sens-geostat-index-fits-en)")}
 plot_index_mcmc(models$sens_grps[[5]][[2]],
                 type = "fits",
@@ -254,6 +326,10 @@ plot_index_mcmc(models$sens_grps[[5]][[2]],
 (ref:fig-sens-meeting-en) Spawning biomass for the sensitivities involving removing the DCPUE index, fixing selectivities and maturities, and modifying the maturity ogive. These sensitivities were added during the formal review meeting in October 2022.
 
 (ref:fig-sens-meeting-fr) (ref:fig-sens-meeting-fr) Biomasse de frai pour les sensibilités impliquant la suppression de l'indice RCPUE, la fixation des sélectivités et des maturités, et la modification de l'ogive de maturité. Ces sensibilités ont été ajoutées lors de la réunion de révision formelle d'octobre 2022.
+
+(ref:fig-sens-meeting-en-alt) This figure shows that fixing survey selectivities results in an estimated biomass which is increasing at an unrealistic rate at the end of the time series
+
+(ref:fig-sens-meeting-fr-alt) Ce graphique montre que la correction des sélectivités de l'enquête donne lieu à une estimation de la biomasse qui augmente à un rythme irréaliste à la fin de la série chronologique
 
 ```{r fig-sens-meeting, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-fr)", "(ref:fig-sens-meeting-en)")}
 plot_biomass_mcmc(models$sens_grps[[6]],
@@ -267,6 +343,10 @@ plot_biomass_mcmc(models$sens_grps[[6]],
 (ref:fig-sens-meeting-rel-en) Relative spawning biomass for the sensitivities involving removing the DCPUE index, fixing selectivities and maturities, and modifying the maturity ogive. These sensitivities were added during the formal review meeting in October 2022.
 
 (ref:fig-sens-meeting-rel-fr) (ref:fig-sens-meeting-rel-fr) Biomasse de frai relative pour les sensibilités impliquant la suppression de l'indice RCPUE, la fixation des sélectivités et des maturités, et la modification de l'ogive de maturité. Ces sensibilités ont été ajoutées lors de la réunion de révision formelle d'octobre 2022.
+
+(ref:fig-sens-meeting-rel-en-alt) This figure shows that fixing survey selectivities results in an estimated relative biomass which is increasing at an unrealistic rate at the end of the time series
+
+(ref:fig-sens-meeting-rel-fr-alt) Ce graphique montre que la correction des sélectivités de l'enquête donne lieu à une estimation de la biomasse relative qui augmente à un rythme irréaliste à la fin de la série chronologique
 
 ```{r fig-sens-meeting-rel, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-rel-fr)", "(ref:fig-sens-meeting-rel-en)")}
 plot_biomass_mcmc(models$sens_grps[[6]],
@@ -282,6 +362,10 @@ plot_biomass_mcmc(models$sens_grps[[6]],
 
 (ref:fig-sens-remove-dcpue-index-fits-fr) Ajustements de l'indice pour les sensibilités impliquant la suppression de l'indice RCPUE, la fixation des sélectivités et des maturités, et la modification de la courbe des maturités.
 
+(ref:fig-sens-remove-dcpue-index-fits-en-alt) This figure shows that fixing survey selectivities results in similar fits to the indices of abundance as the in the base model
+
+(ref:fig-sens-remove-dcpue-index-fits-fr-alt) Cette figure montre que la correction des sélectivités de l'enquête donne des ajustements similaires aux indices d'abondance que dans le modèle de base
+
 ```{r fig-sens-remove-dcpue-index-fits, fig.cap = ifelse(fr(), "(ref:fig-sens-remove-dcpue-index-fits-fr)", "(ref:fig-sens-remove-dcpue-index-fits-en)")}
 plot_index_mcmc(models$sens_grps[[6]],
                 type = "fits",
@@ -293,6 +377,10 @@ plot_index_mcmc(models$sens_grps[[6]],
 (ref:fig-sens-meeting-vuln-en) Spawning biomass and vulnerable biomass for the sensitivities involving removing resting and developing stages of maturity, by modifying the maturity ogive.
 
 (ref:fig-sens-meeting-vuln-fr) Biomasse de frai et biomasse vulnérable pour les sensibilités impliquant la suppression des stades de repos et de développement de la maturité, en modifiant l'ogive de maturité.
+
+(ref:fig-sens-meeting-vuln-en-alt) This figure shows that removing resting and developing stages of maturities do not modify the vulnerable biomass estimates much
+
+(ref:fig-sens-meeting-vuln-fr-alt) Ce graphique montre que le fait de supprimer les stades de repos et de développement des maturités ne modifie pas beaucoup les estimations de la biomasse vulnérable
 
 ```{r fig-sens-meeting-vuln, fig.cap = ifelse(fr(), "(ref:fig-sens-meeting-vuln-fr)", "(ref:fig-sens-meeting-vuln-en)")}
 plot_vuln_mcmc(models$sens_grps[[6]][[3]], 

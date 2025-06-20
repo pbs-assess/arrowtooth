@@ -403,7 +403,7 @@ Assumptions in this steady-state model include:
 - Unequal vulnerability-at-age
 - Age-specific fecundity
 - Beverton-Holt type recruitment
-
+  
 **Parameters** 
 The model includes steady-state parameters:
 \begin{flalign}
@@ -413,7 +413,9 @@ The model includes steady-state parameters:
 \begin{flalign}
   \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s) &&
   \label{eq:df02}     
-\end{flalign} **Age-schedule information**
+\end{flalign}
+  
+**Age-schedule information**
 Length-at-age is defined as:
 \begin{flalign}
   l_{a,s}=l_{}\left(1-e^{\left(-k_s\left(a-t_{o,s}\right)\right)}\right) &&
@@ -430,7 +432,9 @@ Length-at-age is defined as:
 \begin{flalign}
   f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1} &&
   \label{eq:df06}
-\end{flalign} **Survivorship**
+\end{flalign}
+  
+**Survivorship**
 Survivorship for unfished populations is defined as:
 \begin{flalign}
   \iota_{a,s} = \begin{cases}
@@ -447,7 +451,9 @@ Survivorship for unfished populations is defined as:
     \frac{\hat{\iota}_{a-1,s}e^{-M_s-F_ev_{a-1,s}}}{(1-e^{-M_s-F_e v_{a,s}})}, & a = A \\
   \end{cases} &&
 \label{eq:df08}
-\end{flalign}  **Incidence functions**
+\end{flalign}
+  
+**Incidence functions**
 The incidence functions refer to the lifetime or per-recruit quantities. Spawning biomass per recruit for unfished or fished populations is defined as:
 \begin{flalign}
   \phi_E=\sum_{s=1}^S\sum_{a=1}^\infty \iota_{a,s} f_{a,s} & &
@@ -464,7 +470,9 @@ The incidence functions refer to the lifetime or per-recruit quantities. Spawnin
   \frac{\hat{\iota}_{a,s} w_{a,s} v_{a,s}}{M_s+F_ev_{a,s}}
   \left(1-e^{(-M_s-F_ev_{a,s})}\right) &&
   \label{eq:df11}
-\end{flalign} **Steady-state conditions**
+\end{flalign}
+  
+**Steady-state conditions**
 Biomass in unfished conditions is defined as:
 \begin{flalign}
   B_o=R_o\phi_E &&
@@ -488,7 +496,7 @@ Biomass in unfished conditions is defined as:
 \end{flalign}
 ### Statistical catch-age model {#model-catch-age}
 This model uses the Baranov catch equation and C* and F* as leading parameters.
-
+  
 **Estimated or fixed parameters**
 \begin{flalign}
   \Theta= (R_0,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\digamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}+1}^{t=\acute{t}-1}) &&
@@ -497,12 +505,16 @@ This model uses the Baranov catch equation and C* and F* as leading parameters.
 \begin{flalign}
   \sigma=\frac{\sqrt{\rho}}{\vartheta}; \qquad \tau=\frac{\sqrt{(1-\rho)}}{\vartheta} &&
   \label{eq:df17}
-\end{flalign} **Unobserved states**
+\end{flalign}
+  
+**Unobserved states**
 The numbers-at-age, spawning stock biomass, and total mortality rates:
 \begin{flalign}
   N_{t,a,s}; \qquad B_{t,s}; \qquad Z_{t,a,s} &&
   \label{eq:df18}
-\end{flalign} **Initial states**
+\end{flalign}
+  
+**Initial states**
 The initial numbers-at-age in the first year and the annual recruits are treated as estimated parameters and used to initialize the numbers-at-age matrix:
 \begin{flalign}
   N_{t,a,s}=\frac{1}{S}\overline{R}_{\mathrm{init}}e^{\omega_\mathrm{init,t}}e^{-M_s(a-1)}; \qquad (\acute{t}-A)<t<1; \qquad 2\leq a \leq A &&
@@ -519,7 +531,9 @@ The initial numbers-at-age in the first year and the annual recruits are treated
 \begin{flalign}
   F_{k,t}=e^{\digamma_{k,t}} &&
   \label{eq:df22}
-\end{flalign} **State dynamics ($t>1$)**
+\end{flalign}
+  
+**State dynamics ($t>1$)**
 State variables in each year are updated using the following equations, where the spawning biomass is the product of the numbers-at-age and the mature biomass-at-age.
 \begin{flalign}
   B_{t,s}=\sum_a N_{t,a,s}f_{a,s} &&
@@ -541,7 +555,7 @@ State variables in each year are updated using the following equations, where th
   \end{cases} &&
   \label{eq:df26}
 \end{flalign} where members of the plus group (age A) are all assumed to have the same total mortality rate.
-
+  
 **Recruitment model**
 Recruitment for this model is a Beverton-Holt formulation with the lognormal bias correction term $-0.5\tau^2$:
 \begin{flalign}
@@ -557,7 +571,7 @@ Les hypothèses de ce modèle à l'état stable sont les suivantes :
 - Vulnérabilité inégale à l'âge
 - Fécondité spécifique à l'âge
 - Recrutement de type Beverton-Holt
-
+  
 **Paramètres** 
 Le modèle comprend des paramètres de régime permanent:
 
@@ -567,8 +581,10 @@ Le modèle comprend des paramètres de régime permanent:
 \end{flalign} et des paramètres fixes de croissance et de maturité:
 \begin{flalign}
   \Phi = (l_{\infty,s},\acute{k}_s, t_{o,s},\acute{a}_s,\acute{b}_s,\dot{a}_s,\dot{\gamma}_s) &&
-  \label{eq:df02}     
-\end{flalign} **Informations sur le calendrier des âges**
+  \label{eq:df02}
+\end{flalign}
+  
+**Informations sur le calendrier des âges**
 L'âge est défini comme suit:
 \begin{flalign}
   l_{a,s}=l_{}\left(1-e^{\left(-k_s\left(a-t_{o,s}\right)\right)}\right) &&
@@ -585,7 +601,9 @@ L'âge est défini comme suit:
 \begin{flalign}
   f_{a,s}=w_{a,s}\left(1+e^{\left(\frac{-\left(\dot{a}_s-a_s\right)}{\dot{\gamma}_s}\right)}\right)^{-1} &&
   \label{eq:df06}
-\end{flalign} **Survivance**
+\end{flalign}
+  
+**Survivance**
 La survie des populations non pêchées est définie comme suit:
 \begin{flalign}
   \iota_{a,s} = \begin{cases}
@@ -602,7 +620,9 @@ La survie des populations non pêchées est définie comme suit:
     \frac{\hat{\iota}_{a-1,s}e^{-M_s-F_ev_{a-1,s}}}{(1-e^{-M_s-F_e v_{a,s}})}, & a = A \\
   \end{cases} &&
 \label{eq:df08}
-\end{flalign}  **Fonctions d'incidence**
+\end{flalign}
+  
+**Fonctions d'incidence**
 Les fonctions d'incidence se réfèrent à la durée de vie ou aux quantités par recrue. La biomasse de frai par recrue pour les populations non pêchées ou pêchées est définie comme suit:
 \begin{flalign}
   \phi_E=\sum_{s=1}^S\sum_{a=1}^\infty \iota_{a,s} f_{a,s} & &
@@ -619,7 +639,9 @@ Les fonctions d'incidence se réfèrent à la durée de vie ou aux quantités pa
   \frac{\hat{\iota}_{a,s} w_{a,s} v_{a,s}}{M_s+F_ev_{a,s}}
   \left(1-e^{(-M_s-F_ev_{a,s})}\right) &&
   \label{eq:df11}
-\end{flalign} **Conditions en régime permanent**
+\end{flalign}
+  
+**Conditions en régime permanent**
 La biomasse dans des conditions non pêchées est définie comme suit:
 \begin{flalign}
   B_o=R_o\phi_E &&
@@ -643,7 +665,7 @@ La biomasse dans des conditions non pêchées est définie comme suit:
 \end{flalign}
 ### Modèle statistique de l'âge de capture {#model-catch-age}
 Ce modèle utilise l'équation de capture de Baranov et C* et F* comme paramètres principaux.
-
+  
 **Paramètres estimés ou fixes**
 \begin{flalign}
   \Theta= (R_0,M_s,\overline{R},\overline{R}_\mathrm{init},\vartheta^2,\rho,\digamma_{k,t},\{\omega_t\}_{\acute{t}=1-A}^{\acute{t}=T},\{\omega_{\mathrm{init},t}\}_{t=\acute{t}+1}^{t=\acute{t}-1}) &&
@@ -652,12 +674,16 @@ Ce modèle utilise l'équation de capture de Baranov et C* et F* comme paramètr
 \begin{flalign}
   \sigma=\frac{\sqrt{\rho}}{\vartheta}; \qquad \tau=\frac{\sqrt{(1-\rho)}}{\vartheta} &&
   \label{eq:df17}
-\end{flalign} **États non observés**
+\end{flalign}
+  
+**États non observés**
 Le nombre d'individus à l'âge, la biomasse du stock reproducteur et les taux de mortalité totale:
 \begin{flalign}
   N_{t,a,s}; \qquad B_{t,s}; \qquad Z_{t,a,s} &&
   \label{eq:df18}
-\end{flalign} **États initiaux**
+\end{flalign}
+  
+**États initiaux**
 Les nombres initiaux en âge la première année et les recrues annuelles sont traités comme des paramètres estimés et utilisés pour initialiser la matrice des nombres en âge.:
 \begin{flalign}
   N_{t,a,s}=\frac{1}{S}\overline{R}_{\mathrm{init}}e^{\omega_\mathrm{init,t}}e^{-M_s(a-1)}; \qquad (\acute{t}-A)<t<1; \qquad 2\leq a \leq A &&
@@ -674,7 +700,9 @@ Les nombres initiaux en âge la première année et les recrues annuelles sont t
 \begin{flalign}
   F_{k,t}=e^{\digamma_{k,t}} &&
   \label{eq:df22}
-\end{flalign} **Dynamique de l'État ($t>1$)**
+\end{flalign}
+  
+**Dynamique de l'État ($t>1$)**
 Les variables d'état de chaque année sont mises à jour à l'aide des équations suivantes, où la biomasse reproductrice est le produit des effectifs à l'âge et de la biomasse mature à l'âge..
 \begin{flalign}
   B_{t,s}=\sum_a N_{t,a,s}f_{a,s} &&
@@ -696,9 +724,9 @@ Les variables d'état de chaque année sont mises à jour à l'aide des équatio
   \end{cases} &&
   \label{eq:df26}
 \end{flalign} où les membres du groupe plus (âge A) sont tous supposés avoir le même taux de mortalité total.
-
+  
 **Modèle de recrutement**
-Le recrutement pour ce modèle est une formulation de Beverton-Holt avec un terme de correction de biais lognormal $-0.5\tau^2$.:
+Le recrutement pour ce modèle est une formulation de Beverton-Holt avec un terme de correction de biais lognormal $-0.5\tau^2$:
 \begin{flalign}
   R_t = \frac{s_oB_{t-k}}{1+\beta B_{t-k}}e^{\delta_{t}-0.5\tau^2}; \qquad (\mathrm{Beverton-Holt}) &&
   \label{eq:df27}

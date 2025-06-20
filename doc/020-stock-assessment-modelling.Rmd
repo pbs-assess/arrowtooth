@@ -137,8 +137,8 @@ Un indice normalisé de CPUE commerciale, utilisé dans d'autres évaluations r�
 ```
 
 ```{r sam-swept-area-en, eval = !fr(), results = 'asis'}
-cat("**Swept Area Analysis for Indices of Abundance**
-  
+cat("
+**Swept Area Analysis for Indices of Abundance**
 For all surveys, the swept area estimate of biomass in year $y$ was obtained by summing the product of the CPUE and the area surveyed across the surveyed strata $i$:
 \begin{equation} 
   B_y = \sum_{i=1}^{k} C_{y_i} A_i = \sum_{i=1}^{k} B_{y_i}
@@ -172,7 +172,7 @@ The CV for `r sp` for each year $y$ was calculated as follows:
 where $\textrm{CV}_y$ is the CV for year $y$.
 
 One thousand bootstrap replicates with replacement were constructed from the survey data to estimate bias-corrected 95% confidence intervals for each survey year [@efron1982]. Mean survey biomass estimates obtained from Eq. \@ref(eq:swept-area) with CVs (Eq. \@ref(eq:survey-cv)) are presented for the fishery-independent indices in Table \@ref(tab:survey-index-data-table).
-  
+
 We also included a set of geostatistical-model-standardized indices in our sensitivity analyses (Appendix \@ref(app:geostat)).
 
 ")
@@ -214,7 +214,7 @@ Le CV de `r sp` pour chaque année $y$ a été calculé comme suit :
 où $\textrm{CV}_y$ est le CV pour l'année $y$.
 
 Mille répliques bootstrap avec remplacement ont été construites à partir des données de l'enquête pour estimer les régions de confiance à 95% corrigées des biais pour chaque année de l'enquête [@efron1982]. Les estimations de la biomasse moyenne de l'étude obtenues à partir de l'Eq. \@ref(eq:swept-area) avec les CV (Eq. \@ref(eq:survey-cv)) sont présentées pour les indices indépendants de la pêche dans le tableau \@ref(tab:survey-index-data-table).
-  
+
 Nous avons également inclus un ensemble d'indices normalisés par un modèle géostatistique dans nos analyses de sensibilité (annexe \@ref(app:geostat)).
 
 ")

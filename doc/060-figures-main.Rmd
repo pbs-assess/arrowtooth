@@ -7,6 +7,10 @@
 (ref:fig-catch-spatial-fr) Distribution spatiale des captures commerciales de
 `r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`. L'échelle des couleurs est transformée en log10. Les cellules ont une largeur de 7 km et ne sont représentées que dans les cas où il y a au moins 3 navires uniques dans une cellule donnée, afin de respecter les exigences en matière de confidentialité.
 
+(ref:fig-catch-spatial-en-alt) This figure shows that the `r sp` fishery is active across almost the entire coast of `r bc`
+
+(ref:fig-catch-spatial-fr-alt) Ce graphique montre que la pêche `r sp` est active sur presque toute la côte de `r bc`
+
 ```{r fig-catch-spatial, fig.cap = ifelse(fr(), "(ref:fig-catch-spatial-fr)", "(ref:fig-catch-spatial-en)"), out.width = "6in", eval=user!="seananderson"}
 ## if the location of labels needs moving...
 # labels <- gfplot:::boundary_labels(9, xmin = 120)
@@ -23,9 +27,11 @@ plot_catch_spatial(dat$catch_spatial,
 
 (ref:fig-cpue-spatial-en) Spatial distribution of commercial CPUE from `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`. The colour scale is log10 transformed. Cells are 7 km wide and are only shown in cases where there are at least 3 unique vessels in a given cell to meet privacy requirements.
 
-
 (ref:fig-cpue-spatial-fr) Distribution spatiale de la CPUE commerciale de `r base_model$dat$start.yr` à `r base_model$dat$end.yr` pour `r sp`. L'échelle des couleurs est transformée en log10. Les cellules ont une largeur de 7 km et ne sont représentées que dans les cas où il y a au moins 3 navires uniques dans une cellule donnée afin de respecter les exigences en matière de protection de la vie privée.
 
+(ref:fig-cpue-spatial-en-alt) This figure shows that the `r sp` fishery is active across almost the entire coast of `r bc`
+
+(ref:fig-cpue-spatial-fr-alt) Ce graphique montre que la pêche `r sp` est active sur presque toute la côte de `r bc`
 
 ```{r fig-cpue-spatial, fig.cap = ifelse(fr(), "(ref:fig-cpue-spatial-fr)", "(ref:fig-cpue-spatial-en)"), out.width = "6in",eval=user!="seananderson"}
 plot_cpue_spatial(dat$cpue_spatial, 
@@ -41,6 +47,10 @@ plot_cpue_spatial(dat$cpue_spatial,
 
 (ref:fig-trawl-footprint-fr) Couverture spatiale du secteur du chalutage commercial pour toutes les espèces (polygones noirs) superposée à la couverture des quatre enquêtes synoptiques (couleurs). Les enquêtes synoptiques sont représentées sous la forme d'une grille de blocs de 2 km x 2 km, qui représentent des 'blocs actifs' dans la conception de l'enquête. La présence d'un bloc sur cette figure ne signifie pas qu'il a fait l'objet d'une enquête, mais seulement qu'il fait partie de l'ensemble des blocs pouvant faire l'objet d'une enquête, conformément au plan d'enquête.
 
+(ref:fig-trawl-footprint-en-alt) This figure shows that the synoptic surveys cover all of the area in which commercial trawl catch has occurred
+
+(ref:fig-trawl-footprint-fr-alt) Ce graphique montre que les relevés synoptiques couvrent toute la zone dans laquelle des captures commerciales au chalut ont été effectuées
+
 ```{r fig-trawl-footprint, fig.cap = ifelse(fr(), "(ref:fig-trawl-footprint-fr)", "(ref:fig-trawl-footprint-en)")}
 
 plot_trawl_footprint()
@@ -49,6 +59,10 @@ plot_trawl_footprint()
 (ref:fig-catch-en) Commercial catch of `r sp` by area and gear type. Each year of catch starts on Feb. 21 and ends on Feb. 20. e.g. the year 2005 catch is all catch between Feb. 21, 2005 to Feb. 20, 2006. The shaded grey area from the beginning of the time series to 1996 indicate unreliable data. In the years prior to 1996, many tows of `r sp` were discarded without logs being kept.
 
 (ref:fig-catch-fr) Prises commerciales de `r sp` par zone et par type d'engin. Chaque année de capture commence le 21 février et se termine le 20 février. Par exemple, les captures de l'année 2005 correspondent à toutes les captures effectuées entre le 21 février 2005 et le 20 février 2006. La zone grise du début de la série chronologique jusqu'en 1996 indique que les données ne sont pas fiables. Au cours des années antérieures à 1996, de nombreux traits de `r sp` ont été rejetés sans qu'aucun journal n'ait été tenu.
+
+(ref:fig-catch-en-alt) This figure shows that in recent years catch of `r sp` has been reduced significantly
+
+(ref:fig-catch-fr-alt) Ce graphique montre que ces dernières années les prises de `r sp` ont considérablement diminué
 
 ```{r fig-catch, fig.cap = ifelse(fr(), "(ref:fig-catch-fr)", "(ref:fig-catch-en)")}
 yrs <- sort(unique(catch$year))
@@ -64,6 +78,10 @@ plot_catch(catch,
 (ref:fig-catch-fleet-en) Commercial catch of `r sp` by fleet and gear type. Each year of catch starts on Feb. 21 and ends on Feb. 20. See the previous figure for an explanation of the shaded grey area.
 
 (ref:fig-catch-fleet-fr) Prises commerciales de `r sp` par flottille et par type d'engin. Chaque année de capture commence le 21 février et se termine le 20 février. Voir la figure précédente pour une explication de la zone grisée.
+
+(ref:fig-catch-fleet-en-alt) This figure shows that in recent years catch of `r sp` has been reduced significantly
+
+(ref:fig-catch-fleet-fr-alt) Ce graphique montre que ces dernières années les prises de `r sp` ont considérablement diminué
 
 ```{r fig-catch-fleet, fig.cap = ifelse(fr(), "(ref:fig-catch-fleet-fr)", "(ref:fig-catch-fleet-en)")}
 yrs <- sort(unique(catch$year))
@@ -82,6 +100,10 @@ plot_catch_fleet(list(catch_ft, catch_ss),
 
 (ref:fig-catch-fit-fr) Prises prédites comparées aux données de prises observées pour les deux flottes commerciales utilisées dans le modèle. Les lignes pleines représentent soit les captures observées, soit la médiane des captures par flotte ; les lignes pointillées représentent l'IC à 95 % pour la postériorité des ajustements des captures.
 
+(ref:fig-catch-fit-en-alt) This figure shows that the catch fit from the model is exactly the same as the observed catch for both Freezer trawlers and Shoreside fleets
+
+(ref:fig-catch-fit-fr-alt) Ce graphique montre que les captures estimées par le modèle correspondent exactement aux captures observées tant pour les chalutiers congélateurs que pour les flottes côtières
+
 ```{r fig-catch-fit, fig.cap = ifelse(fr(), "(ref:fig-catch-fit-fr)", "(ref:fig-catch-fit-en)")}
 plot_catch_fit_mcmc(base_model,
                     angle_x_labels = TRUE)
@@ -92,6 +114,10 @@ plot_catch_fit_mcmc(base_model,
 (ref:fig-base-sb-en) Spawning biomass of `r sp` for the base model with $B_{MSY}$ reference points. The solid black line with points show the medians of the posteriors, the shaded ribbon encapsulated by dashed lines covers the 95% CI for the posteriors, the point at $B_0$ is the median estimate for the unfished biomass, and the vertical line over that point is the 95% CI for that parameter. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t. The $B_{MSY}$ reference point lines are shown here for reference only, they are not advised for use in decision making for this stock. See section \@ref(scam-ref-points) for more details.
 
 (ref:fig-base-sb-fr) Biomasse de frai de `r sp` pour le modèle de base avec les points de référence $B_{MSY}$. La ligne noire continue avec des points montre les médianes des postérieures, le ruban ombré encapsulé par des lignes en pointillés couvre l'IC à 95% pour les postérieures, le point à $B_0$ est l'estimation médiane de la biomasse non pêchée, et la ligne verticale au-dessus de ce point est l'IC à 95% pour ce paramètre. La partie supérieure de l'IC n'est pas montrée pour des raisons de clarté de la trajectoire, la médiane et l'IC pour $B_0$ sont ici `r paste0(base_sbo[1], ", ", base_sbo[2])` mille t. Les lignes du point de référence $B_{MSY}$ sont montrées ici à titre de référence uniquement, il n'est pas conseillé de les utiliser dans la prise de décision pour ce stock. Voir la section \@ref(scam-ref-points) pour plus de détails.
+
+(ref:fig-base-sb-en-alt) This figure shows the estimated spawning biomass continually dropping since 2012 and stabilizing in the last 3 years
+
+(ref:fig-base-sb-fr-alt) Ce graphique montre que la biomasse reproductrice estimée n'a cessé de diminuer depuis 2012 et s'est stabilisée au cours des trois dernières années
 
 ```{r fig-base-sb, fig.cap = ifelse(fr(), "(ref:fig-base-sb-fr)", "(ref:fig-base-sb-en)")}
 plot_biomass_mcmc(base_model,
@@ -105,6 +131,10 @@ plot_biomass_mcmc(base_model,
 (ref:fig-base-sb-bo-en) Spawning biomass of `r sp` for the base model with $B_0$ reference points. See Figure \@ref(fig:fig-base-sb) for more information. The upper part of the CI is not shown for reasons of clarity for the trajectory, the median and CI for $B_0$ here is `r paste0(base_sbo[1], ", ", base_sbo[2])` thousand t.
 
 (ref:fig-base-sb-bo-fr) Biomasse de frai de `r sp` pour le modèle de base avec des points de référence $B_0$. Voir la figure \@ref(fig:fig-base-sb) pour plus d'informations. La partie supérieure de l'IC n'est pas montrée pour des raisons de clarté de la trajectoire, la médiane et l'IC pour $B_0$ sont ici `r paste0(base_sbo[1], ", ", base_sbo[2])` mille t.
+
+(ref:fig-base-sb-bo-en-alt) This figure shows the estimated spawning biomass continually dropping since 2012 and stabilizing in the last 3 years
+
+(ref:fig-base-sb-bo-fr-alt) Ce graphique montre que la biomasse reproductrice estimée n'a cessé de diminuer depuis 2012 et s'est stabilisée au cours des trois dernières années
 
 ```{r fig-base-sb-bo, fig.cap = ifelse(fr(), "(ref:fig-base-sb-bo-fr)", "(ref:fig-base-sb-bo-en)")}
 plot_biomass_mcmc(base_model,
@@ -120,7 +150,11 @@ plot_biomass_mcmc(base_model,
 
 (ref:fig-base-depletion-en) Relative spawning biomass for the base model. The shaded area represents the 95% CI. Horizontal lines indicate the 0.2 $B_0$ (solid, red) and 0.4 $B_0$ (dashed, green) reference points. Because the ribbon represents relative spawning biomass (depletion) and the reference points are with respect to $B_0$, all uncertainty about the ratio of the spawning biomass to the reference points is captured in the ribbon and the reference points are shown as point values.
 
-(ref:fig-base-depletion-fr) French here
+(ref:fig-base-depletion-fr) Biomasse reproductrice relative pour le modèle de base. La zone ombrée représente l'IC à 95 %. Les lignes horizontales indiquent les points de référence 0,2 $B_0$ (ligne continue, rouge) et 0,4 $B_0$ (ligne pointillée, verte). Étant donné que le ruban représente la biomasse reproductrice relative (épuisement) et que les points de référence sont liés à $B_0$, toute incertitude concernant le rapport entre la biomasse reproductrice et les points de référence est prise en compte dans le ruban et les points de référence sont représentés sous forme de valeurs ponctuelles.
+
+(ref:fig-base-depletion-en-alt) This figure shows the estimated relative spawning biomass continually dropping since 2012 and stabilizing in the last 3 years just below 0.4 B0
+
+(ref:fig-base-depletion-fr-alt) Ce graphique montre que la biomasse reproductive relative estimée n'a cessé de diminuer depuis 2012 et s'est stabilisée au cours des trois dernières années juste en dessous de 0.4 B0
 
 ```{r fig-base-depletion, fig.cap = ifelse(fr(), "(ref:fig-base-depletion-fr)", "(ref:fig-base-depletion-en)")}
 plot_biomass_mcmc(base_model,
@@ -135,6 +169,10 @@ plot_biomass_mcmc(base_model,
 
 (ref:fig-dynamic-b-zero-fr) Biomasse de frai relative du modèle de base (ligne noire) comparée à la biomasse de frai relative du modèle de base calculée à l'aide d'un $B_0$ dynamique (bleu). La ligne noire n'est pas exactement égale à la ligne médiane de sortie du modèle `r iscam` telle qu'elle apparaît dans la figure \@ref(fig:fig-base-depletion) parce que cette figure a été créée assez rapidement en utilisant un modèle mini-iscam pour émuler iSCAM dans R.
 
+(ref:fig-dynamic-b-zero-en-alt) This figure shows that estimated biomass would be substantially higher with a dynamic B0 parameter and zero fishing mortality
+
+(ref:fig-dynamic-b-zero-fr-alt) Ce graphique montre que la biomasse estimée serait nettement plus élevée avec un paramètre B0 dynamique et une mortalité par pêche nulle
+
 ```{r fig-dynamic-b-zero, fig.cap = ifelse(fr(), "(ref:fig-dynamic-b-zero-fr)", "(ref:fig-dynamic-b-zero-en)"), results = "asis"}
 
 include_graphics(here("doc/figure/dynamic-bo.png"), dpi = NA)
@@ -145,6 +183,10 @@ include_graphics(here("doc/figure/dynamic-bo.png"), dpi = NA)
 (ref:fig-base-sb-vuln-compare-en) Spawning biomass of `r sp` for the base model compared with vulnerable biomass for the trawl fisheries for the base model. The spawning biomass is in black and has its 95% CI shaded. The two vulnerable biomass trajectories have their 95% CI contained withing the dotted lines of their respective colours.
 
 (ref:fig-base-sb-vuln-compare-fr) Biomasse reproductrice de `r sp` pour le modèle de base comparée à la biomasse vulnérable pour les pêcheries au chalut pour le modèle de base. La biomasse reproductrice est en noir et son IC à 95 % est ombré. Les deux trajectoires de biomasse vulnérable ont leur IC à 95 % contenu dans les lignes pointillées de leurs couleurs respectives.
+
+(ref:fig-base-sb-vuln-compare-en-alt) This figure shows that estimated vulnerable biomass for each fleet is approximately half of the estimated biomass
+
+(ref:fig-base-sb-vuln-compare-fr-alt) Ce chiffre montre que la biomasse vulnérable estimée pour chaque flotte représente environ la moitié de la biomasse estimée
 
 ```{r fig-base-sb-vuln-compare, fig.cap = ifelse(fr(), "(ref:fig-base-sb-vuln-compare-fr)", "(ref:fig-base-sb-vuln-compare-en)")}
 plot_vuln_mcmc(base_model,
@@ -159,6 +201,10 @@ plot_vuln_mcmc(base_model,
 
 (ref:fig-base-recr-fr) Recrutement de `r sp` pour le modèle de base. Les points noirs sont les médianes des valeurs postérieures, les lignes noires verticales sont les IC à 95% des valeurs postérieures, le point à $R_0$ est l'estimation médiane du paramètre de recrutement initial $R_0$, et la ligne verticale au-dessus de ce point et le ruban ombré à travers la série temporelle est l'IC à 95% pour $R_0$.
 
+(ref:fig-base-recr-en-alt) This figure shows that estimated recruitment has been below average since 2003
+
+(ref:fig-base-recr-fr-alt) Ce graphique montre que le recrutement estimé est inférieur à la moyenne depuis 2003
+
 ```{r fig-base-recr, fig.cap = ifelse(fr(), "(ref:fig-base-recr-fr)", "(ref:fig-base-recr-en)")}
 plot_recr_mcmc(base_model,
                angle_x_labels = TRUE,
@@ -171,6 +217,10 @@ plot_recr_mcmc(base_model,
 (ref:fig-base-f-en) Fishing mortality for the base model for the two trawl fisheries for females only. The plots for the males are not shown, because they are the same. The shaded area represents the 95% CI.
 
 (ref:fig-base-f-fr) Mortalité par pêche pour le modèle de base pour les deux pêcheries au chalut pour les femelles uniquement. Les graphiques pour les mâles ne sont pas présentés, car ils sont identiques. La zone ombrée représente l'IC à 95 %.
+
+(ref:fig-base-f-en-alt) This figure shows that estimated fishing mortality peaked in 2005 for the Freezer trawler fleet and 2018 for the shoreside fleet
+
+(ref:fig-base-f-fr-alt) Ce graphique montre que la mortalité estimée due à la pêche a atteint son maximum en 2005 pour la flotte de chalutiers congélateurs et en 2018 pour la flotte côtière
 
 ```{r fig-base-f, fig.cap = ifelse(fr(), "(ref:fig-base-f-fr)", "(ref:fig-base-f-en)")}
 plot_f_mcmc(base_model,
@@ -186,6 +236,10 @@ plot_f_mcmc(base_model,
 
 (ref:fig-base-index-fits-fr) Ajustements de l'indice pour le modèle de base. Les points gris clair et les lignes verticales indiquent les valeurs de l'indice et les IC à 95 % ; les points noirs indiquent les médianes des valeurs postérieures ; les lignes verticales pleines noires indiquent les IC à 95 % des valeurs postérieures.
 
+(ref:fig-base-index-fits-en-alt) This figure shows that all indices of abundance for this stock have been declining since approximately 2012
+
+(ref:fig-base-index-fits-fr-alt) Ce graphique montre que tous les indices d'abondance de ce stock sont en baisse depuis environ 2012
+
 ```{r fig-base-index-fits, fig.cap = ifelse(fr(), "(ref:fig-base-index-fits-fr)", "(ref:fig-base-index-fits-en)")}
 plot_index_mcmc(base_model,
                 type = "fits",
@@ -198,6 +252,10 @@ plot_index_mcmc(base_model,
 (ref:fig-base-index-resids-en) Index log standardized residuals. The points are the median of the posteriors for the $\epsilon_{k,t}$ parameters in `r iscam`. The vertical lines represent the 95% CIs for those posteriors.
 
 (ref:fig-base-index-resids-fr) Index logarithmique des résidus normalisés. Les points représentent la médiane des postérités des paramètres $\epsilon_{k,t}$ dans `r iscam`. Les lignes verticales représentent les IC à 95 % pour ces postérités.
+
+(ref:fig-base-index-resids-en-alt) This figure shows that standardized residuals for indices of abundance for this stock are scattered both above and below the zero line
+
+(ref:fig-base-index-resids-fr-alt) Ce graphique montre que les résidus standardisés des indices d'abondance pour ce stock sont dispersés à la fois au-dessus et en dessous de la ligne zéro
 
 ```{r fig-base-index-resids, fig.cap = ifelse(fr(), "(ref:fig-base-index-resids-fr)", "(ref:fig-base-index-resids-en)")}
 plot_index_mcmc(base_model,
@@ -215,6 +273,10 @@ plot_index_mcmc(base_model,
 
 (ref:fig-base-age-fits-ft-fr) Ajustements de la composition par âge pour chaque sexe pour la flotte de chalutiers congélateurs. Les barres verticales représentent les points de données sur la composition par âge. La somme des valeurs des barres est égale à 1 pour chaque combinaison année/sexe. Les points noirs sont les médianes des postérieurs pour chaque âge. La zone ombrée en rouge avec des bords en pointillés représente les IC à 95 %. Les étiquettes des panneaux représentent le nombre total de spécimens (agrégés par sexe) correspondant à l'année.
 
+(ref:fig-base-age-fits-ft-en-alt) This figure shows that age estimates fit the data well for both Male and Females
+
+(ref:fig-base-age-fits-ft-fr-alt) Ce graphique montre que les estimations d'âge correspondent bien aux données tant pour les hommes que pour les femmes
+
 ```{r fig-base-age-fits-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ft-fr)", "(ref:fig-base-age-fits-ft-en)")}
 
 plot_age_fits_mcmc(base_model,
@@ -227,6 +289,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-ft-en) Pearson residuals for the age composition fits for each sex for the Freezer trawler fleet. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
 (ref:fig-base-age-resids-ft-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour la flotte de chalutiers congélateurs. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
+
+(ref:fig-base-age-resids-ft-en-alt) This figure shows that Pearson residuals of age estimates for the Freezer trawler fleet are not biased and show no correlations
+
+(ref:fig-base-age-resids-ft-fr-alt) Ce graphique montre que les résidus de Pearson des estimations d'âge pour la flotte de chalutiers congélateurs ne sont pas biaisés et ne présentent aucune corrélation
 
 ```{r fig-base-age-resids-ft, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ft-fr)", "(ref:fig-base-age-resids-ft-en)")}
 plot_age_resids_mcmc(base_model,
@@ -241,6 +307,10 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-ss-firsthalf-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille côtière de 1996 à 2007. Voir Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du graphique.
 
+(ref:fig-base-age-fits-ss-firsthalf-en-alt) This figure shows that ages from the Shoreside fleet from 1996 to 2007 are fit well
+
+(ref:fig-base-age-fits-ss-firsthalf-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 1996 et 2007 correspondent bien
+
 ```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-firsthalf-fr)", "(ref:fig-base-age-fits-ss-firsthalf-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 2,
@@ -253,6 +323,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
 (ref:fig-base-age-fits-ss-secondhalf-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille Shoreside de 2008--2019. Voir la Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
+
+(ref:fig-base-age-fits-ss-secondhalf-en-alt) This figure shows that ages from the Shoreside fleet from 2008 to 2019 are fit well although there are some years of missing data
+
+(ref:fig-base-age-fits-ss-secondhalf-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 2008 et 2019 correspondent bien même si certaines années manquent
 
 ```{r fig-base-age-fits-secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-secondhalf-fr)", "(ref:fig-base-age-fits-ss-secondhalf-en)")}
 plot_age_fits_mcmc(base_model,
@@ -267,6 +341,10 @@ plot_age_fits_mcmc(base_model,
 
 (ref:fig-base-age-resids-ss-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour la flotte côtière. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
 
+(ref:fig-base-age-resids-ss-en-alt) This figure shows that Pearson residuals of age estimates for the Shoreside fleet are not biased and show no correlations
+
+(ref:fig-base-age-resids-ss-fr-alt) Ce graphique montre que les résidus de Pearson des estimations d'âge pour la flotte Shoreside ne sont pas biaisés et ne présentent aucune corrélation
+
 ```{r fig-base-age-resids-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-ss-fr)", "(ref:fig-base-age-resids-ss-en)")}
 plot_age_resids_mcmc(base_model,
                      gear = 2,
@@ -280,6 +358,10 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-qcs-fr) Ajustements de la composition par âge pour chaque sexe pour le `r qcs`. Voir la figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
 
+(ref:fig-base-age-fits-qcs-en-alt) This figure shows that ages from the `r qcs` are underfit for some ages and years with better fits in recent years
+
+(ref:fig-base-age-fits-qcs-fr-alt) Ce graphique montre que les âges issus du modèle `r qcs` sont sous-estimés pour certains âges et certaines années avec de meilleurs ajustements ces dernières années
+
 ```{r fig-base-age-fits-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-qcs-fr)", "(ref:fig-base-age-fits-qcs-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 3,
@@ -291,6 +373,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-qcs-en) Pearson residuals for the age composition fits for each sex for the `r qcs`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
 (ref:fig-base-age-resids-qcs-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour le `r qcs`. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
+
+(ref:fig-base-age-resids-qcs-en-alt) This figure shows that Pearson residuals of age estimates for the `r qcs` are not biased and show no correlations
+
+(ref:fig-base-age-resids-qcs-fr-alt) Ce graphique montre que les résidus de Pearson des estimations d'âge pour les `r qcs` ne sont pas biaisés et ne présentent aucune corrélation
 
 ```{r fig-base-age-resids-qcs, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-qcs-fr)", "(ref:fig-base-age-resids-qcs-en)")}
 plot_age_resids_mcmc(base_model,
@@ -305,6 +391,10 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-hss-fr) Ajustements de la composition par âge pour chaque sexe pour le `r hss`. Voir la figure \@ref(fig:fig-base-age-fits-ft) pour plus de détails.
 
+(ref:fig-base-age-fits-hss-en-alt) This figure shows that ages from the `r hss` are fit well by the model
+
+(ref:fig-base-age-fits-hss-fr-alt) Cette figure montre que les âges issus du `r hss` s'adaptent bien au modèle
+
 ```{r fig-base-age-fits-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-hss-fr)", "(ref:fig-base-age-fits-hss-en)")}
 
 plot_age_fits_mcmc(base_model,
@@ -317,6 +407,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-hss-en) Pearson residuals for the age composition fits for each sex for the `r hss`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
 (ref:fig-base-age-resids-hss-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour le `r hss`. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
+
+(ref:fig-base-age-resids-hss-en-alt) This figure shows that Pearson residuals of age estimates for the `r hss` are not biased and show no correlations
+
+(ref:fig-base-age-resids-hss-fr-alt) Ce graphique montre que les résidus de Pearson des estimations d'âge pour les `r hss` ne sont pas biaisés et ne présentent aucune corrélation
 
 ```{r fig-base-age-resids-hss, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-hss-fr)", "(ref:fig-base-age-resids-hss-en)")}
 plot_age_resids_mcmc(base_model,
@@ -331,6 +425,10 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-wcvis-fr) Ajustements de la composition par âge pour chaque sexe pour le `r wcvis`. Voir la figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
 
+(ref:fig-base-age-fits-wcvis-en-alt) This figure shows that ages from the `r wcvis` are fit well by the model with only a slight underfitting in 2014 for both sexes
+
+(ref:fig-base-age-fits-wcvis-fr-alt) Ce graphique montre que les âges issus du fichier `r wcvis` correspondent bien au modèle, avec seulement un léger sous-ajustement en 2014 pour les deux sexes
+
 ```{r fig-base-age-fits-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wcvis-fr)", "(ref:fig-base-age-fits-wcvis-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 5,
@@ -342,6 +440,10 @@ plot_age_fits_mcmc(base_model,
 (ref:fig-base-age-resids-wcvis-en) Pearson residuals for the age composition fits for each sex for the `r wcvis`. The bubbles represent the median of the posterior for Pearson residuals. Red bubbles are negative residuals, black are positive, and dots represent zero residuals.
 
 (ref:fig-base-age-resids-wcvis-fr) Résidus de Pearson pour les ajustements de la composition par âge pour chaque sexe pour le `r wcvis`. Les bulles représentent la médiane de la postériorité pour les résidus de Pearson. Les bulles rouges correspondent à des résidus négatifs, les noires à des résidus positifs et les points à des résidus nuls.
+
+(ref:fig-base-age-resids-wcvis-en-alt) This figure shows that Pearson residuals of age estimates for the `r wcvis` are not biased and show no correlations
+
+(ref:fig-base-age-resids-wcvis-fr-alt) Ce graphique montre que les résidus de Pearson des estimations d'âge pour le `r wcvis` ne sont pas biaisés et ne présentent aucune corrélation
 
 ```{r fig-base-age-resids-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-resids-wcvis-fr)", "(ref:fig-base-age-resids-wcvis-en)")}
 
@@ -377,6 +479,10 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent les intervalles de crédibilité (IC) à 95 %. Les lignes pointillées simples sans IC (HS multi-espèces, Rejets CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
 
+(ref:fig-base-selex-en-alt) This figure shows that the maturity ogive lies to the right of the selectivity curves for all surveys and both commercial fisheries for both male and female
+
+(ref:fig-base-selex-fr-alt) Ce graphique montre que l'ogive de maturité se situe à droite des courbes de sélectivité pour toutes les études et les deux pêcheries commerciales tant pour les mâles que pour les femelles
+
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
 plot_selex_mcmc(base_model,
                 show_maturity = TRUE,
@@ -388,6 +494,10 @@ plot_selex_mcmc(base_model,
 (ref:fig-base-ref-points-en) Posterior distributions for reference points and other values of interest for the base model. Subscripts are 1 = Freezer trawlers and 2 = Shoreside.
 
 (ref:fig-base-ref-points-fr) Distributions postérieures pour les points de référence et autres valeurs d'intérêt pour le modèle de base. Les indices sont 1 = chalutiers congélateurs et 2 = bord de mer.
+
+(ref:fig-base-ref-points-en-alt) This figure shows that the posterior distributions for MSY-based reference points are normal with the exception of UMSY for the Shoreside fleet for which the entire density is nearly 1
+
+(ref:fig-base-ref-points-fr-alt) Ce graphique montre que les distributions a posteriori pour les points de référence basés sur le MSY sont normales à l'exception de l'UMSY pour la flotte côtière pour laquelle la densité totale est proche de 1
 
 ```{r fig-base-ref-points, fig.cap = ifelse(fr(), "(ref:fig-base-ref-points-fr)", "(ref:fig-base-ref-points-en)")}
 plot_ref_points(base_model)

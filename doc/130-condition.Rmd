@@ -1,5 +1,5 @@
 ```{r app-cond-para-1-en, eval = !fr(), results = 'asis'}
-cat("# TRENDS IN BODY CONDITION
+cat("# TRENDS IN BODY CONDITION {#app:trends-in-body-condition}
 We investigated spatiotemporal patterns in `r sp` body condition [@nash2006a] with body condition (hereafter 'condition') indexing the 'plumpness' of an organism. We do so by fitting a coastwide geostatistical  model to the residuals from the `r sp` length-weight relationship following other recent approaches [@thorson2015condition; @lindmark2022].
 
 ## CONDITION MODEL
@@ -27,7 +27,7 @@ Finally, we also explored a model configuration where depth was included as a no
 ```
 
 ```{r app-cond-para-1-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
-cat("# TENDANCES DE L'ÉTAT CORPOREL
+cat("# TENDANCES DE L'ÉTAT CORPOREL {#app:trends-in-body-condition}
 Nous avons étudié les tendances spatio-temporelles de la condition corporelle `r sp` [@nash2006a], la condition corporelle (ci-après 'condition') indiquant la 'rondeur' d'un organisme. Pour ce faire, nous avons ajusté un modèle géostatistique à l'échelle de la côte aux résidus de la relation longueur-poids de `r sp` en suivant d'autres approches récentes [@thorson2015condition ; @lindmark2022].
 
 ## MODÈLE DE CONDITION
