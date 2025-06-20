@@ -65,10 +65,14 @@ table_prop_female_weights <- function(samples = NULL,
   year_sym <- sym(tr("Year"))
   num_trips_sym <- sym(tr("Number of trips"))
   num_samples_sym <- sym(ifelse(fr(),
-                                "Nombre d'échant-illons",
-                                "Number of samples"))
-  num_weights_m_sym <- sym(tr("Number of weights - Male"))
-  num_weights_f_sym <- sym(tr("Number of weights - Female"))
+                                "Nombre\nd'échant-\nillons",
+                                "Number\nof\nsamples"))
+  num_weights_m_sym <- sym(ifelse(fr(),
+                                  "Nombre de\npoids\n(Mâle)",
+                                  "Number of\nweights\n(Male)"))
+  num_weights_f_sym <- sym(ifelse(fr(),
+                                  "Nombre de\npoids\n(Femelle)",
+                                  "Number of\nweights\n(Female)"))
 
   if(type == "survey"){
     d <- d |>
@@ -88,7 +92,6 @@ table_prop_female_weights <- function(samples = NULL,
   }
 
   names(d) <- names(d) |>
-    str_wrap(16, whitespace_only = FALSE) |>
     linebreak()
 
   tab <- csas_table(d,

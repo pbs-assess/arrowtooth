@@ -8,10 +8,9 @@ table_prop_female(
   prop_lst,
   end_yr = 2019,
   return_df = FALSE,
-  format = "latex",
   yrs = NULL,
   ret_means = FALSE,
-  bold_headers = TRUE,
+  bold_header = TRUE,
   ...
 )
 }
@@ -24,17 +23,17 @@ the second from \code{\link[=props_surv]{props_surv()}}}
 \item{return_df}{If \code{TRUE}, return a data .frame instead of a
 \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 
-\item{format}{The format of table as in \code{\link[knitr:kable]{knitr::kable()}}}
-
 \item{yrs}{A vector of years to include in the output table. If \code{NULL},
 all years will be included}
 
 \item{ret_means}{Logical. If \code{TRUE}, return a list of the gear mean values.
 Takes priority over \code{ret_df}}
 
-\item{bold_headers}{If \code{TRUE}, make all column headers bold}
-
 \item{...}{Arguments passed to \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
+
+\item{format}{The format of table as in \code{\link[knitr:kable]{knitr::kable()}}}
+
+\item{bold_headers}{If \code{TRUE}, make all column headers bold}
 }
 \value{
 A \code{\link[csasdown:csas_table]{csasdown::csas_table()}}

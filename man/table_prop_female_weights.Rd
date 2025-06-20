@@ -11,7 +11,7 @@ table_prop_female_weights(
   ord = c("QCS", "HS", "WCVI", "WCHG"),
   return_df = FALSE,
   col_widths = NULL,
-  bold_headers = TRUE,
+  bold_header = TRUE,
   ...
 )
 }
@@ -32,9 +32,9 @@ in the order you want them in the output. If \code{NULL}, order will be ignored}
 \item{col_widths}{Widths for columns, except the Parameter column
 the \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
 
-\item{bold_headers}{If \code{TRUE}, make all column headers bold}
-
 \item{...}{Arguments passed to \code{\link[csasdown:csas_table]{csasdown::csas_table()}}}
+
+\item{bold_headers}{If \code{TRUE}, make all column headers bold}
 }
 \value{
 A \code{\link[csasdown:csas_table]{csasdown::csas_table()}}
