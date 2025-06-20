@@ -339,10 +339,11 @@ geostat_plot_stitched_indices(geo_dat)
 
 ```{r fig-geo-indexes-cpue, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-cpue-fr)", "(ref:fig-geo-indexes-cpue-en)"), out.width = "5.5in", results = 'asis'}
 
-include_graphics(file.path(drs$nongit_dir,
-                           "figures-geostat",
-                           "geostat-indexes-cpue.png"),
-                 dpi = NA)
+geostat_plot_survey_index_models()
+# include_graphics(file.path(drs$nongit_dir,
+#                            "figures-geostat",
+#                            "geostat-indexes-cpue.png"),
+#                  dpi = NA)
 ```
 
 \clearpage
