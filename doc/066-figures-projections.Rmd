@@ -4,6 +4,10 @@
 
 (ref:fig-rel-biomass-proj-fr)  Estimation de la biomasse féconde relative ($B_t/B_0$) pour le modèle de base. La zone ombrée représente l'intervalle de crédibilité (IC) à 95% et la ligne continue avec des points représente la médiane. Les lignes horizontales indiquent les points de référence $0{,}2B_0$ (rouge plein) et $0{,}4B_0$ (vert pointillé). Les points colorés de 2023 à 2026 sont les médianes des valeurs postérieures pour les niveaux de capture projetés, avec des lignes solides les reliant ; les lignes en pointillé de 2023 à 2026 représentent les IC à 95 % pour ces valeurs postérieures. Les valeurs de captures constantes sont indiquées sous forme de texte à droite des points d'arrivée de chaque trajectoire projetée. Voir la table de décision (Tableau \@ref(tab:decision-table)) pour les probabilités d'être en dessous des points de référence et de voir le stock décliner pour chaque niveau de capture.
 
+(ref:fig-rel-biomass-proj-en-alt) This figure shows that the stock is projected to rise above 0.4 B0 by 2026 for catches of 4000 tonnes or less
+
+(ref:fig-rel-biomass-proj-fr-alt) Ce graphique montre que le stock devrait dépasser 0.4 B0 d'ici 2026 pour des captures inférieures ou égales à 4 000 tonnes
+
 ```{r fig-rel-biomass-proj, fig.cap = ifelse(fr(), "(ref:fig-rel-biomass-proj-fr)", "(ref:fig-rel-biomass-proj-en)")}
 plot_biomass_proj_mcmc(base_model,
                        palette = "Spectral",
@@ -22,6 +26,10 @@ plot_biomass_proj_mcmc(base_model,
 
 (ref:fig-rel-biomass-proj-closeup-fr) Vue rapprochée de la biomasse reproductrice relative pour le modèle de base `r sp` avec des points de référence basés sur $B_0$ et des projections dans l'avenir. Les valeurs des captures constantes sont indiquées sous forme de texte à droite des points finaux de chaque trajectoire projetée. Voir la table de décision (Tableau \@ref(tab:decision-table)) pour les probabilités d'être en dessous des points de référence et de voir le stock décliner pour chaque flux de capture.
 
+(ref:fig-rel-biomass-proj-closeup-en-alt) This is a closeup view of the previous figure
+
+(ref:fig-rel-biomass-proj-closeup-fr-alt) Voici un gros plan de la figure précédente
+
 ```{r fig-rel-biomass-proj-closeup, fig.cap = ifelse(fr(), "(ref:fig-rel-biomass-proj-closeup-fr)", "(ref:fig-rel-biomass-proj-closeup-en)")}
 plot_biomass_proj_mcmc(base_model,
                        palette = "Spectral",
@@ -37,33 +45,49 @@ plot_biomass_proj_mcmc(base_model,
                        nudge_catch_labels = c(-0.1, 0))
 ```
 
-(ref:fig-catch-streams-proj-nextyr-en) Projected `r base_model$dat$end.yr + 2` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 1`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-nextyr-proj-en) Projected `r base_model$dat$end.yr + 2` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 1`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
 
-(ref:fig-catch-streams-proj-nextyr-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 2` pour les captures effectuées en `r base_model$dat$end.yr + 1`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %) et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0{,}35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+(ref:fig-catch-streams-nextyr-proj-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 2` pour les captures effectuées en `r base_model$dat$end.yr + 1`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %) et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0{,}35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+
+(ref:fig-catch-streams-nextyr-proj-en-alt) This figure shows that there is no amount of catch taken in 2022 that will allow the stock to rise above 0.4 B0 at the start of 2023
+
+(ref:fig-catch-streams-nextyr-proj-fr-alt) Ce graphique montre qu'aucun niveau de capture en 2022 ne permettra au stock de dépasser 0.4 B0 au début de 2023
 
 ```{r fig-catch-streams-nextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextyr-fr)", "(ref:fig-catch-streams-proj-nextyr-en)")}
 plot_ref_points_dist_mcmc(base_model, biomass_col = "B2023")
 ```
 
-(ref:fig-catch-streams-proj-nextnextyr-en) Projected `r base_model$dat$end.yr + 3` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 2`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-nextnextyr-proj-en) Projected `r base_model$dat$end.yr + 3` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 2`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
 
-(ref:fig-catch-streams-proj-nextnextyr-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 3` pour les captures effectuées dans `r base_model$dat$end.yr + 2`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %) et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0,35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+(ref:fig-catch-streams-nextnextyr-proj-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 3` pour les captures effectuées dans `r base_model$dat$end.yr + 2`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %) et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0,35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+
+(ref:fig-catch-streams-nextnextyr-proj-en-alt) This figure shows that catch of 1000 tonnes or less for 2022 and 2023 will lead to a biomass above 0.4 B0 at the start of 2024
+
+(ref:fig-catch-streams-nextnextyr-proj-fr-alt) Ce graphique montre que des captures inférieures ou égales à 1 000 tonnes en 2022 et 2023 permettront d'atteindre une biomasse supérieure à 0.4 B0 au début de l'année 2024
 
 ```{r fig-catch-streams-nextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextnextyr-fr)", "(ref:fig-catch-streams-proj-nextnextyr-en)")}
 plot_ref_points_dist_mcmc(base_model, biomass_col = "B2024")
 ```
 
-(ref:fig-catch-streams-proj-nextnextnextyr-en) Projected `r base_model$dat$end.yr + 4` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 3`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-nextnextnextyr-proj-en) Projected `r base_model$dat$end.yr + 4` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 3`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
 
-(ref:fig-catch-streams-proj-nextnextnextyr-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 4` pour les captures effectuées en `r base_model$dat$end.yr + 3`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %), et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0{,}35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+(ref:fig-catch-streams-nextnextnextyr-proj-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 4` pour les captures effectuées en `r base_model$dat$end.yr + 3`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %), et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0{,}35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+
+(ref:fig-catch-streams-nextnextnextyr-proj-en-alt) This figure shows that catch of 2000 tonnes or less for 2022 through 2024 will lead to a biomass above 0.4 B0 at the start of 2025
+
+(ref:fig-catch-streams-nextnextnextyr-proj-fr-alt) Ce graphique montre que des captures inférieures ou égales à 2 000 tonnes entre 2022 et 2024 permettront d'atteindre une biomasse supérieure à 0.4 B0 au début de l'année 2025
 
 ```{r fig-catch-streams-nextnextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextnextnextyr-fr)", "(ref:fig-catch-streams-proj-nextnextnextyr-en)")}
 plot_ref_points_dist_mcmc(base_model, biomass_col = "B2025")
 ```
 
-(ref:fig-catch-streams-proj-nextnextnextnextyr-en) Projected `r base_model$dat$end.yr + 5` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 4`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
+(ref:fig-catch-streams-nextnextnextnextyr-proj-en) Projected `r base_model$dat$end.yr + 5` relative spawning biomass for catch occurring in `r base_model$dat$end.yr + 4`. Black points are medians of the posterior, thick lines are the 50% CI (25%--75%), and thin lines are the 95% CI (2.5%--97.5%). The solid red line is the LRP, $0.2B_0$, the dotted blue line is the $0.35B_0$ line, and the dashed green line is the USR, $0.4B_0$.
 
-(ref:fig-catch-streams-proj-nextnextnextnextyr-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 5` pour les captures effectuées en `r base_model$dat$end.yr + 4`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %), et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0{,}35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+(ref:fig-catch-streams-nextnextnextnextyr-proj-fr) Biomasse reproductrice relative projetée `r base_model$dat$end.yr + 5` pour les captures effectuées en `r base_model$dat$end.yr + 4`. Les points noirs sont les médianes du postérieur, les lignes épaisses sont l'IC à 50 % (25 %--75 %), et les lignes fines sont l'IC à 95 % (2,5 %--97,5 %). La ligne rouge continue est la PRL, $0{,}2B_0$, la ligne bleue pointillée est la ligne $0{,}35B_0$, et la ligne verte pointillée est la RSS, $0{,}4B_0$.
+
+(ref:fig-catch-streams-nextnextnextnextyr-proj-en-alt) This figure shows that catch of 3000 tonnes or less for 2022 through 2025 will lead to a biomass above 0.4 B0 at the start of 2026
+
+(ref:fig-catch-streams-nextnextnextnextyr-proj-fr-alt) Ce graphique montre que des captures inférieures ou égales à 3 000 tonnes entre 2022 et 2025 permettront d'atteindre une biomasse supérieure à 0.4 B0 au début de l'année 2026
 
 ```{r fig-catch-streams-nextnextnextnextyr-proj, fig.cap = ifelse(fr(), "(ref:fig-catch-streams-proj-nextnextnextnextyr-fr)", "(ref:fig-catch-streams-proj-nextnextnextnextyr-en)")}
 plot_ref_points_dist_mcmc(base_model, biomass_col = "B2026")

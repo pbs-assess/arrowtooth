@@ -303,13 +303,13 @@ plot_age_resids_mcmc(base_model,
 
 \clearpage
 
-(ref:fig-base-age-fits-ss-firsthalf-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
+(ref:fig-base-age-fits-firsthalf-ss-en) Age composition fits for each sex for the Shoreside fleet from 1996--2007. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
-(ref:fig-base-age-fits-ss-firsthalf-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille côtière de 1996 à 2007. Voir Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du graphique.
+(ref:fig-base-age-fits-firsthalf-ss-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille côtière de 1996 à 2007. Voir Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du graphique.
 
-(ref:fig-base-age-fits-ss-firsthalf-en-alt) This figure shows that ages from the Shoreside fleet from 1996 to 2007 are fit well
+(ref:fig-base-age-fits-firsthalf-ss-en-alt) This figure shows that ages from the Shoreside fleet from 1996 to 2007 are fit well
 
-(ref:fig-base-age-fits-ss-firsthalf-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 1996 et 2007 correspondent bien
+(ref:fig-base-age-fits-firsthalf-ss-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 1996 et 2007 correspondent bien
 
 ```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-firsthalf-fr)", "(ref:fig-base-age-fits-ss-firsthalf-en)")}
 plot_age_fits_mcmc(base_model,
@@ -320,13 +320,13 @@ plot_age_fits_mcmc(base_model,
   ylim(0, 0.3)
 ```
 
-(ref:fig-base-age-fits-ss-secondhalf-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
+(ref:fig-base-age-fits-secondhalf-ss-en) Age composition fits for each sex for the Shoreside fleet from 2008--2019. See Figure \@ref(fig:fig-base-age-fits-ft) for plot details.
 
-(ref:fig-base-age-fits-ss-secondhalf-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille Shoreside de 2008--2019. Voir la Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
+(ref:fig-base-age-fits-secondhalf-ss-fr) Ajustements de la composition par âge pour chaque sexe pour la flottille Shoreside de 2008--2019. Voir la Figure \@ref(fig:fig-base-age-fits-ft) pour les détails du tracé.
 
-(ref:fig-base-age-fits-ss-secondhalf-en-alt) This figure shows that ages from the Shoreside fleet from 2008 to 2019 are fit well although there are some years of missing data
+(ref:fig-base-age-fits-secondhalf-ss-en-alt) This figure shows that ages from the Shoreside fleet from 2008 to 2019 are fit well although there are some years of missing data
 
-(ref:fig-base-age-fits-ss-secondhalf-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 2008 et 2019 correspondent bien même si certaines années manquent
+(ref:fig-base-age-fits-secondhalf-ss-ss-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 2008 et 2019 correspondent bien même si certaines années manquent
 
 ```{r fig-base-age-fits-secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-secondhalf-fr)", "(ref:fig-base-age-fits-ss-secondhalf-en)")}
 plot_age_fits_mcmc(base_model,
@@ -475,13 +475,13 @@ plot_age_resids_mcmc(base_model,
 
 <!-- Selectivity ------------------------------------------------------------->
 
-(ref:fig-base-selex-en) Estimated and fixed selectivities by sex for the base model. The dots show estimated median selectivity-at-age, and the shaded areas show the 95% credible intervals (CI). Single dotted lines with no CI (HS Multi, Discard CPUE) represent fixed selectivities. Dashed lines represent maturity-at-age based on logistic curves fit to the proportion of mature fish at age.
+(ref:fig-base-mcmc-selex-en) Estimated and fixed selectivities by sex for the base model. The dots show estimated median selectivity-at-age, and the shaded areas show the 95% credible intervals (CI). Single dotted lines with no CI (HS Multi, Discard CPUE) represent fixed selectivities. Dashed lines represent maturity-at-age based on logistic curves fit to the proportion of mature fish at age.
 
-(ref:fig-base-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent les intervalles de crédibilité (IC) à 95 %. Les lignes pointillées simples sans IC (HS multi-espèces, Rejets CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
+(ref:fig-base-mcmc-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent les intervalles de crédibilité (IC) à 95 %. Les lignes pointillées simples sans IC (HS multi-espèces, Rejets CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
 
-(ref:fig-base-selex-en-alt) This figure shows that the maturity ogive lies to the right of the selectivity curves for all surveys and both commercial fisheries for both male and female
+(ref:fig-base-mcmc-selex-en-alt) This figure shows that the maturity ogive lies to the right of the selectivity curves for all surveys and both commercial fisheries for both male and female
 
-(ref:fig-base-selex-fr-alt) Ce graphique montre que l'ogive de maturité se situe à droite des courbes de sélectivité pour toutes les études et les deux pêcheries commerciales tant pour les mâles que pour les femelles
+(ref:fig-base-mcmc-selex-fr-alt) Ce graphique montre que l'ogive de maturité se situe à droite des courbes de sélectivité pour toutes les études et les deux pêcheries commerciales tant pour les mâles que pour les femelles
 
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
 plot_selex_mcmc(base_model,

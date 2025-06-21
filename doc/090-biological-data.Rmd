@@ -105,6 +105,10 @@ La même équation peut également être appliquée aux longueurs au lieu des â
 
 (ref:fig-lengths-fr) Diagramme de fréquence de longueur où les poissons femelles sont représentés par des barres rouges et les poissons mâles sont représentés derrière par des barres bleues. Le nombre total de poissons mesurés pour une étude et une année données est indiqué dans le coin supérieur gauche de chaque panneau. Les histogrammes ne sont présentés que s'il y a plus de 20 poissons mesurés pour une combinaison enquête-année donnée. 
 
+(ref:fig-lengths-en-alt) This figure shows that females are larger than males in both commercial fisheries and all surveys
+
+(ref:fig-lengths-fr-alt) Ce graphique montre que les femelles sont plus grandes que les mâles tant dans les pêcheries commerciales que dans toutes les études
+
 ```{r fig-lengths, fig.cap = ifelse(fr(), "(ref:fig-lengths-fr)", "(ref:fig-lengths-en)"), fig.asp = 1, out.width = "6in"}
 
 bin_width1 <- diff(quantile(length_samples_survey$length,
@@ -173,6 +177,10 @@ g_lengths
 
 (ref:fig-ages-fr) Exemple de diagramme de fréquence d'âge. Les poissons femelles sont représentés par des cercles rouges et les poissons mâles par des cercles bleus. Le nombre total de poissons âgés pour une enquête ou une pêcherie et une année données est indiqué en haut des panneaux. Des lignes diagonales sont tracées à intervalles de cinq ans pour faciliter le suivi des cohortes dans le temps.
 
+(ref:fig-ages-en-alt) This figure shows that in 2016 the Shoreside fleet caught almost all females
+
+(ref:fig-ages-fr-alt) Ce graphique montre qu'en 2016 la flotte Shoreside a capturé presque exclusivement des femelles
+
 ```{r fig-ages, fig.cap = ifelse(fr(), "(ref:fig-ages-fr)", "(ref:fig-ages-en)"), fig.asp = 1, out.width = "6in"}
 
 ss <- tidy_ages_weighted(dat$survey_samples,
@@ -227,6 +235,10 @@ grid.arrange(s_ages,
 (ref:fig-length-weight-en) Length/weight fits by sex. The length-weight curve is of the form $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ with $W_i$ and $L_i$ representing the weight and length for fish $i$ and $\sigma$ representing the observation error scale. The degrees of freedom of the Student-t distribution is set to 3 to be robust to outliers. The variables $a$ and $b$ represent the estimated length-weight parameters. Female model fits are indicated as solid red lines and male model fits are indicated as blue lines. Text on the panels shows the parameter estimates and open circles represent individual fish that the models are fit to. These figures include all survey samples.
 
 (ref:fig-length-weight-fr) Ajustements longueur-poids par sexe. La courbe longueur-poids est de la forme $\log (W_i) \sim$ Student-t $(df = 3, \log(a) + b \log(L_i), \sigma),$ avec $W_i$ et $L_i$ représentant le poids et la longueur pour le poisson $i$ et $\sigma$ représentant l'échelle d'erreur d'observation. Les degrés de liberté de la distribution Student-t sont fixés à 3 pour être robustes aux valeurs aberrantes. Les variables $a$ et $b$ représentent les paramètres longueur-poids estimés. Les ajustements du modèle féminin sont indiqués par des lignes rouges pleines et les ajustements du modèle masculin sont indiqués par des lignes bleues. Le texte sur les panneaux montre les estimations des paramètres et les cercles ouverts représentent les poissons individuels auxquels les modèles sont ajustés. Ces chiffres incluent tous les échantillons de l'étude.
+
+(ref:fig-length-weight-en-alt) This figure shows that males and females have a very similar length weight relationship
+
+(ref:fig-length-weight-fr-alt) Ce graphique montre que les hommes et les femmes ont une relation longueur poids très similaire
 
 ```{r fig-length-weight, fig.cap = ifelse(fr(), "(ref:fig-length-weight-fr)", "(ref:fig-length-weight-en)"), out.width = "6in"}
 
@@ -299,6 +311,9 @@ grid.arrange(grobs = lw_plot_lst,
 
 (ref:fig-vb-fr) La courbe de croissance longueur-âge est un modèle de von-Bertalanffy de la forme $L_i \sim \operatorname{Log-normal} \left( \log(l_\mathrm{inf} (1 - \exp(-k (A_i - t_0)))), \sigma \right)$ où $L_i$ et $A_i$ représentent la longueur et l'âge du poisson $i$, $l_\mathrm{inf}$, $k$, et $t_0$ représentent les paramètres de croissance de von-Bertalanffy, et $\sigma$ représente le paramètre d'échelle. Les ajustements du modèle féminin sont indiqués par des lignes rouges pleines et les ajustements du modèle masculin sont indiqués par des lignes bleues en pointillés. Le texte sur les panneaux montre les estimations des paramètres et les cercles ouverts représentent les poissons individuels auxquels les modèles sont ajustés. 
 
+(ref:fig-vb-en-alt) This figure shows that females grow much larger than males for their age
+
+(ref:fig-vb-fr-alt) Ce graphique montre que les femelles atteignent une taille beaucoup plus grande que les mâles pour leur âge
 
 ```{r fig-vb, fig.cap = ifelse(fr(), "(ref:fig-vb-fr)", "(ref:fig-vb-en)"), fig.asp = 1.2, out.width = "6in"}
 
@@ -472,6 +487,10 @@ mat_dat <- mat_dat |>
 <!-- `r base_model$dat$start.yr` to `r base_model$dat$end.yr` for `r sp`.  -->
 
 (ref:fig-mat-fr) Diagrammes ogive âge-maturité. Les ogives de maturité sont des courbes logistiques ajustées à la proportion de poissons à chaque âge qui ont été catégorisés comme matures vs. non matures. Les lignes verticales en pointillés indiquent l'âge estimé à 50 % de maturité. Les modèles sont ajustés à tous les échantillons disponibles, quelle que soit la période de l'année. Les ogives utilisées dans le modèle de base étaient basées uniquement sur les échantillons de l'enquête synoptique (âge des mâles à 50 % de maturité = `r mat_dat[mat_dat$model == "Synoptique uniquement" & mat_dat$sex == "Male", ]$age50mat[1]`, âge des femelles à 50 % de maturité = `r mat_dat[mat_dat$model == "Synoptique uniquement" & mat_dat$sex == "Female", ]$age50mat[1]`). L'inclusion de tous les autres échantillons de l'enquête et des échantillons commerciaux ('Tous les échantillons') ne modifie pas la forme de l'ogive, mais nous utilisons cet ensemble de données légèrement plus important pour vérifier l'influence de la suppression des classifications de la maturité macroscopique qui peuvent être sujettes à des erreurs de classification et/ou dont la relation avec la maturité fonctionnelle est incertaine ('Repos supprimé' et 'Maturation, développement et repos supprimé'). Les classifications 'maturation', 'développement' et 'repos' étaient les mieux adaptées aux données (âge des mâles à 50 % de maturité = `r mat_dat[mat_dat$model == "Tous les échantillons \nmaturation, développement \net la mise au repos supprimée" & mat_dat$sex == "Male", ]$age50mat[1]`, âge de la femelle à 50 % de maturité = `r mat_dat[mat_dat$model == "Tous les échantillons \nmaturation, développement \net la mise au repos supprimée" & mat_dat$sex == "Female", ]$age50mat[1]`). Ces valeurs ont été utilisées dans le cadre d'une étude de sensibilité.
+
+(ref:fig-mat-en-alt) This figure shows that the maturity ogive shifts to the right if resting and developing samples are removed
+
+(ref:fig-mat-fr-alt) Cette figure montre que l'ogive de maturité se déplace vers la droite si les échantillons au repos et en développement sont retirés
 
 ```{r fig-mat, fig.cap = ifelse(fr(), "(ref:fig-mat-fr)", "(ref:fig-mat-en)"), fig.asp = 0.5, out.width = "6in"}
 

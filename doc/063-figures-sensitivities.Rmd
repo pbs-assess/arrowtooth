@@ -56,7 +56,7 @@ plot_biomass_mcmc(models$sens_grps[[1]],
 
 (ref:fig-sens-steepness-prior-fr-alt) Ce graphique montre que, comme pour le modèle de base l'estimation de la pente correspond étroitement à la distribution a priori
 
-```{r sens-steepness-prior, fig.cap = ifelse(fr(), "(ref:fig-sens-steepness-prior-fr)", "(ref:fig-sens-steepness-prior-en)"), out.width = "100%"}
+```{r fig-sens-steepness-prior, fig.cap = ifelse(fr(), "(ref:fig-sens-steepness-prior-fr)", "(ref:fig-sens-steepness-prior-en)"), out.width = "100%"}
 plot_priors_posts_mcmc(models$sens_grps[[1]][[5]],
                        param_rm = c("sel",
                                     "bo",
@@ -102,15 +102,15 @@ plot_biomass_mcmc(models$sens_grps[[2]],
 
 <!-- Catchability ------------------------------------------------------------>
 
-(ref:fig-sens-q-en) Spawning biomass for the sensitivities to changes in the catchability ($q_k$) parameters. For these sensitivities the priors for all gears ($k$) are modified in the same way.
+(ref:fig-sens-q-m-en) Spawning biomass for the sensitivities to changes in the catchability ($q_k$) parameters. For these sensitivities the priors for all gears ($k$) are modified in the same way.
 
-(ref:fig-sens-q-fr) Biomasse de frai pour les sensibilités aux changements des paramètres de capturabilité ($q_k$). Pour ces sensibilités, les priorités pour tous les engins ($k$) sont modifiées de la même manière.
+(ref:fig-sens-q-m-fr) Biomasse de frai pour les sensibilités aux changements des paramètres de capturabilité ($q_k$). Pour ces sensibilités, les priorités pour tous les engins ($k$) sont modifiées de la même manière.
 
-(ref:fig-sens-q-en-alt) This figure shows that manipulation of the prior on catchabilities for all the surveys does not have much effect at all on the spawning biomass estimates
+(ref:fig-sens-q-m-en-alt) This figure shows that manipulation of the prior on catchabilities for all the surveys does not have much effect at all on the spawning biomass estimates
 
-(ref:fig-sens-q-fr-alt) Ce graphique montre que la manipulation des a priori sur les taux de capture pour toutes les enquêtes n'a pratiquement aucun effet sur les estimations de la biomasse reproductrice
+(ref:fig-sens-q-m-fr-alt) Ce graphique montre que la manipulation des a priori sur les taux de capture pour toutes les enquêtes n'a pratiquement aucun effet sur les estimations de la biomasse reproductrice
 
-```{r fig-sens-q-m, fig.cap = ifelse(fr(), "(ref:fig-sens-q-fr)", "(ref:fig-sens-q-en)")}
+```{r fig-sens-q-m, fig.cap = ifelse(fr(), "(ref:fig-sens-q-m-fr)", "(ref:fig-sens-q-m-en)")}
 plot_biomass_mcmc(models$sens_grps[[3]],
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
@@ -141,7 +141,7 @@ plot_biomass_mcmc(models$sens_grps[[3]],
 
 (ref:fig-sens-q-q-en-alt) This figure shows that manipulation of the prior on catchabilities for all the surveys has a small effect on the catchability estimates
 
-(ref:fig-sens-q-q-en-alt) Ce graphique montre que la manipulation de l'a priori sur les taux de capture pour toutes les enquêtes a un effet limité sur les estimations des taux de capture
+(ref:fig-sens-q-q-fr-alt) Ce graphique montre que la manipulation de l'a priori sur les taux de capture pour toutes les enquêtes a un effet limité sur les estimations des taux de capture
 
 ```{r fig-sens-q-q, fig.cap = ifelse(fr(), "(ref:fig-sens-q-q-fr)", "(ref:fig-sens-q-q-en)")}
 plot_q_mcmc(models$sens_grps[[3]],

@@ -84,11 +84,15 @@ cat("## CONDITION FIGURES")
 cat("## CHIFFRES DE L'ÉTAT")
 ```
 
-(ref:fig-fig-condition-index-en) Coastwide condition index. Lines and ribbons indicate means and 95% confidence intervals.
+(ref:fig-condition-index-en) Coastwide condition index. Lines and ribbons indicate means and 95% confidence intervals.
 
-(ref:fig-fig-condition-index-fr) Indice de condition pour l'ensemble de la côte. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 %.
+(ref:fig-condition-index-fr) Indice de condition pour l'ensemble de la côte. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 %.
 
-```{r fig-condition-index, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-fr)", "(ref:fig-fig-condition-index-en)"), out.width = "4.2in", results = 'asis'}
+(ref:fig-condition-index-en-alt) This figure shows the body condition index with a steep decrease beginning in 2015 and a slight increase beginning in 2019
+
+(ref:fig-condition-index-fr-alt) Ce graphique montre l'indice de condition physique, qui a connu une forte baisse à partir de 2015 puis une légère augmentation à partir de 2019
+
+```{r fig-condition-index, fig.cap = ifelse(fr(), "(ref:fig-condition-index-fr)", "(ref:fig-condition-index-en)"), out.width = "4.2in", results = 'asis'}
 
 # dat is set in index.Rmd, read in from an RDS file
 #d <- condition_data_prep(survey_sets)
@@ -105,17 +109,21 @@ condition_factor(cond_fit)
 #                  dpi = NA)
 ```
 
-(ref:fig-fig-condition-index-surv-en) Condition index split by survey region. Lines and ribbons indicate means and 95% confidence intervals.
+(ref:fig-condition-index-surv-en) Condition index split by survey region. Lines and ribbons indicate means and 95% confidence intervals.
 
-(ref:fig-fig-condition-index-surv-fr) Indice de condition divisé par région d'enquête. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 %.
+(ref:fig-condition-index-surv-fr) Indice de condition divisé par région d'enquête. Les lignes et les rubans indiquent les moyennes et les intervalles de confiance à 95 %.
 
-```{r fig-condition-index-surv, fig.cap = ifelse(fr(), "(ref:fig-fig-condition-index-surv-fr)", "(ref:fig-fig-condition-index-surv-en) "), out.width = "4.9in", results = 'asis'}
+(ref:fig-condition-index-surv-en-alt) This figure shows the body condition index for the `r wchgs` being much higher than for the other synoptic surveys
+
+(ref:fig-condition-index-surv-fr-alt) Ce graphique montre que l'indice de condition physique des `r wchgs` est beaucoup plus élevé que celui des autres enquêtes synoptiques
+
+```{r fig-condition-index-surv, fig.cap = ifelse(fr(), "(ref:fig-condition-index-surv-fr)", "(ref:fig-condition-index-surv-en) "), out.width = "4.9in", results = 'asis'}
 
 d <- condition_data_prep(dat)
 if(!exists("cond_fit")){
   cond_fit <- condition_fit(d)
 }
-condition_factor(cond_fit)
+condition_factor_by_survey(cond_fit)
 
 # include_graphics(file.path(drs$nongit_dir,
 #                            "figures-geostat",
@@ -126,6 +134,10 @@ condition_factor(cond_fit)
 (ref:fig-condition-map-en) Coastwide map of modelled condition anomalies. Values are shown in log space such that blue values are plumper than expected and red values less plump than expected. X and Y axes are in UTM zone 9 units of km.
 
 (ref:fig-condition-map-fr) Carte des anomalies de condition modélisées sur l'ensemble de la côte. Les valeurs sont représentées dans l'espace logarithmique, de sorte que les valeurs bleues sont plus dodues que prévu et les valeurs rouges moins dodues que prévu. Les axes X et Y sont en unités de km de la zone UTM 9.
+
+(ref:fig-condition-map-en-alt) This figure shows various anomalies across the coast
+
+(ref:fig-condition-map-fr-alt) Cette figure montre diverses anomalies le long de la côte
 
 ```{r fig-condition-map, fig.cap = ifelse(fr(), "(ref:fig-condition-map-fr)", "(ref:fig-condition-map-en)"), out.width = "\\textwidth", results = 'asis'}
 
@@ -140,6 +152,10 @@ condition_anomaly_map(cond_fit)
 
 (ref:fig-condition-smoother-fr) Lissage logarithmique de la profondeur à partir du modèle de condition. La ligne représente la moyenne et les intervalles de confiance à 95 %. Les lignes horizontales du tapis sont indiquées en haut lorsque des données sont présentes.
 
+(ref:fig-condition-smoother-en-alt) This figure shows that the predicted condition factor increases with depth
+
+(ref:fig-condition-smoother-fr-alt) Cette figure montre que le facteur de condition prévu augmente avec la profondeur
+
 ```{r fig-condition-smoother, fig.cap = ifelse(fr(), "(ref:fig-condition-smoother-fr)", "(ref:fig-condition-smoother-en)"), out.width = "5.0in", results = 'asis'}
 
 condition_smooth(cond_fit)
@@ -152,6 +168,10 @@ condition_smooth(cond_fit)
 (ref:fig-condition-tv-en) Time-varying third order polynomial effect of depth on condition. Line represents mean and the ribbon 95% confidence intervals and both are coloured by the mean bottom temperatures (degrees C) recorded on all trawl tows at depths between 100 and 200 m in each year. 
 
 (ref:fig-condition-tv-fr) Effet polynomial de troisième ordre variable dans le temps de la profondeur sur la condition. La ligne représente la moyenne et le ruban les intervalles de confiance à 95 % et tous deux sont colorés par les températures moyennes du fond (degrés C) enregistrées sur tous les traits de chalut à des profondeurs comprises entre 100 et 200 m pour chaque année. 
+
+(ref:fig-condition-tv-en-alt) This figure shows that the predicted condition factor increases with higher bottom water temperature
+
+(ref:fig-condition-tv-fr-alt) Ce graphique montre que le facteur de condition prévu augmente avec la température de l'eau au fond
 
 ```{r fig-condition-tv, fig.cap = ifelse(fr(), "(ref:fig-condition-tv-fr)", "(ref:fig-condition-tv-en)"), out.width = "5.0in", results = "asis", message = FALSE, warnings = FALSE, echo = FALSE}
 

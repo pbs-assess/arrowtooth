@@ -233,10 +233,13 @@ cat("## GEOSTATISTICAL INDEX FIGURES {#geostat-figs}")
 cat("## INDICES GÉOSTATISTIQUES {#geostat-figs}")
 ```
 
-
 (ref:fig-geo-bubble1-en) Survey data bubble plot for 2003 to `r yr_cutoff`. The area and colour of circles corresponds to set density. Sets with zero `r sp` catch are indicated with a grey cross. 
 
 (ref:fig-geo-bubble1-fr) Graphique à bulles des données d'enquête de 2003 à `r yr_cutoff`. La surface et la couleur des cercles correspondent à la densité des calées. Les ensembles dont la prise `r sp` est nulle sont indiqués par une croix grise. 
+
+(ref:fig-geo-bubble1-en-alt) This figure shows that the survey has covered the entire coast every two years. In 2008 there was a very large biomass density off the West coast of Vancouver Island
+
+(ref:fig-geo-bubble1-fr-alt) Ce graphique montre que l'étude a couvert l'ensemble du littoral tous les deux ans. En 2008 la densité de biomasse était très élevée au large de la côte ouest de l'île de Vancouver
 
 ```{r fig-geo-bubble1, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble1-fr)", "(ref:fig-geo-bubble1-en)"), out.width = "\\textwidth", results = 'asis'}
 
@@ -257,6 +260,10 @@ g
 
 (ref:fig-geo-bubble2-fr) Graphique à bulles des données d'enquête pour la période 2013-2021. La surface et la couleur des cercles correspondent à la densité de l'ensemble. Les ensembles dont les prises `r sp` sont nulles sont indiqués par une croix grise.
 
+(ref:fig-geo-bubble2-en-alt) This figure shows that the survey has covered the entire coast every two years. In 2014 there was a very large biomass density in the Eastern portion of Dixon Entrance
+
+(ref:fig-geo-bubble2-fr-alt) Ce graphique montre que l'étude a couvert l'ensemble du littoral tous les deux ans. En 2014 la densité de biomasse était très élevée dans la partie orientale de Dixon Entrance
+
 ```{r fig-geo-bubble2, fig.cap = ifelse(fr(), "(ref:fig-geo-bubble2-fr)", "(ref:fig-geo-bubble2-en)"), out.width = "\\textwidth", results = 'asis'}
 
 g <- geo_dat |> 
@@ -276,10 +283,15 @@ g
 
 (ref:fig-geo-predmap1-fr) Densité de biomasse `r sp` prédite pour 2003 à `r yr_cutoff` à partir du modèle $\Delta$-Gamma pour l'ensemble de la côte sans profondeur.
 
+(ref:fig-geo-predmap1-en-alt) This figure shows the predicted biomass density from 2003 to `r yr_cutoff`
+
+(ref:fig-geo-predmap1-fr-alt) Ce graphique montre la densité de biomasse prévue entre 2003 et `r yr_cutoff`
+
 ```{r fig-geo-predmap1, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap1-fr)", "(ref:fig-geo-predmap1-en)"), out.width = "\\textwidth", results = 'asis'}
 
 geostat_plot_biomass_map_polygons(d = dat_cutoff,
                                   pred = pred,
+                                  yrs = 2003:2012,
                                   column = "est_total") +
   theme(axis.text.x = element_text(size = 6))
 
@@ -293,10 +305,15 @@ geostat_plot_biomass_map_polygons(d = dat_cutoff,
 
 (ref:fig-geo-predmap2-fr) Densité de biomasse `r sp` prédite pour 2013 à 2021 à partir du modèle $\Delta$-Gamma pour l'ensemble de la côte sans profondeur.
 
+(ref:fig-geo-predmap2-en-alt) This figure shows the predicted biomass density from 2013 to 2021
+
+(ref:fig-geo-predmap2-fr-alt) Ce graphique montre la densité de biomasse prévue entre 2013 et 2021
+
 ```{r fig-geo-predmap2, fig.cap = ifelse(fr(), "(ref:fig-geo-predmap2-fr)", "(ref:fig-geo-predmap2-en)"), out.width = "\\textwidth", results = 'asis'}
 
 geostat_plot_biomass_map_polygons(d = dat_cutoff,
                                   pred = pred,
+                                  yrs = 2013:2021,
                                   column = "est_total") +
   theme(axis.text.x = element_text(size = 6))
 
@@ -309,6 +326,10 @@ geostat_plot_biomass_map_polygons(d = dat_cutoff,
 (ref:fig-geo-individual-en) Individual geostatistical indices compared to design-based indices. Lines indicate means and ribbons 95% confidence intervals.
 
 (ref:fig-geo-individual-fr) Indices géostatistiques individuels comparés aux indices basés sur le plan. Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95 %.
+
+(ref:fig-geo-individual-en-alt) This figure shows that the geostatistical indices are similar to the design-based indices but have reduced uncertainty
+
+(ref:fig-geo-individual-fr-alt) Ce graphique montre que les indices géostatistiques sont similaires aux indices basés sur la conception mais présentent une incertitude réduite
 
 ```{r fig-geo-individual, fig.cap = ifelse(fr(), "(ref:fig-geo-individual-fr)", "(ref:fig-geo-individual-en)"), results = 'asis'}
 
@@ -324,6 +345,10 @@ geostat_plot_individual_vs_design(survey_index)
 
 (ref:fig-geo-indexes-fr) Indices d'abondance cousus pour `r sp` à partir de quatre modèles. Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95 %.
 
+(ref:fig-geo-indexes-en-alt) This figure shows that the various stitches indices of abunance are similar with the one without depth having the largest terminal biomass
+
+(ref:fig-geo-indexes-fr-alt) Ce graphique montre que les différents indices d'abondance des mailles sont similaires celui sans profondeur présentant la plus grande biomasse terminale
+
 ```{r fig-geo-indexes, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-fr)", "(ref:fig-geo-indexes-en)"), out.width = "5.5in", results = 'asis'}
 
 geostat_plot_stitched_indices(geo_dat)
@@ -336,6 +361,10 @@ geostat_plot_stitched_indices(geo_dat)
 (ref:fig-geo-indexes-cpue-en) Stitched indexes of abundance for `r sp` from four models with the commercial discard CPUE index shown in (dashed) grey. Lines indicate means and ribbons 95% confidence intervals. All indexes were centered such that their geometric means from 2003--2021 were one.
 
 (ref:fig-geo-indexes-cpue-fr) Indices d'abondance cousus pour `r sp` à partir de quatre modèles avec l'indice de CPUE des rejets commerciaux indiqué en gris (pointillé). Les lignes indiquent les moyennes et les rubans les intervalles de confiance à 95%. Tous les indices ont été centrés de manière à ce que leurs moyennes géométriques de 2003 à 2021 soient égales.
+
+(ref:fig-geo-indexes-cpue-en-alt) This figure shows the same stitched indices as the previous plot but with the discard index also shown. It is apparent that the stitched indices do not match the discard index at the beginning of the time series
+
+(ref:fig-geo-indexes-cpue-fr-alt) Cette figure montre les mêmes indices assemblés que le graphique précédent mais avec l'indice de rejet également affiché. Il est évident que les indices assemblés ne correspondent pas à l'indice de rejet au début de la série chronologique
 
 ```{r fig-geo-indexes-cpue, fig.cap = ifelse(fr(), "(ref:fig-geo-indexes-cpue-fr)", "(ref:fig-geo-indexes-cpue-en)"), out.width = "5.5in", results = 'asis'}
 

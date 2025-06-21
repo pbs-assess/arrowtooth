@@ -358,9 +358,9 @@ plot_f_mcmc(base_model,
 
 (ref:fig-base-mcmc-selex-fr) Sélectivités estimées et fixées par sexe pour le modèle de base. Les points indiquent la sélectivité médiane estimée à l'âge, et les zones ombrées indiquent l'IC à 95 %. Les lignes pointillées simples sans IC (HS Multi, Discard CPUE) représentent les sélectivités fixes. Les lignes en pointillé représentent la maturité à l'âge sur la base de courbes logistiques ajustées à la proportion de poissons matures à l'âge.
 
-(ref:fig-base-mcmc-selex-en-alt) This figure shows that estimated selectivity for all surveys and the fisheries was estimated to be to the right of the maturity ogive for both malkes and females.
+(ref:fig-base-mcmc-selex-en-alt) This figure shows that estimated selectivity for all surveys and the fisheries was estimated to be to the right of the maturity ogive for both males and females
 
-(ref:fig-base-mcmc-selex-fr-alt) Cette figure montre que la sélectivité estimée pour toutes les enquêtes et les pêcheries se situe à droite de l'ogive de maturité pour les mâles et les femelles.
+(ref:fig-base-mcmc-selex-fr-alt) Cette figure montre que la sélectivité estimée pour toutes les enquêtes et les pêcheries se situe à droite de l'ogive de maturité pour les mâles et les femelles
 
 ```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-selex-fr)", "(ref:fig-base-mcmc-selex-en)")}
 plot_selex_mcmc(base_model,

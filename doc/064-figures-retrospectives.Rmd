@@ -3,6 +3,10 @@
 
 (ref:fig-retro-biomass-fr) Biomasse de frai pour les modèles rétrospectifs comparant le modèle de base avec des modèles avec des années de données enlevées successivement. Tous les modèles ont la même paramétrisation et ont été exécutés en tant que CMMC exactement de la même manière que le modèle de base.
 
+(ref:fig-retro-biomass-en-alt) This figure shows that the model was above 0.4 B0 for all years in the time series until 2019 to 2021 data were added
+
+(ref:fig-retro-biomass-fr-alt) Ce graphique montre que le modèle était supérieur à 0.4 B0 pour toutes les années de la série chronologique jusqu'à l'ajout des données de 2019 à 2021
+
 ```{r fig-retro-biomass, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-fr)", "(ref:fig-retro-biomass-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
                   angle_x_labels = TRUE,
@@ -14,12 +18,15 @@ plot_biomass_mcmc(models$retro_grps[[1]],
                   bo_refpt_colors = c("salmon", "darkgreen"),
                   ylim = c(0, 500),
                   leg_loc = c(0.97, 0.96))
-
 ```
 
 (ref:fig-retro-biomass-closer-en) A closer view of Figure \@ref(fig:fig-retro-biomass).
 
 (ref:fig-retro-biomass-closer-fr) Une vue plus rapprochée de la figure \@ref(fig:fig-retro-biomass).
+
+(ref:fig-retro-biomass-closer-en-alt) A closer view of the previous figure
+
+(ref:fig-retro-biomass-closer-fr-alt) Une vue plus détaillée de la figure précédente
 
 ```{r fig-retro-biomass-closer, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-closer-fr)", "(ref:fig-retro-biomass-closer-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
@@ -30,17 +37,22 @@ plot_biomass_mcmc(models$retro_grps[[1]],
                   point_size = 1,
                   palette = "Paired",
                   leg_loc = NULL,
+                  xlim = c(2010, 2022),
                   bo_refpt_colors = c("salmon", "darkgreen"),
                   ylim = c(0, 250))
-
 ```
 
 (ref:fig-retro-biomass-rel-en) Relative spawning biomass for retrospective models. See Figure \@ref(fig:fig-retro-biomass) for legend.
 
 (ref:fig-retro-biomass-rel-fr) Biomasse de frai relative pour les modèles rétrospectifs. Voir la figure \@ref(fig:fig-retro-biomass) pour la légende.
 
+(ref:fig-retro-biomass-rel-en-alt) This figure shows that the model was above 0.4 B0 for all years in the time series until 2019 to 2021 data were added
+
+(ref:fig-retro-biomass-rel-fr-alt) Ce graphique montre que le modèle était supérieur à 0,4 B0 pour toutes les années de la série chronologique jusqu'à l'ajout des données de 2019 à 2021
+
 ```{r fig-retro-biomass-rel, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-rel-fr)", "(ref:fig-retro-biomass-rel-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
+                  
                   angle_x_labels = TRUE,
                   text_title_size = NULL,
                   show_bo_lines = TRUE,
@@ -58,6 +70,9 @@ plot_biomass_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-recr-fr) Recrutement de `r sp` pour les modèles rétrospectifs. Les points sont les médianes des postérieures, les lignes verticales sont les intervalles crédibles à 95% pour les postérieures, les points à $R_0$ sont les estimations médianes pour les paramètres de recrutement initial $R_0$, et les lignes verticales au-dessus de ces points sont l'intervalle crédible à 95% pour $R_0$. Le ruban ombré est l'intervalle de crédibilité de $R_0$ sur l'ensemble de la série temporelle pour le modèle de base. Les modèles sont légèrement décalés l'un par rapport à l'autre pour faciliter la visualisation.
 
+(ref:fig-retro-recr-en-alt) This figure shows that recruitment estimates in recent years were slightly higher and had more uncertainty the more years of data were removed
+
+(ref:fig-retro-recr-fr-alt) Ce graphique montre que les estimations du recrutement ces dernières années étaient légèrement plus élevées et comportaient davantage d'incertitudes à mesure que le nombre d'années de données supprimées augmentait
 
 ```{r fig-retro-recr, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-fr)", "(ref:fig-retro-recr-en)")}
 plot_recr_mcmc(models$retro_grps[[1]],
@@ -74,6 +89,9 @@ plot_recr_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-recr-closer-fr) Recrutement de `r sp` pour les modèles rétrospectifs. Les points sont les médianes des valeurs postérieures, les lignes verticales sont les IC à 95% des valeurs postérieures, les points à $R_0$ sont les estimations médianes des paramètres de recrutement initial $R_0$, et les lignes verticales au-dessus de ces points sont les IC à 95% pour $R_0$. Le ruban ombré est l'IC de $R_0$ sur l'ensemble de la série temporelle pour le modèle de base. Les modèles sont légèrement décalés les uns par rapport aux autres pour faciliter la visualisation.
 
+(ref:fig-retro-recr-closer-en-alt) This figure shows that recruitment estimates in recent years were slightly higher and had more uncertainty the more years of data were removed
+
+(ref:fig-retro-recr-closer-fr-alt) Ce graphique montre que les estimations du recrutement ces dernières années étaient légèrement plus élevées et comportaient davantage d'incertitudes à mesure que le nombre d'années de données supprimées augmentait.
 
 ```{r fig-retro-recr-closer, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-closer-fr)", "(ref:fig-retro-recr-closer-en)")}
 plot_recr_mcmc(models$retro_grps[[1]],
@@ -90,6 +108,9 @@ plot_recr_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-f-fr) Mortalité par pêche pour les modèles de base et rétrospectif pour les deux pêcheries au chalut. La zone ombrée représente l'IC à 95 % pour le modèle de base, les lignes pointillées représentent l'IC à 95 % pour les modèles rétrospectifs.
 
+(ref:fig-retro-f-en-alt) This figure shows that fishing mortality estimates only changed when removing data from 2019 to 2021
+
+(ref:fig-retro-f-fr-alt) Ce graphique montre que les estimations de la mortalité par pêche n'ont changé que lorsque les données de 2019 à 2021 ont été supprimées
 
 ```{r fig-retro-f, fig.cap = ifelse(fr(), "(ref:fig-retro-f-fr)", "(ref:fig-retro-f-en)")}
 plot_f_mcmc(models$retro_grps[[1]],
@@ -105,6 +126,9 @@ plot_f_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-index-fits-fr) Ajustements de l'indice pour les modèles de base et rétrospectif. Les points gris clair et les lignes verticales indiquent les valeurs de l'indice et les IC à 95 %. Les autres points colorés indiquent les médianes des valeurs postérieures ; les lignes verticales pleines indiquent les IC à 95 % pour les valeurs postérieures. Les lignes reliant les points le long de la série temporelle ne sont présentes que pour des raisons esthétiques.
 
+(ref:fig-retro-index-fits-en-alt) This figure shows that index fits only changed when removing data from 2019 to 2021
+
+(ref:fig-retro-index-fits-fr-alt) Ce graphique montre que les ajustements de l'indice n'ont eu lieu que lors de la suppression des données de 2019 à 2021
 
 ```{r fig-retro-index-fits, fig.cap = ifelse(fr(), "(ref:fig-retro-index-fits-fr)", "(ref:fig-retro-index-fits-en)")}
 plot_index_mcmc(models$retro_grps[[1]],
@@ -122,6 +146,10 @@ plot_index_mcmc(models$retro_grps[[1]],
 (ref:fig-retro-index-resids-en) Log standardized residuals for the base and retrospective model index fits. See Figure \@ref(fig:fig-retro-index-fits) for description.
 
 (ref:fig-retro-index-resids-fr) Résidus logarithmiques standardisés pour les ajustements de l'indice du modèle de base et du modèle rétrospectif. Voir la figure \@ref(fig:fig-retro-index-fits) pour la description.
+
+(ref:fig-retro-index-resids-en-alt) This figure shows that there were only slight differences in the log standardized residuals for the index fits
+
+(ref:fig-retro-index-resids-fr-alt) Ce graphique montre qu'il n'y avait que de légères différences dans les résidus standardisés logarithmiques pour les ajustements de l'indice
 
 ```{r fig-retro-index-resids, fig.cap = ifelse(fr(), "(ref:fig-retro-index-resids-fr)", "(ref:fig-retro-index-resids-en)")}
 plot_index_mcmc(models$retro_grps[[1]],

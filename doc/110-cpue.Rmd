@@ -115,6 +115,10 @@ où $\bm{X_t}$ représente un vecteur de variables prédictives fixé aux niveau
 
 (ref:fig-catch-zero-prop-fr) Proportion de traits sans `r sp` de `r start_catch_yr` à `r end_catch_yr`. Les points noirs représentent les proportions réelles pour l'ensemble de la côte. La ligne noire montre la sortie d'un modèle additif général (MAG) utilisant les points comme entrées, la ligne pointillée représente le nombre total de traits en tant que proportion du nombre maximum de traits effectués au cours d'une année donnée.
 
+(ref:fig-catch-zero-prop-en-alt) This figure shows that the average proportion of tows with zero `r sp` is 25 percent but it has been rising in the last few years
+
+(ref:fig-catch-zero-prop-fr-alt) Ce graphique montre que la proportion moyenne de remorquages avec un `r sp` nul est de 25 percent mais qu'elle a augmenté au cours des dernières années
+
 ```{r fig-catch-zero-prop, fig.cap = ifelse(fr(), "(ref:fig-catch-zero-prop-fr)", "(ref:fig-catch-zero-prop-en)"), results = "asis"}
 
 plot_proportion_zero_tows()
@@ -173,7 +177,15 @@ dfleet_sum <- dfleet |>
 
 ```
 
-```{r cpue-locality-bubble, fig.cap = cpue_cap_text("locality"), out.width = "6in", fig.asp = max(dfleet_sum$locality) / 70, results = 'asis'}
+(ref:fig-cpue-locality-bubble-en) `r paste0(cpue_cap_text("locality"))`
+
+(ref:fig-cpue-locality-bubble-fr) `r paste0(cpue_cap_text("locality"))`
+
+(ref:fig-cpue-locality-bubble-en-alt) This figure shows that some localities are linked to `r sp` catch every year
+
+(ref:fig-cpue-locality-bubble-fr-alt) Ce graphique montre que certaines localités sont liées à des prises `r sp` chaque année
+
+```{r fig-cpue-locality-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-locality-bubble-fr)", "(ref:fig-cpue-locality-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$locality) / 70, results = 'asis'}
 
 gfplot:::plot_predictor_bubbles(dfleet,
                                 "locality",
@@ -183,7 +195,15 @@ gfplot:::plot_predictor_bubbles(dfleet,
 
 ```
 
-```{r cpue-depth-bubble, fig.cap = cpue_cap_text("depth"), out.width = "6in", fig.asp = max(dfleet_sum$depth) / 50, results = 'asis'}
+(ref:fig-cpue-depth-bubble-en) `r paste0(cpue_cap_text("depth"))`
+
+(ref:fig-cpue-depth-bubble-fr) `r paste0(cpue_cap_text("depth"))`
+
+(ref:fig-cpue-depth-bubble-en-alt) This figure shows that depth is a clear factor in the catch of `r sp`
+
+(ref:fig-cpue-depth-bubble-fr-alt) Ce graphique montre que la profondeur est un facteur déterminant dans la capture de `r sp`
+
+```{r fig-cpue-depth-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-depth-bubble-fr)", "(ref:fig-cpue-depth-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$depth) / 50, results = 'asis'}
 
 if(!exists("dfleet")){
   dfleet <- cpue_extraction(params = params)
@@ -195,7 +215,15 @@ gfplot:::plot_predictor_bubbles(dfleet,
         axis.ticks.y = element_blank())
 ```
 
-```{r cpue-latitude-bubble, fig.cap = cpue_cap_text("latitude"), out.width = "6in", fig.asp = max(dfleet_sum$latitude) / 60, results = 'asis'}
+(ref:fig-cpue-latitude-bubble-en) `r paste0(cpue_cap_text("latitude"))`
+
+(ref:fig-cpue-latitude-bubble-fr) `r paste0(cpue_cap_text("latitude"))`
+
+(ref:fig-cpue-latitude-bubble-en-alt) This figure shows that some latitudes are linked to `r sp` catch more than others
+
+(ref:fig-cpue-latitude-bubble-fr-alt) Ce graphique montre que certaines latitudes sont davantage liées aux prises de `r sp` que d'autres.
+
+```{r fig-cpue-latitude-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-latitude-bubble-fr)", "(ref:fig-cpue-latitude-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$latitude) / 60, results = 'asis'}
 
 if(!exists("dfleet")){
   dfleet <- cpue_extraction(params = params)
@@ -211,7 +239,11 @@ gfplot:::plot_predictor_bubbles(dfleet,
 
 (ref:fig-cpue-vessel-bubble-fr) `r paste0(cpue_cap_text("vessel"))` Les numéros d'identification des navires ont été rendus anonymes par un tri aléatoire des navires et l'attribution de numéros séquentiels.
 
-```{r cpue-vessel-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-vessel-bubble-fr)", "(ref:fig-cpue-vessel-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$vessel) / 50, results = 'asis'}
+(ref:fig-cpue-vessel-bubble-en-alt) This figure shows that some vessels are linked to `r sp` catch more than others
+
+(ref:fig-cpue-vessel-bubble-fr-alt) Ce graphique montre que certains navires sont liés à des prises `r sp` plus importantes que d'autres
+
+```{r fig-cpue-vessel-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-vessel-bubble-fr)", "(ref:fig-cpue-vessel-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$vessel) / 50, results = 'asis'}
 
 if(!exists("dfleet")){
   dfleet <- cpue_extraction(params = params)
@@ -224,7 +256,15 @@ gfplot:::plot_predictor_bubbles(dfleet,
 
 ```
 
-```{r cpue-month-bubble, fig.cap = cpue_cap_text("month"), out.width = "6in", fig.asp = max(dfleet_sum$month) / 30, results = 'asis'}
+(ref:fig-cpue-month-bubble-en) `r paste0(cpue_cap_text("month"))`
+
+(ref:fig-cpue-month-bubble-fr) `r paste0(cpue_cap_text("month"))`
+
+(ref:fig-cpue-month-bubble-en-alt) This figure shows that some months are linked to `r sp` catch more than others
+
+(ref:fig-cpue-month-bubble-fr-alt) Ce graphique montre que certains mois sont davantage liés à la capture de `r sp` que d'autres
+
+```{r fig-cpue-month-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-month-bubble-fr)", "(ref:fig-cpue-month-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$month) / 30, results = 'asis'}
 
 if(!exists("dfleet")){
   dfleet <- cpue_extraction(params = params)
@@ -239,6 +279,10 @@ gfplot:::plot_predictor_bubbles(dfleet,
 (ref:fig-cpue-catch-effort-en) Total catch and effort from the discard fleet of `r sp`.
 
 (ref:fig-cpue-catch-effort-fr) Le total des captures et de l'effort de la flotte de rejets de `r sp`.
+
+(ref:fig-cpue-catch-effort-en-alt) This figure shows that catch and effort in the 'discard' fleet are highly correlated except for in 2017 when there was a large amount of fishing but no corresponding extra catch
+
+(ref:fig-cpue-catch-effort-fr-alt) Ce graphique montre que les captures et l'effort de pêche de la flotte 'rejets' sont fortement corrélés sauf en 2017 où l'activité de pêche a été intense sans pour autant entraîner d'augmentation correspondante des captures
 
 ```{r fig-cpue-catch-effort, fig.cap = ifelse(fr(), "(ref:fig-cpue-catch-effort-fr)", "(ref:fig-cpue-catch-effort-en)"), out.width = "6in", fig.asp = 0.9, results = 'asis'}
 
@@ -269,22 +313,13 @@ dfleet |>
 #knitr::include_graphics(file.path(cpuefold, "catch-effort-1.png"), dpi = NA)
 ```
 
-```{r fit-cpue, results = 'hide', warning = FALSE, message = FALSE}
-
-if(!exists("mod_pred")){
-  mod_pred <- run_discard_index_model(dfleet = dfleet,
-                                      params = params,
-                                      fn_csv = "/srv/arrowtooth/arrowtooth-nongit/data")
-}
-
-model <- mod_pred$model
-predictions <- mod_pred$predictions
-```
-
 (ref:fig-cpue-coef-fixed-en) Fixed effect coefficient estimates. In all cases, the values are with respect to the reference (most common) factor level (the missing factor level in each plot). Dots, thick, and thin lines represent mean, 50%, and 95% confidence intervals.
 
 (ref:fig-cpue-coef-fixed-fr) Estimations du coefficient de l'effet fixe. Dans tous les cas, les valeurs se rapportent au niveau de facteur de référence (le plus courant) (le niveau de facteur manquant dans chaque graphique). Les points, les lignes épaisses et les lignes fines représentent la moyenne, les intervalles de confiance à 50 % et à 95 %.
 
+(ref:fig-cpue-coef-fixed-en-alt) This figure shows an overview of the previous four figures involving fixed effects
+
+(ref:fig-cpue-coef-fixed-fr-alt) Ce graphique présente une vue d'ensemble des quatre graphiques précédents impliquant des effets fixes
 
 ```{r fig-cpue-coef-fixed, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-fixed-fr)", "(ref:fig-cpue-coef-fixed-en)"), results = 'asis', fig.asp = 1.1}
 
@@ -299,6 +334,10 @@ plot_fixed_effect_coefs(model[[toplot]]) +
 (ref:fig-cpue-coef-rel-en) Random intercept values in log space for locality and vessel.
 
 (ref:fig-cpue-coef-rel-fr) Valeurs d'interception aléatoires dans l'espace logarithmique pour la localité et le navire.
+
+(ref:fig-cpue-coef-rel-en-alt) This figure shows that random intercept values for locality and vessel are normally distributed 
+
+(ref:fig-cpue-coef-rel-fr-alt) Cette figure montre que les valeurs d'interception aléatoires pour la localité et le navire sont distribuées normalement
 
 ```{r fig-cpue-coef-rel, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-rel-fr)", "(ref:fig-cpue-coef-rel-en)"), results = 'asis', fig.asp = 0.8}
 
@@ -315,6 +354,10 @@ plot_random_intercepts(model[[toplot]],
 
 (ref:fig-cpue-coef-rel2-fr) Valeurs d'interception aléatoires pour l'effet d'interaction localité-année. Les étiquettes des panneaux représentent les identifiants des localités.
 
+(ref:fig-cpue-coef-rel2-en-alt) This figure shows the random intercept values for the locality-year interaction effect
+
+(ref:fig-cpue-coef-rel2-fr-alt) Cette figure montre les valeurs d'interception aléatoires pour l'effet d'interaction localité-année
+
 ```{r fig-cpue-coef-rel2, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-rel2-fr)", "(ref:fig-cpue-coef-rel2-en)"), results = 'asis', fig.asp = length(params$area)}
 
 toplot <- which(attr(
@@ -328,6 +371,12 @@ plot_year_locality_interactions(model[[toplot]]) +
 (ref:fig-cpue-stand-index-en) Commercial discard CPUE indices. The red line is the standardized version, the black solid line is a version with only a year predictor with the Tweedie observation model, and the dashed line is the summed catch for the species divided by effort. The ribbons indicate the 95% (Wald) confidence intervals. The standardization process is not having a large impact on the shape of the time series here, which is likely indicative that there have not been systematic changes in the standardization factors included in the model that have impacted CPUE.
 
 (ref:fig-cpue-stand-index-fr) Indices de CPUE pour les rejets commerciaux. La ligne rouge est la version standardisée, la ligne noire pleine est une version avec seulement un prédicteur annuel avec le modèle d'observation Tweedie, et la ligne en pointillé est la prise additionnée pour les espèces divisée par l'effort. Les rubans indiquent les intervalles de confiance à 95 % (Wald). Le processus de standardisation n'a pas un grand impact sur la forme de la série temporelle ici, ce qui indique probablement qu'il n'y a pas eu de changements systématiques dans les facteurs de standardisation inclus dans le modèle qui ont eu un impact sur la CPUE.
+
+(ref:fig-cpue-stand-index-en-alt) This figure shows that the standardization process does not having a large impact on the shape of the
+time series and that the Tweedie model is similar to the standardization version
+
+(ref:fig-cpue-stand-index-fr-alt) Ce graphique montre que le processus de normalisation n'a pas d'impact significatif sur la forme de la
+série chronologique et que le modèle Tweedie est similaire à la version normalisée
 
 ```{r fig-cpue-stand-index, fig.cap = ifelse(fr(), "(ref:fig-cpue-stand-index-fr)", "(ref:fig-cpue-stand-index-en)"), results = 'asis', fig.asp = length(params$area) * 0.55}
 
