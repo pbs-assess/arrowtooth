@@ -5,7 +5,7 @@ geostat_plot_biomass_map_polygons <- \(d,
                                        meters_offset = c(-10, 10),
                                        utm_zone = 9,
                                        utm_crs = 32609,
-                                       yr_less_equal = 2012,
+                                       yrs = 2003:2012,
                                        upper_prob = 0.995,
                                        ret_pred = FALSE){
 
@@ -26,7 +26,7 @@ geostat_plot_biomass_map_polygons <- \(d,
                               quantile(!!new_col,
                                        probs = upper_prob),
                               !!new_col)) |>
-    filter(year <= yr_less_equal)
+    filter(year %in% yrs)
 
   if(ret_pred){
     return(pred)
