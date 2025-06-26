@@ -221,7 +221,7 @@ gfplot:::plot_predictor_bubbles(dfleet,
 
 (ref:fig-cpue-latitude-bubble-en-alt) This figure shows that some latitudes are linked to `r sp` catch more than others
 
-(ref:fig-cpue-latitude-bubble-fr-alt) Ce graphique montre que certaines latitudes sont davantage liées aux prises de `r sp` que d'autres.
+(ref:fig-cpue-latitude-bubble-fr-alt) Ce graphique montre que certaines latitudes sont davantage liées aux prises de `r sp` que d'autres
 
 ```{r fig-cpue-latitude-bubble, fig.cap = ifelse(fr(), "(ref:fig-cpue-latitude-bubble-fr)", "(ref:fig-cpue-latitude-bubble-en)"), out.width = "6in", fig.asp = max(dfleet_sum$latitude) / 60, results = 'asis'}
 
@@ -323,6 +323,14 @@ dfleet |>
 
 ```{r fig-cpue-coef-fixed, fig.cap = ifelse(fr(), "(ref:fig-cpue-coef-fixed-fr)", "(ref:fig-cpue-coef-fixed-en)"), results = 'asis', fig.asp = 1.1}
 
+
+if(!exists("model")){
+  cpue_fn <- file.path(drs$nongit_dir,
+                       "data",
+                       "cpue-models-arrowtooth-modern-3CD5ABCDE-2024-10-23.rds")
+  model <- readRDS(cpue_fn)
+}
+
 toplot <- which(attr(
   model, "split_labels")$formula_version == "Full standardization")
 
@@ -390,7 +398,7 @@ arith_cpue <- dfleet |>
   mutate(est = est/geo_mean) |>
   ungroup()
 
-predictions <- predictions |> 
+predictions <- discard_cpue |> 
   filter(formula_version %in% c("Unstandardized", "Full standardization"))
 
 if(!params$skip_single_variable_models){

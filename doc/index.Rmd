@@ -14,8 +14,8 @@ french_address: |
   ^1^Station bioslogique du Pacifique\
      Pêches et Océans Canada, 3190 Hammond Bay Road\
      Nanaimo, Colombie-Britannique, V9T 6N7, Canada\
-month: September
-french_month: Septembre
+month: June
+french_month: Juin
 # Warning that these may not be used. It seems that the code
 # looks at the `path` and `mcmcpath` list elements of the model
 # to determine which path its in (somehow). Needs to be fixed
@@ -23,7 +23,7 @@ french_month: Septembre
 model_path: "/srv/arrowtooth/2022"
 nongit_path: "/srv/arrowtooth/arrowtooth-nongit"
 base_model_path: "/srv/arrowtooth/2022/01-base-models/01-base-model"
-year: 2024
+year: 2025
 report_number: "071"
 region: Pacific Region
 french_region: "Région du Pacifique"
@@ -38,7 +38,7 @@ abstract: |
 
   This assessment fits a two-sex two-fleet Bayesian age-structured model to catch, survey, and age-composition data from the years 1996--2021 for management areas 3CD (West Coast Vancouver Island), 5AB (Queen Charlotte Sound), 5CD (Hecate Strait), and 5E (West Coast Haida Gwaii) combined. Catch data prior to the introduction of at-sea observers in 1996 were considered too unreliable for inclusion in the assessment due to unknown quantities of discarding at sea.
 
-  The base model presented in this assessment estimates the 2022 median spawning biomass to be 67.77 kt and to have been on a decreasing trajectory since 2011, with a flattening trend from 2020-2022. Reference points based on maximum sustainable yield (MSY) were strongly impacted by the relationship between estimated maturity ogives and commercial age selectivity in the trawl fisheries. Reference points based on fractions of $B_0$ (unfished spawning biomass) were chosen instead, as was done in the last assessment. The median 2022 spawning biomass was projected to be below the USR (Upper Stock Reference) $0.4B_0$ and above the LRP (Limit Reference Point) $0.2B_0$. There was zero probability that the spawning biomass was below the LRP of $0.2B_0$ in 2022 in the base model, although one sensitivity model with the selectivity set to be time-varying for the `r knitr::load_cache('library-setup', 'qcsss')`, the relative biomass reached `r knitr::load_cache('library-setup', 'f(models$sens_grps[[4]][[3]]$mcmccalcs$depl_quants[,ncol(models$sens_grps[[4]][[3]]$mcmccalcs$depl_quants)][2], 2)')`. Other sensitivity analyses were done to test the effects of fixed parameters, prior probability distributions, and input data treatment on model outcomes. In several sensitivity models, there were poor MCMC (Markov chain Monte Carlo) diagnostics or unreasonable estimates of selectivity and/or catchability. A series of retrospective model runs back eight years indicated a distinct change in the biomass estimates for the model. Prior to 2019, retrospective models had a more optimistic view of the stock, with a terminal year relative biomass of approximately 0.5 or greater. After 2019, models estimated a terminal year relative biomass of approximately 0.4 or less.
+  The base model presented in this assessment estimates the 2022 median spawning biomass to be 67.77 kt and to have been on a decreasing trajectory since 2011, with a flattening trend from 2020-2022. Reference points based on maximum sustainable yield (MSY) were strongly impacted by the relationship between estimated maturity ogives and commercial age selectivity in the trawl fisheries. Reference points based on fractions of $B_0$ (unfished spawning biomass) were chosen instead, as was done in the last assessment. The median 2022 spawning biomass was projected to be below the USR (Upper Stock Reference) $0.4B_0$ and above the LRP (Limit Reference Point) $0.2B_0$. There was zero probability that the spawning biomass was below the LRP of $0.2B_0$ in 2022 in the base model, although one sensitivity model with the selectivity set to be time-varying for the Queen Charlotte Sound Synoptic Survey, the relative biomass reached $0.31B_0$. Other sensitivity analyses were done to test the effects of fixed parameters, prior probability distributions, and input data treatment on model outcomes. In several sensitivity models, there were poor MCMC (Markov chain Monte Carlo) diagnostics or unreasonable estimates of selectivity and/or catchability. A series of retrospective model runs back eight years indicated a distinct change in the biomass estimates for the model. Prior to 2019, retrospective models had a more optimistic view of the stock, with a terminal year relative biomass of approximately 0.5 or greater. After 2019, models estimated a terminal year relative biomass of approximately 0.4 or less.
 
   Management advice is provided in the form of a harvest decision table that forecast the impacts of a range of 2022 catch levels on Arrowtooth Flounder stock status relative to the reference points. The base-model decision table suggests that a 2022 catch equal to 5 kt (the 2022 TAC), would result in a 2023 biomass being below the USR of $0.4B_0$ with a probability of $0.68$. The same catch would give a near zero probability of the 2023 biomass falling below the LRP of $0.2B_0$. A constant catch equal to 15 kt would result in a 2026 biomass with an approximate $0.5$ probability of being below the $0.2B_0$ LRP. A reference removal rate of $U_{0.4B_0} = 10.5$% of the vulnerable population annually, which is equivalent to an annual removal of approximately 4.4 kt, was estimated to take the stock to $0.4B_0$ in the long term (50 years) assuming that the low recruitment estimated from 2010 to 2019 continues.
   
@@ -49,11 +49,11 @@ french_abstract: |
 
   Cette évaluation adapte un modèle bayésien structuré par âge à deux sexes et deux flottes aux données de capture, d'enquête et de composition par âge des années 1996--2021 pour les zones de gestion 3CD (côte ouest de l'île de Vancouver), 5AB (détroit de la Reine-Charlotte), 5CD (détroit d'Hécate), et 5E (côte ouest de Haida Gwaii) combinées. Les données de capture antérieures à l'introduction des observateurs en mer en 1996 ont été jugées trop peu fiables pour être incluses dans l'évaluation en raison des quantités inconnues de rejets en mer.
 
-  Le modèle de base présenté dans cette évaluation estime que la biomasse féconde médiane de 2022 est de 67,77 kt et qu'elle suit une trajectoire décroissante depuis 2011, avec une tendance à l'aplatissement à partir de 2020-2022. Les points de référence basés sur le rendement maximal durable (RMD) ont été fortement influencés par la relation entre les ogives de maturité estimées et la sélectivité commerciale par âge dans les pêcheries au chalut. Des points de référence basés sur des fractions de $B_0$ (biomasse féconde non pêchée) ont été choisis à la place, comme cela avait été fait dans la dernière évaluation. La biomasse féconde médiane de 2022 devrait être inférieure à l'USR (Upper Stock Reference) $0,4B_0$ et supérieure au LRP (Limit Reference Point) $0,2B_0$. La probabilité que la biomasse reproductrice soit inférieure au PRL $0,2B_0$ en 2022 était nulle dans le modèle de base, bien qu'un modèle de sensibilité avec une plus grande variance du recrutement ait estimé que le stock était proche du PRL. D'autres analyses de sensibilité ont été effectuées pour tester les effets des paramètres fixes, des distributions de probabilité a priori et du traitement des données d'entrée sur les résultats du modèle. Dans plusieurs modèles de sensibilité, les diagnostics MCMC (Markov chain Monte Carlo) étaient médiocres ou les estimations de la sélectivité et/ou de la capturabilité étaient déraisonnables. Une série d'exécutions rétrospectives du modèle sur huit ans a indiqué un point de rupture distinct lorsque les données de 2019 ont été ajoutées. Depuis 2019, les données entraînent des baisses de la biomasse reproductrice estimée entre 2010 et 2019.
+  Le modèle de base présenté dans cette évaluation estime que la biomasse féconde médiane de 2022 est de 67,77 kt et qu'elle suit une trajectoire décroissante depuis 2011, avec une tendance à l'aplatissement à partir de 2020-2022. Les points de référence basés sur le rendement maximal durable (RMD) ont été fortement influencés par la relation entre les ogives de maturité estimées et la sélectivité commerciale par âge dans les pêcheries au chalut. Des points de référence basés sur des fractions de $B_0$ (biomasse féconde non pêchée) ont été choisis à la place, comme cela avait été fait dans la dernière évaluation. La biomasse féconde médiane de 2022 devrait être inférieure à la RSS (Référence du stock supérieur) $0,4B_0$ et supérieure au PRL (Point de référence limite) $0,2B_0$. La probabilité que la biomasse reproductrice soit inférieure au PRL $0,2B_0$ en 2022 était nulle dans le modèle de base, bien qu'un modèle de sensibilité avec une plus grande variance du recrutement ait estimé que le stock était proche du PRL. D'autres analyses de sensibilité ont été effectuées pour tester les effets des paramètres fixes, des distributions de probabilité a priori et du traitement des données d'entrée sur les résultats du modèle. Dans plusieurs modèles de sensibilité, les diagnostics MCMC (Markov chain Monte Carlo) étaient médiocres ou les estimations de la sélectivité et/ou de la capturabilité étaient déraisonnables. Une série d'exécutions rétrospectives du modèle sur huit ans a indiqué un point de rupture distinct lorsque les données de 2019 ont été ajoutées. Depuis 2019, les données entraînent des baisses de la biomasse reproductrice estimée entre 2010 et 2019.
 
-   L'avis de gestion est fourni sous la forme d'une table de décision sur les captures qui prévoit les impacts d'une gamme de niveaux de capture en 2022 sur l'état du stock de flétan noir par rapport aux points de référence. La table de décision du modèle de base suggère qu'une prise de 2022 égale à 5 kt (le TAC de 2022) entraînerait une biomasse de 2023 inférieure à l'USR de $0,4B_0$ avec une probabilité de $0,68$. La même prise donnerait une probabilité quasi nulle que la biomasse de 2023 soit inférieure au PRL de $0,2B_0$. Une prise constante égale à 15 kt donnerait une biomasse en 2026 avec une probabilité d'environ $0,5$ d'être inférieure au PRL de $0,2B_0$. Un taux de prélèvement de référence de $U_{0,4B_0}$ = 10,5% de la population vulnérable chaque année, ce qui équivaut à un prélèvement annuel d'environ 4,4 kt, a été estimé pour amener le stock à $0,4B_0$ à long terme, en supposant que le faible recrutement estimé de 2010 à 2019 se poursuive.
+   L'avis de gestion est fourni sous la forme d'une table de décision sur les captures qui prévoit les impacts d'une gamme de niveaux de capture en 2022 sur l'état du stock de flétan noir par rapport aux points de référence. La table de décision du modèle de base suggère qu'une prise de 2022 égale à 5 kt (le TAC de 2022) entraînerait une biomasse de 2023 inférieure à la RSS de $0,4B_0$ avec une probabilité de $0,68$. La même prise donnerait une probabilité quasi nulle que la biomasse de 2023 soit inférieure au PRL de $0,2B_0$. Une prise constante égale à 15 kt donnerait une biomasse en 2026 avec une probabilité d'environ $0,5$ d'être inférieure au PRL de $0,2B_0$. Un taux de prélèvement de référence de $U_{0,4B_0}$ = 10,5% de la population vulnérable chaque année, ce qui équivaut à un prélèvement annuel d'environ 4,4 kt, a été estimé pour amener le stock à $0,4B_0$ à long terme, en supposant que le faible recrutement estimé de 2010 à 2019 se poursuive.
 
-  La taille des captures et des rejets avant 1996, l'absence de campagnes stratifiées aléatoires avant 2005 couvrant l'ensemble de la côte, l'estimation des courbes de maturité et de sélectivité, l'ampleur supposée de la variabilité du recrutement et l'estimation de $B_0$ sont des sources majeures d'incertitude dans cette évaluation qui rendent difficile l'estimation de la taille et de la productivité du stock. L'utilisation d'un relevé géostatistique assemblé pour remplacer les indices des relevés synoptiques distincts pourrait aider à résoudre certains problèmes liés à l'indice du relevé synoptique du détroit de la Reine-Charlotte, dont le taux de déclin est plus faible que celui des autres indices du relevé. Après avoir évalué les considérations relatives à l'écosystème et la biologie connue du stock, rien n'indique clairement que les conditions environnementales actuelles devraient modifier l'avis sur les captures dans la présente évaluation. Étant donné que le stock est estimé légèrement en dessous de l'USR dans le modèle de base et proche du LRP dans un modèle de sensibilité avec une plus grande variation du recrutement, ainsi qu'une biomasse estimée du stock reproducteur en déclin, des indices de prospection en déclin et un recrutement estimé en déclin, il est suggéré que cette évaluation du stock soit mise à jour avec de nouvelles données dans environ deux ans, lorsqu'une prospection supplémentaire aura été réalisée dans chaque zone de la côte.
+  La taille des captures et des rejets avant 1996, l'absence de campagnes stratifiées aléatoires avant 2005 couvrant l'ensemble de la côte, l'estimation des courbes de maturité et de sélectivité, l'ampleur supposée de la variabilité du recrutement et l'estimation de $B_0$ sont des sources majeures d'incertitude dans cette évaluation qui rendent difficile l'estimation de la taille et de la productivité du stock. L'utilisation d'un relevé géostatistique assemblé pour remplacer les indices des relevés synoptiques distincts pourrait aider à résoudre certains problèmes liés à l'indice du relevé synoptique du détroit de la Reine-Charlotte, dont le taux de déclin est plus faible que celui des autres indices du relevé. Après avoir évalué les considérations relatives à l'écosystème et la biologie connue du stock, rien n'indique clairement que les conditions environnementales actuelles devraient modifier l'avis sur les captures dans la présente évaluation. Étant donné que le stock est estimé légèrement en dessous de la RSS dans le modèle de base et proche du PRL dans un modèle de sensibilité avec une plus grande variation du recrutement, ainsi qu'une biomasse estimée du stock reproducteur en déclin, des indices de prospection en déclin et un recrutement estimé en déclin, il est suggéré que cette évaluation du stock soit mise à jour avec de nouvelles données dans environ deux ans, lorsqu'une prospection supplémentaire aura été réalisée dans chaque zone de la côte.
 
 header: "" # "Draft working paper --- Do not cite or circulate"
 # `show_continued_text` is a logical which, if `true`, places
@@ -72,12 +72,12 @@ output:
    latex_engine: lualatex
    # If `true`, alternative figure text and figure tags are added for
    # PDF web accessibility compliance
-   accessible_pdf: false
+   accessible_pdf: true
    # The name of the directory containing pre-made figures such as png files
    # that will be included using `include_graphics()`
    figures_dir: figure
    # This value will be the return value for `fr()` in your code
-   french: false
+   french: true
    # copy_sty is a toggle to copy the style file from the csasdown package
    # every time you compile the document. If false, any changes you have
    # made to the style file in your project will remain between
@@ -193,24 +193,24 @@ options(knitr.graphics.rel_path = FALSE)
 library(devtools)
 library(dplyr)
 if(as.logical(length(grep("grandin", user)))){
+  load_all("~/github/pbs-assess/rosettafish")
+  load_all("~/github/pbs-assess/csasdown")
   load_all("~/github/pbs-assess/gfiscamutils")
   load_all("~/github/pbs-assess/gfutilities")
   load_all("~/github/pbs-assess/gfplot")
-  load_all("~/github/pbs-assess/csasdown")
-  load_all("~/github/pbs-assess/rosettafish")
 load_all("~/github/pbs-assess/arrowtooth")
 }else if(user == "seananderson"){
   load_all("~/src/gfutilities/")
-  load_all("~/src/gfiscamutils/")
   load_all("~/src/csasdown/")
+  load_all("~/src/gfiscamutils/")
   load_all("~/src/rosettafish/")
   load_all("~/src/arrowtooth")
   library(gfplot)
 }else{
+  library(csasdown)
   library(gfiscamutils)
   library(gfutilities)
   library(gfplot)
-  library(csasdown)
 }
 library(ggplot2)
 library(gridExtra)
@@ -356,14 +356,9 @@ age_precision <- dat$age_precision
 
 theme_set(gfiscam_theme())
 
-if(!exists("curr_gear_language")){
-  curr_gear_language <- "en"
-}
-
-models <- set_gear_language(models, curr_gear_language)
+models <- set_gear_language(models)
 
 base_model <- models$base_grps[[1]][[1]]
-curr_gear_language <- ifelse(fr(), "fr", "en")
 
 base_all_gears <- gear_lu_table(base_model, "all")
 base_age_gears <- gear_lu_table(base_model, "age")
@@ -863,4 +858,6 @@ accessible_pf <- rmarkdown::metadata$output$`csasdown::sr_pdf`$accessible_pdf
 
 <!-- For highlighting table cells for readability. See the decision table code for example.  -->
 \definecolor{faint-gray}{gray}{0.9}
+
+\setcounter{table}{0}
 

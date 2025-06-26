@@ -8,8 +8,8 @@ N_fleets <- 2
 projected_N <- 0
 N_t <- N_t + projected_N
 
-# TURN_OFF_F <- FALSE
-TURN_OFF_F <- TRUE
+TURN_OFF_F <- FALSE
+#TURN_OFF_F <- TRUE
 
 # female first
 M <- c(0.20, 0.35)
@@ -219,14 +219,13 @@ abline(h = 0.2, lty = 2)
 
 if (TURN_OFF_F) SSB_t_noF <- SSB_t
 
-if (FALSE) {
+if (T) {
   plot(yrs, SSB_t/SSB0, type = "l", ylim = c(0, 1))
   # abline(h = 1, lty = 2)
   abline(h = 0.4, lty = 2)
   abline(h = 0.2, lty = 2)
   lines(yrs, SSB_t_noF/SSB0, col = "grey60")
 
-  library(ggplot2)
   dat <- data.frame(year = yrs, SSB = SSB_t / SSB0,
     SSB_dynB0 = SSB_t_noF / SSB0)
   # dat <- data.frame(year = yrs, SSB = SSB_t / SSB0,
@@ -234,14 +233,19 @@ if (FALSE) {
   ggplot(dat, aes(year, SSB)) +
     geom_line() +
     geom_line(aes(y = SSB_dynB0), col = "blue") +
-    gfplot::theme_pbs() +
-    ylab("Relative spawning biomass") +
-    xlab("Year") +
+    theme_pbs() +
+    ylab(ifelse(fr(),
+                "Biomasse reproductive relative",
+                "Relative spawning biomass")) +
+    xlab(tr("Year")) +
     coord_cartesian(ylim = c(0, 1.05), expand = FALSE) +
     geom_hline(yintercept = 0.4, lty = 2, colour = "darkgreen") +
     geom_hline(yintercept = 0.2, lty = 1, colour = "red")
     # scale_y_continuous(breaks = seq(0.12, 1.2, 0.12))
-  ggsave("doc/figure/dynamic-B0.png", width = 7, height = 4)
+  fn <- ifelse(fr(),
+               here("doc/figure/dynamic-bo-french.png"),
+               here("doc/figure/dynamic-bo.png"))
+  ggsave(fn, width = 7, height = 4)
  }
 
 # # calculate catch

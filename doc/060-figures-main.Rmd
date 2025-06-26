@@ -175,7 +175,11 @@ plot_biomass_mcmc(base_model,
 
 ```{r fig-dynamic-b-zero, fig.cap = ifelse(fr(), "(ref:fig-dynamic-b-zero-fr)", "(ref:fig-dynamic-b-zero-en)"), results = "asis"}
 
-include_graphics(here("doc/figure/dynamic-bo.png"), dpi = NA)
+if(fr()){
+  include_graphics(here("doc/figure/dynamic-bo-french.png"), dpi = NA)
+}else{
+  include_graphics(here("doc/figure/dynamic-bo.png"), dpi = NA)
+}
 ```
 
 <!-- Vulnerable spawning biomass --------------------------------------------->
@@ -311,7 +315,8 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-firsthalf-ss-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 1996 et 2007 correspondent bien
 
-```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-firsthalf-fr)", "(ref:fig-base-age-fits-ss-firsthalf-en)")}
+```{r fig-base-age-fits-firsthalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-firsthalf-ss-fr)", "(ref:fig-base-age-fits-firsthalf-ss-en)")}
+
 plot_age_fits_mcmc(base_model,
                    gear = 2,
                    yrs = 1996:2007,
@@ -326,9 +331,9 @@ plot_age_fits_mcmc(base_model,
 
 (ref:fig-base-age-fits-secondhalf-ss-en-alt) This figure shows that ages from the Shoreside fleet from 2008 to 2019 are fit well although there are some years of missing data
 
-(ref:fig-base-age-fits-secondhalf-ss-ss-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 2008 et 2019 correspondent bien même si certaines années manquent
+(ref:fig-base-age-fits-secondhalf-ss-fr-alt) Ce graphique montre que les âges de la flotte Shoreside entre 2008 et 2019 correspondent bien même si certaines années manquent
 
-```{r fig-base-age-fits-secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-ss-secondhalf-fr)", "(ref:fig-base-age-fits-ss-secondhalf-en)")}
+```{r fig-base-age-fits-secondhalf-ss, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-secondhalf-ss-fr)", "(ref:fig-base-age-fits-secondhalf-ss-en)")}
 plot_age_fits_mcmc(base_model,
                    gear = 2,
                    yrs = 2008:2022,
@@ -427,7 +432,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-age-fits-wcvis-en-alt) This figure shows that ages from the `r wcvis` are fit well by the model with only a slight underfitting in 2014 for both sexes
 
-(ref:fig-base-age-fits-wcvis-fr-alt) Ce graphique montre que les âges issus du fichier `r wcvis` correspondent bien au modèle, avec seulement un léger sous-ajustement en 2014 pour les deux sexes
+(ref:fig-base-age-fits-wcvis-fr-alt) Ce graphique montre que les âges issus du fichier `r wcvis` correspondent bien au modèle avec seulement un léger sous-ajustement en 2014 pour les deux sexes
 
 ```{r fig-base-age-fits-wcvis, fig.cap = ifelse(fr(), "(ref:fig-base-age-fits-wcvis-fr)", "(ref:fig-base-age-fits-wcvis-en)")}
 plot_age_fits_mcmc(base_model,
@@ -483,7 +488,7 @@ plot_age_resids_mcmc(base_model,
 
 (ref:fig-base-mcmc-selex-fr-alt) Ce graphique montre que l'ogive de maturité se situe à droite des courbes de sélectivité pour toutes les études et les deux pêcheries commerciales tant pour les mâles que pour les femelles
 
-```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-selex-fr)", "(ref:fig-base-selex-en)")}
+```{r fig-base-mcmc-selex, fig.cap = ifelse(fr(), "(ref:fig-base-mcmc-selex-fr)", "(ref:fig-base-mcmc-selex-en)")}
 plot_selex_mcmc(base_model,
                 show_maturity = TRUE,
                 leg_loc = "facet")

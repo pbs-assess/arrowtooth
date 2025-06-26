@@ -3,8 +3,7 @@ cat("# COMPUTATIONAL ENVIRONMENT
 
 The source code for this assessment can be found on GitHub, in several packages in the ````pbs-assess```` organization's repository list (Table \@ref(tab:table-env)).
 
-This version of the document was generated on `r format(lubridate::as_date(Sys.time()), format = '%a %b %d, %Y')`
-with `r devtools::session_info()$platform$version` [@r2022].
+This version of the document was generated on `r format(lubridate::as_date(Sys.time()), format = '%a %b %d, %Y')` with `r devtools::session_info()$platform$version` [@r2022].
 
 ")
 ```

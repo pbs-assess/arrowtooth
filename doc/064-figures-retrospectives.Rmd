@@ -48,7 +48,7 @@ plot_biomass_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-biomass-rel-en-alt) This figure shows that the model was above 0.4 B0 for all years in the time series until 2019 to 2021 data were added
 
-(ref:fig-retro-biomass-rel-fr-alt) Ce graphique montre que le modèle était supérieur à 0,4 B0 pour toutes les années de la série chronologique jusqu'à l'ajout des données de 2019 à 2021
+(ref:fig-retro-biomass-rel-fr-alt) Ce graphique montre que le modèle était supérieur à 0.4 B0 pour toutes les années de la série chronologique jusqu'à l'ajout des données de 2019 à 2021
 
 ```{r fig-retro-biomass-rel, fig.cap = ifelse(fr(), "(ref:fig-retro-biomass-rel-fr)", "(ref:fig-retro-biomass-rel-en)")}
 plot_biomass_mcmc(models$retro_grps[[1]],
@@ -91,7 +91,7 @@ plot_recr_mcmc(models$retro_grps[[1]],
 
 (ref:fig-retro-recr-closer-en-alt) This figure shows that recruitment estimates in recent years were slightly higher and had more uncertainty the more years of data were removed
 
-(ref:fig-retro-recr-closer-fr-alt) Ce graphique montre que les estimations du recrutement ces dernières années étaient légèrement plus élevées et comportaient davantage d'incertitudes à mesure que le nombre d'années de données supprimées augmentait.
+(ref:fig-retro-recr-closer-fr-alt) Ce graphique montre que les estimations du recrutement ces dernières années étaient légèrement plus élevées et comportaient davantage d'incertitudes à mesure que le nombre d'années de données supprimées augmentait
 
 ```{r fig-retro-recr-closer, fig.cap = ifelse(fr(), "(ref:fig-retro-recr-closer-fr)", "(ref:fig-retro-recr-closer-en)")}
 plot_recr_mcmc(models$retro_grps[[1]],

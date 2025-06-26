@@ -70,8 +70,7 @@ The maturity-at-age model used for `r sp` estimates age-at-50% maturity ($a_{s_{
 \end{equation}
 where $P_{a_s}$ is the observed proportion mature at age $a_s$ for sex $s$. 
 
-A maturity code (maturity stage) of 3 or greater signifies mature fish, where the code scale is the
-standard flatfish scale of 1 through 7 [@holt2016].
+A maturity code (maturity stage) of 3 or greater signifies mature fish, where the code scale is the standard flatfish scale of 1 through 7 [@holt2016].
 
 The same equation can also be applied to lengths instead of ages. We applied Eq. \@ref(eq:mat-at-age) to survey observations of both age and length from the three synoptic surveys used in this assessment. Results are plotted for each survey individually, and together with data from the fourth survey `r wchgs` to represent PMFC areas 3CD and 5ABCDE combined as 'coastwide' (Figure \@ref(fig:fig-mat)).
 
@@ -151,7 +150,7 @@ min_total <- 20
 sc_old <- filter(sc, year < 1995)
 sc <- filter(sc, year > 1995)
 sb <- bind_rows(ss, sc, sf) |> 
-  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = tr(survey_abbrev)) |> 
   mutate(survey_abbrev = factor(survey_abbrev)) |> 
   mutate(year = factor(year))
 
@@ -186,7 +185,7 @@ g_lengths
 ss <- tidy_ages_weighted(dat$survey_samples,
                          dat_survey_sets = dat$survey_sets,
                          sample_type = "survey") |> 
-  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = tr(survey_abbrev)) |> 
   mutate(survey_abbrev = factor(survey_abbrev))
 
 s_ages <- plot_ages(ss,
@@ -211,7 +210,7 @@ sf <- tidy_ages_weighted(comm_ft,
   mutate(survey_abbrev = tr("Freezer Trawlers"))
 
 sb <- suppressWarnings(bind_rows(sc, sf)) |> 
-  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = tr(survey_abbrev)) |> 
   mutate(survey_abbrev = factor(survey_abbrev))
 
 c_ages <- plot_ages(sb,

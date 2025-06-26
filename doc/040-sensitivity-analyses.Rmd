@@ -63,7 +63,7 @@ The estimates of $B_0$ were increased for both of these models when compared to 
 
 ### Decreasing the mean of the steepness prior {#sens-h}
 
-Decreasing the steepness prior mean from `r f(base_h_prior1, 2)` to `r f(sens_1_5_h_prior1, 2)` and changing the prior SD from `r f(base_h_prior2, 2)` to `r f(sens_1_5_h_prior2, 2)` produced little change in both absolute biomass and $B_0$ (Figure \@ref(fig:fig-sens-variance)), despite having a different posterior (Figure \@ref(fig:sens-steepness-prior), compare to base model Figure \@ref(fig:fig-base-priors-posts)). The prior for $h$ is very influential on the posterior, but the value of $h$ does not have a large effect on the absolute or relative biomass (Figure \@ref(fig:fig-sens-variance-rel)).
+Decreasing the steepness prior mean from `r f(base_h_prior1, 2)` to `r f(sens_1_5_h_prior1, 2)` and changing the prior SD from `r f(base_h_prior2, 2)` to `r f(sens_1_5_h_prior2, 2)` produced little change in both absolute biomass and $B_0$ (Figure \@ref(fig:fig-sens-variance)), despite having a different posterior (Figure \@ref(fig:fig-sens-steepness-prior), compare to base model Figure \@ref(fig:fig-base-priors-posts)). The prior for $h$ is very influential on the posterior, but the value of $h$ does not have a large effect on the absolute or relative biomass (Figure \@ref(fig:fig-sens-variance-rel)).
 ")
 ```
 
@@ -81,7 +81,7 @@ Les estimations de $B_0$ ont augmenté pour ces deux modèles par rapport au mod
 
 ### Diminution de la moyenne de l'a priori de pente {#sens-h}
 
-La diminution de la moyenne de l'a priori de pente de `r f(base_h_prior1, 2)` à `r f(sens_1_5_h_prior1, 2)` et la modification de l'a priori SD de `r f(base_h_prior2, 2)` à `r f(sens_1_5_h_prior2, 2)` ont produit peu de changement à la fois dans la biomasse absolue et $B_0$ (Figure \@ref(fig:fig-sens-variance)), malgré un a priori différent (Figure \@ref(fig:sens-steepness-prior), par rapport au modèle de base Figure \@ref(fig:fig-base-priors-posts)). L'a priori pour $h$ est très influent sur le postérieur, mais la valeur de $h$ n'a pas un grand effet sur la biomasse absolue ou relative (Figure \@ref(fig:fig-sens-variance-rel)).")
+La diminution de la moyenne de l'a priori de pente de `r f(base_h_prior1, 2)` à `r f(sens_1_5_h_prior1, 2)` et la modification de l'a priori SD de `r f(base_h_prior2, 2)` à `r f(sens_1_5_h_prior2, 2)` ont produit peu de changement à la fois dans la biomasse absolue et $B_0$ (Figure \@ref(fig:fig-sens-variance)), malgré un a priori différent (Figure \@ref(fig:fig-sens-steepness-prior), par rapport au modèle de base Figure \@ref(fig:fig-base-priors-posts)). L'a priori pour $h$ est très influent sur le postérieur, mais la valeur de $h$ n'a pas un grand effet sur la biomasse absolue ou relative (Figure \@ref(fig:fig-sens-variance-rel)).")
 ```
 
 ```{r scam-sens-m-en, eval = !fr(), results = 'asis'}

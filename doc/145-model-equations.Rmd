@@ -703,7 +703,7 @@ Les nombres initiaux en âge la première année et les recrues annuelles sont t
 \end{flalign}
   
 **Dynamique de l'État ($t>1$)**
-Les variables d'état de chaque année sont mises à jour à l'aide des équations suivantes, où la biomasse reproductrice est le produit des effectifs à l'âge et de la biomasse mature à l'âge..
+Les variables d'état de chaque année sont mises à jour à l'aide des équations suivantes, où la biomasse reproductrice est le produit des effectifs à l'âge et de la biomasse mature à l'âge.
 \begin{flalign}
   B_{t,s}=\sum_a N_{t,a,s}f_{a,s} &&
   \label{eq:df23}

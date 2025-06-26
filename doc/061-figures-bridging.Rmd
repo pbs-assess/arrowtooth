@@ -16,7 +16,7 @@ cat("## FIGURES DU MODÈLE DE PONT
 
 (ref:fig-bridge-biomass-group1-fr-alt) Ce graphique montre que les modèles ajustés aux données jusqu'en 2014 affichent une trajectoire ascendante tandis que les modèles incluant les données jusqu'en 2021 montrent un déclin à partir de 2009 suivi d'une stabilisation avec une légère augmentation au cours des trois dernières années
 
-```{r fig-bridge-biomass-group1, fig.cap = ifelse(fr(), "(ref:fig-bridge-group1-biomass-fr)", "(ref:fig-bridge-group1-biomass-en)"), out.width = "100%"}
+```{r fig-bridge-biomass-group1, fig.cap = ifelse(fr(), "(ref:fig-bridge-biomass-group1-fr)", "(ref:fig-bridge-biomass-group1-en)"), out.width = "100%"}
 
 title_text <- tr("Bridge models group")
 cowplot::plot_grid(
@@ -60,15 +60,15 @@ plot_pairs_mcmc(models$bridge_grps[[1]][[3]],
                 point_size = 0.5)
 ```
 
-(ref:fig-bridge-group2-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the second group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
+(ref:fig-bridge-biomass-group2-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the second group of bridging models. See Figure \@ref(fig:fig-bridge-biomass-group1) for more information.
 
-(ref:fig-bridge-group2-biomass-fr) Estimations CMMC de la biomasse reproductrice (panneau de gauche) et de la biomasse reproductrice relative (panneau de droite) pour le deuxième groupe de modèles de pontage. Voir la figure \@ref(fig:bridge-biomass-group1) pour plus d'informations.
+(ref:fig-bridge-biomass-group2-fr) Estimations CMMC de la biomasse reproductrice (panneau de gauche) et de la biomasse reproductrice relative (panneau de droite) pour le deuxième groupe de modèles de pontage. Voir la figure \@ref(fig:fig-bridge-biomass-group1) pour plus d'informations.
 
-(ref:fig-bridge-group2-biomass-en-alt) This figure shows that there is a scaling effect and different estimate of B0 for these models
+(ref:fig-bridge-biomass-group2-en-alt) This figure shows that there is a scaling effect and different estimate of B0 for these models
 
-(ref:fig-bridge-group2-biomass-fr-alt) Ce graphique montre qu'il existe un effet d'échelle et différentes estimations de B0 pour ces modèles
+(ref:fig-bridge-biomass-group2-fr-alt) Ce graphique montre qu'il existe un effet d'échelle et différentes estimations de B0 pour ces modèles
 
-```{r fig-bridge-group2-biomass, fig.cap = ifelse(fr(), "(ref:fig-bridge-group2-biomass-fr)", "(ref:fig-bridge-group2-biomass-en)"), out.width = "100%"}
+```{r fig-bridge-biomass-group2, fig.cap = ifelse(fr(), "(ref:fig-bridge-biomass-group2-fr)", "(ref:fig-bridge-biomass-group2-en)"), out.width = "100%"}
 
 title_text <- tr("Bridge models group")
 cowplot::plot_grid(
@@ -102,15 +102,15 @@ cowplot::plot_grid(
 <!--                 text_title_size = NULL) -->
 <!-- ``` -->
 
-(ref:fig-bridge-group3-biomass-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the third group of bridging models. See Figure \@ref(fig:bridge-biomass-group1) for more information.
+(ref:fig-bridge-biomass-group3-en) MCMC estimates of spawning biomass (left panel) and relative spawning biomass (right panel) for the third group of bridging models. See Figure \@ref(fig:fig-bridge-biomass-group1) for more information.
 
-(ref:fig-bridge-group3-biomass-fr) Estimations CMMC de la biomasse reproductrice (panneau de gauche) et de la biomasse reproductrice relative (panneau de droite) pour le troisième groupe de modèles de pontage. Voir la figure \@ref(fig:bridge-biomass-group1) pour plus d'informations.
+(ref:fig-bridge-biomass-group3-fr) Estimations CMMC de la biomasse reproductrice (panneau de gauche) et de la biomasse reproductrice relative (panneau de droite) pour le troisième groupe de modèles de pontage. Voir la figure \@ref(fig:fig-bridge-biomass-group1) pour plus d'informations.
 
-(ref:fig-bridge-group3-biomass-en-alt) This figure shows that there is a large scaling effect downwards with the removal of the `r wchgs`
+(ref:fig-bridge-biomass-group3-en-alt) This figure shows that there is a large scaling effect downwards with the removal of the `r wchgs`
 
-(ref:fig-bridge-group3-biomass-fr-alt) Ce graphique montre qu'il existe un effet d'échelle important à la baisse avec la suppression des `r wchgs`
+(ref:fig-bridge-biomass-group3-fr-alt) Ce graphique montre qu'il existe un effet d'échelle important à la baisse avec la suppression des `r wchgs`
 
-```{r fig-bridge-group3-biomass, fig.cap = ifelse(fr(), "(ref:fig-bridge-group3-biomass-fr)", "(ref:fig-bridge-group3-biomass-en)"), out.width = "100%"}
+```{r fig-bridge-biomass-group3, fig.cap = ifelse(fr(), "(ref:fig-bridge-biomass-group3-fr)", "(ref:fig-bridge-biomass-group3-en)"), out.width = "100%"}
 
 title_text <- tr("Bridge models group")
 cowplot::plot_grid(
@@ -178,7 +178,7 @@ plot_autocorr_mcmc(models$bridge_grps[[3]][[1]],
 
 (ref:fig-bridge10-pairs-en-alt) This figure shows that there is some correlation between catchability parameters and R bar and R init bar
 
-(ref:fig-bridge10-pairs-efr-alt) Ce graphique montre qu'il existe une certaine corrélation entre les paramètres de capturabilité et R bar et R init bar
+(ref:fig-bridge10-pairs-fr-alt) Ce graphique montre qu'il existe une certaine corrélation entre les paramètres de capturabilité et R bar et R init bar
 
 ```{r fig-bridge10-pairs, fig.cap = ifelse(fr(), "(ref:fig-bridge10-pairs-fr)", "(ref:fig-bridge10-pairs-en)")}
 plot_pairs_mcmc(models$bridge_grps[[3]][[2]],

@@ -90,7 +90,7 @@ cat("## CHIFFRES DE L'ÉTAT")
 
 (ref:fig-condition-index-en-alt) This figure shows the body condition index with a steep decrease beginning in 2015 and a slight increase beginning in 2019
 
-(ref:fig-condition-index-fr-alt) Ce graphique montre l'indice de condition physique, qui a connu une forte baisse à partir de 2015 puis une légère augmentation à partir de 2019
+(ref:fig-condition-index-fr-alt) Ce graphique montre l'indice de condition physique qui a connu une forte baisse à partir de 2015 puis une légère augmentation à partir de 2019
 
 ```{r fig-condition-index, fig.cap = ifelse(fr(), "(ref:fig-condition-index-fr)", "(ref:fig-condition-index-en)"), out.width = "4.2in", results = 'asis'}
 

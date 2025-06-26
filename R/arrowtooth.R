@@ -12,6 +12,8 @@
 #' @import purrr
 #' @import sdmTMB
 #'
+#' @importFrom glmmTMB glmmTMB glmmTMBControl
+#' @importFrom plyr mlply
 #' @importFrom PBSmapping clipPolys
 #' @importFrom rlang .data global_env
 #' @importFrom scales comma

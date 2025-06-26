@@ -21,6 +21,7 @@ Imports:
     dplyr,
     DLMtool,
     furrr,
+    glmmTMB,
     gfiscamutils,
     gfplot,
     ggplot2,
@@ -30,6 +31,7 @@ Imports:
     icesAdvice,
     kableExtra,
     lubridate,
+    plyr,
     PBSdata,
     PBSmapping,
     purrr,
@@ -51,6 +53,7 @@ Suggests:
     covr,
     testthat
 Remotes:
+    glmmTMB/glmmTMB,
     pbs-assess/csasdown,
     pbs-assess/gfdata,
     pbs-assess/gfiscamutils,
