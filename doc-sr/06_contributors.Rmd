@@ -1,7 +1,7 @@
 ```{r contributors-en, eval = !fr(), results = 'asis'}
 cat("# Contributors
 ")
-  ```
+```
 
 ```{r contributors-fr, eval = fr(), results = 'asis', needs_trans = FALSE}
 cat("# Contributeurs

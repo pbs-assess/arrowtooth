@@ -57,6 +57,5 @@ table_catch_fleet(list(catch_ft, catch_ss),
                   caption = cap,
                   start_yr = 1996,
                   font_size = 8,
-                  longtable = FALSE,
-                  gear_col_widths = "6em")
+                  gear_col_widths = NULL)
 ```

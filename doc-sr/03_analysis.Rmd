@@ -44,8 +44,6 @@ cat("
 
 Dans cette mise à jour, il y a une nouvelle année de relevé pour chacun des trois relevés synoptiques inclus dans le modèle (Figure \@ref(fig:fig-base-index-fits)). Le `r hsmas` a une année terminale de 2003 et n'a donc pas été mis à jour avec de nouvelles données. Le `r wcvis` a eu lieu en 2022 ; le `r qcs` et le `r hss` ont tous deux eu lieu en 2023. Des estimations basées sur la conception ont été incluses dans le modèle pour les indices des relevés synoptiques. Un nouveau point d'indice a été ajouté à l'indice `r dcpue` pour chaque nouvelle année, 2022 et 2023, car il est basé sur les rejets commerciaux dans les captures. Le `r dcpue` est créé à l'aide d'un modèle linéaire mixte généralisé (MLMG) et, en tant que tel, tous les indices de la série temporelle sont estimés chaque fois que de nouvelles données sont ajoutées n'importe où dans la série temporelle. Les valeurs estimées pour chaque année dans le `r dcpue` (les points et les barres gris clair dans la figure \@ref(fig:fig-base-index-fits)) étaient donc légèrement différentes de celles de la figure 14 du `r ca`.
 
-Traduit avec DeepL.com (version gratuite)
-
 Le point 2022 pour le `r dcpue` et le point 2023 pour le `r qcs` n'ont pas été bien ajustés par le modèle ; cependant, les estimations médianes a posteriori étaient dans l'IC à 95% pour ces années. Dans l'ensemble, les tendances de toutes les estimations d'indices suivent celles observées dans le `r ca`, les indices `r qcs` et `r hss` étant légèrement mieux ajustés dans la période 2005--2012 que dans l'évaluation de 2022.
 
 L'augmentation des indices d'enquête pour 2023 est à l'origine de l'augmentation de la biomasse estimée pour le début de 2024, telle qu'elle apparaît dans les figures \@ref(fig:fig-base-sb-bo) et \@ref(fig:fig-base-depletion).
@@ -320,7 +318,7 @@ min_total <- 20
 sc_old <- filter(sc, year < 1995)
 sc <- filter(sc, year > 1995)
 sb <- bind_rows(ss, sc, sf) |> 
-  mutate(survey_abbrev = tr(survey_abbrev, allow_missing = TRUE)) |> 
+  mutate(survey_abbrev = tr(survey_abbrev)) |> 
   mutate(survey_abbrev = factor(survey_abbrev)) |> 
   mutate(year = factor(year))
 
@@ -427,8 +425,7 @@ csas_table(rhat_df,
            format = "latex",
            align = rep("r", ncol(rhat_df)),
            caption = cap,
-           bold_header = TRUE,
-           longtable = FALSE)
+           bold_header = TRUE)
 ```
 
 
@@ -439,7 +436,7 @@ Reference points for `r sp` based on the Maximum Sustainable Yield (MSY) were st
 
 Based on a request from GMU, projections were performed for this update at catch levels from 1 to 8 kilotonnes (kt) in increments of 1 kt for this update instead of 1 to 15 kt as was applied in the `r ca`. Figure \@ref(fig:fig-rel-biomass-proj) shows the biomass trajectories resulting in the application of the catch levels as catch to the stock for the years `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1`. Figure \@ref(fig:fig-rel-biomass-proj-closeup) shows a closer view of the projected trajectories.
 
-Harvest decision tables are provided as advice to managers (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) with constant catch policies ranging from 1 to 8 kt, from `r base_model$dat$end.yr + 2` to `r base_model$dat$end.yr +  base_model$proj$num.projyrs + 1`. To interpret the decision tables with respect to the LPR ($0.2B_0$) and candidate USR ($0.4B_0$), the probability of being above the candidate USR is $P(B_t > USR)$, the probability of being above the LRP but below the candidate USR is $P(B_t > LRP) - P(B_t > USR)$, and the probability of being below the LRP is $1 - P(B_t > LRP)$, where $t$ is the year, and $B_t$ is the relative biomass at the beginning of year $t$. During the review meeting for the `r ca`, there was a request to provide status relative to an 'alternative' candidate USR of $0.35B_0$. This was included in the 2022 Research Document and in this document.
+Harvest decision tables are provided as advice to managers (Tables \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) with constant catch policies ranging from 1 to 8 kt, from `r base_model$dat$end.yr + 2` to `r base_model$dat$end.yr +  base_model$proj$num.projyrs + 1`. To interpret the decision tables with respect to the LPR ($0.2B_0$) and candidate USR ($0.4B_0$), the probability of being above the candidate USR is $P(B_t > USR)$, the probability of being above the LRP but below the candidate USR is $P(B_t > LRP) - P(B_t > USR)$, and the probability of being below the LRP is $1 - P(B_t > LRP)$, where $t$ is the year, and $B_t$ is the relative biomass at the beginning of year $t$. During the review meeting for the `r ca`, there was a request to provide status relative to an 'alternative' candidate USR of $0.35B_0$.
 
 Harvest decision tables provided in this document include probabilities at the beginning of the year of being above:
 
@@ -461,7 +458,7 @@ Les points de référence pour `r sp` basés sur le rendement maximal durable (R
 
 A la demande de l'UGM, les projections ont été réalisées pour cette actualisation à des niveaux de capture de 1 à 8 kilotonnes (kt) par incréments de 1 kt pour cette actualisation, au lieu de 1 à 15 kt comme c'était le cas dans le `r ca`. La figure \@ref(fig:fig-rel-biomass-proj) montre les trajectoires de la biomasse résultant de l'application des niveaux de capture en tant que prise au stock pour les années `r end_yr + 2`--`r end_yr + base_model$proj$num.projyrs + 1`. La figure \@ref(fig:fig-rel-biomass-proj-closeup) présente une vue rapprochée des trajectoires projetées.
 
-Les tables de décision de récolte sont fournies à titre de conseil aux gestionnaires (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) avec des politiques de capture constante allant de 1 à 8 kt, de `r base_model$dat$end.yr + 2` à `r base_model$dat$end.yr + base_model$proj$num.projyrs + 1`. Pour interpréter les tables de décision en ce qui concerne le PRL ($0,2B_0$) et le candidat RSS ($0,4B_0$), la probabilité d'être au-dessus de le RSS candidate est $P(B_t > RSS)$, la probabilité d'être au-dessus du PRL mais en dessous de le RSS candidate est $P(B_t > PRL) - P(B_t > RSS)$, et la probabilité d'être en dessous du PRL est $1 - P(B_t > PRL)$, où $t$ est l'année, et $B_t$ est la biomasse relative au début de l'année $t$. Lors de la réunion d'examen du `r ca`, il a été demandé de fournir un état relatif à un RSS candidat 'alternatif' de $0,35B_0$. Cette demande a été incluse dans le document de recherche 2022 et dans le présent document.
+Les tables de décision de récolte sont fournies à titre de conseil aux gestionnaires (tableaux \@ref(tab:decision-table-02bo)--\@ref(tab:decision-table-decreasing-biomass)) avec des politiques de capture constante allant de 1 à 8 kt, de `r base_model$dat$end.yr + 2` à `r base_model$dat$end.yr + base_model$proj$num.projyrs + 1`. Pour interpréter les tables de décision en ce qui concerne le PRL ($0,2B_0$) et le candidat RSS ($0,4B_0$), la probabilité d'être au-dessus de le RSS candidate est $P(B_t > RSS)$, la probabilité d'être au-dessus du PRL mais en dessous de le RSS candidate est $P(B_t > PRL) - P(B_t > RSS)$, et la probabilité d'être en dessous du PRL est $1 - P(B_t > PRL)$, où $t$ est l'année, et $B_t$ est la biomasse relative au début de l'année $t$. Lors de la réunion d'examen du `r ca`, il a été demandé de fournir un état relatif à un RSS candidat 'alternatif' de $0,35B_0$.
 
 Les tableaux de décision sur les récoltes fournis dans le présent document incluent les probabilités, au début de l'année, d'être au-dessus de
 

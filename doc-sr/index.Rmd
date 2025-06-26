@@ -44,7 +44,7 @@ output:
    # that will be included using `include_graphics()`
    figures_dir: figure
    # This value will be the return value for `fr()` in your code
-   french: false
+   french: true
    prepub: false
    # copy_sty is a toggle to copy the style file from the csasdown package every time you compile
    # the document. If false, any changes you have made to the style file in your project
@@ -324,14 +324,9 @@ age_precision <- dat$age_precision
 
 theme_set(gfiscam_theme())
 
-if(!exists("curr_gear_language")){
-  curr_gear_language <- "en"
-}
-
-models <- set_gear_language(models, curr_gear_language)
+models <- set_gear_language(models)
 
 base_model <- models$base_grps[[1]][[1]]
-curr_gear_language <- ifelse(fr(), "fr", "en")
 
 base_all_gears <- gear_lu_table(base_model, "all")
 base_age_gears <- gear_lu_table(base_model, "age")
